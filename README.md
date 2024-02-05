@@ -1,5 +1,12 @@
 # irrigazione_iot
 
+## Description
+This project was created in the context of SAIA project for Incampagna Rete. It serves as the frontend for an irrigation system managed using 
+IoT devices, in particular Arduino boards. The project is written in Flutter and it is designed to be used on a mobile device. The app allows the user to monitor the status of the irrigation system and to control it remotely.
+
+## Installation
+...more to follow
+<!-- 
 A new Flutter project.
 
 ## Getting Started
@@ -27,4 +34,4 @@ the `lib/src/localization` directory.
 
 To support additional languages, please visit the tutorial on
 [Internationalizing Flutter
-apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
+apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization) -->
