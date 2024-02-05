@@ -27,8 +27,13 @@
   "@passwordFormHint": {
     "description": "The hint text for the password form field"
   },
-  "signInWithGoogleButtonTitle": "Sign In With Google",
+  "signInWithGoogleButtonTitle": "Google",
   "@signInWithGoogleButtonTitle": {
     "description": "The title of the sign in with Google button"
+  },
+  "forgotPasswordButtonTitle": "Forgot Password?",
+  "orText": "or sign in with",
+  "@orText": {
+    "description": "The text that is displayed between the sign in button and the sign in with Google and or other auth button"
   }
 }

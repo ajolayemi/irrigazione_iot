@@ -35,9 +35,7 @@ class FormTitleAndField extends StatelessWidget {
   final bool? obscureText;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(Sizes.p16),
-      child: Column(
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -64,7 +62,6 @@ class FormTitleAndField extends StatelessWidget {
           ),
           
         ],
-      ),
-    );
+      );
   }
 }

@@ -12,5 +12,7 @@
   },
   "emailFormHint": "Inserisci la tua email",
   "passwordFormHint": "Inserisci la tua password",
-  "signInWithGoogleButtonTitle": "Accedi con Google"
+  "signInWithGoogleButtonTitle": "Google",
+  "forgotPasswordButtonTitle": "Password dimenticata?",
+  "orText": "oppure accedi con"
 }

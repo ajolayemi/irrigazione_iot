@@ -31,7 +31,7 @@ class CTAButton extends StatelessWidget {
             style: context.textTheme.titleLarge!.copyWith(
               color: buttonType == ButtonType.primary
                   ? Colors.white
-                  : Theme.of(context).primaryColor,
+                  : context.theme.primaryColor,
             ),
           );
     return SizedBox(
