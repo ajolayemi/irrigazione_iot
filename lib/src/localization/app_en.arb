@@ -1,0 +1,34 @@
+{
+  "appTitle": "irrigazione_iot",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "homePageTitle": "irrigation",
+  "@homePageTitle": {
+    "description": "The title of the home page"
+  },
+  "emailFormFieldTitle": "Email",
+  "@emailFormFieldTitle": {
+    "description": "The title of the email form field"
+  },
+  "passwordFormFieldTitle": "Password",
+  "@passwordFormFieldTitle": {
+    "description": "The title of the password form field"
+  },
+  "signInButtonTitle": "Sign In",
+  "@signInButtonTitle": {
+    "description": "The title of the sign in button"
+  },
+  "emailFormHint": "Enter your email...",
+  "@emailFormHint": {
+    "description": "The hint text for the email form field"
+  },
+  "passwordFormHint": "Enter your password...",
+  "@passwordFormHint": {
+    "description": "The hint text for the password form field"
+  },
+  "signInWithGoogleButtonTitle": "Sign In With Google",
+  "@signInWithGoogleButtonTitle": {
+    "description": "The title of the sign in with Google button"
+  }
+}

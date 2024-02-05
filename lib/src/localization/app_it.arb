@@ -1,0 +1,16 @@
+{
+  "appTitle": "irrigazione_iot",
+  "homePageTitle": "irrigation",
+  "@homePageTitle": {
+    "description": "The title of the home page"
+  },
+  "emailFormFieldTitle": "Email",
+  "passwordFormFieldTitle": "Password",
+  "signInButtonTitle": "Accedi",
+  "@signInButtonTitle": {
+    "description": "The title of the sign in button"
+  },
+  "emailFormHint": "Inserisci la tua email",
+  "passwordFormHint": "Inserisci la tua password",
+  "signInWithGoogleButtonTitle": "Accedi con Google"
+}
