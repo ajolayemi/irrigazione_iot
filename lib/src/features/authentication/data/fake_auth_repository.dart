@@ -38,7 +38,7 @@ class FakeAuthRepository implements AuthRepository {
     final userIndexInList = _users.indexWhere((user) => user.email == email);
 
     // If no user matching the provided email address is found, throw an error
-    if (userIndexInList != -1) {
+    if (userIndexInList == -1) {
       throw UserNotFoundException();
     }
 
