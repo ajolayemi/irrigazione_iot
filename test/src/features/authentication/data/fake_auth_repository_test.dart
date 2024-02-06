@@ -114,5 +114,51 @@ void main() {
         emits(null),
       );
     });
+
+    test(
+        'resetPassword throws an error when user is found but same password is provided',
+        () async {
+      final authRepository = makeAuthRepository();
+      addTearDown(authRepository.dispose);
+      await expectLater(
+        () => authRepository.resetPassword(
+            testUserFromList.email, testUserFromList.password),
+        throwsA(isA<IdenticalPasswordException>()),
+      );
+      expect(authRepository.currentUser, null);
+      expect(authRepository.authStateChanges(), emits(null));
+    });
+
+    test(
+        'resetPassword throws an error when user is found but password is short',
+        () async {
+      final authRepository = makeAuthRepository();
+      addTearDown(authRepository.dispose);
+      await expectLater(
+        () => authRepository.resetPassword(testUserFromList.email, 'pass'),
+        throwsA(
+          isA<PasswordTooShortException>(),
+        ),
+      );
+      expect(authRepository.currentUser, null);
+      expect(authRepository.authStateChanges(), emits(null));
+    });
+
+    test('resetPassword successfully resets password', () async {
+      final authRepository = makeAuthRepository();
+      addTearDown(authRepository.dispose);
+      await authRepository.resetPassword(
+        testUserFromList.email,
+        'newpassword',
+      );
+      final newUser = testUserFromList.copyWith(
+        password: 'newpassword',
+      );
+      expect(
+        authRepository.currentUser,
+        newUser,
+      );
+      expect(authRepository.authStateChanges(), emits(newUser));
+    });
   });
 }
