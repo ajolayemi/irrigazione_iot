@@ -23,6 +23,7 @@ class AuthProviderSignInButton extends StatelessWidget {
       onPressed: onPressed,
       child: Row(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: isLoading
             ? [
                 const CircularProgressIndicator(),
