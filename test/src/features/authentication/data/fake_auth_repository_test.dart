@@ -19,7 +19,7 @@ void main() {
   FakeAuthRepository makeAuthRepository() =>
       FakeAuthRepository(addDelay: false);
   group(
-    'FakeAuthRepository',
+    'FakeAuthRepository - signIn and current user state tests',
     () {
       test('currentUser is null', () {
         final authRepository = makeAuthRepository();
@@ -64,33 +64,55 @@ void main() {
           emits(testUserFromList),
         );
       });
-
-      test('user is null after signOut', () async {
-        final authRepository = makeAuthRepository();
-        addTearDown(authRepository.dispose);
-        // Sign user in
-        await authRepository.signInWithEmailAndPassword(
-          testUserFromList.email,
-          testUserFromList.password,
-        );
-
-        // Check that current user is not null
-        expect(authRepository.currentUser, testUserFromList);
-        // Check that the authStateChanges stream emits the user
-        expect(
-          authRepository.authStateChanges(),
-          emits(testUserFromList),
-        );
-
-        // Sign user out
-        await authRepository.signOut();
-        expect(authRepository.currentUser, null);
-        // Check that the authStateChanges stream emits the user
-        expect(
-          authRepository.authStateChanges(),
-          emits(null),
-        );
-      });
     },
   );
+
+  group('FakeAuthRepository - signOut test', () {
+    test('user is null after signOut', () async {
+      final authRepository = makeAuthRepository();
+      addTearDown(authRepository.dispose);
+      // Sign user in
+      await authRepository.signInWithEmailAndPassword(
+        testUserFromList.email,
+        testUserFromList.password,
+      );
+
+      // Check that current user is not null
+      expect(authRepository.currentUser, testUserFromList);
+      // Check that the authStateChanges stream emits the user
+      expect(
+        authRepository.authStateChanges(),
+        emits(testUserFromList),
+      );
+
+      // Sign user out
+      await authRepository.signOut();
+      expect(authRepository.currentUser, null);
+      // Check that the authStateChanges stream emits the user
+      expect(
+        authRepository.authStateChanges(),
+        emits(null),
+      );
+    });
+  });
+
+  group('FakeAuthRepository - resetPassword tests', () {
+    test('resetPassword throws error when user not found', () async {
+      final authRepository = makeAuthRepository();
+      addTearDown(authRepository.dispose);
+      // expect resetPassword method to throw an error when an invalid user is passed
+      await expectLater(
+        () => authRepository.resetPassword(
+          testUser.email,
+          testUser.password,
+        ),
+        throwsA(isA<UserNotFoundException>()),
+      );
+      expect(authRepository.currentUser, null);
+      expect(
+        authRepository.authStateChanges(),
+        emits(null),
+      );
+    });
+  });
 }
