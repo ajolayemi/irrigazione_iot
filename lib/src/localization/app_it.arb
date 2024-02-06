@@ -14,5 +14,9 @@
   "passwordFormHint": "Inserisci la tua password",
   "signInWithGoogleButtonTitle": "Google",
   "forgotPasswordButtonTitle": "Password dimenticata?",
-  "orText": "oppure accedi con"
+  "orText": "oppure accedi con",
+  "invalidEmailErrorText": "Indirizzo email non valido",
+  "emptyEmailErrorText": "Il campo email non può essere vuoto",
+  "shortPasswordErrorText": "La password inserita è troppo corta, deve essere minimo {minPasswordLength} caratteri",
+  "emptyPasswordErrorText": "Il campo password non può essere vuoto"
 }

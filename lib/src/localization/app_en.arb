@@ -35,5 +35,19 @@
   "orText": "or sign in with",
   "@orText": {
     "description": "The text that is displayed between the sign in button and the sign in with Google and or other auth button"
-  }
+  },
+  "invalidEmailErrorText": "Invalid email",
+  "emptyEmailErrorText": "Email can't be empty",
+  "shortPasswordErrorText": "Password is too short, it has to be a minimum of {minPasswordLength} characters",
+  "@shortPasswordErrorText": {
+    "description": "The error message that is displayed when the password is empty",
+    "placeholders": {
+      "minPasswordLength": {
+        "description": "The minimum length of the password",
+        "example": "8",
+        "type": "int"
+      }
+    }
+  },
+  "emptyPasswordErrorText": "Password can't be empty"
 }

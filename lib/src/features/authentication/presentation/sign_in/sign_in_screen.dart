@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/or_sign_with_widget.dart';
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/providers_sign_in_button.dart';
+import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/string_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/custom_text_button.dart';
 import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_scrollable.dart';
+import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/email_password_sign_in_validators.dart';
 
 // Widget to show the sign in form
 class SignInScreen extends ConsumerStatefulWidget {
@@ -24,7 +27,8 @@ class SignInScreen extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _SignInContentsState();
 }
 
-class _SignInContentsState extends ConsumerState<SignInScreen> {
+class _SignInContentsState extends ConsumerState<SignInScreen>
+    with EmailAndPasswordValidators {
   final _formKey = GlobalKey<FormState>();
   final _node = FocusScopeNode();
   final _emailController = TextEditingController();
@@ -59,8 +63,23 @@ class _SignInContentsState extends ConsumerState<SignInScreen> {
     }
   }
 
+  void _emailEditingComplete() {
+    if (canSubmitEmail(email)) {
+      _node.nextFocus();
+    }
+  }
+
+  void _passwordEditingComplete() {
+    if (!canSubmitEmail(email)) {
+      _node.previousFocus();
+      return;
+    }
+    _submit();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final state = false; // TODO add loading state
     return SafeArea(
       child: Scaffold(
         body: ResponsiveScrollable(
@@ -85,10 +104,18 @@ class _SignInContentsState extends ConsumerState<SignInScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
-                      validator: (_) => '', // TODO add email validation
-                      inputFormatters: [], // TODO add email input formatters
-                      onEditingComplete: () =>
-                          {}, // TODO add email onEditingComplete,
+                      validator: (email) => !_submitted
+                          ? null
+                          : emailErrorText(
+                              email ?? '',
+                              context,
+                            ),
+                      inputFormatters: <TextInputFormatter>[
+                        ValidatorInputFormatter(
+                          editingValidator: EmailEditingRegexValidator(),
+                        ),
+                      ],
+                      onEditingComplete: _emailEditingComplete,
                       keyboardAppearance: Brightness.light,
                     ),
                     gapH24,
@@ -102,10 +129,13 @@ class _SignInContentsState extends ConsumerState<SignInScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
-                      validator: (_) => '', // TODO add password validation
-                      inputFormatters: [], // TODO add password input formatters
-                      onEditingComplete: () =>
-                          {}, // TODO add password onEditingComplete,
+                      validator: (password) => !_submitted
+                          ? null
+                          : passwordErrorText(
+                              password ?? '',
+                              context,
+                            ),
+                      onEditingComplete: _passwordEditingComplete,
                       keyboardAppearance: Brightness.light,
                       obscureText: true,
                     ),
@@ -128,7 +158,8 @@ class _SignInContentsState extends ConsumerState<SignInScreen> {
                     CTAButton(
                       buttonType: ButtonType.primary,
                       text: context.loc.signInButtonTitle,
-                      onPressed: _submit,
+                      isLoading: state, // TODO add loading state
+                      onPressed: state ? null :  _submit, // TODO add sign in logic
                     ),
 
                     gapH24,

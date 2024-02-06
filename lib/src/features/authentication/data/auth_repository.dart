@@ -5,11 +5,13 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'auth_repository.g.dart';
 
 abstract class AuthRepository {
-  Future<void> signIn();
+  Future<void> signInWithEmailAndPassword(String email, String password);
+
+  Future<void> signInWithGoogle();
 
   Future<void> signOut();
 
-  Future<void> createUser();
+  Future<void> resetPassword(String email, String newPassword);
 
   Stream<AppUser?> authStateChanges();
 
