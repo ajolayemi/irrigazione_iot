@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 
-class OrSignWithWidget extends StatefulWidget {
+class OrSignWithWidget extends StatelessWidget {
   const OrSignWithWidget({super.key});
 
-  @override
-  State<OrSignWithWidget> createState() => _OrSignInWithState();
-}
-
-class _OrSignInWithState extends State<OrSignWithWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
