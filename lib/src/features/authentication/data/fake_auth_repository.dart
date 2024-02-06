@@ -57,7 +57,9 @@ class FakeAuthRepository implements AuthRepository {
 
     // if the new password is different from the old password and respects the password policy
     // update the password
-    _users[userIndexInList] = fakeUser.copyWith(password: newPassword);
+    final updatedUser = fakeUser.copyWith(password: newPassword);
+    _users[userIndexInList] = updatedUser;
+    _authState.value = updatedUser;
   }
 
   @override
