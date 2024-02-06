@@ -1,6 +1,5 @@
 name: Run Tests
 on: [push, workflow_dispatch]
-run-name: ${{ github.actor }} is running automatic GitHub Actions
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
