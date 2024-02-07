@@ -48,6 +48,7 @@ class FormTitleAndField extends StatelessWidget {
             controller: fieldController,
             decoration: InputDecoration(
               hintText: fieldHintText,
+              errorMaxLines: 3,
             ),
             autovalidateMode:
                 autovalidateMode ?? AutovalidateMode.onUserInteraction,

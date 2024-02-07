@@ -10,8 +10,8 @@
   "@signInButtonTitle": {
     "description": "The title of the sign in button"
   },
-  "emailFormHint": "Inserisci la tua email",
-  "passwordFormHint": "Inserisci la tua password",
+  "emailFormHint": "Inserisci la tua email...",
+  "passwordFormHint": "Inserisci la tua password...",
   "signInWithGoogleButtonTitle": "Google",
   "forgotPasswordButtonTitle": "Password dimenticata?",
   "orText": "oppure accedi con",

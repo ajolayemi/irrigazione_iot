@@ -14,7 +14,7 @@ class EmailAlreadyInUseException extends AppException {
 }
 
 class UserNotFoundException extends AppException {
-  UserNotFoundException() : super('user-not-found', 'User not found');
+  UserNotFoundException() : super('user-not-found', 'User not found, check that you entered the right email and password');
 }
 
 class IdenticalPasswordException extends AppException {

@@ -6,7 +6,9 @@ import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/or_sign_with_widget.dart';
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/providers_sign_in_button.dart';
+import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/sign_in_controller.dart';
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/string_validators.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/custom_text_button.dart';
@@ -40,6 +42,9 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
   // * Keys for testing using find.byKey()
   static const emailKey = Key('email');
   static const passwordKey = Key('password');
+  static const signInButtonKey = Key('signInButton');
+  static const signInWithGoogleButtonKey = Key('signInWithGoogleButton');
+  static const forgotPasswordButtonKey = Key('forgotPasswordButton');
 
   // local variable used to apply AutovalidateMode.onUserInteraction and show
   // error hints only when the form has been submitted
@@ -54,11 +59,30 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
   }
 
   Future<void> _submit() async {
+    _node.unfocus();
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
-      // Add logic to sign user in here
+      final controller = ref.read(signInControllerProvider.notifier);
+      final success = await controller.authenticateWithEmailAndPassword(
+        email,
+        password,
+      );
+      if (success) {
+        widget.onSignedIn?.call();
+      }
+    }
+  }
 
-      // call on the sign in function passed in the widget
+  Future<void> _submitWithGoogle() async {
+    _node.unfocus();
+    // Clear form fields
+    _emailController.clear();
+    _passwordController.clear();
+    // set submitted state to false so that the error hints are not shown
+    setState(() => _submitted = false);
+    final controller = ref.read(signInControllerProvider.notifier);
+    final success = await controller.authenticateWithGoogle();
+    if (success) {
       widget.onSignedIn?.call();
     }
   }
@@ -79,7 +103,12 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
 
   @override
   Widget build(BuildContext context) {
-    final state = false; // TODO add loading state
+    // Listen to controller state for when error occurs
+    ref.listen(
+      signInControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
+    final state = ref.watch(signInControllerProvider);
     return SafeArea(
       child: Scaffold(
         body: ResponsiveScrollable(
@@ -121,6 +150,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                     gapH24,
                     // Password Field
                     FormTitleAndField(
+                      key: passwordKey,
                       fieldKey: emailKey,
                       fieldTitle: context.loc.passwordFormFieldTitle,
                       fieldHintText: context.loc.passwordFormHint,
@@ -142,9 +172,12 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
 
                     // Forgot password button
                     Align(
+                      key: forgotPasswordButtonKey,
                       alignment: Alignment.centerRight,
                       child: CustomTextButton(
-                        onPressed: () => {}, // TODO add forgot password logic
+                        onPressed: state.isLoading
+                            ? null
+                            : () => {}, // TODO add forgot password logic
                         text: context.loc.forgotPasswordButtonTitle,
                         style: TextStyle(
                           decoration: TextDecoration.underline,
@@ -154,28 +187,36 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                       ),
                     ),
 
-                    // sign in button
-                    CTAButton(
-                      buttonType: ButtonType.primary,
-                      text: context.loc.signInButtonTitle,
-                      isLoading: state, // TODO add loading state
-                      onPressed: state ? null :  _submit, // TODO add sign in logic
-                    ),
-
-                    gapH24,
-                    const OrSignWithWidget(),
-
-                    // Sign in with Google Button
-                    AuthProviderSignInButton(
-                      text: context.loc.signInWithGoogleButtonTitle,
-                      providerIcon: Image.asset(
-                        'assets/images/google_logo.png',
-                        height: Sizes.p32,
-                        width: Sizes.p32,
+                    // If state is loading, replace the sign in section with a circular progress indicator
+                    if (state.isLoading) ...[
+                      gapH24,
+                      const Center(child: CircularProgressIndicator()),
+                    ] else ...[
+                      // sign in button
+                      CTAButton(
+                        key: signInButtonKey,
+                        buttonType: ButtonType.primary,
+                        text: context.loc.signInButtonTitle,
+                        isLoading: state.isLoading,
+                        onPressed: state.isLoading ? null : _submit,
                       ),
-                      onPressed: () => {}, // TODO add sign in with google logic
-                      isLoading: false, // TODO add loading state
-                    ),
+
+                      gapH24,
+                      const OrSignWithWidget(),
+
+                      // Sign in with Google Button
+                      AuthProviderSignInButton(
+                        key: signInWithGoogleButtonKey,
+                        text: context.loc.signInWithGoogleButtonTitle,
+                        providerIcon: Image.asset(
+                          'assets/images/google_logo.png',
+                          height: Sizes.p32,
+                          width: Sizes.p32,
+                        ),
+                        onPressed: state.isLoading ? null : _submitWithGoogle,
+                        isLoading: state.isLoading,
+                      ),
+                    ]
                   ],
                 ),
               ),
