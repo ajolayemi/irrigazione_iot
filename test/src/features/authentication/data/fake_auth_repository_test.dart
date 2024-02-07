@@ -64,6 +64,27 @@ void main() {
           emits(testUserFromList),
         );
       });
+
+      test('google signIn works', () async {
+        final authRepository = makeAuthRepository();
+        addTearDown(authRepository.dispose);
+        await authRepository.signInWithGoogle();
+        expect(authRepository.currentUser, isNotNull);
+        expect(authRepository.authStateChanges(), emits(isNotNull));
+      });
+
+      test('signIn throws an error after dispose', () async {
+        final authRepository = makeAuthRepository();
+        addTearDown(authRepository.dispose);
+        authRepository.dispose();
+        await expectLater(
+          () => authRepository.signInWithEmailAndPassword(
+            testUserFromList.email,
+            testUserFromList.password,
+          ),
+          throwsStateError,
+        );
+      });
     },
   );
 
