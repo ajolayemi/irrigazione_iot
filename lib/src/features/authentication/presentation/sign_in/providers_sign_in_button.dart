@@ -7,13 +7,13 @@ class AuthProviderSignInButton extends StatelessWidget {
   const AuthProviderSignInButton({
     super.key,
     required this.text,
-    required this.onPressed,
+   this.onPressed,
     required this.isLoading,
     required this.providerIcon,
   });
 
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Widget providerIcon;
   final bool isLoading;
 
