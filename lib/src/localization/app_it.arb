@@ -1,6 +1,6 @@
 {
   "appTitle": "irrigazione_iot",
-  "homePageTitle": "irrigation",
+  "homePageTitle": "Dashboard",
   "@homePageTitle": {
     "description": "The title of the home page"
   },
@@ -18,5 +18,7 @@
   "invalidEmailErrorText": "Indirizzo email non valido",
   "emptyEmailErrorText": "Il campo email non può essere vuoto",
   "shortPasswordErrorText": "La password inserita è troppo corta, deve essere minimo {minPasswordLength} caratteri",
-  "emptyPasswordErrorText": "Il campo password non può essere vuoto"
+  "emptyPasswordErrorText": "Il campo password non può essere vuoto",
+  "settingsPageTitle": "Impostazione",
+  "morePageTitle": "Altro"
 }

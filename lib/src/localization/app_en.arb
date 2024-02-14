@@ -3,7 +3,7 @@
   "@appTitle": {
     "description": "The title of the application"
   },
-  "homePageTitle": "irrigation",
+  "homePageTitle": "Dashboard",
   "@homePageTitle": {
     "description": "The title of the home page"
   },
@@ -49,5 +49,7 @@
       }
     }
   },
-  "emptyPasswordErrorText": "Password can't be empty"
+  "emptyPasswordErrorText": "Password can't be empty",
+  "settingsPageTitle": "Settings",
+  "morePageTitle": "More"
 }
