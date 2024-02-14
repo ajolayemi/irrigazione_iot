@@ -14,7 +14,6 @@ class HomeNavigationBar extends StatelessWidget {
   final ValueChanged<int> onDestinationSelected;
   @override
   Widget build(BuildContext context) {
-    debugPrint('This was rendered');
     return Scaffold(
       body: body,
       bottomNavigationBar: NavigationBar(
