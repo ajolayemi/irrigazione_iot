@@ -1,25 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:mocktail/mocktail.dart';
+
 import 'package:irrigazione_iot/src/config/mock/fake_users_list.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
-import 'package:irrigazione_iot/src/features/authentication/data/fake_app_user.dart';
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/sign_in_controller.dart';
-import 'package:irrigazione_iot/src/utils/gen_fake_uuid.dart';
-import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks.dart';
 
 void main() {
   final testUserFromList = kFakeUsers[0];
-  final testUser = FakeAppUser(
-      uid: genFakeUuid('testuser@example.com'),
-      email: 'testuser@example.com',
-      name: 'Test',
-      companyId: 6,
-      role: AppUserRoles.user,
-      surname: 'User',
-      password: 'password');
+
 
   ProviderContainer makeProviderContainer(MockAuthRepository authRepository) {
     final container = ProviderContainer(
