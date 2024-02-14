@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
+import 'package:irrigazione_iot/src/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/presentation/home_nested_navigator.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/empty_placeholder_widget.dart';
@@ -72,10 +73,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/',
                 name: AppRoute.home.name,
-                pageBuilder: (context, state) => NoTransitionPage(
-                  child: EmptyPlaceholderWidget(
-                    message: context.loc.homePageTitle,
-                  ),
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: DashboardScreen(),
                 ), // TODO: replace with your home page
               ),
             ],
