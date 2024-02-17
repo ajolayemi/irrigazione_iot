@@ -1,7 +1,4 @@
 
-import 'package:flutter/material.dart';
-
-@immutable
 class AppConstants {
   const AppConstants._();
 
