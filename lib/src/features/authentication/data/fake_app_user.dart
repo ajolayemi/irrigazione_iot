@@ -10,7 +10,6 @@ class FakeAppUser extends AppUser {
     required super.uid,
     required super.email,
     required super.name,
-    required super.companyId,
     required super.role,
     required super.surname,
     required this.password, 
@@ -32,7 +31,6 @@ class FakeAppUser extends AppUser {
       email: email ?? super.email,
       name: name ?? super.name,
       surname: surname ?? super.surname,
-      companyId: companyId ?? super.companyId,
       role: role ?? super.role,
       password: password ?? this.password,
     );
