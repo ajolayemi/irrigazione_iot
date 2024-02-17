@@ -10,7 +10,6 @@ class AppTheme {
       scheme: FlexScheme.greenM3,
       surfaceMode: FlexSurfaceMode.highScaffoldLowSurfacesVariantDialog,
       blendLevel: 40,
-      appBarStyle: FlexAppBarStyle.primary,
       appBarOpacity: 0.95,
       appBarElevation: 0,
       transparentStatusBar: true, // TODO adapt this to user platform
