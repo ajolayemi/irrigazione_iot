@@ -2,91 +2,81 @@ import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/fake_app_user.dart';
 import 'package:irrigazione_iot/src/utils/gen_fake_uuid.dart';
 
-final  kFakeUsers = <FakeAppUser>[
+final kFakeUsers = <FakeAppUser>[
   FakeAppUser(
     uid: genFakeUuid('test1@email.com'),
-    companyId: 1,
     email: 'test1@email.com',
     name: 'Test',
     surname: 'User 1',
     password: 'password1',
     role: AppUserRoles.user,
   ).copyWith(uid: genFakeUuid('test1@email.com')),
-    FakeAppUser(
+  FakeAppUser(
     uid: genFakeUuid('test2@email.com'),
-    companyId: 2,
     email: 'test2@email.com',
     name: 'Test',
     surname: 'User 2',
     password: 'password2',
     role: AppUserRoles.admin,
   ),
-    FakeAppUser(
+  FakeAppUser(
     uid: genFakeUuid('test3@email.com'),
-    companyId: 3,
     email: 'test3@email.com',
     name: 'Test',
     surname: 'User 3',
     password: 'password3',
     role: AppUserRoles.superuser,
   ),
-    FakeAppUser(
+  FakeAppUser(
     uid: genFakeUuid('test4@email.com'),
-    companyId: 4,
     email: 'test4@email.com',
     name: 'Test',
     surname: 'User 4',
     password: 'password4',
     role: AppUserRoles.user,
   ),
-    FakeAppUser(
+  FakeAppUser(
     uid: genFakeUuid('test5@email.com'),
-    companyId: 5,
     email: 'test5@email.com',
     name: 'Test',
     surname: 'User 5',
     password: 'password5',
     role: AppUserRoles.user,
   ),
-    FakeAppUser(
+  FakeAppUser(
     uid: genFakeUuid('test6@email.com'),
-    companyId: 6,
     email: 'test6@email.com',
     name: 'Test',
     surname: 'User 6',
     password: 'password6',
     role: AppUserRoles.superuser,
   ),
-    FakeAppUser(
+  FakeAppUser(
     uid: genFakeUuid('test7@email.com'),
-    companyId: 7,
     email: 'test7@email.com',
     name: 'Test',
     surname: 'User 7',
     password: 'password7',
     role: AppUserRoles.user,
   ),
-    FakeAppUser(
+  FakeAppUser(
     uid: genFakeUuid('test8@email.com'),
-    companyId: 8,
     email: 'test8@email.com',
     name: 'Test',
     surname: 'User 8',
     password: 'password8',
     role: AppUserRoles.admin,
   ),
-    FakeAppUser(
+  FakeAppUser(
     uid: genFakeUuid('test9@email.com'),
-    companyId: 9,
     email: 'test9@email.com',
     name: 'Test',
     surname: 'User 9',
     password: 'password9',
     role: AppUserRoles.user,
   ),
-    FakeAppUser(
+  FakeAppUser(
     uid: genFakeUuid('test10@email.com'),
-    companyId: 10,
     email: 'test10@email.com',
     name: 'Test',
     surname: 'User 10',
