@@ -12,7 +12,6 @@ void main() {
       uid: genFakeUuid('testuser@example.com'),
       email: 'testuser@example.com',
       name: 'Test',
-      companyId: 6,
       role: AppUserRoles.user,
       surname: 'User',
       password: 'password');
