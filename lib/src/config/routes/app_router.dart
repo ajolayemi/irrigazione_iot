@@ -6,6 +6,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/presentation/home_nested_navigator.dart';
+import 'package:irrigazione_iot/src/features/user_companies/presentation/user_company_list/user_companies_list_screen.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/empty_placeholder_widget.dart';
 
@@ -27,7 +28,7 @@ final _moreShellNavigatorKey = GlobalKey<NavigatorState>(
 /// ```dart
 /// context.goNamed(AppRoute.sampleRoute.name)
 /// ```
-enum AppRoute { home, signIn, settings, more }
+enum AppRoute { home, signIn, companiesListGrid, settings, more }
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
@@ -41,8 +42,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       final user = authRepository.currentUser;
       final isLoggedIn = user != null;
       final path = state.uri.path;
+      // TODO - check to see if user as already selected a company card
       if (isLoggedIn && path == '/sign-in') {
-        return '/'; // redirect to home page if user is logged in
+        return '/companies-list-grid'; // redirect to companies list grid if user is logged in
+        // TODO user should be redirected to home page if already selected a company
       }
       if (!isLoggedIn && path != '/sign-in') {
         return '/sign-in'; // redirect to sign in page if user is not logged in
@@ -54,11 +57,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     ),
     routes: [
       GoRoute(
-          path: '/sign-in',
-          name: AppRoute.signIn.name,
-          builder: (context, state) =>
-              const SignInScreen() // TODO: replace with your sign in page
-          ),
+        path: '/sign-in',
+        name: AppRoute.signIn.name,
+        builder: (context, state) => const SignInScreen(),
+      ),
+      GoRoute(
+        path: '/companies-list-grid',
+        name: AppRoute.companiesListGrid.name,
+        builder: (context, state) => const UserCompaniesListScreen(),
+      ),
       // Stateful navigation based on:
       // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
       StatefulShellRoute.indexedStack(
