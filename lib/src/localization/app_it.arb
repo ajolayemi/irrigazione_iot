@@ -1,4 +1,5 @@
 {
+  "@@locale": "it",
   "appTitle": "irrigazione_iot",
   "homePageTitle": "Dashboard",
   "@homePageTitle": {
@@ -20,5 +21,6 @@
   "shortPasswordErrorText": "La password inserita è troppo corta, deve essere minimo {minPasswordLength} caratteri",
   "emptyPasswordErrorText": "Il campo password non può essere vuoto",
   "settingsPageTitle": "Impostazione",
-  "morePageTitle": "Altro"
+  "morePageTitle": "Altro",
+  "chooseCompany": "Scegli un'azienda"
 }
