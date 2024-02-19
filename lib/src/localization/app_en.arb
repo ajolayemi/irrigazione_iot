@@ -53,5 +53,15 @@
   "emptyPasswordErrorText": "Password can't be empty",
   "settingsPageTitle": "Settings",
   "morePageTitle": "More",
-  "chooseCompany": "Choose a company"
+  "chooseCompany": "Choose a company",
+  "welcome": "Welcome, {username}!",
+  "@welcome": {
+    "description": "The welcome message that is displayed on the home page",
+    "placeholders": {
+      "username": {
+        "description": "The username of the user",
+        "example": "John Doe"
+      }
+    }
+  }
 }

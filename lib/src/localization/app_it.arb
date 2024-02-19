@@ -22,5 +22,6 @@
   "emptyPasswordErrorText": "Il campo password non può essere vuoto",
   "settingsPageTitle": "Impostazione",
   "morePageTitle": "Altro",
-  "chooseCompany": "Scegli un'azienda"
+  "chooseCompany": "Scegli un'azienda",
+  "welcome": "Ciao, {username}!"
 }
