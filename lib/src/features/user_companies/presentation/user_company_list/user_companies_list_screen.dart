@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
+import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
 import 'package:irrigazione_iot/src/features/user_companies/presentation/user_company_list/company_logo.dart';
@@ -9,6 +10,7 @@ import 'package:irrigazione_iot/src/features/user_companies/presentation/user_co
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 class UserCompaniesListScreen extends ConsumerStatefulWidget {
   const UserCompaniesListScreen({super.key});
@@ -26,48 +28,52 @@ class _UserCompaniesListScreenState
       userCompaniesControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
-    final state = ref.watch(userCompaniesControllerProvider);
+    final userCompanies = ref.watch(userCompaniesStreamProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(context.loc.chooseCompany),
-      ),
-      body: state.isLoading
-          ? const CircularProgressIndicator.adaptive()
-          : SafeArea(
-              child: Consumer(
-                builder: (context, ref, child) {
-                  final userCompanies = ref.watch(userCompaniesStreamProvider);
-                  return AsyncValueWidget<List<Company>>(
-                    value: userCompanies,
-                    data: (userCompanies) => ListView.builder(
-                      itemBuilder: (context, index) {
-                        final company = userCompanies[index];
-                        return InkWell(
-                          onTap: () {
-                            ref
-                                .read(userCompaniesControllerProvider.notifier)
-                                .updateTappedCompany(company);
-                            context.goNamed(AppRoute.home.name);
-                          },
-                          child: ListTile(
-                            leading: CompanyLogo(
-                              imageUrl: company.imageUrl,
-                            ),
-                            title: Text(
-                              company.name,
-                            ),
-                            trailing: const Icon(
-                              Icons.arrow_forward_ios,
-                            ),
-                          ),
-                        );
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            floating: true,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(context.loc.chooseCompany),
+            ),
+          ),
+          AsyncValueSliverWidget<List<Company>>(
+            value: userCompanies,
+            data: (userCompanies) => SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final company = userCompanies[index];
+                  return ResponsiveCenter(
+                    maxContentWidth: Breakpoint.tablet,
+                    child: InkWell(
+                      onTap: () {
+                        ref
+                            .read(userCompaniesControllerProvider.notifier)
+                            .updateTappedCompany(company);
+                        context.goNamed(AppRoute.home.name);
                       },
-                      itemCount: userCompanies.length,
+                      child: ListTile(
+                        leading: CompanyLogo(
+                          imageUrl: company.imageUrl,
+                        ),
+                        title: Text(
+                          company.name,
+                        ),
+                        trailing: const Icon(
+                          Icons.arrow_forward_ios,
+                        ),
+                      ),
                     ),
                   );
                 },
+                childCount: userCompanies.length,
               ),
             ),
+          )
+        ],
+      ),
     );
   }
 }

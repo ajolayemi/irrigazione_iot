@@ -8,24 +8,21 @@ part 'user_companies_controller.g.dart';
 
 @Riverpod(keepAlive: true)
 class UserCompaniesController extends _$UserCompaniesController {
-  Company? get tappedCompany => state.value;
   @override
-  FutureOr<Company?> build() async {
+  FutureOr<void> build() async {
     ref.listen<AsyncValue<AppUser?>>(authStateChangesProvider,
         (previous, next) async {
       if (previous != next) {
-        final controllerService = ref.read(userCompaniesServiceProvider);
-        state =
-            await AsyncValue.guard(() => controllerService.loadTappedCompany());
+        ref.invalidate(initialTappedCompanyProvider);
       }
     });
-    return state.value;
+    return;
   }
 
   Future<void> updateTappedCompany(Company company) async {
     state = const AsyncLoading();
     final controllerService = ref.read(userCompaniesServiceProvider);
-    await controllerService.updateTappedCompany(company);
-    state = await AsyncValue.guard(() => controllerService.loadTappedCompany());
+    state = await AsyncValue.guard(
+        () => controllerService.updateTappedCompany(company));
   }
 }

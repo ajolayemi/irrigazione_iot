@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,11 +24,10 @@ class UserCompaniesService {
   // Load initial tapped company from shared preferences
   Future<Company?> loadTappedCompany() async {
     final prefs = await SharedPreferences.getInstance();
-    debugPrint('User: ${authRepository.currentUser?.toMap()}');
-    debugPrint('key: $tappedCompanyPreferenceKey');
     final companyId = prefs.getString(tappedCompanyPreferenceKey);
+
     if (companyId != null) {
-      return companyRepository.fetchCompany(companyId);
+      return await companyRepository.fetchCompany(companyId);
     }
     return null;
   }
@@ -40,10 +38,21 @@ class UserCompaniesService {
       tappedCompanyPreferenceKey,
       company.id,
     );
+    ref.invalidate(currentTappedCompanyProvider);
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 UserCompaniesService userCompaniesService(UserCompaniesServiceRef ref) {
   return UserCompaniesService(ref);
+}
+
+@Riverpod(keepAlive: true)
+Future<Company?> initialTappedCompany(InitialTappedCompanyRef ref) {
+  return ref.read(userCompaniesServiceProvider).loadTappedCompany();
+}
+
+@Riverpod(keepAlive: true)
+Future<Company?> currentTappedCompany(CurrentTappedCompanyRef ref) {
+  return ref.read(userCompaniesServiceProvider).loadTappedCompany();
 }
