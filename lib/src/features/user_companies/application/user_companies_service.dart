@@ -1,60 +1,45 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/company_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_companies_service.g.dart';
-
 
 // A service class to abstract the logic of fetching the companies associated with a user
 class UserCompaniesService {
   UserCompaniesService(this.ref);
   final Ref ref;
 
+  AuthRepository get authRepository => ref.read(authRepositoryProvider);
   CompanyRepository get companyRepository =>
       ref.read(companyRepositoryProvider);
-  UserCompaniesRepository get userCompaniesRepository =>
-      ref.read(userCompaniesRepositoryProvider);
-  AuthRepository get authRepository => ref.read(authRepositoryProvider);
-  Future<List<Company>> fetchUserCompanies() async {
-    final user = authRepository.currentUser;
+  static const String tappedCompanyPreferenceSuffix = 'tappedCompanyId';
 
-    if (user == null) {
-      return [];
+  String get tappedCompanyPreferenceKey =>
+      '${authRepository.currentUser?.uid}-$tappedCompanyPreferenceSuffix';
+
+  // Load initial tapped company from shared preferences
+  Future<Company?> loadTappedCompany() async {
+    final prefs = await SharedPreferences.getInstance();
+    debugPrint('User: ${authRepository.currentUser?.toMap()}');
+    debugPrint('key: $tappedCompanyPreferenceKey');
+    final companyId = prefs.getString(tappedCompanyPreferenceKey);
+    if (companyId != null) {
+      return companyRepository.fetchCompany(companyId);
     }
-    final userCompanies = await userCompaniesRepository
-        .fetchCompaniesAssociatedWithUser(user.uid);
-    final companies = <Company>[];
-    for (final userCompany in userCompanies) {
-      final company =
-          await companyRepository.fetchCompany(userCompany.companyId);
-      if (company != null) {
-        companies.add(company);
-      }
-    }
-    return companies;
+    return null;
   }
 
-  Stream<List<Company>> watchUserCompanies() {
-    final user = authRepository.currentUser;
-    if (user == null) {
-      return Stream.value([]);
-    }
-    return userCompaniesRepository
-        .watchCompaniesAssociatedWithUser(user.uid)
-        .asyncMap((userCompanies) async {
-      final companies = <Company>[];
-      for (final userCompany in userCompanies) {
-        final company =
-            await companyRepository.fetchCompany(userCompany.companyId);
-        if (company != null) {
-          companies.add(company);
-        }
-      }
-      return companies;
-    });
+  Future<void> updateTappedCompany(Company company) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(
+      tappedCompanyPreferenceKey,
+      company.id,
+    );
   }
 }
 
