@@ -6,7 +6,7 @@ final kFakeUsers = <FakeAppUser>[
   FakeAppUser(
     uid: genFakeUuid('test1@email.com'),
     email: 'test1@email.com',
-    name: 'Test',
+    name: 'Kehinde',
     surname: 'User 1',
     password: 'password1',
     role: AppUserRoles.user,
@@ -14,7 +14,7 @@ final kFakeUsers = <FakeAppUser>[
   FakeAppUser(
     uid: genFakeUuid('test2@email.com'),
     email: 'test2@email.com',
-    name: 'Test',
+    name: 'Salvo',
     surname: 'User 2',
     password: 'password2',
     role: AppUserRoles.admin,
@@ -22,7 +22,7 @@ final kFakeUsers = <FakeAppUser>[
   FakeAppUser(
     uid: genFakeUuid('test3@email.com'),
     email: 'test3@email.com',
-    name: 'Test',
+    name: 'Maria',
     surname: 'User 3',
     password: 'password3',
     role: AppUserRoles.superuser,
@@ -30,7 +30,7 @@ final kFakeUsers = <FakeAppUser>[
   FakeAppUser(
     uid: genFakeUuid('test4@email.com'),
     email: 'test4@email.com',
-    name: 'Test',
+    name: 'Rocco',
     surname: 'User 4',
     password: 'password4',
     role: AppUserRoles.user,
@@ -38,7 +38,7 @@ final kFakeUsers = <FakeAppUser>[
   FakeAppUser(
     uid: genFakeUuid('test5@email.com'),
     email: 'test5@email.com',
-    name: 'Test',
+    name: 'Angelo',
     surname: 'User 5',
     password: 'password5',
     role: AppUserRoles.user,
@@ -46,7 +46,7 @@ final kFakeUsers = <FakeAppUser>[
   FakeAppUser(
     uid: genFakeUuid('test6@email.com'),
     email: 'test6@email.com',
-    name: 'Test',
+    name: 'Giuseppe',
     surname: 'User 6',
     password: 'password6',
     role: AppUserRoles.superuser,
@@ -54,7 +54,7 @@ final kFakeUsers = <FakeAppUser>[
   FakeAppUser(
     uid: genFakeUuid('test7@email.com'),
     email: 'test7@email.com',
-    name: 'Test',
+    name: 'Giovanni',
     surname: 'User 7',
     password: 'password7',
     role: AppUserRoles.user,
@@ -62,7 +62,7 @@ final kFakeUsers = <FakeAppUser>[
   FakeAppUser(
     uid: genFakeUuid('test8@email.com'),
     email: 'test8@email.com',
-    name: 'Test',
+    name: 'Eugenio',
     surname: 'User 8',
     password: 'password8',
     role: AppUserRoles.admin,
@@ -70,7 +70,7 @@ final kFakeUsers = <FakeAppUser>[
   FakeAppUser(
     uid: genFakeUuid('test9@email.com'),
     email: 'test9@email.com',
-    name: 'Test',
+    name: 'Utente senza nome',
     surname: 'User 9',
     password: 'password9',
     role: AppUserRoles.user,
@@ -78,7 +78,7 @@ final kFakeUsers = <FakeAppUser>[
   FakeAppUser(
     uid: genFakeUuid('test10@email.com'),
     email: 'test10@email.com',
-    name: 'Test',
+    name: 'Utente senza nome 2',
     surname: 'User 10',
     password: 'password10',
     role: AppUserRoles.user,
