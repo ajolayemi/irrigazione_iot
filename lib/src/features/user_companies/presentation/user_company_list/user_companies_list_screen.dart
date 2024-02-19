@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
+import 'package:irrigazione_iot/src/features/user_companies/presentation/user_company_list/company_logo.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
 
@@ -39,10 +40,15 @@ class _UserCompaniesListScreenState
                       context.goNamed(AppRoute.home.name);
                     },
                     child: ListTile(
-                      leading: const Icon(
-                          Icons.business), // TODO: replace with company logo
-                      title: Text(company.name),
-                      trailing: const Icon(Icons.arrow_forward_ios),
+                      leading: CompanyLogo(
+                        imageUrl: company.imageUrl,
+                      ),
+                      title: Text(
+                        company.name,
+                      ),
+                      trailing: const Icon(
+                        Icons.arrow_forward_ios,
+                      ),
                     ),
                   );
                 },
