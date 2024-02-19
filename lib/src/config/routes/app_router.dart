@@ -6,6 +6,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/presentation/home_nested_navigator.dart';
+import 'package:irrigazione_iot/src/features/user_companies/presentation/user_company_list/user_companies_controller.dart';
 import 'package:irrigazione_iot/src/features/user_companies/presentation/user_company_list/user_companies_list_screen.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/empty_placeholder_widget.dart';
@@ -32,6 +33,7 @@ enum AppRoute { home, signIn, companiesListGrid, settings, more }
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
+  final tappedCompany = ref.watch(userCompaniesControllerProvider);
   return GoRouter(
     initialLocation: '/sign-in',
     debugLogDiagnostics: true,
@@ -42,10 +44,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       final user = authRepository.currentUser;
       final isLoggedIn = user != null;
       final path = state.uri.path;
-      // TODO - check to see if user as already selected a company card
       if (isLoggedIn && path == '/sign-in') {
-        return '/companies-list-grid'; // redirect to companies list grid if user is logged in
-        // TODO user should be redirected to home page if already selected a company
+        // If user has already selected a company
+        if (tappedCompany.value == null) {
+          return '/companies-list-grid';
+        }
+        return '/'; // redirect to companies list grid if user is logged in
       }
       if (!isLoggedIn && path != '/sign-in') {
         return '/sign-in'; // redirect to sign in page if user is not logged in
