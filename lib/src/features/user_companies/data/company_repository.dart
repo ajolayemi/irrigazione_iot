@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/fake_company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -29,6 +28,3 @@ Stream<Company?> companyStream(CompanyStreamRef ref, CompanyID companyId) {
   return repository.watchCompany(companyId);
 }
 
-final tappedCompanyProvider = StateProvider<Company?>((ref) {
-  return null;
-});
