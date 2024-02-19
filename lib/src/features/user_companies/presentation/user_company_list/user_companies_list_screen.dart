@@ -35,6 +35,7 @@ class _UserCompaniesListScreenState
           SliverAppBar(
             floating: true,
             pinned: true,
+            snap: true,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(context.loc.chooseCompany),
             ),
