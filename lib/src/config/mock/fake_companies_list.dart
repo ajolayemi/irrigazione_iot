@@ -1,5 +1,7 @@
 import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
 
+
+const staticImageUrl = 'assets/images/company_logo.png';
 const kFakeCompanies = [
   Company(
     id: '1',
@@ -7,6 +9,7 @@ const kFakeCompanies = [
     registeredOfficeAddress: "Via 20 dicembre",
     phoneNumber: "123456789",
     email: "test@example.com",
+    imageUrl: staticImageUrl,
   ),
   Company(
     id: '2',
@@ -14,6 +17,7 @@ const kFakeCompanies = [
     registeredOfficeAddress: "Via vespri 2",
     phoneNumber: "92828282828",
     email: "test@example.com",
+    imageUrl: staticImageUrl,
   ),
   Company(
     id: '7',
@@ -21,6 +25,7 @@ const kFakeCompanies = [
     registeredOfficeAddress: "Via San lio, Carlentini",
     phoneNumber: "12345678",
     email: "test2@example.com",
+    imageUrl: staticImageUrl,
   ),
   Company(
     id: '3',
@@ -28,6 +33,7 @@ const kFakeCompanies = [
     registeredOfficeAddress: "Via terre e cielo",
     phoneNumber: "456789444",
     email: "test3@example.com",
+    imageUrl: staticImageUrl,
   ),
   Company(
     id: '4',
@@ -35,6 +41,7 @@ const kFakeCompanies = [
     registeredOfficeAddress: "Via terranova",
     phoneNumber: "123456784",
     email: "test4@example.com",
+    imageUrl: staticImageUrl,
   ),
   Company(
     id: '5',
@@ -42,6 +49,7 @@ const kFakeCompanies = [
     registeredOfficeAddress: "Via mandarini e cucurma",
     phoneNumber: "9282736464",
     email: "test5@example.com",
+    imageUrl: staticImageUrl,
   ),
   Company(
     id: '6',
@@ -49,5 +57,6 @@ const kFakeCompanies = [
     registeredOfficeAddress: "Via vini e olio",
     phoneNumber: "3248421870",
     email: "test@example.com",
+    imageUrl: staticImageUrl,
   ),
 ];
