@@ -1,4 +1,5 @@
-import 'package:irrigazione_iot/src/features/user_companies/application/user_companies_service.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/user_companies/data/company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -23,14 +24,46 @@ UserCompaniesRepository userCompaniesRepository(
 }
 
 @riverpod
-Future<List<Company>> userCompaniesFuture(
-    UserCompaniesFutureRef ref, String userId) {
-  final repository = ref.watch(userCompaniesServiceProvider);
-  return repository.fetchUserCompanies();
+Future<List<Company>> userCompaniesFuture(UserCompaniesFutureRef ref) async {
+  final authRepository = ref.watch(authRepositoryProvider);
+  final user = authRepository.currentUser;
+  if (user == null) {
+    return Future.value([]);
+  }
+  final userCompaniesRepository = ref.watch(userCompaniesRepositoryProvider);
+  final companyRepository = ref.watch(companyRepositoryProvider);
+  final userCompanies =
+      await userCompaniesRepository.fetchCompaniesAssociatedWithUser(user.uid);
+  final companies = <Company>[];
+  for (final userCompany in userCompanies) {
+    final company = await companyRepository.fetchCompany(userCompany.companyId);
+    if (company != null) {
+      companies.add(company);
+    }
+  }
+  return companies;
 }
 
 @riverpod
 Stream<List<Company>> userCompaniesStream(UserCompaniesStreamRef ref) {
-  final userCompaniesService = ref.read(userCompaniesServiceProvider);
-  return userCompaniesService.watchUserCompanies();
+  final authRepository = ref.watch(authRepositoryProvider);
+  final user = authRepository.currentUser;
+  if (user == null) {
+    return Stream.value([]);
+  }
+  final userCompaniesRepository = ref.watch(userCompaniesRepositoryProvider);
+  final companyRepository = ref.watch(companyRepositoryProvider);
+  return userCompaniesRepository
+      .watchCompaniesAssociatedWithUser(user.uid)
+      .asyncMap((userCompanies) async {
+    final companies = <Company>[];
+    for (final userCompany in userCompanies) {
+      final company =
+          await companyRepository.fetchCompany(userCompany.companyId);
+      if (company != null) {
+        companies.add(company);
+      }
+    }
+    return companies;
+  });
 }

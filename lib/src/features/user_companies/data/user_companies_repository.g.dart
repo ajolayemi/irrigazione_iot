@@ -24,159 +24,24 @@ final userCompaniesRepositoryProvider =
 
 typedef UserCompaniesRepositoryRef = ProviderRef<UserCompaniesRepository>;
 String _$userCompaniesFutureHash() =>
-    r'33843c79feb8a767954fdf68559ddaf4193e2f34';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
+    r'9f7d3db0e0e7b95eea3f2cec34283e0f6406c5c1';
 
 /// See also [userCompaniesFuture].
 @ProviderFor(userCompaniesFuture)
-const userCompaniesFutureProvider = UserCompaniesFutureFamily();
+final userCompaniesFutureProvider =
+    AutoDisposeFutureProvider<List<Company>>.internal(
+  userCompaniesFuture,
+  name: r'userCompaniesFutureProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$userCompaniesFutureHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
-/// See also [userCompaniesFuture].
-class UserCompaniesFutureFamily extends Family<AsyncValue<List<Company>>> {
-  /// See also [userCompaniesFuture].
-  const UserCompaniesFutureFamily();
-
-  /// See also [userCompaniesFuture].
-  UserCompaniesFutureProvider call(
-    String userId,
-  ) {
-    return UserCompaniesFutureProvider(
-      userId,
-    );
-  }
-
-  @override
-  UserCompaniesFutureProvider getProviderOverride(
-    covariant UserCompaniesFutureProvider provider,
-  ) {
-    return call(
-      provider.userId,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'userCompaniesFutureProvider';
-}
-
-/// See also [userCompaniesFuture].
-class UserCompaniesFutureProvider
-    extends AutoDisposeFutureProvider<List<Company>> {
-  /// See also [userCompaniesFuture].
-  UserCompaniesFutureProvider(
-    String userId,
-  ) : this._internal(
-          (ref) => userCompaniesFuture(
-            ref as UserCompaniesFutureRef,
-            userId,
-          ),
-          from: userCompaniesFutureProvider,
-          name: r'userCompaniesFutureProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$userCompaniesFutureHash,
-          dependencies: UserCompaniesFutureFamily._dependencies,
-          allTransitiveDependencies:
-              UserCompaniesFutureFamily._allTransitiveDependencies,
-          userId: userId,
-        );
-
-  UserCompaniesFutureProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.userId,
-  }) : super.internal();
-
-  final String userId;
-
-  @override
-  Override overrideWith(
-    FutureOr<List<Company>> Function(UserCompaniesFutureRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: UserCompaniesFutureProvider._internal(
-        (ref) => create(ref as UserCompaniesFutureRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        userId: userId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<List<Company>> createElement() {
-    return _UserCompaniesFutureProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is UserCompaniesFutureProvider && other.userId == userId;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, userId.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin UserCompaniesFutureRef on AutoDisposeFutureProviderRef<List<Company>> {
-  /// The parameter `userId` of this provider.
-  String get userId;
-}
-
-class _UserCompaniesFutureProviderElement
-    extends AutoDisposeFutureProviderElement<List<Company>>
-    with UserCompaniesFutureRef {
-  _UserCompaniesFutureProviderElement(super.provider);
-
-  @override
-  String get userId => (origin as UserCompaniesFutureProvider).userId;
-}
-
+typedef UserCompaniesFutureRef = AutoDisposeFutureProviderRef<List<Company>>;
 String _$userCompaniesStreamHash() =>
-    r'9d02386b0f35e3640b1d6b0afc4a0aeeef28953f';
+    r'ef9a9d9f968ce36b7b223c966113216dcd1c4472';
 
 /// See also [userCompaniesStream].
 @ProviderFor(userCompaniesStream)
