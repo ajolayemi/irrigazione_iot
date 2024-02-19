@@ -13,16 +13,17 @@ class Company extends Equatable {
       required this.registeredOfficeAddress,
       required this.phoneNumber,
       required this.email,
+      required this.imageUrl,
       this.vatNumber = '',
       this.fiscalCode = '',
-      this.imageUrl = ''});
+});
   // Unique identifier for the company from the database
   final CompanyID id;
   final String name;
   final String registeredOfficeAddress;
   final String phoneNumber;
   final String email;
-  final String? imageUrl;
+  final String imageUrl;
   final String? vatNumber;
   final String? fiscalCode;
 
@@ -60,7 +61,7 @@ class Company extends Equatable {
       registeredOfficeAddress: map['registeredOfficeAddress'] as String,
       phoneNumber: map['phoneNumber'] as String,
       email: map['email'] as String,
-      imageUrl: map['imageUrl'] != null ? map['imageUrl'] as String : null,
+      imageUrl: map['imageUrl'] as String,
       vatNumber: map['vatNumber'] != null ? map['vatNumber'] as String : null,
       fiscalCode:
           map['fiscalCode'] != null ? map['fiscalCode'] as String : null,
