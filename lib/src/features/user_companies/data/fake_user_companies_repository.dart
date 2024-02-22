@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_user_companies.dart';
 
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
@@ -9,7 +10,6 @@ class FakeUserCompaniesRepository implements UserCompaniesRepository {
   /// Preload userCompanies
   final _userCompanies =
       InMemoryStore<List<UserCompany>>(List.from(kFakeUserCompanies));
-
 
   // A stream to watch the list of userCompanies connected to a user
   @override
@@ -27,5 +27,26 @@ class FakeUserCompaniesRepository implements UserCompaniesRepository {
   static List<UserCompany> _getUserCompanies(
       List<UserCompany> userCompanies, String userId) {
     return userCompanies.where((data) => data.appUser.uid == userId).toList();
+  }
+
+  @override
+  Future<CompanyUserRoles?> fetchCompanyUserRole(
+      String userId, String companyId) {
+    // TODO: implement fetchCompanyUserRole
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream<CompanyUserRoles?> watchCompanyUserRole(
+      String userId, String companyId) {
+    return watchCompaniesAssociatedWithUser(userId).map((userCompanies) {
+      try {
+        return userCompanies
+            .firstWhere((val) => val.companyId == companyId)
+            .role;
+      } catch (e) {
+        return null;
+      }
+    });
   }
 }
