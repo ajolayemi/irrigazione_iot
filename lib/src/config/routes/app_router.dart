@@ -13,15 +13,14 @@ import 'package:irrigazione_iot/src/widgets/empty_placeholder_widget.dart';
 
 // private navigator keys
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _dashboardShellNavigatorKey = GlobalKey<NavigatorState>(
-  debugLabel: 'Dashboard',
-);
-final _settingsShellNavigatorKey = GlobalKey<NavigatorState>(
-  debugLabel: 'Settings',
-);
-final _moreShellNavigatorKey = GlobalKey<NavigatorState>(
-  debugLabel: 'More',
-);
+final _dashboardShellNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'Dashboard');
+
+final _collectorShellNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'Collector');
+final _pumpShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'Pump');
+final _meteoShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'Meteo');
+final _moreShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'More');
 
 /// All supported routes in the app
 /// By using an enum, we can avoid using strings for route names
@@ -29,7 +28,16 @@ final _moreShellNavigatorKey = GlobalKey<NavigatorState>(
 /// ```dart
 /// context.goNamed(AppRoute.sampleRoute.name)
 /// ```
-enum AppRoute { home, signIn, companiesListGrid, settings, more }
+enum AppRoute {
+  home,
+  signIn,
+  companiesListGrid,
+  collector,
+  pump,
+  meteo,
+  more,
+  settings,
+}
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
@@ -91,24 +99,55 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             ],
           ),
 
-          // Settings branch
+          // Collector branch
           StatefulShellBranch(
-            navigatorKey: _settingsShellNavigatorKey,
+            navigatorKey: _collectorShellNavigatorKey,
             routes: [
               GoRoute(
-                path: '/settings',
-                name: AppRoute.settings.name,
+                path: '/collector',
+                name: AppRoute.collector.name,
                 pageBuilder: (context, state) => NoTransitionPage(
                   child: EmptyPlaceholderWidget(
-                    message: context.loc.settingsPageTitle,
+                    message: context.loc.collectorPageTitle,
                   ),
-                ), // TODO: replace with settings page
+                ), // TODO: replace with collector page
+              ),
+            ],
+          ),
+
+          // Pump branch
+          StatefulShellBranch(
+            navigatorKey: _pumpShellNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/pump',
+                name: AppRoute.pump.name,
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: EmptyPlaceholderWidget(
+                    message: context.loc.pumpPageTitle,
+                  ),
+                ), // TODO: replace with pump page
+              ),
+            ],
+          ),
+
+          // Meteo branch
+          StatefulShellBranch(
+            navigatorKey: _meteoShellNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/meteo',
+                name: AppRoute.meteo.name,
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: EmptyPlaceholderWidget(
+                    message: context.loc.meteoPageTitle,
+                  ),
+                ), // TODO: replace with pump page
               ),
             ],
           ),
 
           // More branch
-          // Settings branch
           StatefulShellBranch(
             navigatorKey: _moreShellNavigatorKey,
             routes: [
