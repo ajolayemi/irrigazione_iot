@@ -1,4 +1,3 @@
-import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/fake_app_user.dart';
 import 'package:irrigazione_iot/src/utils/gen_fake_uuid.dart';
 
@@ -9,7 +8,6 @@ final kFakeUsers = <FakeAppUser>[
     name: 'Kehinde',
     surname: 'User 1',
     password: 'password1',
-    role: AppUserRoles.user,
   ).copyWith(uid: genFakeUuid('test1@email.com')),
   FakeAppUser(
     uid: genFakeUuid('test2@email.com'),
@@ -17,7 +15,6 @@ final kFakeUsers = <FakeAppUser>[
     name: 'Salvo',
     surname: 'User 2',
     password: 'password2',
-    role: AppUserRoles.admin,
   ),
   FakeAppUser(
     uid: genFakeUuid('test3@email.com'),
@@ -25,7 +22,6 @@ final kFakeUsers = <FakeAppUser>[
     name: 'Maria',
     surname: 'User 3',
     password: 'password3',
-    role: AppUserRoles.superuser,
   ),
   FakeAppUser(
     uid: genFakeUuid('test4@email.com'),
@@ -33,7 +29,6 @@ final kFakeUsers = <FakeAppUser>[
     name: 'Rocco',
     surname: 'User 4',
     password: 'password4',
-    role: AppUserRoles.user,
   ),
   FakeAppUser(
     uid: genFakeUuid('test5@email.com'),
@@ -41,7 +36,6 @@ final kFakeUsers = <FakeAppUser>[
     name: 'Angelo',
     surname: 'User 5',
     password: 'password5',
-    role: AppUserRoles.user,
   ),
   FakeAppUser(
     uid: genFakeUuid('test6@email.com'),
@@ -49,7 +43,6 @@ final kFakeUsers = <FakeAppUser>[
     name: 'Giuseppe',
     surname: 'User 6',
     password: 'password6',
-    role: AppUserRoles.superuser,
   ),
   FakeAppUser(
     uid: genFakeUuid('test7@email.com'),
@@ -57,7 +50,6 @@ final kFakeUsers = <FakeAppUser>[
     name: 'Giovanni',
     surname: 'User 7',
     password: 'password7',
-    role: AppUserRoles.user,
   ),
   FakeAppUser(
     uid: genFakeUuid('test8@email.com'),
@@ -65,7 +57,6 @@ final kFakeUsers = <FakeAppUser>[
     name: 'Eugenio',
     surname: 'User 8',
     password: 'password8',
-    role: AppUserRoles.admin,
   ),
   FakeAppUser(
     uid: genFakeUuid('test9@email.com'),
@@ -73,7 +64,6 @@ final kFakeUsers = <FakeAppUser>[
     name: 'Utente senza nome',
     surname: 'User 9',
     password: 'password9',
-    role: AppUserRoles.user,
   ),
   FakeAppUser(
     uid: genFakeUuid('test10@email.com'),
@@ -81,6 +71,5 @@ final kFakeUsers = <FakeAppUser>[
     name: 'Utente senza nome 2',
     surname: 'User 10',
     password: 'password10',
-    role: AppUserRoles.user,
   ),
 ];
