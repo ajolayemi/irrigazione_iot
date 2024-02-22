@@ -20,7 +20,8 @@ class HomeNavigationRail extends StatelessWidget {
         NavigationRail(
           selectedIndex: selectedIndex,
           onDestinationSelected: onDestinationSelected,
-          labelType: NavigationRailLabelType.selected,
+          labelType: NavigationRailLabelType.all,
+          groupAlignment: 0,
           destinations: [
             NavigationRailDestination(
               icon: const Icon(Icons.home),
@@ -28,13 +29,23 @@ class HomeNavigationRail extends StatelessWidget {
               label: Text(context.loc.homePageTitle),
             ),
             NavigationRailDestination(
-              icon: const Icon(Icons.settings),
-              selectedIcon: const Icon(Icons.settings),
-              label: Text(context.loc.settingsPageTitle),
+              icon: const Icon(Icons.category),
+              selectedIcon: const Icon(Icons.category),
+              label: Text(context.loc.collectorPageTitle),
             ),
             NavigationRailDestination(
-              icon: const Icon(Icons.more_horiz),
-              selectedIcon: const Icon(Icons.more_horiz),
+              icon: const Icon(Icons.water),
+              selectedIcon: const Icon(Icons.water),
+              label: Text(context.loc.pumpPageTitle),
+            ),
+            NavigationRailDestination(
+              icon: const Icon(Icons.thermostat),
+              selectedIcon: const Icon(Icons.thermostat),
+              label: Text(context.loc.meteoPageTitle),
+            ),
+            NavigationRailDestination(
+              icon: const Icon(Icons.more_vert),
+              selectedIcon: const Icon(Icons.more_vert),
               label: Text(context.loc.morePageTitle),
             ),
           ],

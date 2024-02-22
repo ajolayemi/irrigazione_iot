@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 
+
 // Widget to show the home navigation bar for mobile screens
 class HomeNavigationBar extends StatelessWidget {
   const HomeNavigationBar(
@@ -24,11 +25,19 @@ class HomeNavigationBar extends StatelessWidget {
             label: context.loc.homePageTitle,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.settings),
-            label: context.loc.settingsPageTitle,
+            icon: const Icon(Icons.category),
+            label: context.loc.collectorPageTitle,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.more_horiz),
+            icon: const Icon(Icons.water),
+            label: context.loc.pumpPageTitle,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.thermostat),
+            label: context.loc.meteoPageTitle,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.more_vert),
             label: context.loc.morePageTitle,
           ),
         ],
