@@ -57,5 +57,20 @@ final userCompaniesStreamProvider =
 );
 
 typedef UserCompaniesStreamRef = AutoDisposeStreamProviderRef<List<Company>>;
+String _$companyUserRoleHash() => r'799abbcb5922cf80c637c6b7e5567a2c4388caa1';
+
+/// See also [companyUserRole].
+@ProviderFor(companyUserRole)
+final companyUserRoleProvider = StreamProvider<CompanyUserRoles?>.internal(
+  companyUserRole,
+  name: r'companyUserRoleProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$companyUserRoleHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CompanyUserRoleRef = StreamProviderRef<CompanyUserRoles?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
