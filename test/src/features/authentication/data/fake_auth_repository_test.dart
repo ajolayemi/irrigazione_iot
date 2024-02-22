@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_users_list.dart';
 import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/fake_app_user.dart';
@@ -12,7 +11,7 @@ void main() {
       uid: genFakeUuid('testuser@example.com'),
       email: 'testuser@example.com',
       name: 'Test',
-      role: AppUserRoles.user,
+
       surname: 'User',
       password: 'password');
   FakeAuthRepository makeAuthRepository() =>
