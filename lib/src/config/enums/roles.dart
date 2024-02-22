@@ -1,5 +1,6 @@
-enum AppUserRoles {
+enum CompanyUserRoles {
   admin,
   user,
   superuser,
+  owner,
 }
