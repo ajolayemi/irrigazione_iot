@@ -4,7 +4,7 @@
   "@appTitle": {
     "description": "The title of the application"
   },
-  "homePageTitle": "Dashboard",
+  "homePageTitle": "Home",
   "@homePageTitle": {
     "description": "The title of the home page"
   },
@@ -52,6 +52,10 @@
   },
   "emptyPasswordErrorText": "Password can't be empty",
   "settingsPageTitle": "Settings",
+  "collectorPageTitle": "Collector",
+  "pumpPageTitle": "Pump",
+  "meteoPageTitle": "Meteo",
+  "graphsPageTitle": "Graphs",
   "morePageTitle": "More",
   "chooseCompany": "Choose a company",
   "welcome": "Welcome, {username}!",

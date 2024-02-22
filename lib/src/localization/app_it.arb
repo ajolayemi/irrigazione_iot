@@ -1,7 +1,7 @@
 {
   "@@locale": "it",
   "appTitle": "irrigazione_iot",
-  "homePageTitle": "Dashboard",
+  "homePageTitle": "Home",
   "@homePageTitle": {
     "description": "The title of the home page"
   },
@@ -22,6 +22,10 @@
   "emptyPasswordErrorText": "Il campo password non può essere vuoto",
   "settingsPageTitle": "Impostazione",
   "morePageTitle": "Altro",
+  "collectorPageTitle": "Collettori",
+  "pumpPageTitle": "Pompe",
+  "meteoPageTitle": "Meteo",
+  "graphsPageTitle": "Grafici",
   "chooseCompany": "Scegli un'azienda",
   "welcome": "Ciao, {username}!"
 }
