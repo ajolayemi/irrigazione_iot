@@ -1,4 +1,6 @@
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/user_companies/application/user_companies_service.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -14,6 +16,12 @@ part 'user_companies_repository.g.dart';
 abstract class UserCompaniesRepository {
   Stream<List<UserCompany>> watchCompaniesAssociatedWithUser(String userId);
   Future<List<UserCompany>> fetchCompaniesAssociatedWithUser(String userId);
+  Stream<CompanyUserRoles?> watchCompanyUserRole(
+    String userId,
+    String companyId,
+  );
+  Future<CompanyUserRoles?> fetchCompanyUserRole(
+      String userId, String companyId);
 }
 
 // TODO replace this with a real implementation of either Firebase or Supabase
@@ -66,4 +74,19 @@ Stream<List<Company>> userCompaniesStream(UserCompaniesStreamRef ref) {
     }
     return companies;
   });
+}
+
+@Riverpod(keepAlive: true)
+Stream<CompanyUserRoles?> companyUserRole(CompanyUserRoleRef ref) {
+  final userCompaniesRepository = ref.watch(userCompaniesRepositoryProvider);
+  final currentSelectedCompany = ref.watch(currentTappedCompanyProvider).value;
+  final authRepository = ref.watch(authRepositoryProvider);
+  final user = authRepository.currentUser;
+  if (user == null || currentSelectedCompany == null) {
+    return const Stream.empty();
+  }
+  return userCompaniesRepository.watchCompanyUserRole(
+    user.uid,
+    currentSelectedCompany.id,
+  );
 }
