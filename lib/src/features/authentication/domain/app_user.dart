@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:irrigazione_iot/src/config/enums/roles.dart';
 
 typedef UserID = String;
 
@@ -7,14 +6,12 @@ class AppUser {
   final UserID uid;
   final String email;
   final String name;
-  final String surname; 
-  final AppUserRoles role;
+  final String surname;
 
   const AppUser({
     required this.uid,
     required this.email,
     required this.name,
-    required this.role,
     required this.surname,
   });
 
@@ -25,22 +22,17 @@ class AppUser {
     return other.uid == uid &&
         other.email == email &&
         other.name == name &&
-        other.surname == surname &&
-        other.role == role;
+        other.surname == surname;
   }
 
   @override
   int get hashCode {
-    return uid.hashCode ^
-        email.hashCode ^
-        name.hashCode ^
-        surname.hashCode ^
-        role.hashCode;
+    return uid.hashCode ^ email.hashCode ^ name.hashCode ^ surname.hashCode;
   }
 
   @override
   String toString() {
-    return 'AppUser(uid: $uid, email: $email, name: $name, surname: $surname,  role: $role)';
+    return 'AppUser(uid: $uid, email: $email, name: $name, surname: $surname)';
   }
 
   AppUser copyWith({
@@ -48,14 +40,14 @@ class AppUser {
     String? email,
     String? name,
     String? surname,
-    AppUserRoles? role,
+  
   }) {
     return AppUser(
       uid: uid ?? this.uid,
       email: email ?? this.email,
       name: name ?? this.name,
       surname: surname ?? this.surname,
-      role: role ?? this.role,
+ 
     );
   }
 
@@ -65,7 +57,7 @@ class AppUser {
       'email': email,
       'name': name,
       'surname': surname,
-      'role': role,
+   
     };
   }
 
@@ -75,10 +67,7 @@ class AppUser {
       email: map['email'] as String,
       name: map['name'] as String,
       surname: map['surname'] as String,
-      role: AppUserRoles.values.firstWhere(
-        (role) => role.toString() == map['role'] as String,
-      ),
+ 
     );
   }
-
 }

@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/authentication/domain/app_user.dart';
 
 /// Fake user class used to simulate a user account on the backend
@@ -10,7 +9,6 @@ class FakeAppUser extends AppUser {
     required super.uid,
     required super.email,
     required super.name,
-    required super.role,
     required super.surname,
     required this.password, 
   }); 
@@ -22,7 +20,6 @@ class FakeAppUser extends AppUser {
     String? email,
     String? name,
     int? companyId,
-    AppUserRoles? role,
     String? password,
     String? surname,
   }) {
@@ -31,7 +28,6 @@ class FakeAppUser extends AppUser {
       email: email ?? super.email,
       name: name ?? super.name,
       surname: surname ?? super.surname,
-      role: role ?? super.role,
       password: password ?? this.password,
     );
   }
