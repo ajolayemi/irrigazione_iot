@@ -6,6 +6,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/presentation/home_nested_navigator.dart';
+import 'package:irrigazione_iot/src/features/pumps/presentation/pump_list/pumps_list_screen.dart';
 import 'package:irrigazione_iot/src/features/user_companies/application/user_companies_service.dart';
 import 'package:irrigazione_iot/src/features/user_companies/presentation/user_company_list/user_companies_list_screen.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
@@ -122,11 +123,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/pump',
                 name: AppRoute.pump.name,
-                pageBuilder: (context, state) => NoTransitionPage(
-                  child: EmptyPlaceholderWidget(
-                    message: context.loc.pumpPageTitle,
-                  ),
-                ), // TODO: replace with pump page
+                pageBuilder: (context, state) => const NoTransitionPage(
+                    child: PumpListScreen()),
               ),
             ],
           ),
