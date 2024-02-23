@@ -117,7 +117,7 @@ firebase-exports
 .env
 
 # Ignore test coverage data
-coverage/lcov.info
+coverage/
 
 # Firebase CLI config
 .firebaserc
