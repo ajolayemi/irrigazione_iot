@@ -78,7 +78,7 @@
       },
       "time": {
         "type": "DateTime",
-        "format": "jm"
+        "format": "Hm"
       }
     }
   }
