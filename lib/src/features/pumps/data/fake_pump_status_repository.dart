@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_pump_status.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
@@ -19,7 +18,6 @@ class FakePumpStatusRepository extends PumpStatusRepository {
   static List<PumpStatus> _filterPumpStatus(
       List<PumpStatus> statuses, PumpID pumpId) {
     final toReturn = statuses.where((pumpStatus) => pumpStatus.pumpId == pumpId).toList();
-    debugPrint('statuses for pump $pumpId: $toReturn');
     return toReturn;
   }
 
