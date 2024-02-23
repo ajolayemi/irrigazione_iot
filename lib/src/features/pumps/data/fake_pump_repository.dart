@@ -5,15 +5,7 @@ import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
 class FakePumpRepository implements PumpRepository {
   final _fakePumps = InMemoryStore<List<Pump>>(kFakePumps);
-
-  static Pump? _getPump(List<Pump> pumps, String pumpId) {
-    try {
-      return pumps.firstWhere((pump) => pump.id == pumpId);
-    } catch (e) {
-      return null;
-    }
-  }
-
+  
   static List<Pump> _getCompanyPumps(List<Pump> pumps, String companyId) {
     return pumps.where((pump) => pump.companyId == companyId).toList();
   }
