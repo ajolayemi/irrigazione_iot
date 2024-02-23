@@ -67,5 +67,20 @@
         "example": "John Doe"
       }
     }
+  },
+  "pumpStatusLastUpdate": "last update at: {date} {time}",
+  "@pumpStatusLastUpdate": {
+    "description": "The last time a pump status was updated",
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMd"
+      },
+      "time": {
+        "type": "DateTime",
+        "format": "jm"
+      }
+    }
   }
+  
 }

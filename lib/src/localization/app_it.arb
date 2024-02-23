@@ -27,5 +27,6 @@
   "meteoPageTitle": "Meteo",
   "graphsPageTitle": "Grafici",
   "chooseCompany": "Scegli un'azienda",
-  "welcome": "Ciao, {username}!"
+  "welcome": "Ciao, {username}!",
+  "pumpStatusLastUpdate": "ultimo aggiornamento: {date} {time}"
 }
