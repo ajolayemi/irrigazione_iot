@@ -24,29 +24,9 @@ class FakePumpRepository implements PumpRepository {
   }
 
   @override
-  Future<bool> getPumpStatus(String pumpId) {
-    // TODO: implement getPumpStatus
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> togglePumpStatus(String pumpId, bool status) {
-    return Future.value();
-  }
-
-  @override
   Stream<List<Pump>> watchCompanyPumps(String companyId) {
     return _fakePumps.stream.map((pumps) => _getCompanyPumps(pumps, companyId));
   }
 
-  // todo change this so that it checks pump status from flow
-  @override
-  Stream<bool> watchPumpStatus(String pumpId) {
-    final pump = _getPump(_fakePumps.value, pumpId);
-    if (pump == null) {
-      return Stream.value(false);
-    } else {
-      return Stream.value(true);
-    }
-  }
+
 }

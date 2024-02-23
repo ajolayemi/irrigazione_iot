@@ -7,9 +7,7 @@ part 'pump_repository.g.dart';
 abstract class PumpRepository {
   Stream<List<Pump>> watchCompanyPumps(String companyId);
   Future<List<Pump>> getCompanyPumps(String companyId);
-  Stream<bool> watchPumpStatus(String pumpId);
-  Future<bool> getPumpStatus(String pumpId);
-  Future<void> togglePumpStatus(String pumpId, bool status);
+
 }
 
 @Riverpod(keepAlive: true)
@@ -28,10 +26,4 @@ Stream<List<Pump>> companyPumpsStream(CompanyPumpsStreamRef ref, String companyI
 Future<List<Pump>> companyPumpsFuture(CompanyPumpsFutureRef ref, String companyId) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   return pumpRepository.getCompanyPumps(companyId);
-}
-
-@riverpod
-Stream<bool> companyPumpStatusStream(CompanyPumpStatusStreamRef ref, String pumpId) {
-  final pumpRepository = ref.watch(pumpRepositoryProvider);
-  return pumpRepository.watchPumpStatus(pumpId);
 }
