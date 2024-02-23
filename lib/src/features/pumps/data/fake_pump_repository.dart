@@ -4,8 +4,6 @@ import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
 class FakePumpRepository implements PumpRepository {
-
-
   final _fakePumps = InMemoryStore<List<Pump>>(kFakePumps);
 
   static Pump? _getPump(List<Pump> pumps, String pumpId) {
@@ -15,6 +13,7 @@ class FakePumpRepository implements PumpRepository {
       return null;
     }
   }
+
   static List<Pump> _getCompanyPumps(List<Pump> pumps, String companyId) {
     return pumps.where((pump) => pump.companyId == companyId).toList();
   }
@@ -32,8 +31,7 @@ class FakePumpRepository implements PumpRepository {
 
   @override
   Future<void> togglePumpStatus(String pumpId, bool status) {
-    // TODO: implement togglePumpStatus
-    throw UnimplementedError();
+    return Future.value();
   }
 
   @override
@@ -41,9 +39,14 @@ class FakePumpRepository implements PumpRepository {
     return _fakePumps.stream.map((pumps) => _getCompanyPumps(pumps, companyId));
   }
 
+  // todo change this so that it checks pump status from flow
   @override
   Stream<bool> watchPumpStatus(String pumpId) {
-    // TODO: implement watchPumpStatus
-    throw UnimplementedError();
+    final pump = _getPump(_fakePumps.value, pumpId);
+    if (pump == null) {
+      return Stream.value(false);
+    } else {
+      return Stream.value(true);
+    }
   }
 }
