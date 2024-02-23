@@ -28,5 +28,12 @@
   "graphsPageTitle": "Grafici",
   "chooseCompany": "Scegli un'azienda",
   "welcome": "Ciao, {username}!",
-  "pumpStatusLastUpdate": "ultimo aggiornamento: {date} {time}"
+  "pumpStatusLastUpdate": "ultimo aggiornamento: {date} {time}",
+  "pumpOnStatusUpdateAlertDialogContent": "Stai per accendere {pumpName}",
+  "pumpOffStatusUpdateAlertDialogContent": "Stai per spegnere {pumpName}",
+  "alertDialogCancel": "Annulla",
+  "alertDialogConfirm": "Conferma",
+  "pumpOnStatusDialogConfirmButtonTitle": "Accendi",
+  "pumpOffStatusDialogConfirmButtonTitle": "Spegni",
+  "genericAlertDialogTitle": "Sei sicuro?"
 }

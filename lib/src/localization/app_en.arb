@@ -81,6 +81,31 @@
         "format": "Hm"
       }
     }
-  }
+  },
+  "pumpOnStatusUpdateAlertDialogContent": "You're about to switch on {pumpName}",
+  "@pumpOnStatusUpdateAlertDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to switch on the pump",
+    "placeholders": {
+      "pumpName": {
+        "description": "The name of the pump",
+        "example": "Pump 1"
+      }
+    }
+  },
+  "pumpOffStatusUpdateAlertDialogContent": "You're about to switch off {pumpName}",
+  "@pumpOffStatusUpdateAlertDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to switch off the pump",
+    "placeholders": {
+      "pumpName": {
+        "description": "The name of the pump",
+        "example": "Pump 1"
+      }
+    }
+  },
+  "pumpOnStatusDialogConfirmButtonTitle": "Switch On",
+  "pumpOffStatusDialogConfirmButtonTitle": "Switch Off",
+  "alertDialogCancel": "Cancel",
+  "alertDialogConfirm": "Confirm",
+  "genericAlertDialogTitle": "Are you sure?"
   
 }
