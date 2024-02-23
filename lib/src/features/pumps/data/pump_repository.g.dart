@@ -21,7 +21,8 @@ final pumpRepositoryProvider = Provider<PumpRepository>.internal(
 );
 
 typedef PumpRepositoryRef = ProviderRef<PumpRepository>;
-String _$watchCompanyPumpsHash() => r'7f59f85b06053b9ce88adac33726d5c9c07079c3';
+String _$companyPumpsStreamHash() =>
+    r'52e3ec03da4b7b167d52edae64420f4c48eb763d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -44,27 +45,27 @@ class _SystemHash {
   }
 }
 
-/// See also [watchCompanyPumps].
-@ProviderFor(watchCompanyPumps)
-const watchCompanyPumpsProvider = WatchCompanyPumpsFamily();
+/// See also [companyPumpsStream].
+@ProviderFor(companyPumpsStream)
+const companyPumpsStreamProvider = CompanyPumpsStreamFamily();
 
-/// See also [watchCompanyPumps].
-class WatchCompanyPumpsFamily extends Family<AsyncValue<List<Pump>>> {
-  /// See also [watchCompanyPumps].
-  const WatchCompanyPumpsFamily();
+/// See also [companyPumpsStream].
+class CompanyPumpsStreamFamily extends Family<AsyncValue<List<Pump>>> {
+  /// See also [companyPumpsStream].
+  const CompanyPumpsStreamFamily();
 
-  /// See also [watchCompanyPumps].
-  WatchCompanyPumpsProvider call(
+  /// See also [companyPumpsStream].
+  CompanyPumpsStreamProvider call(
     String companyId,
   ) {
-    return WatchCompanyPumpsProvider(
+    return CompanyPumpsStreamProvider(
       companyId,
     );
   }
 
   @override
-  WatchCompanyPumpsProvider getProviderOverride(
-    covariant WatchCompanyPumpsProvider provider,
+  CompanyPumpsStreamProvider getProviderOverride(
+    covariant CompanyPumpsStreamProvider provider,
   ) {
     return call(
       provider.companyId,
@@ -83,32 +84,32 @@ class WatchCompanyPumpsFamily extends Family<AsyncValue<List<Pump>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'watchCompanyPumpsProvider';
+  String? get name => r'companyPumpsStreamProvider';
 }
 
-/// See also [watchCompanyPumps].
-class WatchCompanyPumpsProvider extends AutoDisposeStreamProvider<List<Pump>> {
-  /// See also [watchCompanyPumps].
-  WatchCompanyPumpsProvider(
+/// See also [companyPumpsStream].
+class CompanyPumpsStreamProvider extends AutoDisposeStreamProvider<List<Pump>> {
+  /// See also [companyPumpsStream].
+  CompanyPumpsStreamProvider(
     String companyId,
   ) : this._internal(
-          (ref) => watchCompanyPumps(
-            ref as WatchCompanyPumpsRef,
+          (ref) => companyPumpsStream(
+            ref as CompanyPumpsStreamRef,
             companyId,
           ),
-          from: watchCompanyPumpsProvider,
-          name: r'watchCompanyPumpsProvider',
+          from: companyPumpsStreamProvider,
+          name: r'companyPumpsStreamProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$watchCompanyPumpsHash,
-          dependencies: WatchCompanyPumpsFamily._dependencies,
+                  : _$companyPumpsStreamHash,
+          dependencies: CompanyPumpsStreamFamily._dependencies,
           allTransitiveDependencies:
-              WatchCompanyPumpsFamily._allTransitiveDependencies,
+              CompanyPumpsStreamFamily._allTransitiveDependencies,
           companyId: companyId,
         );
 
-  WatchCompanyPumpsProvider._internal(
+  CompanyPumpsStreamProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -122,12 +123,12 @@ class WatchCompanyPumpsProvider extends AutoDisposeStreamProvider<List<Pump>> {
 
   @override
   Override overrideWith(
-    Stream<List<Pump>> Function(WatchCompanyPumpsRef provider) create,
+    Stream<List<Pump>> Function(CompanyPumpsStreamRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: WatchCompanyPumpsProvider._internal(
-        (ref) => create(ref as WatchCompanyPumpsRef),
+      override: CompanyPumpsStreamProvider._internal(
+        (ref) => create(ref as CompanyPumpsStreamRef),
         from: from,
         name: null,
         dependencies: null,
@@ -140,12 +141,12 @@ class WatchCompanyPumpsProvider extends AutoDisposeStreamProvider<List<Pump>> {
 
   @override
   AutoDisposeStreamProviderElement<List<Pump>> createElement() {
-    return _WatchCompanyPumpsProviderElement(this);
+    return _CompanyPumpsStreamProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is WatchCompanyPumpsProvider && other.companyId == companyId;
+    return other is CompanyPumpsStreamProvider && other.companyId == companyId;
   }
 
   @override
@@ -157,43 +158,44 @@ class WatchCompanyPumpsProvider extends AutoDisposeStreamProvider<List<Pump>> {
   }
 }
 
-mixin WatchCompanyPumpsRef on AutoDisposeStreamProviderRef<List<Pump>> {
+mixin CompanyPumpsStreamRef on AutoDisposeStreamProviderRef<List<Pump>> {
   /// The parameter `companyId` of this provider.
   String get companyId;
 }
 
-class _WatchCompanyPumpsProviderElement
+class _CompanyPumpsStreamProviderElement
     extends AutoDisposeStreamProviderElement<List<Pump>>
-    with WatchCompanyPumpsRef {
-  _WatchCompanyPumpsProviderElement(super.provider);
+    with CompanyPumpsStreamRef {
+  _CompanyPumpsStreamProviderElement(super.provider);
 
   @override
-  String get companyId => (origin as WatchCompanyPumpsProvider).companyId;
+  String get companyId => (origin as CompanyPumpsStreamProvider).companyId;
 }
 
-String _$getCompanyPumpsHash() => r'7489fc308229fe164d163992a439fa5618432b51';
+String _$companyPumpsFutureHash() =>
+    r'e8e8dcf2a0699d950638ce8deab42463e73e90e3';
 
-/// See also [getCompanyPumps].
-@ProviderFor(getCompanyPumps)
-const getCompanyPumpsProvider = GetCompanyPumpsFamily();
+/// See also [companyPumpsFuture].
+@ProviderFor(companyPumpsFuture)
+const companyPumpsFutureProvider = CompanyPumpsFutureFamily();
 
-/// See also [getCompanyPumps].
-class GetCompanyPumpsFamily extends Family<AsyncValue<List<Pump>>> {
-  /// See also [getCompanyPumps].
-  const GetCompanyPumpsFamily();
+/// See also [companyPumpsFuture].
+class CompanyPumpsFutureFamily extends Family<AsyncValue<List<Pump>>> {
+  /// See also [companyPumpsFuture].
+  const CompanyPumpsFutureFamily();
 
-  /// See also [getCompanyPumps].
-  GetCompanyPumpsProvider call(
+  /// See also [companyPumpsFuture].
+  CompanyPumpsFutureProvider call(
     String companyId,
   ) {
-    return GetCompanyPumpsProvider(
+    return CompanyPumpsFutureProvider(
       companyId,
     );
   }
 
   @override
-  GetCompanyPumpsProvider getProviderOverride(
-    covariant GetCompanyPumpsProvider provider,
+  CompanyPumpsFutureProvider getProviderOverride(
+    covariant CompanyPumpsFutureProvider provider,
   ) {
     return call(
       provider.companyId,
@@ -212,32 +214,32 @@ class GetCompanyPumpsFamily extends Family<AsyncValue<List<Pump>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'getCompanyPumpsProvider';
+  String? get name => r'companyPumpsFutureProvider';
 }
 
-/// See also [getCompanyPumps].
-class GetCompanyPumpsProvider extends AutoDisposeFutureProvider<List<Pump>> {
-  /// See also [getCompanyPumps].
-  GetCompanyPumpsProvider(
+/// See also [companyPumpsFuture].
+class CompanyPumpsFutureProvider extends AutoDisposeFutureProvider<List<Pump>> {
+  /// See also [companyPumpsFuture].
+  CompanyPumpsFutureProvider(
     String companyId,
   ) : this._internal(
-          (ref) => getCompanyPumps(
-            ref as GetCompanyPumpsRef,
+          (ref) => companyPumpsFuture(
+            ref as CompanyPumpsFutureRef,
             companyId,
           ),
-          from: getCompanyPumpsProvider,
-          name: r'getCompanyPumpsProvider',
+          from: companyPumpsFutureProvider,
+          name: r'companyPumpsFutureProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$getCompanyPumpsHash,
-          dependencies: GetCompanyPumpsFamily._dependencies,
+                  : _$companyPumpsFutureHash,
+          dependencies: CompanyPumpsFutureFamily._dependencies,
           allTransitiveDependencies:
-              GetCompanyPumpsFamily._allTransitiveDependencies,
+              CompanyPumpsFutureFamily._allTransitiveDependencies,
           companyId: companyId,
         );
 
-  GetCompanyPumpsProvider._internal(
+  CompanyPumpsFutureProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -251,12 +253,12 @@ class GetCompanyPumpsProvider extends AutoDisposeFutureProvider<List<Pump>> {
 
   @override
   Override overrideWith(
-    FutureOr<List<Pump>> Function(GetCompanyPumpsRef provider) create,
+    FutureOr<List<Pump>> Function(CompanyPumpsFutureRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: GetCompanyPumpsProvider._internal(
-        (ref) => create(ref as GetCompanyPumpsRef),
+      override: CompanyPumpsFutureProvider._internal(
+        (ref) => create(ref as CompanyPumpsFutureRef),
         from: from,
         name: null,
         dependencies: null,
@@ -269,12 +271,12 @@ class GetCompanyPumpsProvider extends AutoDisposeFutureProvider<List<Pump>> {
 
   @override
   AutoDisposeFutureProviderElement<List<Pump>> createElement() {
-    return _GetCompanyPumpsProviderElement(this);
+    return _CompanyPumpsFutureProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is GetCompanyPumpsProvider && other.companyId == companyId;
+    return other is CompanyPumpsFutureProvider && other.companyId == companyId;
   }
 
   @override
@@ -286,43 +288,44 @@ class GetCompanyPumpsProvider extends AutoDisposeFutureProvider<List<Pump>> {
   }
 }
 
-mixin GetCompanyPumpsRef on AutoDisposeFutureProviderRef<List<Pump>> {
+mixin CompanyPumpsFutureRef on AutoDisposeFutureProviderRef<List<Pump>> {
   /// The parameter `companyId` of this provider.
   String get companyId;
 }
 
-class _GetCompanyPumpsProviderElement
+class _CompanyPumpsFutureProviderElement
     extends AutoDisposeFutureProviderElement<List<Pump>>
-    with GetCompanyPumpsRef {
-  _GetCompanyPumpsProviderElement(super.provider);
+    with CompanyPumpsFutureRef {
+  _CompanyPumpsFutureProviderElement(super.provider);
 
   @override
-  String get companyId => (origin as GetCompanyPumpsProvider).companyId;
+  String get companyId => (origin as CompanyPumpsFutureProvider).companyId;
 }
 
-String _$watchPumpStatusHash() => r'8454dd43643bc3992e072f9ed76d28cb2db67d4f';
+String _$companyPumpStatusStreamHash() =>
+    r'ab303ac54f654cd2fb36d0cfea33fab2314b8545';
 
-/// See also [watchPumpStatus].
-@ProviderFor(watchPumpStatus)
-const watchPumpStatusProvider = WatchPumpStatusFamily();
+/// See also [companyPumpStatusStream].
+@ProviderFor(companyPumpStatusStream)
+const companyPumpStatusStreamProvider = CompanyPumpStatusStreamFamily();
 
-/// See also [watchPumpStatus].
-class WatchPumpStatusFamily extends Family<AsyncValue<bool>> {
-  /// See also [watchPumpStatus].
-  const WatchPumpStatusFamily();
+/// See also [companyPumpStatusStream].
+class CompanyPumpStatusStreamFamily extends Family<AsyncValue<bool>> {
+  /// See also [companyPumpStatusStream].
+  const CompanyPumpStatusStreamFamily();
 
-  /// See also [watchPumpStatus].
-  WatchPumpStatusProvider call(
+  /// See also [companyPumpStatusStream].
+  CompanyPumpStatusStreamProvider call(
     String pumpId,
   ) {
-    return WatchPumpStatusProvider(
+    return CompanyPumpStatusStreamProvider(
       pumpId,
     );
   }
 
   @override
-  WatchPumpStatusProvider getProviderOverride(
-    covariant WatchPumpStatusProvider provider,
+  CompanyPumpStatusStreamProvider getProviderOverride(
+    covariant CompanyPumpStatusStreamProvider provider,
   ) {
     return call(
       provider.pumpId,
@@ -341,32 +344,32 @@ class WatchPumpStatusFamily extends Family<AsyncValue<bool>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'watchPumpStatusProvider';
+  String? get name => r'companyPumpStatusStreamProvider';
 }
 
-/// See also [watchPumpStatus].
-class WatchPumpStatusProvider extends AutoDisposeStreamProvider<bool> {
-  /// See also [watchPumpStatus].
-  WatchPumpStatusProvider(
+/// See also [companyPumpStatusStream].
+class CompanyPumpStatusStreamProvider extends AutoDisposeStreamProvider<bool> {
+  /// See also [companyPumpStatusStream].
+  CompanyPumpStatusStreamProvider(
     String pumpId,
   ) : this._internal(
-          (ref) => watchPumpStatus(
-            ref as WatchPumpStatusRef,
+          (ref) => companyPumpStatusStream(
+            ref as CompanyPumpStatusStreamRef,
             pumpId,
           ),
-          from: watchPumpStatusProvider,
-          name: r'watchPumpStatusProvider',
+          from: companyPumpStatusStreamProvider,
+          name: r'companyPumpStatusStreamProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$watchPumpStatusHash,
-          dependencies: WatchPumpStatusFamily._dependencies,
+                  : _$companyPumpStatusStreamHash,
+          dependencies: CompanyPumpStatusStreamFamily._dependencies,
           allTransitiveDependencies:
-              WatchPumpStatusFamily._allTransitiveDependencies,
+              CompanyPumpStatusStreamFamily._allTransitiveDependencies,
           pumpId: pumpId,
         );
 
-  WatchPumpStatusProvider._internal(
+  CompanyPumpStatusStreamProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -380,12 +383,12 @@ class WatchPumpStatusProvider extends AutoDisposeStreamProvider<bool> {
 
   @override
   Override overrideWith(
-    Stream<bool> Function(WatchPumpStatusRef provider) create,
+    Stream<bool> Function(CompanyPumpStatusStreamRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: WatchPumpStatusProvider._internal(
-        (ref) => create(ref as WatchPumpStatusRef),
+      override: CompanyPumpStatusStreamProvider._internal(
+        (ref) => create(ref as CompanyPumpStatusStreamRef),
         from: from,
         name: null,
         dependencies: null,
@@ -398,12 +401,12 @@ class WatchPumpStatusProvider extends AutoDisposeStreamProvider<bool> {
 
   @override
   AutoDisposeStreamProviderElement<bool> createElement() {
-    return _WatchPumpStatusProviderElement(this);
+    return _CompanyPumpStatusStreamProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is WatchPumpStatusProvider && other.pumpId == pumpId;
+    return other is CompanyPumpStatusStreamProvider && other.pumpId == pumpId;
   }
 
   @override
@@ -415,17 +418,18 @@ class WatchPumpStatusProvider extends AutoDisposeStreamProvider<bool> {
   }
 }
 
-mixin WatchPumpStatusRef on AutoDisposeStreamProviderRef<bool> {
+mixin CompanyPumpStatusStreamRef on AutoDisposeStreamProviderRef<bool> {
   /// The parameter `pumpId` of this provider.
   String get pumpId;
 }
 
-class _WatchPumpStatusProviderElement
-    extends AutoDisposeStreamProviderElement<bool> with WatchPumpStatusRef {
-  _WatchPumpStatusProviderElement(super.provider);
+class _CompanyPumpStatusStreamProviderElement
+    extends AutoDisposeStreamProviderElement<bool>
+    with CompanyPumpStatusStreamRef {
+  _CompanyPumpStatusStreamProviderElement(super.provider);
 
   @override
-  String get pumpId => (origin as WatchPumpStatusProvider).pumpId;
+  String get pumpId => (origin as CompanyPumpStatusStreamProvider).pumpId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

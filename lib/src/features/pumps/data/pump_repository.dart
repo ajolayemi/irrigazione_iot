@@ -19,19 +19,19 @@ PumpRepository pumpRepository(PumpRepositoryRef ref) {
 }
 
 @riverpod
-Stream<List<Pump>> watchCompanyPumps(WatchCompanyPumpsRef ref, String companyId) {
+Stream<List<Pump>> companyPumpsStream(CompanyPumpsStreamRef ref, String companyId) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   return pumpRepository.watchCompanyPumps(companyId);
 }
 
 @riverpod
-Future<List<Pump>> getCompanyPumps(GetCompanyPumpsRef ref, String companyId) {
+Future<List<Pump>> companyPumpsFuture(CompanyPumpsFutureRef ref, String companyId) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   return pumpRepository.getCompanyPumps(companyId);
 }
 
 @riverpod
-Stream<bool> watchPumpStatus(WatchPumpStatusRef ref, String pumpId) {
+Stream<bool> companyPumpStatusStream(CompanyPumpStatusStreamRef ref, String pumpId) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   return pumpRepository.watchPumpStatus(pumpId);
 }
