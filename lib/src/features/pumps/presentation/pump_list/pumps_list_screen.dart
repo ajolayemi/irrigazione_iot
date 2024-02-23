@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/domain/pump_status.dart';
 import 'package:irrigazione_iot/src/features/user_companies/application/user_companies_service.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
@@ -18,6 +20,7 @@ class PumpListScreen extends ConsumerWidget {
     final companyPumps = ref.watch(companyPumpsStreamProvider(
       currentSelectedCompanyByUser?.id ?? '',
     ));
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -45,37 +48,38 @@ class PumpListScreen extends ConsumerWidget {
                         onTap: () {
                           // todo navigate to pump details
                         },
-                        child: ListTile(
-                          title: Text(pump.name),
-                          subtitleTextStyle: context.textTheme.titleSmall?.copyWith(
-                            color: Colors.grey
-                          
-                          ),
-                          subtitle: Text(
-                            context.loc.pumpStatusLastUpdate(
-                              DateTime.now(),
-                              DateTime.now(),
-                            ),
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Consumer(
-                                builder: (context, ref, child) {
-                                  final pumpStatus = ref
-                                      .watch(companyPumpStatusStreamProvider(
-                                          pump.id))
-                                      .value;
-                                  return Switch.adaptive(
-                                    value: pumpStatus ?? false,
+                        child: Consumer(
+                          builder: (context, ref, child) {
+                            final pumpStatus = ref
+                                .watch(pumpStatusStreamProvider(pump.id))
+                                .value;
+
+                            final valueForSwitch =
+                                pumpStatus?.translateStatusToBoolean(
+                                    pump, pumpStatus.status);
+                            return ListTile(
+                              title: Text(pump.name),
+                              subtitleTextStyle: context.textTheme.titleSmall
+                                  ?.copyWith(color: Colors.grey),
+                              subtitle: Text(
+                                context.loc.pumpStatusLastUpdate(
+                                  pumpStatus?.lastUpdated ?? DateTime.now(),
+                                  pumpStatus?.lastUpdated ?? DateTime.now(),
+                                ),
+                              ),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Switch.adaptive(
+                                    value: valueForSwitch ?? false,
                                     onChanged: (value) {
                                       // todo implement logic to update pump status
                                     },
-                                  );
-                                },
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            );
+                          },
                         ),
                       ));
                 },
