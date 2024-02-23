@@ -9,6 +9,7 @@ import 'package:irrigazione_iot/src/features/pumps/presentation/pump_list/pump_s
 import 'package:irrigazione_iot/src/features/user_companies/application/user_companies_service.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
@@ -121,12 +122,30 @@ class PumpStatusSwitchWidget extends ConsumerWidget {
     return state.isLoading
         ? const CircularProgressIndicator.adaptive()
         : Switch.adaptive(
-          key: pumpStatusSwitchKey(pump),
+            key: pumpStatusSwitchKey(pump),
             value: valueForSwitch ?? false,
             onChanged: state.isLoading
                 ? null
-                : (value) => ref
-                    .read(pumpStatusSwitchControllerProvider.notifier)
-                    .toggleStatus(pump, value));
+                : (value) async {
+                    final update = await showAlertDialog(
+                      context: context,
+                      content: value
+                          ? context.loc
+                              .pumpOnStatusUpdateAlertDialogContent(pump.name)
+                          : context.loc
+                              .pumpOffStatusUpdateAlertDialogContent(pump.name),
+                      title: context.loc.genericAlertDialogTitle,
+                      cancelActionText: context.loc.alertDialogCancel,
+                      defaultActionText: value
+                          ? context.loc.pumpOnStatusDialogConfirmButtonTitle
+                          : context.loc.pumpOffStatusDialogConfirmButtonTitle,
+                    );
+                    if (update == true) {
+                      ref
+                          .read(pumpStatusSwitchControllerProvider.notifier)
+                          .toggleStatus(pump, value);
+                    }
+                  },
+          );
   }
 }
