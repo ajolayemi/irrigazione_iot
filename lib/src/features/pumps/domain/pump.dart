@@ -93,3 +93,10 @@ class Pump extends Equatable {
 
 
 }
+
+
+extension PumpX on Pump {
+  String getStatusCommand(bool status) {
+    return status ? commandForOn : commandForOff;
+  }
+}
