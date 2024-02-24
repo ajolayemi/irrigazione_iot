@@ -74,12 +74,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/sign-in',
         name: AppRoute.signIn.name,
-        builder: (context, state) => const SignInScreen(),
+        pageBuilder: (context, state) =>
+            const NoTransitionPage(child: SignInScreen()),
       ),
       GoRoute(
         path: '/companies-list-grid',
         name: AppRoute.companiesListGrid.name,
-        builder: (context, state) => const UserCompaniesListScreen(),
+        pageBuilder: (context, state) =>
+            const NoTransitionPage(child: UserCompaniesListScreen()),
       ),
       // Stateful navigation based on:
       // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
@@ -97,7 +99,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 name: AppRoute.home.name,
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: DashboardScreen(),
-                ), // TODO: replace with your home page
+                ), 
               ),
             ],
           ),
@@ -131,7 +133,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: ':pumpId',
                     name: AppRoute.pumpDetails.name,
-                    pageBuilder: (context, state) => NoTransitionPage(
+                    pageBuilder: (context, state) => MaterialPage(
+                      fullscreenDialog: true,
                       child: PumpDetailsScreen(
                         pumpId: state.pathParameters['pumpId'] ?? '',
                       ),
