@@ -9,6 +9,7 @@ import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump_status.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_list/pump_status_switch_controller.dart';
 import 'package:irrigazione_iot/src/features/user_companies/application/user_companies_service.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
@@ -21,10 +22,10 @@ class PumpListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ref.listen(
-    //   pumpStatusSwitchControllerProvider,
-    //   (_, state) => state.showAlertDialogOnError(context),
-    // );
+    ref.listen(
+      pumpStatusSwitchControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
     final currentSelectedCompanyByUser =
         ref.watch(currentTappedCompanyProvider).value;
     final companyPumps = ref.watch(companyPumpsStreamProvider(
@@ -39,7 +40,7 @@ class PumpListScreen extends ConsumerWidget {
               AppBarIconButton(
                 onPressed: () => showNotImplementedAlertDialog(
                   context: context,
-                ), // todo add logic to add new p,
+                ), // todo add logic to add new pump
                 icon: Icons.add,
               )
             ],
@@ -78,20 +79,23 @@ class PumpStatusTileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
-    // todo move the whole logic to replace switch with progress indicator here
     final pumpStatus = ref.watch(pumpStatusStreamProvider(pump.id)).value;
-    final aPumpIsCurrentlyLoading =
-        ref.watch(pumpStatusSwitchControllerProvider.select(
-      (value) => value.aPumpIsLoading(),
-    ));
+    
+    final loading = ref.watch(pumpStatusSwitchControllerProvider
+        .select((state) => (state.value?.stateWithIdIsLoading(pump.id) ?? false) && !state.hasError ));
+
+    final aPumpIsCurrentlyLoading = ref.watch(
+        pumpStatusSwitchControllerProvider.select((state) =>
+            (state.value?.isLoading ?? false) && !state.hasError));
+
     return ResponsiveCenter(
       maxContentWidth: Breakpoint.tablet,
       child: InkWell(
-        onTap: aPumpIsCurrentlyLoading ? null : () =>
-            context.goNamed(AppRoute.pumpDetails.name, pathParameters: {
-          'pumpId': pump.id,
-        }),
+        onTap: aPumpIsCurrentlyLoading
+            ? null
+            : () => context.goNamed(AppRoute.pumpDetails.name, pathParameters: {
+                  'pumpId': pump.id,
+                }),
         child: ListTile(
           title: Text(pump.name),
           subtitleTextStyle:
@@ -102,7 +106,13 @@ class PumpStatusTileWidget extends ConsumerWidget {
               pumpStatus?.lastUpdated ?? DateTime.now(),
             ),
           ),
-          trailing: PumpStatusSwitchWidget(pump: pump, pumpStatus: pumpStatus),
+          trailing: loading
+              ? const CircularProgressIndicator.adaptive()
+              : PumpStatusSwitchWidget(
+                  pump: pump,
+                  pumpStatus: pumpStatus,
+                  deactivate: aPumpIsCurrentlyLoading,
+                ),
         ),
       ),
     );
@@ -110,11 +120,16 @@ class PumpStatusTileWidget extends ConsumerWidget {
 }
 
 class PumpStatusSwitchWidget extends ConsumerWidget {
-  const PumpStatusSwitchWidget(
-      {super.key, required this.pump, this.pumpStatus});
+  const PumpStatusSwitchWidget({
+    super.key,
+    required this.pump,
+    this.pumpStatus,
+    required this.deactivate,
+  });
 
   final Pump pump;
   final PumpStatus? pumpStatus;
+  final bool deactivate;
 
   // * Keys for testing using find.byKey
   static Key pumpStatusSwitchKey(Pump pump) =>
@@ -122,43 +137,34 @@ class PumpStatusSwitchWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final loading = ref.watch(pumpStatusSwitchControllerProvider.select(
-      (value) => value.isLoading(pump.id),
-    ));
-    final aPumpIsCurrentlyLoading =
-        ref.watch(pumpStatusSwitchControllerProvider.select(
-      (value) => value.aPumpIsLoading(),
-    ));
     final valueForSwitch = pumpStatus?.translateStatusToBoolean(
       pump,
       pumpStatus?.status ?? '',
     );
-    return loading
-        ? const CircularProgressIndicator.adaptive()
-        : Switch.adaptive(
-            key: pumpStatusSwitchKey(pump),
-            value: valueForSwitch ?? false,
-            onChanged: aPumpIsCurrentlyLoading
-                ? null
-                : (value) async {
-                    final update = await showAlertDialog(
-                      context: context,
-                      content: value
-                          ? context.loc
-                              .pumpOnStatusUpdateAlertDialogContent(pump.name)
-                          : context.loc
-                              .pumpOffStatusUpdateAlertDialogContent(pump.name),
-                      title: context.loc.genericAlertDialogTitle,
-                      cancelActionText: context.loc.alertDialogCancel,
-                      defaultActionText: value
-                          ? context.loc.pumpOnStatusDialogConfirmButtonTitle
-                          : context.loc.pumpOffStatusDialogConfirmButtonTitle,
-                    );
-                    if (update == true) {
-                      ref
-                          .read(pumpStatusSwitchControllerProvider.notifier)
-                          .toggleStatus(pump, value);
-                    }
-                  });
+    return Switch.adaptive(
+        key: pumpStatusSwitchKey(pump),
+        value: valueForSwitch ?? false,
+        onChanged: deactivate
+            ? null
+            : (value) async {
+                final update = await showAlertDialog(
+                  context: context,
+                  content: value
+                      ? context.loc
+                          .pumpOnStatusUpdateAlertDialogContent(pump.name)
+                      : context.loc
+                          .pumpOffStatusUpdateAlertDialogContent(pump.name),
+                  title: context.loc.genericAlertDialogTitle,
+                  cancelActionText: context.loc.alertDialogCancel,
+                  defaultActionText: value
+                      ? context.loc.pumpOnStatusDialogConfirmButtonTitle
+                      : context.loc.pumpOffStatusDialogConfirmButtonTitle,
+                );
+                if (update == true) {
+                  ref
+                      .read(pumpStatusSwitchControllerProvider.notifier)
+                      .toggleStatus(pump, value);
+                }
+              });
   }
 }

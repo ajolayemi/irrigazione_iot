@@ -1,74 +1,37 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
 
-class PumpStatusSwitchControllerState {
-  const PumpStatusSwitchControllerState({required this.loadingStates});
+part 'pump_status_switch_controller.g.dart';
 
-  final Map<String, bool> loadingStates;
 
-  bool isLoading(String pumpId) => loadingStates[pumpId] ?? false;
-
-  bool aPumpIsLoading() {
-    return loadingStates.values.any((element) => element);
+@riverpod
+class PumpStatusSwitchController extends _$PumpStatusSwitchController {
+  @override
+  FutureOr<CustomControllerState> build() {
+    const initValue = CustomControllerState(loadingStates: {});
+    state = const AsyncData(initValue);
+    return initValue;
   }
 
-  // Helper methods to manipulate the loading states
-  PumpStatusSwitchControllerState setLoading(String pumpId, bool isLoading) {
-    return PumpStatusSwitchControllerState(
-      loadingStates: Map.from(loadingStates)..[pumpId] = isLoading,
-    );
-  }
-}
-
-class PumpLoadingStateNotifier
-    extends StateNotifier<PumpStatusSwitchControllerState> {
-  PumpLoadingStateNotifier(this.ref)
-      : super(const PumpStatusSwitchControllerState(loadingStates: {}));
-
-  final Ref ref;
   void setLoading(String pumpId, bool isLoading) {
-    state = state.setLoading(pumpId, isLoading);
-  }
-
-  bool isLoading(String pumpId) {
-    return state.isLoading(pumpId);
+    state = AsyncData(state.value!.setLoading(pumpId, isLoading));
   }
 
   Future<void> toggleStatus(Pump pump, bool status) async {
-    state = state.setLoading(pump.id, true);
+    setLoading(pump.id, true);
+    state = const AsyncLoading<CustomControllerState>().copyWithPrevious(state);
     final statusCommand = pump.getStatusCommand(status);
-    final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
-
-    try {
-      await pumpStatusRepository.togglePumpStatus(pump.id, statusCommand);
-    } finally {
-      state = state.setLoading(pump.id, false);
+    final pumpStatusRepository = ref.read(pumpStatusRepositoryProvider);
+    final value = await AsyncValue.guard(
+        () => pumpStatusRepository.togglePumpStatus(pump.id, statusCommand));
+    if (value.hasError) {
+      state = AsyncError(value.error!, StackTrace.current);
+    } else {
+      setLoading(pump.id, false);
     }
   }
 }
-
-final pumpStatusSwitchControllerProvider = StateNotifierProvider.autoDispose<
-    PumpLoadingStateNotifier, PumpStatusSwitchControllerState>((ref) {
-  return PumpLoadingStateNotifier(ref);
-});
-
-
-
-// // todo remove this
-
-// @riverpod
-// class PumpStatusSwitchController extends _$PumpStatusSwitchController {
-//   @override
-//   FutureOr<void> build() {
-//     //
-//   }
-
-//   Future<void> toggleStatus(Pump pump, bool status) async {
-//     state = const AsyncLoading();
-//     final statusCommand = pump.getStatusCommand(status);
-//     final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
-//     state = await AsyncValue.guard(
-//         () => pumpStatusRepository.togglePumpStatus(pump.id, statusCommand));
-//   }
-// }
