@@ -9,7 +9,6 @@ import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump_status.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_list/pump_status_switch_controller.dart';
 import 'package:irrigazione_iot/src/features/user_companies/application/user_companies_service.dart';
-import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
@@ -22,10 +21,10 @@ class PumpListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(
-      pumpStatusSwitchControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+    // ref.listen(
+    //   pumpStatusSwitchControllerProvider,
+    //   (_, state) => state.showAlertDialogOnError(context),
+    // );
     final currentSelectedCompanyByUser =
         ref.watch(currentTappedCompanyProvider).value;
     final companyPumps = ref.watch(companyPumpsStreamProvider(
@@ -117,17 +116,23 @@ class PumpStatusSwitchWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(pumpStatusSwitchControllerProvider);
+    final loading = ref.watch(pumpStatusSwitchControllerProvider.select(
+      (value) => value.isLoading(pump.id),
+    ));
+    final aPumpIsCurrentlyLoading =
+        ref.watch(pumpStatusSwitchControllerProvider.select(
+      (value) => value.aPumpIsLoading(),
+    ));
     final valueForSwitch = pumpStatus?.translateStatusToBoolean(
       pump,
       pumpStatus?.status ?? '',
     );
-    return state.isLoading
+    return loading
         ? const CircularProgressIndicator.adaptive()
         : Switch.adaptive(
             key: pumpStatusSwitchKey(pump),
             value: valueForSwitch ?? false,
-            onChanged: state.isLoading
+            onChanged: aPumpIsCurrentlyLoading
                 ? null
                 : (value) async {
                     final update = await showAlertDialog(
