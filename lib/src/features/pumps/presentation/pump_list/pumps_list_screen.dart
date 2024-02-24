@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
@@ -10,6 +12,7 @@ import 'package:irrigazione_iot/src/features/user_companies/application/user_com
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
@@ -34,12 +37,11 @@ class PumpListScreen extends ConsumerWidget {
           AppSliverBar(
             title: context.loc.pumpPageTitle,
             actions: [
-              IconButton.filled(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.add,
-                  size: 30,
-                ),
+              AppBarIconButton(
+                onPressed: () => showNotImplementedAlertDialog(
+                  context: context,
+                ), // todo add logic to add new p,
+                icon: Icons.add,
               )
             ],
           ),
@@ -81,9 +83,10 @@ class PumpStatusTileWidget extends ConsumerWidget {
     return ResponsiveCenter(
       maxContentWidth: Breakpoint.tablet,
       child: InkWell(
-        onTap: () {
-          // todo navigate to pump details
-        },
+        onTap: () =>
+            context.goNamed(AppRoute.pumpDetails.name, pathParameters: {
+          'pumpId': pump.id,
+        }),
         child: ListTile(
           title: Text(pump.name),
           subtitleTextStyle:
@@ -145,7 +148,6 @@ class PumpStatusSwitchWidget extends ConsumerWidget {
                           .read(pumpStatusSwitchControllerProvider.notifier)
                           .toggleStatus(pump, value);
                     }
-                  },
-          );
+                  });
   }
 }
