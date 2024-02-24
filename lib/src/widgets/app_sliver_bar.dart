@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 class AppSliverBar extends StatelessWidget {
   const AppSliverBar({
@@ -23,7 +24,12 @@ class AppSliverBar extends StatelessWidget {
           vertical: Sizes.p8,
           horizontal: Sizes.p16,
         ),
-        title: Text(title),
+        title: Text(
+          title,
+          style: context.textTheme.titleLarge?.copyWith(
+            color: Colors.black,
+          ),
+        ),
       ),
       actions: actions,
     );
