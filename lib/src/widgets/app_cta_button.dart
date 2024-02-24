@@ -37,7 +37,7 @@ class CTAButton extends StatelessWidget {
     return SizedBox(
       height: Sizes.p48,
       child: buttonType == ButtonType.primary
-          ? ElevatedButton(onPressed: onPressed, child: content)
+          ? FilledButton(onPressed: onPressed, child: content)
           : OutlinedButton(
               onPressed: onPressed,
               child: content,
