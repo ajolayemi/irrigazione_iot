@@ -78,11 +78,17 @@ class PumpStatusTileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    // todo move the whole logic to replace switch with progress indicator here
     final pumpStatus = ref.watch(pumpStatusStreamProvider(pump.id)).value;
+    final aPumpIsCurrentlyLoading =
+        ref.watch(pumpStatusSwitchControllerProvider.select(
+      (value) => value.aPumpIsLoading(),
+    ));
     return ResponsiveCenter(
       maxContentWidth: Breakpoint.tablet,
       child: InkWell(
-        onTap: () =>
+        onTap: aPumpIsCurrentlyLoading ? null : () =>
             context.goNamed(AppRoute.pumpDetails.name, pathParameters: {
           'pumpId': pump.id,
         }),
