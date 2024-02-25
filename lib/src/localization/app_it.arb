@@ -36,5 +36,7 @@
   "pumpOnStatusDialogConfirmButtonTitle": "Accendi",
   "pumpOffStatusDialogConfirmButtonTitle": "Spegni",
   "genericAlertDialogTitle": "Sei sicuro?",
-  "pumpStatusListTileTitle": "Stato attuale"
+  "pumpStatusListTileTitle": "Stato attuale",
+  "noCompanyFoundForUser": "Ciao {username}!\nNon ci risultano aziende associate al tuo account nel nostro database",
+  "logInWithAnotherAccount": "Cambia account"
 }

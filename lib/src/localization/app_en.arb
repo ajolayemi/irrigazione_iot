@@ -103,5 +103,16 @@
   "alertDialogCancel": "Cancel",
   "alertDialogConfirm": "Confirm",
   "genericAlertDialogTitle": "Are you sure?",
-  "pumpStatusListTileTitle": "Current status"
+  "pumpStatusListTileTitle": "Current status",
+  "noCompanyFoundForUser": "Hello {username}!\nThere is no company associated with your account in our database",
+  "@noCompanyFoundForUser": {
+    "description": "The message that is displayed when the user doesn't have a company associated with their account",
+    "placeholders": {
+      "username": {
+        "description": "The username of the user",
+        "example": "John Doe"
+      }
+    }
+  },
+  "logInWithAnotherAccount": "Change Account"
 }
