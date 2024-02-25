@@ -6,7 +6,7 @@ class AppSliverBar extends StatelessWidget {
   const AppSliverBar({
     super.key,
     required this.title,
-    required this.actions,
+    this.actions,
   });
 
   final String title;
