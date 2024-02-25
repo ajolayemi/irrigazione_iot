@@ -7,3 +7,8 @@ part 'date_formatter.g.dart';
 DateFormat dateFormat(DateFormatRef ref) {
   return DateFormat.yMMMd();
 }
+
+@riverpod
+DateFormat dateFormatWithTime(DateFormatWithTimeRef ref) {
+  return DateFormat.yMMMd().add_Hm();
+}

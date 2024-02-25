@@ -20,5 +20,21 @@ final dateFormatProvider = AutoDisposeProvider<DateFormat>.internal(
 );
 
 typedef DateFormatRef = AutoDisposeProviderRef<DateFormat>;
+String _$dateFormatWithTimeHash() =>
+    r'703a4a6ef9d60cdb1013d0030b0dd4cfb50b3c1b';
+
+/// See also [dateFormatWithTime].
+@ProviderFor(dateFormatWithTime)
+final dateFormatWithTimeProvider = AutoDisposeProvider<DateFormat>.internal(
+  dateFormatWithTime,
+  name: r'dateFormatWithTimeProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$dateFormatWithTimeHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef DateFormatWithTimeRef = AutoDisposeProviderRef<DateFormat>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
