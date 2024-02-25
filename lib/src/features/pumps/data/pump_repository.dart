@@ -8,6 +8,8 @@ part 'pump_repository.g.dart';
 abstract class PumpRepository {
   Stream<List<Pump>> watchCompanyPumps(String companyId);
   Future<List<Pump>> getCompanyPumps(String companyId);
+  Stream<Pump?> watchPump(String pumpId);
+  Future<Pump?> getPump(String pumpId);
 }
 
 @Riverpod(keepAlive: true)
@@ -36,4 +38,22 @@ Future<List<Pump>> companyPumpsFuture(
       ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return Future.value([]);
   return pumpRepository.getCompanyPumps(currentSelectedCompanyByUser.id);
+}
+
+@riverpod
+Stream<Pump?> pumpStream(
+  PumpStreamRef ref,
+  String pumpId,
+) {
+  final pumpRepository = ref.watch(pumpRepositoryProvider);
+  return pumpRepository.watchPump(pumpId);
+}
+
+@riverpod
+Future<Pump?> pumpFuture(
+  PumpFutureRef ref,
+  String pumpId,
+) {
+  final pumpRepository = ref.watch(pumpRepositoryProvider);
+  return pumpRepository.getPump(pumpId);
 }
