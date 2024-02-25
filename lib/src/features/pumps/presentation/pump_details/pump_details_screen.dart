@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_details_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
-import 'package:irrigazione_iot/src/utils/date_formatter.dart';
+import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_sliver_list.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 class PumpDetailsScreen extends ConsumerWidget {
   const PumpDetailsScreen({
@@ -20,7 +19,6 @@ class PumpDetailsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pumpDetails = ref.watch(pumpDetailsStreamProvider(pumpId));
-    final dateFormat = ref.watch(dateFormatProvider);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -36,28 +34,12 @@ class PumpDetailsScreen extends ConsumerWidget {
               ) // todo add logic to edit existing pump details
             ],
           ),
-
-          
           AsyncValueSliverWidget(
               value: pumpDetails,
               data: (details) {
-                final lastDispensation =
-                    details?.lastDispensation ?? DateTime.now();
-                return SliverList(
-                  delegate: SliverChildListDelegate.fixed([
-                    ResponsiveCenter(
-                      child: ListTile(
-                        title: const Text('Total Litres Dispensed'),
-                        subtitle: Text('${details?.totalLitresDispensed}'),
-                      ),
-                    ),
-                    ResponsiveCenter(
-                      child: ListTile(
-                        title: const Text('Last Dispensation'),
-                        subtitle: Text(dateFormat.format(lastDispensation)),
-                      ),
-                    ),
-                  ]),
+                if (details == null) return const SliverToBoxAdapter();
+                return PumpDetailsSliverList(
+                  pumpDetails: details,
                 );
               }),
         ],
@@ -65,3 +47,5 @@ class PumpDetailsScreen extends ConsumerWidget {
     );
   }
 }
+
+
