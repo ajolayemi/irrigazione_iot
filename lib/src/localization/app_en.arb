@@ -68,17 +68,13 @@
       }
     }
   },
-  "pumpStatusLastUpdate": "last update at: {date} {time}",
-  "@pumpStatusLastUpdate": {
-    "description": "The last time a pump status was updated",
+  "pumpStatusLastSwitchedOn": "last dispensation: {when}",
+  "@pumpStatusLastSwitchedOn": {
+    "description": "The last time a pump status was switched on",
     "placeholders": {
-      "date": {
-        "type": "DateTime",
-        "format": "yMMMd"
-      },
-      "time": {
-        "type": "DateTime",
-        "format": "Hm"
+      "when": {
+        "type": "String",
+        "example": "Feb 20, 2020 10:00"
       }
     }
   },
@@ -106,6 +102,6 @@
   "pumpOffStatusDialogConfirmButtonTitle": "Switch Off",
   "alertDialogCancel": "Cancel",
   "alertDialogConfirm": "Confirm",
-  "genericAlertDialogTitle": "Are you sure?"
-  
+  "genericAlertDialogTitle": "Are you sure?",
+  "pumpStatusListTileTitle": "Current status"
 }
