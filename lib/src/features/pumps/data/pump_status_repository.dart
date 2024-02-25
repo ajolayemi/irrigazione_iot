@@ -42,9 +42,8 @@ Future<void> pumpStatusToggle(
 @riverpod
 Stream<DateTime?> lastDispensationStream(
     LastDispensationStreamRef ref, String pumpId) {
-  final availablePumps = ref.watch(companyPumpsStreamProvider).value;
-  if (availablePumps == null) return const Stream.empty();
-  final pump = availablePumps.firstWhere((pump) => pump.id == pumpId);
+  final pump = ref.watch(pumpStreamProvider(pumpId)).value;
+  if (pump == null) return const Stream.empty();
   final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
   return pumpStatusRepository.watchLastDispensation(pump);
 }
@@ -52,9 +51,8 @@ Stream<DateTime?> lastDispensationStream(
 @riverpod
 Future<DateTime?> lastDispensationFuture(
     LastDispensationFutureRef ref, String pumpId) {
-  final availablePumps = ref.watch(companyPumpsStreamProvider).value;
-  if (availablePumps == null) return Future.value(null);
-  final pump = availablePumps.firstWhere((pump) => pump.id == pumpId);
+  final pump = ref.watch(pumpFutureProvider(pumpId)).value;
+  if (pump == null) return Future.value(null);
   final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
   return pumpStatusRepository.getLastDispensation(pump);
 }

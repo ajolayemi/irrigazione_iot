@@ -447,7 +447,7 @@ class _PumpStatusToggleProviderElement
 }
 
 String _$lastDispensationStreamHash() =>
-    r'7916dc0d791b7024e58983e7b56b550329d7f82b';
+    r'3d726b4f5c6d8b57f62ac872e6ef356e0ae1ca45';
 
 /// See also [lastDispensationStream].
 @ProviderFor(lastDispensationStream)
@@ -578,7 +578,7 @@ class _LastDispensationStreamProviderElement
 }
 
 String _$lastDispensationFutureHash() =>
-    r'4e0a72b6d9627cbdfcc9e92107166b935a910f20';
+    r'a118b2f820578c3cf14b47e90469f1129cfd3a88';
 
 /// See also [lastDispensationFuture].
 @ProviderFor(lastDispensationFuture)
