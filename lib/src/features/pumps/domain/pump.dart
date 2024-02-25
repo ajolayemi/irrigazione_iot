@@ -16,18 +16,33 @@ class Pump extends Equatable {
     required this.companyId,
   });
 
+  const Pump.empty()
+      : id = '',
+        name = '',
+        capacityInVolume = 0,
+        consumeRateInKw = 0,
+        commandForOn = '',
+        commandForOff = '',
+        companyId = '';
+
   /// A unique identifier for the pump
   final PumpID id;
+
   /// The name of the pump
   final String name;
+
   /// The capacity of the pump in volume
   final double capacityInVolume;
+
   /// The consume rate of the pump in kilowatts
   final double consumeRateInKw;
+
   /// The command to turn on the pump, i.e the one sent to and from MQTT
   final String commandForOn;
+
   /// The command to turn off the pump, i.e the one sent to and from MQTT
   final String commandForOff;
+
   /// An id to identify the company the pump belongs to
   final CompanyID companyId;
 
@@ -90,10 +105,7 @@ class Pump extends Equatable {
       companyId: map['companyId'] as CompanyID,
     );
   }
-
-
 }
-
 
 extension PumpX on Pump {
   String getStatusCommand(bool status) {

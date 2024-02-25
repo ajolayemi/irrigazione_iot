@@ -3,31 +3,36 @@
 import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
 
 class PumpDetails extends Pump {
-  const PumpDetails(
-      {required super.id,
-      required super.name,
-      required super.capacityInVolume,
-      required super.consumeRateInKw,
-      required super.commandForOn,
-      required super.commandForOff,
-      required super.companyId,
-      required this.totalLitresDispensed,});
+  const PumpDetails({
+    required super.id,
+    required super.name,
+    required super.capacityInVolume,
+    required super.consumeRateInKw,
+    required super.commandForOn,
+    required super.commandForOff,
+    required super.companyId,
+    required this.totalLitresDispensed,
+  });
+
+  const PumpDetails.empty()
+      : totalLitresDispensed = 0,
+        super.empty();
 
   final int totalLitresDispensed;
 
   @override
   bool operator ==(covariant PumpDetails other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.totalLitresDispensed == totalLitresDispensed;
+
+    return other.totalLitresDispensed == totalLitresDispensed;
   }
 
   @override
   int get hashCode => totalLitresDispensed.hashCode;
 
   @override
-  String toString() => 'PumpDetails(totalLitresDispensed: $totalLitresDispensed)';
+  String toString() =>
+      'PumpDetails(totalLitresDispensed: $totalLitresDispensed)';
 }
 
 // class PumpDetails extends Equatable {
