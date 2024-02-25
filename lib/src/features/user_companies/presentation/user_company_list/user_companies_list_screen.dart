@@ -29,19 +29,22 @@ class _UserCompaniesListScreenState
     extends ConsumerState<UserCompaniesListScreen> {
   @override
   Widget build(BuildContext context) {
+    debugPrint('UserCompaniesListScreen build');
     ref.listen(
       userCompaniesControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
     final userCompanies = ref.watch(userCompaniesStreamProvider);
 
-    if (userCompanies.value?.isEmpty ?? true) {
+    if (userCompanies.hasValue && userCompanies.value!.isEmpty) {
       return const EmptyUserCompanyWidget();
     }
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          AppSliverBar(title: context.loc.chooseCompany,),
+          AppSliverBar(
+            title: context.loc.chooseCompany,
+          ),
           AsyncValueSliverWidget<List<Company>>(
             value: userCompanies,
             loading: () => const SliverToBoxAdapter(
@@ -58,7 +61,7 @@ class _UserCompaniesListScreenState
                         onTap: () {
                           ref
                               .read(userCompaniesControllerProvider.notifier)
-                              .updateTappedCompany(company);
+                              .updateTappedCompany(company.id);
                           context.goNamed(AppRoute.home.name);
                         },
                         child: ListTile(

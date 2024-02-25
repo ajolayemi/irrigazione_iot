@@ -8,7 +8,7 @@ import 'package:irrigazione_iot/src/features/dashboard/presentation/dashboard_sc
 import 'package:irrigazione_iot/src/features/home/presentation/home_nested_navigator.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_list/pumps_list_screen.dart';
-import 'package:irrigazione_iot/src/features/user_companies/application/user_companies_service.dart';
+import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/presentation/user_company_list/user_companies_list_screen.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/empty_placeholder_widget.dart';
@@ -44,7 +44,9 @@ enum AppRoute {
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
-  final tappedCompany = ref.watch(initialTappedCompanyProvider).value;
+  final initialTappedCompanyRepo =
+      ref.watch(selectedCompanyRepositoryProvider);
+
   return GoRouter(
     initialLocation: '/sign-in',
     debugLogDiagnostics: true,
@@ -56,11 +58,13 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       final isLoggedIn = user != null;
       final path = state.uri.path;
       if (isLoggedIn && path == '/sign-in') {
-        // If user has already selected a company
-        if (tappedCompany == null) {
-          return '/companies-list-grid';
+        final userHasAlreadySelectedACompany =
+            initialTappedCompanyRepo.loadSelectedCompany(user.uid) != null;
+
+        if (userHasAlreadySelectedACompany) {
+          return '/';
         }
-        return '/'; // redirect to companies list grid if user is logged in
+        return '/companies-list-grid';
       }
       if (!isLoggedIn && path != '/sign-in') {
         return '/sign-in'; // redirect to sign in page if user is not logged in
@@ -99,7 +103,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 name: AppRoute.home.name,
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: DashboardScreen(),
-                ), 
+                ),
               ),
             ],
           ),

@@ -1,7 +1,7 @@
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
-import 'package:irrigazione_iot/src/features/authentication/domain/app_user.dart';
-import 'package:irrigazione_iot/src/features/user_companies/application/user_companies_service.dart';
+import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_companies_controller.g.dart';
@@ -9,20 +9,14 @@ part 'user_companies_controller.g.dart';
 @Riverpod(keepAlive: true)
 class UserCompaniesController extends _$UserCompaniesController {
   @override
-  FutureOr<void> build() async {
-    ref.listen<AsyncValue<AppUser?>>(authStateChangesProvider,
-        (previous, next) async {
-      if (previous != next) {
-        ref.invalidate(initialTappedCompanyProvider);
-      }
-    });
-    return;
-  }
+  FutureOr<void> build() {}
 
-  Future<void> updateTappedCompany(Company company) async {
+  Future<void> updateTappedCompany(CompanyID companyId) async {
+    final repo = ref.read(selectedCompanyRepositoryProvider);
+    final uid = ref.read(authRepositoryProvider).currentUser?.uid ?? '';
     state = const AsyncLoading();
-    final controllerService = ref.read(userCompaniesServiceProvider);
     state = await AsyncValue.guard(
-        () => controllerService.updateTappedCompany(company));
+        () => repo.updateSelectedCompany(uid, companyId));
+    ref.invalidate(currentTappedCompanyProvider);
   }
 }
