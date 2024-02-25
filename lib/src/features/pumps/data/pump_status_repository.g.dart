@@ -445,5 +445,267 @@ class _PumpStatusToggleProviderElement
   @override
   String get status => (origin as PumpStatusToggleProvider).status;
 }
+
+String _$lastDispensationStreamHash() =>
+    r'7916dc0d791b7024e58983e7b56b550329d7f82b';
+
+/// See also [lastDispensationStream].
+@ProviderFor(lastDispensationStream)
+const lastDispensationStreamProvider = LastDispensationStreamFamily();
+
+/// See also [lastDispensationStream].
+class LastDispensationStreamFamily extends Family<AsyncValue<DateTime?>> {
+  /// See also [lastDispensationStream].
+  const LastDispensationStreamFamily();
+
+  /// See also [lastDispensationStream].
+  LastDispensationStreamProvider call(
+    String pumpId,
+  ) {
+    return LastDispensationStreamProvider(
+      pumpId,
+    );
+  }
+
+  @override
+  LastDispensationStreamProvider getProviderOverride(
+    covariant LastDispensationStreamProvider provider,
+  ) {
+    return call(
+      provider.pumpId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'lastDispensationStreamProvider';
+}
+
+/// See also [lastDispensationStream].
+class LastDispensationStreamProvider
+    extends AutoDisposeStreamProvider<DateTime?> {
+  /// See also [lastDispensationStream].
+  LastDispensationStreamProvider(
+    String pumpId,
+  ) : this._internal(
+          (ref) => lastDispensationStream(
+            ref as LastDispensationStreamRef,
+            pumpId,
+          ),
+          from: lastDispensationStreamProvider,
+          name: r'lastDispensationStreamProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$lastDispensationStreamHash,
+          dependencies: LastDispensationStreamFamily._dependencies,
+          allTransitiveDependencies:
+              LastDispensationStreamFamily._allTransitiveDependencies,
+          pumpId: pumpId,
+        );
+
+  LastDispensationStreamProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.pumpId,
+  }) : super.internal();
+
+  final String pumpId;
+
+  @override
+  Override overrideWith(
+    Stream<DateTime?> Function(LastDispensationStreamRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: LastDispensationStreamProvider._internal(
+        (ref) => create(ref as LastDispensationStreamRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        pumpId: pumpId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<DateTime?> createElement() {
+    return _LastDispensationStreamProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LastDispensationStreamProvider && other.pumpId == pumpId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, pumpId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin LastDispensationStreamRef on AutoDisposeStreamProviderRef<DateTime?> {
+  /// The parameter `pumpId` of this provider.
+  String get pumpId;
+}
+
+class _LastDispensationStreamProviderElement
+    extends AutoDisposeStreamProviderElement<DateTime?>
+    with LastDispensationStreamRef {
+  _LastDispensationStreamProviderElement(super.provider);
+
+  @override
+  String get pumpId => (origin as LastDispensationStreamProvider).pumpId;
+}
+
+String _$lastDispensationFutureHash() =>
+    r'4e0a72b6d9627cbdfcc9e92107166b935a910f20';
+
+/// See also [lastDispensationFuture].
+@ProviderFor(lastDispensationFuture)
+const lastDispensationFutureProvider = LastDispensationFutureFamily();
+
+/// See also [lastDispensationFuture].
+class LastDispensationFutureFamily extends Family<AsyncValue<DateTime?>> {
+  /// See also [lastDispensationFuture].
+  const LastDispensationFutureFamily();
+
+  /// See also [lastDispensationFuture].
+  LastDispensationFutureProvider call(
+    String pumpId,
+  ) {
+    return LastDispensationFutureProvider(
+      pumpId,
+    );
+  }
+
+  @override
+  LastDispensationFutureProvider getProviderOverride(
+    covariant LastDispensationFutureProvider provider,
+  ) {
+    return call(
+      provider.pumpId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'lastDispensationFutureProvider';
+}
+
+/// See also [lastDispensationFuture].
+class LastDispensationFutureProvider
+    extends AutoDisposeFutureProvider<DateTime?> {
+  /// See also [lastDispensationFuture].
+  LastDispensationFutureProvider(
+    String pumpId,
+  ) : this._internal(
+          (ref) => lastDispensationFuture(
+            ref as LastDispensationFutureRef,
+            pumpId,
+          ),
+          from: lastDispensationFutureProvider,
+          name: r'lastDispensationFutureProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$lastDispensationFutureHash,
+          dependencies: LastDispensationFutureFamily._dependencies,
+          allTransitiveDependencies:
+              LastDispensationFutureFamily._allTransitiveDependencies,
+          pumpId: pumpId,
+        );
+
+  LastDispensationFutureProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.pumpId,
+  }) : super.internal();
+
+  final String pumpId;
+
+  @override
+  Override overrideWith(
+    FutureOr<DateTime?> Function(LastDispensationFutureRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: LastDispensationFutureProvider._internal(
+        (ref) => create(ref as LastDispensationFutureRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        pumpId: pumpId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<DateTime?> createElement() {
+    return _LastDispensationFutureProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LastDispensationFutureProvider && other.pumpId == pumpId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, pumpId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin LastDispensationFutureRef on AutoDisposeFutureProviderRef<DateTime?> {
+  /// The parameter `pumpId` of this provider.
+  String get pumpId;
+}
+
+class _LastDispensationFutureProviderElement
+    extends AutoDisposeFutureProviderElement<DateTime?>
+    with LastDispensationFutureRef {
+  _LastDispensationFutureProviderElement(super.provider);
+
+  @override
+  String get pumpId => (origin as LastDispensationFutureProvider).pumpId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
