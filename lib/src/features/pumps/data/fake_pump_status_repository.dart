@@ -10,6 +10,20 @@ class FakePumpStatusRepository extends PumpStatusRepository {
   final bool addDelay;
   final _fakePumpStatus = InMemoryStore<List<PumpStatus>>(kFakePumpStatus);
 
+  static DateTime? _getMostRecentDispensationDate(
+      List<PumpStatus> statuses, Pump pump) {
+    statuses.sort((a, b) => b.lastUpdated.compareTo(a.lastUpdated));
+    final statusesForPump = _filterPumpStatus(statuses, pump.id);
+    try {
+      return statusesForPump
+          .firstWhere((status) =>
+              status.translateStatusToBoolean(pump, status.status) == true)
+          .lastUpdated;
+    } catch (e) {
+      return null;
+    }
+  }
+
   static PumpStatus _getMostRecentStatus(List<PumpStatus> statuses) {
     statuses.sort((a, b) => b.lastUpdated.compareTo(a.lastUpdated));
     return statuses.first;
@@ -17,7 +31,8 @@ class FakePumpStatusRepository extends PumpStatusRepository {
 
   static List<PumpStatus> _filterPumpStatus(
       List<PumpStatus> statuses, PumpID pumpId) {
-    final toReturn = statuses.where((pumpStatus) => pumpStatus.pumpId == pumpId).toList();
+    final toReturn =
+        statuses.where((pumpStatus) => pumpStatus.pumpId == pumpId).toList();
     return toReturn;
   }
 
@@ -48,6 +63,20 @@ class FakePumpStatusRepository extends PumpStatusRepository {
   Stream<PumpStatus> watchPumpStatus(String pumpId) {
     return _fakePumpStatus.stream.map((statuses) {
       return _getMostRecentStatus(_filterPumpStatus(statuses, pumpId));
+    });
+  }
+
+  @override
+  Future<DateTime?> getLastDispensation(Pump pump) {
+    return Future.value(
+      _getMostRecentDispensationDate(_fakePumpStatus.value, pump),
+    );
+  }
+
+  @override
+  Stream<DateTime?> watchLastDispensation(Pump pump) {
+    return _fakePumpStatus.stream.map((statuses) {
+      return _getMostRecentDispensationDate(statuses, pump);
     });
   }
 }
