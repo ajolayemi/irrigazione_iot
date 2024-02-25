@@ -43,7 +43,7 @@ class PumpDetailsScreen extends ConsumerWidget {
         body: CustomScrollView(
           slivers: [
             AppSliverBar(
-              title: pumpDetails.value?.name ?? 'N/A',
+              title: pumpDetails.value?.name ?? '',
               actions: [
                 // todo this button should be visible only when the current user operating
                 // todo isn't a regular user
