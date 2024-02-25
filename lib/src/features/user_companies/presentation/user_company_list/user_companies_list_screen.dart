@@ -44,6 +44,9 @@ class _UserCompaniesListScreenState
           AppSliverBar(title: context.loc.chooseCompany,),
           AsyncValueSliverWidget<List<Company>>(
             value: userCompanies,
+            loading: () => const SliverToBoxAdapter(
+              child: Center(child: CircularProgressIndicator()),
+            ),
             data: (userCompanies) {
               return SliverList(
                 delegate: SliverChildBuilderDelegate(

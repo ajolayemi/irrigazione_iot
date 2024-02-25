@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_details_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_sliver_list.dart';
+import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_sliver_list_skeleton.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_status/pump_status_switch_controller.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
@@ -36,7 +37,8 @@ class PumpDetailsScreen extends ConsumerWidget {
       onPopInvoked: (didPop) {
         if (!didPop) {
           // todo show a toast or snackbar to inform the user that the pump is currently being switched on or off
-          debugPrint("You can't exit the screen while the pump is being switched on or off");
+          debugPrint(
+              "You can't exit the screen while the pump is being switched on or off");
         }
       },
       child: Scaffold(
@@ -56,6 +58,7 @@ class PumpDetailsScreen extends ConsumerWidget {
             ),
             AsyncValueSliverWidget(
                 value: pumpDetails,
+                loading: () => const PumpDetailsSliverListSkeleton(),
                 data: (details) {
                   if (details == null) return const SliverToBoxAdapter();
                   return PumpDetailsSliverList(
