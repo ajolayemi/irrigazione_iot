@@ -10,6 +10,14 @@ class FakePumpRepository implements PumpRepository {
     return pumps.where((pump) => pump.companyId == companyId).toList();
   }
 
+  static Pump? _getPump(List<Pump> pumps, String pumpId) {
+    try {
+      return pumps.firstWhere((pump) => pump.id == pumpId);
+    } catch (e) {
+      return null;
+    }
+  }
+
   @override
   Future<List<Pump>> getCompanyPumps(String companyId) {
     return Future.value(_getCompanyPumps(_fakePumps.value, companyId));
@@ -18,6 +26,16 @@ class FakePumpRepository implements PumpRepository {
   @override
   Stream<List<Pump>> watchCompanyPumps(String companyId) {
     return _fakePumps.stream.map((pumps) => _getCompanyPumps(pumps, companyId));
+  }
+  
+  @override
+  Future<Pump?> getPump(String pumpId) {
+    return Future.value(_getPump(_fakePumps.value, pumpId));
+  }
+  
+  @override
+  Stream<Pump?> watchPump(String pumpId) {
+    return _fakePumps.stream.map((pumps) => _getPump(pumps, pumpId));
   }
 
 

@@ -22,7 +22,7 @@ final pumpDetailsRepositoryProvider = Provider<PumpDetailsRepository>.internal(
 );
 
 typedef PumpDetailsRepositoryRef = ProviderRef<PumpDetailsRepository>;
-String _$pumpDetailsFutureHash() => r'c43826cf02c7150e7af9181982663ea1fcd5e68b';
+String _$pumpDetailsFutureHash() => r'7a30864146ff9786bd42ec896c3fb6bd09c6bf40';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -173,7 +173,7 @@ class _PumpDetailsFutureProviderElement
   String get pumpId => (origin as PumpDetailsFutureProvider).pumpId;
 }
 
-String _$pumpDetailsStreamHash() => r'cdd1ebc4a9da934cbce4bdb069693fa4cfabc0a5';
+String _$pumpDetailsStreamHash() => r'030e422ab4f1864d03354dede7b30a2a3f5d6b18';
 
 /// See also [pumpDetailsStream].
 @ProviderFor(pumpDetailsStream)

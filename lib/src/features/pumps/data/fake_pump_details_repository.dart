@@ -1,5 +1,6 @@
 import 'package:irrigazione_iot/src/config/mock/fake_pump_details.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_details_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump_details.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
@@ -7,10 +8,10 @@ class FakePumpDetailsRepository implements PumpDetailsRepository {
   final _pumpDetails = InMemoryStore(kFakePumpDetails);
 
   static PumpDetails? _getPumpDetails(
-      List<PumpDetails> pumpDetails, String pumpId) {
+      List<PumpDetails> pumpDetails, PumpID pumpId) {
     try {
       return pumpDetails.firstWhere(
-        (pumpDetail) => pumpDetail.pump.id == pumpId,
+        (pumpDetail) => pumpDetail.id == pumpId,
       );
     } catch (e) {
       return null;
@@ -18,14 +19,14 @@ class FakePumpDetailsRepository implements PumpDetailsRepository {
   }
 
   @override
-  Future<PumpDetails?> getPumpDetails(String pumpId) {
-    return Future.value(_getPumpDetails(_pumpDetails.value, pumpId));
+  Future<PumpDetails?> getPumpDetails(Pump pump) {
+    return Future.value(_getPumpDetails(_pumpDetails.value, pump.id));
   }
 
   @override
-  Stream<PumpDetails?> watchPumpDetails(String pumpId) {
+  Stream<PumpDetails?> watchPumpDetails(Pump pump) {
     return _pumpDetails.stream.map((pumpDetails) {
-      return _getPumpDetails(pumpDetails, pumpId);
+      return _getPumpDetails(pumpDetails, pump.id);
     });
   }
 }
