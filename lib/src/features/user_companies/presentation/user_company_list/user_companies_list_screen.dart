@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
 import 'package:irrigazione_iot/src/features/user_companies/presentation/user_company_list/company_logo.dart';
 import 'package:irrigazione_iot/src/features/user_companies/presentation/user_company_list/user_companies_controller.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
@@ -29,51 +34,81 @@ class _UserCompaniesListScreenState
       (_, state) => state.showAlertDialogOnError(context),
     );
     final userCompanies = ref.watch(userCompaniesStreamProvider);
+
+    if (userCompanies.value?.isEmpty ?? true) {
+      return const EmptyUserCompanyWidget();
+    }
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            floating: true,
-            pinned: true,
-            snap: true,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(context.loc.chooseCompany),
-            ),
-          ),
+          AppSliverBar(title: context.loc.chooseCompany,),
           AsyncValueSliverWidget<List<Company>>(
             value: userCompanies,
-            data: (userCompanies) => SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final company = userCompanies[index];
-                  return ResponsiveCenter(
-                    maxContentWidth: Breakpoint.tablet,
-                    child: InkWell(
-                      onTap: () {
-                        ref
-                            .read(userCompaniesControllerProvider.notifier)
-                            .updateTappedCompany(company);
-                        context.goNamed(AppRoute.home.name);
-                      },
-                      child: ListTile(
-                        leading: CompanyLogo(
-                          imageUrl: company.imageUrl,
-                        ),
-                        title: Text(
-                          company.name,
-                        ),
-                        trailing: const Icon(
-                          Icons.arrow_forward_ios,
+            data: (userCompanies) {
+              return SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    final company = userCompanies[index];
+                    return ResponsiveCenter(
+                      maxContentWidth: Breakpoint.tablet,
+                      child: InkWell(
+                        onTap: () {
+                          ref
+                              .read(userCompaniesControllerProvider.notifier)
+                              .updateTappedCompany(company);
+                          context.goNamed(AppRoute.home.name);
+                        },
+                        child: ListTile(
+                          leading: CompanyLogo(
+                            imageUrl: company.imageUrl,
+                          ),
+                          title: Text(
+                            company.name,
+                          ),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
-                childCount: userCompanies.length,
-              ),
-            ),
+                    );
+                  },
+                  childCount: userCompanies.length,
+                ),
+              );
+            },
           )
         ],
+      ),
+    );
+  }
+}
+
+class EmptyUserCompanyWidget extends ConsumerWidget {
+  const EmptyUserCompanyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(authStateChangesProvider).value;
+    return Scaffold(
+      body: ResponsiveCenter(
+        padding: const EdgeInsets.all(Sizes.p24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              context.loc.noCompanyFoundForUser(user?.name ?? 'N/A'),
+              style: context.textTheme.headlineMedium,
+              //textAlign: TextAlign.center,
+            ),
+            gapH48,
+            CTAButton(
+              buttonType: ButtonType.secondary,
+              onPressed: () => ref.read(authRepositoryProvider).signOut(),
+              text: context.loc.logInWithAnotherAccount,
+            ), // todo replace the onPressed func with the right controller
+          ],
+        ),
       ),
     );
   }
