@@ -8,7 +8,6 @@ import 'package:irrigazione_iot/src/features/pumps/presentation/pump_status/pump
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_status/pump_status_tile_widget_skeleton.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
@@ -31,9 +30,9 @@ class PumpListScreen extends ConsumerWidget {
             title: context.loc.pumpPageTitle,
             actions: [
               AppBarIconButton(
-                onPressed: () => showNotImplementedAlertDialog(
-                  context: context,
-                ), // todo add logic to add new pump
+                onPressed: () => context.goNamed(
+                  AppRoute.addPump.name,
+                ),
                 icon: Icons.add,
               )
             ],
