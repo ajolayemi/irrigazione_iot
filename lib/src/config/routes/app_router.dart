@@ -6,6 +6,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/presentation/home_nested_navigator.dart';
+import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/presentation/add_pump_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_list/pumps_list_screen.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
@@ -37,6 +38,7 @@ enum AppRoute {
   collector,
   pump,
   pumpDetails,
+  addPump,
   meteo,
   more,
   settings,
@@ -44,8 +46,7 @@ enum AppRoute {
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
-  final initialTappedCompanyRepo =
-      ref.watch(selectedCompanyRepositoryProvider);
+  final initialTappedCompanyRepo = ref.watch(selectedCompanyRepositoryProvider);
 
   return GoRouter(
     initialLocation: '/sign-in',
@@ -135,13 +136,21 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     const NoTransitionPage(child: PumpListScreen()),
                 routes: [
                   GoRoute(
-                    path: ':pumpId',
+                    path: 'details/:pumpId',
                     name: AppRoute.pumpDetails.name,
                     pageBuilder: (context, state) => MaterialPage(
                       fullscreenDialog: true,
                       child: PumpDetailsScreen(
                         pumpId: state.pathParameters['pumpId'] ?? '',
                       ),
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'add',
+                    name: AppRoute.addPump.name,
+                    pageBuilder: (context, state) => const MaterialPage(
+                      fullscreenDialog: true,
+                      child: AddPumpScreen()
                     ),
                   ),
                 ],
