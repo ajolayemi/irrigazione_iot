@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
-import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/string_validators.dart';
+import 'package:irrigazione_iot/src/utils/string_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 /// Mixin class to be used for client-side email & password validation
