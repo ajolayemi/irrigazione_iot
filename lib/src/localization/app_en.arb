@@ -68,6 +68,9 @@
       }
     }
   },
+  "alertDialogCancel": "Cancel",
+  "alertDialogConfirm": "Confirm",
+  "genericAlertDialogTitle": "Are you sure?",
   "pumpStatusLastSwitchedOn": "last dispensation: {when}",
   "@pumpStatusLastSwitchedOn": {
     "description": "The last time a pump status was switched on",
@@ -78,6 +81,8 @@
       }
     }
   },
+  "genericSaveButtonLabel": "Save",
+  "genericUpdateButtonLabel": "Update",
   "pumpOnStatusUpdateAlertDialogContent": "You're about to switch on {pumpName}",
   "@pumpOnStatusUpdateAlertDialogContent": {
     "description": "The content of the alert dialog that is displayed when the user wants to switch on the pump",
@@ -100,9 +105,7 @@
   },
   "pumpOnStatusDialogConfirmButtonTitle": "Switch On",
   "pumpOffStatusDialogConfirmButtonTitle": "Switch Off",
-  "alertDialogCancel": "Cancel",
-  "alertDialogConfirm": "Confirm",
-  "genericAlertDialogTitle": "Are you sure?",
+ 
   "pumpStatusListTileTitle": "Current status",
   "noCompanyFoundForUser": "Hello {username}!\nThere is no company associated with your account in our database",
   "@noCompanyFoundForUser": {
@@ -114,5 +117,31 @@
       }
     }
   },
-  "logInWithAnotherAccount": "Change Account"
+  "logInWithAnotherAccount": "Change Account",
+  "addNewPumpPageTitle": "New Pump",
+  "pumpNameFormFieldTitle": "Name",
+  "pumpNameFormHint": "eg: Pompa Giardino",
+  "pumpNameEmptyErrorText": "Pump name can't be empty",
+  "pumpNameTooLongErrorText": "Pump name is too long, it has to be a maximum of {maxPumpNameLength} characters",
+  "@pumpNameTooLongErrorText": {
+    "description": "The error message that is displayed when the pump name is too long",
+    "placeholders": {
+      "maxPumpNameLength": {
+        "description": "The maximum length of the pump name",
+        "example": "3",
+        "type": "int"
+      }
+    }
+  },
+  "pumpGenericEmptyFormFieldErrorText": "Field can't be empty",
+  "pumpGenericNotANumberErrorText": "Field has to be a number",
+  "pumpGenericNotGreaterThanZeroErrorText": "Field has to be greater than 0",
+  "pumpVolumeCapacityFormFieldTitle": "Volume Capacity",
+  "pumpVolumeCapacityFormHint": "eg: 1000",
+  "pumpKwFormFieldTitle": "Consumption (kW)",
+  "pumpKwFormHint": "eg: 50",
+  "pumpOnCommandFormFieldTitle": "On Command",
+  "pumpOnCommandFormHint": "eg: 1",
+  "pumpOffCommandFormFieldTitle": "Off Command",
+  "pumpOffCommandFormHint": "eg: 2"
 }
