@@ -16,21 +16,26 @@ import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_scrollable.dart';
 
-class AddAndUpdatePumpContents extends ConsumerStatefulWidget {
-  const AddAndUpdatePumpContents({
+class AddUpdatePumpContents extends ConsumerStatefulWidget {
+  const AddUpdatePumpContents({
     super.key,
     required this.formType,
+    this.pumpId,
   });
 
   final AddAndCreatePumpFormTypes formType;
+  final PumpID? pumpId;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _AddPumpScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _AddUpdatePumpContents();
 }
 
-class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
+class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     with AddPumpFormValidators {
   final _formKey = GlobalKey<FormState>();
+
+  // form fields controllers
   final _nameController = TextEditingController();
   final _volumeCapacityController = TextEditingController();
   final _kwCapacityController = TextEditingController();
@@ -55,11 +60,28 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
   // https://codewithandrea.com/articles/flutter-text-field-form-validation/
   var _submitted = false;
 
+  Pump? _initialPump;
   static const _nameFieldKey = Key('name');
   static const _volumeCapacityFieldKey = Key('volumeCapacity');
   static const _kwCapacityFieldKey = Key('kwCapacity');
   static const _onCommandFieldKey = Key('onCommand');
   static const _offCommandFieldKey = Key('offCommand');
+
+  @override
+  void initState() {
+    if (widget.formType == AddAndCreatePumpFormTypes.updatePump &&
+        widget.pumpId != null) {
+      final pump = ref.read(pumpStreamProvider(widget.pumpId!)).valueOrNull;
+      _initialPump = pump;
+      _nameController.text = pump?.name ?? '';
+      _volumeCapacityController.text = pump?.capacityInVolume.toString() ?? '';
+      _kwCapacityController.text = pump?.consumeRateInKw.toString() ?? '';
+      _onCommandController.text = pump?.commandForOn ?? '';
+      _offCommandController.text = pump?.commandForOff ?? '';
+    }
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -72,7 +94,6 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
     super.dispose();
   }
 
-  // todo call the controller to add or update the pump
   Future<void> _submit() async {
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
@@ -87,16 +108,30 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
           false;
 
       if (!shouldSave) return;
-      final toSave = const Pump.empty().copyWith(
+      final toSave = _initialPump?.copyWith(
+        id: _initialPump?.id,
         name: name,
+        companyId: _initialPump?.companyId,
         capacityInVolume: double.tryParse(volumeCapacity),
         consumeRateInKw: double.tryParse(kwCapacity),
         commandForOn: onCommand,
         commandForOff: offCommand,
       );
 
+      if (toSave == _initialPump) {
+        debugPrint(
+            'Form is valid, but no changes were made, not submitting...');
+        _popScreen();
+        return;
+      }
+
+      if (toSave == null) {
+        debugPrint(
+            'Form is valid, but pump to save is null, not submitting...');
+        return;
+      }
+
       debugPrint('Form is valid, submitting...');
-      debugPrint(toSave.toMap().toString());
 
       if (widget.formType == AddAndCreatePumpFormTypes.addPump) {
         final success =
@@ -123,7 +158,7 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
   }
 
   void _nameEditingComplete(List<String?> existingNames) {
-    if (canSubmitNameField(name, existingNames)) {
+    if (canSubmitNameField(name, _initialPump?.name, existingNames)) {
       _node.nextFocus();
     }
   }
@@ -141,13 +176,21 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
   }
 
   void _onCommandEditingComplete(List<String?> existingOnCommands) {
-    if (canSubmitCommandFields(onCommand, existingOnCommands)) {
+    if (canSubmitCommandFields(
+      onCommand,
+      _initialPump?.commandForOn,
+      existingOnCommands,
+    )) {
       _node.nextFocus();
     }
   }
 
   void _offCommandEditingComplete(List<String?> existingOffCommands) {
-    if (!canSubmitCommandFields(offCommand, existingOffCommands)) {
+    if (!canSubmitCommandFields(
+      offCommand,
+      _initialPump?.commandForOff,
+      existingOffCommands,
+    )) {
       _node.previousFocus();
       return;
     }
@@ -166,9 +209,14 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
     final usedOffCommands =
         ref.watch(companyUsedPumpOffCommandsStreamProvider).valueOrNull ?? [];
     final state = ref.watch(addUpdatePumpControllerProvider);
+    final isUpdating = widget.formType == AddAndCreatePumpFormTypes.updatePump;
     return CustomScrollView(
       slivers: [
-        AppSliverBar(title: context.loc.addNewPumpPageTitle),
+        AppSliverBar(
+          title: isUpdating
+              ? context.loc.updatePumpPageTitle
+              : context.loc.addNewPumpPageTitle,
+        ),
         SliverToBoxAdapter(
           child: ResponsiveScrollable(
             child: FocusScope(
@@ -189,11 +237,9 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
                           ? null
                           : nameErrorText(
                               name ?? '',
+                              _initialPump?.name,
+                              usedPumpNames,
                               context,
-                              ref
-                                      .read(companyUsedPumpNamesStreamProvider)
-                                      .valueOrNull ??
-                                  [],
                             ),
                       onEditingComplete: () =>
                           _nameEditingComplete(usedPumpNames),
@@ -244,12 +290,9 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
                           ? null
                           : commandFieldsErrorText(
                               value ?? '',
+                              _initialPump?.commandForOn,
+                              usedOnCommands,
                               context,
-                              ref
-                                      .read(
-                                          companyUsedPumpOnCommandsStreamProvider)
-                                      .valueOrNull ??
-                                  [],
                             ),
                       onEditingComplete: () =>
                           _onCommandEditingComplete(usedOnCommands),
@@ -267,12 +310,10 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
                           ? null
                           : commandFieldsErrorText(
                               value ?? '',
+                              _initialPump?.commandForOff,
+                              usedOffCommands,
                               context,
-                              ref
-                                      .read(
-                                          companyUsedPumpOffCommandsStreamProvider)
-                                      .valueOrNull ??
-                                  []),
+                            ),
                       onEditingComplete: () =>
                           _offCommandEditingComplete(usedOffCommands),
                       keyboardType: _numericFieldsKeyboardType,
@@ -280,12 +321,13 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
                     gapH16,
                     CTAButton(
                       isLoading: state.isLoading,
-                      text: widget.formType == AddAndCreatePumpFormTypes.addPump
+                      text: !isUpdating
                           ? context.loc.genericSaveButtonLabel
                           : context.loc.genericUpdateButtonLabel,
                       buttonType: ButtonType.primary,
                       onPressed: state.isLoading ? null : _submit,
                     ),
+                    gapH32
                   ],
                 ),
               ),
