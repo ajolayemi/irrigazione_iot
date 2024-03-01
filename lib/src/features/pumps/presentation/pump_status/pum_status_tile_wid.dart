@@ -29,8 +29,8 @@ class PumpStatusTileWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final dateFormatter = ref.watch(dateFormatWithTimeProvider);
     final lastDispensationDate =
-        ref.watch(lastDispensationStreamProvider(pump.id)).value;
-    final pumpStatus = ref.watch(pumpStatusStreamProvider(pump.id)).value;
+        ref.watch(lastDispensationStreamProvider(pump.id)).valueOrNull;
+    final pumpStatus = ref.watch(pumpStatusStreamProvider(pump.id)).valueOrNull;
 
     final aPumpIsCurrentlyLoading = ref.watch(
         pumpStatusSwitchControllerProvider.select(
