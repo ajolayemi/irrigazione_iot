@@ -144,6 +144,8 @@
   "pumpOnCommandFormHint": "eg: 1",
   "pumpOffCommandFormFieldTitle": "Off Command",
   "pumpOffCommandFormHint": "eg: 2",
+  "pumpNameAlreadyInUseErrorText": "Pump name is already in use",
+  "pumpCommandAlreadyInUseErrorText": "This command value is already in use for another pump",
   "pumpFormGenericSaveDialogTitle": "Do you want to save the data?",
   "pumpFormGenericSaveDialogContent": "You're about to save the data for the pump in the database",
   "pumpFormGenericUpdateDialogTitle": "Do you want to update the data?",

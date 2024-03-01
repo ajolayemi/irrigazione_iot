@@ -52,6 +52,8 @@
   "pumpOnCommandFormHint": "es: 1",
   "pumpOffCommandFormFieldTitle": "Off Command",
   "pumpOffCommandFormHint": "es: 2",
+  "pumpNameAlreadyInUseErrorText": "Esiste già una pompa con questo nome",
+  "pumpCommandAlreadyInUseErrorText": "Esiste già una pompa con questo comando",
   "pumpNameTooLongErrorText": "Il nome inserito è troppo lungo, deve essere massimo {maxPumpNameLength} caratteri",
   "pumpNameEmptyErrorText": "Il campo nome non può essere vuoto",
   "pumpGenericEmptyFormFieldErrorText": "Il campo non può essere vuoto",
