@@ -61,7 +61,7 @@ class FakePumpRepository implements PumpRepository {
   Future<Pump?> updatePump(Pump pump, CompanyID companyId) async {
     // No validation is done here, the validation is done in the form
     await delay(true);
-    final currentPumps = _fakePumps.value;
+    final currentPumps = [..._fakePumps.value];
     final pumpIndex = currentPumps.indexWhere((p) => p.id == pump.id);
     if (pumpIndex > 0) {
       currentPumps[pumpIndex] = pump;
