@@ -40,6 +40,7 @@ enum AppRoute {
   pump,
   pumpDetails,
   addPump,
+  updatePump,
   meteo,
   more,
   settings,
@@ -145,6 +146,18 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                         pumpId: state.pathParameters['pumpId'] ?? '',
                       ),
                     ),
+                    routes: [
+                      GoRoute(
+                        path: 'edit',
+                        name: AppRoute.updatePump.name,
+                        pageBuilder: (context, state) => MaterialPage(
+                          fullscreenDialog: true,
+                          child: AddAndCreatePumpScreen(
+                            formType: AddAndCreatePumpFormTypes.updatePump,
+                            pumpId: state.pathParameters['pumpId'] ?? '',
+                          ),
+                        ),
+                      ),]
                   ),
                   GoRoute(
                     path: 'add',
@@ -153,6 +166,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                       fullscreenDialog: true,
                       child: AddAndCreatePumpScreen(
                         formType: AddAndCreatePumpFormTypes.addPump,
+                        
                       ),
                     ),
                   ),
