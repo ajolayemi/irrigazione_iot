@@ -331,5 +331,60 @@ class _PumpFutureProviderElement extends AutoDisposeFutureProviderElement<Pump?>
   @override
   String get pumpId => (origin as PumpFutureProvider).pumpId;
 }
+
+String _$companyUsedPumpNamesStreamHash() =>
+    r'd0a600288e6f5421f6fe831f814ff8cf88c30b42';
+
+/// See also [companyUsedPumpNamesStream].
+@ProviderFor(companyUsedPumpNamesStream)
+final companyUsedPumpNamesStreamProvider =
+    AutoDisposeStreamProvider<List<String?>>.internal(
+  companyUsedPumpNamesStream,
+  name: r'companyUsedPumpNamesStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$companyUsedPumpNamesStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CompanyUsedPumpNamesStreamRef
+    = AutoDisposeStreamProviderRef<List<String?>>;
+String _$companyUsedPumpOnCommandsStreamHash() =>
+    r'57cf874cb3ebe37b40fb7fe6a8cd995bb0c01ae4';
+
+/// See also [companyUsedPumpOnCommandsStream].
+@ProviderFor(companyUsedPumpOnCommandsStream)
+final companyUsedPumpOnCommandsStreamProvider =
+    AutoDisposeStreamProvider<List<String?>>.internal(
+  companyUsedPumpOnCommandsStream,
+  name: r'companyUsedPumpOnCommandsStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$companyUsedPumpOnCommandsStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CompanyUsedPumpOnCommandsStreamRef
+    = AutoDisposeStreamProviderRef<List<String?>>;
+String _$companyUsedPumpOffCommandsStreamHash() =>
+    r'6fa46b2f1996dea2e9284d9f20732dfb44689f1a';
+
+/// See also [companyUsedPumpOffCommandsStream].
+@ProviderFor(companyUsedPumpOffCommandsStream)
+final companyUsedPumpOffCommandsStreamProvider =
+    AutoDisposeStreamProvider<List<String?>>.internal(
+  companyUsedPumpOffCommandsStream,
+  name: r'companyUsedPumpOffCommandsStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$companyUsedPumpOffCommandsStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CompanyUsedPumpOffCommandsStreamRef
+    = AutoDisposeStreamProviderRef<List<String?>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
