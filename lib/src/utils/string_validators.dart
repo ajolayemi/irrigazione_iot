@@ -88,5 +88,5 @@ class MaxLengthStringValidator extends StringValidator {
 
 // Regex to validate that user entered a numeric value
 class NumericEditingRegexValidator extends RegexValidator {
-  NumericEditingRegexValidator() : super(regexSource: '^[0-9]*\$');
+  NumericEditingRegexValidator() : super(regexSource: '^[0-9]+\\.?[0]*\$');
 }
