@@ -149,5 +149,6 @@
   "pumpFormGenericSaveDialogTitle": "Do you want to save the data?",
   "pumpFormGenericSaveDialogContent": "You're about to save the data for the pump in the database",
   "pumpFormGenericUpdateDialogTitle": "Do you want to update the data?",
-  "pumpFormGenericUpdateDialogContent": "You're about to update the data for the pump in the database"
+  "pumpFormGenericUpdateDialogContent": "You're about to update the data for the pump in the database",
+  "notAvailable": "Not available"
 }
