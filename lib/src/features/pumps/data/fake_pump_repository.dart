@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_pumps.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
@@ -52,9 +51,7 @@ class FakePumpRepository implements PumpRepository {
     final finalPump = pump.copyWith(
         id: '${_fakePumps.value.length + 1}', companyId: companyId);
     final currentPumps = [..._fakePumps.value];
-    debugPrint('currentPumps length: ${currentPumps.length}');
     currentPumps.add(finalPump);
-    debugPrint('currentPumps length after: ${currentPumps.length}');
     _fakePumps.value = currentPumps;
 
     return Future.value(pump);
