@@ -10,6 +10,8 @@ abstract class PumpRepository {
   Future<List<Pump>> getCompanyPumps(String companyId);
   Stream<Pump?> watchPump(String pumpId);
   Future<Pump?> getPump(String pumpId);
+  Future<Pump?> createPump(Pump pump);
+  Future<Pump?> updatePump(Pump pump);
 }
 
 @Riverpod(keepAlive: true)
