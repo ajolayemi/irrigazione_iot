@@ -143,5 +143,9 @@
   "pumpOnCommandFormFieldTitle": "On Command",
   "pumpOnCommandFormHint": "eg: 1",
   "pumpOffCommandFormFieldTitle": "Off Command",
-  "pumpOffCommandFormHint": "eg: 2"
+  "pumpOffCommandFormHint": "eg: 2",
+  "pumpFormGenericSaveDialogTitle": "Do you want to save the data?",
+  "pumpFormGenericSaveDialogContent": "You're about to save the data for the pump in the database",
+  "pumpFormGenericUpdateDialogTitle": "Do you want to update the data?",
+  "pumpFormGenericUpdateDialogContent": "You're about to update the data for the pump in the database"
 }

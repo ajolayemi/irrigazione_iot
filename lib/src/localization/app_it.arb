@@ -56,6 +56,9 @@
   "pumpNameEmptyErrorText": "Il campo nome non può essere vuoto",
   "pumpGenericEmptyFormFieldErrorText": "Il campo non può essere vuoto",
   "pumpGenericNotANumberErrorText": "Il campo deve essere un numero",
-  "pumpGenericNotGreaterThanZeroErrorText": "Il campo deve essere maggiore di zero"
-
+  "pumpGenericNotGreaterThanZeroErrorText": "Il campo deve essere maggiore di zero",
+  "pumpFormGenericSaveDialogTitle": "Vuoi salvare i dati?",
+  "pumpFormGenericSaveDialogDescription": "Stai per salvare i dati relativi alla pompa nel database",
+  "pumpFormGenericUpdateDialogTitle": "Vuoi aggiornare i dati?",
+  "pumpFormGenericUpdateDialogDescription": "Stai per aggiornare i dati relativi alla pompa nel database"
 }
