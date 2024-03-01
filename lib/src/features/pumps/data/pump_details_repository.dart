@@ -1,14 +1,14 @@
 import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_details_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
-import 'package:irrigazione_iot/src/features/pumps/domain/pump_details.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'pump_details_repository.g.dart';
 
+// TODO do a complete refactor of this file
+
 abstract class PumpDetailsRepository {
-  Future<PumpDetails?> getPumpDetails(Pump pump);
-  Stream<PumpDetails?> watchPumpDetails(Pump pump);
+  Stream<int> watchTotalLitresDispensed(Pump pump);
 }
 
 @Riverpod(keepAlive: true)
@@ -17,19 +17,9 @@ PumpDetailsRepository pumpDetailsRepository(PumpDetailsRepositoryRef ref) {
 }
 
 @riverpod
-Future<PumpDetails?> pumpDetailsFuture(
-    PumpDetailsFutureRef ref, String pumpId) {
-  final pump = ref.watch(pumpFutureProvider(pumpId)).value;
-  if (pump == null) return Future.value(null);
+Stream<int> pumpTotalDispensedLitres(PumpTotalDispensedLitresRef ref, String pumpId) {
   final pumpDetailsRepository = ref.watch(pumpDetailsRepositoryProvider);
-  return pumpDetailsRepository.getPumpDetails(pump);
-}
-
-@riverpod
-Stream<PumpDetails?> pumpDetailsStream(
-    PumpDetailsStreamRef ref, String pumpId) {
-  final pumpDetailsRepository = ref.watch(pumpDetailsRepositoryProvider);
-  final pump = ref.watch(pumpStreamProvider(pumpId)).value; 
-  if (pump == null) return const Stream.empty();
-  return pumpDetailsRepository.watchPumpDetails(pump);
+  final pump = ref.watch(pumpStreamProvider(pumpId)).valueOrNull;
+  if (pump == null) return Stream.value(0);
+  return pumpDetailsRepository.watchTotalLitresDispensed(pump);
 }

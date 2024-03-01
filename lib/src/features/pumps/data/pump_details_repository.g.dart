@@ -22,7 +22,8 @@ final pumpDetailsRepositoryProvider = Provider<PumpDetailsRepository>.internal(
 );
 
 typedef PumpDetailsRepositoryRef = ProviderRef<PumpDetailsRepository>;
-String _$pumpDetailsFutureHash() => r'7a30864146ff9786bd42ec896c3fb6bd09c6bf40';
+String _$pumpTotalDispensedLitresHash() =>
+    r'8468f8749064bc330e192da605b97360ae008294';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -45,27 +46,27 @@ class _SystemHash {
   }
 }
 
-/// See also [pumpDetailsFuture].
-@ProviderFor(pumpDetailsFuture)
-const pumpDetailsFutureProvider = PumpDetailsFutureFamily();
+/// See also [pumpTotalDispensedLitres].
+@ProviderFor(pumpTotalDispensedLitres)
+const pumpTotalDispensedLitresProvider = PumpTotalDispensedLitresFamily();
 
-/// See also [pumpDetailsFuture].
-class PumpDetailsFutureFamily extends Family<AsyncValue<PumpDetails?>> {
-  /// See also [pumpDetailsFuture].
-  const PumpDetailsFutureFamily();
+/// See also [pumpTotalDispensedLitres].
+class PumpTotalDispensedLitresFamily extends Family<AsyncValue<int>> {
+  /// See also [pumpTotalDispensedLitres].
+  const PumpTotalDispensedLitresFamily();
 
-  /// See also [pumpDetailsFuture].
-  PumpDetailsFutureProvider call(
+  /// See also [pumpTotalDispensedLitres].
+  PumpTotalDispensedLitresProvider call(
     String pumpId,
   ) {
-    return PumpDetailsFutureProvider(
+    return PumpTotalDispensedLitresProvider(
       pumpId,
     );
   }
 
   @override
-  PumpDetailsFutureProvider getProviderOverride(
-    covariant PumpDetailsFutureProvider provider,
+  PumpTotalDispensedLitresProvider getProviderOverride(
+    covariant PumpTotalDispensedLitresProvider provider,
   ) {
     return call(
       provider.pumpId,
@@ -84,33 +85,32 @@ class PumpDetailsFutureFamily extends Family<AsyncValue<PumpDetails?>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'pumpDetailsFutureProvider';
+  String? get name => r'pumpTotalDispensedLitresProvider';
 }
 
-/// See also [pumpDetailsFuture].
-class PumpDetailsFutureProvider
-    extends AutoDisposeFutureProvider<PumpDetails?> {
-  /// See also [pumpDetailsFuture].
-  PumpDetailsFutureProvider(
+/// See also [pumpTotalDispensedLitres].
+class PumpTotalDispensedLitresProvider extends AutoDisposeStreamProvider<int> {
+  /// See also [pumpTotalDispensedLitres].
+  PumpTotalDispensedLitresProvider(
     String pumpId,
   ) : this._internal(
-          (ref) => pumpDetailsFuture(
-            ref as PumpDetailsFutureRef,
+          (ref) => pumpTotalDispensedLitres(
+            ref as PumpTotalDispensedLitresRef,
             pumpId,
           ),
-          from: pumpDetailsFutureProvider,
-          name: r'pumpDetailsFutureProvider',
+          from: pumpTotalDispensedLitresProvider,
+          name: r'pumpTotalDispensedLitresProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$pumpDetailsFutureHash,
-          dependencies: PumpDetailsFutureFamily._dependencies,
+                  : _$pumpTotalDispensedLitresHash,
+          dependencies: PumpTotalDispensedLitresFamily._dependencies,
           allTransitiveDependencies:
-              PumpDetailsFutureFamily._allTransitiveDependencies,
+              PumpTotalDispensedLitresFamily._allTransitiveDependencies,
           pumpId: pumpId,
         );
 
-  PumpDetailsFutureProvider._internal(
+  PumpTotalDispensedLitresProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -124,12 +124,12 @@ class PumpDetailsFutureProvider
 
   @override
   Override overrideWith(
-    FutureOr<PumpDetails?> Function(PumpDetailsFutureRef provider) create,
+    Stream<int> Function(PumpTotalDispensedLitresRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: PumpDetailsFutureProvider._internal(
-        (ref) => create(ref as PumpDetailsFutureRef),
+      override: PumpTotalDispensedLitresProvider._internal(
+        (ref) => create(ref as PumpTotalDispensedLitresRef),
         from: from,
         name: null,
         dependencies: null,
@@ -141,13 +141,13 @@ class PumpDetailsFutureProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<PumpDetails?> createElement() {
-    return _PumpDetailsFutureProviderElement(this);
+  AutoDisposeStreamProviderElement<int> createElement() {
+    return _PumpTotalDispensedLitresProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is PumpDetailsFutureProvider && other.pumpId == pumpId;
+    return other is PumpTotalDispensedLitresProvider && other.pumpId == pumpId;
   }
 
   @override
@@ -159,148 +159,18 @@ class PumpDetailsFutureProvider
   }
 }
 
-mixin PumpDetailsFutureRef on AutoDisposeFutureProviderRef<PumpDetails?> {
+mixin PumpTotalDispensedLitresRef on AutoDisposeStreamProviderRef<int> {
   /// The parameter `pumpId` of this provider.
   String get pumpId;
 }
 
-class _PumpDetailsFutureProviderElement
-    extends AutoDisposeFutureProviderElement<PumpDetails?>
-    with PumpDetailsFutureRef {
-  _PumpDetailsFutureProviderElement(super.provider);
+class _PumpTotalDispensedLitresProviderElement
+    extends AutoDisposeStreamProviderElement<int>
+    with PumpTotalDispensedLitresRef {
+  _PumpTotalDispensedLitresProviderElement(super.provider);
 
   @override
-  String get pumpId => (origin as PumpDetailsFutureProvider).pumpId;
-}
-
-String _$pumpDetailsStreamHash() => r'030e422ab4f1864d03354dede7b30a2a3f5d6b18';
-
-/// See also [pumpDetailsStream].
-@ProviderFor(pumpDetailsStream)
-const pumpDetailsStreamProvider = PumpDetailsStreamFamily();
-
-/// See also [pumpDetailsStream].
-class PumpDetailsStreamFamily extends Family<AsyncValue<PumpDetails?>> {
-  /// See also [pumpDetailsStream].
-  const PumpDetailsStreamFamily();
-
-  /// See also [pumpDetailsStream].
-  PumpDetailsStreamProvider call(
-    String pumpId,
-  ) {
-    return PumpDetailsStreamProvider(
-      pumpId,
-    );
-  }
-
-  @override
-  PumpDetailsStreamProvider getProviderOverride(
-    covariant PumpDetailsStreamProvider provider,
-  ) {
-    return call(
-      provider.pumpId,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'pumpDetailsStreamProvider';
-}
-
-/// See also [pumpDetailsStream].
-class PumpDetailsStreamProvider
-    extends AutoDisposeStreamProvider<PumpDetails?> {
-  /// See also [pumpDetailsStream].
-  PumpDetailsStreamProvider(
-    String pumpId,
-  ) : this._internal(
-          (ref) => pumpDetailsStream(
-            ref as PumpDetailsStreamRef,
-            pumpId,
-          ),
-          from: pumpDetailsStreamProvider,
-          name: r'pumpDetailsStreamProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$pumpDetailsStreamHash,
-          dependencies: PumpDetailsStreamFamily._dependencies,
-          allTransitiveDependencies:
-              PumpDetailsStreamFamily._allTransitiveDependencies,
-          pumpId: pumpId,
-        );
-
-  PumpDetailsStreamProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.pumpId,
-  }) : super.internal();
-
-  final String pumpId;
-
-  @override
-  Override overrideWith(
-    Stream<PumpDetails?> Function(PumpDetailsStreamRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: PumpDetailsStreamProvider._internal(
-        (ref) => create(ref as PumpDetailsStreamRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        pumpId: pumpId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeStreamProviderElement<PumpDetails?> createElement() {
-    return _PumpDetailsStreamProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is PumpDetailsStreamProvider && other.pumpId == pumpId;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, pumpId.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin PumpDetailsStreamRef on AutoDisposeStreamProviderRef<PumpDetails?> {
-  /// The parameter `pumpId` of this provider.
-  String get pumpId;
-}
-
-class _PumpDetailsStreamProviderElement
-    extends AutoDisposeStreamProviderElement<PumpDetails?>
-    with PumpDetailsStreamRef {
-  _PumpDetailsStreamProviderElement(super.provider);
-
-  @override
-  String get pumpId => (origin as PumpDetailsStreamProvider).pumpId;
+  String get pumpId => (origin as PumpTotalDispensedLitresProvider).pumpId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

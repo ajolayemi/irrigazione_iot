@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
-import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/domain/pump_details.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_details_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_status/pum_status_tile_wid.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 class PumpDetailsSliverList extends ConsumerWidget {
-  const PumpDetailsSliverList({super.key, required this.pumpDetails});
+  const PumpDetailsSliverList({super.key, required this.pump});
 
-  final PumpDetails pumpDetails;
+  final Pump pump;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pump = ref.watch(pumpStreamProvider(pumpDetails.id)).value!;
     return SliverList(
       delegate: SliverChildListDelegate.fixed([
         PumpDetailsCard(
@@ -27,21 +26,28 @@ class PumpDetailsSliverList extends ConsumerWidget {
         PumpDetailsCard(
           child: PumpDetailTileWidget(
             title: 'Capacity in volume',
-            subtitle: '${pumpDetails.capacityInVolume.toString()} m³',
+            subtitle: '${pump.capacityInVolume.toString()} m³',
           ),
         ),
         PumpDetailsCard(
           child: PumpDetailTileWidget(
             title: 'Consume rate in kW',
-            subtitle: '${pumpDetails.consumeRateInKw.toString()} kW',
+            subtitle: '${pump.consumeRateInKw.toString()} kW',
           ),
         ),
-        PumpDetailsCard(
-          child: PumpDetailTileWidget(
-            title: 'Total litres dispensed',
-            subtitle: '${pumpDetails.totalLitresDispensed.toString()} L',
-          ),
-        ),
+
+        Consumer(
+          builder: (context, ref, child) {
+            final litresDispensed = ref.watch(pumpTotalDispensedLitresProvider(pump.id)).value;
+            return PumpDetailsCard(
+              child: PumpDetailTileWidget(
+                title: 'Total litres dispensed',
+                subtitle: '${litresDispensed.toString()} L',
+              ),
+            );
+          },
+        )
+      
       ]),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/features/pumps/data/pump_details_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_sliver_list.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_sliver_list_skeleton.dart';
@@ -31,7 +31,7 @@ class PumpDetailsScreen extends ConsumerWidget {
     final aPumpIsCurrentlyLoading = ref.watch(
         pumpStatusSwitchControllerProvider.select(
             (state) => (state.value?.isLoading ?? false) && !state.hasError));
-    final pumpDetails = ref.watch(pumpDetailsStreamProvider(pumpId));
+    final pump = ref.watch(pumpStreamProvider(pumpId));
     return PopScope(
       canPop: !aPumpIsCurrentlyLoading,
       onPopInvoked: (didPop) {
@@ -45,7 +45,7 @@ class PumpDetailsScreen extends ConsumerWidget {
         body: CustomScrollView(
           slivers: [
             AppSliverBar(
-              title: pumpDetails.value?.name ?? '',
+              title: pump.value?.name ?? 'N/A',
               actions: [
                 // todo this button should be visible only when the current user operating
                 // todo isn't a regular user
@@ -57,12 +57,12 @@ class PumpDetailsScreen extends ConsumerWidget {
               ],
             ),
             AsyncValueSliverWidget(
-                value: pumpDetails,
+                value: pump,
                 loading: () => const PumpDetailsSliverListSkeleton(),
-                data: (details) {
-                  if (details == null) return const SliverToBoxAdapter();
+                data: (pump) {
+                  if (pump == null) return const SliverToBoxAdapter();
                   return PumpDetailsSliverList(
-                    pumpDetails: details,
+                    pump: pump,
                   );
                 }),
           ],

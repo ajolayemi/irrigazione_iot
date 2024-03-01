@@ -44,10 +44,10 @@ class PumpStatusTileWidget extends ConsumerWidget {
           title: Text(title ?? ''),
           subtitleTextStyle:
               context.textTheme.titleSmall?.copyWith(color: Colors.grey),
-          subtitle: Text(
+          subtitle:  Text(
             context.loc.pumpStatusLastSwitchedOn(
               lastDispensationDate == null
-                  ? 'N/A'
+                  ? context.loc.notAvailable
                   : dateFormatter
                       .format(lastDispensationDate),
             ),
