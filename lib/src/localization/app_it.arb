@@ -42,6 +42,7 @@
   "pumpStatusListTileTitle": "Stato attuale",
   "noCompanyFoundForUser": "Ciao {username}!\nNon ci risultano aziende associate al tuo account nel nostro database",
   "addNewPumpPageTitle": "Nuova Pompa",
+  "updatePumpPageTitle": "Aggiorna Pompa",
   "pumpNameFormFieldTitle": "Nome",
   "pumpNameFormHint": "es: Pompa Giardino",
   "pumpVolumeCapacityFormFieldTitle": "Portata Volumetrica",

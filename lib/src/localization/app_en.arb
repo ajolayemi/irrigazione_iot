@@ -119,6 +119,7 @@
   },
   "logInWithAnotherAccount": "Change Account",
   "addNewPumpPageTitle": "New Pump",
+  "updatePumpPageTitle": "Update Pump",
   "pumpNameFormFieldTitle": "Name",
   "pumpNameFormHint": "eg: Pompa Giardino",
   "pumpNameEmptyErrorText": "Pump name can't be empty",
