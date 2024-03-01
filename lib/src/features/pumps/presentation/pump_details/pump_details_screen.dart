@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_sliver_list.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_sliver_list_skeleton.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_status/pump_status_switch_controller.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
-import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
@@ -50,8 +51,9 @@ class PumpDetailsScreen extends ConsumerWidget {
                 // todo this button should be visible only when the current user operating
                 // todo isn't a regular user
                 AppBarIconButton(
-                  onPressed: () =>
-                      showNotImplementedAlertDialog(context: context),
+                  onPressed: () => context.goNamed(AppRoute.updatePump.name, pathParameters: {
+                    'pumpId': pump.value?.id ?? '',
+                  }),
                   icon: Icons.edit,
                 ) // todo add logic to edit existing pump details
               ],
