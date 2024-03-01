@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/add_update_pump_controller.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/add_pump_form_validators.dart';
@@ -97,19 +99,31 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
       debugPrint(toSave.toMap().toString());
 
       if (widget.formType == AddAndCreatePumpFormTypes.addPump) {
-        ref.read(addUpdatePumpControllerProvider.notifier).addPump(
-              toSave,
-            );
+        final success =
+            await ref.read(addUpdatePumpControllerProvider.notifier).addPump(
+                  toSave,
+                );
+        if (success) {
+          _popScreen();
+        }
       } else {
-        ref.read(addUpdatePumpControllerProvider.notifier).updatePump(
-              toSave,
-            );
+        final success =
+            await ref.read(addUpdatePumpControllerProvider.notifier).updatePump(
+                  toSave,
+                );
+        if (success) {
+          _popScreen();
+        }
       }
     }
   }
 
-  void _nameEditingComplete() {
-    if (canSubmitNameField(name)) {
+  void _popScreen() {
+    context.pop();
+  }
+
+  void _nameEditingComplete(List<String?> existingNames) {
+    if (canSubmitNameField(name, existingNames)) {
       _node.nextFocus();
     }
   }
@@ -126,14 +140,14 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
     }
   }
 
-  void _onCommandEditingComplete() {
-    if (canSubmitCommandFields(onCommand)) {
+  void _onCommandEditingComplete(List<String?> existingOnCommands) {
+    if (canSubmitCommandFields(onCommand, existingOnCommands)) {
       _node.nextFocus();
     }
   }
 
-  void _offCommandEditingComplete() {
-    if (!canSubmitCommandFields(offCommand)) {
+  void _offCommandEditingComplete(List<String?> existingOffCommands) {
+    if (!canSubmitCommandFields(offCommand, existingOffCommands)) {
       _node.previousFocus();
       return;
     }
@@ -145,6 +159,12 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
   Widget build(BuildContext context) {
     ref.listen(addUpdatePumpControllerProvider,
         (_, state) => state.showAlertDialogOnError(context));
+    final usedPumpNames =
+        ref.watch(companyUsedPumpNamesStreamProvider).valueOrNull ?? [];
+    final usedOnCommands =
+        ref.watch(companyUsedPumpOnCommandsStreamProvider).valueOrNull ?? [];
+    final usedOffCommands =
+        ref.watch(companyUsedPumpOffCommandsStreamProvider).valueOrNull ?? [];
     final state = ref.watch(addUpdatePumpControllerProvider);
     return CustomScrollView(
       slivers: [
@@ -170,8 +190,13 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
                           : nameErrorText(
                               name ?? '',
                               context,
+                              ref
+                                      .read(companyUsedPumpNamesStreamProvider)
+                                      .valueOrNull ??
+                                  [],
                             ),
-                      onEditingComplete: () => _nameEditingComplete(),
+                      onEditingComplete: () =>
+                          _nameEditingComplete(usedPumpNames),
                     ),
                     gapH16,
                     FormTitleAndField(
@@ -220,8 +245,14 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
                           : commandFieldsErrorText(
                               value ?? '',
                               context,
+                              ref
+                                      .read(
+                                          companyUsedPumpOnCommandsStreamProvider)
+                                      .valueOrNull ??
+                                  [],
                             ),
-                      onEditingComplete: () => _onCommandEditingComplete(),
+                      onEditingComplete: () =>
+                          _onCommandEditingComplete(usedOnCommands),
                       keyboardType: _numericFieldsKeyboardType,
                     ),
                     gapH16,
@@ -237,8 +268,13 @@ class _AddPumpScreenState extends ConsumerState<AddAndUpdatePumpContents>
                           : commandFieldsErrorText(
                               value ?? '',
                               context,
-                            ),
-                      onEditingComplete: () => _offCommandEditingComplete(),
+                              ref
+                                      .read(
+                                          companyUsedPumpOffCommandsStreamProvider)
+                                      .valueOrNull ??
+                                  []),
+                      onEditingComplete: () =>
+                          _offCommandEditingComplete(usedOffCommands),
                       keyboardType: _numericFieldsKeyboardType,
                     ),
                     gapH16,

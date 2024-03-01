@@ -1,4 +1,4 @@
-import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/application/add_update_pump_service.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -12,16 +12,16 @@ class AddUpdatePumpController extends _$AddUpdatePumpController {
   }
 
   Future<bool> addPump(Pump pump) async {
-    final pumpRepo = ref.read(pumpRepositoryProvider);
+    final pumpService = ref.read(addUpdatePumpServiceProvider);
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => pumpRepo.createPump(pump));
+    state = await AsyncValue.guard(() => pumpService.createPump(pump));
     return !state.hasError;
   }
 
   Future<bool> updatePump(Pump pump) async {
-    final pumpRepo = ref.read(pumpRepositoryProvider);
+    final pumpService = ref.read(addUpdatePumpServiceProvider);
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => pumpRepo.updatePump(pump));
+    state = await AsyncValue.guard(() => pumpService.updatePump(pump));
     return !state.hasError;
   }
 }
