@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/presentation/home_nested_navigator.dart';
-import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/presentation/add_pump_screen.dart';
+import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/add_and_update_pump_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_list/pumps_list_screen.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
@@ -150,7 +151,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     name: AppRoute.addPump.name,
                     pageBuilder: (context, state) => const MaterialPage(
                       fullscreenDialog: true,
-                      child: AddPumpScreen()
+                      child: AddAndCreatePumpScreen(
+                        formType: AddAndCreatePumpFormTypes.addPump,
+                      ),
                     ),
                   ),
                 ],
