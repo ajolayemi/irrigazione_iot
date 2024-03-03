@@ -16,9 +16,9 @@ class SelectedCompanyRepository {
 
   static const String prefKey = 'tappedCompanyId';
 
-  String? loadSelectedCompany(String uid) => prefs.getString('$uid-$prefKey');
+  String? loadSelectedCompanyId(String uid) => prefs.getString('$uid-$prefKey');
 
-  Future<void> updateSelectedCompany(String uid, String companyId) async {
+  Future<void> updateSelectedCompanyId(String uid, String companyId) async {
     await prefs.setString('$uid-$prefKey', companyId);
   }
 }
@@ -36,7 +36,7 @@ Future<Company?> currentTappedCompany(CurrentTappedCompanyRef ref) {
   final uid = ref.watch(authRepositoryProvider).currentUser?.uid;
   final companyId = ref
       .watch(selectedCompanyRepositoryProvider)
-      .loadSelectedCompany(uid ?? '');
+      .loadSelectedCompanyId(uid ?? '');
   if (companyId == null) return Future.value(null);
   final companyRepo = ref.watch(companyRepositoryProvider);
   return companyRepo.fetchCompany(companyId);
