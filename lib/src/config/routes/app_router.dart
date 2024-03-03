@@ -62,7 +62,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       final path = state.uri.path;
       if (isLoggedIn && path == '/sign-in') {
         final userHasAlreadySelectedACompany =
-            initialTappedCompanyRepo.loadSelectedCompany(user.uid) != null;
+            initialTappedCompanyRepo.loadSelectedCompanyId(user.uid) != null;
 
         if (userHasAlreadySelectedACompany) {
           return '/';
@@ -138,27 +138,27 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     const NoTransitionPage(child: PumpListScreen()),
                 routes: [
                   GoRoute(
-                    path: 'details/:pumpId',
-                    name: AppRoute.pumpDetails.name,
-                    pageBuilder: (context, state) => MaterialPage(
-                      fullscreenDialog: true,
-                      child: PumpDetailsScreen(
-                        pumpId: state.pathParameters['pumpId'] ?? '',
-                      ),
-                    ),
-                    routes: [
-                      GoRoute(
-                        path: 'edit',
-                        name: AppRoute.updatePump.name,
-                        pageBuilder: (context, state) => MaterialPage(
-                          fullscreenDialog: true,
-                          child: AddAndCreatePumpScreen(
-                            formType: AddAndCreatePumpFormTypes.updatePump,
-                            pumpId: state.pathParameters['pumpId'] ?? '',
+                      path: 'details/:pumpId',
+                      name: AppRoute.pumpDetails.name,
+                      pageBuilder: (context, state) => MaterialPage(
+                            fullscreenDialog: true,
+                            child: PumpDetailsScreen(
+                              pumpId: state.pathParameters['pumpId'] ?? '',
+                            ),
+                          ),
+                      routes: [
+                        GoRoute(
+                          path: 'edit',
+                          name: AppRoute.updatePump.name,
+                          pageBuilder: (context, state) => MaterialPage(
+                            fullscreenDialog: true,
+                            child: AddAndCreatePumpScreen(
+                              formType: AddAndCreatePumpFormTypes.updatePump,
+                              pumpId: state.pathParameters['pumpId'] ?? '',
+                            ),
                           ),
                         ),
-                      ),]
-                  ),
+                      ]),
                   GoRoute(
                     path: 'add',
                     name: AppRoute.addPump.name,
@@ -166,7 +166,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                       fullscreenDialog: true,
                       child: AddAndCreatePumpScreen(
                         formType: AddAndCreatePumpFormTypes.addPump,
-                        
                       ),
                     ),
                   ),
