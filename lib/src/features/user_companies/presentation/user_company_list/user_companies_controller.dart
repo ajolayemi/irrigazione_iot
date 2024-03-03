@@ -11,7 +11,7 @@ class UserCompaniesController extends _$UserCompaniesController {
   @override
   FutureOr<void> build() {}
 
-  Future<void> updateTappedCompany(CompanyID companyId) async {
+  Future<void> updateTappedCompanyId(CompanyID companyId) async {
     final repo = ref.read(selectedCompanyRepositoryProvider);
     final uid = ref.read(authRepositoryProvider).currentUser?.uid ?? '';
     state = const AsyncLoading();
