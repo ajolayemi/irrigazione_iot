@@ -61,7 +61,7 @@ class _UserCompaniesListScreenState
                         onTap: () {
                           ref
                               .read(userCompaniesControllerProvider.notifier)
-                              .updateTappedCompany(company.id);
+                              .updateTappedCompanyId(company.id);
                           context.goNamed(AppRoute.home.name);
                         },
                         child: ListTile(
