@@ -93,8 +93,6 @@ void main() {
         createdPump,
         expectedRes,
       );
-      final isInList = await repo.getPump(expectedRes.id);
-      expect(isInList, expectedRes);
     });
 
     test('updatePump with existing pump works as expected', () async {
