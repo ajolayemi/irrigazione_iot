@@ -7,7 +7,7 @@ part of 'pump_status_switch_controller.dart';
 // **************************************************************************
 
 String _$pumpStatusSwitchControllerHash() =>
-    r'b460cbdeb0a468f24cbe056e1cab416abced1fd1';
+    r'b7afe31c7eeb6748d35316f30de12f63637496f8';
 
 /// See also [PumpStatusSwitchController].
 @ProviderFor(PumpStatusSwitchController)

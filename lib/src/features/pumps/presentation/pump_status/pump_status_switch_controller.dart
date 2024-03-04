@@ -7,13 +7,12 @@ import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
 
 part 'pump_status_switch_controller.g.dart';
 
-
 @riverpod
 class PumpStatusSwitchController extends _$PumpStatusSwitchController {
+  final initValue = const CustomControllerState(loadingStates: {});
   @override
   FutureOr<CustomControllerState> build() {
-    const initValue = CustomControllerState(loadingStates: {});
-    state = const AsyncData(initValue);
+    state = AsyncData<CustomControllerState>(initValue);
     return initValue;
   }
 
@@ -31,7 +30,7 @@ class PumpStatusSwitchController extends _$PumpStatusSwitchController {
     if (value.hasError) {
       state = AsyncError(value.error!, StackTrace.current);
     } else {
-      setLoading(pump.id, false);
+      state = AsyncData<CustomControllerState>(initValue);
     }
   }
 }
