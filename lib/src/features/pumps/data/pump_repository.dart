@@ -19,6 +19,8 @@ abstract class PumpRepository {
   Future<Pump?> createPump(Pump pump, CompanyID companyId);
   // updates a pump
   Future<Pump?> updatePump(Pump pump, CompanyID companyId);
+  // deletes a pump
+  Future<bool> deletePump(PumpID pumpId);
   // watches a list of already used pump names for a specified company
   // this is used in form validation to prevent duplicate pump names for a company
   Stream<List<String?>> watchCompanyUsedPumpNames(CompanyID companyId);

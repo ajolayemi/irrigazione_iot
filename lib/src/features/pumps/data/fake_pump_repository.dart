@@ -78,8 +78,9 @@ class FakePumpRepository implements PumpRepository {
   @override
   Stream<List<String?>> watchCompanyUsedPumpNames(CompanyID companyId) {
     return _fakePumps.stream.map(
-      (pumps) =>
-          _getCompanyPumps(pumps, companyId).map((pump) => pump.name.toLowerCase()).toList(),
+      (pumps) => _getCompanyPumps(pumps, companyId)
+          .map((pump) => pump.name.toLowerCase())
+          .toList(),
     );
   }
 
@@ -99,5 +100,17 @@ class FakePumpRepository implements PumpRepository {
           .map((pump) => pump.commandForOn)
           .toList(),
     );
+  }
+
+  @override
+  Future<bool> deletePump(PumpID pumpId) {
+    final currentPumps = [..._fakePumps.value];
+    final pumpIndex = currentPumps.indexWhere((p) => p.id == pumpId);
+    if (pumpIndex >= 0) {
+      currentPumps.removeAt(pumpIndex);
+      _fakePumps.value = currentPumps;
+      return Future.value(true);
+    }
+    return Future.value(false);
   }
 }
