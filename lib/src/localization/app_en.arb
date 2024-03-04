@@ -70,6 +70,7 @@
   },
   "alertDialogCancel": "Cancel",
   "alertDialogConfirm": "Confirm",
+  "alertDialogDelete": "Delete",
   "genericAlertDialogTitle": "Are you sure?",
   "pumpStatusLastSwitchedOn": "last dispensation: {when}",
   "@pumpStatusLastSwitchedOn": {
@@ -151,5 +152,15 @@
   "pumpFormGenericSaveDialogContent": "You're about to save the data for the pump in the database",
   "pumpFormGenericUpdateDialogTitle": "Do you want to update the data?",
   "pumpFormGenericUpdateDialogContent": "You're about to update the data for the pump in the database",
-  "notAvailable": "Not available"
+  "notAvailable": "Not available",
+  "deletePumpConfirmationDialogTitle": "Clicking on delete will remove all data related to {pumpName} from database",
+  "@deletePumpConfirmationDialogTitle": {
+    "description": "The title of the delete pump confirmation dialog",
+    "placeholders": {
+      "pumpName": {
+        "description": "The name of the pump",
+        "example": "Pump 1"
+      }
+    }
+  }
 }

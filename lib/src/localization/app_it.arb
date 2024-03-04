@@ -32,6 +32,7 @@
   "genericUpdateButtonLabel": "Aggiorna",
   "alertDialogCancel": "Annulla",
   "alertDialogConfirm": "Conferma",
+  "alertDialogDelete": "Elimina",
   "logInWithAnotherAccount": "Cambia account",
   "pumpStatusLastSwitchedOn": "ultima erogazione: {when}",
   "pumpOnStatusUpdateAlertDialogContent": "Stai per accendere {pumpName}",
@@ -65,5 +66,6 @@
   "pumpFormGenericSaveDialogDescription": "Stai per salvare i dati relativi alla pompa nel database",
   "pumpFormGenericUpdateDialogTitle": "Vuoi aggiornare i dati?",
   "pumpFormGenericUpdateDialogDescription": "Stai per aggiornare i dati relativi alla pompa nel database",
-  "notAvailable": "Non disponibile"
+  "notAvailable": "Non disponibile",
+  "deletePumpConfirmationDialogTitle": "Cliccando su elimina, verranno cancellati tutti i dati relativi alla {pumpName}"
 }
