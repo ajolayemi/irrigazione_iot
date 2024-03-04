@@ -29,7 +29,6 @@ class _UserCompaniesListScreenState
     extends ConsumerState<UserCompaniesListScreen> {
   @override
   Widget build(BuildContext context) {
-    debugPrint('UserCompaniesListScreen build');
     ref.listen(
       userCompaniesControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),

@@ -45,10 +45,13 @@ void main() {
       expect(pumpStatusRepository.watchPumpStatus('9000'), emits(isNull));
     });
 
-    test('togglePumpStatus(1, 1) completes successfully', () {
+    test('togglePumpStatus(1, 2) completes successfully', () async {
       final pumpStatusRepository = makePumpStatusRepository();
       addTearDown(pumpStatusRepository.dispose);
-      expect(pumpStatusRepository.togglePumpStatus('1', '1'), completes);
+      await pumpStatusRepository.togglePumpStatus('1', '2');
+      final statusAfterUpdate = await pumpStatusRepository.getPumpStatus('1');
+      final stat = statusAfterUpdate?.status;
+      expect(stat, equals('2'));
     });
 
     test('getLastDispensation returns a valid DateTime', () async {

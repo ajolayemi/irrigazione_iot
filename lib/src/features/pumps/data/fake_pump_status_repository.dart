@@ -46,9 +46,11 @@ class FakePumpStatusRepository extends PumpStatusRepository {
 
   @override
   Stream<PumpStatus?> watchPumpStatus(PumpID pumpId) {
-    final statusesForPump = _filterPumpStatus(_fakePumpStatus.value, pumpId);
-    if (statusesForPump.isEmpty) return Stream.value(null);
-    return Stream.value(_getMostRecentStatus(statusesForPump));
+    return _fakePumpStatus.stream.map((statuses) {
+      final statusesForPump = _filterPumpStatus(statuses, pumpId);
+      if (statusesForPump.isEmpty) return null;
+      return _getMostRecentStatus(statusesForPump);
+    });
   }
 
   @override
