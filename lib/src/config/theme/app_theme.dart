@@ -7,12 +7,13 @@ class AppTheme {
   const AppTheme._();
 
   static final lightTheme = FlexThemeData.light(
+      useMaterial3: true,
       scheme: FlexScheme.greenM3,
       surfaceMode: FlexSurfaceMode.highScaffoldLowSurfacesVariantDialog,
       blendLevel: 40,
-      appBarStyle: FlexAppBarStyle.primary,
       appBarOpacity: 0.95,
       appBarElevation: 0,
+      //appBarStyle: FlexAppBarStyle.primary,
       transparentStatusBar: true, // TODO adapt this to user platform
       swapColors: true,
       lightIsWhite: true,

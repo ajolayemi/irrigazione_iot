@@ -25,6 +25,4 @@ class PasswordTooShortException extends AppException {
   PasswordTooShortException() : super('password-too-short', 'Password is too short');
 }
 
-// Write an exception class that adds localized error message
-
 

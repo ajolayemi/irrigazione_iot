@@ -14,25 +14,27 @@ class EmptyPlaceholderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(Sizes.p16),
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              message,
-              style: context.textTheme.headlineMedium,
-              textAlign: TextAlign.center,
-            ),
-            gapH32,
-            CTAButton(
-              buttonType: ButtonType.primary,
-              onPressed: () => context.goNamed(AppRoute.home.name),
-              text: 'Go Home',
-            )
-          ],
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(Sizes.p16),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                message,
+                style: context.textTheme.headlineMedium,
+                textAlign: TextAlign.center,
+              ),
+              gapH32,
+              CTAButton(
+                buttonType: ButtonType.primary,
+                onPressed: () => context.goNamed(AppRoute.home.name),
+                text: 'Go Home',
+              )
+            ],
+          ),
         ),
       ),
     );

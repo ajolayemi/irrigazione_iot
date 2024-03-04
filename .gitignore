@@ -117,7 +117,7 @@ firebase-exports
 .env
 
 # Ignore test coverage data
-coverage/lcov.info
+coverage/
 
 # Firebase CLI config
 .firebaserc
@@ -129,3 +129,5 @@ ios/firebase_app_id_file.json
 macos/Runner/GoogleService-Info.plist
 macos/firebase_app_id_file.json
 android/app/google-services.json
+
+untranslated_messages.txt

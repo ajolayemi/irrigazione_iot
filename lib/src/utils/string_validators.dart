@@ -74,3 +74,19 @@ class MinLengthStringValidator extends StringValidator {
     return value.length >= minLength;
   }
 }
+
+class MaxLengthStringValidator extends StringValidator {
+  MaxLengthStringValidator(this.maxLength);
+  final int maxLength;
+
+  @override
+  bool isValid(String value) {
+    return value.length <= maxLength;
+  }
+}
+
+
+// Regex to validate that user entered a numeric value
+class NumericEditingRegexValidator extends RegexValidator {
+  NumericEditingRegexValidator() : super(regexSource: '^[0-9]+\\.?[0]*\$');
+}

@@ -18,7 +18,8 @@ class FormTitleAndField extends StatelessWidget {
       this.inputFormatters,
       this.validator,
       this.textInputAction,
-      this.obscureText});
+      this.obscureText,
+      this.enabled});
 
   final Key fieldKey;
   final String fieldTitle;
@@ -33,36 +34,37 @@ class FormTitleAndField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextInputAction? textInputAction;
   final bool? obscureText;
+  final bool? enabled;
   @override
   Widget build(BuildContext context) {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            fieldTitle,
-            style: context.textTheme.titleSmall,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          fieldTitle,
+          style: context.textTheme.titleSmall,
+        ),
+        gapH8,
+        TextFormField(
+          key: fieldKey,
+          controller: fieldController,
+          decoration: InputDecoration(
+            hintText: fieldHintText,
+            errorMaxLines: 3,
+            enabled: enabled ?? true,
           ),
-          gapH8,
-          TextFormField(
-            key: fieldKey,
-            controller: fieldController,
-            decoration: InputDecoration(
-              hintText: fieldHintText,
-              errorMaxLines: 3,
-            ),
-            autovalidateMode:
-                autovalidateMode ?? AutovalidateMode.onUserInteraction,
-            validator: validator,
-            autocorrect: autoCorrect ?? false,
-            textInputAction: textInputAction,
-            keyboardType: keyboardType,
-            keyboardAppearance: keyboardAppearance,
-            onEditingComplete: onEditingComplete,
-            inputFormatters: inputFormatters,
-            obscureText: obscureText ?? false,
-          ),
-          
-        ],
-      );
+          autovalidateMode:
+              autovalidateMode ?? AutovalidateMode.onUserInteraction,
+          validator: validator,
+          autocorrect: autoCorrect ?? false,
+          textInputAction: textInputAction,
+          keyboardType: keyboardType,
+          keyboardAppearance: keyboardAppearance ?? Brightness.light,
+          onEditingComplete: onEditingComplete,
+          inputFormatters: inputFormatters,
+          obscureText: obscureText ?? false,
+        ),
+      ],
+    );
   }
 }

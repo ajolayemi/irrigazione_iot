@@ -7,7 +7,7 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/or_sign_with_widget.dart';
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/providers_sign_in_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/sign_in_controller.dart';
-import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/string_validators.dart';
+import 'package:irrigazione_iot/src/utils/string_validators.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
@@ -109,116 +109,114 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
       (_, state) => state.showAlertDialogOnError(context),
     );
     final state = ref.watch(signInControllerProvider);
-    return SafeArea(
-      child: Scaffold(
-        body: ResponsiveScrollable(
-          child: FocusScope(
-            node: _node,
-            child: Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(Sizes.p16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    gapH64,
-                    // email field
-                    FormTitleAndField(
-                      fieldKey: emailKey,
-                      fieldTitle: context.loc.emailFormFieldTitle,
-                      fieldHintText: context.loc.emailFormHint,
-                      fieldController: _emailController,
-                      autoCorrect: false,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.next,
-                      validator: (email) => !_submitted
+    return Scaffold(
+      body: ResponsiveScrollable(
+        child: FocusScope(
+          node: _node,
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(Sizes.p16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  gapH64,
+                  // email field
+                  FormTitleAndField(
+                    fieldKey: emailKey,
+                    fieldTitle: context.loc.emailFormFieldTitle,
+                    fieldHintText: context.loc.emailFormHint,
+                    fieldController: _emailController,
+                    autoCorrect: false,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    validator: (email) => !_submitted
+                        ? null
+                        : emailErrorText(
+                            email ?? '',
+                            context,
+                          ),
+                    inputFormatters: <TextInputFormatter>[
+                      ValidatorInputFormatter(
+                        editingValidator: EmailEditingRegexValidator(),
+                      ),
+                    ],
+                    onEditingComplete: _emailEditingComplete,
+                    keyboardAppearance: Brightness.light,
+                  ),
+                  gapH24,
+                  // Password Field
+                  FormTitleAndField(
+                    key: passwordKey,
+                    fieldKey: emailKey,
+                    fieldTitle: context.loc.passwordFormFieldTitle,
+                    fieldHintText: context.loc.passwordFormHint,
+                    fieldController: _passwordController,
+                    autoCorrect: false,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    validator: (password) => !_submitted
+                        ? null
+                        : passwordErrorText(
+                            password ?? '',
+                            context,
+                          ),
+                    onEditingComplete: _passwordEditingComplete,
+                    keyboardAppearance: Brightness.light,
+                    obscureText: true,
+                  ),
+
+                  // Forgot password button
+                  Align(
+                    key: forgotPasswordButtonKey,
+                    alignment: Alignment.centerRight,
+                    child: CustomTextButton(
+                      onPressed: state.isLoading
                           ? null
-                          : emailErrorText(
-                              email ?? '',
-                              context,
-                            ),
-                      inputFormatters: <TextInputFormatter>[
-                        ValidatorInputFormatter(
-                          editingValidator: EmailEditingRegexValidator(),
-                        ),
-                      ],
-                      onEditingComplete: _emailEditingComplete,
-                      keyboardAppearance: Brightness.light,
+                          : () => {}, // TODO add forgot password logic
+                      text: context.loc.forgotPasswordButtonTitle,
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        decorationColor: context.theme.primaryColor,
+                        decorationThickness: 2.0,
+                      ),
                     ),
+                  ),
+
+                  // If state is loading, replace the sign in section with a circular progress indicator
+                  if (state.isLoading) ...[
                     gapH24,
-                    // Password Field
-                    FormTitleAndField(
-                      key: passwordKey,
-                      fieldKey: emailKey,
-                      fieldTitle: context.loc.passwordFormFieldTitle,
-                      fieldHintText: context.loc.passwordFormHint,
-                      fieldController: _passwordController,
-                      autoCorrect: false,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.next,
-                      validator: (password) => !_submitted
-                          ? null
-                          : passwordErrorText(
-                              password ?? '',
-                              context,
-                            ),
-                      onEditingComplete: _passwordEditingComplete,
-                      keyboardAppearance: Brightness.light,
-                      obscureText: true,
+                    const Center(child: CircularProgressIndicator()),
+                  ] else ...[
+                    // sign in button
+                    CTAButton(
+                      key: signInButtonKey,
+                      buttonType: ButtonType.primary,
+                      text: context.loc.signInButtonTitle,
+                      isLoading: state.isLoading,
+                      onPressed: state.isLoading ? null : _submit,
                     ),
 
-                    // Forgot password button
-                    Align(
-                      key: forgotPasswordButtonKey,
-                      alignment: Alignment.centerRight,
-                      child: CustomTextButton(
-                        onPressed: state.isLoading
-                            ? null
-                            : () => {}, // TODO add forgot password logic
-                        text: context.loc.forgotPasswordButtonTitle,
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          decorationColor: context.theme.primaryColor,
-                          decorationThickness: 2.0,
-                        ),
+                    gapH24,
+                    const OrSignWithWidget(),
+
+                    // Sign in with Google Button
+                    AuthProviderSignInButton(
+                      key: signInWithGoogleButtonKey,
+                      text: context.loc.signInWithGoogleButtonTitle,
+                      providerIcon: Image.asset(
+                        'assets/images/google_logo.png',
+                        height: Sizes.p32,
+                        width: Sizes.p32,
                       ),
+                      onPressed: state.isLoading ? null : _submitWithGoogle,
+                      isLoading: state.isLoading,
                     ),
-
-                    // If state is loading, replace the sign in section with a circular progress indicator
-                    if (state.isLoading) ...[
-                      gapH24,
-                      const Center(child: CircularProgressIndicator()),
-                    ] else ...[
-                      // sign in button
-                      CTAButton(
-                        key: signInButtonKey,
-                        buttonType: ButtonType.primary,
-                        text: context.loc.signInButtonTitle,
-                        isLoading: state.isLoading,
-                        onPressed: state.isLoading ? null : _submit,
-                      ),
-
-                      gapH24,
-                      const OrSignWithWidget(),
-
-                      // Sign in with Google Button
-                      AuthProviderSignInButton(
-                        key: signInWithGoogleButtonKey,
-                        text: context.loc.signInWithGoogleButtonTitle,
-                        providerIcon: Image.asset(
-                          'assets/images/google_logo.png',
-                          height: Sizes.p32,
-                          width: Sizes.p32,
-                        ),
-                        onPressed: state.isLoading ? null : _submitWithGoogle,
-                        isLoading: state.isLoading,
-                      ),
-                    ]
-                  ],
-                ),
+                  ]
+                ],
               ),
             ),
           ),

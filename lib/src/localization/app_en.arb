@@ -1,9 +1,10 @@
 {
+  "@@locale": "en",
   "appTitle": "irrigazione_iot",
   "@appTitle": {
     "description": "The title of the application"
   },
-  "homePageTitle": "irrigation",
+  "homePageTitle": "Home",
   "@homePageTitle": {
     "description": "The title of the home page"
   },
@@ -49,5 +50,117 @@
       }
     }
   },
-  "emptyPasswordErrorText": "Password can't be empty"
+  "emptyPasswordErrorText": "Password can't be empty",
+  "settingsPageTitle": "Settings",
+  "collectorPageTitle": "Collectors",
+  "pumpPageTitle": "Pumps",
+  "meteoPageTitle": "Meteo",
+  "graphsPageTitle": "Graphs",
+  "morePageTitle": "More",
+  "chooseCompany": "Choose a company",
+  "welcome": "Welcome, {username}!",
+  "@welcome": {
+    "description": "The welcome message that is displayed on the home page",
+    "placeholders": {
+      "username": {
+        "description": "The username of the user",
+        "example": "John Doe"
+      }
+    }
+  },
+  "alertDialogCancel": "Cancel",
+  "alertDialogConfirm": "Confirm",
+  "alertDialogDelete": "Delete",
+  "genericAlertDialogTitle": "Are you sure?",
+  "pumpStatusLastSwitchedOn": "last dispensation: {when}",
+  "@pumpStatusLastSwitchedOn": {
+    "description": "The last time a pump status was switched on",
+    "placeholders": {
+      "when": {
+        "type": "String",
+        "example": "Feb 20, 2020 10:00"
+      }
+    }
+  },
+  "genericSaveButtonLabel": "Save",
+  "genericUpdateButtonLabel": "Update",
+  "pumpOnStatusUpdateAlertDialogContent": "You're about to switch on {pumpName}",
+  "@pumpOnStatusUpdateAlertDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to switch on the pump",
+    "placeholders": {
+      "pumpName": {
+        "description": "The name of the pump",
+        "example": "Pump 1"
+      }
+    }
+  },
+  "pumpOffStatusUpdateAlertDialogContent": "You're about to switch off {pumpName}",
+  "@pumpOffStatusUpdateAlertDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to switch off the pump",
+    "placeholders": {
+      "pumpName": {
+        "description": "The name of the pump",
+        "example": "Pump 1"
+      }
+    }
+  },
+  "pumpOnStatusDialogConfirmButtonTitle": "Switch On",
+  "pumpOffStatusDialogConfirmButtonTitle": "Switch Off",
+  "pumpStatusListTileTitle": "Current status",
+  "noCompanyFoundForUser": "Hello {username}!\nThere is no company associated with your account in our database",
+  "@noCompanyFoundForUser": {
+    "description": "The message that is displayed when the user doesn't have a company associated with their account",
+    "placeholders": {
+      "username": {
+        "description": "The username of the user",
+        "example": "John Doe"
+      }
+    }
+  },
+  "logInWithAnotherAccount": "Change Account",
+  "addNewPumpPageTitle": "New Pump",
+  "updatePumpPageTitle": "Update Pump",
+  "pumpNameFormFieldTitle": "Name",
+  "pumpNameFormHint": "eg: Pompa Giardino",
+  "pumpNameEmptyErrorText": "Pump name can't be empty",
+  "pumpNameTooLongErrorText": "Pump name is too long, it has to be a maximum of {maxPumpNameLength} characters",
+  "@pumpNameTooLongErrorText": {
+    "description": "The error message that is displayed when the pump name is too long",
+    "placeholders": {
+      "maxPumpNameLength": {
+        "description": "The maximum length of the pump name",
+        "example": "3",
+        "type": "int"
+      }
+    }
+  },
+  "pumpGenericEmptyFormFieldErrorText": "Field can't be empty",
+  "pumpGenericNotANumberErrorText": "Field has to be a number",
+  "pumpGenericNotGreaterThanZeroErrorText": "Field has to be greater than 0",
+  "pumpVolumeCapacityFormFieldTitle": "Volume Capacity",
+  "pumpVolumeCapacityFormHint": "eg: 1000",
+  "pumpKwFormFieldTitle": "Consumption (kW)",
+  "pumpKwFormHint": "eg: 50",
+  "pumpOnCommandFormFieldTitle": "On Command",
+  "pumpOnCommandFormHint": "eg: 1",
+  "pumpOffCommandFormFieldTitle": "Off Command",
+  "pumpOffCommandFormHint": "eg: 2",
+  "pumpNameAlreadyInUseErrorText": "Pump name is already in use",
+  "pumpCommandAlreadyInUseErrorText": "This command value is already in use for another pump",
+  "pumpDuplicateCommandsInFormErrorText": "You can't use the same command to switch on and switch off pump",
+  "pumpFormGenericSaveDialogTitle": "Do you want to save the data?",
+  "pumpFormGenericSaveDialogContent": "You're about to save the data for the pump in the database",
+  "pumpFormGenericUpdateDialogTitle": "Do you want to update the data?",
+  "pumpFormGenericUpdateDialogContent": "You're about to update the data for the pump in the database",
+  "notAvailable": "Not available",
+  "deletePumpConfirmationDialogTitle": "Clicking on delete will remove all data related to {pumpName} from database",
+  "@deletePumpConfirmationDialogTitle": {
+    "description": "The title of the delete pump confirmation dialog",
+    "placeholders": {
+      "pumpName": {
+        "description": "The name of the pump",
+        "example": "Pump 1"
+      }
+    }
+  }
 }
