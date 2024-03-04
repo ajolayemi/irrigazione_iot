@@ -135,7 +135,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
 
       if (widget.formType == AddAndCreatePumpFormTypes.addPump) {
         final success =
-            await ref.read(addUpdatePumpControllerProvider.notifier).addPump(
+            await ref.read(addUpdatePumpControllerProvider.notifier).createPump(
                   toSave,
                 );
         if (success) {

@@ -11,7 +11,7 @@ class AddUpdatePumpController extends _$AddUpdatePumpController {
     // nothing to do here
   }
 
-  Future<bool> addPump(Pump pump) async {
+  Future<bool> createPump(Pump pump) async {
     final pumpService = ref.read(addUpdatePumpServiceProvider);
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => pumpService.createPump(pump));
