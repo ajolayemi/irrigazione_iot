@@ -46,9 +46,9 @@ class PumpStatusTileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // todo - fix the ui issue when an error occurs and the 
+    // todo - fix the ui issue when an error occurs and the
     // todo alert dialog doesn't dismiss immediately after first tap
-    
+
     ref.listen(
       pumpStatusTileWidgetControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
@@ -62,24 +62,31 @@ class PumpStatusTileWidget extends ConsumerWidget {
         pumpStatusSwitchControllerProvider.select(
             (state) => (state.value?.isLoading ?? false) && !state.hasError));
 
+    final isDeleting =
+        ref.watch(pumpStatusTileWidgetControllerProvider).isLoading;
+
     return ResponsiveCenter(
       maxContentWidth: Breakpoint.tablet,
       child: InkWell(
         onTap: aPumpIsCurrentlyLoading ? null : onTap,
         child: Dismissible(
-          key: pumpStatusTileKey(pump),
+          key: ValueKey(pumpStatusTileKey(pump)),
           direction: DismissDirection.endToStart,
-          confirmDismiss: (_) => _dismissPump(context, ref),
+          confirmDismiss: (_) async => await _dismissPump(context, ref),
+          onDismissed: (_) {},
           background: Container(
             color: Colors.red,
             alignment: Alignment.center,
             padding: const EdgeInsets.only(right: 20.0),
-            child: const Icon(
-              Icons.delete,
-              color: Colors.white,
-            ),
+            child: isDeleting
+                ? const CircularProgressIndicator(
+                    color: Colors.white,
+                  )
+                : const Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                  ),
           ),
-          onDismissed: (direction) {},
           child: ListTile(
             title: Text(title ?? ''),
             subtitleTextStyle:
