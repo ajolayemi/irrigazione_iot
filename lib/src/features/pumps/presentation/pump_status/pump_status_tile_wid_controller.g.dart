@@ -7,7 +7,7 @@ part of 'pump_status_tile_wid_controller.dart';
 // **************************************************************************
 
 String _$pumpStatusTileWidgetControllerHash() =>
-    r'44de5ec1f879970e143aa1538dc4d84c3c3c0cb9';
+    r'cb74721701fe7a427f29837f5cdc1998a3c5dd14';
 
 /// See also [PumpStatusTileWidgetController].
 @ProviderFor(PumpStatusTileWidgetController)

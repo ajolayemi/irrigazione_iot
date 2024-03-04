@@ -14,7 +14,12 @@ class PumpStatusTileWidgetController extends _$PumpStatusTileWidgetController {
   Future<bool> confirmDismiss(PumpID pumpId) async {
     final pumpRepository = ref.read(pumpRepositoryProvider);
     state = const AsyncLoading<void>();
-    state = await AsyncValue.guard(() => pumpRepository.deletePump(pumpId));
-    return !state.hasError;
+    final res = await AsyncValue.guard(() => pumpRepository.deletePump(pumpId));
+    if (res.hasError) {
+      state = AsyncError(res.error!, StackTrace.current);
+      return false;
+    }
+    state = const AsyncData<void>(null);
+    return true;
   }
 }
