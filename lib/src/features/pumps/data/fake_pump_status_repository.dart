@@ -37,14 +37,22 @@ class FakePumpStatusRepository extends PumpStatusRepository {
   }
 
   @override
-  Future<PumpStatus> getPumpStatus(String pumpId) async {
+  Future<PumpStatus?> getPumpStatus(PumpID pumpId) async {
     await delay(addDelay);
     final statusesForPump = _filterPumpStatus(_fakePumpStatus.value, pumpId);
+    if (statusesForPump.isEmpty) return Future.value(null);
     return Future.value(_getMostRecentStatus(statusesForPump));
   }
 
   @override
-  Future<void> togglePumpStatus(String pumpId, String status) async {
+  Stream<PumpStatus?> watchPumpStatus(PumpID pumpId) {
+    final statusesForPump = _filterPumpStatus(_fakePumpStatus.value, pumpId);
+    if (statusesForPump.isEmpty) return Stream.value(null);
+    return Stream.value(_getMostRecentStatus(statusesForPump));
+  }
+
+  @override
+  Future<void> togglePumpStatus(PumpID pumpId, String status) async {
     await delay(addDelay);
     // First get the current statuses data for all pumps
     final pumpStatuses = _fakePumpStatus.value;
@@ -60,13 +68,6 @@ class FakePumpStatusRepository extends PumpStatusRepository {
   }
 
   @override
-  Stream<PumpStatus> watchPumpStatus(String pumpId) {
-    return _fakePumpStatus.stream.map((statuses) {
-      return _getMostRecentStatus(_filterPumpStatus(statuses, pumpId));
-    });
-  }
-
-  @override
   Future<DateTime?> getLastDispensation(Pump pump) {
     return Future.value(
       _getMostRecentDispensationDate(_fakePumpStatus.value, pump),
@@ -79,4 +80,6 @@ class FakePumpStatusRepository extends PumpStatusRepository {
       return _getMostRecentDispensationDate(statuses, pump);
     });
   }
+
+  void dispose() => _fakePumpStatus.close();
 }

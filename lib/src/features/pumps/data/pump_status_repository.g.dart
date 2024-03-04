@@ -22,7 +22,7 @@ final pumpStatusRepositoryProvider = Provider<PumpStatusRepository>.internal(
 );
 
 typedef PumpStatusRepositoryRef = ProviderRef<PumpStatusRepository>;
-String _$pumpStatusStreamHash() => r'6730abab2fdd5e389aeb1e441c6a8ac399cf37a3';
+String _$pumpStatusStreamHash() => r'b6336931306a87ff452fab181b9cdcdfc2af4696';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -50,7 +50,7 @@ class _SystemHash {
 const pumpStatusStreamProvider = PumpStatusStreamFamily();
 
 /// See also [pumpStatusStream].
-class PumpStatusStreamFamily extends Family<AsyncValue<PumpStatus>> {
+class PumpStatusStreamFamily extends Family<AsyncValue<PumpStatus?>> {
   /// See also [pumpStatusStream].
   const PumpStatusStreamFamily();
 
@@ -88,7 +88,7 @@ class PumpStatusStreamFamily extends Family<AsyncValue<PumpStatus>> {
 }
 
 /// See also [pumpStatusStream].
-class PumpStatusStreamProvider extends AutoDisposeStreamProvider<PumpStatus> {
+class PumpStatusStreamProvider extends AutoDisposeStreamProvider<PumpStatus?> {
   /// See also [pumpStatusStream].
   PumpStatusStreamProvider(
     String pumpId,
@@ -123,7 +123,7 @@ class PumpStatusStreamProvider extends AutoDisposeStreamProvider<PumpStatus> {
 
   @override
   Override overrideWith(
-    Stream<PumpStatus> Function(PumpStatusStreamRef provider) create,
+    Stream<PumpStatus?> Function(PumpStatusStreamRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -140,7 +140,7 @@ class PumpStatusStreamProvider extends AutoDisposeStreamProvider<PumpStatus> {
   }
 
   @override
-  AutoDisposeStreamProviderElement<PumpStatus> createElement() {
+  AutoDisposeStreamProviderElement<PumpStatus?> createElement() {
     return _PumpStatusStreamProviderElement(this);
   }
 
@@ -158,13 +158,13 @@ class PumpStatusStreamProvider extends AutoDisposeStreamProvider<PumpStatus> {
   }
 }
 
-mixin PumpStatusStreamRef on AutoDisposeStreamProviderRef<PumpStatus> {
+mixin PumpStatusStreamRef on AutoDisposeStreamProviderRef<PumpStatus?> {
   /// The parameter `pumpId` of this provider.
   String get pumpId;
 }
 
 class _PumpStatusStreamProviderElement
-    extends AutoDisposeStreamProviderElement<PumpStatus>
+    extends AutoDisposeStreamProviderElement<PumpStatus?>
     with PumpStatusStreamRef {
   _PumpStatusStreamProviderElement(super.provider);
 
@@ -172,14 +172,14 @@ class _PumpStatusStreamProviderElement
   String get pumpId => (origin as PumpStatusStreamProvider).pumpId;
 }
 
-String _$pumpStatusFutureHash() => r'eaa225cfd5081254a4a38e3580f63f71fc6e5099';
+String _$pumpStatusFutureHash() => r'ac968b7fc36cad5570d41a1b66cc25dcd8705ed2';
 
 /// See also [pumpStatusFuture].
 @ProviderFor(pumpStatusFuture)
 const pumpStatusFutureProvider = PumpStatusFutureFamily();
 
 /// See also [pumpStatusFuture].
-class PumpStatusFutureFamily extends Family<AsyncValue<PumpStatus>> {
+class PumpStatusFutureFamily extends Family<AsyncValue<PumpStatus?>> {
   /// See also [pumpStatusFuture].
   const PumpStatusFutureFamily();
 
@@ -217,7 +217,7 @@ class PumpStatusFutureFamily extends Family<AsyncValue<PumpStatus>> {
 }
 
 /// See also [pumpStatusFuture].
-class PumpStatusFutureProvider extends AutoDisposeFutureProvider<PumpStatus> {
+class PumpStatusFutureProvider extends AutoDisposeFutureProvider<PumpStatus?> {
   /// See also [pumpStatusFuture].
   PumpStatusFutureProvider(
     String pumpId,
@@ -252,7 +252,7 @@ class PumpStatusFutureProvider extends AutoDisposeFutureProvider<PumpStatus> {
 
   @override
   Override overrideWith(
-    FutureOr<PumpStatus> Function(PumpStatusFutureRef provider) create,
+    FutureOr<PumpStatus?> Function(PumpStatusFutureRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -269,7 +269,7 @@ class PumpStatusFutureProvider extends AutoDisposeFutureProvider<PumpStatus> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<PumpStatus> createElement() {
+  AutoDisposeFutureProviderElement<PumpStatus?> createElement() {
     return _PumpStatusFutureProviderElement(this);
   }
 
@@ -287,13 +287,13 @@ class PumpStatusFutureProvider extends AutoDisposeFutureProvider<PumpStatus> {
   }
 }
 
-mixin PumpStatusFutureRef on AutoDisposeFutureProviderRef<PumpStatus> {
+mixin PumpStatusFutureRef on AutoDisposeFutureProviderRef<PumpStatus?> {
   /// The parameter `pumpId` of this provider.
   String get pumpId;
 }
 
 class _PumpStatusFutureProviderElement
-    extends AutoDisposeFutureProviderElement<PumpStatus>
+    extends AutoDisposeFutureProviderElement<PumpStatus?>
     with PumpStatusFutureRef {
   _PumpStatusFutureProviderElement(super.provider);
 
@@ -301,7 +301,7 @@ class _PumpStatusFutureProviderElement
   String get pumpId => (origin as PumpStatusFutureProvider).pumpId;
 }
 
-String _$pumpStatusToggleHash() => r'37464c1daddd1583eb6a29925091c975b2973bd1';
+String _$pumpStatusToggleHash() => r'2e0cfbfd23d35a78f122b15d028bf0b2d964fa44';
 
 /// See also [pumpStatusToggle].
 @ProviderFor(pumpStatusToggle)
@@ -447,7 +447,7 @@ class _PumpStatusToggleProviderElement
 }
 
 String _$lastDispensationStreamHash() =>
-    r'3d726b4f5c6d8b57f62ac872e6ef356e0ae1ca45';
+    r'82663f799365026eb6b53cc978de3df5fb1754e6';
 
 /// See also [lastDispensationStream].
 @ProviderFor(lastDispensationStream)
@@ -578,7 +578,7 @@ class _LastDispensationStreamProviderElement
 }
 
 String _$lastDispensationFutureHash() =>
-    r'a118b2f820578c3cf14b47e90469f1129cfd3a88';
+    r'725fe79e592c426d8f9ea071c03f14e5a0e2495d';
 
 /// See also [lastDispensationFuture].
 @ProviderFor(lastDispensationFuture)

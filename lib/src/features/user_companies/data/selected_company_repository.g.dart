@@ -24,7 +24,7 @@ final selectedCompanyRepositoryProvider =
 
 typedef SelectedCompanyRepositoryRef = ProviderRef<SelectedCompanyRepository>;
 String _$currentTappedCompanyHash() =>
-    r'c3b5523c35e4289573775fddc3973c6f95e3e627';
+    r'fec92658792569f093f64c65981979721f6a4818';
 
 /// See also [currentTappedCompany].
 @ProviderFor(currentTappedCompany)

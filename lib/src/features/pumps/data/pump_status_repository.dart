@@ -7,9 +7,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'pump_status_repository.g.dart';
 
 abstract class PumpStatusRepository {
-  Stream<PumpStatus> watchPumpStatus(String pumpId);
-  Future<PumpStatus> getPumpStatus(String pumpId);
-  Future<void> togglePumpStatus(String pumpId, String status);
+  Stream<PumpStatus?> watchPumpStatus(PumpID pumpId);
+  Future<PumpStatus?> getPumpStatus(PumpID pumpId);
+  Future<void> togglePumpStatus(PumpID pumpId, String status);
   Stream<DateTime?> watchLastDispensation(Pump pump);
   Future<DateTime?> getLastDispensation(Pump pump);
 }
@@ -21,27 +21,27 @@ PumpStatusRepository pumpStatusRepository(PumpStatusRepositoryRef ref) {
 }
 
 @riverpod
-Stream<PumpStatus> pumpStatusStream(PumpStatusStreamRef ref, String pumpId) {
+Stream<PumpStatus?> pumpStatusStream(PumpStatusStreamRef ref, PumpID pumpId) {
   final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
   return pumpStatusRepository.watchPumpStatus(pumpId);
 }
 
 @riverpod
-Future<PumpStatus> pumpStatusFuture(PumpStatusFutureRef ref, String pumpId) {
+Future<PumpStatus?> pumpStatusFuture(PumpStatusFutureRef ref, PumpID pumpId) {
   final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
   return pumpStatusRepository.getPumpStatus(pumpId);
 }
 
 @riverpod
 Future<void> pumpStatusToggle(
-    PumpStatusToggleRef ref, String pumpId, String status) {
+    PumpStatusToggleRef ref, PumpID pumpId, String status) {
   final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
   return pumpStatusRepository.togglePumpStatus(pumpId, status);
 }
 
 @riverpod
 Stream<DateTime?> lastDispensationStream(
-    LastDispensationStreamRef ref, String pumpId) {
+    LastDispensationStreamRef ref, PumpID pumpId) {
   final pump = ref.watch(pumpStreamProvider(pumpId)).value;
   if (pump == null) return const Stream.empty();
   final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
@@ -50,7 +50,7 @@ Stream<DateTime?> lastDispensationStream(
 
 @riverpod
 Future<DateTime?> lastDispensationFuture(
-    LastDispensationFutureRef ref, String pumpId) {
+    LastDispensationFutureRef ref, PumpID pumpId) {
   final pump = ref.watch(pumpFutureProvider(pumpId)).value;
   if (pump == null) return Future.value(null);
   final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
