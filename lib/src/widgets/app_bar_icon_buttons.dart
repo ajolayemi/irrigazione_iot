@@ -5,18 +5,23 @@ class AppBarIconButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.icon,
+    this.isVisibile = true,
   });
 
   final VoidCallback onPressed;
+  final bool? isVisibile;
   final IconData icon;
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onPressed,
-      icon: Icon(
-        icon,
-        size: 30,
+    return Visibility(
+      visible: isVisibile ?? true,
+      child: IconButton(
+        onPressed: onPressed,
+        icon: Icon(
+          icon,
+          size: 30,
+        ),
       ),
     );
   }
