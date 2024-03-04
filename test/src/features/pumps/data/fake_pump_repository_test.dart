@@ -23,7 +23,8 @@ void main() {
       companyId: '1',
     ),
   ];
-  FakePumpRepository makePumpRepository() => FakePumpRepository();
+  FakePumpRepository makePumpRepository() =>
+      FakePumpRepository(addDelay: false);
   group('FakePumpRepository', () {
     test('getCompanyPumps for company with id 1 = success', () {
       final pumpRepository = makePumpRepository();
@@ -150,6 +151,38 @@ void main() {
         updatedValue.companyId,
       );
       expect(valueAfterUpdate, isNull);
+    });
+
+    test('deletePump with an existing pump works', () async {
+      final repo = makePumpRepository();
+      final pumpToDelete = expectedResults[0];
+      final currentVal = await repo.getPump(pumpToDelete.id);
+      expect(currentVal, pumpToDelete);
+
+      final returnedValFromDeletion = await repo.deletePump(pumpToDelete.id);
+      final valueAfterDelete = await repo.getPump(pumpToDelete.id);
+      expect(valueAfterDelete, isNull);
+      expect(returnedValFromDeletion, equals(true));
+    });
+
+    test('deletePump with a non-existing pump does not work', () async {
+      final repo = makePumpRepository();
+      const pumpToDelete = Pump(
+        id: '9000',
+        name: 'Not valid pump',
+        capacityInVolume: 100,
+        consumeRateInKw: 50,
+        commandForOn: '90',
+        commandForOff: '91',
+        companyId: '90',
+      );
+      final currentVal = await repo.getPump(pumpToDelete.id);
+      expect(currentVal, isNull);
+
+      final valFromDeletion = await repo.deletePump(pumpToDelete.id);
+      final valueAfterDelete = await repo.getPump(pumpToDelete.id);
+      expect(valueAfterDelete, isNull);
+      expect(valFromDeletion, equals(false));
     });
 
     test('watchCompanyUsedPumpNames returns valid list', () {
