@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/foundation.dart';
+
 class CustomControllerState {
   const CustomControllerState({required this.loadingStates});
 
@@ -17,4 +20,15 @@ class CustomControllerState {
 
   @override
   String toString() => 'CustomControllerState(loadingStates: $loadingStates)';
+
+  @override
+  bool operator ==(covariant CustomControllerState other) {
+    if (identical(this, other)) return true;
+  
+    return 
+      mapEquals(other.loadingStates, loadingStates);
+  }
+
+  @override
+  int get hashCode => loadingStates.hashCode;
 }
