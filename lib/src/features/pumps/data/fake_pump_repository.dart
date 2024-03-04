@@ -79,7 +79,7 @@ class FakePumpRepository implements PumpRepository {
   Stream<List<String?>> watchCompanyUsedPumpNames(CompanyID companyId) {
     return _fakePumps.stream.map(
       (pumps) =>
-          _getCompanyPumps(pumps, companyId).map((pump) => pump.name).toList(),
+          _getCompanyPumps(pumps, companyId).map((pump) => pump.name.toLowerCase()).toList(),
     );
   }
 

@@ -60,7 +60,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   // https://codewithandrea.com/articles/flutter-text-field-form-validation/
   var _submitted = false;
 
-  Pump? _initialPump;
+  Pump? _initialPump = const Pump.empty();
   static const _nameFieldKey = Key('name');
   static const _volumeCapacityFieldKey = Key('volumeCapacity');
   static const _kwCapacityFieldKey = Key('kwCapacity');
@@ -95,6 +95,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   }
 
   Future<void> _submit() async {
+    final updating = widget.formType == AddAndCreatePumpFormTypes.updatePump;
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
       // ask if user wants to save the pump
@@ -118,7 +119,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
         commandForOff: offCommand,
       );
 
-      if (toSave == _initialPump) {
+      if (toSave == _initialPump && updating) {
         debugPrint(
             'Form is valid, but no changes were made, not submitting...');
         _popScreen();
@@ -178,6 +179,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   void _onCommandEditingComplete(List<String?> existingOnCommands) {
     if (canSubmitCommandFields(
       onCommand,
+      offCommand,
       _initialPump?.commandForOn,
       existingOnCommands,
     )) {
@@ -188,6 +190,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   void _offCommandEditingComplete(List<String?> existingOffCommands) {
     if (!canSubmitCommandFields(
       offCommand,
+      onCommand,
       _initialPump?.commandForOff,
       existingOffCommands,
     )) {
@@ -290,6 +293,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                           ? null
                           : commandFieldsErrorText(
                               value ?? '',
+                              offCommand,
                               _initialPump?.commandForOn,
                               usedOnCommands,
                               context,
@@ -310,6 +314,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                           ? null
                           : commandFieldsErrorText(
                               value ?? '',
+                              onCommand,
                               _initialPump?.commandForOff,
                               usedOffCommands,
                               context,

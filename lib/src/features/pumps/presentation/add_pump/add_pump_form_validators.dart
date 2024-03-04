@@ -35,7 +35,7 @@ mixin AddPumpFormValidators {
     }
     return nonEmptyValidator.isValid(name) &&
         nameMaxLengthValidator.isValid(name) &&
-        !usedPumpNames.contains(name);
+        !usedPumpNames.contains(name.toLowerCase());
   }
 
   bool canSubmitVolumeCapacityField(String value) {
@@ -52,6 +52,7 @@ mixin AddPumpFormValidators {
 
   bool canSubmitCommandFields(
     String value,
+    String counterpartValue,
     String? initialValue,
     List<String?> usedCommands,
   ) {
@@ -64,7 +65,8 @@ mixin AddPumpFormValidators {
     }
     return nonEmptyValidator.isValid(value) &&
         numericFieldsValidator.isValid(value) &&
-        !usedCommands.contains(value);
+        !usedCommands.contains(value) &&
+        value != counterpartValue;
   }
 
   String? nameErrorText(
@@ -79,7 +81,7 @@ mixin AddPumpFormValidators {
       return context.loc.pumpNameTooLongErrorText(
         AppConstants.maxPumpNameLength,
       );
-    } else if (usedPumpNames.contains(name) && name != initialValue) {
+    } else if (usedPumpNames.contains(name.toLowerCase()) && name != initialValue) {
       return context.loc.pumpNameAlreadyInUseErrorText;
     }
     return null;
@@ -109,6 +111,7 @@ mixin AddPumpFormValidators {
 
   String? commandFieldsErrorText(
     String value,
+    String counterpartValue,
     String? initialValue,
     List<String?> usedCommands,
     BuildContext context,
@@ -119,6 +122,8 @@ mixin AddPumpFormValidators {
       return context.loc.pumpGenericNotANumberErrorText;
     } else if (usedCommands.contains(value) && value != initialValue) {
       return context.loc.pumpCommandAlreadyInUseErrorText;
+    } else if (value == counterpartValue) {
+      return context.loc.pumpDuplicateCommandsInFormErrorText;
     }
     return null;
   }
