@@ -19,12 +19,15 @@ class PumpListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    // todo handle case where there are no pumps available
+    // todo user should be presented with a button to add new pumps
     ref.listen(
       pumpStatusSwitchControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
     final canEdit = ref.watch(companyUserRoleProvider).valueOrNull?.canEdit;
-    
+
     final companyPumps = ref.watch(companyPumpsStreamProvider);
 
     return Scaffold(

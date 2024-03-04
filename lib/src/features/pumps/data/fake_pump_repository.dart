@@ -48,8 +48,13 @@ class FakePumpRepository implements PumpRepository {
   Future<Pump?> createPump(Pump pump, CompanyID companyId) async {
     // No validation is done here, the validation is done in the form
     await delay(addDelay);
+
+    final lastUsedPumpId = _fakePumps.value
+        .map((pump) => int.tryParse(pump.id) ?? 0)
+        .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
+    
     final finalPump = pump.copyWith(
-      id: '${_fakePumps.value.length + 1}',
+      id: '${lastUsedPumpId + 1}',
       companyId: companyId,
     );
     final currentPumps = [..._fakePumps.value];

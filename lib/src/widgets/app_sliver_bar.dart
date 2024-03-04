@@ -26,7 +26,7 @@ class AppSliverBar extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: context.textTheme.titleLarge?.copyWith(
+          style: context.textTheme.titleMedium?.copyWith(
             color: Colors.black,
           ),
         ),
