@@ -46,6 +46,9 @@ class PumpStatusTileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // todo - fix the ui issue when an error occurs and the 
+    // todo alert dialog doesn't dismiss immediately after first tap
+    
     ref.listen(
       pumpStatusTileWidgetControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
