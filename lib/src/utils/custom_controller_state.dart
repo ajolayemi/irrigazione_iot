@@ -7,10 +7,12 @@ class CustomControllerState {
 
   final Map<String, bool> loadingStates;
 
+
+
   bool stateWithIdIsLoading(String stateId) => loadingStates[stateId] ?? false;
 
   // Checks if one of the loading states is true
-  bool get isLoading  => loadingStates.values.any((element) => element);
+  bool get isLoading => loadingStates.values.any((element) => element);
 
   // Helper methods to manipulate the loading states
   CustomControllerState setLoading(String stateId, bool isLoading) {
@@ -25,18 +27,15 @@ class CustomControllerState {
   @override
   bool operator ==(covariant CustomControllerState other) {
     if (identical(this, other)) return true;
-  
-    return 
-      mapEquals(other.loadingStates, loadingStates);
+
+    return mapEquals(other.loadingStates, loadingStates);
   }
 
   @override
   int get hashCode => loadingStates.hashCode;
 }
 
-
 extension CustomAsyncControllerStateX on AsyncValue<CustomControllerState> {
-
   /// Returns true if the state with the given id is loading and the underline
   /// AsyncValue state has no error
   bool stateWithIdIsLoading(String stateId) {
@@ -44,5 +43,5 @@ extension CustomAsyncControllerStateX on AsyncValue<CustomControllerState> {
     return currentStateIsLoading && !hasError;
   }
 
-  bool get isGlobalLoading => value?.isLoading ?? false;
+  bool get isGlobalLoading => (value?.isLoading ?? false) && !hasError;
 }
