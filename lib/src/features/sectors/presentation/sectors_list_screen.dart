@@ -4,9 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_list_tile.dart';
+import 'package:irrigazione_iot/src/features/sectors/presentation/sector_switch_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sectors_list_tile_skeleton.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
@@ -17,6 +19,12 @@ class SectorsListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // todo return a widget to tell user that they don't have any sectors
+    // todo allow user to tap on sector to view its details
+    ref.listen(
+      sectorSwitchControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
     final canEdit = ref.watch(companyUserRoleProvider).valueOrNull?.canEdit;
     final currentCompanyId =
         ref.watch(currentTappedCompanyProvider).valueOrNull?.id ?? '';
@@ -35,7 +43,7 @@ class SectorsListScreen extends ConsumerWidget {
             ],
           ),
 
-          // todo fix the loading state error - it shows for a second and then dis
+          // todo fix the loading state error - it shows for a second and then disappears
           AsyncValueSliverWidget(
             value: sectors,
             data: (sectors) {
