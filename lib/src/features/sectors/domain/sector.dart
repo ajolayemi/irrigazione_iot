@@ -196,4 +196,6 @@ class Sector extends Equatable {
 
 extension SectorX on Sector {
   String get displayName => '$availableSpecie $specieVariety';
+  String getMqttStatusCommand(bool status) =>
+      status ? turnOnCommand : turnOffCommand;
 }
