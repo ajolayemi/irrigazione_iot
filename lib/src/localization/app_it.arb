@@ -36,10 +36,10 @@
   "alertDialogDelete": "Elimina",
   "logInWithAnotherAccount": "Cambia account",
   "pumpStatusLastSwitchedOn": "ultima erogazione: {when}",
-  "pumpOnStatusUpdateAlertDialogContent": "Stai per accendere {pumpName}",
-  "pumpOffStatusUpdateAlertDialogContent": "Stai per spegnere {pumpName}",
-  "pumpOnStatusDialogConfirmButtonTitle": "Accendi",
-  "pumpOffStatusDialogConfirmButtonTitle": "Spegni",
+  "onStatusUpdateAlertDialogContent": "Stai per accendere {name}",
+  "offStatusUpdateAlertDialogContent": "Stai per spegnere {name}",
+  "onStatusDialogConfirmButtonTitle": "Accendi",
+  "offStatusDialogConfirmButtonTitle": "Spegni",
   "genericAlertDialogTitle": "Sei sicuro?",
   "pumpStatusListTileTitle": "Stato attuale",
   "noCompanyFoundForUser": "Ciao {username}!\nNon ci risultano aziende associate al tuo account nel nostro database",
@@ -68,5 +68,6 @@
   "pumpFormGenericUpdateDialogTitle": "Vuoi aggiornare i dati?",
   "pumpFormGenericUpdateDialogDescription": "Stai per aggiornare i dati relativi alla pompa nel database",
   "notAvailable": "Non disponibile",
-  "deletePumpConfirmationDialogTitle": "Cliccando su elimina, verranno cancellati tutti i dati relativi alla {pumpName}"
+  "deletePumpConfirmationDialogTitle": "Cliccando su elimina, verranno cancellati tutti i dati relativi alla {pumpName}",
+  "sectorLastIrrigation": "Ultima irrigazione: {when}"
 }

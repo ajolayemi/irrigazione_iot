@@ -85,28 +85,28 @@
   },
   "genericSaveButtonLabel": "Save",
   "genericUpdateButtonLabel": "Update",
-  "pumpOnStatusUpdateAlertDialogContent": "You're about to switch on {pumpName}",
-  "@pumpOnStatusUpdateAlertDialogContent": {
-    "description": "The content of the alert dialog that is displayed when the user wants to switch on the pump",
+  "onStatusUpdateAlertDialogContent": "You're about to switch on {name}",
+  "@onStatusUpdateAlertDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to switch on things like pumps, sectors",
     "placeholders": {
-      "pumpName": {
-        "description": "The name of the pump",
+      "name": {
+        "description": "The name of what's about to be switched on",
         "example": "Pump 1"
       }
     }
   },
-  "pumpOffStatusUpdateAlertDialogContent": "You're about to switch off {pumpName}",
-  "@pumpOffStatusUpdateAlertDialogContent": {
-    "description": "The content of the alert dialog that is displayed when the user wants to switch off the pump",
+  "offStatusUpdateAlertDialogContent": "You're about to switch off {name}",
+  "@offStatusUpdateAlertDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to switch on things like pumps, sectors",
     "placeholders": {
-      "pumpName": {
-        "description": "The name of the pump",
+      "name": {
+        "description": "The name of what's about to be switched off",
         "example": "Pump 1"
       }
     }
   },
-  "pumpOnStatusDialogConfirmButtonTitle": "Switch On",
-  "pumpOffStatusDialogConfirmButtonTitle": "Switch Off",
+  "onStatusDialogConfirmButtonTitle": "Switch On",
+  "offStatusDialogConfirmButtonTitle": "Switch Off",
   "pumpStatusListTileTitle": "Current status",
   "noCompanyFoundForUser": "Hello {username}!\nThere is no company associated with your account in our database",
   "@noCompanyFoundForUser": {
@@ -161,6 +161,16 @@
       "pumpName": {
         "description": "The name of the pump",
         "example": "Pump 1"
+      }
+    }
+  },
+  "sectorLastIrrigation": "Last irrigation: {when}",
+  "@sectorLastIrrigation": {
+    "description": "The last time a sector was irrigated",
+    "placeholders": {
+      "when": {
+        "type": "String",
+        "example": "Feb 20, 2020 10:00"
       }
     }
   }
