@@ -22,6 +22,8 @@ class PumpStatusSwitchWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    // todo replace this with extension method
     final loading = ref.watch(pumpStatusSwitchControllerProvider.select(
         (state) =>
             (state.value?.stateWithIdIsLoading(pump.id) ?? false) &&
@@ -46,14 +48,14 @@ class PumpStatusSwitchWidget extends ConsumerWidget {
                       context: context,
                       content: value
                           ? context.loc
-                              .pumpOnStatusUpdateAlertDialogContent(pump.name)
+                              .onStatusUpdateAlertDialogContent(pump.name)
                           : context.loc
-                              .pumpOffStatusUpdateAlertDialogContent(pump.name),
+                              .offStatusUpdateAlertDialogContent(pump.name),
                       title: context.loc.genericAlertDialogTitle,
                       cancelActionText: context.loc.alertDialogCancel,
                       defaultActionText: value
-                          ? context.loc.pumpOnStatusDialogConfirmButtonTitle
-                          : context.loc.pumpOffStatusDialogConfirmButtonTitle,
+                          ? context.loc.onStatusDialogConfirmButtonTitle
+                          : context.loc.offStatusDialogConfirmButtonTitle,
                     );
                     if (update == true) {
                       ref
