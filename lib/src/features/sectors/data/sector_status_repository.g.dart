@@ -306,30 +306,30 @@ class _SectorStatusFutureProviderElement
   String get sectorID => (origin as SectorStatusFutureProvider).sectorID;
 }
 
-String _$watchSectorLastIrrigationHash() =>
-    r'5c7f2e04c40ee5034f6136b86ea46abf3793d703';
+String _$sectorLastIrrigatedStreamHash() =>
+    r'a1e225f32d1e0dc04df43b2ab0eb037209a8126f';
 
-/// See also [watchSectorLastIrrigation].
-@ProviderFor(watchSectorLastIrrigation)
-const watchSectorLastIrrigationProvider = WatchSectorLastIrrigationFamily();
+/// See also [sectorLastIrrigatedStream].
+@ProviderFor(sectorLastIrrigatedStream)
+const sectorLastIrrigatedStreamProvider = SectorLastIrrigatedStreamFamily();
 
-/// See also [watchSectorLastIrrigation].
-class WatchSectorLastIrrigationFamily extends Family<AsyncValue<DateTime?>> {
-  /// See also [watchSectorLastIrrigation].
-  const WatchSectorLastIrrigationFamily();
+/// See also [sectorLastIrrigatedStream].
+class SectorLastIrrigatedStreamFamily extends Family<AsyncValue<DateTime?>> {
+  /// See also [sectorLastIrrigatedStream].
+  const SectorLastIrrigatedStreamFamily();
 
-  /// See also [watchSectorLastIrrigation].
-  WatchSectorLastIrrigationProvider call(
+  /// See also [sectorLastIrrigatedStream].
+  SectorLastIrrigatedStreamProvider call(
     Sector sector,
   ) {
-    return WatchSectorLastIrrigationProvider(
+    return SectorLastIrrigatedStreamProvider(
       sector,
     );
   }
 
   @override
-  WatchSectorLastIrrigationProvider getProviderOverride(
-    covariant WatchSectorLastIrrigationProvider provider,
+  SectorLastIrrigatedStreamProvider getProviderOverride(
+    covariant SectorLastIrrigatedStreamProvider provider,
   ) {
     return call(
       provider.sector,
@@ -348,33 +348,33 @@ class WatchSectorLastIrrigationFamily extends Family<AsyncValue<DateTime?>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'watchSectorLastIrrigationProvider';
+  String? get name => r'sectorLastIrrigatedStreamProvider';
 }
 
-/// See also [watchSectorLastIrrigation].
-class WatchSectorLastIrrigationProvider
+/// See also [sectorLastIrrigatedStream].
+class SectorLastIrrigatedStreamProvider
     extends AutoDisposeStreamProvider<DateTime?> {
-  /// See also [watchSectorLastIrrigation].
-  WatchSectorLastIrrigationProvider(
+  /// See also [sectorLastIrrigatedStream].
+  SectorLastIrrigatedStreamProvider(
     Sector sector,
   ) : this._internal(
-          (ref) => watchSectorLastIrrigation(
-            ref as WatchSectorLastIrrigationRef,
+          (ref) => sectorLastIrrigatedStream(
+            ref as SectorLastIrrigatedStreamRef,
             sector,
           ),
-          from: watchSectorLastIrrigationProvider,
-          name: r'watchSectorLastIrrigationProvider',
+          from: sectorLastIrrigatedStreamProvider,
+          name: r'sectorLastIrrigatedStreamProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$watchSectorLastIrrigationHash,
-          dependencies: WatchSectorLastIrrigationFamily._dependencies,
+                  : _$sectorLastIrrigatedStreamHash,
+          dependencies: SectorLastIrrigatedStreamFamily._dependencies,
           allTransitiveDependencies:
-              WatchSectorLastIrrigationFamily._allTransitiveDependencies,
+              SectorLastIrrigatedStreamFamily._allTransitiveDependencies,
           sector: sector,
         );
 
-  WatchSectorLastIrrigationProvider._internal(
+  SectorLastIrrigatedStreamProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -388,12 +388,12 @@ class WatchSectorLastIrrigationProvider
 
   @override
   Override overrideWith(
-    Stream<DateTime?> Function(WatchSectorLastIrrigationRef provider) create,
+    Stream<DateTime?> Function(SectorLastIrrigatedStreamRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: WatchSectorLastIrrigationProvider._internal(
-        (ref) => create(ref as WatchSectorLastIrrigationRef),
+      override: SectorLastIrrigatedStreamProvider._internal(
+        (ref) => create(ref as SectorLastIrrigatedStreamRef),
         from: from,
         name: null,
         dependencies: null,
@@ -406,12 +406,12 @@ class WatchSectorLastIrrigationProvider
 
   @override
   AutoDisposeStreamProviderElement<DateTime?> createElement() {
-    return _WatchSectorLastIrrigationProviderElement(this);
+    return _SectorLastIrrigatedStreamProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is WatchSectorLastIrrigationProvider && other.sector == sector;
+    return other is SectorLastIrrigatedStreamProvider && other.sector == sector;
   }
 
   @override
@@ -423,44 +423,44 @@ class WatchSectorLastIrrigationProvider
   }
 }
 
-mixin WatchSectorLastIrrigationRef on AutoDisposeStreamProviderRef<DateTime?> {
+mixin SectorLastIrrigatedStreamRef on AutoDisposeStreamProviderRef<DateTime?> {
   /// The parameter `sector` of this provider.
   Sector get sector;
 }
 
-class _WatchSectorLastIrrigationProviderElement
+class _SectorLastIrrigatedStreamProviderElement
     extends AutoDisposeStreamProviderElement<DateTime?>
-    with WatchSectorLastIrrigationRef {
-  _WatchSectorLastIrrigationProviderElement(super.provider);
+    with SectorLastIrrigatedStreamRef {
+  _SectorLastIrrigatedStreamProviderElement(super.provider);
 
   @override
-  Sector get sector => (origin as WatchSectorLastIrrigationProvider).sector;
+  Sector get sector => (origin as SectorLastIrrigatedStreamProvider).sector;
 }
 
-String _$getSectorLastIrrigationHash() =>
-    r'9e5605042e3ace917663a41415d2bd2d7c53d228';
+String _$sectorLastIrrigatedFutureHash() =>
+    r'04a4b79bcb1c72eaa8ee6bf9d1654700733dc58e';
 
-/// See also [getSectorLastIrrigation].
-@ProviderFor(getSectorLastIrrigation)
-const getSectorLastIrrigationProvider = GetSectorLastIrrigationFamily();
+/// See also [sectorLastIrrigatedFuture].
+@ProviderFor(sectorLastIrrigatedFuture)
+const sectorLastIrrigatedFutureProvider = SectorLastIrrigatedFutureFamily();
 
-/// See also [getSectorLastIrrigation].
-class GetSectorLastIrrigationFamily extends Family<AsyncValue<DateTime?>> {
-  /// See also [getSectorLastIrrigation].
-  const GetSectorLastIrrigationFamily();
+/// See also [sectorLastIrrigatedFuture].
+class SectorLastIrrigatedFutureFamily extends Family<AsyncValue<DateTime?>> {
+  /// See also [sectorLastIrrigatedFuture].
+  const SectorLastIrrigatedFutureFamily();
 
-  /// See also [getSectorLastIrrigation].
-  GetSectorLastIrrigationProvider call(
+  /// See also [sectorLastIrrigatedFuture].
+  SectorLastIrrigatedFutureProvider call(
     Sector sector,
   ) {
-    return GetSectorLastIrrigationProvider(
+    return SectorLastIrrigatedFutureProvider(
       sector,
     );
   }
 
   @override
-  GetSectorLastIrrigationProvider getProviderOverride(
-    covariant GetSectorLastIrrigationProvider provider,
+  SectorLastIrrigatedFutureProvider getProviderOverride(
+    covariant SectorLastIrrigatedFutureProvider provider,
   ) {
     return call(
       provider.sector,
@@ -479,33 +479,33 @@ class GetSectorLastIrrigationFamily extends Family<AsyncValue<DateTime?>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'getSectorLastIrrigationProvider';
+  String? get name => r'sectorLastIrrigatedFutureProvider';
 }
 
-/// See also [getSectorLastIrrigation].
-class GetSectorLastIrrigationProvider
+/// See also [sectorLastIrrigatedFuture].
+class SectorLastIrrigatedFutureProvider
     extends AutoDisposeFutureProvider<DateTime?> {
-  /// See also [getSectorLastIrrigation].
-  GetSectorLastIrrigationProvider(
+  /// See also [sectorLastIrrigatedFuture].
+  SectorLastIrrigatedFutureProvider(
     Sector sector,
   ) : this._internal(
-          (ref) => getSectorLastIrrigation(
-            ref as GetSectorLastIrrigationRef,
+          (ref) => sectorLastIrrigatedFuture(
+            ref as SectorLastIrrigatedFutureRef,
             sector,
           ),
-          from: getSectorLastIrrigationProvider,
-          name: r'getSectorLastIrrigationProvider',
+          from: sectorLastIrrigatedFutureProvider,
+          name: r'sectorLastIrrigatedFutureProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$getSectorLastIrrigationHash,
-          dependencies: GetSectorLastIrrigationFamily._dependencies,
+                  : _$sectorLastIrrigatedFutureHash,
+          dependencies: SectorLastIrrigatedFutureFamily._dependencies,
           allTransitiveDependencies:
-              GetSectorLastIrrigationFamily._allTransitiveDependencies,
+              SectorLastIrrigatedFutureFamily._allTransitiveDependencies,
           sector: sector,
         );
 
-  GetSectorLastIrrigationProvider._internal(
+  SectorLastIrrigatedFutureProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -519,12 +519,12 @@ class GetSectorLastIrrigationProvider
 
   @override
   Override overrideWith(
-    FutureOr<DateTime?> Function(GetSectorLastIrrigationRef provider) create,
+    FutureOr<DateTime?> Function(SectorLastIrrigatedFutureRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: GetSectorLastIrrigationProvider._internal(
-        (ref) => create(ref as GetSectorLastIrrigationRef),
+      override: SectorLastIrrigatedFutureProvider._internal(
+        (ref) => create(ref as SectorLastIrrigatedFutureRef),
         from: from,
         name: null,
         dependencies: null,
@@ -537,12 +537,12 @@ class GetSectorLastIrrigationProvider
 
   @override
   AutoDisposeFutureProviderElement<DateTime?> createElement() {
-    return _GetSectorLastIrrigationProviderElement(this);
+    return _SectorLastIrrigatedFutureProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is GetSectorLastIrrigationProvider && other.sector == sector;
+    return other is SectorLastIrrigatedFutureProvider && other.sector == sector;
   }
 
   @override
@@ -554,18 +554,18 @@ class GetSectorLastIrrigationProvider
   }
 }
 
-mixin GetSectorLastIrrigationRef on AutoDisposeFutureProviderRef<DateTime?> {
+mixin SectorLastIrrigatedFutureRef on AutoDisposeFutureProviderRef<DateTime?> {
   /// The parameter `sector` of this provider.
   Sector get sector;
 }
 
-class _GetSectorLastIrrigationProviderElement
+class _SectorLastIrrigatedFutureProviderElement
     extends AutoDisposeFutureProviderElement<DateTime?>
-    with GetSectorLastIrrigationRef {
-  _GetSectorLastIrrigationProviderElement(super.provider);
+    with SectorLastIrrigatedFutureRef {
+  _SectorLastIrrigatedFutureProviderElement(super.provider);
 
   @override
-  Sector get sector => (origin as GetSectorLastIrrigationProvider).sector;
+  Sector get sector => (origin as SectorLastIrrigatedFutureProvider).sector;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

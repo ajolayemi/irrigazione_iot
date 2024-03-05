@@ -44,15 +44,15 @@ Future<SectorStatus?> sectorStatusFuture(
 }
 
 @riverpod
-Stream<DateTime?> watchSectorLastIrrigation(
-    WatchSectorLastIrrigationRef ref, Sector sector) {
+Stream<DateTime?> sectorLastIrrigatedStream(
+    SectorLastIrrigatedStreamRef ref, Sector sector) {
   final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);
   return sectorStatusRepository.watchSectorLastIrrigation(sector);
 }
 
 @riverpod
-Future<DateTime?> getSectorLastIrrigation(
-    GetSectorLastIrrigationRef ref, Sector sector) {
+Future<DateTime?> sectorLastIrrigatedFuture(
+    SectorLastIrrigatedFutureRef ref, Sector sector) {
   final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);
   return sectorStatusRepository.getSectorLastIrrigation(sector);
 }
