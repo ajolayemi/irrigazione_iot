@@ -25,6 +25,7 @@
   "collectorPageTitle": "Collettori",
   "pumpPageTitle": "Pompe",
   "meteoPageTitle": "Meteo",
+  "sectorPageTitle": "Settori",
   "graphsPageTitle": "Grafici",
   "chooseCompany": "Scegli un'azienda",
   "welcome": "Ciao, {username}!",
