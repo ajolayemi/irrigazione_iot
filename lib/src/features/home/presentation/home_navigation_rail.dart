@@ -29,8 +29,8 @@ class HomeNavigationRail extends StatelessWidget {
               label: Text(context.loc.homePageTitle),
             ),
             NavigationRailDestination(
-              icon: const Icon(Icons.category),
-              selectedIcon: const Icon(Icons.category),
+              icon: const Icon(Icons.list_alt),
+              selectedIcon: const Icon(Icons.list_alt),
               label: Text(context.loc.collectorPageTitle),
             ),
             NavigationRailDestination(
@@ -39,9 +39,9 @@ class HomeNavigationRail extends StatelessWidget {
               label: Text(context.loc.pumpPageTitle),
             ),
             NavigationRailDestination(
-              icon: const Icon(Icons.thermostat),
-              selectedIcon: const Icon(Icons.thermostat),
-              label: Text(context.loc.meteoPageTitle),
+              icon: const Icon(Icons.category),
+              selectedIcon: const Icon(Icons.category),
+              label: Text(context.loc.sectorPageTitle),
             ),
             NavigationRailDestination(
               icon: const Icon(Icons.more_vert),

@@ -25,7 +25,7 @@ class HomeNavigationBar extends StatelessWidget {
             label: context.loc.homePageTitle,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.category),
+            icon: const Icon(Icons.list_alt),
             label: context.loc.collectorPageTitle,
           ),
           NavigationDestination(
@@ -33,8 +33,8 @@ class HomeNavigationBar extends StatelessWidget {
             label: context.loc.pumpPageTitle,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.thermostat),
-            label: context.loc.meteoPageTitle,
+            icon: const Icon(Icons.category),
+            label: context.loc.sectorPageTitle,
           ),
           NavigationDestination(
             icon: const Icon(Icons.more_vert),
