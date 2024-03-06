@@ -22,10 +22,12 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
   }
 
   @override
-  Future<SectorStatus?> getSectorStatus(SectorID sectorID) async {
+  Future<bool?> getSectorStatus(Sector sector) async {
     await delay(addDelay);
+    final mostRecentStatus =
+        _getMostRecentStatus(_sectorStatusState.value, sector.id);
     return Future.value(
-      _getMostRecentStatus(_sectorStatusState.value, sectorID),
+      mostRecentStatus?.translateSectorStatusToBoolean(sector),
     );
   }
 
@@ -55,9 +57,10 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
   }
 
   @override
-  Stream<SectorStatus?> watchSectorStatus(SectorID sectorID) {
+  Stream<bool?> watchSectorStatus(Sector sector) {
     return _sectorStatusState.stream.map((statuses) {
-      return _getMostRecentStatus(statuses, sectorID);
+      final mostRecentStatus = _getMostRecentStatus(statuses, sector.id);
+      return mostRecentStatus?.translateSectorStatusToBoolean(sector);
     });
   }
 
