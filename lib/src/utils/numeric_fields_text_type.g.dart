@@ -1,0 +1,27 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'numeric_fields_text_type.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+String _$numericFieldsTextInputTypeHash() =>
+    r'7e01c1753ef0a8823c08f98c5dd88f0192874754';
+
+/// See also [numericFieldsTextInputType].
+@ProviderFor(numericFieldsTextInputType)
+final numericFieldsTextInputTypeProvider =
+    AutoDisposeProvider<TextInputType>.internal(
+  numericFieldsTextInputType,
+  name: r'numericFieldsTextInputTypeProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$numericFieldsTextInputTypeHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef NumericFieldsTextInputTypeRef = AutoDisposeProviderRef<TextInputType>;
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
