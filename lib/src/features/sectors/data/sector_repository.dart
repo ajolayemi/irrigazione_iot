@@ -11,6 +11,8 @@ part 'sector_repository.g.dart';
 abstract class SectorsRepository {
   Future<List<Sector?>> fetchSectors(CompanyID companyId);
   Stream<List<Sector?>> watchSectors(CompanyID companyId);
+  Stream<Sector?> watchSector(SectorID sectorID);
+  Future<Sector?> fetchSector(SectorID sectorID);
   Future<void> addSector(Sector sector, CompanyID companyId);
   Future<void> updateSector(SectorID sectorID);
   Future<void> deleteSector(SectorID sectorID);
@@ -33,4 +35,16 @@ Stream<List<Sector?>> sectorListStream(SectorListStreamRef ref, CompanyID compan
 Future<List<Sector?>> sectorListFuture(SectorListFutureRef ref, CompanyID companyId) {
   final sectorsRepository = ref.read(sectorsRepositoryProvider);
   return sectorsRepository.fetchSectors(companyId);
+}
+
+@riverpod
+Stream<Sector?> sectorStream(SectorStreamRef ref, SectorID sectorID) {
+  final sectorsRepository = ref.read(sectorsRepositoryProvider);
+  return sectorsRepository.watchSector(sectorID);
+}
+
+@riverpod
+Future<Sector?> sectorFuture(SectorFutureRef ref, SectorID sectorID) {
+  final sectorsRepository = ref.read(sectorsRepositoryProvider);
+  return sectorsRepository.fetchSector(sectorID);
 }

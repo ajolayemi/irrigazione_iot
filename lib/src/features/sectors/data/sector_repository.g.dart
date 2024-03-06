@@ -301,5 +301,261 @@ class _SectorListFutureProviderElement
   @override
   String get companyId => (origin as SectorListFutureProvider).companyId;
 }
+
+String _$sectorStreamHash() => r'7d1720be8adbe3382f1b537dae7b815a17cee198';
+
+/// See also [sectorStream].
+@ProviderFor(sectorStream)
+const sectorStreamProvider = SectorStreamFamily();
+
+/// See also [sectorStream].
+class SectorStreamFamily extends Family<AsyncValue<Sector?>> {
+  /// See also [sectorStream].
+  const SectorStreamFamily();
+
+  /// See also [sectorStream].
+  SectorStreamProvider call(
+    String sectorID,
+  ) {
+    return SectorStreamProvider(
+      sectorID,
+    );
+  }
+
+  @override
+  SectorStreamProvider getProviderOverride(
+    covariant SectorStreamProvider provider,
+  ) {
+    return call(
+      provider.sectorID,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'sectorStreamProvider';
+}
+
+/// See also [sectorStream].
+class SectorStreamProvider extends AutoDisposeStreamProvider<Sector?> {
+  /// See also [sectorStream].
+  SectorStreamProvider(
+    String sectorID,
+  ) : this._internal(
+          (ref) => sectorStream(
+            ref as SectorStreamRef,
+            sectorID,
+          ),
+          from: sectorStreamProvider,
+          name: r'sectorStreamProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$sectorStreamHash,
+          dependencies: SectorStreamFamily._dependencies,
+          allTransitiveDependencies:
+              SectorStreamFamily._allTransitiveDependencies,
+          sectorID: sectorID,
+        );
+
+  SectorStreamProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.sectorID,
+  }) : super.internal();
+
+  final String sectorID;
+
+  @override
+  Override overrideWith(
+    Stream<Sector?> Function(SectorStreamRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: SectorStreamProvider._internal(
+        (ref) => create(ref as SectorStreamRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        sectorID: sectorID,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<Sector?> createElement() {
+    return _SectorStreamProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SectorStreamProvider && other.sectorID == sectorID;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, sectorID.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin SectorStreamRef on AutoDisposeStreamProviderRef<Sector?> {
+  /// The parameter `sectorID` of this provider.
+  String get sectorID;
+}
+
+class _SectorStreamProviderElement
+    extends AutoDisposeStreamProviderElement<Sector?> with SectorStreamRef {
+  _SectorStreamProviderElement(super.provider);
+
+  @override
+  String get sectorID => (origin as SectorStreamProvider).sectorID;
+}
+
+String _$sectorFutureHash() => r'1c2e69870a803c75bae1109dda0ecf72e373ff90';
+
+/// See also [sectorFuture].
+@ProviderFor(sectorFuture)
+const sectorFutureProvider = SectorFutureFamily();
+
+/// See also [sectorFuture].
+class SectorFutureFamily extends Family<AsyncValue<Sector?>> {
+  /// See also [sectorFuture].
+  const SectorFutureFamily();
+
+  /// See also [sectorFuture].
+  SectorFutureProvider call(
+    String sectorID,
+  ) {
+    return SectorFutureProvider(
+      sectorID,
+    );
+  }
+
+  @override
+  SectorFutureProvider getProviderOverride(
+    covariant SectorFutureProvider provider,
+  ) {
+    return call(
+      provider.sectorID,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'sectorFutureProvider';
+}
+
+/// See also [sectorFuture].
+class SectorFutureProvider extends AutoDisposeFutureProvider<Sector?> {
+  /// See also [sectorFuture].
+  SectorFutureProvider(
+    String sectorID,
+  ) : this._internal(
+          (ref) => sectorFuture(
+            ref as SectorFutureRef,
+            sectorID,
+          ),
+          from: sectorFutureProvider,
+          name: r'sectorFutureProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$sectorFutureHash,
+          dependencies: SectorFutureFamily._dependencies,
+          allTransitiveDependencies:
+              SectorFutureFamily._allTransitiveDependencies,
+          sectorID: sectorID,
+        );
+
+  SectorFutureProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.sectorID,
+  }) : super.internal();
+
+  final String sectorID;
+
+  @override
+  Override overrideWith(
+    FutureOr<Sector?> Function(SectorFutureRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: SectorFutureProvider._internal(
+        (ref) => create(ref as SectorFutureRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        sectorID: sectorID,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Sector?> createElement() {
+    return _SectorFutureProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SectorFutureProvider && other.sectorID == sectorID;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, sectorID.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin SectorFutureRef on AutoDisposeFutureProviderRef<Sector?> {
+  /// The parameter `sectorID` of this provider.
+  String get sectorID;
+}
+
+class _SectorFutureProviderElement
+    extends AutoDisposeFutureProviderElement<Sector?> with SectorFutureRef {
+  _SectorFutureProviderElement(super.provider);
+
+  @override
+  String get sectorID => (origin as SectorFutureProvider).sectorID;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
