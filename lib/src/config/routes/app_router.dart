@@ -10,7 +10,8 @@ import 'package:irrigazione_iot/src/features/home/presentation/home_nested_navig
 import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/add_update_pump_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_list/pumps_list_screen.dart';
-import 'package:irrigazione_iot/src/features/sectors/presentation/sectors_list_screen.dart';
+import 'package:irrigazione_iot/src/features/sectors/presentation/sector_details/sector_details.dart';
+import 'package:irrigazione_iot/src/features/sectors/presentation/sector_list/sectors_list_screen.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/presentation/user_company_list/user_companies_list_screen.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
@@ -24,7 +25,8 @@ final _dashboardShellNavigatorKey =
 final _collectorShellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'Collector');
 final _pumpShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'Pump');
-final _sectorShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'Sector');
+final _sectorShellNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'Sector');
 final _moreShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'More');
 
 /// All supported routes in the app
@@ -43,6 +45,7 @@ enum AppRoute {
   addPump,
   updatePump,
   sector,
+  sectorDetails,
   more,
   settings,
 }
@@ -180,12 +183,22 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             navigatorKey: _sectorShellNavigatorKey,
             routes: [
               GoRoute(
-                path: '/sector',
-                name: AppRoute.sector.name,
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: SectorsListScreen(),
-                ), 
-              ),
+                  path: '/sector',
+                  name: AppRoute.sector.name,
+                  pageBuilder: (context, state) => const NoTransitionPage(
+                        child: SectorsListScreen(),
+                      ),
+                  routes: [
+                    GoRoute(
+                      path: 'details/:sectorId',
+                      name: AppRoute.sectorDetails.name,
+                      pageBuilder: (context, state) => MaterialPage(
+                          fullscreenDialog: true,
+                          child: SectorDetailsScreen(
+                            sectorID: state.pathParameters['sectorId'] ?? '',
+                          )),
+                    ),
+                  ]),
             ],
           ),
 
