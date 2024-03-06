@@ -211,7 +211,8 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     final usedOffCommands =
         ref.watch(companyUsedPumpOffCommandsStreamProvider).valueOrNull ?? [];
     final state = ref.watch(addUpdatePumpControllerProvider);
-    final isUpdating = widget.formType == GenericFormTypes.update;
+    
+    final isUpdating = widget.formType.isUpdating();
     return CustomScrollView(
       slivers: [
         AppSliverBar(
