@@ -20,6 +20,7 @@ class FakeSpecieRepository implements SpecieRepository {
         .map((specie) => specie.name)
         .toSet()
         .toList(growable: false);
+    speciesNames.sort((a, b) => a.compareTo(b));
     return speciesNames;
   }
 }
