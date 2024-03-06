@@ -35,7 +35,7 @@ void main() {
     test('getSectorStatus works with initial data', () async {
       final repo = makeFakeSectorStatusRepository();
       addTearDown(repo.dispose);
-      await expectLater(repo.getSectorStatus(sectorsForTesting.first.id),
+      await expectLater(repo.getSectorStatus(sectorsForTesting.first),
           completion(isNotNull));
     });
 
@@ -43,21 +43,20 @@ void main() {
       final repo = makeFakeSectorStatusRepository();
       addTearDown(repo.dispose);
       await expectLater(
-          repo.getSectorStatus(invalidSector.id), completion(isNull));
+          repo.getSectorStatus(invalidSector), completion(isNull));
     });
 
     test(
         "toggleSectorStatus doesn't work with valid sector and invalid status command",
         () async {
       final repo = makeFakeSectorStatusRepository();
-      final idForTesting = sectorsForTesting.first.id;
       addTearDown(repo.dispose);
-      final statusBeforeToggling = await repo.getSectorStatus(idForTesting);
+      final statusBeforeToggling = await repo.getSectorStatus(sectorsForTesting.first);
       await repo.toggleSectorStatus(
         sectorsForTesting.first,
         '70',
       );
-      expect(repo.getSectorStatus(sectorsForTesting.first.id),
+      expect(repo.getSectorStatus(sectorsForTesting.first),
           completion(statusBeforeToggling));
     });
 
@@ -65,14 +64,13 @@ void main() {
     test('toggleSectorStatus works with valid sector and valid status command',
         () async {
       final repo = makeFakeSectorStatusRepository();
-      final idForTesting = sectorsForTesting.first.id;
       addTearDown(repo.dispose);
-      final statusBeforeToggling = await repo.getSectorStatus(idForTesting);
+      final statusBeforeToggling = await repo.getSectorStatus(sectorsForTesting.first);
       await repo.toggleSectorStatus(
         sectorsForTesting.first,
         sectorsForTesting.first.turnOffCommand,
       );
-      expect(repo.getSectorStatus(sectorsForTesting.first.id),
+      expect(repo.getSectorStatus(sectorsForTesting.first),
           completion(isNot(statusBeforeToggling)));
     });
 
@@ -93,7 +91,7 @@ void main() {
       final repo = makeFakeSectorStatusRepository();
       addTearDown(repo.dispose);
       expect(
-        repo.watchSectorStatus(sectorsForTesting.first.id),
+        repo.watchSectorStatus(sectorsForTesting.first),
         emits(isNotNull),
       );
     });
@@ -101,7 +99,7 @@ void main() {
     test('watchSectorStatus emits null', () {
       final repo = makeFakeSectorStatusRepository();
       addTearDown(repo.dispose);
-      expect(repo.watchSectorStatus(invalidSector.id), emits(isNull));
+      expect(repo.watchSectorStatus(invalidSector), emits(isNull));
     });
 
     test('getSectorStatus after dispose throws exception', () async {
