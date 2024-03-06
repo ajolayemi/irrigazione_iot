@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
+import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/specie_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/domain/sector.dart';
@@ -99,8 +101,27 @@ class _AddUpdateSectorFormContentsState
     }
   }
 
-  void _forSpecie() {
-    debugPrint('Show species list');
+  void _onTappedSpecie() async {
+    final selectedSpecie = await context.pushNamed(AppRoute.selectASpecie.name);
+    if (selectedSpecie != null) {
+      _specieController.text = selectedSpecie.toString();
+    }
+  }
+
+  void _onTappedIrrigationSystem() async {
+    final selectedIrrigationSystem =
+        await context.pushNamed(AppRoute.selectAnIrrigationSystem.name);
+    if (selectedIrrigationSystem != null) {
+      _irrigationSystemController.text = selectedIrrigationSystem.toString();
+    }
+  }
+
+  void _onTappedIrrigationSource() async {
+    final selectedIrrigationSource =
+        await context.pushNamed(AppRoute.selectAnIrrigationSource.name);
+    if (selectedIrrigationSource != null) {
+      _irrigationSourceController.text = selectedIrrigationSource.toString();
+    }
   }
 
   @override
@@ -141,10 +162,10 @@ class _AddUpdateSectorFormContentsState
               fieldHintText: context.loc.sectorSpecieHintText,
               canRequestFocus: false,
               keyboardType: TextInputType.none,
-              onTap: _forSpecie,
+              onTap: _onTappedSpecie,
               suffixIcon: IconButton(
                 icon: const Icon(Icons.arrow_drop_down),
-                onPressed: _forSpecie,
+                onPressed: _onTappedSpecie,
               ),
               fieldController: _specieController,
               onEditingComplete: () {},
@@ -202,24 +223,7 @@ class _AddUpdateSectorFormContentsState
               keyboardType: numberFieldKeyboardType,
             ),
             gapH16,
-            // source of irrigation field
-            FormTitleAndField(
-              enabled: state,
-              fieldKey: _irrigationSourceFieldKey,
-              fieldController: _irrigationSourceController,
-              fieldTitle: context.loc.sectorIrrigationSource,
-              fieldHintText: context.loc.sectorIrrigationSourceHintText,
-              canRequestFocus: false,
-              keyboardType: TextInputType.none,
-              onTap: _forSpecie, // todo replace with the right function
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.arrow_drop_down),
-                onPressed: _forSpecie,
-              ),
-              onEditingComplete: () {},
-              validator: (_) {},
-            ),
-            gapH16,
+
             // irrigation system field
             FormTitleAndField(
               enabled: state,
@@ -229,10 +233,31 @@ class _AddUpdateSectorFormContentsState
               fieldHintText: context.loc.sectorIrrigationSystemHintText,
               canRequestFocus: false,
               keyboardType: TextInputType.none,
-              onTap: _forSpecie, // todo replace with the right function
+              onTap:
+                  _onTappedIrrigationSystem, // todo replace with the right function
               suffixIcon: IconButton(
                 icon: const Icon(Icons.arrow_drop_down),
-                onPressed: _forSpecie,
+                onPressed: _onTappedIrrigationSystem,
+              ),
+              onEditingComplete: () {},
+              validator: (_) {},
+            ),
+
+            gapH16,
+            // source of irrigation field
+            FormTitleAndField(
+              enabled: state,
+              fieldKey: _irrigationSourceFieldKey,
+              fieldController: _irrigationSourceController,
+              fieldTitle: context.loc.sectorIrrigationSource,
+              fieldHintText: context.loc.sectorIrrigationSourceHintText,
+              canRequestFocus: false,
+              keyboardType: TextInputType.none,
+              onTap:
+                  _onTappedIrrigationSource, // todo replace with the right function
+              suffixIcon: IconButton(
+                icon: const Icon(Icons.arrow_drop_down),
+                onPressed: _onTappedIrrigationSource,
               ),
               onEditingComplete: () {},
               validator: (_) {},
