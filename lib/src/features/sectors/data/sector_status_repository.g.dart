@@ -24,7 +24,7 @@ final sectorStatusRepositoryProvider =
 
 typedef SectorStatusRepositoryRef = ProviderRef<SectorStatusRepository>;
 String _$sectorStatusStreamHash() =>
-    r'06d6aa9f0b952ace8d4e79fb297a06c6e7baab33';
+    r'e4fbc0f00dec5df0777767fc5b5ba32ffe726624';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -52,16 +52,16 @@ class _SystemHash {
 const sectorStatusStreamProvider = SectorStatusStreamFamily();
 
 /// See also [sectorStatusStream].
-class SectorStatusStreamFamily extends Family<AsyncValue<SectorStatus?>> {
+class SectorStatusStreamFamily extends Family<AsyncValue<bool?>> {
   /// See also [sectorStatusStream].
   const SectorStatusStreamFamily();
 
   /// See also [sectorStatusStream].
   SectorStatusStreamProvider call(
-    String sectorID,
+    Sector sector,
   ) {
     return SectorStatusStreamProvider(
-      sectorID,
+      sector,
     );
   }
 
@@ -70,7 +70,7 @@ class SectorStatusStreamFamily extends Family<AsyncValue<SectorStatus?>> {
     covariant SectorStatusStreamProvider provider,
   ) {
     return call(
-      provider.sectorID,
+      provider.sector,
     );
   }
 
@@ -90,15 +90,14 @@ class SectorStatusStreamFamily extends Family<AsyncValue<SectorStatus?>> {
 }
 
 /// See also [sectorStatusStream].
-class SectorStatusStreamProvider
-    extends AutoDisposeStreamProvider<SectorStatus?> {
+class SectorStatusStreamProvider extends AutoDisposeStreamProvider<bool?> {
   /// See also [sectorStatusStream].
   SectorStatusStreamProvider(
-    String sectorID,
+    Sector sector,
   ) : this._internal(
           (ref) => sectorStatusStream(
             ref as SectorStatusStreamRef,
-            sectorID,
+            sector,
           ),
           from: sectorStatusStreamProvider,
           name: r'sectorStatusStreamProvider',
@@ -109,7 +108,7 @@ class SectorStatusStreamProvider
           dependencies: SectorStatusStreamFamily._dependencies,
           allTransitiveDependencies:
               SectorStatusStreamFamily._allTransitiveDependencies,
-          sectorID: sectorID,
+          sector: sector,
         );
 
   SectorStatusStreamProvider._internal(
@@ -119,14 +118,14 @@ class SectorStatusStreamProvider
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.sectorID,
+    required this.sector,
   }) : super.internal();
 
-  final String sectorID;
+  final Sector sector;
 
   @override
   Override overrideWith(
-    Stream<SectorStatus?> Function(SectorStatusStreamRef provider) create,
+    Stream<bool?> Function(SectorStatusStreamRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -137,62 +136,61 @@ class SectorStatusStreamProvider
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        sectorID: sectorID,
+        sector: sector,
       ),
     );
   }
 
   @override
-  AutoDisposeStreamProviderElement<SectorStatus?> createElement() {
+  AutoDisposeStreamProviderElement<bool?> createElement() {
     return _SectorStatusStreamProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is SectorStatusStreamProvider && other.sectorID == sectorID;
+    return other is SectorStatusStreamProvider && other.sector == sector;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, sectorID.hashCode);
+    hash = _SystemHash.combine(hash, sector.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin SectorStatusStreamRef on AutoDisposeStreamProviderRef<SectorStatus?> {
-  /// The parameter `sectorID` of this provider.
-  String get sectorID;
+mixin SectorStatusStreamRef on AutoDisposeStreamProviderRef<bool?> {
+  /// The parameter `sector` of this provider.
+  Sector get sector;
 }
 
 class _SectorStatusStreamProviderElement
-    extends AutoDisposeStreamProviderElement<SectorStatus?>
-    with SectorStatusStreamRef {
+    extends AutoDisposeStreamProviderElement<bool?> with SectorStatusStreamRef {
   _SectorStatusStreamProviderElement(super.provider);
 
   @override
-  String get sectorID => (origin as SectorStatusStreamProvider).sectorID;
+  Sector get sector => (origin as SectorStatusStreamProvider).sector;
 }
 
 String _$sectorStatusFutureHash() =>
-    r'85c8f6fea567e928ac7e6925c37c82333b086ba6';
+    r'd410d5a582d88667c2f329e69977571cce47c6d1';
 
 /// See also [sectorStatusFuture].
 @ProviderFor(sectorStatusFuture)
 const sectorStatusFutureProvider = SectorStatusFutureFamily();
 
 /// See also [sectorStatusFuture].
-class SectorStatusFutureFamily extends Family<AsyncValue<SectorStatus?>> {
+class SectorStatusFutureFamily extends Family<AsyncValue<bool?>> {
   /// See also [sectorStatusFuture].
   const SectorStatusFutureFamily();
 
   /// See also [sectorStatusFuture].
   SectorStatusFutureProvider call(
-    String sectorID,
+    Sector sector,
   ) {
     return SectorStatusFutureProvider(
-      sectorID,
+      sector,
     );
   }
 
@@ -201,7 +199,7 @@ class SectorStatusFutureFamily extends Family<AsyncValue<SectorStatus?>> {
     covariant SectorStatusFutureProvider provider,
   ) {
     return call(
-      provider.sectorID,
+      provider.sector,
     );
   }
 
@@ -221,15 +219,14 @@ class SectorStatusFutureFamily extends Family<AsyncValue<SectorStatus?>> {
 }
 
 /// See also [sectorStatusFuture].
-class SectorStatusFutureProvider
-    extends AutoDisposeFutureProvider<SectorStatus?> {
+class SectorStatusFutureProvider extends AutoDisposeFutureProvider<bool?> {
   /// See also [sectorStatusFuture].
   SectorStatusFutureProvider(
-    String sectorID,
+    Sector sector,
   ) : this._internal(
           (ref) => sectorStatusFuture(
             ref as SectorStatusFutureRef,
-            sectorID,
+            sector,
           ),
           from: sectorStatusFutureProvider,
           name: r'sectorStatusFutureProvider',
@@ -240,7 +237,7 @@ class SectorStatusFutureProvider
           dependencies: SectorStatusFutureFamily._dependencies,
           allTransitiveDependencies:
               SectorStatusFutureFamily._allTransitiveDependencies,
-          sectorID: sectorID,
+          sector: sector,
         );
 
   SectorStatusFutureProvider._internal(
@@ -250,14 +247,14 @@ class SectorStatusFutureProvider
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.sectorID,
+    required this.sector,
   }) : super.internal();
 
-  final String sectorID;
+  final Sector sector;
 
   @override
   Override overrideWith(
-    FutureOr<SectorStatus?> Function(SectorStatusFutureRef provider) create,
+    FutureOr<bool?> Function(SectorStatusFutureRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -268,42 +265,41 @@ class SectorStatusFutureProvider
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        sectorID: sectorID,
+        sector: sector,
       ),
     );
   }
 
   @override
-  AutoDisposeFutureProviderElement<SectorStatus?> createElement() {
+  AutoDisposeFutureProviderElement<bool?> createElement() {
     return _SectorStatusFutureProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is SectorStatusFutureProvider && other.sectorID == sectorID;
+    return other is SectorStatusFutureProvider && other.sector == sector;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, sectorID.hashCode);
+    hash = _SystemHash.combine(hash, sector.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin SectorStatusFutureRef on AutoDisposeFutureProviderRef<SectorStatus?> {
-  /// The parameter `sectorID` of this provider.
-  String get sectorID;
+mixin SectorStatusFutureRef on AutoDisposeFutureProviderRef<bool?> {
+  /// The parameter `sector` of this provider.
+  Sector get sector;
 }
 
 class _SectorStatusFutureProviderElement
-    extends AutoDisposeFutureProviderElement<SectorStatus?>
-    with SectorStatusFutureRef {
+    extends AutoDisposeFutureProviderElement<bool?> with SectorStatusFutureRef {
   _SectorStatusFutureProviderElement(super.provider);
 
   @override
-  String get sectorID => (origin as SectorStatusFutureProvider).sectorID;
+  Sector get sector => (origin as SectorStatusFutureProvider).sector;
 }
 
 String _$sectorLastIrrigatedStreamHash() =>

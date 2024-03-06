@@ -1,6 +1,5 @@
 import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_status_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/domain/sector.dart';
-import 'package:irrigazione_iot/src/features/sectors/domain/sector_status.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -8,10 +7,10 @@ part 'sector_status_repository.g.dart';
 
 abstract class SectorStatusRepository {
   ///  Returns the most recent status for the sector
-  Future<SectorStatus?> getSectorStatus(SectorID sectorID);
+  Future<bool?> getSectorStatus(Sector sector);
 
   /// Emits a stream of the most recent status for the sector
-  Stream<SectorStatus?> watchSectorStatus(SectorID sectorID);
+  Stream<bool?> watchSectorStatus(Sector sector);
 
   /// Toggles the status of the sector
   Future<void> toggleSectorStatus(Sector sector, String status);
@@ -30,17 +29,17 @@ SectorStatusRepository sectorStatusRepository(SectorStatusRepositoryRef ref) {
 }
 
 @riverpod
-Stream<SectorStatus?> sectorStatusStream(
-    SectorStatusStreamRef ref, SectorID sectorID) {
+Stream<bool?> sectorStatusStream(
+    SectorStatusStreamRef ref, Sector sector) {
   final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);
-  return sectorStatusRepository.watchSectorStatus(sectorID);
+  return sectorStatusRepository.watchSectorStatus(sector);
 }
 
 @riverpod
-Future<SectorStatus?> sectorStatusFuture(
-    SectorStatusFutureRef ref, SectorID sectorID) {
+Future<bool?> sectorStatusFuture(
+    SectorStatusFutureRef ref, Sector sector) {
   final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);
-  return sectorStatusRepository.getSectorStatus(sectorID);
+  return sectorStatusRepository.getSectorStatus(sector);
 }
 
 @riverpod
