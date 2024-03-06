@@ -107,7 +107,9 @@
   },
   "onStatusDialogConfirmButtonTitle": "Switch On",
   "offStatusDialogConfirmButtonTitle": "Switch Off",
-  "pumpStatusListTileTitle": "Current status",
+  "statusListTileTitle": "Current Status",
+  "onStatusValue": "On",
+  "offStatusValue": "Off",
   "noCompanyFoundForUser": "Hello {username}!\nThere is no company associated with your account in our database",
   "@noCompanyFoundForUser": {
     "description": "The message that is displayed when the user doesn't have a company associated with their account",
@@ -173,5 +175,19 @@
         "example": "Feb 20, 2020 10:00"
       }
     }
-  }
+  },
+  "sectorSpecie": "Specie",
+  "sectorVariety": "Variety",
+  "sectorOccupiedArea": "Occupied Area",
+  "sectorNumberOfPlants": "Number of Plants",
+  "sectorUnitConsumptionPerHour": "Consumption per Plant (l/h)",
+  "sectorTotalConsumption": "Total Consumption (l/h)",
+  "sectorIrrigationSystem": "Irrigation System",
+  "sectorIrrigationSource": "Irrigation Source",
+  "sectorOnCommand": "On Command",
+  "sectorOffCommand": "Off Command",
+  "sectorNotes": "Notes",
+  "sectorConnectedPumps": "Connected Pumps",
+  "sectorLastIrrigationEmpty": "Never irrigated",
+  "sectorLastIrrigationForTile": "Last irrigated"
 }
