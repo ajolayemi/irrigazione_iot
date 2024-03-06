@@ -11,6 +11,9 @@ import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/add_upd
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_list/pumps_list_screen.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/add_update_sector/add_update_sector_form.dart';
+import 'package:irrigazione_iot/src/features/sectors/presentation/add_update_sector/select_a_specie_screen.dart';
+import 'package:irrigazione_iot/src/features/sectors/presentation/add_update_sector/select_an_irrigation_source.dart';
+import 'package:irrigazione_iot/src/features/sectors/presentation/add_update_sector/select_an_irrigation_system.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_details/sector_details.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_list/sectors_list_screen.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
@@ -49,6 +52,9 @@ enum AppRoute {
   sectorDetails,
   addSector,
   updateSector,
+  selectASpecie,
+  selectAnIrrigationSystem,
+  selectAnIrrigationSource,
   more,
   settings,
 }
@@ -250,6 +256,36 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           ),
         ],
       ),
+
+      // Select a specie
+      GoRoute(
+        path: '/select-a-specie',
+        name: AppRoute.selectASpecie.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          child: SelectASpecieScreen(),
+          fullscreenDialog: true,
+        ),
+      ),
+
+      // Select an irrigation system
+      GoRoute(
+        path: '/select-an-irrigation-system',
+        name: AppRoute.selectAnIrrigationSystem.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          child: SelectAnIrrigationSystem(),
+          fullscreenDialog: true,
+        ),
+      ),
+
+      // Select an irrigation source
+      GoRoute(
+        path: '/select-an-irrigation-source',
+        name: AppRoute.selectAnIrrigationSource.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          child: SelectAnIrrigationSource(),
+          fullscreenDialog: true,
+        ),
+      )
     ],
   );
 });
