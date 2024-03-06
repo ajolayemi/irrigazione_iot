@@ -176,18 +176,31 @@
       }
     }
   },
+  "sectorName": "Name",
+  "sectorNameHintText": "eg: ME8",
   "sectorSpecie": "Specie",
+  "sectorSpecieHintText": "eg: Arancia",
   "sectorVariety": "Variety",
+  "sectorVarietyHintText": "eg: Sanguinello",
   "sectorOccupiedArea": "Occupied Area",
+  "sectorOccupiedAreaHintText": "eg: 100",
   "sectorNumberOfPlants": "Number of Plants",
+  "sectorNumberOfPlantsHintText": "eg: 100",
   "sectorUnitConsumptionPerHour": "Consumption per Plant (l/h)",
+  "sectorUnitConsumptionPerHourHintText": "eg: 1",
   "sectorTotalConsumption": "Total Consumption (l/h)",
   "sectorIrrigationSystem": "Irrigation System",
+  "sectorIrrigationSystemHintText": "eg: A Goccia",
   "sectorIrrigationSource": "Irrigation Source",
+  "sectorIrrigationSourceHintText": "eg: Pozzo",
   "sectorOnCommand": "On Command",
+  "sectorOnCommandHintText": "eg: 1",
   "sectorOffCommand": "Off Command",
+  "sectorOffCommandHintText": "eg: 2",
   "sectorNotes": "Notes",
   "sectorConnectedPumps": "Connected Pumps",
   "sectorLastIrrigationEmpty": "Never irrigated",
-  "sectorLastIrrigationForTile": "Last irrigated"
+  "sectorLastIrrigationForTile": "Last irrigated",
+  "addSectorPageTitle": "New Sector",
+  "updateSectorPageTitle": "Update Sector"
 }
