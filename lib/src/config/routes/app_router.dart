@@ -10,6 +10,7 @@ import 'package:irrigazione_iot/src/features/home/presentation/home_nested_navig
 import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/add_update_pump_form.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_list/pumps_list_screen.dart';
+import 'package:irrigazione_iot/src/features/sectors/presentation/add_update_sector/add_update_sector_form.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_details/sector_details.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_list/sectors_list_screen.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
@@ -46,6 +47,8 @@ enum AppRoute {
   updatePump,
   sector,
   sectorDetails,
+  addSector,
+  updateSector,
   more,
   settings,
 }
@@ -183,22 +186,50 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             navigatorKey: _sectorShellNavigatorKey,
             routes: [
               GoRoute(
-                  path: '/sector',
-                  name: AppRoute.sector.name,
-                  pageBuilder: (context, state) => const NoTransitionPage(
-                        child: SectorsListScreen(),
+                path: '/sector',
+                name: AppRoute.sector.name,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: SectorsListScreen(),
+                ),
+                routes: [
+                  // Add sector
+                  GoRoute(
+                    path: 'add',
+                    name: AppRoute.addSector.name,
+                    pageBuilder: (context, state) => const MaterialPage(
+                      fullscreenDialog: true,
+                      child: AddUpdateSectorForm(
+                        formType: GenericFormTypes.add,
                       ),
-                  routes: [
-                    GoRoute(
-                      path: 'details/:sectorId',
-                      name: AppRoute.sectorDetails.name,
-                      pageBuilder: (context, state) => MaterialPage(
-                          fullscreenDialog: true,
-                          child: SectorDetailsScreen(
-                            sectorID: state.pathParameters['sectorId'] ?? '',
-                          )),
                     ),
-                  ]),
+                  ),
+                  // Sector details
+                  GoRoute(
+                    path: 'details/:sectorId',
+                    name: AppRoute.sectorDetails.name,
+                    pageBuilder: (context, state) => MaterialPage(
+                      fullscreenDialog: true,
+                      child: SectorDetailsScreen(
+                        sectorID: state.pathParameters['sectorId'] ?? '',
+                      ),
+                    ),
+                    routes: [
+                      // Update sector
+                      GoRoute(
+                        path: 'edit',
+                        name: AppRoute.updateSector.name,
+                        pageBuilder: (context, state) => MaterialPage(
+                          fullscreenDialog: true,
+                          child: AddUpdateSectorForm(
+                            formType: GenericFormTypes.update,
+                            sectorId: state.pathParameters['sectorId'] ?? '',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ],
           ),
 
