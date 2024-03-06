@@ -7,7 +7,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/presentation/home_nested_navigator.dart';
-import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/add_update_pump_screen.dart';
+import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/add_update_pump_form.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/pump_list/pumps_list_screen.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_details/sector_details.dart';
@@ -156,7 +156,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                           name: AppRoute.updatePump.name,
                           pageBuilder: (context, state) => MaterialPage(
                             fullscreenDialog: true,
-                            child: AddAndCreatePumpScreen(
+                            child: AddUpdatePumpForm(
                               formType: GenericFormTypes.update,
                               pumpId: state.pathParameters['pumpId'] ?? '',
                             ),
@@ -168,7 +168,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     name: AppRoute.addPump.name,
                     pageBuilder: (context, state) => const MaterialPage(
                       fullscreenDialog: true,
-                      child: AddAndCreatePumpScreen(
+                      child: AddUpdatePumpForm(
                         formType: GenericFormTypes.add,
                       ),
                     ),

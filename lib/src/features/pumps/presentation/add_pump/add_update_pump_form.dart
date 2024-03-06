@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
-import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/add_update_pump_screen_content.dart';
+import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/add_update_pump_form_content.dart';
 
-class AddAndCreatePumpScreen extends StatelessWidget {
-  const AddAndCreatePumpScreen({
+class AddUpdatePumpForm extends StatelessWidget {
+  const AddUpdatePumpForm({
     super.key,
     required this.formType,
     this.pumpId,
