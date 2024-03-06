@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/presentation/sector_list_tile.dart';
+import 'package:irrigazione_iot/src/features/sectors/presentation/sector_list/sector_list_tile.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_switch_controller.dart';
-import 'package:irrigazione_iot/src/features/sectors/presentation/sectors_list_tile_skeleton.dart';
+import 'package:irrigazione_iot/src/features/sectors/presentation/sector_list/sectors_list_tile_skeleton.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
