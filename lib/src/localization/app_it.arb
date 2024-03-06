@@ -98,5 +98,8 @@
   "sectorLastIrrigationEmpty": "Mai irrigato",
   "sectorLastIrrigationForTile": "Ultima Irrigazione",
   "addSectorPageTitle": "Nuovo Settore",
-  "updateSectorPageTitle": "Aggiorna Settore"
+  "updateSectorPageTitle": "Aggiorna Settore",
+  "selectASpecie": "Selezione una specie",
+  "selectAnIrrigationSystem": "Seleziona un sistema di irrigazione",
+  "selectAnIrrigationSource": "Seleziona una fonte di irrigazione"
 }

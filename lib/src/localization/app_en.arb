@@ -202,5 +202,8 @@
   "sectorLastIrrigationEmpty": "Never irrigated",
   "sectorLastIrrigationForTile": "Last irrigated",
   "addSectorPageTitle": "New Sector",
-  "updateSectorPageTitle": "Update Sector"
+  "updateSectorPageTitle": "Update Sector",
+  "selectASpecie": "Select a specie",
+  "selectAnIrrigationSystem": "Select an irrigation system",
+  "selectAnIrrigationSource": "Select an irrigation source"
 }
