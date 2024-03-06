@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/domain/sector.dart';
-import 'package:irrigazione_iot/src/features/sectors/domain/sector_status.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_switch_controller.dart';
 import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
@@ -54,12 +53,9 @@ class SectorSwitch extends ConsumerWidget {
     final globalLoadingState =
         ref.watch(sectorSwitchControllerProvider).isGlobalLoading;
 
-    final currentSectorStatus =
-        ref.watch(sectorStatusStreamProvider(sector.id)).valueOrNull;
+    final isSwitchedOn =
+        ref.watch(sectorStatusStreamProvider(sector)).valueOrNull ?? false;
 
-    final isSwitchedOn = currentSectorStatus == null
-        ? false
-        : currentSectorStatus.translateSectorStatusToBoolean(sector);
     return thisSectorStatusIsLoading
         ? const CircularProgressIndicator.adaptive()
         : Switch.adaptive(
