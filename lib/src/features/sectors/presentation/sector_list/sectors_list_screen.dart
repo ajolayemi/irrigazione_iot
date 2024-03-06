@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_list/sector_list_tile.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_switch_controller.dart';
@@ -37,7 +39,9 @@ class SectorsListScreen extends ConsumerWidget {
             actions: [
               AppBarIconButton(
                 isVisibile: canEdit,
-                onPressed: () {}, // activate button
+                onPressed: () => context.goNamed(
+                  AppRoute.addSector.name,
+                ), // activate button
                 icon: Icons.add,
               )
             ],
