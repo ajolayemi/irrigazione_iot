@@ -23,7 +23,7 @@ class AddUpdatePumpContents extends ConsumerStatefulWidget {
     this.pumpId,
   });
 
-  final AddAndCreatePumpFormTypes formType;
+  final GenericFormTypes formType;
   final PumpID? pumpId;
 
   @override
@@ -69,8 +69,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
 
   @override
   void initState() {
-    if (widget.formType == AddAndCreatePumpFormTypes.updatePump &&
-        widget.pumpId != null) {
+    if (widget.formType == GenericFormTypes.update && widget.pumpId != null) {
       final pump = ref.read(pumpStreamProvider(widget.pumpId!)).valueOrNull;
       _initialPump = pump;
       _nameController.text = pump?.name ?? '';
@@ -95,7 +94,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   }
 
   Future<void> _submit() async {
-    final updating = widget.formType == AddAndCreatePumpFormTypes.updatePump;
+    final updating = widget.formType == GenericFormTypes.update;
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
       // ask if user wants to save the pump
@@ -134,7 +133,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
 
       debugPrint('Form is valid, submitting...');
 
-      if (widget.formType == AddAndCreatePumpFormTypes.addPump) {
+      if (widget.formType == GenericFormTypes.add) {
         final success =
             await ref.read(addUpdatePumpControllerProvider.notifier).createPump(
                   toSave,
@@ -212,7 +211,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     final usedOffCommands =
         ref.watch(companyUsedPumpOffCommandsStreamProvider).valueOrNull ?? [];
     final state = ref.watch(addUpdatePumpControllerProvider);
-    final isUpdating = widget.formType == AddAndCreatePumpFormTypes.updatePump;
+    final isUpdating = widget.formType == GenericFormTypes.update;
     return CustomScrollView(
       slivers: [
         AppSliverBar(

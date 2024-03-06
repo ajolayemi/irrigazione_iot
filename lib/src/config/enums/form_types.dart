@@ -1,4 +1,4 @@
-enum AddAndCreatePumpFormTypes {
-  addPump,
-  updatePump,
+enum GenericFormTypes {
+  add,
+  update,
 }

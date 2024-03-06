@@ -157,7 +157,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                           pageBuilder: (context, state) => MaterialPage(
                             fullscreenDialog: true,
                             child: AddAndCreatePumpScreen(
-                              formType: AddAndCreatePumpFormTypes.updatePump,
+                              formType: GenericFormTypes.update,
                               pumpId: state.pathParameters['pumpId'] ?? '',
                             ),
                           ),
@@ -169,7 +169,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     pageBuilder: (context, state) => const MaterialPage(
                       fullscreenDialog: true,
                       child: AddAndCreatePumpScreen(
-                        formType: AddAndCreatePumpFormTypes.addPump,
+                        formType: GenericFormTypes.add,
                       ),
                     ),
                   ),

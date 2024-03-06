@@ -10,7 +10,7 @@ class AddAndCreatePumpScreen extends StatelessWidget {
     this.pumpId,
   });
 
-  final AddAndCreatePumpFormTypes formType;
+  final GenericFormTypes formType;
   final PumpID? pumpId;
 
   @override
