@@ -21,7 +21,7 @@ final specieRepositoryProvider = Provider<SpecieRepository>.internal(
 );
 
 typedef SpecieRepositoryRef = ProviderRef<SpecieRepository>;
-String _$specieNamesFutureHash() => r'fe8d321d963a06be0681d93b86fbcb00cdaf7880';
+String _$specieNamesFutureHash() => r'617a587f10647b79f23e9249e3895c8ed13553e2';
 
 /// See also [specieNamesFuture].
 @ProviderFor(specieNamesFuture)
