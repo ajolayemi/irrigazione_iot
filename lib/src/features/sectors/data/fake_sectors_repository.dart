@@ -38,7 +38,7 @@ class FakeSectorsRepository extends SectorsRepository {
     await delay(addDelay);
     final currentSectors = [..._sectorsState.value];
     final index = currentSectors.indexWhere(
-        (sector) => sector.id == sector.id && sector.companyId == companyId);
+        (s) => s.id == sector.id && s.companyId == companyId);
     if (index < 0) return Future.value(null);
     currentSectors[index] = sector;
     _sectorsState.value = currentSectors;
