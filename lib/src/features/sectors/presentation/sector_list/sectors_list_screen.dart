@@ -31,6 +31,7 @@ class SectorsListScreen extends ConsumerWidget {
     final currentCompanyId =
         ref.watch(currentTappedCompanyProvider).valueOrNull?.id ?? '';
     final sectors = ref.watch(sectorListStreamProvider(currentCompanyId));
+    final isLoading = ref.watch(sectorSwitchControllerProvider).isLoading;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -39,9 +40,11 @@ class SectorsListScreen extends ConsumerWidget {
             actions: [
               AppBarIconButton(
                 isVisibile: canEdit,
-                onPressed: () => context.goNamed(
-                  AppRoute.addSector.name,
-                ), // activate button
+                onPressed: isLoading
+                    ? () {}
+                    : () => context.goNamed(
+                          AppRoute.addSector.name,
+                        ), // activate button
                 icon: Icons.add,
               )
             ],
