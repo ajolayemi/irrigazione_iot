@@ -17,15 +17,30 @@ class Sector extends Equatable {
     required this.area,
     required this.numOfPlants,
     required this.waterConsumptionPerHourByPlant,
-    required this.totalWaterConsumption,
     required this.irrigationSystemType,
     required this.irrigationSource,
-    required this.solenoidValveName,
     required this.turnOnCommand,
     required this.turnOffCommand,
     this.pumpId,
     this.notes,
-  });
+  }) : totalWaterConsumption = numOfPlants * waterConsumptionPerHourByPlant;
+
+  const Sector.empty()
+      : id = '',
+        companyId = '',
+        name = '',
+        availableSpecie = '',
+        specieVariety = '',
+        area = 0,
+        numOfPlants = 0,
+        waterConsumptionPerHourByPlant = 0,
+        totalWaterConsumption = 0,
+        irrigationSystemType = IrrigationSystemType.drip,
+        irrigationSource = IrrigationSource.well,
+        turnOnCommand = '',
+        turnOffCommand = '',
+        notes = null,
+        pumpId = null;
 
   // * the id of the sector
   final SectorID id;
@@ -62,9 +77,6 @@ class Sector extends Equatable {
   // * irrigation source
   final IrrigationSource irrigationSource;
 
-  // * solenoid valve name (elettrovalvola)
-  final String solenoidValveName;
-
   // * the mqtt command to turn on this sector
   final String turnOnCommand;
 
@@ -91,7 +103,6 @@ class Sector extends Equatable {
       totalWaterConsumption,
       irrigationSystemType,
       irrigationSource,
-      solenoidValveName,
       turnOnCommand,
       turnOffCommand,
       notes,
@@ -108,7 +119,6 @@ class Sector extends Equatable {
     double? area,
     int? numOfPlants,
     double? waterConsumptionPerHourByPlant,
-    double? totalWaterConsumption,
     IrrigationSystemType? irrigationSystemType,
     IrrigationSource? irrigationSource,
     String? solenoidValveName,
@@ -127,11 +137,8 @@ class Sector extends Equatable {
       numOfPlants: numOfPlants ?? this.numOfPlants,
       waterConsumptionPerHourByPlant:
           waterConsumptionPerHourByPlant ?? this.waterConsumptionPerHourByPlant,
-      totalWaterConsumption:
-          totalWaterConsumption ?? this.totalWaterConsumption,
       irrigationSystemType: irrigationSystemType ?? this.irrigationSystemType,
       irrigationSource: irrigationSource ?? this.irrigationSource,
-      solenoidValveName: solenoidValveName ?? this.solenoidValveName,
       turnOnCommand: turnOnCommand ?? this.turnOnCommand,
       turnOffCommand: turnOffCommand ?? this.turnOffCommand,
       notes: notes ?? this.notes,
@@ -152,7 +159,6 @@ class Sector extends Equatable {
       'totalWaterConsumption': totalWaterConsumption,
       'irrigationSystemType': irrigationSystemType.uiName,
       'irrigationSource': irrigationSource.uiName,
-      'solenoidValveName': solenoidValveName,
       'turnOnCommand': turnOnCommand,
       'turnOffCommand': turnOffCommand,
       'notes': notes,
@@ -171,11 +177,9 @@ class Sector extends Equatable {
       numOfPlants: map['numOfPlants'] as int,
       waterConsumptionPerHourByPlant:
           map['waterConsumptionPerHourByPlant'] as double,
-      totalWaterConsumption: map['totalWaterConsumption'] as double,
       irrigationSystemType:
           map['irrigationSystemType'].toString().toIrrigationSystemType(),
       irrigationSource: map['irrigationSource'].toString().toIrrigationSource(),
-      solenoidValveName: map['solenoidValveName'] as String,
       turnOnCommand: map['turnOnCommand'] as String,
       turnOffCommand: map['turnOffCommand'] as String,
       notes: map['notes'] != null ? map['notes'] as String : null,
@@ -189,8 +193,8 @@ class Sector extends Equatable {
     availableSpecie: $availableSpecie, specieVariety: $specieVariety, area: $area,
     numOfPlants: $numOfPlants, waterConsumptionPerHourByPlant: $waterConsumptionPerHourByPlant, 
     totalWaterConsumption: $totalWaterConsumption, irrigationSystemType: $irrigationSystemType, 
-    irrigationSource: $irrigationSource, solenoidValveName: $solenoidValveName, 
-    turnOnCommand: $turnOnCommand, turnOffCommand: $turnOffCommand, notes: $notes, pumpId: $pumpId)''';
+    irrigationSource: $irrigationSource,turnOnCommand: $turnOnCommand, 
+    turnOffCommand: $turnOffCommand, notes: $notes, pumpId: $pumpId)''';
   }
 }
 
