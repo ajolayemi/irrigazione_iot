@@ -125,21 +125,6 @@
   "updatePumpPageTitle": "Update Pump",
   "pumpNameFormFieldTitle": "Name",
   "pumpNameFormHint": "eg: Pompa Giardino",
-  "pumpNameEmptyErrorText": "Pump name can't be empty",
-  "pumpNameTooLongErrorText": "Pump name is too long, it has to be a maximum of {maxPumpNameLength} characters",
-  "@pumpNameTooLongErrorText": {
-    "description": "The error message that is displayed when the pump name is too long",
-    "placeholders": {
-      "maxPumpNameLength": {
-        "description": "The maximum length of the pump name",
-        "example": "3",
-        "type": "int"
-      }
-    }
-  },
-  "pumpGenericEmptyFormFieldErrorText": "Field can't be empty",
-  "pumpGenericNotANumberErrorText": "Field has to be a number",
-  "pumpGenericNotGreaterThanZeroErrorText": "Field has to be greater than 0",
   "pumpVolumeCapacityFormFieldTitle": "Volume Capacity",
   "pumpVolumeCapacityFormHint": "eg: 1000",
   "pumpKwFormFieldTitle": "Consumption (kW)",
@@ -148,9 +133,6 @@
   "pumpOnCommandFormHint": "eg: 1",
   "pumpOffCommandFormFieldTitle": "Off Command",
   "pumpOffCommandFormHint": "eg: 2",
-  "pumpNameAlreadyInUseErrorText": "Pump name is already in use",
-  "pumpCommandAlreadyInUseErrorText": "This command value is already in use for another pump",
-  "pumpDuplicateCommandsInFormErrorText": "You can't use the same command to switch on and switch off pump",
   "pumpFormGenericSaveDialogTitle": "Do you want to save the data?",
   "pumpFormGenericSaveDialogContent": "You're about to save the data for the pump in the database",
   "pumpFormGenericUpdateDialogTitle": "Do you want to update the data?",
@@ -205,5 +187,120 @@
   "updateSectorPageTitle": "Update Sector",
   "selectASpecie": "Select a specie",
   "selectAnIrrigationSystem": "Select an irrigation system",
-  "selectAnIrrigationSource": "Select an irrigation source"
+
+  "selectAnIrrigationSource": "Select an irrigation source",
+  "fieldTooLongErrorText": "Field value is too long, it has to be a maximum of {max} characters",
+  "@fieldTooLongErrorText": {
+    "description": "The error message that is displayed when a form field value is too long",
+    "placeholders": {
+      "max": {
+        "description": "The maximum length for the form field",
+        "example": "3",
+        "type": "int"
+      }
+    }
+  },
+  "emptyFormFieldErrorText": "Field can't be empty",
+  "notANumberErrorText": "Field has to be a number",
+  "notGreaterThanZeroErrorText": "Field has to be greater than 0",
+  "commandAlreadyInUseErrorText": "This command value is already in use for another {fieldName}",
+  "@commandAlreadyInUseErrorText": {
+    "description": "The error message that is displayed when a form field command value is already in use",
+    "placeholders": {
+      "fieldName": {
+        "description": "The name of the field",
+        "example": "pump"
+      }
+    }
+  },
+  "duplicateCommandsInFormErrorText": "You can't use the same command to switch on and switch off {fieldName}",
+  "@duplicateCommandsInFormErrorText": {
+    "description": "The error message that is displayed when the user tries to use the same command to switch on and switch off a pump",
+    "placeholders": {
+      "fieldName": {
+        "description": "The name of the field",
+        "example": "pump",
+        "type": "String"
+      }
+    }
+  },
+  "fieldValueAlreadyInUseErrorText": "This value is already in use for another {fieldName}",
+  "@fieldValueAlreadyInUseErrorText": {
+    "description": "The error message that is displayed when a form field value is already in use",
+    "placeholders": {
+      "fieldName": {
+        "description": "The name of the field",
+        "example": "pump",
+        "type": "String"
+      }
+    }
+  },
+  "nPumps" : "{n, plural, =1{pump} =2{pumps} other {pumps}}",
+  "@nPumps": {
+    "description": "The pluralized version of the word 'pump'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nPumpsWithIndefiniteArticle": "{n, plural, =1{a pump} =2{pumps} other {pumps}}",
+  "@nPumpsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'pump' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nPumpsWithDefiniteArticle": "{n, plural, =1{the pump} =2{pumps} other {pumps}}",
+  "@nPumpsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'pump' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSectors" : "{n, plural, =1{sector} =2{sectors} other {sectors}}",
+  "@nSectors": {
+    "description": "The pluralized version of the word 'sector'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSectorsWithIndefiniteArticle": "{n, plural, =1{a sector} =2{sectors} other {sectors}}",
+  "@nSectorsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'sector' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+
+      }
+    }
+  },
+  "nSectorsWithDefiniteArticle": "{n, plural, =1{the sector} =2{sectors} other {sectors}}",
+  "@nSectorsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'sector' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  }
+
 }
