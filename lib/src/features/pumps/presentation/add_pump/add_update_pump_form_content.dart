@@ -8,7 +8,6 @@ import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/add_update_pump_controller.dart';
 import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/add_pump_form_validators.dart';
-import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
@@ -100,8 +99,10 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
       // ask if user wants to save the pump
       final shouldSave = await showAlertDialog(
             context: context,
-            title: context.loc.pumpFormGenericSaveDialogTitle,
-            content: context.loc.pumpFormGenericSaveDialogContent,
+            title: context.loc.formGenericSaveDialogTitle,
+            content: context.loc.formGenericSaveDialogContent(
+              context.loc.nPumpsWithArticulatedPreposition(1),
+            ),
             defaultActionText: context.loc.genericSaveButtonLabel,
             cancelActionText: context.loc.alertDialogCancel,
           ) ??
@@ -112,8 +113,8 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
         id: _initialPump?.id,
         name: name,
         companyId: _initialPump?.companyId,
-        capacityInVolume: double.tryParse(volumeCapacity),
-        consumeRateInKw: double.tryParse(kwCapacity),
+        capacityInVolume: double.tryParse(volumeCapacity) ?? 0.0,
+        consumeRateInKw: double.tryParse(kwCapacity) ?? 0.0,
         commandForOn: onCommand,
         commandForOff: offCommand,
       );
@@ -128,6 +129,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
       if (toSave == null) {
         debugPrint(
             'Form is valid, but pump to save is null, not submitting...');
+        _popScreen();
         return;
       }
 
@@ -202,8 +204,6 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(addUpdatePumpControllerProvider,
-        (_, state) => state.showAlertDialogOnError(context));
     final usedPumpNames =
         ref.watch(companyUsedPumpNamesStreamProvider).valueOrNull ?? [];
     final usedOnCommands =
@@ -211,7 +211,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     final usedOffCommands =
         ref.watch(companyUsedPumpOffCommandsStreamProvider).valueOrNull ?? [];
     final state = ref.watch(addUpdatePumpControllerProvider);
-    
+
     final isUpdating = widget.formType.isUpdating();
     return CustomScrollView(
       slivers: [
@@ -330,7 +330,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                           ? context.loc.genericSaveButtonLabel
                           : context.loc.genericUpdateButtonLabel,
                       buttonType: ButtonType.primary,
-                      onPressed: state.isLoading ? null : _submit,
+                      onPressed: _submit,
                     ),
                     gapH32
                   ],
