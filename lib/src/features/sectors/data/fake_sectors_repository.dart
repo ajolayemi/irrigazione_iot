@@ -13,41 +13,58 @@ class FakeSectorsRepository extends SectorsRepository {
   final _sectorsState = InMemoryStore<List<Sector>>(kFakeSectors);
 
   @override
-  Future<void> addSector(Sector sector, CompanyID companyId) {
-    // TODO: implement addSector
-    throw UnimplementedError();
+  Future<Sector> addSector(Sector sector, CompanyID companyId) async {
+    // data validation logic is handled directly in the form
+    await delay(addDelay);
+    final lastUsedSectorId = _sectorsState.value
+        .map((sector) => int.tryParse(sector.id) ?? 0)
+        .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
+    final finalSector = sector.copyWith(
+      id: '${lastUsedSectorId + 1}',
+      companyId: companyId,
+    );
+    final currentSectors = [..._sectorsState.value];
+    currentSectors.add(finalSector);
+    _sectorsState.value = currentSectors;
+    return Future.value(finalSector);
   }
 
   @override
-  Future<void> deleteSector(SectorID sectorID) {
-    // TODO: implement deleteSector
-    throw UnimplementedError();
+  Future<Sector?> updateSector(
+    Sector sector,
+    CompanyID companyId,
+  ) async {
+    // data validation logic is handled directly in the form
+    await delay(addDelay);
+    final currentSectors = [..._sectorsState.value];
+    final index = currentSectors.indexWhere(
+        (sector) => sector.id == sector.id && sector.companyId == companyId);
+    if (index < 0) return Future.value(null);
+    currentSectors[index] = sector;
+    _sectorsState.value = currentSectors;
+    return Future.value(sector);
+  }
+
+  @override
+  Future<bool> deleteSector(SectorID sectorID) async {
+    await delay(addDelay);
+    final currentSectors = [..._sectorsState.value];
+    final index = currentSectors.indexWhere((sector) => sector.id == sectorID);
+    if (index < 0) return Future.value(false);
+    currentSectors.removeAt(index);
+    _sectorsState.value = currentSectors;
+    return Future.value(true);
   }
 
   @override
   Future<List<Sector?>> fetchSectors(CompanyID companyId) {
-    // TODO: implement fetchSectors
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> updateSector(SectorID sectorID) {
-    // TODO: implement updateSector
-    throw UnimplementedError();
+    return Future.value(_getSectors(_sectorsState.value, companyId));
   }
 
   @override
   Stream<List<Sector?>> watchSectors(CompanyID companyId) {
     return _sectorsState.stream
         .map((sectors) => _getSectors(sectors, companyId));
-  }
-
-  static List<Sector?> _getSectors(List<Sector?> sectors, CompanyID companyId) {
-    return sectors.where((sector) => sector?.companyId == companyId).toList();
-  }
-
-  static Sector? _getSector(List<Sector?> sectors, SectorID sectorID) {
-    return sectors.firstWhereOrNull((sector) => sector?.id == sectorID);
   }
 
   @override
@@ -60,4 +77,41 @@ class FakeSectorsRepository extends SectorsRepository {
     await delay(addDelay);
     return Future.value(_getSector(_sectorsState.value, sectorID));
   }
+
+  @override
+  Stream<List<String?>> watchCompanyUsedSectorNames(CompanyID companyId) {
+    return _sectorsState.stream.map(
+      (sectors) => _getSectors(sectors, companyId)
+          .map((sector) => sector?.name.toLowerCase())
+          .toList(),
+    );
+  }
+
+  @override
+  Stream<List<String?>> watchCompanyUsedSectorOffCommands(CompanyID companyId) {
+    return _sectorsState.stream.map(
+      (sectors) => _getSectors(sectors, companyId)
+          .map((sector) => sector?.turnOffCommand)
+          .toList(),
+    );
+  }
+
+  @override
+  Stream<List<String?>> watchCompanyUsedSectorOnCommands(CompanyID companyId) {
+    return _sectorsState.stream.map(
+      (sectors) => _getSectors(sectors, companyId)
+          .map((sector) => sector?.turnOnCommand)
+          .toList(),
+    );
+  }
+
+  static List<Sector?> _getSectors(List<Sector?> sectors, CompanyID companyId) {
+    return sectors.where((sector) => sector?.companyId == companyId).toList();
+  }
+
+  static Sector? _getSector(List<Sector?> sectors, SectorID sectorID) {
+    return sectors.firstWhereOrNull((sector) => sector?.id == sectorID);
+  }
+
+  void dispose() => _sectorsState.close();
 }
