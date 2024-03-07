@@ -4,17 +4,25 @@ import 'package:irrigazione_iot/src/config/mock/fake_pumps.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_species.dart';
 import 'package:irrigazione_iot/src/features/sectors/domain/sector.dart';
 
+int id = 0;
+int turnOnCommand = 0;
+int turnOffCommand = 1;
+
 final kFakeSectors = kFakeCompanies.expand((company) {
   return List.generate(3, (index) {
-    final speciesIndex = index % kFakeSpecies.length;
-    final irrigationSystemTypeIndex =
-        index % IrrigationSystemType.values.length;
-    final irrigationSourceIndex = index % IrrigationSource.values.length;
+    int forOn = turnOnCommand + 1;
+    turnOnCommand++;
+    int forOff = turnOnCommand + 1;
+    id++;
+    turnOnCommand++;
+    final speciesIndex = id % kFakeSpecies.length;
+    final irrigationSystemTypeIndex = id % IrrigationSystemType.values.length;
+    final irrigationSourceIndex = id % IrrigationSource.values.length;
     final connectedPumps =
         kFakePumps.where((pump) => pump.companyId == company.id).toList();
     final specie = kFakeSpecies[speciesIndex];
     return Sector(
-      id: '${index + 1}',
+      id: id.toString(),
       companyId: company.id,
       name: 'Sector ${company.id}_$index',
       availableSpecie: specie.name,
@@ -22,13 +30,11 @@ final kFakeSectors = kFakeCompanies.expand((company) {
       area: 100.0 + (index * 10),
       numOfPlants: 10 + (index * 2),
       waterConsumptionPerHourByPlant: 20 + (index * 5),
-      totalWaterConsumption: (20 + (index * 5)) * (10 + (index * 2)),
       irrigationSystemType:
           IrrigationSystemType.values[irrigationSystemTypeIndex],
       irrigationSource: IrrigationSource.values[irrigationSourceIndex],
-      solenoidValveName: 'solenoid valve ${index + 1}',
-      turnOnCommand: '${index + 1}',
-      turnOffCommand: '${index + 2}',
+      turnOnCommand: forOn.toString(),
+      turnOffCommand: forOff.toString(),
       notes: 'extra notes for sector ${company.id}_$index',
       pumpId: connectedPumps.isNotEmpty ? connectedPumps.first.id : null,
     );
