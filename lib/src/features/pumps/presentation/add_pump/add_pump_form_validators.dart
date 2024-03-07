@@ -17,10 +17,6 @@ mixin AddPumpFormValidators {
   final StringValidator nameMaxLengthValidator =
       MaxLengthStringValidator(AppConstants.maxPumpNameLength);
 
-  bool valueIsGreaterThanZero(String value) {
-    return double.tryParse(value) != null && double.parse(value) > 0;
-  }
-
   bool canSubmitNameField(
     String name,
     String? initialValue,
@@ -41,13 +37,13 @@ mixin AddPumpFormValidators {
   bool canSubmitVolumeCapacityField(String value) {
     return nonEmptyValidator.isValid(value) &&
         numericFieldsValidator.isValid(value) &&
-        valueIsGreaterThanZero(value);
+        value.valueIsGreaterThanZero();
   }
 
   bool canSubmitKwCapacityField(String value) {
     return nonEmptyValidator.isValid(value) &&
         numericFieldsValidator.isValid(value) &&
-        valueIsGreaterThanZero(value);
+        value.valueIsGreaterThanZero();
   }
 
   bool canSubmitCommandFields(
@@ -76,35 +72,37 @@ mixin AddPumpFormValidators {
     BuildContext context,
   ) {
     if (name.isEmpty) {
-      return context.loc.pumpNameEmptyErrorText;
+      return context.loc.emptyFormFieldErrorText;
     } else if (!nameMaxLengthValidator.isValid(name)) {
-      return context.loc.pumpNameTooLongErrorText(
+      return context.loc.fieldTooLongErrorText(
         AppConstants.maxPumpNameLength,
       );
-    } else if (usedPumpNames.contains(name.toLowerCase()) && name != initialValue) {
-      return context.loc.pumpNameAlreadyInUseErrorText;
+    } else if (usedPumpNames.contains(name.toLowerCase()) &&
+        name != initialValue) {
+      final fieldName = context.loc.nPumps(1);
+      return context.loc.fieldValueAlreadyInUseErrorText(fieldName);
     }
     return null;
   }
 
   String? volumeCapacityFieldErrorText(String value, BuildContext context) {
     if (value.isEmpty) {
-      return context.loc.pumpGenericEmptyFormFieldErrorText;
+      return context.loc.emptyFormFieldErrorText;
     } else if (!numericFieldsValidator.isValid(value)) {
-      return context.loc.pumpGenericNotANumberErrorText;
-    } else if (!valueIsGreaterThanZero(value)) {
-      return context.loc.pumpGenericNotGreaterThanZeroErrorText;
+      return context.loc.notANumberErrorText;
+    } else if (!value.valueIsGreaterThanZero()) {
+      return context.loc.notGreaterThanZeroErrorText;
     }
     return null;
   }
 
   String? kwCapacityFieldErrorText(String value, BuildContext context) {
     if (value.isEmpty) {
-      return context.loc.pumpGenericEmptyFormFieldErrorText;
+      return context.loc.emptyFormFieldErrorText;
     } else if (!numericFieldsValidator.isValid(value)) {
-      return context.loc.pumpGenericNotANumberErrorText;
-    } else if (!valueIsGreaterThanZero(value)) {
-      return context.loc.pumpGenericNotGreaterThanZeroErrorText;
+      return context.loc.notANumberErrorText;
+    } else if (!value.valueIsGreaterThanZero()) {
+      return context.loc.notGreaterThanZeroErrorText;
     }
     return null;
   }
@@ -117,13 +115,15 @@ mixin AddPumpFormValidators {
     BuildContext context,
   ) {
     if (value.isEmpty) {
-      return context.loc.pumpGenericEmptyFormFieldErrorText;
+      return context.loc.emptyFormFieldErrorText;
     } else if (!numericFieldsValidator.isValid(value)) {
-      return context.loc.pumpGenericNotANumberErrorText;
+      return context.loc.notANumberErrorText;
     } else if (usedCommands.contains(value) && value != initialValue) {
-      return context.loc.pumpCommandAlreadyInUseErrorText;
+      final fieldName = context.loc.nPumps(1);
+      return context.loc.commandAlreadyInUseErrorText(fieldName);
     } else if (value == counterpartValue) {
-      return context.loc.pumpDuplicateCommandsInFormErrorText;
+      final fieldName = context.loc.nPumps(2);
+      return context.loc.duplicateCommandsInFormErrorText(fieldName);
     }
     return null;
   }
