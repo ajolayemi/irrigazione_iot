@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
-import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
+import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
-import 'package:irrigazione_iot/src/features/sectors/data/specie_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/domain/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/presentation/add_update_sector/add_update_sector_form_validator.dart';
+import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/utils/numeric_fields_text_type.dart';
 import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
@@ -28,7 +29,8 @@ class AddUpdateSectorFormContents extends ConsumerStatefulWidget {
 }
 
 class _AddUpdateSectorFormContentsState
-    extends ConsumerState<AddUpdateSectorFormContents> {
+    extends ConsumerState<AddUpdateSectorFormContents>
+    with AddUpdateSectorValidators {
   // general variables
   final _node = FocusScopeNode();
   final _formKey = GlobalKey<FormState>();
@@ -92,10 +94,12 @@ class _AddUpdateSectorFormContentsState
     _turnOnCommandController.dispose();
     _turnOffCommandController.dispose();
     _notesController.dispose();
+    _node.dispose();
     super.dispose();
   }
 
   Future<void> _submitForm() async {
+    setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
       debugPrint('Sector Form is valid');
     }
@@ -124,6 +128,70 @@ class _AddUpdateSectorFormContentsState
     }
   }
 
+  // todo complete implementation
+  void _nameEditingComplete() {
+    if (canSubmitNameField(name, null, ['sector'])) {
+      _node.nextFocus();
+    }
+  }
+
+  // todo complete implementation
+  String? _nameErrorText() {
+    if (!_submitted) return null;
+    final errorKey = sectorNameErrorText(name, null, ['sector']);
+    final fieldName = context.loc.nSectors(1);
+    return context.getLocalizedErrorText(
+      errorKey: errorKey,
+      fieldName: fieldName,
+      maxFieldLength: AppConstants.maxSectorNameLength,
+    );
+  }
+
+  void _nonEmptyFieldsEditingComplete(String value) {
+    if (canSubmitNonEmptyFields(value)) {
+      _node.nextFocus();
+    }
+  }
+
+  String? _nonEmptyFieldsErrorText(String value) {
+    if (!_submitted) return null;
+    final errorKey = nonEmptyFieldsErrorText(value);
+    return context.getLocalizedErrorText(errorKey: errorKey);
+  }
+
+  void _numericFieldsEditingComplete(String value) {
+    if (canSubmitNumericFields(value)) {
+      _node.nextFocus();
+    }
+  }
+
+  String? _numericFieldsErrorText(String value) {
+    if (!_submitted) return null;
+    final errorKey = numericFieldsErrorText(value);
+    return context.getLocalizedErrorText(errorKey: errorKey);
+  }
+
+  // todo complete implementation
+  void _canSubmitCommandFields(String value, String counterpartValue) {
+    if (canSubmitCommandFields(value, counterpartValue, null, ['1'])) {
+      _node.nextFocus();
+    }
+  }
+
+  // todo complete implementation
+  String? _commandFieldErrorText(String value, String counterpartValue) {
+    if (!_submitted) return null;
+    final singularFieldName = context.loc.nSectors(1);
+    final pluralFieldName = context.loc.nSectors(2);
+    final errorKey =
+        commandFieldsErrorText(value, counterpartValue, null, ['1']);
+    return context.getLocalizedErrorText(
+      errorKey: errorKey,
+      pluralFieldName: pluralFieldName,
+      fieldName: singularFieldName
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final numberFieldKeyboardType =
@@ -150,8 +218,8 @@ class _AddUpdateSectorFormContentsState
               fieldHintText: context.loc.sectorNameHintText,
               textInputAction: TextInputAction.next,
               fieldController: _nameController,
-              onEditingComplete: () {},
-              validator: (_) {},
+              onEditingComplete: _nameEditingComplete,
+              validator: (_) => _nameErrorText(),
             ),
             gapH16,
             // specie field
@@ -168,8 +236,8 @@ class _AddUpdateSectorFormContentsState
                 onPressed: _onTappedSpecie,
               ),
               fieldController: _specieController,
-              onEditingComplete: () {},
-              validator: (_) {},
+              onEditingComplete: () =>  _nonEmptyFieldsEditingComplete(specie),
+              validator: (_) => _nonEmptyFieldsErrorText(specie),
             ),
             gapH16,
             // variety field
@@ -180,8 +248,8 @@ class _AddUpdateSectorFormContentsState
               fieldHintText: context.loc.sectorVarietyHintText,
               textInputAction: TextInputAction.next,
               fieldController: _varietyController,
-              onEditingComplete: () {},
-              validator: (_) {},
+              onEditingComplete: () => _nonEmptyFieldsEditingComplete(variety),
+              validator: (_) => _nonEmptyFieldsErrorText(variety),
             ),
             gapH16,
             // occupied area field
@@ -192,8 +260,8 @@ class _AddUpdateSectorFormContentsState
               fieldHintText: context.loc.sectorOccupiedAreaHintText,
               textInputAction: TextInputAction.next,
               fieldController: _areaController,
-              onEditingComplete: () {},
-              validator: (_) {},
+              onEditingComplete: () => _numericFieldsEditingComplete(area),
+              validator: (_) => _numericFieldsErrorText(area),
               keyboardType: numberFieldKeyboardType,
             ),
             gapH16,
@@ -205,8 +273,8 @@ class _AddUpdateSectorFormContentsState
               fieldHintText: context.loc.sectorNumberOfPlantsHintText,
               textInputAction: TextInputAction.next,
               fieldController: _numOfPlantsController,
-              onEditingComplete: () {},
-              validator: (_) {},
+              onEditingComplete: () => _numericFieldsEditingComplete(numOfPlants),
+              validator: (_) => _numericFieldsErrorText(numOfPlants),
               keyboardType: numberFieldKeyboardType,
             ),
             gapH16,
@@ -218,8 +286,8 @@ class _AddUpdateSectorFormContentsState
               fieldHintText: context.loc.sectorUnitConsumptionPerHourHintText,
               textInputAction: TextInputAction.next,
               fieldController: _unitConsumptionController,
-              onEditingComplete: () {},
-              validator: (_) {},
+              onEditingComplete: () => _numericFieldsEditingComplete(unitConsumption),
+              validator: (_) => _numericFieldsErrorText(unitConsumption),
               keyboardType: numberFieldKeyboardType,
             ),
             gapH16,
@@ -239,8 +307,8 @@ class _AddUpdateSectorFormContentsState
                 icon: const Icon(Icons.arrow_drop_down),
                 onPressed: _onTappedIrrigationSystem,
               ),
-              onEditingComplete: () {},
-              validator: (_) {},
+              onEditingComplete: () => _nonEmptyFieldsEditingComplete(irrigationSystem),
+              validator: (_) => _nonEmptyFieldsErrorText(irrigationSystem),
             ),
 
             gapH16,
@@ -259,8 +327,8 @@ class _AddUpdateSectorFormContentsState
                 icon: const Icon(Icons.arrow_drop_down),
                 onPressed: _onTappedIrrigationSource,
               ),
-              onEditingComplete: () {},
-              validator: (_) {},
+              onEditingComplete: () => _nonEmptyFieldsEditingComplete(irrigationSource),
+              validator: (_) => _nonEmptyFieldsErrorText(irrigationSource),
             ),
             gapH16,
             // mqtt command to turn on sector field
@@ -270,9 +338,10 @@ class _AddUpdateSectorFormContentsState
               fieldTitle: context.loc.sectorOnCommand,
               fieldHintText: context.loc.sectorOnCommandHintText,
               textInputAction: TextInputAction.next,
+              keyboardType: numberFieldKeyboardType,
               fieldController: _turnOnCommandController,
-              onEditingComplete: () {},
-              validator: (_) {},
+              onEditingComplete: () => _canSubmitCommandFields(turnOnCommand, turnOffCommand),
+              validator: (_) => _commandFieldErrorText(turnOnCommand, turnOffCommand)
             ),
             gapH16,
             // mqtt command to turn off sector field
@@ -281,10 +350,11 @@ class _AddUpdateSectorFormContentsState
               fieldKey: _turnOffCommandFieldKey,
               fieldTitle: context.loc.sectorOffCommand,
               fieldHintText: context.loc.sectorOffCommandHintText,
+              keyboardType: numberFieldKeyboardType,
               textInputAction: TextInputAction.next,
               fieldController: _turnOffCommandController,
-              onEditingComplete: () {},
-              validator: (_) {},
+              onEditingComplete: () => _canSubmitCommandFields(turnOffCommand, turnOnCommand),
+              validator: (_) => _commandFieldErrorText(turnOffCommand, turnOnCommand)
             ),
             gapH16,
             // notes field
@@ -295,8 +365,6 @@ class _AddUpdateSectorFormContentsState
               textInputAction: TextInputAction.done,
               maxLines: 3,
               fieldController: _notesController,
-              onEditingComplete: () {},
-              validator: (_) {},
             ),
             gapH16,
 
