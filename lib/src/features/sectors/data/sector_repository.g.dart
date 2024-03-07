@@ -557,5 +557,59 @@ class _SectorFutureProviderElement
   @override
   String get sectorID => (origin as SectorFutureProvider).sectorID;
 }
+
+String _$usedSectorNamesStreamHash() =>
+    r'f2b61219bdfe8ced3a8847b95e395f35c1ce465a';
+
+/// See also [usedSectorNamesStream].
+@ProviderFor(usedSectorNamesStream)
+final usedSectorNamesStreamProvider =
+    AutoDisposeStreamProvider<List<String?>>.internal(
+  usedSectorNamesStream,
+  name: r'usedSectorNamesStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$usedSectorNamesStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef UsedSectorNamesStreamRef = AutoDisposeStreamProviderRef<List<String?>>;
+String _$usedSectorOnCommandsStreamHash() =>
+    r'3ffc9344f248d59b537194ddd3b1ad0ce4d8e4f4';
+
+/// See also [usedSectorOnCommandsStream].
+@ProviderFor(usedSectorOnCommandsStream)
+final usedSectorOnCommandsStreamProvider =
+    AutoDisposeStreamProvider<List<String?>>.internal(
+  usedSectorOnCommandsStream,
+  name: r'usedSectorOnCommandsStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$usedSectorOnCommandsStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef UsedSectorOnCommandsStreamRef
+    = AutoDisposeStreamProviderRef<List<String?>>;
+String _$usedSectorOffCommandsStreamHash() =>
+    r'4eaccd0b849a0a1c1c9625a77014653df39160f1';
+
+/// See also [usedSectorOffCommandsStream].
+@ProviderFor(usedSectorOffCommandsStream)
+final usedSectorOffCommandsStreamProvider =
+    AutoDisposeStreamProvider<List<String?>>.internal(
+  usedSectorOffCommandsStream,
+  name: r'usedSectorOffCommandsStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$usedSectorOffCommandsStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef UsedSectorOffCommandsStreamRef
+    = AutoDisposeStreamProviderRef<List<String?>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
