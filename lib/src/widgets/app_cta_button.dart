@@ -25,7 +25,7 @@ class CTAButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final content = isLoading
-        ? const CircularProgressIndicator()
+        ? const CircularProgressIndicator.adaptive()
         : Text(
             text,
             textAlign: TextAlign.center,
@@ -38,11 +38,14 @@ class CTAButton extends StatelessWidget {
     return SizedBox(
       height: Sizes.p48,
       child: buttonType == ButtonType.primary
-          ? FilledButton(onPressed: onPressed, child: content)
-          : OutlinedButton(
-              onPressed: onPressed,
-              child: content,
-            ),
+              ? FilledButton(
+                  onPressed: isLoading ? () {} : onPressed,
+                  child: content,
+                )
+              : OutlinedButton(
+                  onPressed: isLoading ? () {} : onPressed,
+                  child: content,
+                ),
     );
   }
 }
@@ -63,27 +66,12 @@ class SliverCTAButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final content = isLoading
-        ? const CircularProgressIndicator()
-        : Text(
-            text,
-            textAlign: TextAlign.center,
-            style: context.textTheme.titleLarge!.copyWith(
-              color: buttonType == ButtonType.primary
-                  ? Colors.white
-                  : context.theme.primaryColor,
-            ),
-          );
-
     return ResponsiveCenter(
-      child: SizedBox(
-        height: Sizes.p48,
-        child: buttonType == ButtonType.primary
-            ? FilledButton(onPressed: onPressed, child: content)
-            : OutlinedButton(
-                onPressed: onPressed,
-                child: content,
-              ),
+      child: CTAButton(
+        text: text,
+        buttonType: buttonType,
+        isLoading: isLoading,
+        onPressed: onPressed,
       ),
     );
   }
