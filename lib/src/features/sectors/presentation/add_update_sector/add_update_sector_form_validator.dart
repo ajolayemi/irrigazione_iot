@@ -27,7 +27,7 @@ mixin AddUpdateSectorValidators {
     // If an initialValue was provided, which should be the case when updating a sector
     // and the name is the same as the initial value, then the name is valid without running
     // check against the usedSectorNames
-    if (initialValue != null && name == initialValue) {
+    if (initialValue != null && name.toLowerCase() == initialValue.toLowerCase()) {
       return nonEmptyValidator.isValid(name) &&
           nameMaxLengthValidator.isValid(name);
     }
@@ -42,6 +42,7 @@ mixin AddUpdateSectorValidators {
     String? initialValue,
     List<String?> usedCommands,
   ) {
+    print('initialValue: $initialValue');
     // If an initialValue was provided, which should be the case when updating a sector
     // and the command is the same as the initial value, then the command is valid without running
     // check against the usedCommands
@@ -79,7 +80,7 @@ mixin AddUpdateSectorValidators {
     } else if (!nameMaxLengthValidator.isValid(name)) {
       return 'fieldTooLongErrorText';
     } else if (usedSectorNames.contains(name.toLowerCase()) &&
-        name != initialValue) {
+        name.toLowerCase() != initialValue?.toLowerCase()) {
       return 'fieldValueAlreadyInUseErrorText';
     }
     return null;
