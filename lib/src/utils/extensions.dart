@@ -12,3 +12,11 @@ extension BuildContextExtensions on BuildContext {
 
   AppLocalizations get loc => AppLocalizations.of(this);
 }
+
+extension StringExtensions on String {
+  /// Returns true if the string is a number and is greater than 0
+  /// Mostly used for validating form fields
+  bool valueIsGreaterThanZero() {
+    return double.tryParse(this) != null && double.parse(this) > 0;
+  }
+}
