@@ -133,10 +133,19 @@
   "pumpOnCommandFormHint": "eg: 1",
   "pumpOffCommandFormFieldTitle": "Off Command",
   "pumpOffCommandFormHint": "eg: 2",
-  "pumpFormGenericSaveDialogTitle": "Do you want to save the data?",
-  "pumpFormGenericSaveDialogContent": "You're about to save the data for the pump in the database",
-  "pumpFormGenericUpdateDialogTitle": "Do you want to update the data?",
-  "pumpFormGenericUpdateDialogContent": "You're about to update the data for the pump in the database",
+  "formGenericSaveDialogTitle": "Do you want to save the data?",
+  "formGenericSaveDialogContent": "You're about to save the data for {fieldName} in the database",
+  "@formGenericSaveDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to save data",
+    "placeholders": {
+      "fieldName": {
+        "description": "The name of the field",
+        "example": "pump"
+      }
+    }
+  },
+  "formGenericUpdateDialogTitle": "Do you want to update the data?",
+  "formGenericUpdateDialogContent": "You're about to update the data for {fieldName} in the database",
   "notAvailable": "Not available",
   "deletePumpConfirmationDialogTitle": "Clicking on delete will remove all data related to {pumpName} from database",
   "@deletePumpConfirmationDialogTitle": {
@@ -268,6 +277,17 @@
       }
     }
   },
+  "nPumpsWithArticulatedPreposition": "{n, plural, =1{the pump} =2{the pumps} other {the pumps}}",
+  "@nPumpsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'pump' with an articulated preposition",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
   "nSectors" : "{n, plural, =1{sector} =2{sectors} other {sectors}}",
   "@nSectors": {
     "description": "The pluralized version of the word 'sector'",
@@ -294,6 +314,17 @@
   "nSectorsWithDefiniteArticle": "{n, plural, =1{the sector} =2{sectors} other {sectors}}",
   "@nSectorsWithDefiniteArticle": {
     "description": "The pluralized version of the word 'sector' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSectorsWithArticulatedPreposition": "{n, plural, =1{the sector} =2{the sectors} other {the sectors}}",
+  "@nSectorsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'sector' with an articulated preposition",
     "placeholders": {
       "n": {
         "example": "3",
