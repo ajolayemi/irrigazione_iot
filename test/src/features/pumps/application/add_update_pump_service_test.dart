@@ -5,7 +5,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_companies_list.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_users_list.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/application/add_update_pump_service.dart';
+import 'package:irrigazione_iot/src/features/pumps/service/add_update_pump_service.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
