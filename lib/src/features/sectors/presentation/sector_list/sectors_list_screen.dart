@@ -6,6 +6,7 @@ import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/empty_sector_widget.dart';
+import 'package:irrigazione_iot/src/features/sectors/presentation/sector_list/dismiss_sector_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_list/sector_list_tile.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_switch_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_list/sectors_list_tile_skeleton.dart';
@@ -23,6 +24,11 @@ class SectorsListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(
       sectorSwitchControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
+
+    ref.listen(
+      dismissSectorControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
     final canEdit = ref.watch(companyUserRoleProvider).valueOrNull?.canEdit;
