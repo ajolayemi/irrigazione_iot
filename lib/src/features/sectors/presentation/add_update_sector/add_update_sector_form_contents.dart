@@ -217,8 +217,9 @@ class _AddUpdateSectorFormContentsState
     List<String?> usedCommands,
   ) {
     if (!_submitted) return null;
-    final singularFieldName = context.loc.nSectors(1);
-    final pluralFieldName = context.loc.nSectors(2);
+    final loc = context.loc;
+    final singularFieldName = loc.nSectors(1);
+    final pluralFieldName = loc.nSectors(2);
     final errorKey = commandFieldsErrorText(
       value,
       counterpartValue,
@@ -232,14 +233,15 @@ class _AddUpdateSectorFormContentsState
   }
 
   Future<bool> _checkUserIntention() async {
+    final loc = context.loc;
     final userIntention = await showAlertDialog(
       context: context,
-      title: context.loc.formGenericSaveDialogTitle,
-      content: context.loc.formGenericSaveDialogContent(
-        context.loc.nSectors(1),
+      title: loc.formGenericSaveDialogTitle,
+      content: loc.formGenericSaveDialogContent(
+        loc.nSectors(1),
       ),
-      defaultActionText: context.loc.genericSaveButtonLabel,
-      cancelActionText: context.loc.alertDialogCancel,
+      defaultActionText: loc.genericSaveButtonLabel,
+      cancelActionText: loc.alertDialogCancel,
     );
     return userIntention ?? false;
   }
