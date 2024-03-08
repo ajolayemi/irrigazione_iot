@@ -332,6 +332,17 @@
         "format": "compact"
       }
     }
-  }
+  },
+  "emptyDataPlaceholder": "No {name} was found in the database",
+  "@emptyDataPlaceholder": {
+    "description": "The placeholder text that is displayed when there is no data in the database",
+    "placeholders": {
+      "name": {
+        "description": "The name of the data",
+        "example": "pumps"
+      }
+    }
+  },
+  "addNewButtonLabel": "Add New"
 
 }

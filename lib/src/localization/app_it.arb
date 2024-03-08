@@ -108,5 +108,7 @@
   "nSectorsWithIndefiniteArticle": "{n, plural, =1{un settore} =2{dei settori} other{dei settori}}",
   "nSectorsWithDefiniteArticle": "{n, plural, =1{il settore} =2{i settori} other{i settori}}",
   "nPumpsWithArticulatedPreposition": "{n, plural, =1{alla pompa} =2{alle pompe} other {alle pompe}}",
-  "nSectorsWithArticulatedPreposition": "{n, plural, =1{al settore} =2{ai settori} other {ai settori}}"
+  "nSectorsWithArticulatedPreposition": "{n, plural, =1{al settore} =2{ai settori} other {ai settori}}",
+  "emptyDataPlaceholder": "Non risulta alcun {name} nel database",
+  "addNewButtonLabel": "Aggiungi"
 }
