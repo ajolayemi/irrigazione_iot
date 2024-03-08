@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_pump_status.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_pumps.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_status_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 
 void main() {
   final expectedPumpStatus = kFakePumpStatus[0];

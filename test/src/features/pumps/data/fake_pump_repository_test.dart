@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 
 void main() {
   final List<Pump> expectedResults = [

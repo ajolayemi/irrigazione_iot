@@ -3,7 +3,7 @@ import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 
 part 'pump_status_switch_controller.g.dart';
 

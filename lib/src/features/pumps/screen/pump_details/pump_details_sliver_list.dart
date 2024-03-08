@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_details_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
-import 'package:irrigazione_iot/src/features/pumps/presentation/pump_status/pump_status_tile_wid.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_tile_wid.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/details_tile_widget.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_details_card.dart';

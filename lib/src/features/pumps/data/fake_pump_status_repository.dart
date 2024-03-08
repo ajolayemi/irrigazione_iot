@@ -1,7 +1,7 @@
 import 'package:irrigazione_iot/src/config/mock/fake_pump_status.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
-import 'package:irrigazione_iot/src/features/pumps/domain/pump_status.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump_status.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 

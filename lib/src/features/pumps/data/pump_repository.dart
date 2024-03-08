@@ -1,5 +1,5 @@
 import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

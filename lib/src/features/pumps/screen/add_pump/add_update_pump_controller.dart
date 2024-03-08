@@ -1,5 +1,5 @@
 import 'package:irrigazione_iot/src/features/pumps/application/add_update_pump_service.dart';
-import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'add_update_pump_controller.g.dart';

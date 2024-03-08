@@ -3,7 +3,7 @@
 
 import 'package:equatable/equatable.dart';
 
-import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 
 class PumpStatus extends Equatable {
   const PumpStatus({

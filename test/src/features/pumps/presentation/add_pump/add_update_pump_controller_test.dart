@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_pumps.dart';
 import 'package:irrigazione_iot/src/features/pumps/application/add_update_pump_service.dart';
-import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/add_update_pump_controller.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pump_controller.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks.dart';

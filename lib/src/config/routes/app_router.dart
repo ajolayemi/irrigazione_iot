@@ -7,9 +7,9 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/screen/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/screen/home_nested_navigator.dart';
-import 'package:irrigazione_iot/src/features/pumps/presentation/add_pump/add_update_pump_form.dart';
-import 'package:irrigazione_iot/src/features/pumps/presentation/pump_details/pump_details_screen.dart';
-import 'package:irrigazione_iot/src/features/pumps/presentation/pump_list/pumps_list_screen.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pump_form.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_details/pump_details_screen.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_list/pumps_list_screen.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/add_update_sector/add_update_sector_form.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/add_update_sector/select_a_specie_screen.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/add_update_sector/select_an_irrigation_source.dart';
