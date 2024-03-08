@@ -5,7 +5,7 @@ import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/fake_app_user.dart';
-import 'package:irrigazione_iot/src/features/authentication/domain/app_user.dart';
+import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 

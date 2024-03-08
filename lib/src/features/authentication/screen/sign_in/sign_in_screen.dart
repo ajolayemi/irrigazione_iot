@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
-import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/or_sign_with_widget.dart';
-import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/providers_sign_in_button.dart';
-import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/sign_in_controller.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/or_sign_with_widget.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/providers_sign_in_button.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_controller.dart';
 import 'package:irrigazione_iot/src/utils/string_validators.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
@@ -14,7 +14,7 @@ import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/custom_text_button.dart';
 import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_scrollable.dart';
-import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/email_password_sign_in_validators.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/email_password_sign_in_validators.dart';
 
 // Widget to show the sign in form
 class SignInScreen extends ConsumerStatefulWidget {

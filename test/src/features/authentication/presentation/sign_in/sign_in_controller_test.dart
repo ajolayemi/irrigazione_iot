@@ -4,7 +4,7 @@ import 'package:mocktail/mocktail.dart';
 
 import 'package:irrigazione_iot/src/config/mock/fake_users_list.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
-import 'package:irrigazione_iot/src/features/authentication/presentation/sign_in/sign_in_controller.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_controller.dart';
 
 import '../../../../mocks.dart';
 

@@ -3,7 +3,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 
-import 'package:irrigazione_iot/src/features/authentication/domain/app_user.dart';
+import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
 import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
 
 // A representation of the relationship between a user and a company
