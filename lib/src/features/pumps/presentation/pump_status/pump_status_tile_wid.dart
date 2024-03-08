@@ -29,12 +29,15 @@ class PumpStatusTileWidget extends ConsumerWidget {
       Key('pumpStatusTileKey_${pump.id}');
 
   Future<bool> _dismissPump(BuildContext context, WidgetRef ref) async {
+    final loc = context.loc;
     final askUser = await showAlertDialog(
           context: context,
-          title: context.loc.genericAlertDialogTitle,
-          content: context.loc.deletePumpConfirmationDialogTitle(pump.name),
-          defaultActionText: context.loc.alertDialogDelete,
-          cancelActionText: context.loc.alertDialogCancel,
+          title: loc.genericAlertDialogTitle,
+          content: loc.deleteConfirmationDialogTitle(
+            loc.nPumpsWithArticulatedPreposition(1),
+          ),
+          defaultActionText: loc.alertDialogDelete,
+          cancelActionText: loc.alertDialogCancel,
         ) ??
         false;
     if (!askUser) return false;
