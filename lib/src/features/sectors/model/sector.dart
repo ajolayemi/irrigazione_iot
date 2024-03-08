@@ -2,7 +2,6 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
 
 typedef SectorID = String;
@@ -21,7 +20,6 @@ class Sector extends Equatable {
     required this.irrigationSource,
     required this.turnOnCommand,
     required this.turnOffCommand,
-    this.pumpId,
     this.notes,
   }) : totalWaterConsumption = numOfPlants * waterConsumptionPerHourByPlant;
 
@@ -39,8 +37,7 @@ class Sector extends Equatable {
         irrigationSource = IrrigationSource.well,
         turnOnCommand = '',
         turnOffCommand = '',
-        notes = null,
-        pumpId = null;
+        notes = null;
 
   // * the id of the sector
   final SectorID id;
@@ -86,9 +83,6 @@ class Sector extends Equatable {
   // * extra notes
   final String? notes;
 
-  // * the id of the pump that irrigates this sector
-  final PumpID? pumpId;
-
   @override
   List<Object?> get props {
     return [
@@ -106,7 +100,6 @@ class Sector extends Equatable {
       turnOnCommand,
       turnOffCommand,
       notes,
-      pumpId,
     ];
   }
 
@@ -125,7 +118,6 @@ class Sector extends Equatable {
     String? turnOnCommand,
     String? turnOffCommand,
     String? notes,
-    PumpID? pumpId,
   }) {
     return Sector(
       id: id ?? this.id,
@@ -142,7 +134,6 @@ class Sector extends Equatable {
       turnOnCommand: turnOnCommand ?? this.turnOnCommand,
       turnOffCommand: turnOffCommand ?? this.turnOffCommand,
       notes: notes ?? this.notes,
-      pumpId: pumpId ?? this.pumpId,
     );
   }
 
@@ -162,7 +153,6 @@ class Sector extends Equatable {
       'turnOnCommand': turnOnCommand,
       'turnOffCommand': turnOffCommand,
       'notes': notes,
-      'pumpId': pumpId,
     };
   }
 
@@ -183,7 +173,6 @@ class Sector extends Equatable {
       turnOnCommand: map['turnOnCommand'] as String,
       turnOffCommand: map['turnOffCommand'] as String,
       notes: map['notes'] != null ? map['notes'] as String : null,
-      pumpId: map['pumpId'] != null ? map['pumpId'] as PumpID : null,
     );
   }
 
@@ -194,7 +183,7 @@ class Sector extends Equatable {
     numOfPlants: $numOfPlants, waterConsumptionPerHourByPlant: $waterConsumptionPerHourByPlant, 
     totalWaterConsumption: $totalWaterConsumption, irrigationSystemType: $irrigationSystemType, 
     irrigationSource: $irrigationSource,turnOnCommand: $turnOnCommand, 
-    turnOffCommand: $turnOffCommand, notes: $notes, pumpId: $pumpId)''';
+    turnOffCommand: $turnOffCommand, notes: $notes)''';
   }
 }
 
