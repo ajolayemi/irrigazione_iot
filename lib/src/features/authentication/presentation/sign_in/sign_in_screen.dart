@@ -178,11 +178,6 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                           ? null
                           : () => {}, // TODO add forgot password logic
                       text: context.loc.forgotPasswordButtonTitle,
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        decorationColor: context.theme.primaryColor,
-                        decorationThickness: 2.0,
-                      ),
                     ),
                   ),
 
