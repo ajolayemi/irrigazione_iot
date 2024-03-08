@@ -1,6 +1,6 @@
 import 'package:irrigazione_iot/src/config/mock/fake_species.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/specie_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/domain/specie.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/specie.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 

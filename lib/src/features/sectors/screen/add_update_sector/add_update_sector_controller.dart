@@ -1,5 +1,5 @@
-import 'package:irrigazione_iot/src/features/sectors/application/add_update_sector_service.dart';
-import 'package:irrigazione_iot/src/features/sectors/domain/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/service/add_update_sector_service.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'add_update_sector_controller.g.dart';

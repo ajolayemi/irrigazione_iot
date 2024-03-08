@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-import 'package:irrigazione_iot/src/features/sectors/domain/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 
 class SectorStatus extends Equatable {
   const SectorStatus(

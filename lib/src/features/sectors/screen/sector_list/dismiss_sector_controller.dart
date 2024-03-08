@@ -1,7 +1,7 @@
 
 
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/domain/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 

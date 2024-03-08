@@ -2,8 +2,8 @@ import 'package:collection/collection.dart';
 
 import 'package:irrigazione_iot/src/config/mock/fake_sectors_status.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/domain/sector.dart';
-import 'package:irrigazione_iot/src/features/sectors/domain/sector_status.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_status.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 

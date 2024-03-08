@@ -1,4 +1,4 @@
-import 'package:irrigazione_iot/src/features/sectors/domain/specie.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/specie.dart';
 
 const kFakeSpecies = [
   Specie(id: '1', name: 'arancia', variety: 'navelina'),

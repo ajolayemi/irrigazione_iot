@@ -2,8 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_sectors.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/domain/sector.dart';
-import 'package:irrigazione_iot/src/features/sectors/presentation/sector_switch_controller.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch_controller.dart';
 import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 import 'package:mocktail/mocktail.dart';
 

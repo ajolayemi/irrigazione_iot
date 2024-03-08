@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:irrigazione_iot/src/features/sectors/data/fake_sectors_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/domain/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
 
