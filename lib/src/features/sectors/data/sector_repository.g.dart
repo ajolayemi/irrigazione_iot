@@ -21,7 +21,7 @@ final sectorsRepositoryProvider = Provider<SectorsRepository>.internal(
 );
 
 typedef SectorsRepositoryRef = ProviderRef<SectorsRepository>;
-String _$sectorListStreamHash() => r'd1e6576dea4bbd6ec9fa95ad8236a4b596a2f4b2';
+String _$sectorListStreamHash() => r'17c9ef2867e2f16e52c1f07779ee28c157d8d02a';
 
 /// See also [sectorListStream].
 @ProviderFor(sectorListStream)

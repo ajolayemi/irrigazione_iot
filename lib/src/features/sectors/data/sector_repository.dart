@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/fake_sectors_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/domain/sector.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
@@ -46,7 +45,6 @@ SectorsRepository sectorsRepository(SectorsRepositoryRef ref) {
 Stream<List<Sector?>> sectorListStream(SectorListStreamRef ref) {
   final sectorsRepository = ref.read(sectorsRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  debugPrint('company id: $companyId');
   if (companyId == null) return const Stream.empty();
   return sectorsRepository.watchSectors(companyId);
 }
