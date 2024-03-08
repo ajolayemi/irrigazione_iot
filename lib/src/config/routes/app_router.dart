@@ -17,7 +17,7 @@ import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/se
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/sector_details.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_screen.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/presentation/user_company_list/user_companies_list_screen.dart';
+import 'package:irrigazione_iot/src/features/user_companies/screen/user_company_list/user_companies_list_screen.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/empty_placeholder_widget.dart';
 

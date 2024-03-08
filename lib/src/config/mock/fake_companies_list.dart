@@ -1,4 +1,4 @@
-import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
+import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
 
 
 const staticImageUrl = 'assets/images/company_logo.png';

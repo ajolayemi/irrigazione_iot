@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 
 import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
-import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
+import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
 
 typedef SectorID = String;
 

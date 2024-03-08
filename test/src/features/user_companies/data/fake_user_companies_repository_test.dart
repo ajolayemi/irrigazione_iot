@@ -3,7 +3,7 @@ import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_users_list.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/fake_app_user.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/fake_user_companies_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/domain/user_company.dart';
+import 'package:irrigazione_iot/src/features/user_companies/model/user_company.dart';
 import 'package:irrigazione_iot/src/utils/gen_fake_uuid.dart';
 
 void main() {
