@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
-import 'package:irrigazione_iot/src/features/home/presentation/home_navigation_rail.dart';
-import 'package:irrigazione_iot/src/features/home/presentation/home_navigator_bar.dart';
+import 'package:irrigazione_iot/src/features/home/screen/home_navigation_rail.dart';
+import 'package:irrigazione_iot/src/features/home/screen/home_navigator_bar.dart';
 
 // Check the following links for more details on house this type of navigation works:
 // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
