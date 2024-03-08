@@ -318,12 +318,13 @@ class _AddUpdateSectorFormContentsState
     final state = ref.watch(addUpdateSectorControllerProvider);
 
     final isLoading = state.isLoading;
+
+    final loc = context.loc;
     return CustomScrollView(
       slivers: [
         AppSliverBar(
-          title: isUpdating
-              ? context.loc.updateSectorPageTitle
-              : context.loc.addSectorPageTitle,
+          title:
+              isUpdating ? loc.updateSectorPageTitle : loc.addSectorPageTitle,
         ),
         ResponsiveSliverForm(
           node: _node,
@@ -333,8 +334,8 @@ class _AddUpdateSectorFormContentsState
             FormTitleAndField(
               enabled: !isLoading,
               fieldKey: _nameFieldKey,
-              fieldTitle: context.loc.sectorName,
-              fieldHintText: context.loc.sectorNameHintText,
+              fieldTitle: loc.sectorName,
+              fieldHintText: loc.sectorNameHintText,
               textInputAction: TextInputAction.next,
               fieldController: _nameController,
               onEditingComplete: _nameEditingComplete,
@@ -345,8 +346,8 @@ class _AddUpdateSectorFormContentsState
             FormTitleAndField(
               enabled: !isLoading,
               fieldKey: _specieFieldKey,
-              fieldTitle: context.loc.sectorSpecie,
-              fieldHintText: context.loc.sectorSpecieHintText,
+              fieldTitle: loc.sectorSpecie,
+              fieldHintText: loc.sectorSpecieHintText,
               canRequestFocus: false,
               keyboardType: TextInputType.none,
               onTap: _onTappedSpecie,
@@ -363,8 +364,8 @@ class _AddUpdateSectorFormContentsState
             FormTitleAndField(
               enabled: !isLoading,
               fieldKey: _varietyFieldKey,
-              fieldTitle: context.loc.sectorVariety,
-              fieldHintText: context.loc.sectorVarietyHintText,
+              fieldTitle: loc.sectorVariety,
+              fieldHintText: loc.sectorVarietyHintText,
               textInputAction: TextInputAction.next,
               fieldController: _varietyController,
               onEditingComplete: () => _nonEmptyFieldsEditingComplete(variety),
@@ -375,8 +376,8 @@ class _AddUpdateSectorFormContentsState
             FormTitleAndField(
               enabled: !isLoading,
               fieldKey: _areaFieldKey,
-              fieldTitle: context.loc.sectorOccupiedArea,
-              fieldHintText: context.loc.sectorOccupiedAreaHintText,
+              fieldTitle: loc.sectorOccupiedArea,
+              fieldHintText: loc.sectorOccupiedAreaHintText,
               textInputAction: TextInputAction.next,
               fieldController: _areaController,
               onEditingComplete: () => _numericFieldsEditingComplete(area),
@@ -388,8 +389,8 @@ class _AddUpdateSectorFormContentsState
             FormTitleAndField(
               enabled: !isLoading,
               fieldKey: _numOfPlantsFieldKey,
-              fieldTitle: context.loc.sectorNumberOfPlants,
-              fieldHintText: context.loc.sectorNumberOfPlantsHintText,
+              fieldTitle: loc.sectorNumberOfPlants,
+              fieldHintText: loc.sectorNumberOfPlantsHintText,
               textInputAction: TextInputAction.next,
               fieldController: _numOfPlantsController,
               onEditingComplete: () =>
@@ -402,8 +403,8 @@ class _AddUpdateSectorFormContentsState
             FormTitleAndField(
               enabled: !isLoading,
               fieldKey: _unitConsumptionFieldKey,
-              fieldTitle: context.loc.sectorUnitConsumptionPerHour,
-              fieldHintText: context.loc.sectorUnitConsumptionPerHourHintText,
+              fieldTitle: loc.sectorUnitConsumptionPerHour,
+              fieldHintText: loc.sectorUnitConsumptionPerHourHintText,
               textInputAction: TextInputAction.next,
               fieldController: _unitConsumptionController,
               onEditingComplete: () =>
@@ -418,8 +419,8 @@ class _AddUpdateSectorFormContentsState
               enabled: !isLoading,
               fieldKey: _irrigationSystemFieldKey,
               fieldController: _irrigationSystemController,
-              fieldTitle: context.loc.sectorIrrigationSystem,
-              fieldHintText: context.loc.sectorIrrigationSystemHintText,
+              fieldTitle: loc.sectorIrrigationSystem,
+              fieldHintText: loc.sectorIrrigationSystemHintText,
               canRequestFocus: false,
               keyboardType: TextInputType.none,
               onTap:
@@ -439,8 +440,8 @@ class _AddUpdateSectorFormContentsState
               enabled: !isLoading,
               fieldKey: _irrigationSourceFieldKey,
               fieldController: _irrigationSourceController,
-              fieldTitle: context.loc.sectorIrrigationSource,
-              fieldHintText: context.loc.sectorIrrigationSourceHintText,
+              fieldTitle: loc.sectorIrrigationSource,
+              fieldHintText: loc.sectorIrrigationSourceHintText,
               canRequestFocus: false,
               keyboardType: TextInputType.none,
               onTap:
@@ -458,8 +459,8 @@ class _AddUpdateSectorFormContentsState
             FormTitleAndField(
                 enabled: !isLoading,
                 fieldKey: _turnOnCommandFieldKey,
-                fieldTitle: context.loc.sectorOnCommand,
-                fieldHintText: context.loc.sectorOnCommandHintText,
+                fieldTitle: loc.sectorOnCommand,
+                fieldHintText: loc.sectorOnCommandHintText,
                 textInputAction: TextInputAction.next,
                 keyboardType: numberFieldKeyboardType,
                 fieldController: _turnOnCommandController,
@@ -479,8 +480,8 @@ class _AddUpdateSectorFormContentsState
             FormTitleAndField(
                 enabled: !isLoading,
                 fieldKey: _turnOffCommandFieldKey,
-                fieldTitle: context.loc.sectorOffCommand,
-                fieldHintText: context.loc.sectorOffCommandHintText,
+                fieldTitle: loc.sectorOffCommand,
+                fieldHintText: loc.sectorOffCommandHintText,
                 keyboardType: numberFieldKeyboardType,
                 textInputAction: TextInputAction.next,
                 fieldController: _turnOffCommandController,
@@ -500,7 +501,7 @@ class _AddUpdateSectorFormContentsState
             FormTitleAndField(
               enabled: !isLoading,
               fieldKey: _notesFieldKey,
-              fieldTitle: context.loc.sectorNotes,
+              fieldTitle: loc.sectorNotes,
               textInputAction: TextInputAction.done,
               maxLines: 3,
               fieldController: _notesController,
@@ -511,8 +512,8 @@ class _AddUpdateSectorFormContentsState
             CTAButton(
               isLoading: isLoading,
               text: isUpdating
-                  ? context.loc.genericUpdateButtonLabel
-                  : context.loc.genericSaveButtonLabel,
+                  ? loc.genericUpdateButtonLabel
+                  : loc.genericSaveButtonLabel,
               buttonType: ButtonType.primary,
               onPressed: _submit,
             ),
