@@ -62,7 +62,7 @@
   "formGenericUpdateDialogTitle": "Vuoi aggiornare i dati?",
   "formGenericUpdateDialogDescription": "Stai per aggiornare i dati relativi {fieldName} nel database",
   "notAvailable": "Non disponibile",
-  "deletePumpConfirmationDialogTitle": "Cliccando su elimina, verranno cancellati tutti i dati relativi alla {pumpName}",
+  "deleteConfirmationDialogTitle": "Cliccando su elimina, verranno cancellati tutti i dati relativi {name}",
   "sectorLastIrrigation": "Ultima irrigazione: {when}",
   "sectorName": "Nome",
   "sectorNameHintText": "es: ME8",

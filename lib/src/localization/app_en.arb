@@ -147,12 +147,12 @@
   "formGenericUpdateDialogTitle": "Do you want to update the data?",
   "formGenericUpdateDialogContent": "You're about to update the data for {fieldName} in the database",
   "notAvailable": "Not available",
-  "deletePumpConfirmationDialogTitle": "Clicking on delete will remove all data related to {pumpName} from database",
-  "@deletePumpConfirmationDialogTitle": {
-    "description": "The title of the delete pump confirmation dialog",
+  "deleteConfirmationDialogTitle": "Clicking on delete will remove all data related to {name} from database",
+  "@deleteConfirmationDialogTitle": {
+    "description": "The title of the delete confirmation dialog",
     "placeholders": {
-      "pumpName": {
-        "description": "The name of the pump",
+      "name": {
+        "description": "The name of the item that is being deleted",
         "example": "Pump 1"
       }
     }
