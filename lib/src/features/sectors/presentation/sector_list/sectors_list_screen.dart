@@ -5,10 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/presentation/empty_sector_widget.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_list/sector_list_tile.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_switch_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/presentation/sector_list/sectors_list_tile_skeleton.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
@@ -21,22 +21,20 @@ class SectorsListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // todo return a widget to tell user that they don't have any sectors
-    // todo allow user to tap on sector to view its details
     ref.listen(
       sectorSwitchControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
     final canEdit = ref.watch(companyUserRoleProvider).valueOrNull?.canEdit;
-    final currentCompanyId =
-        ref.watch(currentTappedCompanyProvider).valueOrNull?.id ?? '';
-    final sectors = ref.watch(sectorListStreamProvider(currentCompanyId));
+
+    final sectors = ref.watch(sectorListStreamProvider);
     final isLoading = ref.watch(sectorSwitchControllerProvider).isLoading;
+    final loc = context.loc;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           AppSliverBar(
-            title: context.loc.sectorPageTitle,
+            title: loc.sectorPageTitle,
             actions: [
               AppBarIconButton(
                 isVisibile: canEdit,
@@ -49,17 +47,19 @@ class SectorsListScreen extends ConsumerWidget {
               )
             ],
           ),
-
-          // todo fix the loading state error - it shows for a second and then disappears
           AsyncValueSliverWidget(
             value: sectors,
             data: (sectors) {
+              if (sectors.isEmpty) {
+                return const EmptySectorWidget();
+              }
               return SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     final sector = sectors[index];
-                    // todo return a widget to tell user that they don't have any sectors
-                    if (sector == null) return const SliverToBoxAdapter();
+                    if (sector == null) {
+                      return const EmptySectorWidget();
+                    }
                     return SectorListTile(sector: sector);
                   },
                   childCount: sectors.length,
