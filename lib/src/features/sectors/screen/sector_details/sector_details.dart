@@ -5,7 +5,7 @@ import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
-import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/survey_details_screen_content.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/sector_details_screen_content.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_tile_skeleton.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
 import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
@@ -51,7 +51,7 @@ class SectorDetailsScreen extends ConsumerWidget {
                     )
                   ],
                 ),
-                SurveyDetailsScreenContents(
+                SectorDetailsScreenContents(
                   sector: sector,
                 )
               ],
