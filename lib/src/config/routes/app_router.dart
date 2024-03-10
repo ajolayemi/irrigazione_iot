@@ -11,6 +11,7 @@ import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pu
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_details/pump_details_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_list/pumps_list_screen.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_form.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/connect_pumps_to_sector_screen.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_a_specie_screen.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_an_irrigation_source.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_an_irrigation_system.dart';
@@ -55,6 +56,7 @@ enum AppRoute {
   selectASpecie,
   selectAnIrrigationSystem,
   selectAnIrrigationSource,
+  connectPumpsToSector,
   more,
   settings,
 }
@@ -172,16 +174,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                           ),
                         ),
                       ]),
-                  GoRoute(
-                    path: 'add',
-                    name: AppRoute.addPump.name,
-                    pageBuilder: (context, state) => const MaterialPage(
-                      fullscreenDialog: true,
-                      child: AddUpdatePumpForm(
-                        formType: GenericFormTypes.add,
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ],
@@ -198,17 +190,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                   child: SectorsListScreen(),
                 ),
                 routes: [
-                  // Add sector
-                  GoRoute(
-                    path: 'add',
-                    name: AppRoute.addSector.name,
-                    pageBuilder: (context, state) => const MaterialPage(
-                      fullscreenDialog: true,
-                      child: AddUpdateSectorForm(
-                        formType: GenericFormTypes.add,
-                      ),
-                    ),
-                  ),
                   // Sector details
                   GoRoute(
                     path: 'details/:sectorId',
@@ -257,6 +238,30 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         ],
       ),
 
+      // Add new pump
+      GoRoute(
+        path: '/add-pump',
+        name: AppRoute.addPump.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: AddUpdatePumpForm(
+            formType: GenericFormTypes.add,
+          ),
+        ),
+      ),
+
+      // Add sector
+      GoRoute(
+        path: '/add-sector',
+        name: AppRoute.addSector.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: AddUpdateSectorForm(
+            formType: GenericFormTypes.add,
+          ),
+        ),
+      ),
+
       // Select a specie
       GoRoute(
         path: '/select-a-specie',
@@ -285,7 +290,17 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           child: SelectAnIrrigationSource(),
           fullscreenDialog: true,
         ),
-      )
+      ),
+
+      // Connect pumps to sector
+      GoRoute(
+        path: '/connect-pumps-to-sector',
+        name: AppRoute.connectPumpsToSector.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: ConnectPumpsToSector(),
+        ),
+      ),
     ],
   );
 });
