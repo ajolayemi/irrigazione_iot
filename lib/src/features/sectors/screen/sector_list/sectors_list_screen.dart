@@ -46,9 +46,9 @@ class SectorsListScreen extends ConsumerWidget {
                 isVisibile: canEdit,
                 onPressed: isLoading
                     ? () {}
-                    : () => context.goNamed(
+                    : () => context.pushNamed(
                           AppRoute.addSector.name,
-                        ), // activate button
+                        ), 
                 icon: Icons.add,
               )
             ],
