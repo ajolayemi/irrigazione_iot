@@ -7,11 +7,13 @@ import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_form_validator.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/utils/numeric_fields_text_type.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
@@ -56,8 +58,8 @@ class _AddUpdateSectorFormContentsState
   final _irrigationSourceController = TextEditingController();
   final _turnOnCommandController = TextEditingController();
   final _turnOffCommandController = TextEditingController();
+  final _connectedPumpsController = TextEditingController();
   final _notesController = TextEditingController();
-  // TODO add connected pump field
 
   // form field values
   String get name => _nameController.text;
@@ -70,6 +72,7 @@ class _AddUpdateSectorFormContentsState
   String get irrigationSource => _irrigationSourceController.text;
   String get turnOnCommand => _turnOnCommandController.text;
   String get turnOffCommand => _turnOffCommandController.text;
+  String get selectedPumpsPlaceholder => _connectedPumpsController.text;
   String get notes => _notesController.text;
 
   // Keys for testing
@@ -83,6 +86,7 @@ class _AddUpdateSectorFormContentsState
   static const _irrigationSourceFieldKey = Key('sectorIrrigationSourceField');
   static const _turnOnCommandFieldKey = Key('sectorTurnOnCommandField');
   static const _turnOffCommandFieldKey = Key('sectorTurnOffCommandField');
+  static const _connectedPumpsFieldKey = Key('sectorConnectedPumpsField');
   static const _notesFieldKey = Key('sectorNotesField');
 
   Sector? _initialSector = const Sector.empty();
@@ -124,6 +128,7 @@ class _AddUpdateSectorFormContentsState
     _irrigationSourceController.dispose();
     _turnOnCommandController.dispose();
     _turnOffCommandController.dispose();
+    _connectedPumpsController.dispose();
     _notesController.dispose();
     _node.dispose();
     super.dispose();
@@ -152,14 +157,23 @@ class _AddUpdateSectorFormContentsState
     }
   }
 
-  // todo complete implementation
+  void _onTappedConnectedPumps() async {
+    final loc = context.loc;
+    final selectedPumps = await context.pushNamed<int>(
+      AppRoute.connectPumpsToSector.name,
+    );
+    if (selectedPumps != null) {
+      _connectedPumpsController.text =
+          selectedPumps <= 0 ? '' : loc.nSelectedPumps(selectedPumps);
+    }
+  }
+
   void _nameEditingComplete() {
-    if (canSubmitNameField(name, null, ['sector'])) {
+    if (canSubmitNameField(name, _initialSector?.name, ['sector'])) {
       _node.nextFocus();
     }
   }
 
-  // todo complete implementation
   String? _nameErrorText(List<String?> usedSectorNames) {
     if (!_submitted) return null;
     final errorKey =
@@ -196,7 +210,6 @@ class _AddUpdateSectorFormContentsState
     return context.getLocalizedErrorText(errorKey: errorKey);
   }
 
-  // todo complete implementation
   void _canSubmitCommandFields(
     String value,
     String counterpartValue,
@@ -209,7 +222,6 @@ class _AddUpdateSectorFormContentsState
     }
   }
 
-  // todo complete implementation
   String? _commandFieldErrorText(
     String value,
     String counterpartValue,
@@ -300,11 +312,14 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _popScreen() {
-    context.pop();
+    ref.read(selectedPumpsIdProvider.notifier).state = [];
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(addUpdateSectorControllerProvider,
+        (_, state) => state.showAlertDialogOnError(context));
     final numberFieldKeyboardType =
         ref.watch(numericFieldsTextInputTypeProvider);
     final isUpdating = widget.formType.isUpdating();
@@ -316,6 +331,8 @@ class _AddUpdateSectorFormContentsState
         ref.watch(usedSectorOnCommandsStreamProvider).valueOrNull;
     final usedSectorOffCommands =
         ref.watch(usedSectorOffCommandsStreamProvider).valueOrNull;
+
+    final selectedPumps = ref.watch(selectedPumpsIdProvider);
 
     final state = ref.watch(addUpdateSectorControllerProvider);
 
@@ -425,8 +442,7 @@ class _AddUpdateSectorFormContentsState
               fieldHintText: loc.sectorIrrigationSystemHintText,
               canRequestFocus: false,
               keyboardType: TextInputType.none,
-              onTap:
-                  _onTappedIrrigationSystem, // todo replace with the right function
+              onTap: _onTappedIrrigationSystem,
               suffixIcon: IconButton(
                 icon: const Icon(Icons.arrow_drop_down),
                 onPressed: _onTappedIrrigationSystem,
@@ -446,8 +462,7 @@ class _AddUpdateSectorFormContentsState
               fieldHintText: loc.sectorIrrigationSourceHintText,
               canRequestFocus: false,
               keyboardType: TextInputType.none,
-              onTap:
-                  _onTappedIrrigationSource, // todo replace with the right function
+              onTap: _onTappedIrrigationSource,
               suffixIcon: IconButton(
                 icon: const Icon(Icons.arrow_drop_down),
                 onPressed: _onTappedIrrigationSource,
@@ -499,6 +514,25 @@ class _AddUpdateSectorFormContentsState
                     _initialSector?.turnOffCommand,
                     usedSectorOffCommands ?? [])),
             gapH16,
+            // connected pump field
+            FormTitleAndField(
+              enabled: !isLoading,
+              fieldKey: _connectedPumpsFieldKey,
+              fieldController: _connectedPumpsController,
+              fieldTitle: loc.sectorConnectedPumps,
+              fieldHintText: loc.nSelectedPumps(selectedPumps.length),
+              canRequestFocus: false,
+              keyboardType: TextInputType.none,
+              onTap: _onTappedConnectedPumps,
+              suffixIcon: IconButton(
+                icon: const Icon(Icons.arrow_drop_down),
+                onPressed: _onTappedConnectedPumps,
+              ),
+              onEditingComplete: () => _nonEmptyFieldsEditingComplete(selectedPumpsPlaceholder),
+              validator: (_) => _nonEmptyFieldsErrorText(selectedPumpsPlaceholder),
+              
+            ),
+            gapH16,
             // notes field
             FormTitleAndField(
               enabled: !isLoading,
@@ -509,7 +543,6 @@ class _AddUpdateSectorFormContentsState
               fieldController: _notesController,
             ),
             gapH16,
-
             // button to save or update the sector
             CTAButton(
               isLoading: isLoading,
