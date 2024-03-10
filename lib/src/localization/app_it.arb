@@ -110,5 +110,7 @@
   "nPumpsWithArticulatedPreposition": "{n, plural, =1{alla pompa} =2{alle pompe} other {alle pompe}}",
   "nSectorsWithArticulatedPreposition": "{n, plural, =1{al settore} =2{ai settori} other {ai settori}}",
   "emptyDataPlaceholder": "Non risulta alcun {name} nel database",
-  "addNewButtonLabel": "Aggiungi"
+  "addNewButtonLabel": "Aggiungi",
+  "nSelectedPumps": "{n, plural, =0{0 pompe selezionate} =1{1 pompa selezionata} other{{n} pompe selezionate}}",
+  "connectPumpsToSectorPageTile": "Seleziona Pompa"
 }
