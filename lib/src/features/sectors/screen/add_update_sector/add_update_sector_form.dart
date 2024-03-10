@@ -34,9 +34,11 @@ class AddUpdateSectorForm extends ConsumerWidget {
         }
       },
       child: Scaffold(
-        body: AddUpdateSectorFormContents(
-          formType: formType,
-          sectorId: sectorId,
+        body: SafeArea(
+          child: AddUpdateSectorFormContents(
+            formType: formType,
+            sectorId: sectorId,
+          ),
         )
       ),
     );
