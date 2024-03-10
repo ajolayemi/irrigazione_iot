@@ -10,8 +10,8 @@ import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/details_tile_widget.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_details_card.dart';
 
-class SurveyDetailsScreenContents extends ConsumerWidget {
-  const SurveyDetailsScreenContents(
+class SectorDetailsScreenContents extends ConsumerWidget {
+  const SectorDetailsScreenContents(
       {super.key, required this.sector, this.sectorStatus});
 
   final Sector sector;
