@@ -16,7 +16,7 @@ void main() {
     );
   }
 
-  group('FakePumpStatusRepository', () {
+  group('FakeSectorStatusRepository', () {
     test('getSectorLastIrrigation works with initial data', () async {
       final repo = makeFakeSectorStatusRepository();
       addTearDown(repo.dispose);
