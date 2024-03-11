@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_sector_pumps.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
@@ -11,14 +12,16 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
 
   final _sectorPumpsState = InMemoryStore<List<SectorPump>>(kFakeSectorPumps);
 
-  static List<SectorPump?> _getSectorPumps(String sectorId) {
-    return kFakeSectorPumps
+  static List<SectorPump?> _getSectorPumps(
+      List<SectorPump> sectorPumps, SectorID sectorId) {
+    return sectorPumps
         .where((sectorPump) => sectorPump.sectorId == sectorId)
         .toList();
   }
 
-  static SectorPump? _getSectorPump(String sectorId, String pumpId) {
-    return kFakeSectorPumps.firstWhereOrNull((sectorPump) =>
+  static SectorPump? _getSectorPump(
+      List<SectorPump> sectorPumps, String sectorId, String pumpId) {
+    return sectorPumps.firstWhereOrNull((sectorPump) =>
         sectorPump.sectorId == sectorId && sectorPump.pumpId == pumpId);
   }
 
@@ -31,7 +34,11 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
     currentSectorPumps.add(sectorPump);
     _sectorPumpsState.value = currentSectorPumps;
     // get and return the added sectorPump
-    return _getSectorPump(sectorPump.sectorId, sectorPump.pumpId);
+    return _getSectorPump(
+      _sectorPumpsState.value,
+      sectorPump.sectorId,
+      sectorPump.pumpId,
+    );
   }
 
   @override
@@ -47,7 +54,11 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
     currentSectorPumps[sectorPumpIndex] = sectorPump;
     _sectorPumpsState.value = currentSectorPumps;
     // get and return the updated sectorPump
-    return _getSectorPump(sectorPump.sectorId, sectorPump.pumpId);
+    return _getSectorPump(
+      _sectorPumpsState.value,
+      sectorPump.sectorId,
+      sectorPump.pumpId,
+    );
   }
 
   @override
@@ -61,19 +72,19 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
     }
     currentSectorPumps.removeAt(sectorPumpIndex);
     _sectorPumpsState.value = currentSectorPumps;
-    return _getSectorPump(sectorId, pumpId) == null;
+    return _getSectorPump(_sectorPumpsState.value, sectorId, pumpId) == null;
   }
 
   @override
   Future<List<SectorPump?>> getSectorPumps(String sectorId) async {
     await delay(addDelay);
-    return _getSectorPumps(sectorId);
+    return _getSectorPumps(_sectorPumpsState.value, sectorId);
   }
 
   @override
   Stream<List<SectorPump?>> watchSectorPumps(String sectorId) {
     return _sectorPumpsState.stream.map((sectorPumps) {
-      return _getSectorPumps(sectorId);
+      return _getSectorPumps(sectorPumps, sectorId);
     });
   }
 }
