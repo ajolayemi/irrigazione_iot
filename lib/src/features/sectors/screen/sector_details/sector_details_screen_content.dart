@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/config/routes/app_router.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_status.dart';
@@ -16,6 +18,13 @@ class SectorDetailsScreenContents extends ConsumerWidget {
 
   final Sector sector;
   final SectorStatus? sectorStatus;
+
+  void _onTapConnectedPumpsTile(BuildContext context, SectorID sectorId) {
+    context.pushNamed(
+      AppRoute.sectorConnectedPumps.name,
+      pathParameters: {'sectorId': sectorId},
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -52,6 +61,38 @@ class SectorDetailsScreenContents extends ConsumerWidget {
                   : dateFormatter.format(lastIrrigated),
             );
           })),
+          ResponsiveDetailsCard(
+            child: Consumer(
+              builder: (context, ref, child) {
+                final connectedPumps = ref
+                        .watch(sectorPumpsStreamProvider(sector.id))
+                        .valueOrNull
+                        ?.length ??
+                    0;
+
+                return DetailTileWidget(
+                    onTap: () => _onTapConnectedPumpsTile(
+                          context,
+                          sector.id,
+                        ),
+                    title: context.loc.sectorConnectedPumps,
+                    subtitle: context.loc.nConnectedPumps(
+                      connectedPumps,
+                    ),
+                    trailing: connectedPumps <= 0
+                        ? null
+                        : IconButton(
+                            onPressed: () => _onTapConnectedPumpsTile(
+                              context,
+                              sector.id,
+                            ),
+                            icon: const Icon(
+                              Icons.visibility,
+                            ),
+                          ));
+              },
+            ),
+          ),
           ResponsiveDetailsCard(
             child: DetailTileWidget(
               title: context.loc.sectorSpecie,
