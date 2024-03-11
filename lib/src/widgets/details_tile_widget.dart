@@ -8,23 +8,28 @@ class DetailTileWidget extends StatelessWidget {
     this.title,
     this.subtitle,
     this.trailing,
+    this.onTap,
   });
 
   final String? title;
   final String? subtitle;
   final Widget? trailing;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      subtitleTextStyle:
-          context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-      titleTextStyle: context.textTheme.bodyLarge?.copyWith(
-        color: Colors.transparent.withOpacity(0.8),
+    return InkWell(
+      onTap: onTap,
+      child: ListTile(
+        subtitleTextStyle:
+            context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+        titleTextStyle: context.textTheme.bodyLarge?.copyWith(
+          color: Colors.transparent.withOpacity(0.8),
+        ),
+        title: Text(title ?? ''),
+        subtitle: Text(subtitle ?? ''),
+        trailing: trailing,
       ),
-      title: Text(title ?? ''),
-      subtitle: Text(subtitle ?? ''),
-      trailing: trailing,
     );
   }
 }
