@@ -73,7 +73,8 @@ class AddUpdateSectorService {
       // Remove the pumps that are no longer connected to the sector
       if (pumpIdsToRemove.isNotEmpty) {
         for (final pumpId in pumpIdsToRemove) {
-          debugPrint('Removing pump: $pumpId from sector: ${updatedSector.name}');
+          debugPrint(
+              'Removing pump: $pumpId from sector: ${updatedSector.name}');
           await sectorPumpsRepository.deleteSectorPump(
               updatedSector.id, pumpId!);
         }
@@ -81,7 +82,8 @@ class AddUpdateSectorService {
 
       // If the user didn't connect any new pumps to the sector, we can return early
       if (updatedConnectedPumpIds.isEmpty) {
-        debugPrint('No new pumps to connect to the sector: ${updatedSector.name}');
+        debugPrint(
+            'No new pumps to connect to the sector: ${updatedSector.name}');
         return;
       }
 
