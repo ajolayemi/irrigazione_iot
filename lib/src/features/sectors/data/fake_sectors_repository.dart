@@ -37,9 +37,11 @@ class FakeSectorsRepository extends SectorsRepository {
     // data validation logic is handled directly in the form
     await delay(addDelay);
     final currentSectors = [..._sectorsState.value];
-    final index = currentSectors.indexWhere(
-        (s) => s.id == sector.id && s.companyId == companyId);
+    final index = currentSectors
+        .indexWhere((s) => s.id == sector.id && s.companyId == companyId);
     if (index < 0) return Future.value(null);
+    // return early if the new provided sector is the same as the old one
+    if (currentSectors[index] == sector) return Future.value(sector);
     currentSectors[index] = sector;
     _sectorsState.value = currentSectors;
     return Future.value(sector);
@@ -57,7 +59,7 @@ class FakeSectorsRepository extends SectorsRepository {
   }
 
   @override
-  Future<List<Sector?>> fetchSectors(CompanyID companyId) {
+  Future<List<Sector?>> getSectors(CompanyID companyId) {
     return Future.value(_getSectors(_sectorsState.value, companyId));
   }
 
@@ -73,7 +75,7 @@ class FakeSectorsRepository extends SectorsRepository {
   }
 
   @override
-  Future<Sector?> fetchSector(SectorID sectorID) async {
+  Future<Sector?> getSector(SectorID sectorID) async {
     await delay(addDelay);
     return Future.value(_getSector(_sectorsState.value, sectorID));
   }
