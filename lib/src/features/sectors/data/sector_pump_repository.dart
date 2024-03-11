@@ -10,9 +10,6 @@ abstract class SectorPumpRepository {
   /// Add a new [SectorPump] to database and return the added [SectorPump] if the addition was successful
   Future<SectorPump?> addSectorPump(SectorPump sectorPump);
 
-  /// Update a [SectorPump] in database and return the updated [SectorPump] if the update was successful
-  Future<SectorPump?> updateSectorPump(SectorPump sectorPump);
-
   /// Delete a [SectorPump] from database and return true if the deletion was successful
   Future<bool> deleteSectorPump(String sectorId, String pumpId);
 
