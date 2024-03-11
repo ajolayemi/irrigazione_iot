@@ -13,7 +13,7 @@ class FakeSectorsRepository extends SectorsRepository {
   final _sectorsState = InMemoryStore<List<Sector>>(kFakeSectors);
 
   @override
-  Future<Sector> addSector(Sector sector, CompanyID companyId) async {
+  Future<Sector?> addSector(Sector sector, CompanyID companyId) async {
     // data validation logic is handled directly in the form
     await delay(addDelay);
     final lastUsedSectorId = _sectorsState.value
@@ -26,7 +26,7 @@ class FakeSectorsRepository extends SectorsRepository {
     final currentSectors = [..._sectorsState.value];
     currentSectors.add(finalSector);
     _sectorsState.value = currentSectors;
-    return Future.value(finalSector);
+    return Future.value(sector);
   }
 
   @override
@@ -44,7 +44,7 @@ class FakeSectorsRepository extends SectorsRepository {
     if (currentSectors[index] == sector) return Future.value(sector);
     currentSectors[index] = sector;
     _sectorsState.value = currentSectors;
-    return Future.value(sector);
+    return getSector(sector.id);
   }
 
   @override
@@ -55,7 +55,7 @@ class FakeSectorsRepository extends SectorsRepository {
     if (index < 0) return Future.value(false);
     currentSectors.removeAt(index);
     _sectorsState.value = currentSectors;
-    return Future.value(true);
+    return await getSector(sectorID) == null;
   }
 
   @override
