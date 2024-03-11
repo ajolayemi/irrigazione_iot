@@ -42,7 +42,6 @@ mixin AddUpdateSectorValidators {
     String? initialValue,
     List<String?> usedCommands,
   ) {
-    print('initialValue: $initialValue');
     // If an initialValue was provided, which should be the case when updating a sector
     // and the command is the same as the initial value, then the command is valid without running
     // check against the usedCommands
