@@ -37,7 +37,7 @@ final sectorListStreamProvider =
 );
 
 typedef SectorListStreamRef = AutoDisposeStreamProviderRef<List<Sector?>>;
-String _$sectorListFutureHash() => r'2c115597039c936314c9cabc8bc808d0533cefa9';
+String _$sectorListFutureHash() => r'b0c769bac55ffc87b2cf589ab5d945b2d0c5e3ad';
 
 /// See also [sectorListFuture].
 @ProviderFor(sectorListFuture)
@@ -202,7 +202,7 @@ class _SectorStreamProviderElement
   String get sectorID => (origin as SectorStreamProvider).sectorID;
 }
 
-String _$sectorFutureHash() => r'1c2e69870a803c75bae1109dda0ecf72e373ff90';
+String _$sectorFutureHash() => r'faab67273d08e207b5314dfbcdfe2d86045c1a7d';
 
 /// See also [sectorFuture].
 @ProviderFor(sectorFuture)

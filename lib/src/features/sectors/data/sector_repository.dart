@@ -11,13 +11,13 @@ part 'sector_repository.g.dart';
 
 abstract class SectorsRepository {
   // returns a list of sectors pertaining to a company
-  Future<List<Sector?>> fetchSectors(CompanyID companyId);
+  Future<List<Sector?>> getSectors(CompanyID companyId);
   // emits a list of sectors pertaining to a company
   Stream<List<Sector?>> watchSectors(CompanyID companyId);
   // emits a sector with the given sectorID
   Stream<Sector?> watchSector(SectorID sectorID);
   // returns a sector with the given sectorID
-  Future<Sector?> fetchSector(SectorID sectorID);
+  Future<Sector?> getSector(SectorID sectorID);
   // adds a sector
   Future<Sector?> addSector(Sector sector, CompanyID companyId);
   // updates a sector
@@ -50,12 +50,11 @@ Stream<List<Sector?>> sectorListStream(SectorListStreamRef ref) {
 }
 
 @riverpod
-Future<List<Sector?>> sectorListFuture(
-    SectorListFutureRef ref) {
+Future<List<Sector?>> sectorListFuture(SectorListFutureRef ref) {
   final sectorsRepository = ref.read(sectorsRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return Future.value([]);
-  return sectorsRepository.fetchSectors(companyId);
+  return sectorsRepository.getSectors(companyId);
 }
 
 @riverpod
@@ -67,7 +66,7 @@ Stream<Sector?> sectorStream(SectorStreamRef ref, SectorID sectorID) {
 @riverpod
 Future<Sector?> sectorFuture(SectorFutureRef ref, SectorID sectorID) {
   final sectorsRepository = ref.read(sectorsRepositoryProvider);
-  return sectorsRepository.fetchSector(sectorID);
+  return sectorsRepository.getSector(sectorID);
 }
 
 @riverpod
