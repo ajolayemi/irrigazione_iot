@@ -15,6 +15,7 @@ import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/co
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_a_specie_screen.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_an_irrigation_source.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_an_irrigation_system.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/connected_pumps_list_screen.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/sector_details.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_screen.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
@@ -57,6 +58,7 @@ enum AppRoute {
   selectAnIrrigationSystem,
   selectAnIrrigationSource,
   connectPumpsToSector,
+  sectorConnectedPumps,
   more,
   settings,
 }
@@ -299,6 +301,17 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         pageBuilder: (context, state) => const MaterialPage(
           fullscreenDialog: true,
           child: ConnectPumpsToSector(),
+        ),
+      ),
+
+      // Sector connected pumps
+      GoRoute(
+        path: '/sector-connected-pumps/:sectorId',
+        name: AppRoute.sectorConnectedPumps.name,
+        pageBuilder: (context, state) => MaterialPage(
+          fullscreenDialog: true,
+          child: SectorConnectedPumpsList(
+              sectorId: state.pathParameters['sectorId'] ?? ''),
         ),
       ),
     ],
