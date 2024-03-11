@@ -58,7 +58,6 @@ class _AddUpdateSectorFormContentsState
   final _irrigationSourceController = TextEditingController();
   final _turnOnCommandController = TextEditingController();
   final _turnOffCommandController = TextEditingController();
-  final _connectedPumpsController = TextEditingController();
   final _notesController = TextEditingController();
 
   // form field values
@@ -72,7 +71,6 @@ class _AddUpdateSectorFormContentsState
   String get irrigationSource => _irrigationSourceController.text;
   String get turnOnCommand => _turnOnCommandController.text;
   String get turnOffCommand => _turnOffCommandController.text;
-  String get selectedPumpsPlaceholder => _connectedPumpsController.text;
   String get notes => _notesController.text;
 
   // Keys for testing
@@ -128,7 +126,6 @@ class _AddUpdateSectorFormContentsState
     _irrigationSourceController.dispose();
     _turnOnCommandController.dispose();
     _turnOffCommandController.dispose();
-    _connectedPumpsController.dispose();
     _notesController.dispose();
     _node.dispose();
     super.dispose();
@@ -157,15 +154,10 @@ class _AddUpdateSectorFormContentsState
     }
   }
 
-  void _onTappedConnectedPumps() async {
-    final loc = context.loc;
-    final selectedPumps = await context.pushNamed<int>(
+  void _onTappedConnectedPumps() {
+    context.pushNamed<int>(
       AppRoute.connectPumpsToSector.name,
     );
-    if (selectedPumps != null) {
-      _connectedPumpsController.text =
-          selectedPumps <= 0 ? '' : loc.nSelectedPumps(selectedPumps);
-    }
   }
 
   void _nameEditingComplete() {
@@ -279,18 +271,6 @@ class _AddUpdateSectorFormContentsState
         notes: notes,
       );
 
-      if (toSave == _initialSector && widget.formType.isUpdating()) {
-        debugPrint('No changes detected, not submitting...');
-        _popScreen();
-        return;
-      }
-      if (toSave == null) {
-        debugPrint(
-            'Form is valid but there are no data to save, not submitting...');
-        _popScreen();
-        return;
-      }
-
       bool success = false;
 
       if (widget.formType.isUpdating()) {
@@ -331,8 +311,6 @@ class _AddUpdateSectorFormContentsState
         ref.watch(usedSectorOnCommandsStreamProvider).valueOrNull;
     final usedSectorOffCommands =
         ref.watch(usedSectorOffCommandsStreamProvider).valueOrNull;
-
-    final selectedPumps = ref.watch(selectedPumpsIdProvider);
 
     final state = ref.watch(addUpdateSectorControllerProvider);
 
@@ -515,22 +493,24 @@ class _AddUpdateSectorFormContentsState
                     usedSectorOffCommands ?? [])),
             gapH16,
             // connected pump field
-            FormTitleAndField(
-              enabled: !isLoading,
-              fieldKey: _connectedPumpsFieldKey,
-              fieldController: _connectedPumpsController,
-              fieldTitle: loc.sectorConnectedPumps,
-              fieldHintText: loc.nSelectedPumps(selectedPumps.length),
-              canRequestFocus: false,
-              keyboardType: TextInputType.none,
-              onTap: _onTappedConnectedPumps,
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.arrow_drop_down),
-                onPressed: _onTappedConnectedPumps,
-              ),
-              onEditingComplete: () => _nonEmptyFieldsEditingComplete(selectedPumpsPlaceholder),
-              validator: (_) => _nonEmptyFieldsErrorText(selectedPumpsPlaceholder),
-              
+            Consumer(
+              builder: (context, ref, child) {
+                final selectedPumps = ref.watch(selectedPumpsIdProvider);
+                return FormTitleAndField(
+                    enabled: !isLoading,
+                    fieldKey: _connectedPumpsFieldKey,
+                    fieldTitle: loc.sectorConnectedPumps,
+                    fieldHintText: loc.nSelectedPumps(selectedPumps.length),
+                    canRequestFocus: false,
+                    keyboardType: TextInputType.none,
+                    onTap: _onTappedConnectedPumps,
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.arrow_drop_down),
+                      onPressed: _onTappedConnectedPumps,
+                    ),
+                    onEditingComplete: () => {},
+                    validator: (_) {});
+              },
             ),
             gapH16,
             // notes field
