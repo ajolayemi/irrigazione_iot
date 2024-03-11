@@ -497,19 +497,18 @@ class _AddUpdateSectorFormContentsState
               builder: (context, ref, child) {
                 final selectedPumps = ref.watch(selectedPumpsIdProvider);
                 return FormTitleAndField(
-                    enabled: !isLoading,
-                    fieldKey: _connectedPumpsFieldKey,
-                    fieldTitle: loc.sectorConnectedPumps,
-                    fieldHintText: loc.nSelectedPumps(selectedPumps.length),
-                    canRequestFocus: false,
-                    keyboardType: TextInputType.none,
-                    onTap: _onTappedConnectedPumps,
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.arrow_drop_down),
-                      onPressed: _onTappedConnectedPumps,
-                    ),
-                    onEditingComplete: () => {},
-                    validator: (_) {});
+                  enabled: !isLoading,
+                  fieldKey: _connectedPumpsFieldKey,
+                  fieldTitle: loc.sectorConnectedPumps,
+                  fieldHintText: loc.nSelectedPumps(selectedPumps.length),
+                  canRequestFocus: false,
+                  keyboardType: TextInputType.none,
+                  onTap: _onTappedConnectedPumps,
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.arrow_drop_down),
+                    onPressed: _onTappedConnectedPumps,
+                  ),
+                );
               },
             ),
             gapH16,
