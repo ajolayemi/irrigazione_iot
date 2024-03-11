@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/features/sectors/service/add_update_sector_service.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -11,17 +12,26 @@ class AddUpdateSectorController extends _$AddUpdateSectorController {
     // nothing to do here
   }
 
-  Future<bool> createSector(Sector sector) async {
+  Future<bool> createSector(Sector? sector) async {
     final sectorService = ref.read(addUpdateSectorServiceProvider);
     state = const AsyncLoading();
+    if (sector == null) {
+      state = AsyncError('Sector is null', StackTrace.current);
+      return false;
+    }
     state = await AsyncValue.guard(() => sectorService.createSector(sector));
     return !state.hasError;
   }
 
-  Future<bool> updateSector(Sector sector) async {
+  Future<bool> updateSector(Sector? sector) async {
     final sectorService = ref.read(addUpdateSectorServiceProvider);
     state = const AsyncLoading();
+    if (sector == null) {
+      state = AsyncError('Sector is null', StackTrace.current);
+      return false;
+    }
     state = await AsyncValue.guard(() => sectorService.updateSector(sector));
+    debugPrint(state.error.toString());
     return !state.hasError;
   }
 }
