@@ -7,7 +7,7 @@ part of 'add_update_sector_controller.dart';
 // **************************************************************************
 
 String _$addUpdateSectorControllerHash() =>
-    r'b111c5e9f8b12be804433e2c5ee6a58a44f5e3d3';
+    r'34347733c685bfa449ae51e7277ea02c3805bce4';
 
 /// See also [AddUpdateSectorController].
 @ProviderFor(AddUpdateSectorController)
