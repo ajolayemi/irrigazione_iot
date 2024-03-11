@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/empty_sector_widget.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/dismiss_sector_controller.dart';
@@ -19,6 +20,12 @@ import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
 
 class SectorsListScreen extends ConsumerWidget {
   const SectorsListScreen({super.key});
+
+
+  void _onAddSectorPressed(WidgetRef ref, BuildContext context) {
+    ref.read(selectedPumpsIdProvider.notifier).state = [];
+    context.pushNamed(AppRoute.addSector.name);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,9 +53,7 @@ class SectorsListScreen extends ConsumerWidget {
                 isVisibile: canEdit,
                 onPressed: isLoading
                     ? () {}
-                    : () => context.pushNamed(
-                          AppRoute.addSector.name,
-                        ), 
+                    : () => _onAddSectorPressed(ref, context),
                 icon: Icons.add,
               )
             ],
