@@ -114,7 +114,6 @@ class Sector extends Equatable {
     double? waterConsumptionPerHourByPlant,
     IrrigationSystemType? irrigationSystemType,
     IrrigationSource? irrigationSource,
-    String? solenoidValveName,
     String? turnOnCommand,
     String? turnOffCommand,
     String? notes,
