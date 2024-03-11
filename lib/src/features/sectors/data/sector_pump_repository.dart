@@ -45,6 +45,6 @@ Future<List<SectorPump?>> sectorPumpsFuture(
 
 // Keeps track of the ids of the pumps selected to be connected to the sector
 
-final selectedPumpsIdProvider = StateProvider.autoDispose<List<String?>>((ref) {
+final selectedPumpsIdProvider = StateProvider<List<String?>>((ref) {
   return [];
 });
