@@ -7,7 +7,7 @@ import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
 class FakeSectorPumpRepository implements SectorPumpRepository {
-  FakeSectorPumpRepository({this.addDelay = false});
+  FakeSectorPumpRepository({this.addDelay = true});
   final bool addDelay;
 
   final _sectorPumpsState = InMemoryStore<List<SectorPump>>(kFakeSectorPumps);
@@ -41,25 +41,6 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
     );
   }
 
-  @override
-  Future<SectorPump?> updateSectorPump(SectorPump sectorPump) async {
-    await delay(addDelay);
-    final currentSectorPumps = [..._sectorPumpsState.value];
-    // check if a sectorPump with the same sectorId and pumpId exists
-    final sectorPumpIndex = currentSectorPumps.indexWhere((sp) =>
-        sp.sectorId == sectorPump.sectorId && sp.pumpId == sectorPump.pumpId);
-    if (sectorPumpIndex == -1) {
-      return null;
-    }
-    currentSectorPumps[sectorPumpIndex] = sectorPump;
-    _sectorPumpsState.value = currentSectorPumps;
-    // get and return the updated sectorPump
-    return _getSectorPump(
-      _sectorPumpsState.value,
-      sectorPump.sectorId,
-      sectorPump.pumpId,
-    );
-  }
 
   @override
   Future<bool> deleteSectorPump(String sectorId, String pumpId) async {
