@@ -8,7 +8,7 @@ class FormTitleAndField extends StatelessWidget {
     super.key,
     required this.fieldKey,
     required this.fieldTitle,
-    required this.fieldController,
+    this.fieldController,
     this.fieldHintText,
     this.autovalidateMode,
     this.autoCorrect,
@@ -28,7 +28,7 @@ class FormTitleAndField extends StatelessWidget {
 
   final Key fieldKey;
   final String fieldTitle;
-  final TextEditingController fieldController;
+  final TextEditingController? fieldController;
   final String? fieldHintText;
   final AutovalidateMode? autovalidateMode;
   final bool? autoCorrect;
