@@ -343,6 +343,7 @@
   },
   "addNewButtonLabel": "Add New",
   "nSelectedPumps": "{n, plural, =0{0 pumps selected} =1{1 pump selected} other{{n} pumps selected}}",
+  "nConnectedPumps": "{n, plural, =0{0 pumps connected} =1{1 pump connected} other{{n} pumps connected}}",
   "connectPumpsToSectorPageTile": "Select Pump",
   "noPumpConnectedToSectorErrorText": "You have to connect at least one pump to this sector"
 }

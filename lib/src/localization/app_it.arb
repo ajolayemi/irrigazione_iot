@@ -112,6 +112,7 @@
   "emptyDataPlaceholder": "Non risulta alcun {name} nel database",
   "addNewButtonLabel": "Aggiungi",
   "nSelectedPumps": "{n, plural, =0{0 pompe selezionate} =1{1 pompa selezionata} other{{n} pompe selezionate}}",
+  "nConnectedPumps": "{n, plural, =0{0 pompe collegate} =1{1 pump collegata} other{{n} pumps collegate}}",
   "connectPumpsToSectorPageTile": "Seleziona Pompa",
   "noPumpConnectedToSectorErrorText": "Devi collegare almeno una pompa a questo settore"
 }
