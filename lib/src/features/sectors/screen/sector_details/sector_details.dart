@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/sector_details_screen_content.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_tile_skeleton.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
@@ -21,10 +23,24 @@ class SectorDetailsScreen extends ConsumerWidget {
 
   final SectorID sectorID;
 
+  void _onEditSector(WidgetRef ref, BuildContext context,
+      List<SectorPump?>? connectedPumpsIds) {
+    final pumpIds = connectedPumpsIds?.map((pump) => pump?.pumpId).toList();
+    ref.read(selectedPumpsIdProvider.notifier).state = pumpIds ?? [];
+    context.goNamed(
+      AppRoute.updateSector.name,
+      pathParameters: {
+        'sectorId': sectorID,
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final canEdit = ref.watch(companyUserRoleProvider).valueOrNull?.canEdit;
     final sectorData = ref.watch(sectorStreamProvider(sectorID));
+    final sectorConnectedPumps =
+        ref.watch(sectorPumpsStreamProvider(sectorID)).valueOrNull;
     return SafeArea(
       child: Scaffold(
         body: AsyncValueSliverWidget(
@@ -40,12 +56,8 @@ class SectorDetailsScreen extends ConsumerWidget {
                   title: sector.name,
                   actions: [
                     AppBarIconButton(
-                      onPressed: () => context.goNamed(
-                        AppRoute.updateSector.name,
-                        pathParameters: {
-                          'sectorId': sector.id,
-                        },
-                      ),
+                      onPressed: () =>
+                          _onEditSector(ref, context, sectorConnectedPumps),
                       icon: Icons.edit,
                       isVisibile: canEdit,
                     )
