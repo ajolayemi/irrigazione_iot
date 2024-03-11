@@ -5,12 +5,14 @@ import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 
 List<SectorPump> generateSectorPumps() {
-
   List<SectorPump> sectorPumps = [];
 
   for (int i = 0; i < kFakeSectors.length; i++) {
     Sector sector = kFakeSectors[i];
-    Pump pump = kFakePumps[i % kFakePumps.length];
+    final companyPumps =
+        kFakePumps.where((pump) => pump.companyId == sector.companyId).toList();
+    if (companyPumps.isEmpty) continue;
+    Pump pump = companyPumps[i % companyPumps.length];
 
     SectorPump sectorPump = SectorPump(sectorId: sector.id, pumpId: pump.id);
     sectorPumps.add(sectorPump);
