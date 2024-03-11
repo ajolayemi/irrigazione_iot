@@ -42,4 +42,9 @@ class SectorPump extends Equatable {
     );
   }
 
+  @override
+  String toString() {
+    return 'SectorPump(pumpId: $pumpId, sectorId: $sectorId)';
+  }
+
 }
