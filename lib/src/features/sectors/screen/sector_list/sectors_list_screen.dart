@@ -43,43 +43,45 @@ class SectorsListScreen extends ConsumerWidget {
     final sectors = ref.watch(sectorListStreamProvider);
     final isLoading = ref.watch(sectorSwitchControllerProvider).isLoading;
     final loc = context.loc;
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          AppSliverBar(
-            title: loc.sectorPageTitle,
-            actions: [
-              AppBarIconButton(
-                isVisibile: canEdit,
-                onPressed: isLoading
-                    ? () {}
-                    : () => _onAddSectorPressed(ref, context),
-                icon: Icons.add,
-              )
-            ],
-          ),
-          AsyncValueSliverWidget(
-            value: sectors,
-            data: (sectors) {
-              if (sectors.isEmpty) {
-                return const EmptySectorWidget();
-              }
-              return SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final sector = sectors[index];
-                    if (sector == null) {
-                      return const EmptySectorWidget();
-                    }
-                    return SectorListTile(sector: sector);
-                  },
-                  childCount: sectors.length,
-                ),
-              );
-            },
-            loading: () => const SectorsListTileSkeleton(),
-          )
-        ],
+    return SafeArea(
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            AppSliverBar(
+              title: loc.sectorPageTitle,
+              actions: [
+                AppBarIconButton(
+                  isVisibile: canEdit,
+                  onPressed: isLoading
+                      ? () {}
+                      : () => _onAddSectorPressed(ref, context),
+                  icon: Icons.add,
+                )
+              ],
+            ),
+            AsyncValueSliverWidget(
+              value: sectors,
+              data: (sectors) {
+                if (sectors.isEmpty) {
+                  return const EmptySectorWidget();
+                }
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final sector = sectors[index];
+                      if (sector == null) {
+                        return const EmptySectorWidget();
+                      }
+                      return SectorListTile(sector: sector);
+                    },
+                    childCount: sectors.length,
+                  ),
+                );
+              },
+              loading: () => const SectorsListTileSkeleton(),
+            )
+          ],
+        ),
       ),
     );
   }
