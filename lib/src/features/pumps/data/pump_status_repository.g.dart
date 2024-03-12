@@ -22,7 +22,7 @@ final pumpStatusRepositoryProvider = Provider<PumpStatusRepository>.internal(
 );
 
 typedef PumpStatusRepositoryRef = ProviderRef<PumpStatusRepository>;
-String _$pumpStatusStreamHash() => r'b6336931306a87ff452fab181b9cdcdfc2af4696';
+String _$pumpStatusStreamHash() => r'346b60c12ed006d25f3b851baa2fea275abc9355';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -50,16 +50,16 @@ class _SystemHash {
 const pumpStatusStreamProvider = PumpStatusStreamFamily();
 
 /// See also [pumpStatusStream].
-class PumpStatusStreamFamily extends Family<AsyncValue<PumpStatus?>> {
+class PumpStatusStreamFamily extends Family<AsyncValue<bool?>> {
   /// See also [pumpStatusStream].
   const PumpStatusStreamFamily();
 
   /// See also [pumpStatusStream].
   PumpStatusStreamProvider call(
-    String pumpId,
+    Pump pump,
   ) {
     return PumpStatusStreamProvider(
-      pumpId,
+      pump,
     );
   }
 
@@ -68,7 +68,7 @@ class PumpStatusStreamFamily extends Family<AsyncValue<PumpStatus?>> {
     covariant PumpStatusStreamProvider provider,
   ) {
     return call(
-      provider.pumpId,
+      provider.pump,
     );
   }
 
@@ -88,14 +88,14 @@ class PumpStatusStreamFamily extends Family<AsyncValue<PumpStatus?>> {
 }
 
 /// See also [pumpStatusStream].
-class PumpStatusStreamProvider extends AutoDisposeStreamProvider<PumpStatus?> {
+class PumpStatusStreamProvider extends AutoDisposeStreamProvider<bool?> {
   /// See also [pumpStatusStream].
   PumpStatusStreamProvider(
-    String pumpId,
+    Pump pump,
   ) : this._internal(
           (ref) => pumpStatusStream(
             ref as PumpStatusStreamRef,
-            pumpId,
+            pump,
           ),
           from: pumpStatusStreamProvider,
           name: r'pumpStatusStreamProvider',
@@ -106,7 +106,7 @@ class PumpStatusStreamProvider extends AutoDisposeStreamProvider<PumpStatus?> {
           dependencies: PumpStatusStreamFamily._dependencies,
           allTransitiveDependencies:
               PumpStatusStreamFamily._allTransitiveDependencies,
-          pumpId: pumpId,
+          pump: pump,
         );
 
   PumpStatusStreamProvider._internal(
@@ -116,14 +116,14 @@ class PumpStatusStreamProvider extends AutoDisposeStreamProvider<PumpStatus?> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.pumpId,
+    required this.pump,
   }) : super.internal();
 
-  final String pumpId;
+  final Pump pump;
 
   @override
   Override overrideWith(
-    Stream<PumpStatus?> Function(PumpStatusStreamRef provider) create,
+    Stream<bool?> Function(PumpStatusStreamRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -134,61 +134,60 @@ class PumpStatusStreamProvider extends AutoDisposeStreamProvider<PumpStatus?> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        pumpId: pumpId,
+        pump: pump,
       ),
     );
   }
 
   @override
-  AutoDisposeStreamProviderElement<PumpStatus?> createElement() {
+  AutoDisposeStreamProviderElement<bool?> createElement() {
     return _PumpStatusStreamProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is PumpStatusStreamProvider && other.pumpId == pumpId;
+    return other is PumpStatusStreamProvider && other.pump == pump;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, pumpId.hashCode);
+    hash = _SystemHash.combine(hash, pump.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin PumpStatusStreamRef on AutoDisposeStreamProviderRef<PumpStatus?> {
-  /// The parameter `pumpId` of this provider.
-  String get pumpId;
+mixin PumpStatusStreamRef on AutoDisposeStreamProviderRef<bool?> {
+  /// The parameter `pump` of this provider.
+  Pump get pump;
 }
 
 class _PumpStatusStreamProviderElement
-    extends AutoDisposeStreamProviderElement<PumpStatus?>
-    with PumpStatusStreamRef {
+    extends AutoDisposeStreamProviderElement<bool?> with PumpStatusStreamRef {
   _PumpStatusStreamProviderElement(super.provider);
 
   @override
-  String get pumpId => (origin as PumpStatusStreamProvider).pumpId;
+  Pump get pump => (origin as PumpStatusStreamProvider).pump;
 }
 
-String _$pumpStatusFutureHash() => r'ac968b7fc36cad5570d41a1b66cc25dcd8705ed2';
+String _$pumpStatusFutureHash() => r'1e30f8f70a6710efb4861b694eba259ede6b052b';
 
 /// See also [pumpStatusFuture].
 @ProviderFor(pumpStatusFuture)
 const pumpStatusFutureProvider = PumpStatusFutureFamily();
 
 /// See also [pumpStatusFuture].
-class PumpStatusFutureFamily extends Family<AsyncValue<PumpStatus?>> {
+class PumpStatusFutureFamily extends Family<AsyncValue<bool?>> {
   /// See also [pumpStatusFuture].
   const PumpStatusFutureFamily();
 
   /// See also [pumpStatusFuture].
   PumpStatusFutureProvider call(
-    String pumpId,
+    Pump pump,
   ) {
     return PumpStatusFutureProvider(
-      pumpId,
+      pump,
     );
   }
 
@@ -197,7 +196,7 @@ class PumpStatusFutureFamily extends Family<AsyncValue<PumpStatus?>> {
     covariant PumpStatusFutureProvider provider,
   ) {
     return call(
-      provider.pumpId,
+      provider.pump,
     );
   }
 
@@ -217,14 +216,14 @@ class PumpStatusFutureFamily extends Family<AsyncValue<PumpStatus?>> {
 }
 
 /// See also [pumpStatusFuture].
-class PumpStatusFutureProvider extends AutoDisposeFutureProvider<PumpStatus?> {
+class PumpStatusFutureProvider extends AutoDisposeFutureProvider<bool?> {
   /// See also [pumpStatusFuture].
   PumpStatusFutureProvider(
-    String pumpId,
+    Pump pump,
   ) : this._internal(
           (ref) => pumpStatusFuture(
             ref as PumpStatusFutureRef,
-            pumpId,
+            pump,
           ),
           from: pumpStatusFutureProvider,
           name: r'pumpStatusFutureProvider',
@@ -235,7 +234,7 @@ class PumpStatusFutureProvider extends AutoDisposeFutureProvider<PumpStatus?> {
           dependencies: PumpStatusFutureFamily._dependencies,
           allTransitiveDependencies:
               PumpStatusFutureFamily._allTransitiveDependencies,
-          pumpId: pumpId,
+          pump: pump,
         );
 
   PumpStatusFutureProvider._internal(
@@ -245,14 +244,14 @@ class PumpStatusFutureProvider extends AutoDisposeFutureProvider<PumpStatus?> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.pumpId,
+    required this.pump,
   }) : super.internal();
 
-  final String pumpId;
+  final Pump pump;
 
   @override
   Override overrideWith(
-    FutureOr<PumpStatus?> Function(PumpStatusFutureRef provider) create,
+    FutureOr<bool?> Function(PumpStatusFutureRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -263,45 +262,44 @@ class PumpStatusFutureProvider extends AutoDisposeFutureProvider<PumpStatus?> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        pumpId: pumpId,
+        pump: pump,
       ),
     );
   }
 
   @override
-  AutoDisposeFutureProviderElement<PumpStatus?> createElement() {
+  AutoDisposeFutureProviderElement<bool?> createElement() {
     return _PumpStatusFutureProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is PumpStatusFutureProvider && other.pumpId == pumpId;
+    return other is PumpStatusFutureProvider && other.pump == pump;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, pumpId.hashCode);
+    hash = _SystemHash.combine(hash, pump.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin PumpStatusFutureRef on AutoDisposeFutureProviderRef<PumpStatus?> {
-  /// The parameter `pumpId` of this provider.
-  String get pumpId;
+mixin PumpStatusFutureRef on AutoDisposeFutureProviderRef<bool?> {
+  /// The parameter `pump` of this provider.
+  Pump get pump;
 }
 
 class _PumpStatusFutureProviderElement
-    extends AutoDisposeFutureProviderElement<PumpStatus?>
-    with PumpStatusFutureRef {
+    extends AutoDisposeFutureProviderElement<bool?> with PumpStatusFutureRef {
   _PumpStatusFutureProviderElement(super.provider);
 
   @override
-  String get pumpId => (origin as PumpStatusFutureProvider).pumpId;
+  Pump get pump => (origin as PumpStatusFutureProvider).pump;
 }
 
-String _$pumpStatusToggleHash() => r'2e0cfbfd23d35a78f122b15d028bf0b2d964fa44';
+String _$pumpStatusToggleHash() => r'49c941db5c176170a96eb090e4a6cb3b759655df';
 
 /// See also [pumpStatusToggle].
 @ProviderFor(pumpStatusToggle)
@@ -314,11 +312,11 @@ class PumpStatusToggleFamily extends Family<AsyncValue<void>> {
 
   /// See also [pumpStatusToggle].
   PumpStatusToggleProvider call(
-    String pumpId,
+    Pump pump,
     String status,
   ) {
     return PumpStatusToggleProvider(
-      pumpId,
+      pump,
       status,
     );
   }
@@ -328,7 +326,7 @@ class PumpStatusToggleFamily extends Family<AsyncValue<void>> {
     covariant PumpStatusToggleProvider provider,
   ) {
     return call(
-      provider.pumpId,
+      provider.pump,
       provider.status,
     );
   }
@@ -352,12 +350,12 @@ class PumpStatusToggleFamily extends Family<AsyncValue<void>> {
 class PumpStatusToggleProvider extends AutoDisposeFutureProvider<void> {
   /// See also [pumpStatusToggle].
   PumpStatusToggleProvider(
-    String pumpId,
+    Pump pump,
     String status,
   ) : this._internal(
           (ref) => pumpStatusToggle(
             ref as PumpStatusToggleRef,
-            pumpId,
+            pump,
             status,
           ),
           from: pumpStatusToggleProvider,
@@ -369,7 +367,7 @@ class PumpStatusToggleProvider extends AutoDisposeFutureProvider<void> {
           dependencies: PumpStatusToggleFamily._dependencies,
           allTransitiveDependencies:
               PumpStatusToggleFamily._allTransitiveDependencies,
-          pumpId: pumpId,
+          pump: pump,
           status: status,
         );
 
@@ -380,11 +378,11 @@ class PumpStatusToggleProvider extends AutoDisposeFutureProvider<void> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.pumpId,
+    required this.pump,
     required this.status,
   }) : super.internal();
 
-  final String pumpId;
+  final Pump pump;
   final String status;
 
   @override
@@ -400,7 +398,7 @@ class PumpStatusToggleProvider extends AutoDisposeFutureProvider<void> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        pumpId: pumpId,
+        pump: pump,
         status: status,
       ),
     );
@@ -414,14 +412,14 @@ class PumpStatusToggleProvider extends AutoDisposeFutureProvider<void> {
   @override
   bool operator ==(Object other) {
     return other is PumpStatusToggleProvider &&
-        other.pumpId == pumpId &&
+        other.pump == pump &&
         other.status == status;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, pumpId.hashCode);
+    hash = _SystemHash.combine(hash, pump.hashCode);
     hash = _SystemHash.combine(hash, status.hashCode);
 
     return _SystemHash.finish(hash);
@@ -429,8 +427,8 @@ class PumpStatusToggleProvider extends AutoDisposeFutureProvider<void> {
 }
 
 mixin PumpStatusToggleRef on AutoDisposeFutureProviderRef<void> {
-  /// The parameter `pumpId` of this provider.
-  String get pumpId;
+  /// The parameter `pump` of this provider.
+  Pump get pump;
 
   /// The parameter `status` of this provider.
   String get status;
@@ -441,7 +439,7 @@ class _PumpStatusToggleProviderElement
   _PumpStatusToggleProviderElement(super.provider);
 
   @override
-  String get pumpId => (origin as PumpStatusToggleProvider).pumpId;
+  Pump get pump => (origin as PumpStatusToggleProvider).pump;
   @override
   String get status => (origin as PumpStatusToggleProvider).status;
 }

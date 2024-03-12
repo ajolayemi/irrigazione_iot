@@ -1,15 +1,15 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_status_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump_status.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'pump_status_repository.g.dart';
 
 abstract class PumpStatusRepository {
-  Stream<PumpStatus?> watchPumpStatus(PumpID pumpId);
-  Future<PumpStatus?> getPumpStatus(PumpID pumpId);
-  Future<void> togglePumpStatus(PumpID pumpId, String status);
+  Stream<bool?> watchPumpStatus(Pump pump);
+  Future<bool?> getPumpStatus(Pump pump);
+  Future<void> togglePumpStatus(Pump pump, String status);
   Stream<DateTime?> watchLastDispensation(Pump pump);
   Future<DateTime?> getLastDispensation(Pump pump);
 }
@@ -21,22 +21,22 @@ PumpStatusRepository pumpStatusRepository(PumpStatusRepositoryRef ref) {
 }
 
 @riverpod
-Stream<PumpStatus?> pumpStatusStream(PumpStatusStreamRef ref, PumpID pumpId) {
+Stream<bool?> pumpStatusStream(PumpStatusStreamRef ref, Pump pump) {
   final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
-  return pumpStatusRepository.watchPumpStatus(pumpId);
+  return pumpStatusRepository.watchPumpStatus(pump);
 }
 
 @riverpod
-Future<PumpStatus?> pumpStatusFuture(PumpStatusFutureRef ref, PumpID pumpId) {
+Future<bool?> pumpStatusFuture(PumpStatusFutureRef ref, Pump pump) {
   final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
-  return pumpStatusRepository.getPumpStatus(pumpId);
+  return pumpStatusRepository.getPumpStatus(pump);
 }
 
 @riverpod
 Future<void> pumpStatusToggle(
-    PumpStatusToggleRef ref, PumpID pumpId, String status) {
+    PumpStatusToggleRef ref, Pump pump, String status) {
   final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
-  return pumpStatusRepository.togglePumpStatus(pumpId, status);
+  return pumpStatusRepository.togglePumpStatus(pump, status);
 }
 
 @riverpod
