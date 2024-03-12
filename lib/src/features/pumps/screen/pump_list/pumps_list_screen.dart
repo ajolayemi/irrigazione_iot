@@ -38,7 +38,7 @@ class PumpListScreen extends ConsumerWidget {
             actions: [
               AppBarIconButton(
                 isVisibile: canEdit,
-                onPressed: () => context.goNamed(
+                onPressed: () => context.pushNamed(
                   AppRoute.addPump.name,
                 ),
                 icon: Icons.add,
