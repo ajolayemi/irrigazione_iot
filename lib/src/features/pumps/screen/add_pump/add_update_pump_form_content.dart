@@ -184,29 +184,57 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     }
   }
 
-  void _onCommandEditingComplete(List<String?> existingOnCommands) {
+  String? _numericFieldsErrorText(String value) {
+    if (!_submitted) return null;
+    final errorKey = numericFieldsErrorKey(value);
+
+    if (errorKey == null) return null;
+    return context.getLocalizedErrorText(
+      errorKey: errorKey,
+    );
+  }
+
+  void _commandFieldsEditingComplete(
+    String value,
+    String counterpartValue,
+    String? initialValue,
+    List<String?> usedCommands,
+  ) {
     if (canSubmitCommandFields(
-      onCommand,
-      offCommand,
-      _initialPump?.commandForOn,
-      existingOnCommands,
+      value,
+      counterpartValue,
+      initialValue,
+      usedCommands,
     )) {
       _node.nextFocus();
     }
   }
 
-  void _offCommandEditingComplete(List<String?> existingOffCommands) {
-    if (!canSubmitCommandFields(
-      offCommand,
-      onCommand,
-      _initialPump?.commandForOff,
-      existingOffCommands,
-    )) {
-      _node.previousFocus();
-      return;
-    }
+  String? _commandFieldsErrorText(
+    String value,
+    String counterpartValue,
+    String? initialValue,
+    List<String?> usedCommands,
+  ) {
+    if (!_submitted) return null;
 
-    _submit();
+    final loc = context.loc;
+    final singularFieldName = loc.nPumps(1);
+    final pluralFieldName = loc.nPumps(2);
+
+    final errorKey = commandFieldsErrorKey(
+      value,
+      counterpartValue,
+      initialValue,
+      usedCommands,
+    );
+
+    if (errorKey == null) return null;
+
+    return context.getLocalizedErrorText(
+        errorKey: errorKey,
+        fieldName: singularFieldName,
+        pluralFieldName: pluralFieldName);
   }
 
   @override
@@ -257,12 +285,8 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                       fieldHintText: loc.pumpVolumeCapacityFormHint,
                       fieldController: _volumeCapacityController,
                       textInputAction: TextInputAction.next,
-                      validator: (value) => !_submitted
-                          ? null
-                          : numericFieldsErrorText(
-                              value ?? '',
-                              context,
-                            ),
+                      validator: (value) =>
+                          _numericFieldsErrorText(value ?? ''),
                       onEditingComplete: () =>
                           _numericFieldsEditingComplete(volumeCapacity),
                       keyboardType: numericFieldsKeyboardType,
@@ -275,12 +299,8 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                       fieldHintText: loc.pumpKwFormHint,
                       fieldController: _kwCapacityController,
                       textInputAction: TextInputAction.next,
-                      validator: (value) => !_submitted
-                          ? null
-                          : numericFieldsErrorText(
-                              value ?? '',
-                              context,
-                            ),
+                      validator: (value) =>
+                          _numericFieldsErrorText(value ?? ''),
                       onEditingComplete: () =>
                           _numericFieldsEditingComplete(kwCapacity),
                       keyboardType: numericFieldsKeyboardType,
@@ -295,15 +315,18 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                       textInputAction: TextInputAction.next,
                       validator: (value) => !_submitted
                           ? null
-                          : commandFieldsErrorText(
+                          : _commandFieldsErrorText(
                               value ?? '',
                               offCommand,
                               _initialPump?.commandForOn,
                               usedOnCommands,
-                              context,
                             ),
-                      onEditingComplete: () =>
-                          _onCommandEditingComplete(usedOnCommands),
+                      onEditingComplete: () => _commandFieldsEditingComplete(
+                        onCommand,
+                        offCommand,
+                        _initialPump?.commandForOn,
+                        usedOnCommands,
+                      ),
                       keyboardType: numericFieldsKeyboardType,
                     ),
                     gapH16,
@@ -316,15 +339,18 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                       textInputAction: TextInputAction.done,
                       validator: (value) => !_submitted
                           ? null
-                          : commandFieldsErrorText(
+                          : _commandFieldsErrorText(
                               value ?? '',
                               onCommand,
                               _initialPump?.commandForOff,
                               usedOffCommands,
-                              context,
                             ),
-                      onEditingComplete: () =>
-                          _offCommandEditingComplete(usedOffCommands),
+                      onEditingComplete: () => _commandFieldsEditingComplete(
+                        offCommand,
+                        onCommand,
+                        _initialPump?.commandForOff,
+                        usedOffCommands,
+                      ),
                       keyboardType: numericFieldsKeyboardType,
                     ),
                     gapH16,
