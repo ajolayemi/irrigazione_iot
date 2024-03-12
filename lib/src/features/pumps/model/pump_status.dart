@@ -60,6 +60,5 @@ class PumpStatus extends Equatable {
 }
 
 extension PumpStatusX on PumpStatus {
-  bool translateStatusToBoolean(Pump pump, String status) =>
-      status == pump.commandForOn;
+  bool translatePumpStatusToBoolean(Pump pump) => status == pump.commandForOn;
 }
