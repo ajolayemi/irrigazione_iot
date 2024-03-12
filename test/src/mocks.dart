@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_status_reposit
 import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_pumps_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_status_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/fake_sectors_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/service/dismiss_sector_service.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -24,6 +25,8 @@ class MockSectorStatusRepository extends Mock  implements FakeSectorStatusReposi
 class MockSectorRepository extends Mock implements FakeSectorsRepository{}
 
 class MockSectorPumpRepository extends Mock implements FakeSectorPumpRepository{}
+
+class MockDismissSectorService extends Mock implements DismissSectorService{}
 
 class Listener<T> extends Mock {
   void call(T? previous, T next);
