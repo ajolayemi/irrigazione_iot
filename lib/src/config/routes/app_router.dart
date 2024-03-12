@@ -155,27 +155,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     const NoTransitionPage(child: PumpListScreen()),
                 routes: [
                   GoRoute(
-                      path: 'details/:pumpId',
-                      name: AppRoute.pumpDetails.name,
-                      pageBuilder: (context, state) => MaterialPage(
-                            fullscreenDialog: true,
-                            child: PumpDetailsScreen(
-                              pumpId: state.pathParameters['pumpId'] ?? '',
-                            ),
-                          ),
-                      routes: [
-                        GoRoute(
-                          path: 'edit',
-                          name: AppRoute.updatePump.name,
-                          pageBuilder: (context, state) => MaterialPage(
-                            fullscreenDialog: true,
-                            child: AddUpdatePumpForm(
-                              formType: GenericFormTypes.update,
-                              pumpId: state.pathParameters['pumpId'] ?? '',
-                            ),
-                          ),
-                        ),
-                      ]),
+                    path: 'details/:pumpId',
+                    name: AppRoute.pumpDetails.name,
+                    pageBuilder: (context, state) => MaterialPage(
+                      fullscreenDialog: true,
+                      child: PumpDetailsScreen(
+                        pumpId: state.pathParameters['pumpId'] ?? '',
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -238,6 +226,18 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
 
+      GoRoute(
+        path: '/pump/edit/:pumpId',
+        name: AppRoute.updatePump.name,
+        pageBuilder: (context, state) => MaterialPage(
+          fullscreenDialog: true,
+          child: AddUpdatePumpForm(
+            formType: GenericFormTypes.update,
+            pumpId: state.pathParameters['pumpId'] ?? '',
+          ),
+        ),
+      ),
+
       // Add sector
       GoRoute(
         path: '/add-sector',
@@ -252,7 +252,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 
       // Update sector
       GoRoute(
-        path: '/edit/:sectorId',
+        path: '/sector/edit/:sectorId',
         name: AppRoute.updateSector.name,
         pageBuilder: (context, state) => MaterialPage(
           fullscreenDialog: true,

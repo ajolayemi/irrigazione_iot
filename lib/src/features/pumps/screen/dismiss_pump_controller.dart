@@ -2,12 +2,11 @@ import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'pump_status_tile_wid_controller.g.dart';
-
+part 'dismiss_pump_controller.g.dart';
 
 // todo rename this widget to DismissPumpController
 @riverpod
-class PumpStatusTileWidgetController extends _$PumpStatusTileWidgetController {
+class DismissPumpController extends _$DismissPumpController {
   @override
   FutureOr<void> build() {
     // nothing to do

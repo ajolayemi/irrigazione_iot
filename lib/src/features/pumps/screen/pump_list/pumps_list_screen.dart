@@ -5,10 +5,10 @@ import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/empty_pump_widget.dart';
-import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_tile_wid.dart';
-import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_switch_controller.dart';
-import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_tile_wid_controller.dart';
-import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_tile_widget_skeleton.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_list_tile.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_status_switch_controller.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/dismiss_pump_controller.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_list_tile_skeleton.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
@@ -22,7 +22,7 @@ class PumpListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(
-      pumpStatusTileWidgetControllerProvider,
+      dismissPumpControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
     ref.listen(
@@ -51,8 +51,7 @@ class PumpListScreen extends ConsumerWidget {
             ),
             AsyncValueSliverWidget(
               value: companyPumps,
-              loading: () =>
-                  const PumpStatusTileSkeletonWidget(), // todo replace
+              loading: () => const PumpListTileSkeleton(), // todo replace
               data: (pumps) {
                 if (pumps.isEmpty) {
                   return const EmptyPumpWidget();
@@ -62,16 +61,7 @@ class PumpListScreen extends ConsumerWidget {
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
                       final pump = pumps[index]!;
-                      return PumpStatusTileWidget(
-                        pump: pump,
-                        title: pump.name,
-                        onTap: () => context.goNamed(
-                          AppRoute.pumpDetails.name,
-                          pathParameters: {
-                            'pumpId': pump.id,
-                          },
-                        ),
-                      );
+                      return PumpListTile(pump: pump);
                     },
                     childCount: pumps.length,
                   ),
