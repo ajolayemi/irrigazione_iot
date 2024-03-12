@@ -17,7 +17,7 @@ class FakePumpStatusRepository extends PumpStatusRepository {
     try {
       return statusesForPump
           .firstWhere((status) =>
-              status.translateStatusToBoolean(pump, status.status) == true)
+              status.translatePumpStatusToBoolean(pump) == true)
           .lastUpdated;
     } catch (e) {
       return null;
@@ -37,24 +37,26 @@ class FakePumpStatusRepository extends PumpStatusRepository {
   }
 
   @override
-  Future<PumpStatus?> getPumpStatus(PumpID pumpId) async {
+  Future<bool?> getPumpStatus(Pump pump) async {
     await delay(addDelay);
-    final statusesForPump = _filterPumpStatus(_fakePumpStatus.value, pumpId);
+    final statusesForPump = _filterPumpStatus(_fakePumpStatus.value, pump.id);
     if (statusesForPump.isEmpty) return Future.value(null);
-    return Future.value(_getMostRecentStatus(statusesForPump));
+    final mostRecentStatus = _getMostRecentStatus(statusesForPump);
+    return Future.value(mostRecentStatus.translatePumpStatusToBoolean(pump));
   }
 
   @override
-  Stream<PumpStatus?> watchPumpStatus(PumpID pumpId) {
+  Stream<bool?> watchPumpStatus(Pump pump) {
     return _fakePumpStatus.stream.map((statuses) {
-      final statusesForPump = _filterPumpStatus(statuses, pumpId);
+      final statusesForPump = _filterPumpStatus(statuses, pump.id);
       if (statusesForPump.isEmpty) return null;
-      return _getMostRecentStatus(statusesForPump);
+      final mostRecentStatus = _getMostRecentStatus(statusesForPump);
+      return mostRecentStatus.translatePumpStatusToBoolean(pump);
     });
   }
 
   @override
-  Future<void> togglePumpStatus(PumpID pumpId, String status) async {
+  Future<void> togglePumpStatus(Pump pump, String status) async {
     await delay(addDelay);
     // First get the current statuses data for all pumps
     final pumpStatuses = _fakePumpStatus.value;
@@ -63,7 +65,7 @@ class FakePumpStatusRepository extends PumpStatusRepository {
       PumpStatus(
         status: status,
         lastUpdated: DateTime.now(),
-        pumpId: pumpId,
+        pumpId: pump.id,
       ),
     );
     _fakePumpStatus.value = pumpStatuses;
