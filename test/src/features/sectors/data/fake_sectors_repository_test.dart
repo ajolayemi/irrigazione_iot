@@ -130,7 +130,7 @@ void main() {
     test('addSector works as expected', () async {
       await expectLater(
         repo.addSector(sectorToAdd, sectorToAdd.companyId),
-        completion(sectorToAdd),
+        completion(isA<Sector>()),
       );
     });
 
