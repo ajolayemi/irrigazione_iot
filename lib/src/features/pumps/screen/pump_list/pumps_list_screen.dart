@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/empty_pump_widget.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_tile_wid.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_switch_controller.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_tile_wid_controller.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_tile_widget_skeleton.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
@@ -20,6 +21,10 @@ class PumpListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(
+      pumpStatusTileWidgetControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
     ref.listen(
       pumpStatusSwitchControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
@@ -46,7 +51,8 @@ class PumpListScreen extends ConsumerWidget {
             ),
             AsyncValueSliverWidget(
               value: companyPumps,
-              loading: () => const PumpStatusTileSkeletonWidget(), // todo replace
+              loading: () =>
+                  const PumpStatusTileSkeletonWidget(), // todo replace
               data: (pumps) {
                 if (pumps.isEmpty) {
                   return const EmptyPumpWidget();
