@@ -6,7 +6,6 @@ import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_switch_controller.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_switch.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_tile_wid_controller.dart';
-import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/date_formatter.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
@@ -49,10 +48,6 @@ class PumpStatusTileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // todo - fix the ui issue when an error occurs and the
-    // todo alert dialog doesn't dismiss immediately after first tap
-
-
     final dateFormatter = ref.watch(dateFormatWithTimeProvider);
     final lastDispensationDate =
         ref.watch(lastDispensationStreamProvider(pump.id)).valueOrNull;
