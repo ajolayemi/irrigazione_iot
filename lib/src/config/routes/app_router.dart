@@ -202,20 +202,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                         sectorID: state.pathParameters['sectorId'] ?? '',
                       ),
                     ),
-                    routes: [
-                      // Update sector
-                      GoRoute(
-                        path: 'edit',
-                        name: AppRoute.updateSector.name,
-                        pageBuilder: (context, state) => MaterialPage(
-                          fullscreenDialog: true,
-                          child: AddUpdateSectorForm(
-                            formType: GenericFormTypes.update,
-                            sectorId: state.pathParameters['sectorId'] ?? '',
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
@@ -260,6 +246,19 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           fullscreenDialog: true,
           child: AddUpdateSectorForm(
             formType: GenericFormTypes.add,
+          ),
+        ),
+      ),
+
+      // Update sector
+      GoRoute(
+        path: '/edit/:sectorId',
+        name: AppRoute.updateSector.name,
+        pageBuilder: (context, state) => MaterialPage(
+          fullscreenDialog: true,
+          child: AddUpdateSectorForm(
+            formType: GenericFormTypes.update,
+            sectorId: state.pathParameters['sectorId'] ?? '',
           ),
         ),
       ),
