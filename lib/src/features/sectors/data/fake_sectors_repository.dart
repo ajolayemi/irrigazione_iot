@@ -26,7 +26,7 @@ class FakeSectorsRepository extends SectorsRepository {
     final currentSectors = [..._sectorsState.value];
     currentSectors.add(finalSector);
     _sectorsState.value = currentSectors;
-    return Future.value(sector);
+    return Future.value(finalSector);
   }
 
   @override
