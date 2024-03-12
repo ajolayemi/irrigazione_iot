@@ -29,6 +29,8 @@ class AddUpdateSectorService {
     //create sector
     final createdSector = await sectorRepo.addSector(sector, companyId ?? '');
 
+    
+
     if (createdSector != null && pumpsToConnectToSector.isNotEmpty) {
       // loop over each pump and connect it to the created sector
       for (final pumpId in pumpsToConnectToSector) {
@@ -38,7 +40,8 @@ class AddUpdateSectorService {
         );
         debugPrint(
             'Creating sector pump: ${sectorPump.toJson()} for sector: ${createdSector.name}');
-        await sectorPumpsRepo.addSectorPump(sectorPump);
+        final createdSectorPump = await sectorPumpsRepo.addSectorPump(sectorPump);
+        debugPrint('Created sectorPump: ${createdSectorPump?.toJson()}}');
       }
     }
   }
