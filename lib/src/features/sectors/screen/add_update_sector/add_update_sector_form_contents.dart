@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
@@ -317,223 +318,236 @@ class _AddUpdateSectorFormContentsState
     final isLoading = state.isLoading;
 
     final loc = context.loc;
-    return CustomScrollView(
-      slivers: [
-        AppSliverBar(
-          title:
-              isUpdating ? loc.updateSectorPageTitle : loc.addSectorPageTitle,
-        ),
-        ResponsiveSliverForm(
-          node: _node,
-          formKey: _formKey,
-          children: [
-            // name field
-            FormTitleAndField(
-              enabled: !isLoading,
-              fieldKey: _nameFieldKey,
-              fieldTitle: loc.sectorName,
-              fieldHintText: loc.sectorNameHintText,
-              textInputAction: TextInputAction.next,
-              fieldController: _nameController,
-              onEditingComplete: _nameEditingComplete,
-              validator: (_) => _nameErrorText(usedSectorNames ?? []),
-            ),
-            gapH16,
-            // specie field
-            FormTitleAndField(
-              enabled: !isLoading,
-              fieldKey: _specieFieldKey,
-              fieldTitle: loc.sectorSpecie,
-              fieldHintText: loc.sectorSpecieHintText,
-              canRequestFocus: false,
-              keyboardType: TextInputType.none,
-              onTap: _onTappedSpecie,
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.arrow_drop_down),
-                onPressed: _onTappedSpecie,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: CustomScrollView(
+            slivers: [
+              AppSliverBar(
+                title: isUpdating
+                    ? loc.updateSectorPageTitle
+                    : loc.addSectorPageTitle,
               ),
-              fieldController: _specieController,
-              onEditingComplete: () => _nonEmptyFieldsEditingComplete(specie),
-              validator: (_) => _nonEmptyFieldsErrorText(specie),
-            ),
-            gapH16,
-            // variety field
-            FormTitleAndField(
-              enabled: !isLoading,
-              fieldKey: _varietyFieldKey,
-              fieldTitle: loc.sectorVariety,
-              fieldHintText: loc.sectorVarietyHintText,
-              textInputAction: TextInputAction.next,
-              fieldController: _varietyController,
-              onEditingComplete: () => _nonEmptyFieldsEditingComplete(variety),
-              validator: (_) => _nonEmptyFieldsErrorText(variety),
-            ),
-            gapH16,
-            // occupied area field
-            FormTitleAndField(
-              enabled: !isLoading,
-              fieldKey: _areaFieldKey,
-              fieldTitle: loc.sectorOccupiedArea,
-              fieldHintText: loc.sectorOccupiedAreaHintText,
-              textInputAction: TextInputAction.next,
-              fieldController: _areaController,
-              onEditingComplete: () => _numericFieldsEditingComplete(area),
-              validator: (_) => _numericFieldsErrorText(area),
-              keyboardType: numberFieldKeyboardType,
-            ),
-            gapH16,
-            // number of plants field
-            FormTitleAndField(
-              enabled: !isLoading,
-              fieldKey: _numOfPlantsFieldKey,
-              fieldTitle: loc.sectorNumberOfPlants,
-              fieldHintText: loc.sectorNumberOfPlantsHintText,
-              textInputAction: TextInputAction.next,
-              fieldController: _numOfPlantsController,
-              onEditingComplete: () =>
-                  _numericFieldsEditingComplete(numOfPlants),
-              validator: (_) => _numericFieldsErrorText(numOfPlants),
-              keyboardType: numberFieldKeyboardType,
-            ),
-            gapH16,
-            // unit consumption per hour by plant field
-            FormTitleAndField(
-              enabled: !isLoading,
-              fieldKey: _unitConsumptionFieldKey,
-              fieldTitle: loc.sectorUnitConsumptionPerHour,
-              fieldHintText: loc.sectorUnitConsumptionPerHourHintText,
-              textInputAction: TextInputAction.next,
-              fieldController: _unitConsumptionController,
-              onEditingComplete: () =>
-                  _numericFieldsEditingComplete(unitConsumption),
-              validator: (_) => _numericFieldsErrorText(unitConsumption),
-              keyboardType: numberFieldKeyboardType,
-            ),
-            gapH16,
-
-            // irrigation system field
-            FormTitleAndField(
-              enabled: !isLoading,
-              fieldKey: _irrigationSystemFieldKey,
-              fieldController: _irrigationSystemController,
-              fieldTitle: loc.sectorIrrigationSystem,
-              fieldHintText: loc.sectorIrrigationSystemHintText,
-              canRequestFocus: false,
-              keyboardType: TextInputType.none,
-              onTap: _onTappedIrrigationSystem,
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.arrow_drop_down),
-                onPressed: _onTappedIrrigationSystem,
-              ),
-              onEditingComplete: () =>
-                  _nonEmptyFieldsEditingComplete(irrigationSystem),
-              validator: (_) => _nonEmptyFieldsErrorText(irrigationSystem),
-            ),
-
-            gapH16,
-            // source of irrigation field
-            FormTitleAndField(
-              enabled: !isLoading,
-              fieldKey: _irrigationSourceFieldKey,
-              fieldController: _irrigationSourceController,
-              fieldTitle: loc.sectorIrrigationSource,
-              fieldHintText: loc.sectorIrrigationSourceHintText,
-              canRequestFocus: false,
-              keyboardType: TextInputType.none,
-              onTap: _onTappedIrrigationSource,
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.arrow_drop_down),
-                onPressed: _onTappedIrrigationSource,
-              ),
-              onEditingComplete: () =>
-                  _nonEmptyFieldsEditingComplete(irrigationSource),
-              validator: (_) => _nonEmptyFieldsErrorText(irrigationSource),
-            ),
-            gapH16,
-            // mqtt command to turn on sector field
-            FormTitleAndField(
-                enabled: !isLoading,
-                fieldKey: _turnOnCommandFieldKey,
-                fieldTitle: loc.sectorOnCommand,
-                fieldHintText: loc.sectorOnCommandHintText,
-                textInputAction: TextInputAction.next,
-                keyboardType: numberFieldKeyboardType,
-                fieldController: _turnOnCommandController,
-                onEditingComplete: () => _canSubmitCommandFields(
-                      turnOnCommand,
-                      turnOffCommand,
-                      _initialSector?.turnOnCommand,
-                      usedSectorOnCommands ?? [],
-                    ),
-                validator: (_) => _commandFieldErrorText(
-                    turnOnCommand,
-                    turnOffCommand,
-                    _initialSector?.turnOnCommand,
-                    usedSectorOnCommands ?? [])),
-            gapH16,
-            // mqtt command to turn off sector field
-            FormTitleAndField(
-                enabled: !isLoading,
-                fieldKey: _turnOffCommandFieldKey,
-                fieldTitle: loc.sectorOffCommand,
-                fieldHintText: loc.sectorOffCommandHintText,
-                keyboardType: numberFieldKeyboardType,
-                textInputAction: TextInputAction.next,
-                fieldController: _turnOffCommandController,
-                onEditingComplete: () => _canSubmitCommandFields(
-                      turnOffCommand,
-                      turnOnCommand,
-                      _initialSector?.turnOffCommand,
-                      usedSectorOffCommands ?? [],
-                    ),
-                validator: (_) => _commandFieldErrorText(
-                    turnOffCommand,
-                    turnOnCommand,
-                    _initialSector?.turnOffCommand,
-                    usedSectorOffCommands ?? [])),
-            gapH16,
-            // connected pump field
-            Consumer(
-              builder: (context, ref, child) {
-                final selectedPumps = ref.watch(selectedPumpsIdProvider);
-                return FormTitleAndField(
-                  enabled: !isLoading,
-                  fieldKey: _connectedPumpsFieldKey,
-                  fieldTitle: loc.sectorConnectedPumps,
-                  fieldHintText: loc.nSelectedPumps(selectedPumps.length),
-                  canRequestFocus: false,
-                  keyboardType: TextInputType.none,
-                  onTap: _onTappedConnectedPumps,
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.arrow_drop_down),
-                    onPressed: _onTappedConnectedPumps,
+              ResponsiveSliverForm(
+                node: _node,
+                formKey: _formKey,
+                children: [
+                  // name field
+                  FormTitleAndField(
+                    enabled: !isLoading,
+                    fieldKey: _nameFieldKey,
+                    fieldTitle: loc.sectorName,
+                    fieldHintText: loc.sectorNameHintText,
+                    textInputAction: TextInputAction.next,
+                    fieldController: _nameController,
+                    onEditingComplete: _nameEditingComplete,
+                    validator: (_) => _nameErrorText(usedSectorNames ?? []),
                   ),
-                );
-              },
-            ),
-            gapH16,
-            // notes field
-            FormTitleAndField(
-              enabled: !isLoading,
-              fieldKey: _notesFieldKey,
-              fieldTitle: loc.sectorNotes,
-              textInputAction: TextInputAction.done,
-              maxLines: 3,
-              fieldController: _notesController,
-            ),
-            gapH16,
-            // button to save or update the sector
-            CTAButton(
-              isLoading: isLoading,
-              text: isUpdating
-                  ? loc.genericUpdateButtonLabel
-                  : loc.genericSaveButtonLabel,
-              buttonType: ButtonType.primary,
-              onPressed: _submit,
-            ),
-            gapH32
-          ],
-        )
+                  gapH16,
+                  // specie field
+                  FormTitleAndField(
+                    enabled: !isLoading,
+                    fieldKey: _specieFieldKey,
+                    fieldTitle: loc.sectorSpecie,
+                    fieldHintText: loc.sectorSpecieHintText,
+                    canRequestFocus: false,
+                    keyboardType: TextInputType.none,
+                    onTap: _onTappedSpecie,
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.arrow_drop_down),
+                      onPressed: _onTappedSpecie,
+                    ),
+                    fieldController: _specieController,
+                    onEditingComplete: () =>
+                        _nonEmptyFieldsEditingComplete(specie),
+                    validator: (_) => _nonEmptyFieldsErrorText(specie),
+                  ),
+                  gapH16,
+                  // variety field
+                  FormTitleAndField(
+                    enabled: !isLoading,
+                    fieldKey: _varietyFieldKey,
+                    fieldTitle: loc.sectorVariety,
+                    fieldHintText: loc.sectorVarietyHintText,
+                    textInputAction: TextInputAction.next,
+                    fieldController: _varietyController,
+                    onEditingComplete: () =>
+                        _nonEmptyFieldsEditingComplete(variety),
+                    validator: (_) => _nonEmptyFieldsErrorText(variety),
+                  ),
+                  gapH16,
+                  // occupied area field
+                  FormTitleAndField(
+                    enabled: !isLoading,
+                    fieldKey: _areaFieldKey,
+                    fieldTitle: loc.sectorOccupiedArea,
+                    fieldHintText: loc.sectorOccupiedAreaHintText,
+                    textInputAction: TextInputAction.next,
+                    fieldController: _areaController,
+                    onEditingComplete: () =>
+                        _numericFieldsEditingComplete(area),
+                    validator: (_) => _numericFieldsErrorText(area),
+                    keyboardType: numberFieldKeyboardType,
+                  ),
+                  gapH16,
+                  // number of plants field
+                  FormTitleAndField(
+                    enabled: !isLoading,
+                    fieldKey: _numOfPlantsFieldKey,
+                    fieldTitle: loc.sectorNumberOfPlants,
+                    fieldHintText: loc.sectorNumberOfPlantsHintText,
+                    textInputAction: TextInputAction.next,
+                    fieldController: _numOfPlantsController,
+                    onEditingComplete: () =>
+                        _numericFieldsEditingComplete(numOfPlants),
+                    validator: (_) => _numericFieldsErrorText(numOfPlants),
+                    keyboardType: numberFieldKeyboardType,
+                  ),
+                  gapH16,
+                  // unit consumption per hour by plant field
+                  FormTitleAndField(
+                    enabled: !isLoading,
+                    fieldKey: _unitConsumptionFieldKey,
+                    fieldTitle: loc.sectorUnitConsumptionPerHour,
+                    fieldHintText: loc.sectorUnitConsumptionPerHourHintText,
+                    textInputAction: TextInputAction.next,
+                    fieldController: _unitConsumptionController,
+                    onEditingComplete: () =>
+                        _numericFieldsEditingComplete(unitConsumption),
+                    validator: (_) => _numericFieldsErrorText(unitConsumption),
+                    keyboardType: numberFieldKeyboardType,
+                  ),
+                  gapH16,
+
+                  // irrigation system field
+                  FormTitleAndField(
+                    enabled: !isLoading,
+                    fieldKey: _irrigationSystemFieldKey,
+                    fieldController: _irrigationSystemController,
+                    fieldTitle: loc.sectorIrrigationSystem,
+                    fieldHintText: loc.sectorIrrigationSystemHintText,
+                    canRequestFocus: false,
+                    keyboardType: TextInputType.none,
+                    onTap: _onTappedIrrigationSystem,
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.arrow_drop_down),
+                      onPressed: _onTappedIrrigationSystem,
+                    ),
+                    onEditingComplete: () =>
+                        _nonEmptyFieldsEditingComplete(irrigationSystem),
+                    validator: (_) =>
+                        _nonEmptyFieldsErrorText(irrigationSystem),
+                  ),
+
+                  gapH16,
+                  // source of irrigation field
+                  FormTitleAndField(
+                    enabled: !isLoading,
+                    fieldKey: _irrigationSourceFieldKey,
+                    fieldController: _irrigationSourceController,
+                    fieldTitle: loc.sectorIrrigationSource,
+                    fieldHintText: loc.sectorIrrigationSourceHintText,
+                    canRequestFocus: false,
+                    keyboardType: TextInputType.none,
+                    onTap: _onTappedIrrigationSource,
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.arrow_drop_down),
+                      onPressed: _onTappedIrrigationSource,
+                    ),
+                    onEditingComplete: () =>
+                        _nonEmptyFieldsEditingComplete(irrigationSource),
+                    validator: (_) =>
+                        _nonEmptyFieldsErrorText(irrigationSource),
+                  ),
+                  gapH16,
+                  // mqtt command to turn on sector field
+                  FormTitleAndField(
+                      enabled: !isLoading,
+                      fieldKey: _turnOnCommandFieldKey,
+                      fieldTitle: loc.sectorOnCommand,
+                      fieldHintText: loc.sectorOnCommandHintText,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: numberFieldKeyboardType,
+                      fieldController: _turnOnCommandController,
+                      onEditingComplete: () => _canSubmitCommandFields(
+                            turnOnCommand,
+                            turnOffCommand,
+                            _initialSector?.turnOnCommand,
+                            usedSectorOnCommands ?? [],
+                          ),
+                      validator: (_) => _commandFieldErrorText(
+                          turnOnCommand,
+                          turnOffCommand,
+                          _initialSector?.turnOnCommand,
+                          usedSectorOnCommands ?? [])),
+                  gapH16,
+                  // mqtt command to turn off sector field
+                  FormTitleAndField(
+                      enabled: !isLoading,
+                      fieldKey: _turnOffCommandFieldKey,
+                      fieldTitle: loc.sectorOffCommand,
+                      fieldHintText: loc.sectorOffCommandHintText,
+                      keyboardType: numberFieldKeyboardType,
+                      textInputAction: TextInputAction.next,
+                      fieldController: _turnOffCommandController,
+                      onEditingComplete: () => _canSubmitCommandFields(
+                            turnOffCommand,
+                            turnOnCommand,
+                            _initialSector?.turnOffCommand,
+                            usedSectorOffCommands ?? [],
+                          ),
+                      validator: (_) => _commandFieldErrorText(
+                          turnOffCommand,
+                          turnOnCommand,
+                          _initialSector?.turnOffCommand,
+                          usedSectorOffCommands ?? [])),
+                  gapH16,
+                  // connected pump field
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final selectedPumps = ref.watch(selectedPumpsIdProvider);
+                      return FormTitleAndField(
+                        enabled: !isLoading,
+                        fieldKey: _connectedPumpsFieldKey,
+                        fieldTitle: loc.sectorConnectedPumps,
+                        fieldHintText: loc.nSelectedPumps(selectedPumps.length),
+                        canRequestFocus: false,
+                        keyboardType: TextInputType.none,
+                        onTap: _onTappedConnectedPumps,
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.arrow_drop_down),
+                          onPressed: _onTappedConnectedPumps,
+                        ),
+                      );
+                    },
+                  ),
+                  gapH16,
+                  // notes field
+                  FormTitleAndField(
+                    enabled: !isLoading,
+                    fieldKey: _notesFieldKey,
+                    fieldTitle: loc.sectorNotes,
+                    textInputAction: TextInputAction.done,
+                    maxLines: 3,
+                    fieldController: _notesController,
+                  ),
+                  gapH16,
+                ],
+              )
+            ],
+          ),
+        ),
+        gapH16,
+        // button to save or update the sector
+        SliverCTAButton(
+          isLoading: isLoading,
+          text: isUpdating
+              ? loc.genericUpdateButtonLabel
+              : loc.genericSaveButtonLabel,
+          buttonType: ButtonType.primary,
+          onPressed: _submit,
+        ),
       ],
     );
   }
