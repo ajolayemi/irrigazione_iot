@@ -1,4 +1,3 @@
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
@@ -15,10 +14,6 @@ void main() {
 
   const emptySector = Sector.empty();
 
-
-  late ProviderContainer container;
-  late Listener<AsyncValue<void>> listener;
-
   ProviderContainer makeContainer() {
     return ProviderContainer(
       overrides: [
@@ -28,15 +23,15 @@ void main() {
   }
 
   setUpAll(() {
-    container = makeContainer();
-    listener = Listener<AsyncValue<void>>();
-    addTearDown(container.dispose);
     registerFallbackValue(const AsyncLoading<void>());
     registerFallbackValue(emptySector);
   });
 
   group('DismissSectorController', () {
     test('initial state is AsyncData<void>', () {
+      final container = makeContainer();
+      final listener = Listener<AsyncValue<void>>();
+      addTearDown(container.dispose);
       container.listen(
         dismissSectorControllerProvider,
         listener.call,
@@ -56,6 +51,9 @@ void main() {
     });
 
     test('state during successful dismissal', () async {
+      final container = makeContainer();
+      final listener = Listener<AsyncValue<void>>();
+      addTearDown(container.dispose);
       // setup
       container.listen(dismissSectorControllerProvider, listener.call,
           fireImmediately: true);
@@ -86,6 +84,9 @@ void main() {
     });
 
     test('state during failed dismissal', () async {
+      final container = makeContainer();
+      final listener = Listener<AsyncValue<void>>();
+      addTearDown(container.dispose);
       // setup
       final exception = Exception('Failed to dismiss sector');
       container.listen(
