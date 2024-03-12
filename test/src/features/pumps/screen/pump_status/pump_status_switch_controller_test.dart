@@ -72,7 +72,7 @@ void main() {
 
       when(
         () => pumpStatusRepository.togglePumpStatus(
-            testPump.id, commandToSwitchOn),
+            testPump, commandToSwitchOn),
       ).thenAnswer((_) => Future.value());
 
       // run
@@ -130,7 +130,7 @@ void main() {
 
       when(
         () => pumpStatusRepository.togglePumpStatus(
-            testPump.id, commandToSwitchOn),
+            testPump, commandToSwitchOn),
       ).thenThrow(exception);
 
       // run
