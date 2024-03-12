@@ -33,9 +33,11 @@ class AddUpdatePumpForm extends ConsumerWidget {
         }
       },
       child: Scaffold(
-        body: AddUpdatePumpContents(
-          formType: formType,
-          pumpId: pumpId,
+        body: SafeArea(
+          child: AddUpdatePumpContents(
+            formType: formType,
+            pumpId: pumpId,
+          ),
         ),
       ),
     );
