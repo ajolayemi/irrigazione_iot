@@ -3,11 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
+import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pump_controller.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_pump_form_validators.dart';
+import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/utils/numeric_fields_text_type.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
@@ -163,6 +165,19 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     }
   }
 
+  String? _nameErrorText(List<String?> existingNames) {
+    if (!_submitted) return null;
+    final errorKey = nameErrorKey(name, _initialPump?.name, existingNames);
+
+    if (errorKey == null) return null;
+    final fieldName = context.loc.nPumps(1);
+    return context.getLocalizedErrorText(
+      errorKey: errorKey,
+      fieldName: fieldName,
+      maxFieldLength: AppConstants.maxPumpNameLength,
+    );
+  }
+
   void _numericFieldsEditingComplete(String value) {
     if (canSubmitNumericFields(value)) {
       _node.nextFocus();
@@ -212,9 +227,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     return CustomScrollView(
       slivers: [
         AppSliverBar(
-          title: isUpdating
-              ? loc.updatePumpPageTitle
-              : loc.addNewPumpPageTitle,
+          title: isUpdating ? loc.updatePumpPageTitle : loc.addNewPumpPageTitle,
         ),
         SliverToBoxAdapter(
           child: ResponsiveScrollable(
@@ -232,14 +245,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                       fieldHintText: loc.pumpNameFormHint,
                       fieldController: _nameController,
                       textInputAction: TextInputAction.next,
-                      validator: (name) => !_submitted
-                          ? null
-                          : nameErrorText(
-                              name ?? '',
-                              _initialPump?.name,
-                              usedPumpNames,
-                              context,
-                            ),
+                      validator: (_) => _nameErrorText(usedPumpNames),
                       onEditingComplete: () =>
                           _nameEditingComplete(usedPumpNames),
                     ),
