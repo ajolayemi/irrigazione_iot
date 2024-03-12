@@ -40,7 +40,6 @@ mixin AddPumpFormValidators {
         value.valueIsGreaterThanZero();
   }
 
-
   bool canSubmitCommandFields(
     String value,
     String counterpartValue,
@@ -60,22 +59,18 @@ mixin AddPumpFormValidators {
         value != counterpartValue;
   }
 
-  String? nameErrorText(
+  String? nameErrorKey(
     String name,
     String? initialValue,
     List<String?> usedPumpNames,
-    BuildContext context,
   ) {
     if (name.isEmpty) {
-      return context.loc.emptyFormFieldErrorText;
+      return "emptyFormFieldErrorText";
     } else if (!nameMaxLengthValidator.isValid(name)) {
-      return context.loc.fieldTooLongErrorText(
-        AppConstants.maxPumpNameLength,
-      );
+      return "fieldTooLongErrorText";
     } else if (usedPumpNames.contains(name.toLowerCase()) &&
         name != initialValue) {
-      final fieldName = context.loc.nPumps(1);
-      return context.loc.fieldValueAlreadyInUseErrorText(fieldName);
+      return "fieldValueAlreadyInUseErrorText";
     }
     return null;
   }
@@ -90,7 +85,7 @@ mixin AddPumpFormValidators {
     }
     return null;
   }
-  
+
   String? commandFieldsErrorText(
     String value,
     String counterpartValue,
