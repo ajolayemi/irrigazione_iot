@@ -4,9 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
-import 'package:irrigazione_iot/src/constants/app_sizes.dart';
-import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/empty_pump_widget.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/connect_pumps_to_sector_controller.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
@@ -15,7 +14,6 @@ import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_checkbox_tile.dart';
 
 class ConnectPumpsToSector extends ConsumerWidget {
@@ -23,7 +21,6 @@ class ConnectPumpsToSector extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: handle the case where there are no pumps initially
     final canEdit = ref.watch(companyUserRoleProvider).valueOrNull?.canEdit;
     final availablePumps = ref.watch(companyPumpsStreamProvider);
     final selectedPumpsId = ref.watch(selectedPumpsIdProvider);
@@ -49,10 +46,15 @@ class ConnectPumpsToSector extends ConsumerWidget {
                   AsyncValueSliverWidget(
                     value: availablePumps,
                     data: (pumps) {
+                      if (pumps.isEmpty) {
+                        return const EmptyPumpWidget();
+                      }
+
+                      // it should be save to assume that the pumps are not null here
                       return SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
-                            final pump = pumps[index];
+                            final pump = pumps[index]!;
                             final pumpIsSelected =
                                 selectedPumpsId.contains(pump.id);
                             return ResponsiveCheckboxTile(
@@ -79,15 +81,11 @@ class ConnectPumpsToSector extends ConsumerWidget {
             ),
 
             // Confirm button
-            ResponsiveCenter(
-              maxContentWidth: Breakpoint.tablet,
-              padding: const EdgeInsets.all(Sizes.p16),
-              child: CTAButton(
-                text: 'Confirm',
-                buttonType: ButtonType.primary,
-                onPressed: () =>
-                    Navigator.of(context).pop(selectedPumpsId.length),
-              ),
+            SliverCTAButton(
+              text: 'Confirm',
+              buttonType: ButtonType.primary,
+              onPressed: () =>
+                  Navigator.of(context).pop(selectedPumpsId.length),
             ),
           ],
         ),
