@@ -22,12 +22,12 @@ final pumpRepositoryProvider = Provider<PumpRepository>.internal(
 
 typedef PumpRepositoryRef = ProviderRef<PumpRepository>;
 String _$companyPumpsStreamHash() =>
-    r'f13a14444cfa7d67183b6767bee8cea2adb937b8';
+    r'b8ba96dbec59fa38b8dada085e1e1845331bd9fb';
 
 /// See also [companyPumpsStream].
 @ProviderFor(companyPumpsStream)
 final companyPumpsStreamProvider =
-    AutoDisposeStreamProvider<List<Pump>>.internal(
+    AutoDisposeStreamProvider<List<Pump?>>.internal(
   companyPumpsStream,
   name: r'companyPumpsStreamProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -37,14 +37,14 @@ final companyPumpsStreamProvider =
   allTransitiveDependencies: null,
 );
 
-typedef CompanyPumpsStreamRef = AutoDisposeStreamProviderRef<List<Pump>>;
+typedef CompanyPumpsStreamRef = AutoDisposeStreamProviderRef<List<Pump?>>;
 String _$companyPumpsFutureHash() =>
-    r'0ac3a9f7d22a3ef8cf03a1925c192f73692fc043';
+    r'343be57753ebf4d85b0f3c0ce2174775c5b99948';
 
 /// See also [companyPumpsFuture].
 @ProviderFor(companyPumpsFuture)
 final companyPumpsFutureProvider =
-    AutoDisposeFutureProvider<List<Pump>>.internal(
+    AutoDisposeFutureProvider<List<Pump?>>.internal(
   companyPumpsFuture,
   name: r'companyPumpsFutureProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -54,7 +54,7 @@ final companyPumpsFutureProvider =
   allTransitiveDependencies: null,
 );
 
-typedef CompanyPumpsFutureRef = AutoDisposeFutureProviderRef<List<Pump>>;
+typedef CompanyPumpsFutureRef = AutoDisposeFutureProviderRef<List<Pump?>>;
 String _$pumpStreamHash() => r'36aaea2559de858f6c04a1ae3536212e2fe63889';
 
 /// Copied from Dart SDK
