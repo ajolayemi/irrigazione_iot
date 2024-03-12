@@ -34,17 +34,12 @@ mixin AddPumpFormValidators {
         !usedPumpNames.contains(name.toLowerCase());
   }
 
-  bool canSubmitVolumeCapacityField(String value) {
+  bool canSubmitNumericFields(String value) {
     return nonEmptyValidator.isValid(value) &&
         numericFieldsValidator.isValid(value) &&
         value.valueIsGreaterThanZero();
   }
 
-  bool canSubmitKwCapacityField(String value) {
-    return nonEmptyValidator.isValid(value) &&
-        numericFieldsValidator.isValid(value) &&
-        value.valueIsGreaterThanZero();
-  }
 
   bool canSubmitCommandFields(
     String value,
@@ -85,7 +80,7 @@ mixin AddPumpFormValidators {
     return null;
   }
 
-  String? volumeCapacityFieldErrorText(String value, BuildContext context) {
+  String? numericFieldsErrorText(String value, BuildContext context) {
     if (value.isEmpty) {
       return context.loc.emptyFormFieldErrorText;
     } else if (!numericFieldsValidator.isValid(value)) {
@@ -95,18 +90,7 @@ mixin AddPumpFormValidators {
     }
     return null;
   }
-
-  String? kwCapacityFieldErrorText(String value, BuildContext context) {
-    if (value.isEmpty) {
-      return context.loc.emptyFormFieldErrorText;
-    } else if (!numericFieldsValidator.isValid(value)) {
-      return context.loc.notANumberErrorText;
-    } else if (!value.valueIsGreaterThanZero()) {
-      return context.loc.notGreaterThanZeroErrorText;
-    }
-    return null;
-  }
-
+  
   String? commandFieldsErrorText(
     String value,
     String counterpartValue,

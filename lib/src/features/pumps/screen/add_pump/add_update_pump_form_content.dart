@@ -9,6 +9,7 @@ import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pump_controller.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_pump_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/numeric_fields_text_type.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
@@ -42,9 +43,6 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   final _offCommandController = TextEditingController();
 
   final _node = FocusScopeNode();
-
-  final _numericFieldsKeyboardType =
-      const TextInputType.numberWithOptions(signed: true);
 
   // get methods to access form field values
   String get name => _nameController.text;
@@ -165,14 +163,8 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     }
   }
 
-  void _volumeCapacityEditingComplete() {
-    if (canSubmitVolumeCapacityField(volumeCapacity)) {
-      _node.nextFocus();
-    }
-  }
-
-  void _kwCapacityEditingComplete() {
-    if (canSubmitKwCapacityField(kwCapacity)) {
+  void _numericFieldsEditingComplete(String value) {
+    if (canSubmitNumericFields(value)) {
       _node.nextFocus();
     }
   }
@@ -204,6 +196,8 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
 
   @override
   Widget build(BuildContext context) {
+    final numericFieldsKeyboardType =
+        ref.watch(numericFieldsTextInputTypeProvider);
     final usedPumpNames =
         ref.watch(companyUsedPumpNamesStreamProvider).valueOrNull ?? [];
     final usedOnCommands =
@@ -213,12 +207,14 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     final state = ref.watch(addUpdatePumpControllerProvider);
 
     final isUpdating = widget.formType.isUpdating();
+
+    final loc = context.loc;
     return CustomScrollView(
       slivers: [
         AppSliverBar(
           title: isUpdating
-              ? context.loc.updatePumpPageTitle
-              : context.loc.addNewPumpPageTitle,
+              ? loc.updatePumpPageTitle
+              : loc.addNewPumpPageTitle,
         ),
         SliverToBoxAdapter(
           child: ResponsiveScrollable(
@@ -232,8 +228,8 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                     FormTitleAndField(
                       enabled: !state.isLoading,
                       fieldKey: _nameFieldKey,
-                      fieldTitle: context.loc.pumpNameFormFieldTitle,
-                      fieldHintText: context.loc.pumpNameFormHint,
+                      fieldTitle: loc.pumpNameFormFieldTitle,
+                      fieldHintText: loc.pumpNameFormHint,
                       fieldController: _nameController,
                       textInputAction: TextInputAction.next,
                       validator: (name) => !_submitted
@@ -251,42 +247,44 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                     FormTitleAndField(
                       enabled: !state.isLoading,
                       fieldKey: _volumeCapacityFieldKey,
-                      fieldTitle: context.loc.pumpVolumeCapacityFormFieldTitle,
-                      fieldHintText: context.loc.pumpVolumeCapacityFormHint,
+                      fieldTitle: loc.pumpVolumeCapacityFormFieldTitle,
+                      fieldHintText: loc.pumpVolumeCapacityFormHint,
                       fieldController: _volumeCapacityController,
                       textInputAction: TextInputAction.next,
                       validator: (value) => !_submitted
                           ? null
-                          : volumeCapacityFieldErrorText(
+                          : numericFieldsErrorText(
                               value ?? '',
                               context,
                             ),
-                      onEditingComplete: () => _volumeCapacityEditingComplete(),
-                      keyboardType: _numericFieldsKeyboardType,
+                      onEditingComplete: () =>
+                          _numericFieldsEditingComplete(volumeCapacity),
+                      keyboardType: numericFieldsKeyboardType,
                     ),
                     gapH16,
                     FormTitleAndField(
                       enabled: !state.isLoading,
                       fieldKey: _kwCapacityFieldKey,
-                      fieldTitle: context.loc.pumpKwFormFieldTitle,
-                      fieldHintText: context.loc.pumpKwFormHint,
+                      fieldTitle: loc.pumpKwFormFieldTitle,
+                      fieldHintText: loc.pumpKwFormHint,
                       fieldController: _kwCapacityController,
                       textInputAction: TextInputAction.next,
                       validator: (value) => !_submitted
                           ? null
-                          : kwCapacityFieldErrorText(
+                          : numericFieldsErrorText(
                               value ?? '',
                               context,
                             ),
-                      onEditingComplete: () => _kwCapacityEditingComplete(),
-                      keyboardType: _numericFieldsKeyboardType,
+                      onEditingComplete: () =>
+                          _numericFieldsEditingComplete(kwCapacity),
+                      keyboardType: numericFieldsKeyboardType,
                     ),
                     gapH16,
                     FormTitleAndField(
                       enabled: !state.isLoading,
                       fieldKey: _onCommandFieldKey,
-                      fieldTitle: context.loc.pumpOnCommandFormFieldTitle,
-                      fieldHintText: context.loc.pumpOnCommandFormHint,
+                      fieldTitle: loc.pumpOnCommandFormFieldTitle,
+                      fieldHintText: loc.pumpOnCommandFormHint,
                       fieldController: _onCommandController,
                       textInputAction: TextInputAction.next,
                       validator: (value) => !_submitted
@@ -300,14 +298,14 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                             ),
                       onEditingComplete: () =>
                           _onCommandEditingComplete(usedOnCommands),
-                      keyboardType: _numericFieldsKeyboardType,
+                      keyboardType: numericFieldsKeyboardType,
                     ),
                     gapH16,
                     FormTitleAndField(
                       enabled: !state.isLoading,
                       fieldKey: _offCommandFieldKey,
-                      fieldTitle: context.loc.pumpOffCommandFormFieldTitle,
-                      fieldHintText: context.loc.pumpOffCommandFormHint,
+                      fieldTitle: loc.pumpOffCommandFormFieldTitle,
+                      fieldHintText: loc.pumpOffCommandFormHint,
                       fieldController: _offCommandController,
                       textInputAction: TextInputAction.done,
                       validator: (value) => !_submitted
@@ -321,14 +319,16 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                             ),
                       onEditingComplete: () =>
                           _offCommandEditingComplete(usedOffCommands),
-                      keyboardType: _numericFieldsKeyboardType,
+                      keyboardType: numericFieldsKeyboardType,
                     ),
                     gapH16,
+
+                    // TODO move button
                     CTAButton(
                       isLoading: state.isLoading,
                       text: !isUpdating
-                          ? context.loc.genericSaveButtonLabel
-                          : context.loc.genericUpdateButtonLabel,
+                          ? loc.genericSaveButtonLabel
+                          : loc.genericUpdateButtonLabel,
                       buttonType: ButtonType.primary,
                       onPressed: _submit,
                     ),
