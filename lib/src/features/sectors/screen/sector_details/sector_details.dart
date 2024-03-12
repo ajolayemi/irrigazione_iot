@@ -27,7 +27,7 @@ class SectorDetailsScreen extends ConsumerWidget {
       List<SectorPump?>? connectedPumpsIds) {
     final pumpIds = connectedPumpsIds?.map((pump) => pump?.pumpId).toList();
     ref.read(selectedPumpsIdProvider.notifier).state = pumpIds ?? [];
-    context.goNamed(
+    context.pushNamed(
       AppRoute.updateSector.name,
       pathParameters: {
         'sectorId': sectorID,
