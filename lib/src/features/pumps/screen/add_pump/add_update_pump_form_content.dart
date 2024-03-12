@@ -252,125 +252,134 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     final isUpdating = widget.formType.isUpdating();
 
     final loc = context.loc;
-    return CustomScrollView(
-      slivers: [
-        AppSliverBar(
-          title: isUpdating ? loc.updatePumpPageTitle : loc.addNewPumpPageTitle,
-        ),
-        SliverToBoxAdapter(
-          child: ResponsiveScrollable(
-            child: FocusScope(
-              node: _node,
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    FormTitleAndField(
-                      enabled: !state.isLoading,
-                      fieldKey: _nameFieldKey,
-                      fieldTitle: loc.pumpNameFormFieldTitle,
-                      fieldHintText: loc.pumpNameFormHint,
-                      fieldController: _nameController,
-                      textInputAction: TextInputAction.next,
-                      validator: (_) => _nameErrorText(usedPumpNames),
-                      onEditingComplete: () =>
-                          _nameEditingComplete(usedPumpNames),
-                    ),
-                    gapH16,
-                    FormTitleAndField(
-                      enabled: !state.isLoading,
-                      fieldKey: _volumeCapacityFieldKey,
-                      fieldTitle: loc.pumpVolumeCapacityFormFieldTitle,
-                      fieldHintText: loc.pumpVolumeCapacityFormHint,
-                      fieldController: _volumeCapacityController,
-                      textInputAction: TextInputAction.next,
-                      validator: (value) =>
-                          _numericFieldsErrorText(value ?? ''),
-                      onEditingComplete: () =>
-                          _numericFieldsEditingComplete(volumeCapacity),
-                      keyboardType: numericFieldsKeyboardType,
-                    ),
-                    gapH16,
-                    FormTitleAndField(
-                      enabled: !state.isLoading,
-                      fieldKey: _kwCapacityFieldKey,
-                      fieldTitle: loc.pumpKwFormFieldTitle,
-                      fieldHintText: loc.pumpKwFormHint,
-                      fieldController: _kwCapacityController,
-                      textInputAction: TextInputAction.next,
-                      validator: (value) =>
-                          _numericFieldsErrorText(value ?? ''),
-                      onEditingComplete: () =>
-                          _numericFieldsEditingComplete(kwCapacity),
-                      keyboardType: numericFieldsKeyboardType,
-                    ),
-                    gapH16,
-                    FormTitleAndField(
-                      enabled: !state.isLoading,
-                      fieldKey: _onCommandFieldKey,
-                      fieldTitle: loc.pumpOnCommandFormFieldTitle,
-                      fieldHintText: loc.pumpOnCommandFormHint,
-                      fieldController: _onCommandController,
-                      textInputAction: TextInputAction.next,
-                      validator: (value) => !_submitted
-                          ? null
-                          : _commandFieldsErrorText(
-                              value ?? '',
+    return Column(
+      children: [
+        Expanded(
+          child: CustomScrollView(
+            slivers: [
+              AppSliverBar(
+                title: isUpdating
+                    ? loc.updatePumpPageTitle
+                    : loc.addNewPumpPageTitle,
+              ),
+              SliverToBoxAdapter(
+                child: ResponsiveScrollable(
+                  child: FocusScope(
+                    node: _node,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          FormTitleAndField(
+                            enabled: !state.isLoading,
+                            fieldKey: _nameFieldKey,
+                            fieldTitle: loc.pumpNameFormFieldTitle,
+                            fieldHintText: loc.pumpNameFormHint,
+                            fieldController: _nameController,
+                            textInputAction: TextInputAction.next,
+                            validator: (_) => _nameErrorText(usedPumpNames),
+                            onEditingComplete: () =>
+                                _nameEditingComplete(usedPumpNames),
+                          ),
+                          gapH16,
+                          FormTitleAndField(
+                            enabled: !state.isLoading,
+                            fieldKey: _volumeCapacityFieldKey,
+                            fieldTitle: loc.pumpVolumeCapacityFormFieldTitle,
+                            fieldHintText: loc.pumpVolumeCapacityFormHint,
+                            fieldController: _volumeCapacityController,
+                            textInputAction: TextInputAction.next,
+                            validator: (value) =>
+                                _numericFieldsErrorText(value ?? ''),
+                            onEditingComplete: () =>
+                                _numericFieldsEditingComplete(volumeCapacity),
+                            keyboardType: numericFieldsKeyboardType,
+                          ),
+                          gapH16,
+                          FormTitleAndField(
+                            enabled: !state.isLoading,
+                            fieldKey: _kwCapacityFieldKey,
+                            fieldTitle: loc.pumpKwFormFieldTitle,
+                            fieldHintText: loc.pumpKwFormHint,
+                            fieldController: _kwCapacityController,
+                            textInputAction: TextInputAction.next,
+                            validator: (value) =>
+                                _numericFieldsErrorText(value ?? ''),
+                            onEditingComplete: () =>
+                                _numericFieldsEditingComplete(kwCapacity),
+                            keyboardType: numericFieldsKeyboardType,
+                          ),
+                          gapH16,
+                          FormTitleAndField(
+                            enabled: !state.isLoading,
+                            fieldKey: _onCommandFieldKey,
+                            fieldTitle: loc.pumpOnCommandFormFieldTitle,
+                            fieldHintText: loc.pumpOnCommandFormHint,
+                            fieldController: _onCommandController,
+                            textInputAction: TextInputAction.next,
+                            validator: (value) => !_submitted
+                                ? null
+                                : _commandFieldsErrorText(
+                                    value ?? '',
+                                    offCommand,
+                                    _initialPump?.commandForOn,
+                                    usedOnCommands,
+                                  ),
+                            onEditingComplete: () =>
+                                _commandFieldsEditingComplete(
+                              onCommand,
                               offCommand,
                               _initialPump?.commandForOn,
                               usedOnCommands,
                             ),
-                      onEditingComplete: () => _commandFieldsEditingComplete(
-                        onCommand,
-                        offCommand,
-                        _initialPump?.commandForOn,
-                        usedOnCommands,
-                      ),
-                      keyboardType: numericFieldsKeyboardType,
-                    ),
-                    gapH16,
-                    FormTitleAndField(
-                      enabled: !state.isLoading,
-                      fieldKey: _offCommandFieldKey,
-                      fieldTitle: loc.pumpOffCommandFormFieldTitle,
-                      fieldHintText: loc.pumpOffCommandFormHint,
-                      fieldController: _offCommandController,
-                      textInputAction: TextInputAction.done,
-                      validator: (value) => !_submitted
-                          ? null
-                          : _commandFieldsErrorText(
-                              value ?? '',
+                            keyboardType: numericFieldsKeyboardType,
+                          ),
+                          gapH16,
+                          FormTitleAndField(
+                            enabled: !state.isLoading,
+                            fieldKey: _offCommandFieldKey,
+                            fieldTitle: loc.pumpOffCommandFormFieldTitle,
+                            fieldHintText: loc.pumpOffCommandFormHint,
+                            fieldController: _offCommandController,
+                            textInputAction: TextInputAction.done,
+                            validator: (value) => !_submitted
+                                ? null
+                                : _commandFieldsErrorText(
+                                    value ?? '',
+                                    onCommand,
+                                    _initialPump?.commandForOff,
+                                    usedOffCommands,
+                                  ),
+                            onEditingComplete: () =>
+                                _commandFieldsEditingComplete(
+                              offCommand,
                               onCommand,
                               _initialPump?.commandForOff,
                               usedOffCommands,
                             ),
-                      onEditingComplete: () => _commandFieldsEditingComplete(
-                        offCommand,
-                        onCommand,
-                        _initialPump?.commandForOff,
-                        usedOffCommands,
+                            keyboardType: numericFieldsKeyboardType,
+                          ),
+                          gapH16,
+                        ],
                       ),
-                      keyboardType: numericFieldsKeyboardType,
                     ),
-                    gapH16,
-
-                    // TODO move button
-                    CTAButton(
-                      isLoading: state.isLoading,
-                      text: !isUpdating
-                          ? loc.genericSaveButtonLabel
-                          : loc.genericUpdateButtonLabel,
-                      buttonType: ButtonType.primary,
-                      onPressed: _submit,
-                    ),
-                    gapH32
-                  ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         ),
+        gapH16,
+        SliverCTAButton(
+          isLoading: state.isLoading,
+          text: !isUpdating
+              ? loc.genericSaveButtonLabel
+              : loc.genericUpdateButtonLabel,
+          buttonType: ButtonType.primary,
+          onPressed: _submit,
+        ),
+
       ],
     );
   }
