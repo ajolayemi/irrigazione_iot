@@ -4,7 +4,7 @@ import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_switch_controller.dart';
-import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_switch_widget.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_switch.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_tile_wid_controller.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/date_formatter.dart';
