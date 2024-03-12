@@ -52,14 +52,10 @@ class PumpStatusTileWidget extends ConsumerWidget {
     // todo - fix the ui issue when an error occurs and the
     // todo alert dialog doesn't dismiss immediately after first tap
 
-    ref.listen(
-      pumpStatusTileWidgetControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+
     final dateFormatter = ref.watch(dateFormatWithTimeProvider);
     final lastDispensationDate =
         ref.watch(lastDispensationStreamProvider(pump.id)).valueOrNull;
-    final pumpStatus = ref.watch(pumpStatusStreamProvider(pump.id)).valueOrNull;
 
     final aPumpIsCurrentlyLoading = ref.watch(
         pumpStatusSwitchControllerProvider.select(
@@ -101,9 +97,8 @@ class PumpStatusTileWidget extends ConsumerWidget {
                     : dateFormatter.format(lastDispensationDate),
               ),
             ),
-            trailing: PumpStatusSwitchWidget(
+            trailing: PumpSwitch(
               pump: pump,
-              pumpStatus: pumpStatus,
             ),
           ),
         ),
