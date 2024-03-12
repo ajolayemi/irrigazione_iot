@@ -2,9 +2,9 @@ import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_user_companies.dart';
 
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/domain/company.dart';
+import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
 
-import 'package:irrigazione_iot/src/features/user_companies/domain/user_company.dart';
+import 'package:irrigazione_iot/src/features/user_companies/model/user_company.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 

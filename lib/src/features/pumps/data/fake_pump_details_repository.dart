@@ -1,5 +1,5 @@
 import 'package:irrigazione_iot/src/features/pumps/data/pump_details_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/domain/pump.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 
 
 // todo: this should access fake flow data in the future

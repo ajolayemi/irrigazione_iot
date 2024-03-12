@@ -1,4 +1,4 @@
-import 'package:irrigazione_iot/src/features/pumps/domain/pump_status.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump_status.dart';
 
 List<PumpStatus> _generatePumpStatus() {
   List<PumpStatus> pumpStatusList = [];

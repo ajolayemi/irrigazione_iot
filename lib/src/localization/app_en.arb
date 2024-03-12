@@ -55,6 +55,7 @@
   "collectorPageTitle": "Collectors",
   "pumpPageTitle": "Pumps",
   "meteoPageTitle": "Meteo",
+  "sectorPageTitle": "Sectors",
   "graphsPageTitle": "Graphs",
   "morePageTitle": "More",
   "chooseCompany": "Choose a company",
@@ -84,29 +85,31 @@
   },
   "genericSaveButtonLabel": "Save",
   "genericUpdateButtonLabel": "Update",
-  "pumpOnStatusUpdateAlertDialogContent": "You're about to switch on {pumpName}",
-  "@pumpOnStatusUpdateAlertDialogContent": {
-    "description": "The content of the alert dialog that is displayed when the user wants to switch on the pump",
+  "onStatusUpdateAlertDialogContent": "You're about to switch on {name}",
+  "@onStatusUpdateAlertDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to switch on things like pumps, sectors",
     "placeholders": {
-      "pumpName": {
-        "description": "The name of the pump",
+      "name": {
+        "description": "The name of what's about to be switched on",
         "example": "Pump 1"
       }
     }
   },
-  "pumpOffStatusUpdateAlertDialogContent": "You're about to switch off {pumpName}",
-  "@pumpOffStatusUpdateAlertDialogContent": {
-    "description": "The content of the alert dialog that is displayed when the user wants to switch off the pump",
+  "offStatusUpdateAlertDialogContent": "You're about to switch off {name}",
+  "@offStatusUpdateAlertDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to switch on things like pumps, sectors",
     "placeholders": {
-      "pumpName": {
-        "description": "The name of the pump",
+      "name": {
+        "description": "The name of what's about to be switched off",
         "example": "Pump 1"
       }
     }
   },
-  "pumpOnStatusDialogConfirmButtonTitle": "Switch On",
-  "pumpOffStatusDialogConfirmButtonTitle": "Switch Off",
-  "pumpStatusListTileTitle": "Current status",
+  "onStatusDialogConfirmButtonTitle": "Switch On",
+  "offStatusDialogConfirmButtonTitle": "Switch Off",
+  "statusListTileTitle": "Current Status",
+  "onStatusValue": "On",
+  "offStatusValue": "Off",
   "noCompanyFoundForUser": "Hello {username}!\nThere is no company associated with your account in our database",
   "@noCompanyFoundForUser": {
     "description": "The message that is displayed when the user doesn't have a company associated with their account",
@@ -122,21 +125,6 @@
   "updatePumpPageTitle": "Update Pump",
   "pumpNameFormFieldTitle": "Name",
   "pumpNameFormHint": "eg: Pompa Giardino",
-  "pumpNameEmptyErrorText": "Pump name can't be empty",
-  "pumpNameTooLongErrorText": "Pump name is too long, it has to be a maximum of {maxPumpNameLength} characters",
-  "@pumpNameTooLongErrorText": {
-    "description": "The error message that is displayed when the pump name is too long",
-    "placeholders": {
-      "maxPumpNameLength": {
-        "description": "The maximum length of the pump name",
-        "example": "3",
-        "type": "int"
-      }
-    }
-  },
-  "pumpGenericEmptyFormFieldErrorText": "Field can't be empty",
-  "pumpGenericNotANumberErrorText": "Field has to be a number",
-  "pumpGenericNotGreaterThanZeroErrorText": "Field has to be greater than 0",
   "pumpVolumeCapacityFormFieldTitle": "Volume Capacity",
   "pumpVolumeCapacityFormHint": "eg: 1000",
   "pumpKwFormFieldTitle": "Consumption (kW)",
@@ -145,22 +133,217 @@
   "pumpOnCommandFormHint": "eg: 1",
   "pumpOffCommandFormFieldTitle": "Off Command",
   "pumpOffCommandFormHint": "eg: 2",
-  "pumpNameAlreadyInUseErrorText": "Pump name is already in use",
-  "pumpCommandAlreadyInUseErrorText": "This command value is already in use for another pump",
-  "pumpDuplicateCommandsInFormErrorText": "You can't use the same command to switch on and switch off pump",
-  "pumpFormGenericSaveDialogTitle": "Do you want to save the data?",
-  "pumpFormGenericSaveDialogContent": "You're about to save the data for the pump in the database",
-  "pumpFormGenericUpdateDialogTitle": "Do you want to update the data?",
-  "pumpFormGenericUpdateDialogContent": "You're about to update the data for the pump in the database",
-  "notAvailable": "Not available",
-  "deletePumpConfirmationDialogTitle": "Clicking on delete will remove all data related to {pumpName} from database",
-  "@deletePumpConfirmationDialogTitle": {
-    "description": "The title of the delete pump confirmation dialog",
+  "formGenericSaveDialogTitle": "Do you want to save the data?",
+  "formGenericSaveDialogContent": "You're about to save the data for {fieldName} in the database",
+  "@formGenericSaveDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to save data",
     "placeholders": {
-      "pumpName": {
-        "description": "The name of the pump",
+      "fieldName": {
+        "description": "The name of the field",
+        "example": "pump"
+      }
+    }
+  },
+  "formGenericUpdateDialogTitle": "Do you want to update the data?",
+  "formGenericUpdateDialogContent": "You're about to update the data for {fieldName} in the database",
+  "notAvailable": "Not available",
+  "deleteConfirmationDialogTitle": "Clicking on delete will remove all data related to {name} from database",
+  "@deleteConfirmationDialogTitle": {
+    "description": "The title of the delete confirmation dialog",
+    "placeholders": {
+      "name": {
+        "description": "The name of the item that is being deleted",
         "example": "Pump 1"
       }
     }
-  }
+  },
+  "sectorLastIrrigation": "Last irrigation: {when}",
+  "@sectorLastIrrigation": {
+    "description": "The last time a sector was irrigated",
+    "placeholders": {
+      "when": {
+        "type": "String",
+        "example": "Feb 20, 2020 10:00"
+      }
+    }
+  },
+  "sectorName": "Name",
+  "sectorNameHintText": "eg: ME8",
+  "sectorSpecie": "Specie",
+  "sectorSpecieHintText": "eg: Arancia",
+  "sectorVariety": "Variety",
+  "sectorVarietyHintText": "eg: Sanguinello",
+  "sectorOccupiedArea": "Occupied Area",
+  "sectorOccupiedAreaHintText": "eg: 100",
+  "sectorNumberOfPlants": "Number of Plants",
+  "sectorNumberOfPlantsHintText": "eg: 100",
+  "sectorUnitConsumptionPerHour": "Consumption per Plant (l/h)",
+  "sectorUnitConsumptionPerHourHintText": "eg: 1",
+  "sectorTotalConsumption": "Total Consumption (l/h)",
+  "sectorIrrigationSystem": "Irrigation System",
+  "sectorIrrigationSystemHintText": "eg: A Goccia",
+  "sectorIrrigationSource": "Irrigation Source",
+  "sectorIrrigationSourceHintText": "eg: Pozzo",
+  "sectorOnCommand": "On Command",
+  "sectorOnCommandHintText": "eg: 1",
+  "sectorOffCommand": "Off Command",
+  "sectorOffCommandHintText": "eg: 2",
+  "sectorNotes": "Notes",
+  "sectorConnectedPumps": "Connected Pumps",
+  "sectorLastIrrigationEmpty": "Never irrigated",
+  "sectorLastIrrigationForTile": "Last irrigated",
+  "addSectorPageTitle": "New Sector",
+  "updateSectorPageTitle": "Update Sector",
+  "selectASpecie": "Select a specie",
+  "selectAnIrrigationSystem": "Select an irrigation system",
+  "selectAnIrrigationSource": "Select an irrigation source",
+  "fieldTooLongErrorText": "Field value is too long, it has to be a maximum of {max} characters",
+  "@fieldTooLongErrorText": {
+    "description": "The error message that is displayed when a form field value is too long",
+    "placeholders": {
+      "max": {
+        "description": "The maximum length for the form field",
+        "example": "3",
+        "type": "int"
+      }
+    }
+  },
+  "emptyFormFieldErrorText": "Field can't be empty",
+  "notANumberErrorText": "Field has to be a number",
+  "notGreaterThanZeroErrorText": "Field has to be greater than 0",
+  "commandAlreadyInUseErrorText": "This command value is already in use for another {fieldName}",
+  "@commandAlreadyInUseErrorText": {
+    "description": "The error message that is displayed when a form field command value is already in use",
+    "placeholders": {
+      "fieldName": {
+        "description": "The name of the field",
+        "example": "pump"
+      }
+    }
+  },
+  "duplicateCommandsInFormErrorText": "You can't use the same command to switch on and switch off {fieldName}",
+  "@duplicateCommandsInFormErrorText": {
+    "description": "The error message that is displayed when the user tries to use the same command to switch on and switch off a pump",
+    "placeholders": {
+      "fieldName": {
+        "description": "The name of the field",
+        "example": "pump",
+        "type": "String"
+      }
+    }
+  },
+  "fieldValueAlreadyInUseErrorText": "This value is already in use for another {fieldName}",
+  "@fieldValueAlreadyInUseErrorText": {
+    "description": "The error message that is displayed when a form field value is already in use",
+    "placeholders": {
+      "fieldName": {
+        "description": "The name of the field",
+        "example": "pump",
+        "type": "String"
+      }
+    }
+  },
+  "nPumps": "{n, plural, =1{pump} =2{pumps} other {pumps}}",
+  "@nPumps": {
+    "description": "The pluralized version of the word 'pump'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nPumpsWithIndefiniteArticle": "{n, plural, =1{a pump} =2{pumps} other {pumps}}",
+  "@nPumpsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'pump' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nPumpsWithDefiniteArticle": "{n, plural, =1{the pump} =2{pumps} other {pumps}}",
+  "@nPumpsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'pump' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nPumpsWithArticulatedPreposition": "{n, plural, =1{the pump} =2{the pumps} other {the pumps}}",
+  "@nPumpsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'pump' with an articulated preposition",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSectors": "{n, plural, =1{sector} =2{sectors} other {sectors}}",
+  "@nSectors": {
+    "description": "The pluralized version of the word 'sector'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSectorsWithIndefiniteArticle": "{n, plural, =1{a sector} =2{sectors} other {sectors}}",
+  "@nSectorsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'sector' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSectorsWithDefiniteArticle": "{n, plural, =1{the sector} =2{sectors} other {sectors}}",
+  "@nSectorsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'sector' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSectorsWithArticulatedPreposition": "{n, plural, =1{the sector} =2{the sectors} other {the sectors}}",
+  "@nSectorsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'sector' with an articulated preposition",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "emptyDataPlaceholder": "No {name} was found in the database",
+  "@emptyDataPlaceholder": {
+    "description": "The placeholder text that is displayed when there is no data in the database",
+    "placeholders": {
+      "name": {
+        "description": "The name of the data",
+        "example": "pumps"
+      }
+    }
+  },
+  "addNewButtonLabel": "Add New",
+  "nSelectedPumps": "{n, plural, =0{0 pumps selected} =1{1 pump selected} other{{n} pumps selected}}",
+  "nConnectedPumps": "{n, plural, =0{0 pumps connected} =1{1 pump connected} other{{n} pumps connected}}",
+  "connectPumpsToSectorPageTile": "Select Pump",
+  "noPumpConnectedToSectorErrorText": "You have to connect at least one pump to this sector"
 }

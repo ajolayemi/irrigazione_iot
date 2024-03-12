@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 /// Custom text button with a fixed height
 class CustomTextButton extends StatelessWidget {
@@ -22,7 +23,11 @@ class CustomTextButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: style,
+          style: style ?? TextStyle(
+            decoration: TextDecoration.underline,
+            decorationColor: context.theme.primaryColor,
+            decorationThickness: 2.0,
+          ),
           textAlign: TextAlign.center,
         ),
       ),

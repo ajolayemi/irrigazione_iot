@@ -1,5 +1,5 @@
 import 'package:irrigazione_iot/src/features/authentication/data/fake_auth_repository.dart';
-import 'package:irrigazione_iot/src/features/authentication/domain/app_user.dart';
+import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_repository.g.dart';
