@@ -28,13 +28,13 @@ void main() {
   group('FakePumpRepository', () {
     test('getCompanyPumps for company with id 1 = success', () {
       final pumpRepository = makePumpRepository();
-      expect(pumpRepository.getCompanyPumps('1'), isA<Future<List<Pump>>>());
+      expect(pumpRepository.getCompanyPumps('1'), isA<Future<List<Pump?>>>());
       expect(pumpRepository.getCompanyPumps('1'), completion(expectedResults));
     });
 
     test('watchCompanyPumps with id 1 = success', () {
       final pumpRepository = makePumpRepository();
-      expect(pumpRepository.watchCompanyPumps('1'), isA<Stream<List<Pump>>>());
+      expect(pumpRepository.watchCompanyPumps('1'), isA<Stream<List<Pump?>>>());
       expect(pumpRepository.watchCompanyPumps('1'), emits(expectedResults));
     });
 

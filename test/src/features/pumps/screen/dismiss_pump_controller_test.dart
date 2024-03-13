@@ -2,10 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_pumps.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/screen/pump_status/pump_status_tile_wid_controller.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/dismiss_pump_controller.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../mocks.dart';
+import '../../../mocks.dart';
 
 void main() {
   final pumpIdForTest = kFakePumps[0].id;
@@ -24,7 +24,7 @@ void main() {
     registerFallbackValue(const AsyncLoading<void>());
   });
 
-  group('PumpStatusTileWidgetController', () {
+  group('DismissPumpController', () {
     test('initial state is AsyncData', () {
       // setup
       final container = makeProviderContainer();
@@ -32,7 +32,7 @@ void main() {
       final listener = Listener<AsyncValue<void>>();
 
       container.listen(
-        pumpStatusTileWidgetControllerProvider,
+        dismissPumpControllerProvider,
         listener.call,
         fireImmediately: true,
       );
@@ -47,7 +47,7 @@ void main() {
       final container = makeProviderContainer();
 
       final controller =
-          container.read(pumpStatusTileWidgetControllerProvider.notifier);
+          container.read(dismissPumpControllerProvider.notifier);
 
       // stub repository method called by this controller
       when(() => pumpRepository.deletePump(pumpIdForTest)).thenAnswer(
@@ -59,7 +59,7 @@ void main() {
       final listener = Listener<AsyncValue<void>>();
 
       container.listen(
-        pumpStatusTileWidgetControllerProvider,
+        dismissPumpControllerProvider,
         listener.call,
         fireImmediately: true,
       );
@@ -89,7 +89,7 @@ void main() {
 
       final exception = Exception('Error occurred!!!');
       final controller = container.read(
-        pumpStatusTileWidgetControllerProvider.notifier,
+        dismissPumpControllerProvider.notifier,
       );
 
       // stub repository method called by this controller
@@ -98,7 +98,7 @@ void main() {
       final listener = Listener<AsyncValue<void>>();
 
       container.listen(
-        pumpStatusTileWidgetControllerProvider,
+        dismissPumpControllerProvider,
         listener.call,
         fireImmediately: true,
       );

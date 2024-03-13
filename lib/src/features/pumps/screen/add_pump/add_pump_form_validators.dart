@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/utils/string_validators.dart';
@@ -34,13 +33,7 @@ mixin AddPumpFormValidators {
         !usedPumpNames.contains(name.toLowerCase());
   }
 
-  bool canSubmitVolumeCapacityField(String value) {
-    return nonEmptyValidator.isValid(value) &&
-        numericFieldsValidator.isValid(value) &&
-        value.valueIsGreaterThanZero();
-  }
-
-  bool canSubmitKwCapacityField(String value) {
+  bool canSubmitNumericFields(String value) {
     return nonEmptyValidator.isValid(value) &&
         numericFieldsValidator.isValid(value) &&
         value.valueIsGreaterThanZero();
@@ -65,65 +58,48 @@ mixin AddPumpFormValidators {
         value != counterpartValue;
   }
 
-  String? nameErrorText(
+  String? nameErrorKey(
     String name,
     String? initialValue,
     List<String?> usedPumpNames,
-    BuildContext context,
   ) {
     if (name.isEmpty) {
-      return context.loc.emptyFormFieldErrorText;
+      return "emptyFormFieldErrorText";
     } else if (!nameMaxLengthValidator.isValid(name)) {
-      return context.loc.fieldTooLongErrorText(
-        AppConstants.maxPumpNameLength,
-      );
+      return "fieldTooLongErrorText";
     } else if (usedPumpNames.contains(name.toLowerCase()) &&
         name != initialValue) {
-      final fieldName = context.loc.nPumps(1);
-      return context.loc.fieldValueAlreadyInUseErrorText(fieldName);
+      return "fieldValueAlreadyInUseErrorText";
     }
     return null;
   }
 
-  String? volumeCapacityFieldErrorText(String value, BuildContext context) {
+  String? numericFieldsErrorKey(String value) {
     if (value.isEmpty) {
-      return context.loc.emptyFormFieldErrorText;
+      return "emptyFormFieldErrorText";
     } else if (!numericFieldsValidator.isValid(value)) {
-      return context.loc.notANumberErrorText;
+      return "notANumberErrorText";
     } else if (!value.valueIsGreaterThanZero()) {
-      return context.loc.notGreaterThanZeroErrorText;
+      return "notGreaterThanZeroErrorText";
     }
     return null;
   }
 
-  String? kwCapacityFieldErrorText(String value, BuildContext context) {
-    if (value.isEmpty) {
-      return context.loc.emptyFormFieldErrorText;
-    } else if (!numericFieldsValidator.isValid(value)) {
-      return context.loc.notANumberErrorText;
-    } else if (!value.valueIsGreaterThanZero()) {
-      return context.loc.notGreaterThanZeroErrorText;
-    }
-    return null;
-  }
-
-  String? commandFieldsErrorText(
+  String? commandFieldsErrorKey(
     String value,
     String counterpartValue,
     String? initialValue,
     List<String?> usedCommands,
-    BuildContext context,
   ) {
     if (value.isEmpty) {
-      return context.loc.emptyFormFieldErrorText;
+      return "emptyFormFieldErrorText";
     } else if (!numericFieldsValidator.isValid(value)) {
-      return context.loc.notANumberErrorText;
+      return "notANumberErrorText";
     } else if (usedCommands.contains(value) && value != initialValue) {
-      final fieldName = context.loc.nPumps(1);
-      return context.loc.commandAlreadyInUseErrorText(fieldName);
+
+      return "commandAlreadyInUseErrorText";
     } else if (value == counterpartValue) {
-      final fieldName = context.loc.nPumps(2);
-      return context.loc.duplicateCommandsInFormErrorText(fieldName);
+      return "duplicateCommandsInFormErrorText";
     }
     return null;
   }

@@ -8,9 +8,9 @@ part 'pump_repository.g.dart';
 
 abstract class PumpRepository {
   // watch the pumps pertaining to a company
-  Stream<List<Pump>> watchCompanyPumps(CompanyID companyId);
+  Stream<List<Pump?>> watchCompanyPumps(CompanyID companyId);
   // get the pumps pertaining to a company
-  Future<List<Pump>> getCompanyPumps(CompanyID companyId);
+  Future<List<Pump?>> getCompanyPumps(CompanyID companyId);
   // watches a specified pump with the given pumpId
   Stream<Pump?> watchPump(PumpID pumpId);
   // gets a specified pump with the given pumpId
@@ -39,19 +39,18 @@ PumpRepository pumpRepository(PumpRepositoryRef ref) {
 }
 
 @riverpod
-Stream<List<Pump>> companyPumpsStream(
+Stream<List<Pump?>> companyPumpsStream(
   CompanyPumpsStreamRef ref,
 ) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return const Stream.empty();
-
   return pumpRepository.watchCompanyPumps(currentSelectedCompanyByUser.id);
 }
 
 @riverpod
-Future<List<Pump>> companyPumpsFuture(CompanyPumpsFutureRef ref) {
+Future<List<Pump?>> companyPumpsFuture(CompanyPumpsFutureRef ref) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.watch(currentTappedCompanyProvider).value;
@@ -77,7 +76,6 @@ Future<Pump?> pumpFuture(
   return pumpRepository.getPump(pumpId);
 }
 
-
 @riverpod
 Stream<List<String?>> companyUsedPumpNamesStream(
   CompanyUsedPumpNamesStreamRef ref,
@@ -87,7 +85,8 @@ Stream<List<String?>> companyUsedPumpNamesStream(
       ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return const Stream.empty();
 
-  return pumpRepository.watchCompanyUsedPumpNames(currentSelectedCompanyByUser.id);
+  return pumpRepository
+      .watchCompanyUsedPumpNames(currentSelectedCompanyByUser.id);
 }
 
 @riverpod
@@ -99,7 +98,8 @@ Stream<List<String?>> companyUsedPumpOnCommandsStream(
       ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return const Stream.empty();
 
-  return pumpRepository.watchCompanyUsedPumpOnCommands(currentSelectedCompanyByUser.id);
+  return pumpRepository
+      .watchCompanyUsedPumpOnCommands(currentSelectedCompanyByUser.id);
 }
 
 @riverpod
@@ -111,5 +111,6 @@ Stream<List<String?>> companyUsedPumpOffCommandsStream(
       ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return const Stream.empty();
 
-  return pumpRepository.watchCompanyUsedPumpOffCommands(currentSelectedCompanyByUser.id);
+  return pumpRepository
+      .watchCompanyUsedPumpOffCommands(currentSelectedCompanyByUser.id);
 }

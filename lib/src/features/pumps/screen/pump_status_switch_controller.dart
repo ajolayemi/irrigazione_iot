@@ -26,7 +26,7 @@ class PumpStatusSwitchController extends _$PumpStatusSwitchController {
     final statusCommand = pump.getStatusCommand(status);
     final pumpStatusRepository = ref.read(pumpStatusRepositoryProvider);
     final value = await AsyncValue.guard(
-        () => pumpStatusRepository.togglePumpStatus(pump.id, statusCommand));
+        () => pumpStatusRepository.togglePumpStatus(pump, statusCommand));
     if (value.hasError) {
       state = AsyncError(value.error!, StackTrace.current);
     } else {
