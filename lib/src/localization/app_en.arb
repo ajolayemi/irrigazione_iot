@@ -348,5 +348,49 @@
   "noPumpConnectedToSectorErrorText": "You have to connect at least one pump to this sector",
   "pumpLastDispensationForTile": "Was last switched on",
   "pumpLastDispensationEmpty": "Never switched on",
-  "pumpTotalDispensedLitres": "Total litres dispensed"
+  "pumpTotalDispensedLitres": "Total litres dispensed",
+  "nCollectors": "{n, plural, =1{collector} =2{collectors} other{collectors}}",
+  "@nCollectors": {
+    "description": "The pluralized version of the word 'collector'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nCollectorsWithIndefiniteArticle": "{n, plural, =1{a collector} =2{collectors} other{collectors}}",
+  "@nCollectorsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'collector' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nCollectorsWithDefiniteArticle": "{n, plural, =1{the collector} =2{collectors} other{collectors}}",
+  "@nCollectorsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'collector' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nCollectorsWithArticulatedPreposition": "{n, plural, =1{the collector} =2{the collectors} other{the collectors}}",
+  "@nCollectorsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'collector' with an articulated preposition",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  }
 }

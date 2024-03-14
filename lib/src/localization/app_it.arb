@@ -117,5 +117,9 @@
   "noPumpConnectedToSectorErrorText": "Devi collegare almeno una pompa a questo settore",
   "pumpLastDispensationForTile": "Ultima Erogazione",
   "pumpLastDispensationEmpty": "Mai accesa",
-  "pumpTotalDispensedLitres": "Litri erogati nel tempo"
+  "pumpTotalDispensedLitres": "Litri erogati nel tempo",
+  "nCollectors": "{n, plural, =1{collettore} =2{collettori} other{collettori}}",
+  "nCollectorsWithIndefiniteArticle": "{n, plural, =1{un collettore} =2{dei collettori} other{dei collettori}}",
+  "nCollectorsWithDefiniteArticle": "{n, plural, =1{il collettore} =2{i collettori} other{i collettori}}",
+  "nCollectorsWithArticulatedPreposition": "{n, plural, =1{al collettore} =2{ai collettori} other {ai collettori}}"
 }
