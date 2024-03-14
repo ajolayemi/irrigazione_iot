@@ -141,7 +141,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 name: AppRoute.collector.name,
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: CollectorListScreen(),
-                ), // TODO: replace with collector page
+                ), 
               ),
             ],
           ),
