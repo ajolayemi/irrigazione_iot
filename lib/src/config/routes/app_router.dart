@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_screen.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/collector_details/collector_details.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_list_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/screen/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/screen/home_nested_navigator.dart';
@@ -141,7 +142,19 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 name: AppRoute.collector.name,
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: CollectorListScreen(),
-                ), 
+                ),
+                routes: [
+                  GoRoute(
+                    path: 'details/:collectorId',
+                    name: AppRoute.collectorDetails.name,
+                    pageBuilder: (context, state) => MaterialPage(
+                      fullscreenDialog: true,
+                      child: CollectorDetailsScreen(
+                        collectorId: state.pathParameters['collectorId'] ?? '',
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
