@@ -24,7 +24,7 @@ final collectorSectorRepositoryProvider =
 
 typedef CollectorSectorRepositoryRef = ProviderRef<CollectorSectorRepository>;
 String _$collectorSectorsStreamHash() =>
-    r'409fc0e1fbcf30da129ef37b206860db6bc8b7d4';
+    r'ab615643783ec109cef170feb54a93e68739f5ac';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -181,7 +181,7 @@ class _CollectorSectorsStreamProviderElement
 }
 
 String _$collectorSectorsFutureHash() =>
-    r'b0db6c63c47df0604e5acdee1be8f14d2d7e74ca';
+    r'7f799b041538d6f09f680c1c3afd1388201876b6';
 
 /// See also [collectorSectorsFuture].
 @ProviderFor(collectorSectorsFuture)
