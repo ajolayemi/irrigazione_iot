@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:irrigazione_iot/src/widgets/sliver_skeleton_tile.dart';
+import 'package:irrigazione_iot/src/widgets/common_skeleton_tile.dart';
 
 class PumpListTileSkeleton extends StatelessWidget {
   const PumpListTileSkeleton({super.key});
@@ -9,7 +9,7 @@ class PumpListTileSkeleton extends StatelessWidget {
     return SliverList(
         delegate: SliverChildBuilderDelegate(
       (context, index) {
-        return const CustomSkeletonTile(
+        return const CommonSkeletonTile(
           hasLeading: false,
         );
       },

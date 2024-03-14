@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:irrigazione_iot/src/widgets/sliver_skeleton_tile.dart';
+import 'package:irrigazione_iot/src/widgets/common_skeleton_tile.dart';
 
 // todo check if the skeleton can be refactored to be used in other places
 class SectorsListTileSkeleton extends StatelessWidget {
@@ -10,7 +10,7 @@ class SectorsListTileSkeleton extends StatelessWidget {
     return SliverList(
         delegate: SliverChildBuilderDelegate(
       (context, index) {
-        return const CustomSkeletonTile(
+        return const CommonSkeletonTile(
           hasLeading: false,
         );
       },
@@ -27,7 +27,7 @@ class SectorsListTileSkeletonNonSliver extends StatelessWidget {
     return ListView.builder(
       itemCount: 6,
       itemBuilder: (context, index) {
-        return const CustomSkeletonTile(
+        return const CommonSkeletonTile(
           hasLeading: false,
         );
       },
