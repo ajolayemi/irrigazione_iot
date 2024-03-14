@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_screen.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_form.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_details/collector_details.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_list_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/screen/dashboard_screen.dart';
@@ -326,6 +327,31 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           fullscreenDialog: true,
           child: SectorConnectedPumpsList(
               sectorId: state.pathParameters['sectorId'] ?? ''),
+        ),
+      ),
+
+      // Page to display form for adding a new collector
+      GoRoute(
+        path: '/add-collector',
+        name: AppRoute.addCollector.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: AddUpdateCollectorForm(
+            formType: GenericFormTypes.add,
+          ),
+        ),
+      ),
+
+      // Page to display form for updating a collector
+      GoRoute(
+        path: '/collector/edit/:collectorId',
+        name: AppRoute.updateCollector.name,
+        pageBuilder: (context, state) => MaterialPage(
+          fullscreenDialog: true,
+          child: AddUpdateCollectorForm(
+            formType: GenericFormTypes.update,
+            collectorId: state.pathParameters['collectorId'] ?? '',
+          ),
         ),
       ),
     ],
