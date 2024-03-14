@@ -16,6 +16,12 @@ class Collector extends Equatable {
     required this.filterName,
   });
 
+  const Collector.empty()
+      : id = '',
+        name = '',
+        companyId = '',
+        filterName = '';
+
   // A unique identifier for this collector
   final CollectorID id;
   //
