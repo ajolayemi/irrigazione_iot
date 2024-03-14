@@ -36,7 +36,7 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
 
   @override
   Future<CollectorSector?> addCollectorSector(
-      CollectorSector collectorSector) async {
+      {required CollectorSector collectorSector}) async {
     await delay(addDelay);
     final currentCollectorSectors = [...value];
     currentCollectorSectors.add(collectorSector);
@@ -45,8 +45,10 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
   }
 
   @override
-  Future<bool> deleteCollectorSector(
-      String collectorId, String sectorId) async {
+  Future<bool> deleteCollectorSector({
+    required String collectorId,
+    required String sectorId,
+  }) async {
     await delay(addDelay);
     final currentCollectorSectors = [...value];
     final collectorSectorIndex = currentCollectorSectors.indexWhere(
@@ -63,12 +65,14 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
   }
 
   @override
-  Future<List<CollectorSector?>> getCollectorSectors(String collectorId) {
+  Future<List<CollectorSector?>> getCollectorSectors(
+      {required String collectorId}) {
     return Future.value(_getCollectorSectors(value, collectorId));
   }
 
   @override
-  Stream<List<CollectorSector?>> watchCollectorSectors(String collectorId) {
+  Stream<List<CollectorSector?>> watchCollectorSectors(
+      {required String collectorId}) {
     return stream.map(
       (collectorSectors) => _getCollectorSectors(collectorSectors, collectorId),
     );
