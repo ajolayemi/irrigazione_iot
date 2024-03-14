@@ -64,21 +64,34 @@ class SectorListTile extends ConsumerWidget {
                 ),
         child: CustomDismissibleWidget(
           dismissibleKey: sectorListTileKey(sector),
-          isDeleting: isDeleting, 
+          isDeleting: isDeleting,
           confirmDismiss: (_) async => await _dismissSector(context, ref),
-          child: ListTile(
-            title: Text(sector.name),
-            subtitleTextStyle: context.textTheme.titleSmall?.copyWith(
-              color: Colors.grey,
-            ),
-            isThreeLine: true,
-            subtitle: SectorListTileSubtitle(sector: sector),
-            trailing: SectorSwitch(
-              sector: sector,
-            ),
-          ),
+          child: SectorListTileItem(sector: sector),
         ),
       ),
     );
+  }
+}
+
+class SectorListTileItem extends StatelessWidget {
+  const SectorListTileItem({
+    super.key,
+    required this.sector,
+  });
+
+  final Sector sector;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+        title: Text(sector.name),
+        subtitleTextStyle: context.textTheme.titleSmall?.copyWith(
+          color: Colors.grey,
+        ),
+        isThreeLine: true,
+        subtitle: SectorListTileSubtitle(sector: sector),
+        trailing: SectorSwitch(
+          sector: sector,
+        ));
   }
 }
