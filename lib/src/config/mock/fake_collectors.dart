@@ -115,4 +115,46 @@ const kFakeCollectors = [
     companyId: '5',
     filterName: 'filter O11',
   ),
+  Collector(
+    id: '20',
+    name: 'O12 (olive grove)',
+    companyId: '6',
+    filterName: 'filter O12',
+  ),
+  Collector(
+    id: '21',
+    name: 'O13 (vineyard)',
+    companyId: '6',
+    filterName: 'filter O13',
+  ),
+  Collector(
+    id: '22',
+    name: 'S9 (tank)',
+    companyId: '6',
+    filterName: 'filter S9',
+  ),
+  Collector(
+    id: '23',
+    name: 'S10 (borehole)',
+    companyId: '7',
+    filterName: 'filter S10',
+  ),
+  Collector(
+    id: '24',
+    name: 'O14 Mx2g',
+    companyId: '7',
+    filterName: 'filter O14',
+  ),
+  Collector(
+    id: '25',
+    name: 'O15 (orchard)',
+    companyId: '7',
+    filterName: 'filter O15',
+  ),
+  Collector(
+    id: '26',
+    name: 'O16 (field)',
+    companyId: '4',
+    filterName: 'filter O16',
+  ),
 ];
