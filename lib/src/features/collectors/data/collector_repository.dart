@@ -57,7 +57,8 @@ Future<List<Collector?>> collectorListFuture(CollectorListFutureRef ref) {
 }
 
 @riverpod
-Stream<List<String?>> companyUsedCollectorNamesStream(CompanyUsedCollectorNamesStreamRef ref) {
+Stream<List<String?>> companyUsedCollectorNamesStream(
+    CompanyUsedCollectorNamesStreamRef ref) {
   final collectorRepository = ref.read(collectorRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return const Stream.empty();
