@@ -5,7 +5,7 @@ import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_screen.dart';
-import 'package:irrigazione_iot/src/features/collectors/screen/collector_list.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/collector_list_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/screen/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/screen/home_nested_navigator.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pump_form.dart';
