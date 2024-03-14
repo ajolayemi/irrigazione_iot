@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 // * A custom skeleton tile for skeletonizer to use when loading data
-class CustomSkeletonTile extends StatelessWidget {
-  const CustomSkeletonTile({
+class CommonSkeletonTile extends StatelessWidget {
+  const CommonSkeletonTile({
     super.key,
     this.hasLeading = true,
     this.hasTrailing = true,
@@ -28,4 +28,3 @@ class CustomSkeletonTile extends StatelessWidget {
     );
   }
 }
-
