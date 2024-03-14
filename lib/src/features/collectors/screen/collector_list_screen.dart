@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_expansion_list_tile.dart';
 import 'package:irrigazione_iot/src/features/collectors/widgets/empty_collector_widget.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
@@ -29,12 +30,9 @@ class CollectorListScreen extends ConsumerWidget {
             actions: [
               AppBarIconButton(
                 isVisibile: canEdit,
-                onPressed: () => showNotImplementedAlertDialog(
-                  context: context,
+                onPressed: () => context.pushNamed(
+                  AppRoute.addCollector.name,
                 ),
-                // onPressed: () => context.pushNamed(
-                //   AppRoute.addCollector.name,
-                // ),
                 icon: Icons.add,
               )
             ],

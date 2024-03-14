@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
@@ -46,9 +48,12 @@ class _CollectorExpansionListTileState
             ? null
             : IconButton(
                 icon: const Icon(Icons.info_outline),
-                onPressed: () {
-                  // TODO: implement this
-                },
+                onPressed: () => context.goNamed(
+                  AppRoute.collectorDetails.name,
+                  pathParameters: {
+                    'collectorId': widget.collector.id,
+                  },
+                ),
               ),
         title: Text(widget.collector.name),
         children: collectorSectors == null || collectorSectors.isEmpty
