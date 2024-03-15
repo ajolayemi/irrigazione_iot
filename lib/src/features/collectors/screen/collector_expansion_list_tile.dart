@@ -47,9 +47,9 @@ class _CollectorExpansionListTileState
         leading: _isExpanded
             ? null
             : IconButton(
-                icon: const Icon(Icons.info_outline),
-                onPressed: () => context.goNamed(
-                  AppRoute.collectorDetails.name,
+                icon: const Icon(Icons.edit),
+                onPressed: () => context.pushNamed(
+                  AppRoute.updateCollector.name,
                   pathParameters: {
                     'collectorId': widget.collector.id,
                   },
