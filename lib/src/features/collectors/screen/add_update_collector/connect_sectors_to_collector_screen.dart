@@ -8,6 +8,7 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/connect_sectors_to_collector_controller.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/empty_sector_widget.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
@@ -21,8 +22,6 @@ class ConnectSectorsToCollector extends ConsumerWidget {
   const ConnectSectorsToCollector({
     super.key,
   });
-
-
 
   void _onSelectionChanged({
     required bool value,
@@ -60,7 +59,19 @@ class ConnectSectorsToCollector extends ConsumerWidget {
                   value: availableSectors,
                   data: (sectors) {
                     if (sectors.isEmpty) {
-                      return const EmptySectorWidget();
+                      return Consumer(
+                        builder: (context, ref, child) {
+                          final companyGenerallyHasSectors = ref
+                              .watch(sectorListStreamProvider)
+                              .valueOrNull
+                              ?.isNotEmpty ?? false;
+                          return EmptySectorWidget(
+                            alternativeMessage: companyGenerallyHasSectors
+                                ? loc.allSectorsAreConnectedToACollector
+                                : null,
+                          );
+                        },
+                      );
                     }
 
                     // it should be save to assume that the sectors are not null here
