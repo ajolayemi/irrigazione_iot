@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/fake_collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
@@ -88,8 +89,9 @@ Future<List<CollectorSector?>> collectorSectorsByCompanyFuture(
   );
 }
 
-final idOfCollectorBeingEditedProvider = StateProvider<CollectorID?>((ref) {
-  return null;
+final sectorIdsOfCollectorBeingEditedProvider =
+    StateProvider<List<SectorID?>>((ref) {
+  return [];
 });
 
 /// A provider to keep track of all sectors that aren't connected to a collector
@@ -103,24 +105,27 @@ Stream<List<Sector?>> sectorsNotConnectedToACollectorStream(
 
   if (sectorsPertainingToCompany == null) return Stream.value([]);
 
-  // get a list of all sectors that are connected to a collector and 
+  // get a list of all sectors that are connected to a collector and
   // belongs to a certain company
   final collectorSectorsPertainingToCompany =
       ref.watch(collectorSectorsByCompanyStreamProvider).valueOrNull;
   if (collectorSectorsPertainingToCompany == null) return Stream.value([]);
 
-  final idOfCollectorBeingUpdated = ref.watch(idOfCollectorBeingEditedProvider);
+  final sectorIdsToOmit =
+      ref.watch(sectorIdsOfCollectorBeingEditedProvider);
   // when user is updating a collector, this check shouldn't be done on the sectors connected to the
   // collector being updated, this is to make sure that the sectors can still be selected or deselected
   final collectorSectorsToProcess = collectorSectorsPertainingToCompany
       .where((collectorSector) =>
-          collectorSector?.collectorId != idOfCollectorBeingUpdated)
+          !sectorIdsToOmit.contains(collectorSector?.sectorId))
       .toList();
 
   // get the ids of the sectors that are connected to a collector
   final connectedSectorIds = collectorSectorsToProcess
       .map((collectorSector) => collectorSector!.sectorId)
       .toList();
+
+  debugPrint(connectedSectorIds.toString());
   // get the sectors that aren't connected to a collector
   final sectorsNotConnectedToACollector = sectorsPertainingToCompany
       .where((sector) => !connectedSectorIds.contains(sector!.id))
