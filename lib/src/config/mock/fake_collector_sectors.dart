@@ -12,10 +12,13 @@ List<CollectorSector> generateFakeCollectorSectors() {
         .where((sector) => sector.companyId == collector.companyId)
         .toList();
     final sector = sectors[random.nextInt(sectors.length)];
-    collectorSectors
-        .add(CollectorSector(collectorId: collector.id, sectorId: sector.id));
+    collectorSectors.add(CollectorSector(
+      collectorId: collector.id,
+      sectorId: sector.id,
+      companyId: sector.companyId,
+    ));
   }
   return collectorSectors;
 }
 
-final  kFakeCollectorSectors = generateFakeCollectorSectors();
+final kFakeCollectorSectors = generateFakeCollectorSectors();
