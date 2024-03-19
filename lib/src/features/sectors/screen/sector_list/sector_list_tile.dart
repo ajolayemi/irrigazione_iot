@@ -47,6 +47,11 @@ class SectorListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    // todo: add sector pressure in the list tile subtitle
+    // todo: irrigation state (manual/automatic)
+    // todo: since when is this sector being irrigated if on
+    // todo: for when program will be available, show countdown for remaining time
     final globalLoadingState =
         ref.watch(sectorSwitchControllerProvider).isGlobalLoading;
     final isDeleting = ref.watch(dismissSectorControllerProvider).isLoading;
