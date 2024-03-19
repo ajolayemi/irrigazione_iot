@@ -11,6 +11,8 @@ extension BuildContextExtensions on BuildContext {
   Size get screenSize => MediaQuery.of(this).size;
 
   AppLocalizations get loc => AppLocalizations.of(this);
+
+  void popNavigator() => Navigator.of(this).pop();
 }
 
 extension StringExtensions on String {
