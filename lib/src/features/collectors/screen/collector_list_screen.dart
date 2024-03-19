@@ -18,6 +18,11 @@ class CollectorListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    // todo: if one of a sector is active, show status without expanding list
+    // todo: show collector battery level in % 
+    // todo: difference between filter in and filter out pressure and color base on certain level
+    // todo: 0 - 0.2 - verde, 0.2 - 0.5 - arancione, sopra-  verde
     final loc = context.loc;
     final canEdit = ref.watch(companyUserRoleProvider).valueOrNull?.canEdit;
     final collectors = ref.watch(collectorListStreamProvider);
