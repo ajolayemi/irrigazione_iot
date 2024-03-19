@@ -1,8 +1,10 @@
 import 'package:collection/collection.dart';
+
 import 'package:irrigazione_iot/src/config/mock/fake_collector_sectors.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
+import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
@@ -29,6 +31,15 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
       List<CollectorSector> collectorSectors, CollectorID collectorId) {
     return collectorSectors
         .where((collectorSector) => collectorSector.collectorId == collectorId)
+        .toList();
+  }
+
+  static List<CollectorSector?> _getCollectorSectorsByCompanyId(
+    List<CollectorSector> collectorSectors,
+    CompanyID companyId,
+  ) {
+    return collectorSectors
+        .where((collectorSector) => collectorSector.companyId == companyId)
         .toList();
   }
 
@@ -65,16 +76,31 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
   }
 
   @override
-  Future<List<CollectorSector?>> getCollectorSectors(
+  Future<List<CollectorSector?>> getCollectorSectorsById(
       {required String collectorId}) {
     return Future.value(_getCollectorSectors(value, collectorId));
   }
 
   @override
-  Stream<List<CollectorSector?>> watchCollectorSectors(
+  Stream<List<CollectorSector?>> watchCollectorSectorsById(
       {required String collectorId}) {
     return stream.map(
       (collectorSectors) => _getCollectorSectors(collectorSectors, collectorId),
     );
+  }
+
+  @override
+  Future<List<CollectorSector?>> getCollectorSectorsByCompanyId(
+      {required CompanyID companyId}) {
+    return Future.value(_getCollectorSectorsByCompanyId(value, companyId));
+  }
+
+  @override
+  Stream<List<CollectorSector?>> watchCollectorSectorsByCompanyId(
+      {required CompanyID companyId}) {
+    return stream
+      ..map(
+        (collectorSector) => _getCollectorSectorsByCompanyId(collectorSector, companyId),
+      );
   }
 }
