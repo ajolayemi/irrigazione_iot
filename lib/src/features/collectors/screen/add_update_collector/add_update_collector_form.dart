@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_controller.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_form_contents.dart';
 
 class AddUpdateCollectorForm extends ConsumerWidget {
@@ -15,7 +16,7 @@ class AddUpdateCollectorForm extends ConsumerWidget {
   final CollectorID? collectorId;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const isLoading = false; // todo replace this with proper state
+    final isLoading = ref.watch(addUpdateCollectorControllerProvider).isLoading;
     return PopScope(
       canPop: !isLoading,
       onPopInvoked: (didPop) {
