@@ -24,7 +24,7 @@ final collectorSectorRepositoryProvider =
 
 typedef CollectorSectorRepositoryRef = ProviderRef<CollectorSectorRepository>;
 String _$collectorSectorsStreamHash() =>
-    r'ab615643783ec109cef170feb54a93e68739f5ac';
+    r'48986c6119ba290db2e24af70a9a13c7b685557e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -181,7 +181,7 @@ class _CollectorSectorsStreamProviderElement
 }
 
 String _$collectorSectorsFutureHash() =>
-    r'7f799b041538d6f09f680c1c3afd1388201876b6';
+    r'6c8b34cb6433b330f8b595877127a905487d540a';
 
 /// See also [collectorSectorsFuture].
 @ProviderFor(collectorSectorsFuture)
@@ -316,5 +316,62 @@ class _CollectorSectorsFutureProviderElement
   String get collectorId =>
       (origin as CollectorSectorsFutureProvider).collectorId;
 }
+
+String _$collectorSectorsByCompanyStreamHash() =>
+    r'4f45163611b012dfd0c3aba341a336bd584cdd21';
+
+/// See also [collectorSectorsByCompanyStream].
+@ProviderFor(collectorSectorsByCompanyStream)
+final collectorSectorsByCompanyStreamProvider =
+    AutoDisposeStreamProvider<List<CollectorSector?>>.internal(
+  collectorSectorsByCompanyStream,
+  name: r'collectorSectorsByCompanyStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$collectorSectorsByCompanyStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CollectorSectorsByCompanyStreamRef
+    = AutoDisposeStreamProviderRef<List<CollectorSector?>>;
+String _$collectorSectorsByCompanyFutureHash() =>
+    r'0aea8a4586ee34c05798472d00084baa3dc8c91f';
+
+/// See also [collectorSectorsByCompanyFuture].
+@ProviderFor(collectorSectorsByCompanyFuture)
+final collectorSectorsByCompanyFutureProvider =
+    AutoDisposeFutureProvider<List<CollectorSector?>>.internal(
+  collectorSectorsByCompanyFuture,
+  name: r'collectorSectorsByCompanyFutureProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$collectorSectorsByCompanyFutureHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CollectorSectorsByCompanyFutureRef
+    = AutoDisposeFutureProviderRef<List<CollectorSector?>>;
+String _$sectorsNotConnectedToACollectorStreamHash() =>
+    r'2e1596aff417092f44d6cd11b0a664f7598b3b2a';
+
+/// A provider to keep track of all sectors that aren't connected to a collector
+///
+/// Copied from [sectorsNotConnectedToACollectorStream].
+@ProviderFor(sectorsNotConnectedToACollectorStream)
+final sectorsNotConnectedToACollectorStreamProvider =
+    AutoDisposeStreamProvider<List<Sector?>>.internal(
+  sectorsNotConnectedToACollectorStream,
+  name: r'sectorsNotConnectedToACollectorStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$sectorsNotConnectedToACollectorStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef SectorsNotConnectedToACollectorStreamRef
+    = AutoDisposeStreamProviderRef<List<Sector?>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
