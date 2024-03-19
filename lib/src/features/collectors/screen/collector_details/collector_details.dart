@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/widgets/custom_edit_icon_button.dart';
-import 'package:irrigazione_iot/src/widgets/sliver_adaptive_circular_indicator.dart';
 
 class CollectorDetailsScreen extends ConsumerWidget {
   const CollectorDetailsScreen({
@@ -18,11 +19,27 @@ class CollectorDetailsScreen extends ConsumerWidget {
 
   final CollectorID collectorId;
 
+  void _onEditCollector(
+      {required WidgetRef ref,
+      required BuildContext context,
+      required List<CollectorSector?> connectedSectors}) {
+    final sectorIds = connectedSectors.map((e) => e?.sectorId).toList();
+    ref.read(sectorIdsOfCollectorBeingEditedProvider.notifier).state =
+        sectorIds;
+    ref.read(selectedSectorsIdProvider.notifier).state = sectorIds;
+    context.pushNamed(
+      AppRoute.updateCollector.name,
+      pathParameters: {
+        'collectorId': collectorId,
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final collectorData = ref.watch(collectorStreamProvider(collectorId));
     final connectedSectors =
-        ref.watch(collectorSectorsStreamProvider(collectorId));
+        ref.watch(collectorSectorsStreamProvider(collectorId)).valueOrNull;
 
     return Scaffold(
       body: SafeArea(
@@ -39,15 +56,16 @@ class CollectorDetailsScreen extends ConsumerWidget {
                   title: collector.name,
                   actions: [
                     CustomEditIconButton(
-                      onPressed: () => context.pushNamed(
-                        AppRoute.updateCollector.name,
-                        pathParameters: {
-                          'collectorId': collector.id,
-                        },
+                      onPressed: () => _onEditCollector(
+                        connectedSectors: connectedSectors ?? [],
+                        ref: ref,
+                        context: context,
                       ),
-                    )
+                    ),
                   ],
-                )
+                ),
+                const SliverFillRemaining(
+                    child: Center(child: Text('this will be completed soon')))
               ],
             );
           },
