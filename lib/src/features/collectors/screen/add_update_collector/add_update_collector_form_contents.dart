@@ -106,7 +106,7 @@ class _AddUpdateCollectorFormContentsState
       initialValue: _initialCollector?.name,
       namesToCompareAgainst: usedCollectorNames,
     );
-    if (errorKey != null) return null;
+    if (errorKey == null) return null;
 
     final fieldName = context.loc.nCollectors(1);
     return context.getLocalizedErrorText(
