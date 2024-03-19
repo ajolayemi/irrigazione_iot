@@ -31,6 +31,7 @@ class CollectorExpansionListTile extends ConsumerStatefulWidget {
 class _CollectorExpansionListTileState
     extends ConsumerState<CollectorExpansionListTile> {
   bool _isExpanded = false;
+  
   @override
   Widget build(BuildContext context) {
     final collectorSectors = ref
@@ -47,9 +48,9 @@ class _CollectorExpansionListTileState
         leading: _isExpanded
             ? null
             : IconButton(
-                icon: const Icon(Icons.edit),
+                icon: const Icon(Icons.info_outline),
                 onPressed: () => context.pushNamed(
-                  AppRoute.updateCollector.name,
+                  AppRoute.collectorDetails.name,
                   pathParameters: {
                     'collectorId': widget.collector.id,
                   },
