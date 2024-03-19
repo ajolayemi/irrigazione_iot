@@ -19,7 +19,7 @@ class EmptySectorWidget extends StatelessWidget {
       child: EmptyDataWidget(
         message: alternativeMessage ?? loc.emptyDataPlaceholder(loc.nSectors(1)),
         buttonText: loc.addNewButtonLabel,
-        onPressed: () => context.goNamed(AppRoute.addSector.name),
+        onPressed: () => context.pushNamed(AppRoute.addSector.name),
       ),
     );
   }
