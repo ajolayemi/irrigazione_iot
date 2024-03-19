@@ -132,5 +132,6 @@
   "connectSectorToCollectorPageTitle": "Seleziona Settori",
   "collectorConnectedSectors": "Settori Collegati",
   "noSectorConnectedToCollectorErrorText": "Devi collegare almeno un settore a questo collettore",
-  "genericConfirmButtonLabel": "Conferma"
+  "genericConfirmButtonLabel": "Conferma",
+  "allSectorsAreConnectedToACollector": "Tutti i settori sono stati già collegati a un collettore"
 }
