@@ -6,6 +6,7 @@ import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart'
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_screen.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_form.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/connect_sectors_to_collector_screen.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_details/collector_details.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_list_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/screen/dashboard_screen.dart';
@@ -65,6 +66,7 @@ enum AppRoute {
   selectAnIrrigationSource,
   connectPumpsToSector,
   sectorConnectedPumps,
+  connectSectorToCollector,
   more,
   settings,
 }
@@ -351,6 +353,18 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           child: AddUpdateCollectorForm(
             formType: GenericFormTypes.update,
             collectorId: state.pathParameters['collectorId'] ?? '',
+          ),
+        ),
+      ),
+
+      // Page to display when user wants to connect sectors to a collector
+      GoRoute(
+        path: '/connect-sectors-to-collector',
+        name: AppRoute.connectSectorToCollector.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: ConnectSectorsToCollector(
+
           ),
         ),
       ),
