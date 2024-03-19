@@ -1,4 +1,3 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_collector_sectors.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/fake_collector_sector_repository.dart';
@@ -32,7 +31,7 @@ void main() {
   group('FakeCollectorSectorRepository', () {
     test('getCollectorSectors(1) should return the expected value', () async {
       expectLater(
-        fakeCollectorSectorRepository.getCollectorSectors(
+        fakeCollectorSectorRepository.getCollectorSectorsById(
             collectorId: testCollectorId),
         completion(expectedCollectorSectors),
       );
@@ -40,21 +39,23 @@ void main() {
 
     test('getCollectorSectors(9000) should return an empty list', () async {
       expectLater(
-        fakeCollectorSectorRepository.getCollectorSectors(collectorId: '9000'),
+        fakeCollectorSectorRepository.getCollectorSectorsById(
+            collectorId: '9000'),
         completion(isEmpty),
       );
     });
 
     test('watchCollectorSectors(1) should emit the expected value', () {
       expect(
-          fakeCollectorSectorRepository.watchCollectorSectors(
-              collectorId: testCollectorId,),
+          fakeCollectorSectorRepository.watchCollectorSectorsById(
+            collectorId: testCollectorId,
+          ),
           emits(expectedCollectorSectors));
     });
 
     test('watchCollectorSectors(9000) should emit an empty list', () {
       expect(
-          fakeCollectorSectorRepository.watchCollectorSectors(
+          fakeCollectorSectorRepository.watchCollectorSectorsById(
               collectorId: '9000'),
           emits(isEmpty));
     });
@@ -63,6 +64,7 @@ void main() {
       const toAdd = CollectorSector(
         collectorId: '9000',
         sectorId: '9000',
+        companyId: '9000'
       );
 
       expectLater(
