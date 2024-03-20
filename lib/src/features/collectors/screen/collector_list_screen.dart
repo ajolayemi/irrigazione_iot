@@ -31,7 +31,6 @@ class CollectorListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     /// listen to switch controller state here as well because sector state
     /// can also be changed from this screen
     ref.listen(
@@ -70,7 +69,10 @@ class CollectorListScreen extends ConsumerWidget {
             value: collectors,
             data: (collectors) {
               if (collectors.isEmpty) {
-                return const EmptyCollectorWidget();
+                return EmptyCollectorWidget(
+                  onPressed: () =>
+                      _onAddCollectorPressed(context: context, ref: ref),
+                );
               }
               return SliverList(
                 delegate: SliverChildBuilderDelegate(
