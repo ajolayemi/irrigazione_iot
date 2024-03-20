@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_list/dismiss_collector_controller.dart';
+import 'package:irrigazione_iot/src/features/collectors/widgets/collector_tile_row_widget.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sector_list_tile.dart';
@@ -60,7 +62,6 @@ class _CollectorExpansionListTileState
     final collectorSectors = ref
         .watch(collectorSectorsStreamProvider(widget.collector.id))
         .valueOrNull;
-
     final isDeleting = ref.watch(dismissCollectorControllerProvider).isLoading;
     return IgnorePointer(
       ignoring: isDeleting,
@@ -90,7 +91,9 @@ class _CollectorExpansionListTileState
                       },
                     ),
                   ),
-            title: Text(widget.collector.name),
+            title: CollectorTileRowWidget(
+              collector: widget.collector,
+            ),
             children: collectorSectors == null || collectorSectors.isEmpty
                 ? []
                 : collectorSectors
