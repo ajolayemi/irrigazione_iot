@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/features/collectors/data/collector_repositor
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/collector_details/colllector_details_screen_content.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/widgets/custom_edit_icon_button.dart';
@@ -64,8 +65,9 @@ class CollectorDetailsScreen extends ConsumerWidget {
                     ),
                   ],
                 ),
-                const SliverFillRemaining(
-                    child: Center(child: Text('this will be completed soon')))
+                CollectorDetailsScreenContents(
+                  collector: collector,
+                ),
               ],
             );
           },
