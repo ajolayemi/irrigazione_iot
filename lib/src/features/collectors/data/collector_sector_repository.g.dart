@@ -354,7 +354,7 @@ final collectorSectorsByCompanyFutureProvider =
 typedef CollectorSectorsByCompanyFutureRef
     = AutoDisposeFutureProviderRef<List<CollectorSector?>>;
 String _$sectorsNotConnectedToACollectorStreamHash() =>
-    r'194a1312f74ca45982602b7f9b334e78ba5461b9';
+    r'b02a5eaabd05009c4b4f64ecd6ea00185c0c6930';
 
 /// A provider to keep track of all sectors that aren't connected to a collector
 ///

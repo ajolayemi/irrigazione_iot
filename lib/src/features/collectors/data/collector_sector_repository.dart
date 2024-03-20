@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:irrigazione_iot/src/features/collectors/data/fake_collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
@@ -7,7 +8,6 @@ import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'collector_sector_repository.g.dart';
 
@@ -125,7 +125,6 @@ Stream<List<Sector?>> sectorsNotConnectedToACollectorStream(
       .map((collectorSector) => collectorSector!.sectorId)
       .toList();
 
-  debugPrint(connectedSectorIds.toString());
   // get the sectors that aren't connected to a collector
   final sectorsNotConnectedToACollector = sectorsPertainingToCompany
       .where((sector) => !connectedSectorIds.contains(sector!.id))
