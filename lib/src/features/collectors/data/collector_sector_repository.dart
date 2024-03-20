@@ -18,8 +18,7 @@ abstract class CollectorSectorRepository {
 
   /// Delete a [CollectorSector] from database and return true if the deletion was successful
   Future<bool> deleteCollectorSector({
-    required CollectorID collectorId,
-    required SectorID sectorId,
+    required CollectorSector collectorSector,
   });
 
   /// Get a list of [CollectorSector] from database if any
@@ -111,8 +110,7 @@ Stream<List<Sector?>> sectorsNotConnectedToACollectorStream(
       ref.watch(collectorSectorsByCompanyStreamProvider).valueOrNull;
   if (collectorSectorsPertainingToCompany == null) return Stream.value([]);
 
-  final sectorIdsToOmit =
-      ref.watch(sectorIdsOfCollectorBeingEditedProvider);
+  final sectorIdsToOmit = ref.watch(sectorIdsOfCollectorBeingEditedProvider);
   // when user is updating a collector, this check shouldn't be done on the sectors connected to the
   // collector being updated, this is to make sure that the sectors can still be selected or deselected
   final collectorSectorsToProcess = collectorSectorsPertainingToCompany
