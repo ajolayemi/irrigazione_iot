@@ -57,22 +57,18 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
 
   @override
   Future<bool> deleteCollectorSector({
-    required String collectorId,
-    required String sectorId,
+    required CollectorSector collectorSector,
   }) async {
     await delay(addDelay);
     final currentCollectorSectors = [...value];
-    final collectorSectorIndex = currentCollectorSectors.indexWhere(
-      (collectorSector) =>
-          collectorSector.collectorId == collectorId &&
-          collectorSector.sectorId == sectorId,
-    );
+    final collectorSectorIndex =
+        currentCollectorSectors.indexWhere((cs) => cs == collectorSector);
     if (collectorSectorIndex == -1) {
       return false;
     }
     currentCollectorSectors.removeAt(collectorSectorIndex);
     _collectorSectorsState.value = currentCollectorSectors;
-    return _getCollectorSectorById(value, collectorId) == null;
+    return _getCollectorSectorById(value, collectorSector.collectorId) == null;
   }
 
   @override
@@ -100,7 +96,8 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
       {required CompanyID companyId}) {
     return stream
       ..map(
-        (collectorSector) => _getCollectorSectorsByCompanyId(collectorSector, companyId),
+        (collectorSector) =>
+            _getCollectorSectorsByCompanyId(collectorSector, companyId),
       );
   }
 }
