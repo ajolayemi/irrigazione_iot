@@ -373,5 +373,148 @@ final sectorsNotConnectedToACollectorStreamProvider =
 
 typedef SectorsNotConnectedToACollectorStreamRef
     = AutoDisposeStreamProviderRef<List<Sector?>>;
+String _$numberOfSectorsSwitchedOnHash() =>
+    r'a240f893d592a1aa6d7ab822b8ccbd0766814ba0';
+
+/// Provider to check if at least a sector of a collector is switched on
+///
+/// Copied from [numberOfSectorsSwitchedOn].
+@ProviderFor(numberOfSectorsSwitchedOn)
+const numberOfSectorsSwitchedOnProvider = NumberOfSectorsSwitchedOnFamily();
+
+/// Provider to check if at least a sector of a collector is switched on
+///
+/// Copied from [numberOfSectorsSwitchedOn].
+class NumberOfSectorsSwitchedOnFamily extends Family<AsyncValue<int>> {
+  /// Provider to check if at least a sector of a collector is switched on
+  ///
+  /// Copied from [numberOfSectorsSwitchedOn].
+  const NumberOfSectorsSwitchedOnFamily();
+
+  /// Provider to check if at least a sector of a collector is switched on
+  ///
+  /// Copied from [numberOfSectorsSwitchedOn].
+  NumberOfSectorsSwitchedOnProvider call({
+    required dynamic collectorId,
+  }) {
+    return NumberOfSectorsSwitchedOnProvider(
+      collectorId: collectorId,
+    );
+  }
+
+  @override
+  NumberOfSectorsSwitchedOnProvider getProviderOverride(
+    covariant NumberOfSectorsSwitchedOnProvider provider,
+  ) {
+    return call(
+      collectorId: provider.collectorId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'numberOfSectorsSwitchedOnProvider';
+}
+
+/// Provider to check if at least a sector of a collector is switched on
+///
+/// Copied from [numberOfSectorsSwitchedOn].
+class NumberOfSectorsSwitchedOnProvider extends AutoDisposeStreamProvider<int> {
+  /// Provider to check if at least a sector of a collector is switched on
+  ///
+  /// Copied from [numberOfSectorsSwitchedOn].
+  NumberOfSectorsSwitchedOnProvider({
+    required dynamic collectorId,
+  }) : this._internal(
+          (ref) => numberOfSectorsSwitchedOn(
+            ref as NumberOfSectorsSwitchedOnRef,
+            collectorId: collectorId,
+          ),
+          from: numberOfSectorsSwitchedOnProvider,
+          name: r'numberOfSectorsSwitchedOnProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$numberOfSectorsSwitchedOnHash,
+          dependencies: NumberOfSectorsSwitchedOnFamily._dependencies,
+          allTransitiveDependencies:
+              NumberOfSectorsSwitchedOnFamily._allTransitiveDependencies,
+          collectorId: collectorId,
+        );
+
+  NumberOfSectorsSwitchedOnProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.collectorId,
+  }) : super.internal();
+
+  final dynamic collectorId;
+
+  @override
+  Override overrideWith(
+    Stream<int> Function(NumberOfSectorsSwitchedOnRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: NumberOfSectorsSwitchedOnProvider._internal(
+        (ref) => create(ref as NumberOfSectorsSwitchedOnRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        collectorId: collectorId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<int> createElement() {
+    return _NumberOfSectorsSwitchedOnProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is NumberOfSectorsSwitchedOnProvider &&
+        other.collectorId == collectorId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, collectorId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin NumberOfSectorsSwitchedOnRef on AutoDisposeStreamProviderRef<int> {
+  /// The parameter `collectorId` of this provider.
+  dynamic get collectorId;
+}
+
+class _NumberOfSectorsSwitchedOnProviderElement
+    extends AutoDisposeStreamProviderElement<int>
+    with NumberOfSectorsSwitchedOnRef {
+  _NumberOfSectorsSwitchedOnProviderElement(super.provider);
+
+  @override
+  dynamic get collectorId =>
+      (origin as NumberOfSectorsSwitchedOnProvider).collectorId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/collectors/data/fake_collector_sector_repository.dart';
@@ -134,3 +135,31 @@ Stream<List<Sector?>> sectorsNotConnectedToACollectorStream(
 final selectedSectorsIdProvider = StateProvider<List<String?>>((ref) {
   return [];
 });
+
+/// Provider that emits the number of sectors that are currently switched on for a particular
+/// collector indicated by the provided [CollectorID]
+@riverpod
+Stream<int> numberOfSectorsSwitchedOn(NumberOfSectorsSwitchedOnRef ref,
+    {required CollectorID collectorId}) {
+  // Get a list of collector sectors pertaining to the provided collector
+  final collectorSectors =
+      ref.watch(collectorSectorsFutureProvider(collectorId)).valueOrNull;
+  if (collectorSectors == null) return Stream.value(0);
+
+  int sectorsSwitchedOn = 0;
+
+  // Loop through the list of collector sectors and check if at least a sector is switched on
+  for (final collectorSector in collectorSectors) {
+    final sector =
+        ref.watch(sectorStreamProvider(collectorSector!.sectorId)).valueOrNull;
+    if (sector == null) return Stream.value(0);
+    final status = ref.watch(sectorStatusStreamProvider(sector));
+    if (status.valueOrNull == true) {
+      sectorsSwitchedOn++;
+    } else {
+      continue;
+    }
+  }
+
+  return Stream.value(sectorsSwitchedOn);
+}
