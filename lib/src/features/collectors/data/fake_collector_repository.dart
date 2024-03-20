@@ -120,4 +120,13 @@ class FakeCollectorRepository implements CollectorRepository {
           .toList(),
     );
   }
+
+// todo change how this is implemented
+  @override
+  Stream<double?> watchCollectorBatteryLevel(CollectorID collectorID) {
+    return Stream.periodic(const Duration(seconds: 40), (_) {
+    // Simulate battery level changes
+    return (5.0 - 3.0) * (0.5 - 0.5 * (DateTime.now().second % 60) / 30).clamp(0.0, 1.0);
+  });
+  }
 }
