@@ -374,28 +374,32 @@ final sectorsNotConnectedToACollectorStreamProvider =
 typedef SectorsNotConnectedToACollectorStreamRef
     = AutoDisposeStreamProviderRef<List<Sector?>>;
 String _$numberOfSectorsSwitchedOnHash() =>
-    r'a240f893d592a1aa6d7ab822b8ccbd0766814ba0';
+    r'3675493eddfa96e342c4493f9bf35ceb7ba3443e';
 
-/// Provider to check if at least a sector of a collector is switched on
+/// Provider that emits the number of sectors that are currently switched on for a particular
+/// collector indicated by the provided [CollectorID]
 ///
 /// Copied from [numberOfSectorsSwitchedOn].
 @ProviderFor(numberOfSectorsSwitchedOn)
 const numberOfSectorsSwitchedOnProvider = NumberOfSectorsSwitchedOnFamily();
 
-/// Provider to check if at least a sector of a collector is switched on
+/// Provider that emits the number of sectors that are currently switched on for a particular
+/// collector indicated by the provided [CollectorID]
 ///
 /// Copied from [numberOfSectorsSwitchedOn].
 class NumberOfSectorsSwitchedOnFamily extends Family<AsyncValue<int>> {
-  /// Provider to check if at least a sector of a collector is switched on
+  /// Provider that emits the number of sectors that are currently switched on for a particular
+  /// collector indicated by the provided [CollectorID]
   ///
   /// Copied from [numberOfSectorsSwitchedOn].
   const NumberOfSectorsSwitchedOnFamily();
 
-  /// Provider to check if at least a sector of a collector is switched on
+  /// Provider that emits the number of sectors that are currently switched on for a particular
+  /// collector indicated by the provided [CollectorID]
   ///
   /// Copied from [numberOfSectorsSwitchedOn].
   NumberOfSectorsSwitchedOnProvider call({
-    required dynamic collectorId,
+    required String collectorId,
   }) {
     return NumberOfSectorsSwitchedOnProvider(
       collectorId: collectorId,
@@ -426,15 +430,17 @@ class NumberOfSectorsSwitchedOnFamily extends Family<AsyncValue<int>> {
   String? get name => r'numberOfSectorsSwitchedOnProvider';
 }
 
-/// Provider to check if at least a sector of a collector is switched on
+/// Provider that emits the number of sectors that are currently switched on for a particular
+/// collector indicated by the provided [CollectorID]
 ///
 /// Copied from [numberOfSectorsSwitchedOn].
 class NumberOfSectorsSwitchedOnProvider extends AutoDisposeStreamProvider<int> {
-  /// Provider to check if at least a sector of a collector is switched on
+  /// Provider that emits the number of sectors that are currently switched on for a particular
+  /// collector indicated by the provided [CollectorID]
   ///
   /// Copied from [numberOfSectorsSwitchedOn].
   NumberOfSectorsSwitchedOnProvider({
-    required dynamic collectorId,
+    required String collectorId,
   }) : this._internal(
           (ref) => numberOfSectorsSwitchedOn(
             ref as NumberOfSectorsSwitchedOnRef,
@@ -462,7 +468,7 @@ class NumberOfSectorsSwitchedOnProvider extends AutoDisposeStreamProvider<int> {
     required this.collectorId,
   }) : super.internal();
 
-  final dynamic collectorId;
+  final String collectorId;
 
   @override
   Override overrideWith(
@@ -504,7 +510,7 @@ class NumberOfSectorsSwitchedOnProvider extends AutoDisposeStreamProvider<int> {
 
 mixin NumberOfSectorsSwitchedOnRef on AutoDisposeStreamProviderRef<int> {
   /// The parameter `collectorId` of this provider.
-  dynamic get collectorId;
+  String get collectorId;
 }
 
 class _NumberOfSectorsSwitchedOnProviderElement
@@ -513,7 +519,7 @@ class _NumberOfSectorsSwitchedOnProviderElement
   _NumberOfSectorsSwitchedOnProviderElement(super.provider);
 
   @override
-  dynamic get collectorId =>
+  String get collectorId =>
       (origin as NumberOfSectorsSwitchedOnProvider).collectorId;
 }
 // ignore_for_file: type=lint
