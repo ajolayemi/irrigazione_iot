@@ -78,8 +78,7 @@ void main() {
         () async {
       expectLater(
           fakeCollectorSectorRepository.deleteCollectorSector(
-            collectorId: collectorToDelete.collectorId,
-            sectorId: collectorToDelete.sectorId,
+            collectorSector: collectorToDelete
           ),
           completion(isTrue));
     });
@@ -88,8 +87,7 @@ void main() {
         () async {
       expectLater(
           fakeCollectorSectorRepository.deleteCollectorSector(
-            collectorId: '900000',
-            sectorId: '9000000',
+      collectorSector: const CollectorSector.empty()
           ),
           completion(isFalse));
     });
