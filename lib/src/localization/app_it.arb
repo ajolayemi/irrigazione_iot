@@ -126,12 +126,13 @@
   "updateCollectorPageTitle": "Aggiorna Collettore",
   "collectorName": "Nome Collettore",
   "collectorNameHintText": "eg: Collettore Giardino",
-  "collectorFilterName": "Nome filtro del collettore",
+  "collectorFilterName": "Nome Filtro",
   "collectorFilterNameHintText": "eg: Filtro 1",
   "nSelectedSectors": "{n, plural, =0{0 settori selezionati} =1{1 settore selezionato} other{{n} settori selezionati}}",
   "connectSectorToCollectorPageTitle": "Seleziona Settori",
   "collectorConnectedSectors": "Settori Collegati",
   "noSectorConnectedToCollectorErrorText": "Devi collegare almeno un settore a questo collettore",
   "genericConfirmButtonLabel": "Conferma",
-  "allSectorsAreConnectedToACollector": "Tutti i settori sono stati già collegati a un collettore"
+  "allSectorsAreConnectedToACollector": "Tutti i settori sono stati già collegati a un collettore",
+  "nConnectedSectors": "{n, plural, =0{0 settori collegati} =1{1 settore collegato} other{{n} settori collegati}}"
 }

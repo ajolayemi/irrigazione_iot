@@ -397,12 +397,13 @@
   "updateCollectorPageTitle": "Update Collector",
   "collectorName": "Collector name",
   "collectorNameHintText": "eg: Collettore Giardino",
-  "collectorFilterName": "Collector filter name",
+  "collectorFilterName": "Filter (filtro) Name ",
   "collectorFilterNameHintText": "eg: Filtro 1",
   "nSelectedSectors": "{n, plural, =0{0 sectors selected} =1{1 sector selected} other{{n} sectors selected}}",
   "connectSectorToCollectorPageTitle": "Select Sectors",
   "collectorConnectedSectors": "Connected Sectors",
   "noSectorConnectedToCollectorErrorText": "You have to connect at least one sector to this collector",
   "genericConfirmButtonLabel": "Confirm",
-  "allSectorsAreConnectedToACollector": "All available sectors have already been connected to a collector"
+  "allSectorsAreConnectedToACollector": "All available sectors have already been connected to a collector",
+  "nConnectedSectors": "{n, plural, =0{0 sectors connected} =1{1 sector connected} other{{n} sectors connected}}"
 }
