@@ -376,5 +376,138 @@ class _CollectorFutureProviderElement
   @override
   String get collectorId => (origin as CollectorFutureProvider).collectorId;
 }
+
+String _$collectorBatteryLevelStreamHash() =>
+    r'0541545cd32062179e8d42ef9e42c6239728aa21';
+
+/// See also [collectorBatteryLevelStream].
+@ProviderFor(collectorBatteryLevelStream)
+const collectorBatteryLevelStreamProvider = CollectorBatteryLevelStreamFamily();
+
+/// See also [collectorBatteryLevelStream].
+class CollectorBatteryLevelStreamFamily extends Family<AsyncValue<double?>> {
+  /// See also [collectorBatteryLevelStream].
+  const CollectorBatteryLevelStreamFamily();
+
+  /// See also [collectorBatteryLevelStream].
+  CollectorBatteryLevelStreamProvider call({
+    required String collectorId,
+  }) {
+    return CollectorBatteryLevelStreamProvider(
+      collectorId: collectorId,
+    );
+  }
+
+  @override
+  CollectorBatteryLevelStreamProvider getProviderOverride(
+    covariant CollectorBatteryLevelStreamProvider provider,
+  ) {
+    return call(
+      collectorId: provider.collectorId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'collectorBatteryLevelStreamProvider';
+}
+
+/// See also [collectorBatteryLevelStream].
+class CollectorBatteryLevelStreamProvider
+    extends AutoDisposeStreamProvider<double?> {
+  /// See also [collectorBatteryLevelStream].
+  CollectorBatteryLevelStreamProvider({
+    required String collectorId,
+  }) : this._internal(
+          (ref) => collectorBatteryLevelStream(
+            ref as CollectorBatteryLevelStreamRef,
+            collectorId: collectorId,
+          ),
+          from: collectorBatteryLevelStreamProvider,
+          name: r'collectorBatteryLevelStreamProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$collectorBatteryLevelStreamHash,
+          dependencies: CollectorBatteryLevelStreamFamily._dependencies,
+          allTransitiveDependencies:
+              CollectorBatteryLevelStreamFamily._allTransitiveDependencies,
+          collectorId: collectorId,
+        );
+
+  CollectorBatteryLevelStreamProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.collectorId,
+  }) : super.internal();
+
+  final String collectorId;
+
+  @override
+  Override overrideWith(
+    Stream<double?> Function(CollectorBatteryLevelStreamRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: CollectorBatteryLevelStreamProvider._internal(
+        (ref) => create(ref as CollectorBatteryLevelStreamRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        collectorId: collectorId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<double?> createElement() {
+    return _CollectorBatteryLevelStreamProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is CollectorBatteryLevelStreamProvider &&
+        other.collectorId == collectorId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, collectorId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin CollectorBatteryLevelStreamRef on AutoDisposeStreamProviderRef<double?> {
+  /// The parameter `collectorId` of this provider.
+  String get collectorId;
+}
+
+class _CollectorBatteryLevelStreamProviderElement
+    extends AutoDisposeStreamProviderElement<double?>
+    with CollectorBatteryLevelStreamRef {
+  _CollectorBatteryLevelStreamProviderElement(super.provider);
+
+  @override
+  String get collectorId =>
+      (origin as CollectorBatteryLevelStreamProvider).collectorId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

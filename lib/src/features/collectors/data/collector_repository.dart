@@ -33,6 +33,10 @@ abstract class CollectorRepository {
   /// emits a list of already used collector names for a specified company
   /// this is used in form validation to prevent duplicate collector names for a company
   Stream<List<String?>> watchCompanyUsedCollectorNames(CompanyID companyId);
+
+  /// emits the most recent battery level for the collector
+  /// this is used to display the battery level in the UI
+  Stream<double?> watchCollectorBatteryLevel(CollectorID collectorID);
 }
 
 @Riverpod(keepAlive: true)
@@ -80,4 +84,11 @@ Future<Collector?> collectorFuture(
     CollectorFutureRef ref, CollectorID collectorId) {
   final collectorRepository = ref.watch(collectorRepositoryProvider);
   return collectorRepository.getCollector(collectorId);
+}
+
+@riverpod
+Stream<double?> collectorBatteryLevelStream(CollectorBatteryLevelStreamRef ref,
+    {required CollectorID collectorId}) {
+  final collectorRepository = ref.watch(collectorRepositoryProvider);
+  return collectorRepository.watchCollectorBatteryLevel(collectorId);
 }
