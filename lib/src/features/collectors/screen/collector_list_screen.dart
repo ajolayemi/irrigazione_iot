@@ -5,7 +5,10 @@ import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_expansion_list_tile.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/collector_list/dismiss_collector_controller.dart';
 import 'package:irrigazione_iot/src/features/collectors/widgets/empty_collector_widget.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch_controller.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
@@ -28,6 +31,20 @@ class CollectorListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    /// listen to switch controller state here as well because sector state
+    /// can also be changed from this screen
+    ref.listen(
+      sectorSwitchControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
+
+    /// listen to collector dismissal controller state
+    /// and show alert dialog if there is an error
+    ref.listen(
+      dismissCollectorControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
     // todo: if one of a sector is active, show status without expanding list
     // todo: show collector battery level in %
     // todo: difference between filter in and filter out pressure and color base on certain level
