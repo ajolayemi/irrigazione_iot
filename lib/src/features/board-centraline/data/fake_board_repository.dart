@@ -8,7 +8,7 @@ import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
 class FakeBoardRepository implements BoardRepository {
-  FakeBoardRepository({this.addDelay = false});
+  FakeBoardRepository({this.addDelay = true});
   final bool addDelay;
 
   final _boardState = InMemoryStore<List<Board>>(kFakeBoards);
@@ -102,4 +102,6 @@ class FakeBoardRepository implements BoardRepository {
   Stream<Board?> streamBoardByBoardID({required BoardID boardID}) {
     return _streamBoards.map((boards) => _getBoardsByBoardID(boards, boardID));
   }
+
+  void dispose() => _boardState.close();
 }
