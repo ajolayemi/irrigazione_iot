@@ -44,8 +44,6 @@ class CollectorListScreen extends ConsumerWidget {
       dismissCollectorControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
-    // todo: difference between filter in and filter out pressure and color base on certain level
-    // todo: 0 - 0.2 - verde, 0.2 - 0.5 - arancione, sopra-  verde
     final loc = context.loc;
     final collectors = ref.watch(collectorListStreamProvider);
     return SafeArea(
