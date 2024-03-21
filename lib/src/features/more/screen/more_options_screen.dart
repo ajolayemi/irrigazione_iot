@@ -17,32 +17,39 @@ class MoreOptionsScreen extends StatelessWidget {
     final loc = context.loc;
     return Scaffold(
       body: SafeArea(
-          child: CustomScrollView(
-        slivers: [
-          AppSliverBar(title: loc.morePageTitle),
-          SliverList(
-            delegate: SliverChildListDelegate.fixed(
-              [
-                MorePageItemListTile(
-                  title: loc.iotBoardsMenuTitle,
-                  onTap: () => _showNotImplemented(context),
-                  leadingIcon: Icons.device_hub,
-                ),
-                const CommonResponsiveDivider(),
-                MorePageItemListTile(
-                    title: loc.profilePageTitle,
-                    onTap: () => _showNotImplemented(context),
-                    leadingIcon: Icons.person),
-                MorePageItemListTile(
-                  title: loc.settingsMenuTitle,
-                  onTap: () => _showNotImplemented(context),
-                  leadingIcon: Icons.settings,
-                )
-              ],
+        child: Column(
+          children: [
+            Expanded(
+              child: CustomScrollView(
+                slivers: [
+                  AppSliverBar(title: loc.morePageTitle),
+                  SliverList(
+                    delegate: SliverChildListDelegate.fixed(
+                      [
+                        MorePageItemListTile(
+                          title: loc.iotBoardsMenuTitle,
+                          onTap: () => _showNotImplemented(context),
+                          leadingIcon: Icons.device_hub,
+                        ),
+                        const CommonResponsiveDivider(),
+                        MorePageItemListTile(
+                            title: loc.profilePageTitle,
+                            onTap: () => _showNotImplemented(context),
+                            leadingIcon: Icons.person),
+                        MorePageItemListTile(
+                          title: loc.settingsMenuTitle,
+                          onTap: () => _showNotImplemented(context),
+                          leadingIcon: Icons.settings,
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          )
-        ],
-      )),
+          ],
+        ),
+      ),
     );
   }
 }
