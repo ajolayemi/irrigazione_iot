@@ -11,6 +11,7 @@ import 'package:irrigazione_iot/src/features/collectors/screen/collector_details
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_list_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/screen/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/screen/home_nested_navigator.dart';
+import 'package:irrigazione_iot/src/features/more/screen/more_options_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pump_form.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_details/pump_details_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_list/pumps_list_screen.dart';
@@ -24,8 +25,6 @@ import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/secto
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_screen.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/screen/user_company_list/user_companies_list_screen.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/empty_placeholder_widget.dart';
 
 // private navigator keys
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -221,11 +220,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/more',
                 name: AppRoute.more.name,
-                pageBuilder: (context, state) => NoTransitionPage(
-                  child: EmptyPlaceholderWidget(
-                    message: context.loc.morePageTitle,
-                  ),
-                ), // TODO: replace with more page
+                pageBuilder: (context, state) => const MaterialPage(
+                  fullscreenDialog: true,
+                  child: MoreOptionsScreen(),
+                ),
               ),
             ],
           ),
@@ -363,9 +361,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         name: AppRoute.connectSectorToCollector.name,
         pageBuilder: (context, state) => const MaterialPage(
           fullscreenDialog: true,
-          child: ConnectSectorsToCollector(
-
-          ),
+          child: ConnectSectorsToCollector(),
         ),
       ),
     ],
