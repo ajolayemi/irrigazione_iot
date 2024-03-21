@@ -1,0 +1,64 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
+
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+
+class CollectorPressure extends Equatable {
+  const CollectorPressure({
+    required this.collectorId,
+    required this.filterInPressure,
+    required this.filterOutPressure,
+    required this.timestamp,
+  });
+
+  CollectorPressure.empty()
+      : collectorId = '',
+        filterInPressure = 0.0,
+        filterOutPressure = 0.0,
+        timestamp = DateTime.fromMillisecondsSinceEpoch(0);
+
+  final CollectorID collectorId;
+  final double filterInPressure;
+  final double filterOutPressure;
+  final DateTime timestamp;
+
+  @override
+  List<Object> get props => [
+        collectorId,
+        filterInPressure,
+        filterOutPressure,
+        timestamp,
+      ];
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'collectorId': collectorId,
+      'filterInPressure': filterInPressure,
+      'filterOutPressure': filterOutPressure,
+      'timestamp': timestamp.millisecondsSinceEpoch,
+    };
+  }
+
+  factory CollectorPressure.fromJson(Map<String, dynamic> map) {
+    return CollectorPressure(
+      collectorId: map['collectorId'] as CollectorID,
+      filterInPressure: map['filterInPressure'] as double,
+      filterOutPressure: map['filterOutPressure'] as double,
+      timestamp: DateTime.fromMillisecondsSinceEpoch(map['timestamp'] as int),
+    );
+  }
+  
+  CollectorPressure copyWith({
+    CollectorID? collectorId,
+    double? filterInPressure,
+    double? filterOutPressure,
+    DateTime? timestamp,
+  }) {
+    return CollectorPressure(
+      collectorId: collectorId ?? this.collectorId,
+      filterInPressure: filterInPressure ?? this.filterInPressure,
+      filterOutPressure: filterOutPressure ?? this.filterOutPressure,
+      timestamp: timestamp ?? this.timestamp,
+    );
+  }
+}
