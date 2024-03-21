@@ -45,5 +45,17 @@ class FakeBoardRepository implements BoardRepository {
     // TODO: implement updateBoard
     throw UnimplementedError();
   }
+  
+  @override
+  Future<Board?> getBoardByBoardID({required BoardID boardID}) {
+    // TODO: implement getBoardByBoardID
+    throw UnimplementedError();
+  }
+  
+  @override
+  Stream<Board?> streamBoardByBoardID({required BoardID boardID}) {
+    // TODO: implement streamBoardByBoardID
+    throw UnimplementedError();
+  }
 
 }
