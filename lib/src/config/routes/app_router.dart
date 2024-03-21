@@ -5,6 +5,9 @@ import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_screen.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_boards_form.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/board_details/board_details_screen.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/boards_list/boards_list_screen.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_form.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/connect_sectors_to_collector_screen.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_details/collector_details.dart';
@@ -77,7 +80,6 @@ enum AppRoute {
   updateBoard,
   profile,
 }
-
 
 @Riverpod(keepAlive: true)
 GoRouter goRouter(GoRouterRef ref) {
@@ -372,6 +374,47 @@ GoRouter goRouter(GoRouterRef ref) {
           fullscreenDialog: true,
           child: ConnectSectorsToCollector(),
         ),
+      ),
+
+      /// Board (centraline) routes and it's sub-routes
+      GoRoute(
+        path: '/boards',
+        name: AppRoute.boards.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: BoardsListScreen(),
+        ),
+        routes: [
+          GoRoute(
+            path: 'details/:boardId',
+            name: AppRoute.boardDetails.name,
+            pageBuilder: (context, state) => MaterialPage(
+              fullscreenDialog: true,
+              child: BoardDetailsScreen(
+                boardID: state.pathParameters['boardId'] ?? '',
+              ),
+            ),
+          ),
+          GoRoute(
+            path: 'add',
+            name: AppRoute.addBoard.name,
+            pageBuilder: (context, state) => const MaterialPage(
+              fullscreenDialog: true,
+              child: AddUpdateBoardsForm(formType: GenericFormTypes.add),
+            ),
+          ),
+          GoRoute(
+            path: 'edit/:boardId',
+            name: AppRoute.updateBoard.name,
+            pageBuilder: (context, state) => MaterialPage(
+              fullscreenDialog: true,
+              child: AddUpdateBoardsForm(
+                formType: GenericFormTypes.update,
+                boardID: state.pathParameters['boardID'],
+              ),
+            ),
+          ),
+        ],
       ),
     ],
   );
