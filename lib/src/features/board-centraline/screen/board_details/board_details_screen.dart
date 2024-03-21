@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/features/board-centraline/data/board.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 
 class BoardDetailsScreen extends ConsumerWidget {
   const BoardDetailsScreen({

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
-import 'package:irrigazione_iot/src/features/board-centraline/data/board.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 
 class AddUpdateBoardsForm extends ConsumerStatefulWidget {
   const AddUpdateBoardsForm({
