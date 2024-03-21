@@ -9,17 +9,19 @@ class CollectorPressure extends Equatable {
     required this.filterInPressure,
     required this.filterOutPressure,
     required this.timestamp,
-  });
+  }) : pressureDifference = filterInPressure - filterOutPressure;
 
   CollectorPressure.empty()
       : collectorId = '',
         filterInPressure = 0.0,
         filterOutPressure = 0.0,
-        timestamp = DateTime.fromMillisecondsSinceEpoch(0);
+        timestamp = DateTime.fromMillisecondsSinceEpoch(0),
+        pressureDifference = 0.0;
 
   final CollectorID collectorId;
   final double filterInPressure;
   final double filterOutPressure;
+  final double pressureDifference;
   final DateTime timestamp;
 
   @override
@@ -28,6 +30,7 @@ class CollectorPressure extends Equatable {
         filterInPressure,
         filterOutPressure,
         timestamp,
+        pressureDifference,
       ];
 
   Map<String, dynamic> toJson() {
@@ -36,6 +39,7 @@ class CollectorPressure extends Equatable {
       'filterInPressure': filterInPressure,
       'filterOutPressure': filterOutPressure,
       'timestamp': timestamp.millisecondsSinceEpoch,
+      'pressureDifference': pressureDifference
     };
   }
 
@@ -47,7 +51,7 @@ class CollectorPressure extends Equatable {
       timestamp: DateTime.fromMillisecondsSinceEpoch(map['timestamp'] as int),
     );
   }
-  
+
   CollectorPressure copyWith({
     CollectorID? collectorId,
     double? filterInPressure,
