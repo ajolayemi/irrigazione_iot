@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_boards.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/fake_board_repository.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 
 void main() {
   const testBoardId = '1';
@@ -115,7 +116,8 @@ void main() {
     group('- watchBoardByCollectorID', () {
       test('called with 1 emits the expected result', () {
         expect(
-            fakeBoardRepository.watchBoardByCollectorID(collectorID: testCollectorId),
+            fakeBoardRepository.watchBoardByCollectorID(
+                collectorID: testCollectorId),
             emits(expectedBoardByCollectorId));
       });
 
@@ -123,6 +125,22 @@ void main() {
         expect(fakeBoardRepository.watchBoardByCollectorID(collectorID: '9000'),
             emits(null));
       });
+    });
+
+    group('- addBoard', () {
+      test('adds a board to the list of boards', () async {
+        final newBoard = kFakeBoards.first.copyWith(name: 'new board for test');
+        final res = await fakeBoardRepository.addBoard(board: newBoard);
+
+        // After creation is done
+        // The returned board should be different
+        expect(res, isNot(kFakeBoards.first));
+        // It shouldn't be null 
+        expect(res, isNotNull);
+        // It must be of type Board
+        expect(res, isA<Board>());
+      });
+
     });
   });
 }
