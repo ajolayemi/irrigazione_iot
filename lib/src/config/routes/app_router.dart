@@ -25,6 +25,9 @@ import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/secto
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_screen.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/screen/user_company_list/user_companies_list_screen.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'app_router.g.dart';
 
 // private navigator keys
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -75,10 +78,11 @@ enum AppRoute {
   profile,
 }
 
-final goRouterProvider = Provider<GoRouter>((ref) {
+
+@Riverpod(keepAlive: true)
+GoRouter goRouter(GoRouterRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   final initialTappedCompanyRepo = ref.watch(selectedCompanyRepositoryProvider);
-
   return GoRouter(
     initialLocation: '/sign-in',
     debugLogDiagnostics: true,
@@ -371,4 +375,4 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
     ],
   );
-});
+}
