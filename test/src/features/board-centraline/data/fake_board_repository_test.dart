@@ -180,5 +180,20 @@ void main() {
         expect(res, isNot(isA<Board>()));
       });
     });
+
+    group('- deleteBoard', () {
+      test('deletes a board from the list of boards', () async {
+        final res = await fakeBoardRepository.deleteBoard(boardID: testBoardId);
+
+        expect(res, isTrue);
+      });
+
+      test('deleting a non-existent board returns false', () async {
+        const nonExistentBoardId = '9000';
+        final res =
+            await fakeBoardRepository.deleteBoard(boardID: nonExistentBoardId);
+        expect(res, isFalse);
+      });
+    });
   });
 }
