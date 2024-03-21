@@ -4,8 +4,7 @@ import 'package:irrigazione_iot/src/features/collectors/data/collector_repositor
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 
 class BatteryIndicator extends ConsumerWidget {
-  const BatteryIndicator({Key? key, required this.collectorId})
-      : super(key: key);
+  const BatteryIndicator({super.key, required this.collectorId});
 
   final CollectorID collectorId;
   // Determine battery color based on level
