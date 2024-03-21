@@ -68,6 +68,11 @@ enum AppRoute {
   connectSectorToCollector,
   more,
   settings,
+  boards, // centraline
+  boardDetails,
+  addBoard,
+  updateBoard,
+  profile,
 }
 
 final goRouterProvider = Provider<GoRouter>((ref) {
