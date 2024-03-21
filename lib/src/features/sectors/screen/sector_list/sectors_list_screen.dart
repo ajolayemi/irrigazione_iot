@@ -17,6 +17,7 @@ import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/widgets/common_add_icon_button.dart';
 
 class SectorsListScreen extends ConsumerWidget {
   const SectorsListScreen({super.key});
@@ -49,13 +50,9 @@ class SectorsListScreen extends ConsumerWidget {
             AppSliverBar(
               title: loc.sectorPageTitle,
               actions: [
-                AppBarIconButton(
-                  isVisibile: canEdit,
-                  onPressed: isLoading
-                      ? () {}
-                      : () => _onAddSectorPressed(ref, context),
-                  icon: Icons.add,
-                )
+                CommonAddIconButton(
+                  onPressed: () => _onAddSectorPressed(ref, context),
+                ),
               ],
             ),
             AsyncValueSliverWidget(
