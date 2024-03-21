@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_boards.dart';
@@ -13,7 +14,12 @@ void main() {
   /// The expected result when fetching a board by companyId in this test
   final expectedBoardByCompanyId =
       kFakeBoards.where((board) => board.companyId == testCompanyId).toList();
+
   const testCollectorId = '1';
+
+  /// The expected result when fetching board by collectorId in this test
+  final expectedBoardByCollectorId =
+      kFakeBoards.firstWhereOrNull((board) => board.collectorId == testCollectorId);
 
   late FakeBoardRepository fakeBoardRepository;
   FakeBoardRepository makeFakeBoardRepository() {
@@ -88,6 +94,20 @@ void main() {
       test('called with 9000 emits an empty list', () {
         expect(fakeBoardRepository.watchBoardsByCompanyID(companyID: '9000'),
             emits(isEmpty));
+      });
+    });
+
+    group('- getBoardByCollectorID', () {
+      test('called with 1 returns the expected result', () async {
+        await expectLater(
+            fakeBoardRepository.getBoardByCollectorID(collectorID: testCollectorId),
+            completion(expectedBoardByCollectorId));
+      });
+
+      test('called with 9000 returns null', () async {
+        await expectLater(
+            fakeBoardRepository.getBoardByCollectorID(collectorID: '9000'),
+            completion(null));
       });
     });
   });
