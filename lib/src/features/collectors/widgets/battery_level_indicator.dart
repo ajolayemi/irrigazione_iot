@@ -25,11 +25,17 @@ class BatteryIndicator extends ConsumerWidget {
                 collectorBatteryLevelStreamProvider(collectorId: collectorId))
             .valueOrNull ??
         0.0;
-    return Text(
-      '${(batteryLevel * 100).toStringAsFixed(0)}%',
-      style: TextStyle(
-        color: _getBatteryColor(batteryLevel),
-      ),
+
+    return Row(
+      children: [
+        const Icon(Icons.battery_charging_full),
+        Text(
+          '${(batteryLevel * 100).toStringAsFixed(0)}%',
+          style: TextStyle(
+            color: _getBatteryColor(batteryLevel),
+          ),
+        ),
+      ],
     );
   }
 }
