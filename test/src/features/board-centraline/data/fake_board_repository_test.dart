@@ -18,8 +18,8 @@ void main() {
   const testCollectorId = '1';
 
   /// The expected result when fetching board by collectorId in this test
-  final expectedBoardByCollectorId =
-      kFakeBoards.firstWhereOrNull((board) => board.collectorId == testCollectorId);
+  final expectedBoardByCollectorId = kFakeBoards
+      .firstWhereOrNull((board) => board.collectorId == testCollectorId);
 
   late FakeBoardRepository fakeBoardRepository;
   FakeBoardRepository makeFakeBoardRepository() {
@@ -100,7 +100,8 @@ void main() {
     group('- getBoardByCollectorID', () {
       test('called with 1 returns the expected result', () async {
         await expectLater(
-            fakeBoardRepository.getBoardByCollectorID(collectorID: testCollectorId),
+            fakeBoardRepository.getBoardByCollectorID(
+                collectorID: testCollectorId),
             completion(expectedBoardByCollectorId));
       });
 
@@ -108,6 +109,19 @@ void main() {
         await expectLater(
             fakeBoardRepository.getBoardByCollectorID(collectorID: '9000'),
             completion(null));
+      });
+    });
+
+    group('- watchBoardByCollectorID', () {
+      test('called with 1 emits the expected result', () {
+        expect(
+            fakeBoardRepository.watchBoardByCollectorID(collectorID: testCollectorId),
+            emits(expectedBoardByCollectorId));
+      });
+
+      test('called with 9000 emits null', () {
+        expect(fakeBoardRepository.watchBoardByCollectorID(collectorID: '9000'),
+            emits(null));
       });
     });
   });
