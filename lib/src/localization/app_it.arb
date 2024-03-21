@@ -139,5 +139,9 @@
   "filterPressureDifference": "Diff filtri:",
   "iotBoardsMenuTitle": "Centraline",
   "settingsMenuTitle": "Impostazioni",
-  "profilePageTitle": "Il mio profilo"
+  "profilePageTitle": "Il mio profilo",
+  "logOutButtonTitle": "Esci",
+  "logOutAlertDialogTitle": "Sei sicuro di voler uscire dall'applicazione?",
+  "logOutAlertDialogContent": "Cliccando su 'Logout' verrai disconnesso dall'applicazione",
+  "logOutAlertDialogConfirm": "Esci"
 }

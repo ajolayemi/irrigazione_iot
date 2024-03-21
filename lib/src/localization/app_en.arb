@@ -410,5 +410,9 @@
   "filterPressureDifference": "Filter diff:",
   "iotBoardsMenuTitle": "Boards",
   "settingsMenuTitle": "Settings",
-  "profilePageTitle": "My Profile"
+  "profilePageTitle": "My Profile",
+  "logOutButtonTitle": "Logout",
+  "logOutAlertDialogTitle": "Are you sure you want to log out?",
+  "logOutAlertDialogContent": "You will be logged out of the application",
+  "logOutAlertDialogConfirm": "Logout"
 }
