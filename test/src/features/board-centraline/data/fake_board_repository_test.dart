@@ -42,5 +42,21 @@ void main() {
         );
       });
     });
+
+    group('- watchBoardByBoardID', () {
+      test('called with 1 emits the expected board', () {
+        expect(
+          fakeBoardRepository.watchBoardByBoardID(boardID: testBoardId),
+          emits(expectedBoardByBoardId),
+        );
+      });
+
+      test('called with 9000 emits null', () {
+        expect(
+          fakeBoardRepository.watchBoardByBoardID(boardID: '9000'),
+          emits(null),
+        );
+      });
+    });
   });
 }
