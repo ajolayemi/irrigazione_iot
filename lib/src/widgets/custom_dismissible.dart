@@ -21,6 +21,7 @@ class CustomDismissibleWidget extends StatelessWidget {
     return Dismissible(
       key: dismissibleKey,
       onDismissed: onDismissed ?? (_) {},
+      direction: DismissDirection.endToStart,
       confirmDismiss: confirmDismiss,
       background: Container(
         color: Colors.red,

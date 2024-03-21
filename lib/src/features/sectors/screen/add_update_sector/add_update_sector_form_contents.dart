@@ -91,7 +91,7 @@ class _AddUpdateSectorFormContentsState
 
   @override
   void initState() {
-    if (widget.formType.isUpdating() && widget.sectorId != null) {
+    if (widget.formType.isUpdating && widget.sectorId != null) {
       final sector =
           ref.read(sectorStreamProvider(widget.sectorId!)).valueOrNull;
       _initialSector = sector;
@@ -160,8 +160,8 @@ class _AddUpdateSectorFormContentsState
     );
   }
 
-  void _nameEditingComplete() {
-    if (canSubmitNameField(name, _initialSector?.name, ['sector'])) {
+  void _nameEditingComplete(List<String?> usedSectorNames) {
+    if (canSubmitNameField(name, _initialSector?.name, usedSectorNames)) {
       _node.nextFocus();
     }
   }
@@ -273,7 +273,7 @@ class _AddUpdateSectorFormContentsState
 
       bool success = false;
 
-      if (widget.formType.isUpdating()) {
+      if (widget.formType.isUpdating) {
         success = await ref
             .read(addUpdateSectorControllerProvider.notifier)
             .updateSector(toSave);
@@ -302,7 +302,7 @@ class _AddUpdateSectorFormContentsState
         (_, state) => state.showAlertDialogOnError(context));
     final numberFieldKeyboardType =
         ref.watch(numericFieldsTextInputTypeProvider);
-    final isUpdating = widget.formType.isUpdating();
+    final isUpdating = widget.formType.isUpdating;
 
     // already used values for form validation
     final usedSectorNames =
@@ -340,7 +340,7 @@ class _AddUpdateSectorFormContentsState
                     fieldHintText: loc.sectorNameHintText,
                     textInputAction: TextInputAction.next,
                     fieldController: _nameController,
-                    onEditingComplete: _nameEditingComplete,
+                    onEditingComplete: () => _nameEditingComplete(usedSectorNames ?? []),
                     validator: (_) => _nameErrorText(usedSectorNames ?? []),
                   ),
                   gapH16,

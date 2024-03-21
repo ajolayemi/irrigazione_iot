@@ -249,7 +249,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
         ref.watch(companyUsedPumpOffCommandsStreamProvider).valueOrNull ?? [];
     final state = ref.watch(addUpdatePumpControllerProvider);
 
-    final isUpdating = widget.formType.isUpdating();
+    final isUpdating = widget.formType.isUpdating;
 
     final loc = context.loc;
     return Column(

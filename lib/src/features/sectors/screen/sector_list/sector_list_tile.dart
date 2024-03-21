@@ -47,6 +47,11 @@ class SectorListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    // todo: add sector pressure in the list tile subtitle
+    // todo: irrigation state (manual/automatic)
+    // todo: since when is this sector being irrigated if on
+    // todo: for when program will be available, show countdown for remaining time
     final globalLoadingState =
         ref.watch(sectorSwitchControllerProvider).isGlobalLoading;
     final isDeleting = ref.watch(dismissSectorControllerProvider).isLoading;
@@ -64,21 +69,34 @@ class SectorListTile extends ConsumerWidget {
                 ),
         child: CustomDismissibleWidget(
           dismissibleKey: sectorListTileKey(sector),
-          isDeleting: isDeleting, 
+          isDeleting: isDeleting,
           confirmDismiss: (_) async => await _dismissSector(context, ref),
-          child: ListTile(
-            title: Text(sector.name),
-            subtitleTextStyle: context.textTheme.titleSmall?.copyWith(
-              color: Colors.grey,
-            ),
-            isThreeLine: true,
-            subtitle: SectorListTileSubtitle(sector: sector),
-            trailing: SectorSwitch(
-              sector: sector,
-            ),
-          ),
+          child: SectorListTileItem(sector: sector),
         ),
       ),
     );
+  }
+}
+
+class SectorListTileItem extends StatelessWidget {
+  const SectorListTileItem({
+    super.key,
+    required this.sector,
+  });
+
+  final Sector sector;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+        title: Text(sector.name),
+        subtitleTextStyle: context.textTheme.titleSmall?.copyWith(
+          color: Colors.grey,
+        ),
+        isThreeLine: true,
+        subtitle: SectorListTileSubtitle(sector: sector),
+        trailing: SectorSwitch(
+          sector: sector,
+        ));
   }
 }

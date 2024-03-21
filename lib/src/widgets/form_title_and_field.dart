@@ -17,7 +17,7 @@ class FormTitleAndField extends StatelessWidget {
     this.onEditingComplete,
     this.inputFormatters,
     this.validator,
-    this.textInputAction,
+    this.textInputAction = TextInputAction.next,
     this.obscureText,
     this.enabled,
     this.maxLines,

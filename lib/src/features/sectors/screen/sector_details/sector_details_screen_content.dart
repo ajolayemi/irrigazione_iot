@@ -6,7 +6,6 @@ import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_status.dart';
-import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch.dart';
 import 'package:irrigazione_iot/src/utils/date_formatter.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/details_tile_widget.dart';
@@ -31,24 +30,6 @@ class SectorDetailsScreenContents extends ConsumerWidget {
     return SliverList(
       delegate: SliverChildListDelegate.fixed(
         [
-          ResponsiveDetailsCard(
-            child: Consumer(
-              builder: (context, ref, child) {
-                final status =
-                    ref.watch(sectorStatusStreamProvider(sector)).valueOrNull ??
-                        false;
-                return DetailTileWidget(
-                  title: context.loc.statusListTileTitle,
-                  subtitle: status
-                      ? context.loc.onStatusValue
-                      : context.loc.offStatusValue,
-                  trailing: SectorSwitch(
-                    sector: sector,
-                  ),
-                );
-              },
-            ),
-          ),
           ResponsiveDetailsCard(child: Consumer(builder: (context, ref, child) {
             final lastIrrigated = ref
                 .watch(sectorLastIrrigatedStreamProvider(sector))

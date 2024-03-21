@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:irrigazione_iot/src/widgets/sliver_skeleton_tile.dart';
-
+import 'package:irrigazione_iot/src/widgets/common_skeleton_tile.dart';
 
 // * A custom sliver list skeleton for skeletonizer to use when loading data for pump details screen
 class PumpDetailsSliverListSkeleton extends StatelessWidget {
@@ -11,7 +10,7 @@ class PumpDetailsSliverListSkeleton extends StatelessWidget {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          return CustomSkeletonTile(
+          return CommonSkeletonTile(
             hasLeading: false,
             hasTrailing: index == 0,
           );

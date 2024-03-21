@@ -1,0 +1,320 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'collector_pressure_repository.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+String _$collectorPressureRepositoryHash() =>
+    r'0be56a6076c9fc2f446dbf8c84714c5b8dde4036';
+
+/// See also [collectorPressureRepository].
+@ProviderFor(collectorPressureRepository)
+final collectorPressureRepositoryProvider =
+    Provider<CollectorPressureRepository>.internal(
+  collectorPressureRepository,
+  name: r'collectorPressureRepositoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$collectorPressureRepositoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CollectorPressureRepositoryRef
+    = ProviderRef<CollectorPressureRepository>;
+String _$collectorPressureStreamHash() =>
+    r'347fdb00359c9e9485fd96d06294fb52dd827baa';
+
+/// Copied from Dart SDK
+class _SystemHash {
+  _SystemHash._();
+
+  static int combine(int hash, int value) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + value);
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
+    return hash ^ (hash >> 6);
+  }
+
+  static int finish(int hash) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
+    // ignore: parameter_assignments
+    hash = hash ^ (hash >> 11);
+    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
+  }
+}
+
+/// See also [collectorPressureStream].
+@ProviderFor(collectorPressureStream)
+const collectorPressureStreamProvider = CollectorPressureStreamFamily();
+
+/// See also [collectorPressureStream].
+class CollectorPressureStreamFamily
+    extends Family<AsyncValue<CollectorPressure?>> {
+  /// See also [collectorPressureStream].
+  const CollectorPressureStreamFamily();
+
+  /// See also [collectorPressureStream].
+  CollectorPressureStreamProvider call({
+    required String collectorId,
+  }) {
+    return CollectorPressureStreamProvider(
+      collectorId: collectorId,
+    );
+  }
+
+  @override
+  CollectorPressureStreamProvider getProviderOverride(
+    covariant CollectorPressureStreamProvider provider,
+  ) {
+    return call(
+      collectorId: provider.collectorId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'collectorPressureStreamProvider';
+}
+
+/// See also [collectorPressureStream].
+class CollectorPressureStreamProvider
+    extends AutoDisposeStreamProvider<CollectorPressure?> {
+  /// See also [collectorPressureStream].
+  CollectorPressureStreamProvider({
+    required String collectorId,
+  }) : this._internal(
+          (ref) => collectorPressureStream(
+            ref as CollectorPressureStreamRef,
+            collectorId: collectorId,
+          ),
+          from: collectorPressureStreamProvider,
+          name: r'collectorPressureStreamProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$collectorPressureStreamHash,
+          dependencies: CollectorPressureStreamFamily._dependencies,
+          allTransitiveDependencies:
+              CollectorPressureStreamFamily._allTransitiveDependencies,
+          collectorId: collectorId,
+        );
+
+  CollectorPressureStreamProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.collectorId,
+  }) : super.internal();
+
+  final String collectorId;
+
+  @override
+  Override overrideWith(
+    Stream<CollectorPressure?> Function(CollectorPressureStreamRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: CollectorPressureStreamProvider._internal(
+        (ref) => create(ref as CollectorPressureStreamRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        collectorId: collectorId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<CollectorPressure?> createElement() {
+    return _CollectorPressureStreamProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is CollectorPressureStreamProvider &&
+        other.collectorId == collectorId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, collectorId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin CollectorPressureStreamRef
+    on AutoDisposeStreamProviderRef<CollectorPressure?> {
+  /// The parameter `collectorId` of this provider.
+  String get collectorId;
+}
+
+class _CollectorPressureStreamProviderElement
+    extends AutoDisposeStreamProviderElement<CollectorPressure?>
+    with CollectorPressureStreamRef {
+  _CollectorPressureStreamProviderElement(super.provider);
+
+  @override
+  String get collectorId =>
+      (origin as CollectorPressureStreamProvider).collectorId;
+}
+
+String _$collectorPressureFutureHash() =>
+    r'7b9f027babd6260d62d19a055c2e0087cfd82825';
+
+/// See also [collectorPressureFuture].
+@ProviderFor(collectorPressureFuture)
+const collectorPressureFutureProvider = CollectorPressureFutureFamily();
+
+/// See also [collectorPressureFuture].
+class CollectorPressureFutureFamily
+    extends Family<AsyncValue<CollectorPressure?>> {
+  /// See also [collectorPressureFuture].
+  const CollectorPressureFutureFamily();
+
+  /// See also [collectorPressureFuture].
+  CollectorPressureFutureProvider call({
+    required String collectorId,
+  }) {
+    return CollectorPressureFutureProvider(
+      collectorId: collectorId,
+    );
+  }
+
+  @override
+  CollectorPressureFutureProvider getProviderOverride(
+    covariant CollectorPressureFutureProvider provider,
+  ) {
+    return call(
+      collectorId: provider.collectorId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'collectorPressureFutureProvider';
+}
+
+/// See also [collectorPressureFuture].
+class CollectorPressureFutureProvider
+    extends AutoDisposeFutureProvider<CollectorPressure?> {
+  /// See also [collectorPressureFuture].
+  CollectorPressureFutureProvider({
+    required String collectorId,
+  }) : this._internal(
+          (ref) => collectorPressureFuture(
+            ref as CollectorPressureFutureRef,
+            collectorId: collectorId,
+          ),
+          from: collectorPressureFutureProvider,
+          name: r'collectorPressureFutureProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$collectorPressureFutureHash,
+          dependencies: CollectorPressureFutureFamily._dependencies,
+          allTransitiveDependencies:
+              CollectorPressureFutureFamily._allTransitiveDependencies,
+          collectorId: collectorId,
+        );
+
+  CollectorPressureFutureProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.collectorId,
+  }) : super.internal();
+
+  final String collectorId;
+
+  @override
+  Override overrideWith(
+    FutureOr<CollectorPressure?> Function(CollectorPressureFutureRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: CollectorPressureFutureProvider._internal(
+        (ref) => create(ref as CollectorPressureFutureRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        collectorId: collectorId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<CollectorPressure?> createElement() {
+    return _CollectorPressureFutureProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is CollectorPressureFutureProvider &&
+        other.collectorId == collectorId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, collectorId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin CollectorPressureFutureRef
+    on AutoDisposeFutureProviderRef<CollectorPressure?> {
+  /// The parameter `collectorId` of this provider.
+  String get collectorId;
+}
+
+class _CollectorPressureFutureProviderElement
+    extends AutoDisposeFutureProviderElement<CollectorPressure?>
+    with CollectorPressureFutureRef {
+  _CollectorPressureFutureProviderElement(super.provider);
+
+  @override
+  String get collectorId =>
+      (origin as CollectorPressureFutureProvider).collectorId;
+}
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

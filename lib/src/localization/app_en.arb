@@ -344,9 +344,68 @@
   "addNewButtonLabel": "Add New",
   "nSelectedPumps": "{n, plural, =0{0 pumps selected} =1{1 pump selected} other{{n} pumps selected}}",
   "nConnectedPumps": "{n, plural, =0{0 pumps connected} =1{1 pump connected} other{{n} pumps connected}}",
-  "connectPumpsToSectorPageTile": "Select Pump",
+  "connectPumpsToSectorPageTile": "Select Pumps",
   "noPumpConnectedToSectorErrorText": "You have to connect at least one pump to this sector",
   "pumpLastDispensationForTile": "Was last switched on",
   "pumpLastDispensationEmpty": "Never switched on",
-  "pumpTotalDispensedLitres": "Total litres dispensed"
+  "pumpTotalDispensedLitres": "Total litres dispensed",
+  "nCollectors": "{n, plural, =1{collector} =2{collectors} other{collectors}}",
+  "@nCollectors": {
+    "description": "The pluralized version of the word 'collector'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nCollectorsWithIndefiniteArticle": "{n, plural, =1{a collector} =2{collectors} other{collectors}}",
+  "@nCollectorsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'collector' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nCollectorsWithDefiniteArticle": "{n, plural, =1{the collector} =2{collectors} other{collectors}}",
+  "@nCollectorsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'collector' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nCollectorsWithArticulatedPreposition": "{n, plural, =1{the collector} =2{the collectors} other{the collectors}}",
+  "@nCollectorsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'collector' with an articulated preposition",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "addNewCollectorPageTitle": "New Collector",
+  "updateCollectorPageTitle": "Update Collector",
+  "collectorName": "Collector name",
+  "collectorNameHintText": "eg: Collettore Giardino",
+  "collectorFilterName": "Filter (filtro) Name ",
+  "collectorFilterNameHintText": "eg: Filtro 1",
+  "nSelectedSectors": "{n, plural, =0{0 sectors selected} =1{1 sector selected} other{{n} sectors selected}}",
+  "connectSectorToCollectorPageTitle": "Select Sectors",
+  "collectorConnectedSectors": "Connected Sectors",
+  "noSectorConnectedToCollectorErrorText": "You have to connect at least one sector to this collector",
+  "genericConfirmButtonLabel": "Confirm",
+  "allSectorsAreConnectedToACollector": "All available sectors have already been connected to a collector",
+  "nConnectedSectors": "{n, plural, =0{0 sectors connected} =1{1 sector connected} other{{n} sectors connected}}",
+  "batteryLevel": "Battery:",
+  "filterPressureDifference": "Filter diff:"
 }
