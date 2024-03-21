@@ -14,7 +14,7 @@ class CommonResponsiveDivider extends StatelessWidget {
       ),
       child: Divider(
         color: Colors.grey,
-        thickness: 2,
+        thickness: 1,
       ),
     );
   }
