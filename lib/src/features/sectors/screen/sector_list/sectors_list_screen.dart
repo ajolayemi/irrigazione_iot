@@ -21,7 +21,6 @@ import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
 class SectorsListScreen extends ConsumerWidget {
   const SectorsListScreen({super.key});
 
-
   void _onAddSectorPressed(WidgetRef ref, BuildContext context) {
     ref.read(selectedPumpsIdProvider.notifier).state = [];
     context.pushNamed(AppRoute.addSector.name);
@@ -43,9 +42,9 @@ class SectorsListScreen extends ConsumerWidget {
     final sectors = ref.watch(sectorListStreamProvider);
     final isLoading = ref.watch(sectorSwitchControllerProvider).isLoading;
     final loc = context.loc;
-    return SafeArea(
-      child: Scaffold(
-        body: CustomScrollView(
+    return Scaffold(
+      body: SafeArea(
+        child: CustomScrollView(
           slivers: [
             AppSliverBar(
               title: loc.sectorPageTitle,
