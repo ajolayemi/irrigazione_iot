@@ -405,5 +405,7 @@
   "noSectorConnectedToCollectorErrorText": "You have to connect at least one sector to this collector",
   "genericConfirmButtonLabel": "Confirm",
   "allSectorsAreConnectedToACollector": "All available sectors have already been connected to a collector",
-  "nConnectedSectors": "{n, plural, =0{0 sectors connected} =1{1 sector connected} other{{n} sectors connected}}"
+  "nConnectedSectors": "{n, plural, =0{0 sectors connected} =1{1 sector connected} other{{n} sectors connected}}",
+  "batteryLevel": "Battery:",
+  "filterPressureDifference": "Filter diff:"
 }

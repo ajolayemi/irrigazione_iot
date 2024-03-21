@@ -134,5 +134,7 @@
   "noSectorConnectedToCollectorErrorText": "Devi collegare almeno un settore a questo collettore",
   "genericConfirmButtonLabel": "Conferma",
   "allSectorsAreConnectedToACollector": "Tutti i settori sono stati già collegati a un collettore",
-  "nConnectedSectors": "{n, plural, =0{0 settori collegati} =1{1 settore collegato} other{{n} settori collegati}}"
+  "nConnectedSectors": "{n, plural, =0{0 settori collegati} =1{1 settore collegato} other{{n} settori collegati}}",
+  "batteryLevel": "Battery:",
+  "filterPressureDifference": "Diff filtri:"
 }
