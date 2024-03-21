@@ -13,7 +13,7 @@ part 'board_repository.g.dart';
 abstract class BoardRepository {
   /// Fetches a list of boards, if any, pertaining to the company specified with
   /// [CompanyID]
-  Future<List<Board>?> geBoardsByCompanyID({
+  Future<List<Board>?> getBoardsByCompanyID({
     required CompanyID companyID,
   });
 
@@ -78,7 +78,7 @@ Future<List<Board>?> boardListFuture(BoardListFutureRef ref) {
   final boardRepository = ref.read(boardRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return Future.value([]);
-  return boardRepository.geBoardsByCompanyID(companyID: companyId);
+  return boardRepository.getBoardsByCompanyID(companyID: companyId);
 }
 
 @riverpod

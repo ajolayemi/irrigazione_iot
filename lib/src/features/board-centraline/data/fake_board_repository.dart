@@ -67,7 +67,7 @@ class FakeBoardRepository implements BoardRepository {
   }
 
   @override
-  Future<List<Board>?> geBoardsByCompanyID(
+  Future<List<Board>?> getBoardsByCompanyID(
       {required CompanyID companyID}) async {
     await delay(addDelay);
     return _getBoardsByCompanyID(_boards, companyID);

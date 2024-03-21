@@ -37,7 +37,7 @@ final boardListStreamProvider =
 );
 
 typedef BoardListStreamRef = AutoDisposeStreamProviderRef<List<Board>?>;
-String _$boardListFutureHash() => r'04c5d47a7b7d34922618cdd5832fc9897aabb6e4';
+String _$boardListFutureHash() => r'15492201fc1e31df4bf6cd9ba22e8171b5027ef5';
 
 /// See also [boardListFuture].
 @ProviderFor(boardListFuture)
