@@ -8,7 +8,8 @@ import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_list/dismiss_collector_controller.dart';
-import 'package:irrigazione_iot/src/features/collectors/widgets/collector_tile_row_widget.dart';
+import 'package:irrigazione_iot/src/features/collectors/widgets/collector_tile_subtitle.dart';
+import 'package:irrigazione_iot/src/features/collectors/widgets/collector_tile_title.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sector_list_tile.dart';
@@ -91,9 +92,8 @@ class _CollectorExpansionListTileState
                       },
                     ),
                   ),
-            title: CollectorTileRowWidget(
-              collector: widget.collector,
-            ),
+            title: CollectorTileRowWidget(collector: widget.collector),
+            subtitle: CollectorTileSubtitle(collectorId: widget.collector.id),
             children: collectorSectors == null || collectorSectors.isEmpty
                 ? []
                 : collectorSectors
