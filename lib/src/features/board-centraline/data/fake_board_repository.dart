@@ -81,13 +81,13 @@ class FakeBoardRepository implements BoardRepository {
   }
 
   @override
-  Stream<Board?> streamBoardByCollectorID({required CollectorID collectorID}) {
+  Stream<Board?> watchBoardByCollectorID({required CollectorID collectorID}) {
     return _streamBoards
         .map((boards) => _getBoardsByCollectorID(boards, collectorID));
   }
 
   @override
-  Stream<List<Board>?> streamBoardsByCompanyID({required CompanyID companyID}) {
+  Stream<List<Board>?> watchBoardsByCompanyID({required CompanyID companyID}) {
     return _streamBoards
         .map((boards) => _getBoardsByCompanyID(boards, companyID));
   }
@@ -99,7 +99,7 @@ class FakeBoardRepository implements BoardRepository {
   }
 
   @override
-  Stream<Board?> streamBoardByBoardID({required BoardID boardID}) {
+  Stream<Board?> watchBoardByBoardID({required BoardID boardID}) {
     return _streamBoards.map((boards) => _getBoardsByBoardID(boards, boardID));
   }
 
