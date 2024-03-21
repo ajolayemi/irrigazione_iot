@@ -19,7 +19,7 @@ abstract class BoardRepository {
 
   /// Emits a list of boards, if any, pertaining to the company specified with
   /// [CompanyID]
-  Stream<List<Board>?> streamBoardsByCompanyID({
+  Stream<List<Board>?> watchBoardsByCompanyID({
     required CompanyID companyID,
   });
 
@@ -29,7 +29,7 @@ abstract class BoardRepository {
   });
 
   /// Emits the [Board] associated with a collector specified by [CollectorID]
-  Stream<Board?> streamBoardByCollectorID({
+  Stream<Board?> watchBoardByCollectorID({
     required CollectorID collectorID,
   });
 
@@ -39,7 +39,7 @@ abstract class BoardRepository {
   });
 
   /// Emits the [Board] associated with [BoardId]
-  Stream<Board?> streamBoardByBoardID({
+  Stream<Board?> watchBoardByBoardID({
     required BoardID boardID,
   });
 
@@ -70,7 +70,7 @@ Stream<List<Board>?> boardListStream(BoardListStreamRef ref) {
   final boardRepository = ref.read(boardRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return const Stream.empty();
-  return boardRepository.streamBoardsByCompanyID(companyID: companyId);
+  return boardRepository.watchBoardsByCompanyID(companyID: companyId);
 }
 
 @riverpod
@@ -85,7 +85,7 @@ Future<List<Board>?> boardListFuture(BoardListFutureRef ref) {
 Stream<Board?> collectorBoardStream(CollectorBoardStreamRef ref,
     {required CollectorID collectorID}) {
   final boardRepository = ref.read(boardRepositoryProvider);
-  return boardRepository.streamBoardByCollectorID(collectorID: collectorID);
+  return boardRepository.watchBoardByCollectorID(collectorID: collectorID);
 }
 
 @riverpod
@@ -98,7 +98,7 @@ Future<Board?> collectorBoardFuture(CollectorBoardFutureRef ref,
 @riverpod
 Stream<Board?> boardStream(BoardStreamRef ref, {required BoardID boardID}) {
   final boardRepository = ref.watch(boardRepositoryProvider);
-  return boardRepository.streamBoardByBoardID(boardID: boardID);
+  return boardRepository.watchBoardByBoardID(boardID: boardID);
 }
 
 @riverpod

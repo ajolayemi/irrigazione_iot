@@ -21,7 +21,7 @@ final boardRepositoryProvider = Provider<BoardRepository>.internal(
 );
 
 typedef BoardRepositoryRef = ProviderRef<BoardRepository>;
-String _$boardListStreamHash() => r'21b3528df59e8c74dfea3e4a8ea5a47e28a4bcd5';
+String _$boardListStreamHash() => r'd941e952d13429e3b9c0d9ba4f3f23f623baafc0';
 
 /// See also [boardListStream].
 @ProviderFor(boardListStream)
@@ -54,7 +54,7 @@ final boardListFutureProvider =
 
 typedef BoardListFutureRef = AutoDisposeFutureProviderRef<List<Board>?>;
 String _$collectorBoardStreamHash() =>
-    r'7d947b766aede7b7b0c3b0dc41e2d635ce9386cd';
+    r'377e6fa1cbe6816103e07b054ca67071087ce4ca';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -338,7 +338,7 @@ class _CollectorBoardFutureProviderElement
       (origin as CollectorBoardFutureProvider).collectorID;
 }
 
-String _$boardStreamHash() => r'd3b952f554b92797ab06d3e172434e360b55ecce';
+String _$boardStreamHash() => r'9f5209680e12746adc51c0c58b3ce5b924add2a8';
 
 /// See also [boardStream].
 @ProviderFor(boardStream)
