@@ -135,12 +135,50 @@ void main() {
         // After creation is done
         // The returned board should be different
         expect(res, isNot(kFakeBoards.first));
-        // It shouldn't be null 
+        // It shouldn't be null
+        expect(res, isNotNull);
+        // It must be of type Board
+        expect(res, isA<Board>());
+      });
+    });
+
+    group('- updateBoard', () {
+      test('updates a board in the list of boards returns the updated board',
+          () async {
+        final updatedBoard = kFakeBoards.first.copyWith(name: 'updated board');
+        final res = await fakeBoardRepository.updateBoard(board: updatedBoard);
+
+        // After update is done, the returned board
+        // should be the same as the one passed as arg
+        expect(res, updatedBoard);
+        // should be different from the original board (just for double check)
+        expect(res, isNot(kFakeBoards.first));
+        // It shouldn't be null
         expect(res, isNotNull);
         // It must be of type Board
         expect(res, isA<Board>());
       });
 
+      test('updating a non-existent board returns null', () async {
+        const nonExistentBoardForTest = Board(
+          id: '9000',
+          name: 'non-existent board',
+          companyId: '1',
+          collectorId: '1',
+          model: 'model',
+          serialNumber: 'serialNumber',
+        );
+
+        final res = await fakeBoardRepository.updateBoard(
+          board: nonExistentBoardForTest,
+        );
+
+        // null should be returned
+        expect(res, isNull);
+        // the returned result shouldn't be of type Board
+        // just to double check
+        expect(res, isNot(isA<Board>()));
+      });
     });
   });
 }
