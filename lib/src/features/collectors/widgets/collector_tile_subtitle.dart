@@ -28,7 +28,7 @@ class CollectorTileSubtitle extends ConsumerWidget {
 
             /// If the board is null, return an empty widget
             if (board == null) {
-              return const SliverToBoxAdapter();
+              return const SizedBox();
             }
             return BatteryIndicator(
               boardId: board.id,
