@@ -167,20 +167,24 @@ class _AddUpdateBoardFormContentState
   @override
   Widget build(BuildContext context) {
     final loc = context.loc;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(
-            child: CustomScrollView(
-          slivers: [
-            AppSliverBar(
-              title: _isUpdating
-                  ? loc.updateBoardPageTitle
-                  : loc.addNewBoardPageTitle,
-            ),
-          ],
-        ))
-      ],
+
+    return IgnorePointer(
+      ignoring: isLoading,,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+              child: CustomScrollView(
+            slivers: [
+              AppSliverBar(
+                title: _isUpdating
+                    ? loc.updateBoardPageTitle
+                    : loc.addNewBoardPageTitle,
+              ),
+            ],
+          ))
+        ],
+      ),
     );
   }
 }
