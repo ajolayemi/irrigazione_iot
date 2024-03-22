@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/boards_list/boards_list_tile.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/widgets/empty_board_widget.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
@@ -38,25 +39,20 @@ class BoardsListScreen extends ConsumerWidget {
                   return const EmptyBoardWidget();
                 }
 
-                return SliverList(delegate: SliverChildBuilderDelegate(
+                return SliverList(
+                    delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     // It's safe to assume that board is not null
                     final board = boards[index]!;
-                    return ListTile(
-                      title: Text(board.name),
-                      onTap: () => showNotImplementedAlertDialog(
-                        context: context,
-                      ),
-                    );
+                    return BoardListTile(board: board);
                   },
                   childCount: boards.length,
                 ));
               },
               loading: () => const CommonSliverListSkeleton(
-                hasLeading: false,
-                hasTrailing: false,
-              )
-           ),
+                    hasLeading: false,
+                    hasTrailing: false,
+                  )),
         ],
       )),
     );
