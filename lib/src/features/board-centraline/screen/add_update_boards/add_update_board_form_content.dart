@@ -201,6 +201,15 @@ class _AddUpdateBoardFormContentState
                     validator: (_) => _boardNameFieldErrorText(),
                   ),
                   gapH16,
+                  FormTitleAndField(
+                    fieldKey: _modelFieldKey,
+                    fieldTitle: loc.boardModel,
+                    fieldHintText: loc.boardModelHintText,
+                    fieldController: _modelController,
+                    onEditingComplete: () =>
+                        _nonEmptyFieldsEditingComplete(value: _model),
+                    validator: (_) => _nonEmptyFieldsErrorText(value: _model),
+                  ),
                 ],
               ),
             ],
