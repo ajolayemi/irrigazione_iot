@@ -67,7 +67,7 @@ class FakeBoardRepository implements BoardRepository {
   }
 
   @override
-  Future<List<Board>?> getBoardsByCompanyID(
+  Future<List<Board?>> getBoardsByCompanyID(
       {required CompanyID companyID}) async {
     await delay(addDelay);
     return _getBoardsByCompanyID(_boards, companyID);
@@ -87,7 +87,7 @@ class FakeBoardRepository implements BoardRepository {
   }
 
   @override
-  Stream<List<Board>?> watchBoardsByCompanyID({required CompanyID companyID}) {
+  Stream<List<Board?>> watchBoardsByCompanyID({required CompanyID companyID}) {
     return _streamBoards
         .map((boards) => _getBoardsByCompanyID(boards, companyID));
   }
