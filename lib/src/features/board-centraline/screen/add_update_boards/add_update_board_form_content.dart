@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
@@ -12,6 +13,8 @@ import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
 
 class AddUpdateBoardFormContent extends ConsumerStatefulWidget {
   const AddUpdateBoardFormContent({
@@ -166,10 +169,14 @@ class _AddUpdateBoardFormContentState
 
   @override
   Widget build(BuildContext context) {
+    // TODO: loisten to controller error state here
     final loc = context.loc;
 
+    // TODO: replace with proper controller state
+    const state = false;
+    const isLoading = false;
     return IgnorePointer(
-      ignoring: isLoading,,
+      ignoring: isLoading,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -180,6 +187,21 @@ class _AddUpdateBoardFormContentState
                 title: _isUpdating
                     ? loc.updateBoardPageTitle
                     : loc.addNewBoardPageTitle,
+              ),
+              ResponsiveSliverForm(
+                node: _node,
+                formKey: _formKey,
+                children: [
+                  FormTitleAndField(
+                    fieldKey: _nameFieldKey,
+                    fieldTitle: loc.boardName,
+                    fieldHintText: loc.boardNameHintText,
+                    fieldController: _nameController,
+                    onEditingComplete: _boardNameEditingComplete,
+                    validator: (_) => _boardNameFieldErrorText(),
+                  ),
+                  gapH16,
+                ],
               ),
             ],
           ))
