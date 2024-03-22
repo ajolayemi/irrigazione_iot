@@ -13,13 +13,13 @@ part 'board_repository.g.dart';
 abstract class BoardRepository {
   /// Fetches a list of boards, if any, pertaining to the company specified with
   /// [CompanyID]
-  Future<List<Board>?> getBoardsByCompanyID({
+  Future<List<Board?>> getBoardsByCompanyID({
     required CompanyID companyID,
   });
 
   /// Emits a list of boards, if any, pertaining to the company specified with
   /// [CompanyID]
-  Stream<List<Board>?> watchBoardsByCompanyID({
+  Stream<List<Board?>> watchBoardsByCompanyID({
     required CompanyID companyID,
   });
 
@@ -66,7 +66,7 @@ BoardRepository boardRepository(BoardRepositoryRef ref) {
 }
 
 @riverpod
-Stream<List<Board>?> boardListStream(BoardListStreamRef ref) {
+Stream<List<Board?>> boardListStream(BoardListStreamRef ref) {
   final boardRepository = ref.read(boardRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return const Stream.empty();
@@ -74,7 +74,7 @@ Stream<List<Board>?> boardListStream(BoardListStreamRef ref) {
 }
 
 @riverpod
-Future<List<Board>?> boardListFuture(BoardListFutureRef ref) {
+Future<List<Board?>> boardListFuture(BoardListFutureRef ref) {
   final boardRepository = ref.read(boardRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return Future.value([]);

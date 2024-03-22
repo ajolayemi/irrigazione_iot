@@ -21,12 +21,12 @@ final boardRepositoryProvider = Provider<BoardRepository>.internal(
 );
 
 typedef BoardRepositoryRef = ProviderRef<BoardRepository>;
-String _$boardListStreamHash() => r'd941e952d13429e3b9c0d9ba4f3f23f623baafc0';
+String _$boardListStreamHash() => r'5d342fb3de301b8df7b73026b25a6e8781161fc0';
 
 /// See also [boardListStream].
 @ProviderFor(boardListStream)
 final boardListStreamProvider =
-    AutoDisposeStreamProvider<List<Board>?>.internal(
+    AutoDisposeStreamProvider<List<Board?>>.internal(
   boardListStream,
   name: r'boardListStreamProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -36,13 +36,13 @@ final boardListStreamProvider =
   allTransitiveDependencies: null,
 );
 
-typedef BoardListStreamRef = AutoDisposeStreamProviderRef<List<Board>?>;
-String _$boardListFutureHash() => r'15492201fc1e31df4bf6cd9ba22e8171b5027ef5';
+typedef BoardListStreamRef = AutoDisposeStreamProviderRef<List<Board?>>;
+String _$boardListFutureHash() => r'138fa201400f29c3999150c4021ffbd4bdb1812d';
 
 /// See also [boardListFuture].
 @ProviderFor(boardListFuture)
 final boardListFutureProvider =
-    AutoDisposeFutureProvider<List<Board>?>.internal(
+    AutoDisposeFutureProvider<List<Board?>>.internal(
   boardListFuture,
   name: r'boardListFutureProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -52,7 +52,7 @@ final boardListFutureProvider =
   allTransitiveDependencies: null,
 );
 
-typedef BoardListFutureRef = AutoDisposeFutureProviderRef<List<Board>?>;
+typedef BoardListFutureRef = AutoDisposeFutureProviderRef<List<Board?>>;
 String _$collectorBoardStreamHash() =>
     r'377e6fa1cbe6816103e07b054ca67071087ce4ca';
 
