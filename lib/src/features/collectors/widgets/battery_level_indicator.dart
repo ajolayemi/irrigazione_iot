@@ -25,6 +25,7 @@ class BatteryIndicator extends ConsumerWidget {
     final batteryLevel = boardStatus?.batteryLevel ?? 0.0;
 
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         const Icon(Icons.battery_charging_full),
         Text(
