@@ -6,6 +6,7 @@ import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart'
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_screen.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_boards_form.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/connect_collector_to_board_screen.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/board_details/board_details_screen.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/boards_list/boards_list_screen.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_form.dart';
@@ -79,6 +80,7 @@ enum AppRoute {
   addBoard,
   updateBoard,
   profile,
+  connectCollectorToBoard,
 }
 
 @Riverpod(keepAlive: true)
@@ -414,6 +416,13 @@ GoRouter goRouter(GoRouterRef ref) {
               ),
             ),
           ),
+          GoRoute(
+              path: 'connect-collector',
+              name: AppRoute.connectCollectorToBoard.name,
+              pageBuilder: (context, state) => const MaterialPage(
+                    fullscreenDialog: true,
+                    child: ConnectCollectorToBoardScreen(),
+                  )),
         ],
       ),
     ],
