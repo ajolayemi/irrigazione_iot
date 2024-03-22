@@ -210,6 +210,17 @@ class _AddUpdateBoardFormContentState
                         _nonEmptyFieldsEditingComplete(value: _model),
                     validator: (_) => _nonEmptyFieldsErrorText(value: _model),
                   ),
+                  gapH16,
+                  FormTitleAndField(
+                    fieldKey: _serialNumberFieldKey,
+                    fieldTitle: loc.boardSerialNumber,
+                    fieldHintText: loc.boardSerialNumberHintText,
+                    fieldController: _serialNumberController,
+                    onEditingComplete: () =>
+                        _nonEmptyFieldsEditingComplete(value: _serialNumber),
+                    validator: (_) =>
+                        _nonEmptyFieldsErrorText(value: _serialNumber),
+                  ),
                 ],
               ),
             ],
