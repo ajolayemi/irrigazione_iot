@@ -51,7 +51,6 @@ class BoardsListScreen extends ConsumerWidget {
               },
               loading: () => const CommonSliverListSkeleton(
                     hasLeading: false,
-                    hasTrailing: false,
                   )),
         ],
       )),
