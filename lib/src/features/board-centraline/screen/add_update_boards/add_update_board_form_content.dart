@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
+import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
@@ -13,6 +14,7 @@ import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/widgets/common_form_suffix_icon.dart';
 import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
 
@@ -167,6 +169,15 @@ class _AddUpdateBoardFormContentState
     context.popNavigator();
   }
 
+  void _onTappedConnectedCollector() async {
+    final selectedCollector = await context.pushNamed<String>(
+      AppRoute.connectCollectorToBoard.name,
+    );
+    if (selectedCollector != null) {
+      _connectedCollectorController.text = selectedCollector;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: loisten to controller error state here
@@ -220,6 +231,20 @@ class _AddUpdateBoardFormContentState
                         _nonEmptyFieldsEditingComplete(value: _serialNumber),
                     validator: (_) =>
                         _nonEmptyFieldsErrorText(value: _serialNumber),
+                  ),
+                  gapH16,
+                  FormTitleAndField(
+                    fieldKey: _collectorFieldKey,
+                    fieldTitle: loc.boardConnectedCollector,
+                    fieldHintText: loc.boardConnectedCollectorHintText,
+                    fieldController: _connectedCollectorController,
+                    canRequestFocus: false,
+                    suffixIcon: CommonFormSuffixIcon(
+                      onPressed: _onTappedConnectedCollector,
+                    ),
+                    onTap: _onTappedConnectedCollector,
+                    validator: (_) => _nonEmptyFieldsErrorText(
+                        value: _connectedCollectorController.text),
                   ),
                 ],
               ),
