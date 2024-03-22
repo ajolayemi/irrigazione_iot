@@ -31,7 +31,7 @@ class CollectorTileSubtitle extends ConsumerWidget {
               return const SliverToBoxAdapter();
             }
             return BatteryIndicator(
-              collectorId: collectorId,
+              boardId: board.id,
             );
           },
         ),
