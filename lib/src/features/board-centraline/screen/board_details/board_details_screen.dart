@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/board_details/board_details_screen_contents.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/widgets/common_sliver_list_skeleton.dart';
@@ -18,6 +19,18 @@ class BoardDetailsScreen extends ConsumerWidget {
 
   final BoardID boardID;
 
+  void _onTapEdit(
+      BuildContext context, WidgetRef ref, CollectorID connectedCollectorID) {
+    ref.read(collectorConnectedToBoardProvider.notifier).state =
+        connectedCollectorID;
+    context.pushNamed(
+      AppRoute.updateBoard.name,
+      pathParameters: {
+        'boardId': boardID,
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final board = ref.watch(boardStreamProvider(boardID: boardID));
@@ -29,10 +42,8 @@ class BoardDetailsScreen extends ConsumerWidget {
             title: board.valueOrNull?.name ?? '',
             actions: [
               CustomEditIconButton(
-                onPressed: () => context
-                    .pushNamed(AppRoute.updateBoard.name, pathParameters: {
-                  'boardId': boardID,
-                }),
+                onPressed: () => _onTapEdit(
+                    context, ref, board.valueOrNull?.collectorId ?? ','),
               )
             ],
           ),
