@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/collectors/widgets/battery_level_indicator.dart';
-import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
@@ -38,7 +39,10 @@ class BoardListTile extends ConsumerWidget {
             padding: const EdgeInsets.only(left: Sizes.p8),
             maxContentWidth: Breakpoint.tablet,
             child: InkWell(
-              onTap: () => showNotImplementedAlertDialog(context: context),
+              onTap: () => context
+                  .pushNamed(AppRoute.boardDetails.name, pathParameters: {
+                'boardId': board.id.toString(),
+              }),
               child: BoardListTileItem(board: board),
             ),
           )),
