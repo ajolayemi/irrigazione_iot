@@ -158,5 +158,6 @@
   "boardSerialNumberHintText": "eg: 123456789",
   "boardConnectedCollector": "Collettore Collegato",
   "boardConnectedCollectorHintText": "eg: Seleziona un collettore",
-  "allCollectorsAreConnectedToABoard": "Tutti i collettori sono stati già collegati a una centralina"
+  "allCollectorsAreConnectedToABoard": "Tutti i collettori sono stati già collegati a una centralina",
+  "connectCollectorToBoardPageTitle": "Seleziona un collettore"
 }

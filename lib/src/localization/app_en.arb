@@ -469,5 +469,6 @@
   "boardSerialNumberHintText": "eg: 123456789",
   "boardConnectedCollector": "Connected Collector",
   "boardConnectedCollectorHintText": "eg: Select a collector",
-  "allCollectorsAreConnectedToABoard": "All available collectors have already been connected to a board"
+  "allCollectorsAreConnectedToABoard": "All available collectors have already been connected to a board",
+  "connectCollectorToBoardPageTitle": "Select a collector"
 }
