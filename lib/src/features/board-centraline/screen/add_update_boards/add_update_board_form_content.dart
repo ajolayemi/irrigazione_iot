@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 
 class AddUpdateBoardFormContent extends ConsumerStatefulWidget {
   const AddUpdateBoardFormContent({
@@ -22,8 +24,19 @@ class _AddUpdateBoardFormContentState
     extends ConsumerState<AddUpdateBoardFormContent> {
   @override
   Widget build(BuildContext context) {
+    final loc = context.loc;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+            child: CustomScrollView(
+          slivers: [
+            AppSliverBar(
+              title: loc.addNewBoardPageTitle,
+            ),
+          ],
+        ))
+      ],
     );
   }
 }
