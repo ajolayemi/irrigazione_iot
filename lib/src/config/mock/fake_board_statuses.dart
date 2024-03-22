@@ -4,15 +4,18 @@ import 'package:irrigazione_iot/src/features/board-centraline/models/board_statu
 List<BoardStatus> _generateFakeBoardStatuses() {
   List<BoardStatus> boardStatuses = [];
   for (final board in kFakeBoards) {
-    final lastUpdated = DateTime.now().subtract(const Duration(minutes: 1));
-    final batteryLevel = 100 - int.parse(board.id) * 10;
-    boardStatuses.add(BoardStatus(
-        boardID: board.id,
-        batteryLevel: batteryLevel.toDouble(),
-        lastUpdated: lastUpdated));
+    for (int i = 0; i < 4; i++) {
+      final lastUpdated = DateTime.now().subtract(Duration(minutes: i));
+      final batteryLevel = 100 - (i * 3) * 10;
+      boardStatuses.add(
+        BoardStatus(
+            boardID: board.id,
+            batteryLevel: batteryLevel.toDouble(),
+            lastUpdated: lastUpdated),
+      );
+    }
   }
   return boardStatuses;
 }
-
 
 final kFakeBoardStatuses = _generateFakeBoardStatuses();
