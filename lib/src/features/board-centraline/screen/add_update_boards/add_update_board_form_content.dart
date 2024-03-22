@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
@@ -8,11 +9,11 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/common_form_suffix_icon.dart';
 import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
@@ -192,64 +193,74 @@ class _AddUpdateBoardFormContentState
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-              child: CustomScrollView(
-            slivers: [
-              AppSliverBar(
-                title: _isUpdating
-                    ? loc.updateBoardPageTitle
-                    : loc.addNewBoardPageTitle,
-              ),
-              ResponsiveSliverForm(
-                node: _node,
-                formKey: _formKey,
-                children: [
-                  FormTitleAndField(
-                    fieldKey: _nameFieldKey,
-                    fieldTitle: loc.boardName,
-                    fieldHintText: loc.boardNameHintText,
-                    fieldController: _nameController,
-                    onEditingComplete: _boardNameEditingComplete,
-                    validator: (_) => _boardNameFieldErrorText(),
-                  ),
-                  gapH16,
-                  FormTitleAndField(
-                    fieldKey: _modelFieldKey,
-                    fieldTitle: loc.boardModel,
-                    fieldHintText: loc.boardModelHintText,
-                    fieldController: _modelController,
-                    onEditingComplete: () =>
-                        _nonEmptyFieldsEditingComplete(value: _model),
-                    validator: (_) => _nonEmptyFieldsErrorText(value: _model),
-                  ),
-                  gapH16,
-                  FormTitleAndField(
-                    fieldKey: _serialNumberFieldKey,
-                    fieldTitle: loc.boardSerialNumber,
-                    fieldHintText: loc.boardSerialNumberHintText,
-                    fieldController: _serialNumberController,
-                    onEditingComplete: () =>
-                        _nonEmptyFieldsEditingComplete(value: _serialNumber),
-                    validator: (_) =>
-                        _nonEmptyFieldsErrorText(value: _serialNumber),
-                  ),
-                  gapH16,
-                  FormTitleAndField(
-                    fieldKey: _collectorFieldKey,
-                    fieldTitle: loc.boardConnectedCollector,
-                    fieldHintText: loc.boardConnectedCollectorHintText,
-                    fieldController: _connectedCollectorController,
-                    canRequestFocus: false,
-                    suffixIcon: CommonFormSuffixIcon(
-                      onPressed: _onTappedConnectedCollector,
+            child: CustomScrollView(
+              slivers: [
+                AppSliverBar(
+                  title: _isUpdating
+                      ? loc.updateBoardPageTitle
+                      : loc.addNewBoardPageTitle,
+                ),
+                ResponsiveSliverForm(
+                  node: _node,
+                  formKey: _formKey,
+                  children: [
+                    FormTitleAndField(
+                      fieldKey: _nameFieldKey,
+                      fieldTitle: loc.boardName,
+                      fieldHintText: loc.boardNameHintText,
+                      fieldController: _nameController,
+                      onEditingComplete: _boardNameEditingComplete,
+                      validator: (_) => _boardNameFieldErrorText(),
                     ),
-                    onTap: _onTappedConnectedCollector,
-                    validator: (_) => _nonEmptyFieldsErrorText(
-                        value: _connectedCollectorController.text),
-                  ),
-                ],
-              ),
-            ],
-          ))
+                    gapH16,
+                    FormTitleAndField(
+                      fieldKey: _modelFieldKey,
+                      fieldTitle: loc.boardModel,
+                      fieldHintText: loc.boardModelHintText,
+                      fieldController: _modelController,
+                      onEditingComplete: () =>
+                          _nonEmptyFieldsEditingComplete(value: _model),
+                      validator: (_) => _nonEmptyFieldsErrorText(value: _model),
+                    ),
+                    gapH16,
+                    FormTitleAndField(
+                      fieldKey: _serialNumberFieldKey,
+                      fieldTitle: loc.boardSerialNumber,
+                      fieldHintText: loc.boardSerialNumberHintText,
+                      fieldController: _serialNumberController,
+                      onEditingComplete: () =>
+                          _nonEmptyFieldsEditingComplete(value: _serialNumber),
+                      validator: (_) =>
+                          _nonEmptyFieldsErrorText(value: _serialNumber),
+                    ),
+                    gapH16,
+                    FormTitleAndField(
+                      fieldKey: _collectorFieldKey,
+                      fieldTitle: loc.boardConnectedCollector,
+                      fieldHintText: loc.boardConnectedCollectorHintText,
+                      fieldController: _connectedCollectorController,
+                      canRequestFocus: false,
+                      suffixIcon: CommonFormSuffixIcon(
+                        onPressed: _onTappedConnectedCollector,
+                      ),
+                      onTap: _onTappedConnectedCollector,
+                      validator: (_) => _nonEmptyFieldsErrorText(
+                          value: _connectedCollectorController.text),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          gapH16,
+          SliverCTAButton(
+            text: _isUpdating
+                ? loc.genericUpdateButtonLabel
+                : loc.genericSaveButtonLabel,
+            buttonType: ButtonType.primary,
+            onPressed: _submit,
+          ),
+          gapH32,
         ],
       ),
     );
