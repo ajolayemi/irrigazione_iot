@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/data/board_status_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
-import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
 
 class BatteryIndicator extends ConsumerWidget {
   const BatteryIndicator({super.key, required this.boardId});
@@ -20,10 +20,9 @@ class BatteryIndicator extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final batteryLevel = ref
-            .watch(collectorBatteryLevelStreamProvider(collectorId: boardId))
-            .valueOrNull ??
-        0.0;
+    final boardStatus =
+        ref.watch(boardStatusStreamProvider(boardID: boardId)).valueOrNull;
+    final batteryLevel = boardStatus?.batteryLevel ?? 0.0;
 
     return Row(
       children: [
