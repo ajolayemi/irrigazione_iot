@@ -16,20 +16,20 @@ class BoardDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final board = ref.watch(boardStreamProvider(boardID: boardID)).valueOrNull;
+    final board = ref.watch(boardStreamProvider(boardID: boardID));
     return Scaffold(
       body: SafeArea(
           child: CustomScrollView(
         slivers: [
           AppSliverBar(
-            title: board?.name ?? '',
+            title: board.valueOrNull?.name ?? '',
             actions: [
               CustomEditIconButton(
                 onPressed: () =>
                     showNotImplementedAlertDialog(context: context),
               )
             ],
-          )
+          ),
         ],
       )),
     );
