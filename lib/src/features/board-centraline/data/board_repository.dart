@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/fake_board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
@@ -106,3 +107,10 @@ Future<Board?> boardFuture(BoardFutureRef ref, {required BoardID boardID}) {
   final boardRepository = ref.watch(boardRepositoryProvider);
   return boardRepository.getBoardByBoardID(boardID: boardID);
 }
+
+
+/// Keeps track of the id of the collector that is connected to
+/// a [Board] or that is being connected to a [Board]
+final collectorConnectedToBoardProvider = StateProvider<String?>((ref) {
+  return null;
+});
