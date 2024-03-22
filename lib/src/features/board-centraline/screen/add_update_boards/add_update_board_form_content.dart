@@ -167,7 +167,6 @@ class _AddUpdateBoardFormContentState
   @override
   Widget build(BuildContext context) {
     final loc = context.loc;
-    final isUpdating = widget.formType.isUpdating;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -175,7 +174,7 @@ class _AddUpdateBoardFormContentState
             child: CustomScrollView(
           slivers: [
             AppSliverBar(
-              title: isUpdating
+              title: _isUpdating
                   ? loc.updateBoardPageTitle
                   : loc.addNewBoardPageTitle,
             ),
