@@ -56,7 +56,21 @@ class AddUpdateBoardService {
     debugPrint('created board: ${createdBoard?.toJson()}');
   }
 
-  Future<void> updateBoard(Board board) async {}
+  Future<void> updateBoard(Board board) async {
+    // The only check to perform here is to make sure that who reaches
+    // here is a logged in user, that is so because an updated board
+    // should have all the necessary information attached already from the form
+    final user = _ref.read(authRepositoryProvider).currentUser;
+    if (user == null) {
+      debugPrint('Exiting updateBoard, user is null');
+      return;
+    }
+    final updatedBoard = await _ref.read(boardRepositoryProvider).updateBoard(
+          board: board,
+        );
+
+    debugPrint('updated board: ${updatedBoard?.toJson()}');
+  }
 }
 
 @riverpod
