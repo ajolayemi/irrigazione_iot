@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/boards_list/dismiss_board_controller.dart';
 import 'package:irrigazione_iot/src/features/collectors/widgets/battery_level_indicator.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
@@ -23,6 +24,12 @@ class BoardListTile extends ConsumerWidget {
       Key('boardListTileKey_${board.id}');
 
   Future<bool> _dismissBoard(BuildContext context, WidgetRef ref) async {
+    final where = context.loc.nBoardsWithArticulatedPreposition(1);
+    if (await context.showDismissalDialog(where)) {
+      return await ref
+          .read(dismissBoardControllerProvider.notifier)
+          .confirmDismiss(board.id);
+    }
     return false;
   }
 
