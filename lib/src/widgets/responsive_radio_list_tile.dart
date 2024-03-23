@@ -10,10 +10,16 @@ class ResponsiveRadioListTile extends StatelessWidget {
       {super.key,
       required this.value,
       required this.groupValue,
+      required this.title,
       this.onChanged});
 
+  /// The title of the radio list tile
+  final Widget title;
+  /// The value of the radio list tile
   final String value;
+  /// The current selected value among the radio list tiles
   final String groupValue;
+  /// The function to call when the radio list tile is selected
   final void Function(String?)? onChanged;
 
   @override
@@ -22,6 +28,7 @@ class ResponsiveRadioListTile extends StatelessWidget {
     return ResponsiveCenter(
       maxContentWidth: Breakpoint.tablet,
       child: RadioListTile.adaptive(
+        title: title,
         value: value,
         groupValue: groupValue,
         onChanged: onChanged,
