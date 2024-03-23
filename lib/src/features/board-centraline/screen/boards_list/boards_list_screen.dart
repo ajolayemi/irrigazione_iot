@@ -15,6 +15,17 @@ import 'package:irrigazione_iot/src/widgets/common_sliver_list_skeleton.dart';
 class BoardsListScreen extends ConsumerWidget {
   const BoardsListScreen({super.key});
 
+  void _onTapAdd(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
+    ref.read(collectorConnectedToBoardProvider.notifier).state = null;
+    ref.read(selectedCollectorIdProvider.notifier).state = null;
+    context.pushNamed(
+      AppRoute.addBoard.name,
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
@@ -27,9 +38,7 @@ class BoardsListScreen extends ConsumerWidget {
             title: loc.iotBoardsMenuTitle,
             actions: [
               CommonAddIconButton(
-                onPressed: () => context.pushNamed(
-                  AppRoute.addBoard.name,
-                ),
+                onPressed: () => _onTapAdd(context, ref),
               ),
             ],
           ),
