@@ -67,7 +67,7 @@ class _AddUpdateBoardFormContentState
   void initState() {
     if (_isUpdating && widget.boardID != null) {
       final board =
-          ref.watch(boardStreamProvider(boardID: widget.boardID!)).valueOrNull;
+          ref.read(boardStreamProvider(boardID: widget.boardID!)).valueOrNull;
       _initialBoard = board;
       _nameController.text = _initialBoard?.name ?? '';
       _modelController.text = _initialBoard?.model ?? '';

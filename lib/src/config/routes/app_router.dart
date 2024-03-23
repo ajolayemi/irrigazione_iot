@@ -412,7 +412,7 @@ GoRouter goRouter(GoRouterRef ref) {
               fullscreenDialog: true,
               child: AddUpdateBoardsForm(
                 formType: GenericFormTypes.update,
-                boardID: state.pathParameters['boardID'],
+                boardID: state.pathParameters['boardId'],
               ),
             ),
           ),
