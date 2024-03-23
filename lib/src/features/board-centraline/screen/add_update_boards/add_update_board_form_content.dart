@@ -135,6 +135,19 @@ class _AddUpdateBoardFormContentState
     );
   }
 
+  void _collectorSelectionEditingComplete({required String value}) {
+    if (canSubmitCollectorField(value: value)) {
+      _node.nextFocus();
+    }
+  }
+
+  String? _collectorSelectionErrorText({required String value}) {
+    if (!_submitted) return null;
+    return context.getLocalizedErrorText(
+      errorKey: getCollectorFieldErrorKey(value: value),
+    );
+  }
+
   Future<bool> _checkUserIntention() async {
     final loc = context.loc;
     return await showAlertDialog(
@@ -248,8 +261,13 @@ class _AddUpdateBoardFormContentState
                             onPressed: _onTappedConnectedCollector,
                           ),
                           onTap: _onTappedConnectedCollector,
-                          validator: (_) => _nonEmptyFieldsErrorText(
-                              value: _connectedCollectorController.text),
+                          onEditingComplete: () =>
+                              _collectorSelectionEditingComplete(
+                            value: selectedCollector ?? '',
+                          ),
+                          validator: (_) => _collectorSelectionErrorText(
+                            value: selectedCollector ?? '',
+                          ),
                         );
                       },
                     ),
