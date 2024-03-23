@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-
 part 'add_update_board_service.g.dart';
-
 
 class AddUpdateBoardService {
   const AddUpdateBoardService(
@@ -12,13 +14,52 @@ class AddUpdateBoardService {
   );
   final Ref _ref;
 
-  Future<void> createBoard(Board board) async {}
+  Future<void> createBoard(Board board) async {
+    // the board argument that is provided as argument has no company
+    // id, so we need to get it from somewhere else
+
+    final user = _ref.read(authRepositoryProvider).currentUser;
+
+    // If user is null, that shouldn't be the case but just to be sure
+    if (user == null) {
+      debugPrint('Exiting createBoard, user is null');
+      return;
+    }
+
+    final selectedCompanyRepo = _ref.read(selectedCompanyRepositoryProvider);
+    final companyId = selectedCompanyRepo.loadSelectedCompanyId(user.uid);
+
+    // Just in case no company id is found
+    if (companyId == null) {
+      debugPrint('Exiting createBoard, companyId is null');
+      return;
+    }
+
+    // reference the state provider that tracks what collector user chose
+    // to connect to the board
+    final selectedCollector = _ref.read(selectedCollectorIdProvider);
+
+    // just in case non collector was selected, that shouldn't be the case though
+    // because the form validation logic already checks for that
+    if (selectedCollector == null) {
+      debugPrint('Exiting createBoard, selectedCollector is null');
+      return;
+    }
+
+    // Reaching here means all necessary checks have been passed
+    final createdBoard = await _ref.read(boardRepositoryProvider).addBoard(
+            board: board.copyWith(
+          companyId: companyId,
+          collectorId: selectedCollector,
+        ));
+
+    debugPrint('created board: ${createdBoard?.toJson()}');
+  }
 
   Future<void> updateBoard(Board board) async {}
 }
 
-
 @riverpod
-AddUpdateBoardService addUpdateBoardService (AddUpdateBoardServiceRef ref) {
+AddUpdateBoardService addUpdateBoardService(AddUpdateBoardServiceRef ref) {
   return AddUpdateBoardService(ref);
 }
