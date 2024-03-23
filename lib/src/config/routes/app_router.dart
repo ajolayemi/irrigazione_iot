@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart';
@@ -29,6 +28,7 @@ import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/secto
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_screen.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/screen/user_company_list/user_companies_list_screen.dart';
+import 'package:irrigazione_iot/src/features/user_profile/screen/user_profile_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_router.g.dart';
@@ -417,13 +417,24 @@ GoRouter goRouter(GoRouterRef ref) {
             ),
           ),
           GoRoute(
-              path: 'connect-collector',
-              name: AppRoute.connectCollectorToBoard.name,
-              pageBuilder: (context, state) => const MaterialPage(
-                    fullscreenDialog: true,
-                    child: ConnectCollectorToBoardScreen(),
-                  )),
+            path: 'connect-collector',
+            name: AppRoute.connectCollectorToBoard.name,
+            pageBuilder: (context, state) => const MaterialPage(
+              fullscreenDialog: true,
+              child: ConnectCollectorToBoardScreen(),
+            ),
+          ),
         ],
+      ),
+
+      // My profile route
+      GoRoute(
+        path: '/profile',
+        name: AppRoute.profile.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: UserProfileScreen(),
+        ),
       ),
     ],
   );

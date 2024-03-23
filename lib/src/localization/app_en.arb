@@ -472,5 +472,8 @@
   "allCollectorsAreConnectedToABoard": "All available collectors have already been connected to a board",
   "connectCollectorToBoardPageTitle": "Select a collector",
   "nSelectedCollectors": "{n, plural, =0{0 collectors selected} =1{1 collector selected} other{{n} collectors selected}}",
-  "noCollectorConnectedToBoardErrorText": "You have to connect at least one collector to this board"
+  "noCollectorConnectedToBoardErrorText": "You have to connect at least one collector to this board",
+  "userProfileDetailsName": "Names",
+  "userProfileDetailsEmail": "Email",
+  "userProfileDetailsCurrentCompany": "Current company profile"
 }
