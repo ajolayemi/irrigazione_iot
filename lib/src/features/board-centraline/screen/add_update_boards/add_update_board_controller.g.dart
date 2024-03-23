@@ -7,7 +7,7 @@ part of 'add_update_board_controller.dart';
 // **************************************************************************
 
 String _$addUpdateBoardControllerHash() =>
-    r'647e29f307ae934afd66b5c6362044ccff3d1113';
+    r'd299b21c57d3e97f714c0e86b55716a45660ee7d';
 
 /// See also [AddUpdateBoardController].
 @ProviderFor(AddUpdateBoardController)
