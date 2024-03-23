@@ -27,6 +27,8 @@ extension AppFormsErrorText on BuildContext {
         return loc.duplicateCommandsInFormErrorText(pluralFieldName ?? '');
       case 'noPumpConnectedToSectorErrorText':
         return loc.noPumpConnectedToSectorErrorText;
+      case 'noCollectorConnectedToBoardErrorText':
+        return loc.noCollectorConnectedToBoardErrorText;
       default:
         return null;
     }
