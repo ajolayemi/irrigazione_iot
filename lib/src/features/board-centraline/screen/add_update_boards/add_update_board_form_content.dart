@@ -164,7 +164,33 @@ class _AddUpdateBoardFormContentState
 
     if (_formKey.currentState!.validate()) {
       if (await _checkUserIntention()) {
-        print('to save....');
+        final board = _initialBoard?.copyWith(
+          name: _name,
+          id: _initialBoard?.id,
+          model: _model,
+          serialNumber: _serialNumber,
+          companyId: _initialBoard
+              ?.companyId, // auto filled by service layer during creation
+          collectorId: _initialBoard
+              ?.collectorId, // auto filled by service layer during creation
+        );
+
+        bool success = false;
+        if (_isUpdating) {
+          success = await ref
+              .read(addUpdateBoardControllerProvider.notifier)
+              .updateBoard(boardToUpdate: board!);
+        } else {
+          success = await ref
+              .read(addUpdateBoardControllerProvider.notifier)
+              .createBoard(boardToCreate: board!);
+        }
+
+        if (success) {
+          _popScreen();
+          return;
+        }
+        return;
       } else {
         debugPrint('Form data is valid but user chose not to save');
       }
@@ -228,7 +254,8 @@ class _AddUpdateBoardFormContentState
                         fieldController: _modelController,
                         onEditingComplete: () =>
                             _nonEmptyFieldsEditingComplete(value: _model),
-                        validator: (_) => _nonEmptyFieldsErrorText(value: _model),
+                        validator: (_) =>
+                            _nonEmptyFieldsErrorText(value: _model),
                       ),
                       gapH16,
                       FormTitleAndField(
@@ -236,8 +263,8 @@ class _AddUpdateBoardFormContentState
                         fieldTitle: loc.boardSerialNumber,
                         fieldHintText: loc.boardSerialNumberHintText,
                         fieldController: _serialNumberController,
-                        onEditingComplete: () =>
-                            _nonEmptyFieldsEditingComplete(value: _serialNumber),
+                        onEditingComplete: () => _nonEmptyFieldsEditingComplete(
+                            value: _serialNumber),
                         validator: (_) =>
                             _nonEmptyFieldsErrorText(value: _serialNumber),
                       ),
