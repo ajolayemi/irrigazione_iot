@@ -146,4 +146,17 @@ mixin AppFormValidators {
     }
     return null;
   }
+
+  /// Holds the logic to validate whether can submit field where a collector
+  /// to connect to a board is selected
+  /// This is mainly used in the form to add or update boards
+  bool canSubmitCollectorField({required String value}) =>
+      nonEmptyValidator.isValid(value);
+
+  /// Gets the error key for fields where a collector to connect to a board is selected
+  /// This is mainly used in the form to add or update boards
+  String? getCollectorFieldErrorKey({required String value}) {
+    if (value.isEmpty) return 'noCollectorConnectedToBoardErrorText';
+    return null;
+  }
 }
