@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/data/board_status_repository.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 
 class BatteryIndicator extends ConsumerWidget {
-  const BatteryIndicator({super.key, required this.collectorId});
+  const BatteryIndicator({super.key, required this.boardId});
 
-  final CollectorID collectorId;
+  final BoardID boardId;
   // Determine battery color based on level
   Color _getBatteryColor(double level) {
     if (level >= 0.75) {
@@ -20,13 +20,12 @@ class BatteryIndicator extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final batteryLevel = ref
-            .watch(
-                collectorBatteryLevelStreamProvider(collectorId: collectorId))
-            .valueOrNull ??
-        0.0;
+    final boardStatus =
+        ref.watch(boardStatusStreamProvider(boardID: boardId)).valueOrNull;
+    final batteryLevel = boardStatus?.batteryLevel ?? 0.0;
 
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         const Icon(Icons.battery_charging_full),
         Text(

@@ -414,5 +414,63 @@
   "logOutButtonTitle": "Logout",
   "logOutAlertDialogTitle": "Are you sure you want to log out?",
   "logOutAlertDialogContent": "You will be logged out of the application",
-  "logOutAlertDialogConfirm": "Logout"
+  "logOutAlertDialogConfirm": "Logout",
+  "nBoards": "{n, plural, =1{board} =2{boards} other{boards}}",
+  "@nBoards": {
+    "description": "The pluralized version of the word 'board'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nBoardsWithIndefiniteArticle": "{n, plural, =1{a board} =2{boards} other{boards}}",
+  "@nBoardsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'board' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nBoardsWithDefiniteArticle": "{n, plural, =1{the board} =2{boards} other{boards}}",
+  "@nBoardsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'board' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nBoardsWithArticulatedPreposition": "{n, plural, =1{the board} =2{the boards} other{the boards}}",
+  "@nBoardsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'board' with an articulated preposition",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "addNewBoardPageTitle": "New Board",
+  "updateBoardPageTitle": "Update Board",
+  "boardName": "Board name",
+  "boardNameHintText": "eg: arduino mkr16",
+  "boardModel": "Model",
+  "boardModelHintText": "eg: MKR 1010",
+  "boardSerialNumber": "Serial Number",
+  "boardSerialNumberHintText": "eg: 123456789",
+  "boardConnectedCollector": "Connected Collector",
+  "boardConnectedCollectorHintText": "Select a collector",
+  "allCollectorsAreConnectedToABoard": "All available collectors have already been connected to a board",
+  "connectCollectorToBoardPageTitle": "Select a collector",
+  "nSelectedCollectors": "{n, plural, =0{0 collectors selected} =1{1 collector selected} other{{n} collectors selected}}",
+  "noCollectorConnectedToBoardErrorText": "You have to connect at least one collector to this board"
 }
