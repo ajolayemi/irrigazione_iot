@@ -301,6 +301,7 @@ class _AddUpdateBoardFormContentState
             ),
             gapH16,
             SliverCTAButton(
+              isLoading: isLoading,
               text: _isUpdating
                   ? loc.genericUpdateButtonLabel
                   : loc.genericSaveButtonLabel,
