@@ -9,7 +9,6 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_board_controller.dart';
-import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
@@ -48,13 +47,11 @@ class _AddUpdateBoardFormContentState
   final _nameController = TextEditingController();
   final _modelController = TextEditingController();
   final _serialNumberController = TextEditingController();
-  final _connectedCollectorController = TextEditingController();
 
   // fields values
   String get _name => _nameController.text;
   String get _model => _modelController.text;
   String get _serialNumber => _serialNumberController.text;
-  String get _collector => _connectedCollectorController.text;
 
   // Keys for testing
   static const _nameFieldKey = Key('boardNameField');
@@ -71,22 +68,16 @@ class _AddUpdateBoardFormContentState
     if (_isUpdating && widget.boardID != null) {
       final board =
           ref.watch(boardStreamProvider(boardID: widget.boardID!)).valueOrNull;
-      final collectorName = ref
-          .watch(collectorStreamProvider(board?.collectorId ?? ''))
-          .valueOrNull
-          ?.name;
       _initialBoard = board;
       _nameController.text = _initialBoard?.name ?? '';
       _modelController.text = _initialBoard?.model ?? '';
       _serialNumberController.text = _initialBoard?.serialNumber ?? '';
-      _connectedCollectorController.text = collectorName ?? '';
     }
     super.initState();
   }
 
   @override
   void dispose() {
-    _connectedCollectorController.dispose();
     _nameController.dispose();
     _modelController.dispose();
     _serialNumberController.dispose();
@@ -259,7 +250,6 @@ class _AddUpdateBoardFormContentState
                           fieldHintText: selectedCollector == null
                               ? loc.boardConnectedCollectorHintText
                               : loc.nSelectedCollectors(1),
-                          fieldController: _connectedCollectorController,
                           canRequestFocus: false,
                           suffixIcon: CommonFormSuffixIcon(
                             onPressed: _onTappedConnectedCollector,
