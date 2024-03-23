@@ -200,9 +200,8 @@ class _AddUpdateBoardFormContentState
     );
     final loc = context.loc;
 
-    // TODO: replace with proper controller state
-    const state = false;
-    const isLoading = false;
+    final state = ref.watch(addUpdateBoardControllerProvider);
+    final isLoading = state.isLoading;
     return IgnorePointer(
       ignoring: isLoading,
       child: Column(
