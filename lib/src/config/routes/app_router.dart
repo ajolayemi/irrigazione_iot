@@ -416,12 +416,13 @@ GoRouter goRouter(GoRouterRef ref) {
             ),
           ),
           GoRoute(
-              path: 'connect-collector',
-              name: AppRoute.connectCollectorToBoard.name,
-              pageBuilder: (context, state) => const MaterialPage(
-                    fullscreenDialog: true,
-                    child: ConnectCollectorToBoardScreen(),
-                  )),
+            path: 'connect-collector',
+            name: AppRoute.connectCollectorToBoard.name,
+            pageBuilder: (context, state) => const MaterialPage(
+              fullscreenDialog: true,
+              child: ConnectCollectorToBoardScreen(),
+            ),
+          ),
         ],
       ),
     ],
