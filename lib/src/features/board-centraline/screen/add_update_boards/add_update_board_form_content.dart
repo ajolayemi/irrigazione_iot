@@ -193,93 +193,96 @@ class _AddUpdateBoardFormContentState
 
     final state = ref.watch(addUpdateBoardControllerProvider);
     final isLoading = state.isLoading;
-    return IgnorePointer(
-      ignoring: isLoading,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: CustomScrollView(
-              slivers: [
-                AppSliverBar(
-                  title: _isUpdating
-                      ? loc.updateBoardPageTitle
-                      : loc.addNewBoardPageTitle,
-                ),
-                ResponsiveSliverForm(
-                  node: _node,
-                  formKey: _formKey,
-                  children: [
-                    FormTitleAndField(
-                      fieldKey: _nameFieldKey,
-                      fieldTitle: loc.boardName,
-                      fieldHintText: loc.boardNameHintText,
-                      fieldController: _nameController,
-                      onEditingComplete: _boardNameEditingComplete,
-                      validator: (_) => _boardNameFieldErrorText(),
-                    ),
-                    gapH16,
-                    FormTitleAndField(
-                      fieldKey: _modelFieldKey,
-                      fieldTitle: loc.boardModel,
-                      fieldHintText: loc.boardModelHintText,
-                      fieldController: _modelController,
-                      onEditingComplete: () =>
-                          _nonEmptyFieldsEditingComplete(value: _model),
-                      validator: (_) => _nonEmptyFieldsErrorText(value: _model),
-                    ),
-                    gapH16,
-                    FormTitleAndField(
-                      fieldKey: _serialNumberFieldKey,
-                      fieldTitle: loc.boardSerialNumber,
-                      fieldHintText: loc.boardSerialNumberHintText,
-                      fieldController: _serialNumberController,
-                      onEditingComplete: () =>
-                          _nonEmptyFieldsEditingComplete(value: _serialNumber),
-                      validator: (_) =>
-                          _nonEmptyFieldsErrorText(value: _serialNumber),
-                    ),
-                    gapH16,
-                    Consumer(
-                      builder: (context, ref, child) {
-                        final selectedCollector =
-                            ref.watch(selectedCollectorIdProvider);
-                        return FormTitleAndField(
-                          fieldKey: _collectorFieldKey,
-                          fieldTitle: loc.boardConnectedCollector,
-                          fieldHintText: selectedCollector == null
-                              ? loc.boardConnectedCollectorHintText
-                              : loc.nSelectedCollectors(1),
-                          canRequestFocus: false,
-                          suffixIcon: CommonFormSuffixIcon(
-                            onPressed: _onTappedConnectedCollector,
-                          ),
-                          onTap: _onTappedConnectedCollector,
-                          onEditingComplete: () =>
-                              _collectorSelectionEditingComplete(
-                            value: selectedCollector ?? '',
-                          ),
-                          validator: (_) => _collectorSelectionErrorText(
-                            value: selectedCollector ?? '',
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ],
+    return GestureDetector(
+      onTap: () => _node.unfocus(),
+      child: IgnorePointer(
+        ignoring: isLoading,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: CustomScrollView(
+                slivers: [
+                  AppSliverBar(
+                    title: _isUpdating
+                        ? loc.updateBoardPageTitle
+                        : loc.addNewBoardPageTitle,
+                  ),
+                  ResponsiveSliverForm(
+                    node: _node,
+                    formKey: _formKey,
+                    children: [
+                      FormTitleAndField(
+                        fieldKey: _nameFieldKey,
+                        fieldTitle: loc.boardName,
+                        fieldHintText: loc.boardNameHintText,
+                        fieldController: _nameController,
+                        onEditingComplete: _boardNameEditingComplete,
+                        validator: (_) => _boardNameFieldErrorText(),
+                      ),
+                      gapH16,
+                      FormTitleAndField(
+                        fieldKey: _modelFieldKey,
+                        fieldTitle: loc.boardModel,
+                        fieldHintText: loc.boardModelHintText,
+                        fieldController: _modelController,
+                        onEditingComplete: () =>
+                            _nonEmptyFieldsEditingComplete(value: _model),
+                        validator: (_) => _nonEmptyFieldsErrorText(value: _model),
+                      ),
+                      gapH16,
+                      FormTitleAndField(
+                        fieldKey: _serialNumberFieldKey,
+                        fieldTitle: loc.boardSerialNumber,
+                        fieldHintText: loc.boardSerialNumberHintText,
+                        fieldController: _serialNumberController,
+                        onEditingComplete: () =>
+                            _nonEmptyFieldsEditingComplete(value: _serialNumber),
+                        validator: (_) =>
+                            _nonEmptyFieldsErrorText(value: _serialNumber),
+                      ),
+                      gapH16,
+                      Consumer(
+                        builder: (context, ref, child) {
+                          final selectedCollector =
+                              ref.watch(selectedCollectorIdProvider);
+                          return FormTitleAndField(
+                            fieldKey: _collectorFieldKey,
+                            fieldTitle: loc.boardConnectedCollector,
+                            fieldHintText: selectedCollector == null
+                                ? loc.boardConnectedCollectorHintText
+                                : loc.nSelectedCollectors(1),
+                            canRequestFocus: false,
+                            suffixIcon: CommonFormSuffixIcon(
+                              onPressed: _onTappedConnectedCollector,
+                            ),
+                            onTap: _onTappedConnectedCollector,
+                            onEditingComplete: () =>
+                                _collectorSelectionEditingComplete(
+                              value: selectedCollector ?? '',
+                            ),
+                            validator: (_) => _collectorSelectionErrorText(
+                              value: selectedCollector ?? '',
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          gapH16,
-          SliverCTAButton(
-            text: _isUpdating
-                ? loc.genericUpdateButtonLabel
-                : loc.genericSaveButtonLabel,
-            buttonType: ButtonType.primary,
-            onPressed: _submit,
-          ),
-          gapH32,
-        ],
+            gapH16,
+            SliverCTAButton(
+              text: _isUpdating
+                  ? loc.genericUpdateButtonLabel
+                  : loc.genericSaveButtonLabel,
+              buttonType: ButtonType.primary,
+              onPressed: _submit,
+            ),
+            gapH32,
+          ],
+        ),
       ),
     );
   }
