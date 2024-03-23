@@ -23,22 +23,22 @@ class UserProfileScreenContents extends ConsumerWidget {
       children: [
         ResponsiveDetailsCard(
           child: DetailTileWidget(
-            title: 'Name',
+            title: loc.userProfileDetailsName,
             subtitle: currentUser.fullName,
           ),
         ),
         gapH8,
         ResponsiveDetailsCard(
           child: DetailTileWidget(
-            title: 'Email',
+            title: loc.userProfileDetailsEmail,
             subtitle: currentUser.email,
           ),
         ),
         gapH8,
         ResponsiveDetailsCard(
           child: DetailTileWidget(
-            title: 'Current company profile',
-            subtitle: company?.name ?? 'n/a',
+            title: loc.userProfileDetailsCurrentCompany,
+            subtitle: company?.name ?? '',
           ),
         ),
       ],
