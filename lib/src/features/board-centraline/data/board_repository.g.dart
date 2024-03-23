@@ -593,5 +593,27 @@ class _BoardFutureProviderElement
   @override
   String get boardID => (origin as BoardFutureProvider).boardID;
 }
+
+String _$collectorsNotConnectedToABoardStreamHash() =>
+    r'e2eafa67735ae23ca7b8e4e797261985805ed68f';
+
+/// gets a list of all collectors that are not yet connected
+/// to a [Board]
+///
+/// Copied from [collectorsNotConnectedToABoardStream].
+@ProviderFor(collectorsNotConnectedToABoardStream)
+final collectorsNotConnectedToABoardStreamProvider =
+    AutoDisposeStreamProvider<List<Collector?>>.internal(
+  collectorsNotConnectedToABoardStream,
+  name: r'collectorsNotConnectedToABoardStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$collectorsNotConnectedToABoardStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CollectorsNotConnectedToABoardStreamRef
+    = AutoDisposeStreamProviderRef<List<Collector?>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
