@@ -167,16 +167,14 @@ class _AddUpdateBoardFormContentState
 
   void _popScreen() {
     ref.read(collectorConnectedToBoardProvider.notifier).state = null;
+    ref.read(selectedCollectorIdProvider.notifier).state = null;
     context.popNavigator();
   }
 
-  void _onTappedConnectedCollector() async {
-    final selectedCollector = await context.pushNamed<String>(
+  void _onTappedConnectedCollector() {
+    context.pushNamed<String>(
       AppRoute.connectCollectorToBoard.name,
     );
-    if (selectedCollector != null) {
-      _connectedCollectorController.text = selectedCollector;
-    }
   }
 
   @override
@@ -234,18 +232,26 @@ class _AddUpdateBoardFormContentState
                           _nonEmptyFieldsErrorText(value: _serialNumber),
                     ),
                     gapH16,
-                    FormTitleAndField(
-                      fieldKey: _collectorFieldKey,
-                      fieldTitle: loc.boardConnectedCollector,
-                      fieldHintText: loc.boardConnectedCollectorHintText,
-                      fieldController: _connectedCollectorController,
-                      canRequestFocus: false,
-                      suffixIcon: CommonFormSuffixIcon(
-                        onPressed: _onTappedConnectedCollector,
-                      ),
-                      onTap: _onTappedConnectedCollector,
-                      validator: (_) => _nonEmptyFieldsErrorText(
-                          value: _connectedCollectorController.text),
+                    Consumer(
+                      builder: (context, ref, child) {
+                        final selectedCollector =
+                            ref.watch(selectedCollectorIdProvider);
+                        return FormTitleAndField(
+                          fieldKey: _collectorFieldKey,
+                          fieldTitle: loc.boardConnectedCollector,
+                          fieldHintText: selectedCollector == null
+                              ? loc.boardConnectedCollectorHintText
+                              : loc.nSelectedCollectors(1),
+                          fieldController: _connectedCollectorController,
+                          canRequestFocus: false,
+                          suffixIcon: CommonFormSuffixIcon(
+                            onPressed: _onTappedConnectedCollector,
+                          ),
+                          onTap: _onTappedConnectedCollector,
+                          validator: (_) => _nonEmptyFieldsErrorText(
+                              value: _connectedCollectorController.text),
+                        );
+                      },
                     ),
                   ],
                 ),
