@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:irrigazione_iot/src/features/user_profile/screen/user_profile_screen_content.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 
@@ -14,7 +15,8 @@ class UserProfileScreen extends StatelessWidget {
           slivers: [
             AppSliverBar(
               title: loc.profilePageTitle,
-            )
+            ),
+            const UserProfileScreenContents(),
           ],
         ),
       ),
