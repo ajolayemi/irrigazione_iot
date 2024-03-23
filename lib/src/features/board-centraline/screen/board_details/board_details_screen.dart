@@ -23,6 +23,7 @@ class BoardDetailsScreen extends ConsumerWidget {
       BuildContext context, WidgetRef ref, CollectorID connectedCollectorID) {
     ref.read(collectorConnectedToBoardProvider.notifier).state =
         connectedCollectorID;
+    ref.read(selectedCollectorIdProvider.notifier).state = connectedCollectorID;
     context.pushNamed(
       AppRoute.updateBoard.name,
       pathParameters: {
