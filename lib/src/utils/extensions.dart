@@ -12,7 +12,7 @@ extension BuildContextExtensions on BuildContext {
 
   AppLocalizations get loc => AppLocalizations.of(this);
 
-  void popNavigator() => Navigator.of(this).pop();
+  void popNavigator<T extends Object?>([T? result]) => Navigator.of(this).pop(result);
 }
 
 extension StringExtensions on String {
