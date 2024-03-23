@@ -161,5 +161,8 @@
   "allCollectorsAreConnectedToABoard": "Tutti i collettori sono stati già collegati a una centralina",
   "connectCollectorToBoardPageTitle": "Seleziona un collettore",
   "nSelectedCollectors": "{n, plural, =0{0 collettori selezionati} =1{1 collettore selezionato} other{{n} collettori selezionati}}",
-  "noCollectorConnectedToBoardErrorText": "Devi collegare almeno un collettore a questa centralina"
+  "noCollectorConnectedToBoardErrorText": "Devi collegare almeno un collettore a questa centralina",
+  "userProfileDetailsName": "Nome",
+  "userProfileDetailsEmail": "Indirizzo email",
+  "userProfileDetailsCurrentCompany": "Profilo aziendale attuale"
 }
