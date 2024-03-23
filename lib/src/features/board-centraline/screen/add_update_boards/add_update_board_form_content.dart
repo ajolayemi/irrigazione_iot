@@ -8,9 +8,11 @@ import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_board_controller.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
@@ -192,7 +194,10 @@ class _AddUpdateBoardFormContentState
 
   @override
   Widget build(BuildContext context) {
-    // TODO: loisten to controller error state here
+    ref.listen(
+      addUpdateBoardControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
     final loc = context.loc;
 
     // TODO: replace with proper controller state
