@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/boards_list/dismiss_board_controller.dart';
 import 'package:irrigazione_iot/src/features/collectors/widgets/battery_level_indicator.dart';
 import 'package:irrigazione_iot/src/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
@@ -27,8 +28,7 @@ class BoardListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: replace with actual state
-    const isDeleting = false;
+    final isDeleting = ref.watch(dismissBoardControllerProvider).isLoading;
     return IgnorePointer(
       ignoring: isDeleting,
       child: CustomDismissibleWidget(
