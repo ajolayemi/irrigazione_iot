@@ -81,6 +81,7 @@ enum AppRoute {
   updateBoard,
   profile,
   connectCollectorToBoard,
+  companyProfile,
 }
 
 @Riverpod(keepAlive: true)
