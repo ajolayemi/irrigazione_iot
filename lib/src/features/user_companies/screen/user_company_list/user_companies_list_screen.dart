@@ -15,6 +15,7 @@ import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/widgets/common_sliver_list_skeleton.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 class UserCompaniesListScreen extends ConsumerStatefulWidget {
@@ -46,8 +47,8 @@ class _UserCompaniesListScreenState
           ),
           AsyncValueSliverWidget<List<Company>>(
             value: userCompanies,
-            loading: () => const SliverToBoxAdapter(
-              child: Center(child: CircularProgressIndicator()),
+            loading: () => const CommonSliverListSkeleton(
+              hasSubtitle: false,
             ),
             data: (userCompanies) {
               return SliverList(
