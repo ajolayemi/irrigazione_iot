@@ -489,5 +489,19 @@
   "companyEmail": "Email",
   "companyEmailHintText": "eg: email@company.com",
   "companyPhone": "Phone",
-  "companyPhoneHintText": "eg: +123456789"
+  "companyPhoneHintText": "eg: +123456789",
+  "dependentFieldsEmptyErrorText": "One between {firstFieldName} and {secondFieldName} has to be filled",
+  "@dependentFieldsEmptyErrorText": {
+    "description": "The error message that is displayed when one of two dependent fields is empty",
+    "placeholders": {
+      "firstFieldName": {
+        "description": "The name of the first field",
+        "example": "email"
+      },
+      "secondFieldName": {
+        "description": "The name of the second field",
+        "example": "phone"
+      }
+    }
+  }
 }

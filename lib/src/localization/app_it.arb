@@ -178,5 +178,6 @@
   "companyEmail": "Indirizzo email aziendale",
   "companyEmailHintText": "eg: email@company.com",
   "companyPhone": "Telefono Aziendale",
-  "companyPhoneHintText": "eg: +123456789"
+  "companyPhoneHintText": "eg: +123456789",
+  "dependentFieldsEmptyErrorText": "Uno tra {firstFieldName} e {secondFieldName} deve essere compilato"
 }
