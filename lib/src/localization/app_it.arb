@@ -179,5 +179,7 @@
   "companyEmailHintText": "eg: email@company.com",
   "companyPhone": "Telefono Aziendale",
   "companyPhoneHintText": "eg: +123456789",
-  "dependentFieldsEmptyErrorText": "Uno tra {firstFieldName} e {secondFieldName} deve essere compilato"
+  "dependentFieldsEmptyErrorText": "Uno tra {firstFieldName} e {secondFieldName} deve essere compilato",
+  "addNewCompanyPageTitle": "Nuova Azienda",
+  "updateCompanyPageTitle": "Aggiorna Azienda"
 }

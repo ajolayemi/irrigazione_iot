@@ -503,5 +503,7 @@
         "example": "phone"
       }
     }
-  }
+  },
+  "addNewCompanyPageTitle": "New Company",
+  "updateCompanyPageTitle": "Update Company"
 }
