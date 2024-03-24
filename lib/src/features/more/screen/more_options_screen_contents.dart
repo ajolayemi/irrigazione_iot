@@ -14,6 +14,7 @@ import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/common_responsive_divider.dart';
+import 'package:irrigazione_iot/src/widgets/sliver_logout_button.dart';
 
 class MoreOptionsScreenContent extends ConsumerWidget {
   const MoreOptionsScreenContent({super.key});
@@ -22,22 +23,7 @@ class MoreOptionsScreenContent extends ConsumerWidget {
     showNotImplementedAlertDialog(context: context);
   }
 
-  Future<bool> _showSignOutDialog(BuildContext context) async {
-    final loc = context.loc;
-    return await showAlertDialog(
-            context: context,
-            title: loc.logOutAlertDialogTitle,
-            content: loc.logOutAlertDialogContent,
-            cancelActionText: loc.alertDialogCancel,
-            defaultActionText: loc.logOutAlertDialogConfirm) ??
-        false;
-  }
 
-  void _signOut(BuildContext context, WidgetRef ref) async {
-    if (await _showSignOutDialog(context)) {
-      ref.read(authRepositoryProvider).signOut();
-    }
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -102,11 +88,7 @@ class MoreOptionsScreenContent extends ConsumerWidget {
             ],
           ),
         ),
-        SliverCTAButton(
-          text: loc.logOutButtonTitle,
-          buttonType: ButtonType.secondary,
-          onPressed: () => _signOut(context, ref),
-        ),
+        const SliverLogoutButton(),
         gapH32,
       ],
     );
