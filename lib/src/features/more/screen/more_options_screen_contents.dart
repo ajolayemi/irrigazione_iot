@@ -10,7 +10,6 @@ import 'package:irrigazione_iot/src/features/user_companies/data/selected_compan
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/widgets/common_responsive_divider.dart';
 import 'package:irrigazione_iot/src/widgets/sliver_logout_button.dart';
 
 class MoreOptionsScreenContent extends ConsumerWidget {
@@ -39,7 +38,6 @@ class MoreOptionsScreenContent extends ConsumerWidget {
                       ),
                       leadingIcon: Icons.device_hub,
                     ),
-                    const CommonResponsiveDivider(),
                     MorePageItemListTile(
                       title: loc.profilePageTitle,
                       onTap: () => context.pushNamed(
