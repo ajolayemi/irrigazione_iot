@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_board_controller.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_board_form_content.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 
 class AddUpdateBoardsForm extends ConsumerWidget {
   const AddUpdateBoardsForm({
@@ -15,10 +17,10 @@ class AddUpdateBoardsForm extends ConsumerWidget {
   final GenericFormTypes formType;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO add listener on state
+    ref.listen(addUpdateBoardControllerProvider,
+        (_, state) => state.showAlertDialogOnError(context));
 
-    // TODO replace with normal state
-    const isLoading = false;
+    final isLoading = ref.watch(addUpdateBoardControllerProvider).isLoading;
 
     return PopScope(
       canPop: !isLoading,
