@@ -7,7 +7,9 @@ part 'company_repository.g.dart';
 // When either Supabase or Firebase is implemented, the repository that will be connected
 // to this class will access the table where the general data of all companies are stored
 abstract class CompanyRepository {
+  /// returns the [Company] with the given [CompanyID]
   Future<Company?> fetchCompany(CompanyID companyId);
+  /// emits the [Company] with the given [CompanyID] whenever it changes
   Stream<Company?> watchCompany(CompanyID companyId);
 }
 
