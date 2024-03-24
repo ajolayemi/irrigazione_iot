@@ -7,7 +7,7 @@ part of 'add_update_company_controller.dart';
 // **************************************************************************
 
 String _$addUpdateCompanyControllerHash() =>
-    r'25e9122ca8c7b3248bb8e44c42a32dc80e30169d';
+    r'737266c0bd09d6314285495eaf98abbd0c77b871';
 
 /// See also [AddUpdateCompanyController].
 @ProviderFor(AddUpdateCompanyController)
