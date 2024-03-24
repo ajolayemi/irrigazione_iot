@@ -166,5 +166,17 @@
   "userProfileDetailsEmail": "Indirizzo email",
   "userProfileDetailsCurrentCompany": "Profilo aziendale attuale",
   "companyProfileMenuTitle": "Profilo Aziendale",
-  "companyUsersMenuTitle": "Utenti Aziendali"
+  "companyUsersMenuTitle": "Utenti Aziendali",
+  "companyName": "Nome Azienda",
+  "companyNameHintText": "eg: azienda agricola esempio srl",
+  "companyRegisteredAddress": "Sede Legale",
+  "companyRegisteredAddressHintText": "eg: via roma 1, 00100, roma",
+  "companyVatNumber": "Partita IVA",
+  "companyVatNumberHintText": "eg: 123456789",
+  "companyFiscalCode": "Codice Fiscale",
+  "companyFiscalCodeHintText": "eg: 123456789",
+  "companyEmail": "Indirizzo email aziendale",
+  "companyEmailHintText": "eg: email@company.com",
+  "companyPhone": "Telefono Aziendale",
+  "companyPhoneHintText": "eg: +123456789"
 }

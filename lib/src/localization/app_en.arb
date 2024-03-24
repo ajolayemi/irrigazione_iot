@@ -477,5 +477,17 @@
   "userProfileDetailsEmail": "Email",
   "userProfileDetailsCurrentCompany": "Current company profile",
   "companyProfileMenuTitle": "Company Profile",
-  "companyUsersMenuTitle": "My Company Users"
+  "companyUsersMenuTitle": "My Company Users",
+  "companyName": "Company Name",
+  "companyNameHintText": "eg: My Company",
+  "companyRegisteredAddress": "Registered office address",
+  "companyRegisteredAddressHintText": "eg: 123 Main Street, 12345, City, Country",
+  "companyVatNumber": "VAT Number",
+  "companyVatNumberHintText": "eg: 123456789",
+  "companyFiscalCode": "Fiscal Code",
+  "companyFiscalCodeHintText": "eg: 123456789",
+  "companyEmail": "Email",
+  "companyEmailHintText": "eg: email@company.com",
+  "companyPhone": "Phone",
+  "companyPhoneHintText": "eg: +123456789"
 }
