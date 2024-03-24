@@ -8,9 +8,13 @@ class CommonEditIconButton extends ConsumerWidget {
   const CommonEditIconButton({
     super.key,
     required this.onPressed,
+    this.alternateIsVisible,
   });
 
   final VoidCallback onPressed;
+  /// If the button should be visible or not
+  /// if not provided, the generic canEdit check on user role is used
+  final bool? alternateIsVisible;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,7 +22,7 @@ class CommonEditIconButton extends ConsumerWidget {
     return AppBarIconButton(
       onPressed: onPressed,
       icon: Icons.edit,
-      isVisibile: canEdit,
+      isVisibile: alternateIsVisible ?? canEdit,
     );
   }
 }
