@@ -4,8 +4,8 @@ import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
 
-class CustomEditIconButton extends ConsumerWidget {
-  const CustomEditIconButton({
+class CommonEditIconButton extends ConsumerWidget {
+  const CommonEditIconButton({
     super.key,
     required this.onPressed,
   });

@@ -9,7 +9,7 @@ import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/widgets/common_sliver_list_skeleton.dart';
-import 'package:irrigazione_iot/src/widgets/custom_edit_icon_button.dart';
+import 'package:irrigazione_iot/src/widgets/common_edit_icon_button.dart';
 
 class BoardDetailsScreen extends ConsumerWidget {
   const BoardDetailsScreen({
@@ -42,7 +42,7 @@ class BoardDetailsScreen extends ConsumerWidget {
           AppSliverBar(
             title: board.valueOrNull?.name ?? '',
             actions: [
-              CustomEditIconButton(
+              CommonEditIconButton(
                 onPressed: () => _onTapEdit(
                     context, ref, board.valueOrNull?.collectorId ?? ','),
               )
