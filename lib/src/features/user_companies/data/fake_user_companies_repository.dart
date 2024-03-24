@@ -14,7 +14,7 @@ class FakeUserCompaniesRepository implements UserCompaniesRepository {
 
   /// Preload userCompanies
   final _userCompanies =
-      InMemoryStore<List<CompanyUser>>(List.from(kFakeUserCompanies));
+      InMemoryStore<List<CompanyUser>>(List.from(kFakeCompanyUsers));
 
   // A stream to watch the list of userCompanies connected to a user
   @override
