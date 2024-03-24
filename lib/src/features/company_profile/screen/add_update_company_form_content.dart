@@ -11,6 +11,8 @@ import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
 
 class AddUpdateCompanyFormContent extends ConsumerStatefulWidget {
   const AddUpdateCompanyFormContent({
@@ -46,6 +48,15 @@ class _AddUpdateCompanyFormContentsState
   String get _vatNumber => _vatNumberController.text;
   String get _email => _emailController.text;
   String get _phone => _phoneController.text;
+
+
+  // field keys
+  static const _nameFieldKey = Key('companyNameFieldKey');
+  static const _addressFieldKey = Key('companyAddressFieldKey');
+  static const _fiscalCodeFieldKey = Key('companyFiscalCodeFieldKey');
+  static const _vatNumberFieldKey = Key('companyVatNumberFieldKey');
+  static const _emailFieldKey = Key('companyEmailFieldKey');
+  static const _phoneFieldKey = Key('companyPhoneFieldKey');
 
   // variable to track if user is updating
   bool get _isUpdating => widget.formType == GenericFormTypes.update;
