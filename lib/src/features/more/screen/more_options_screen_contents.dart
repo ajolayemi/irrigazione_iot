@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
@@ -11,7 +10,6 @@ import 'package:irrigazione_iot/src/features/user_companies/data/company_users_r
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
-import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/common_responsive_divider.dart';
 import 'package:irrigazione_iot/src/widgets/sliver_logout_button.dart';
