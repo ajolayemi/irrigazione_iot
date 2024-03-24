@@ -9,8 +9,18 @@ part 'company_repository.g.dart';
 abstract class CompanyRepository {
   /// returns the [Company] with the given [CompanyID]
   Future<Company?> fetchCompany(CompanyID companyId);
+
   /// emits the [Company] with the given [CompanyID] whenever it changes
   Stream<Company?> watchCompany(CompanyID companyId);
+
+  /// updates an existing [Company] in the database and returns the updated [Company] if successful
+  Future<Company?> updateCompany({required Company company});
+
+  /// adds a new [Company] to the database and returns the newly added [Company] if successful
+  Future<Company?> addCompany({required Company company});
+
+  /// deletes a [Company] from the database and returns true if successful
+  Future<bool> deleteCompany({required CompanyID companyId});
 }
 
 @Riverpod(keepAlive: true)
@@ -29,4 +39,3 @@ Stream<Company?> companyStream(CompanyStreamRef ref, CompanyID companyId) {
   final repository = ref.watch(companyRepositoryProvider);
   return repository.watchCompany(companyId);
 }
-
