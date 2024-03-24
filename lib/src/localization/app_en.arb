@@ -476,5 +476,6 @@
   "userProfileDetailsName": "Names",
   "userProfileDetailsEmail": "Email",
   "userProfileDetailsCurrentCompany": "Current company profile",
-  "companyProfileMenuTitle": "Company Profile"
+  "companyProfileMenuTitle": "Company Profile",
+  "companyUsersMenuTitle": "My Company Users"
 }

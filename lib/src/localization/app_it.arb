@@ -165,5 +165,6 @@
   "userProfileDetailsName": "Nome",
   "userProfileDetailsEmail": "Indirizzo email",
   "userProfileDetailsCurrentCompany": "Profilo aziendale attuale",
-  "companyProfileMenuTitle": "Profilo Aziendale"
+  "companyProfileMenuTitle": "Profilo Aziendale",
+  "companyUsersMenuTitle": "Utenti Aziendali"
 }
