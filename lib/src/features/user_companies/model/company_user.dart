@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 // A representation of the relationship between a user and a company
 class CompanyUser extends Equatable {
@@ -61,7 +62,7 @@ class CompanyUser extends Equatable {
     return CompanyUser(
       email: map['email'] as String,
       companyId: map['companyId'] as CompanyID,
-      role: (map['role'] as String).toCompanyUserRoles(),
+      role: (map['role'] as String).toCompanyUserRoles,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),
     );
