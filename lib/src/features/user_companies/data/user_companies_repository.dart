@@ -6,7 +6,7 @@ import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/user_companies/data/fake_user_companies_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/model/user_company.dart';
+import 'package:irrigazione_iot/src/features/user_companies/model/company_user.dart';
 
 part 'user_companies_repository.g.dart';
 
@@ -14,8 +14,8 @@ part 'user_companies_repository.g.dart';
 // When either Supabase or Firebase is implemented, the repository that will be connected
 // to this class will access the table where the users associated with the companies are stored
 abstract class UserCompaniesRepository {
-  Stream<List<UserCompany>> watchCompaniesAssociatedWithUser(String userId);
-  Future<List<UserCompany>> fetchCompaniesAssociatedWithUser(String userId);
+  Stream<List<CompanyUser>> watchCompaniesAssociatedWithUser(String userId);
+  Future<List<CompanyUser>> fetchCompaniesAssociatedWithUser(String userId);
   Stream<CompanyUserRoles?> watchCompanyUserRole(
     String userId,
     String companyId,

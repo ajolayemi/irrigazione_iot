@@ -7,8 +7,8 @@ import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart'
 import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
 
 // A representation of the relationship between a user and a company
-class UserCompany extends Equatable {
-  const UserCompany({
+class CompanyUser extends Equatable {
+  const CompanyUser({
     required this.appUser,
     required this.companyId,
     required this.role,
@@ -28,8 +28,8 @@ class UserCompany extends Equatable {
     };
   }
 
-  factory UserCompany.fromMap(Map<String, dynamic> map) {
-    return UserCompany(
+  factory CompanyUser.fromMap(Map<String, dynamic> map) {
+    return CompanyUser(
       appUser: AppUser.fromMap(map['appUser'] as Map<String, dynamic>),
       companyId: map['companyId'] as CompanyID,
       role: CompanyUserRoles.values.firstWhere(
@@ -41,12 +41,12 @@ class UserCompany extends Equatable {
   @override
   bool get stringify => true;
 
-  UserCompany copyWith({
+  CompanyUser copyWith({
     AppUser? appUser,
     CompanyID? companyId,
     CompanyUserRoles? role,
   }) {
-    return UserCompany(
+    return CompanyUser(
       appUser: appUser ?? this.appUser,
       companyId: companyId ?? this.companyId,
       role: role ?? this.role,
