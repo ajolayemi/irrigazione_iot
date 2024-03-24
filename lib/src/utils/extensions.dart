@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 
 extension BuildContextExtensions on BuildContext {
@@ -37,6 +38,11 @@ extension StringExtensions on String {
   /// Mostly used for validating form fields
   bool get isGreaterThanZero =>
       double.tryParse(this) != null && double.parse(this) > 0;
+
+  CompanyUserRoles get toCompanyUserRoles => CompanyUserRoles.values.firstWhere(
+        (role) => role.name == this,
+        orElse: () => CompanyUserRoles.user,
+      );
 
   // todo: remove this
   /// Returns true if the string is a number and is greater than 0
