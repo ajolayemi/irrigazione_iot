@@ -5,23 +5,33 @@ import 'package:irrigazione_iot/src/features/user_companies/data/selected_compan
 import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:irrigazione_iot/src/features/user_companies/data/fake_user_companies_repository.dart';
+import 'package:irrigazione_iot/src/features/user_companies/data/fake_company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/model/company_user.dart';
 
-part 'user_companies_repository.g.dart';
+part 'company_users_repository.g.dart';
 
 // A repository to manage the companies connected to a user
 // When either Supabase or Firebase is implemented, the repository that will be connected
 // to this class will access the table where the users associated with the companies are stored
 abstract class CompanyUsersRepository {
-  Stream<List<CompanyUser>> watchCompaniesAssociatedWithUser(String userId);
-  Future<List<CompanyUser>> fetchCompaniesAssociatedWithUser(String userId);
-  Stream<CompanyUserRoles?> watchCompanyUserRole(
-    String userId,
-    String companyId,
-  );
+  /// Emits a list of [CompanyUser] linked with the provided user email
+  Stream<List<CompanyUser>> watchCompaniesAssociatedWithUser(
+      {required String email});
+
+  /// Fetches a list of [CompanyUser] linked with the provided user email
+  Future<List<CompanyUser>> fetchCompaniesAssociatedWithUser({
+    required String email,
+  });
+
+  /// Emits the [CompanyUserRoles] linked with the provided user email and company id
+  Stream<CompanyUserRoles?> watchCompanyUserRole({
+    required String email,
+    required String companyId,
+  });
+
+  /// Fetches the [CompanyUserRoles] linked with the provided user email and company id
   Future<CompanyUserRoles?> fetchCompanyUserRole(
-      String userId, String companyId);
+      {required String email, required String companyId});
 }
 
 // TODO replace this with a real implementation of either Firebase or Supabase
@@ -40,7 +50,7 @@ Future<List<Company>> userCompaniesFuture(UserCompaniesFutureRef ref) async {
   final userCompaniesRepository = ref.watch(userCompaniesRepositoryProvider);
   final companyRepository = ref.watch(companyRepositoryProvider);
   final userCompanies =
-      await userCompaniesRepository.fetchCompaniesAssociatedWithUser(user.uid);
+      await userCompaniesRepository.fetchCompaniesAssociatedWithUser(email: user.email);
   final companies = <Company>[];
   for (final userCompany in userCompanies) {
     final company = await companyRepository.fetchCompany(userCompany.companyId);
@@ -61,7 +71,7 @@ Stream<List<Company>> userCompaniesStream(UserCompaniesStreamRef ref) {
   final userCompaniesRepository = ref.watch(userCompaniesRepositoryProvider);
   final companyRepository = ref.watch(companyRepositoryProvider);
   return userCompaniesRepository
-      .watchCompaniesAssociatedWithUser(user.uid)
+      .watchCompaniesAssociatedWithUser(email: user.email)
       .asyncMap((userCompanies) async {
     final companies = <Company>[];
     for (final userCompany in userCompanies) {
@@ -85,7 +95,7 @@ Stream<CompanyUserRoles?> companyUserRole(CompanyUserRoleRef ref) {
     return const Stream.empty();
   }
   return userCompaniesRepository.watchCompanyUserRole(
-    user.uid,
-    currentSelectedCompany.id,
+    email: user.email,
+    companyId: currentSelectedCompany.id,
   );
 }

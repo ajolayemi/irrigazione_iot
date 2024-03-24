@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
+import 'package:irrigazione_iot/src/features/user_companies/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/custom_text_button.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';

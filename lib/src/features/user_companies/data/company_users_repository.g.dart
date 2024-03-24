@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_companies_repository.dart';
+part of 'company_users_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -24,7 +24,7 @@ final userCompaniesRepositoryProvider =
 
 typedef UserCompaniesRepositoryRef = ProviderRef<CompanyUsersRepository>;
 String _$userCompaniesFutureHash() =>
-    r'9f7d3db0e0e7b95eea3f2cec34283e0f6406c5c1';
+    r'68fa5fd3fe2c09674cd71900425e2a4bb9ca1346';
 
 /// See also [userCompaniesFuture].
 @ProviderFor(userCompaniesFuture)
@@ -41,7 +41,7 @@ final userCompaniesFutureProvider =
 
 typedef UserCompaniesFutureRef = AutoDisposeFutureProviderRef<List<Company>>;
 String _$userCompaniesStreamHash() =>
-    r'ef9a9d9f968ce36b7b223c966113216dcd1c4472';
+    r'b1c0abbc1db0e7fe825a03e5ccc1478100ccdd5f';
 
 /// See also [userCompaniesStream].
 @ProviderFor(userCompaniesStream)
@@ -57,7 +57,7 @@ final userCompaniesStreamProvider =
 );
 
 typedef UserCompaniesStreamRef = AutoDisposeStreamProviderRef<List<Company>>;
-String _$companyUserRoleHash() => r'799abbcb5922cf80c637c6b7e5567a2c4388caa1';
+String _$companyUserRoleHash() => r'0bae44f8dd6375c20dbbd9d1c5d1111d3ac44c05';
 
 /// See also [companyUserRole].
 @ProviderFor(companyUserRole)
