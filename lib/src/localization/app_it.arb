@@ -164,5 +164,6 @@
   "noCollectorConnectedToBoardErrorText": "Devi collegare almeno un collettore a questa centralina",
   "userProfileDetailsName": "Nome",
   "userProfileDetailsEmail": "Indirizzo email",
-  "userProfileDetailsCurrentCompany": "Profilo aziendale attuale"
+  "userProfileDetailsCurrentCompany": "Profilo aziendale attuale",
+  "companyProfileMenuTitle": "Profilo Aziendale"
 }

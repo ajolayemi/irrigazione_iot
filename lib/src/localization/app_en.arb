@@ -475,5 +475,6 @@
   "noCollectorConnectedToBoardErrorText": "You have to connect at least one collector to this board",
   "userProfileDetailsName": "Names",
   "userProfileDetailsEmail": "Email",
-  "userProfileDetailsCurrentCompany": "Current company profile"
+  "userProfileDetailsCurrentCompany": "Current company profile",
+  "companyProfileMenuTitle": "Company Profile"
 }
