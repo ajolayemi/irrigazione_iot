@@ -20,14 +20,8 @@ class MoreOptionsScreenContent extends ConsumerWidget {
     showNotImplementedAlertDialog(context: context);
   }
 
-
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final uid = ref.watch(authRepositoryProvider).currentUser?.uid;
-    final companyId = ref
-        .watch(selectedCompanyRepositoryProvider)
-        .loadSelectedCompanyId(uid!);
     final loc = context.loc;
     return Column(
       children: [
@@ -55,14 +49,23 @@ class MoreOptionsScreenContent extends ConsumerWidget {
                     ),
                     // Page to view the details of the company profile the user is currently
                     // working with
-                    MorePageItemListTile(
-                      title: loc.companyProfileMenuTitle,
-                      onTap: () => context.pushNamed(
-                          AppRoute.companyProfile.name,
-                          pathParameters: {
-                            'companyID': companyId ?? '',
-                          }),
-                      leadingIcon: Icons.business,
+                    Consumer(
+                      builder: (context, ref, child) {
+                        final uid =
+                            ref.watch(authRepositoryProvider).currentUser?.uid;
+                        final companyId = ref
+                            .watch(selectedCompanyRepositoryProvider)
+                            .loadSelectedCompanyId(uid!);
+                        return MorePageItemListTile(
+                          title: loc.companyProfileMenuTitle,
+                          onTap: () => context.pushNamed(
+                              AppRoute.companyProfile.name,
+                              pathParameters: {
+                                'companyID': companyId ?? '',
+                              }),
+                          leadingIcon: Icons.business,
+                        );
+                      },
                     ),
                     const CompanyUsersMoreOptionItem(),
                     MorePageItemListTile(
