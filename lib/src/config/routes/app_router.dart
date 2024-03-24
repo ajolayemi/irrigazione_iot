@@ -13,7 +13,7 @@ import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collec
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_details/collector_details.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_list_screen.dart';
 import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_form.dart';
-import 'package:irrigazione_iot/src/features/company_profile/screen/company_profile.dart';
+import 'package:irrigazione_iot/src/features/company_profile/screen/company_profile_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/screen/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/screen/home_nested_navigator.dart';
 import 'package:irrigazione_iot/src/features/more/screen/more_options_screen.dart';
