@@ -12,6 +12,8 @@ import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collec
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/connect_sectors_to_collector_screen.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_details/collector_details.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_list_screen.dart';
+import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_form.dart';
+import 'package:irrigazione_iot/src/features/company_profile/screen/company_profile.dart';
 import 'package:irrigazione_iot/src/features/dashboard/screen/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/screen/home_nested_navigator.dart';
 import 'package:irrigazione_iot/src/features/more/screen/more_options_screen.dart';
@@ -82,6 +84,7 @@ enum AppRoute {
   profile,
   connectCollectorToBoard,
   companyProfile,
+  updateCompany,
 }
 
 @Riverpod(keepAlive: true)
@@ -436,6 +439,33 @@ GoRouter goRouter(GoRouterRef ref) {
           fullscreenDialog: true,
           child: UserProfileScreen(),
         ),
+      ),
+
+      // Company profile route and sub-route to edit the company profile
+      GoRoute(
+        path: '/company-profile/:companyID',
+        name: AppRoute.companyProfile.name,
+        pageBuilder: (context, state) => MaterialPage(
+          fullscreenDialog: true,
+          child: CompanyProfileScreen(
+            companyID: state.pathParameters['companyID'] ?? '',
+          ),
+        ),
+        routes: [
+          GoRoute(
+            path: 'edit',
+            name: AppRoute.updateCompany.name,
+            pageBuilder: (context, state) {
+              return MaterialPage(
+                fullscreenDialog: true,
+                child: AddUpdateCompanyForm(
+                  companyID: state.pathParameters['companyID'] ?? '',
+                  formType: GenericFormTypes.update,
+                ),
+              );
+            },
+          ),
+        ],
       ),
     ],
   );
