@@ -152,7 +152,7 @@ class _AddUpdateCompanyFormContentsState
   /// - vat number
   String? _dependentFieldsErrorText() {
     if (!_submitted) return null;
-    
+
     final loc = context.loc;
     return context.getLocalizedDependentErrorText(
       field1Name: loc.companyFiscalCode,
@@ -169,7 +169,39 @@ class _AddUpdateCompanyFormContentsState
     setState(() => _submitted = true);
 
     if (_formKey.currentState!.validate()) {
-      print('got here');
+      if (await context.showSaveUpdateDialog(
+        isUpdating: _isUpdating,
+        what: context.loc.nCompany(1),
+      )) {
+        final company = _initialCompany?.copyWith(
+          name: _name,
+          registeredOfficeAddress: _address,
+          fiscalCode: _fiscalCode,
+          vatNumber: _vatNumber,
+          email: _email,
+          phoneNumber: _phone,
+          id: _initialCompany?.id,
+        );
+
+        bool success = false;
+        if (_isUpdating) {
+          success = await ref
+              .read(addUpdateCompanyControllerProvider.notifier)
+              .updateCompany(company);
+        } else {
+          success = await ref
+              .read(addUpdateCompanyControllerProvider.notifier)
+              .addCompany(company);
+        }
+
+        if (success) {
+          _popScreen();
+          return;
+        }
+        return;
+      } else {
+        debugPrint('Company form data is valid but user chose not to save');
+      }
     }
   }
 
