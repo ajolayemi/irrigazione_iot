@@ -17,4 +17,13 @@ extension CompanyUserRolesExtension on CompanyUserRoles {
         this == CompanyUserRoles.owner ||
         this == CompanyUserRoles.superuser;
   }
+
+  /// Check if the current user has the privilege to edit the details
+  /// of the company profile
+  /// This can be done by admin, superuser, and owner
+  bool get canEditCompanyProfile {
+    return this == CompanyUserRoles.admin ||
+        this == CompanyUserRoles.owner ||
+        this == CompanyUserRoles.superuser;
+  }
 }
