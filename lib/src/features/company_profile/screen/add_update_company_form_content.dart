@@ -49,7 +49,6 @@ class _AddUpdateCompanyFormContentsState
   String get _email => _emailController.text;
   String get _phone => _phoneController.text;
 
-
   // field keys
   static const _nameFieldKey = Key('companyNameFieldKey');
   static const _addressFieldKey = Key('companyAddressFieldKey');
@@ -153,7 +152,7 @@ class _AddUpdateCompanyFormContentsState
   /// - vat number
   String? _dependentFieldsErrorText() {
     if (!_submitted) return null;
-
+    
     final loc = context.loc;
     return context.getLocalizedDependentErrorText(
       field1Name: loc.companyFiscalCode,
@@ -193,6 +192,71 @@ class _AddUpdateCompanyFormContentsState
                   title: _isUpdating
                       ? loc.updateCompanyPageTitle
                       : loc.addNewCompanyPageTitle,
+                ),
+                ResponsiveSliverForm(
+                  node: _node,
+                  formKey: _formKey,
+                  children: [
+                    FormTitleAndField(
+                      fieldKey: _nameFieldKey,
+                      fieldTitle: loc.companyName,
+                      fieldController: _nameController,
+                      fieldHintText: loc.companyNameHintText,
+                      onEditingComplete: () =>
+                          _nonEmptyFieldsEditingComplete(_name),
+                      validator: (_) => _nonEmptyFieldsErrorText(_name),
+                    ),
+                    gapH16,
+                    FormTitleAndField(
+                      fieldKey: _addressFieldKey,
+                      fieldTitle: loc.companyRegisteredAddress,
+                      fieldController: _addressController,
+                      fieldHintText: loc.companyRegisteredAddressHintText,
+                      onEditingComplete: () =>
+                          _nonEmptyFieldsEditingComplete(_address),
+                      validator: (_) => _nonEmptyFieldsErrorText(_address),
+                    ),
+                    gapH16,
+                    FormTitleAndField(
+                      fieldKey: _fiscalCodeFieldKey,
+                      fieldTitle: loc.companyFiscalCode,
+                      fieldController: _fiscalCodeController,
+                      fieldHintText: loc.companyFiscalCodeHintText,
+                      autovalidateMode: AutovalidateMode.always,
+                      onEditingComplete: _dependentFieldsEditingComplete,
+                      validator: (_) => _dependentFieldsErrorText(),
+                    ),
+                    gapH16,
+                    FormTitleAndField(
+                      fieldKey: _vatNumberFieldKey,
+                      fieldTitle: loc.companyVatNumber,
+                      fieldController: _vatNumberController,
+                      fieldHintText: loc.companyVatNumberHintText,
+                      autovalidateMode: AutovalidateMode.always,
+                      onEditingComplete: _dependentFieldsEditingComplete,
+                      validator: (_) => _dependentFieldsErrorText(),
+                    ),
+                    gapH16,
+                    FormTitleAndField(
+                      fieldKey: _emailFieldKey,
+                      fieldTitle: loc.companyEmail,
+                      fieldController: _emailController,
+                      fieldHintText: loc.companyEmailHintText,
+                      onEditingComplete: () => _emailEditingComplete(_email),
+                      validator: (_) => _emailErrorText(_email),
+                    ),
+                    gapH16,
+                    FormTitleAndField(
+                      fieldKey: _phoneFieldKey,
+                      fieldTitle: loc.companyPhone,
+                      fieldController: _phoneController,
+                      fieldHintText: loc.companyPhoneHintText,
+                      onEditingComplete: () =>
+                          _nonEmptyFieldsEditingComplete(_phone),
+                      validator: (_) => _nonEmptyFieldsErrorText(_phone),
+                    ),
+                    gapH32,
+                  ],
                 ),
               ],
             ),
