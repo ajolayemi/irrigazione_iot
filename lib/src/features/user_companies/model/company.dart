@@ -3,20 +3,19 @@ import 'package:equatable/equatable.dart';
 
 typedef CompanyID = String;
 
-
 // TODO check if this should be moved elsewhere
 // A representation of companies, i.e the companies who uses the app
 class Company extends Equatable {
-  const Company(
-      {required this.id,
-      required this.name,
-      required this.registeredOfficeAddress,
-      required this.phoneNumber,
-      required this.email,
-      required this.imageUrl,
-      this.vatNumber = '',
-      this.fiscalCode = '',
-});
+  const Company({
+    required this.id,
+    required this.name,
+    required this.registeredOfficeAddress,
+    required this.phoneNumber,
+    required this.email,
+    required this.imageUrl,
+    this.vatNumber = '',
+    this.fiscalCode = '',
+  });
   // Unique identifier for the company from the database
   final CompanyID id;
   final String name;
@@ -70,4 +69,27 @@ class Company extends Equatable {
 
   @override
   bool get stringify => true;
+
+  Company copyWith({
+    CompanyID? id,
+    String? name,
+    String? registeredOfficeAddress,
+    String? phoneNumber,
+    String? email,
+    String? imageUrl,
+    String? vatNumber,
+    String? fiscalCode,
+  }) {
+    return Company(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      registeredOfficeAddress:
+          registeredOfficeAddress ?? this.registeredOfficeAddress,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      email: email ?? this.email,
+      imageUrl: imageUrl ?? this.imageUrl,
+      vatNumber: vatNumber ?? this.vatNumber,
+      fiscalCode: fiscalCode ?? this.fiscalCode,
+    );
+  }
 }
