@@ -65,6 +65,13 @@ class MoreOptionsScreen extends ConsumerWidget {
                         ),
                         leadingIcon: Icons.person,
                       ),
+                      // Page to view the details of the company profile the user is currently
+                      // working with
+                      MorePageItemListTile(
+                        title: loc.companyProfileMenuTitle,
+                        onTap: () => _showNotImplemented(context),
+                        leadingIcon: Icons.business,
+                      ),
                       MorePageItemListTile(
                         title: loc.settingsMenuTitle,
                         onTap: () => _showNotImplemented(context),
