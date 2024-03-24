@@ -173,4 +173,27 @@ mixin AppFormValidators {
     }
     return null;
   }
+
+  /// Holds the logic to validate whether user can submit dependent fields
+  /// This is used, for example, to validate the fiscal code and vat number fields 
+  /// in the form to add or update companies
+  /// The constraints are:
+  /// - one field is non-empty
+  bool canSubmitDependentFields({
+    required String value1,
+    required String value2,
+  }) {
+    return nonEmptyValidator.isValid(value1) || nonEmptyValidator.isValid(value2);
+  }
+
+  /// Gets the error key for dependent fields
+  String? getDependentFieldsErrorKey({
+    required String value1,
+    required String value2,
+  }) {
+    if (value1.isEmpty && value2.isEmpty) {
+      return 'dependentFieldsEmptyErrorText';
+    }
+    return null;
+  }
 }
