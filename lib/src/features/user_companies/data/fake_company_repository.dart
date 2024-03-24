@@ -28,4 +28,45 @@ class FakeCompanyRepository implements CompanyRepository {
       return null;
     }
   }
+
+  @override
+  Future<Company?> addCompany({required Company company}) async {
+    await delay(addDelay);
+
+    final lastId = _companies.value
+        .map((e) => int.tryParse(e.id) ?? 0)
+        .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
+    final newCompany = company.copyWith(
+      id: (lastId + 1).toString(),
+    );
+    final currentCompanies = [..._companies.value];
+    currentCompanies.add(newCompany);
+    _companies.value = currentCompanies;
+    return fetchCompany(newCompany.id);
+  }
+
+  @override
+  Future<bool> deleteCompany({required CompanyID companyId}) async {
+    await delay(addDelay);
+    final currentCompanies = [..._companies.value];
+    final index = currentCompanies.indexWhere((company) => company.id == companyId);
+    if (index == -1) return false;
+    currentCompanies.removeAt(index);
+    _companies.value = currentCompanies;
+    return await fetchCompany(companyId) == null;
+  }
+
+  @override
+  Future<Company?> updateCompany({required Company company}) async {
+    await delay(addDelay);
+    final currentCompanies = [..._companies.value];
+    final index = currentCompanies.indexWhere((c) => c.id == company.id);
+    if (index == -1) return null;
+    currentCompanies[index] = company;
+    _companies.value = currentCompanies;
+    return fetchCompany(company.id);
+
+  }
+
+  void dispose() => _companies.close();
 }
