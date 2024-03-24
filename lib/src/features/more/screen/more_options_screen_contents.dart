@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/more/widgets/company_users_item.dart';
 import 'package:irrigazione_iot/src/features/more/widgets/more_page_item_list_tile.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
@@ -25,8 +24,6 @@ class MoreOptionsScreenContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final shouldShowCompanyUser =
-        ref.watch(companyUserRoleProvider).valueOrNull?.canAddNewUser ?? false;
     final uid = ref.watch(authRepositoryProvider).currentUser?.uid;
     final companyId = ref
         .watch(selectedCompanyRepositoryProvider)
@@ -67,14 +64,7 @@ class MoreOptionsScreenContent extends ConsumerWidget {
                           }),
                       leadingIcon: Icons.business,
                     ),
-                    // Option to view and edit the list of users for the company
-                    // it's only available to admin, superuser, and owner
-                    if (shouldShowCompanyUser)
-                      MorePageItemListTile(
-                        title: loc.companyUsersMenuTitle,
-                        onTap: () => _showNotImplemented(context),
-                        leadingIcon: Icons.people,
-                      ),
+                    const CompanyUsersMoreOptionItem(),
                     MorePageItemListTile(
                       title: loc.settingsMenuTitle,
                       onTap: () => _showNotImplemented(context),
