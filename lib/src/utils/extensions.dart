@@ -49,6 +49,7 @@ extension BuildContextExtensions on BuildContext {
           defaultActionText: isUpdating
               ? loc.genericUpdateButtonLabel
               : loc.genericSaveButtonLabel,
+          cancelActionText: loc.alertDialogCancel,
         ) ??
         false;
   }
