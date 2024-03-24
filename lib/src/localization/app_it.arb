@@ -181,5 +181,6 @@
   "companyPhoneHintText": "eg: +123456789",
   "dependentFieldsEmptyErrorText": "Uno tra {firstFieldName} e {secondFieldName} deve essere compilato",
   "addNewCompanyPageTitle": "Nuova Azienda",
-  "updateCompanyPageTitle": "Aggiorna Azienda"
+  "updateCompanyPageTitle": "Aggiorna Azienda",
+  "nCompany": "{n, plural, =1{azienda} =2{aziende} other{aziende}}"
 }

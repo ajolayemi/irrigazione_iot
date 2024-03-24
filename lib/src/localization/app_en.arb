@@ -505,5 +505,16 @@
     }
   },
   "addNewCompanyPageTitle": "New Company",
-  "updateCompanyPageTitle": "Update Company"
+  "updateCompanyPageTitle": "Update Company",
+  "nCompany": "{n, plural, =1{company} =2{companies} other{companies}}",
+  "@nCompany": {
+    "description": "The pluralized version of the word 'company'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  }
 }
