@@ -1,5 +1,5 @@
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
-import 'package:irrigazione_iot/src/config/mock/fake_user_companies.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_company_users.dart';
 
 import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
