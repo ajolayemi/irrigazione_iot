@@ -1,55 +1,70 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:equatable/equatable.dart';
-import 'package:irrigazione_iot/src/config/enums/roles.dart';
 
-import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
 
 // A representation of the relationship between a user and a company
 class CompanyUser extends Equatable {
   const CompanyUser({
-    required this.appUser,
+    required this.email,
     required this.companyId,
     required this.role,
+    required this.createdAt,
+    required this.updatedAt,
   });
-  final AppUser appUser;
+  final String email;
   final CompanyID companyId;
   final CompanyUserRoles role;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
 
   @override
-  List<Object> get props => [appUser, companyId];
+  List<Object> get props {
+    return [
+      email,
+      companyId,
+      role,
+      createdAt,
+      updatedAt,
+    ];
+  }
 
-  Map<String, dynamic> toMap() {
+  CompanyUser copyWith({
+    String? email,
+    CompanyID? companyId,
+    CompanyUserRoles? role,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return CompanyUser(
+      email: email ?? this.email,
+      companyId: companyId ?? this.companyId,
+      role: role ?? this.role,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'appUser': appUser.toMap(),
+      'email': email,
       'companyId': companyId,
-      'role': role.toString(),
+      'role': role.name,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+      'updatedAt': updatedAt.millisecondsSinceEpoch,
     };
   }
 
-  factory CompanyUser.fromMap(Map<String, dynamic> map) {
+  factory CompanyUser.fromJson(Map<String, dynamic> map) {
     return CompanyUser(
-      appUser: AppUser.fromMap(map['appUser'] as Map<String, dynamic>),
+      email: map['email'] as String,
       companyId: map['companyId'] as CompanyID,
-      role: CompanyUserRoles.values.firstWhere(
-        ((role) => role.toString() == map['role'] as String),
-      ),
+      role: (map['role'] as String).toCompanyUserRoles(),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),
     );
   }
 
-  @override
-  bool get stringify => true;
-
-  CompanyUser copyWith({
-    AppUser? appUser,
-    CompanyID? companyId,
-    CompanyUserRoles? role,
-  }) {
-    return CompanyUser(
-      appUser: appUser ?? this.appUser,
-      companyId: companyId ?? this.companyId,
-      role: role ?? this.role,
-    );
   }
-}
