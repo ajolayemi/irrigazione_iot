@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_controller.dart';
 import 'package:irrigazione_iot/src/features/user_companies/data/company_repository.dart';
 import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 
 class AddUpdateCompanyFormContent extends ConsumerStatefulWidget {
   const AddUpdateCompanyFormContent({
@@ -162,6 +167,37 @@ class _AddUpdateCompanyFormContentsState
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector();
+    final loc = context.loc;
+    final isLoading = ref.watch(addUpdateCompanyControllerProvider).isLoading;
+
+    return GestureDetector(
+      onTap: _node.unfocus,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                AppSliverBar(
+                  title: _isUpdating
+                      ? loc.updateCompanyPageTitle
+                      : loc.addNewCompanyPageTitle,
+                ),
+              ],
+            ),
+          ),
+          gapH16,
+          SliverCTAButton(
+            isLoading: isLoading,
+            text: _isUpdating
+                ? loc.genericUpdateButtonLabel
+                : loc.genericSaveButtonLabel,
+            buttonType: ButtonType.primary,
+            onPressed: _submit,
+          ),
+          gapH32,
+        ],
+      ),
+    );
   }
 }
