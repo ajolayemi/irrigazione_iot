@@ -13,7 +13,7 @@ part 'user_companies_repository.g.dart';
 // A repository to manage the companies connected to a user
 // When either Supabase or Firebase is implemented, the repository that will be connected
 // to this class will access the table where the users associated with the companies are stored
-abstract class UserCompaniesRepository {
+abstract class CompanyUsersRepository {
   Stream<List<CompanyUser>> watchCompaniesAssociatedWithUser(String userId);
   Future<List<CompanyUser>> fetchCompaniesAssociatedWithUser(String userId);
   Stream<CompanyUserRoles?> watchCompanyUserRole(
@@ -26,8 +26,7 @@ abstract class UserCompaniesRepository {
 
 // TODO replace this with a real implementation of either Firebase or Supabase
 @Riverpod(keepAlive: true)
-UserCompaniesRepository userCompaniesRepository(
-    UserCompaniesRepositoryRef ref) {
+CompanyUsersRepository userCompaniesRepository(UserCompaniesRepositoryRef ref) {
   return FakeUserCompaniesRepository();
 }
 

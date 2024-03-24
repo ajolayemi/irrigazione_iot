@@ -7,12 +7,12 @@ part of 'user_companies_repository.dart';
 // **************************************************************************
 
 String _$userCompaniesRepositoryHash() =>
-    r'08e34e2a1bf3b80f451fe3cf7728f787c4966c55';
+    r'980a3613badb5264d65c0c1c0d95cbae30d46ac8';
 
 /// See also [userCompaniesRepository].
 @ProviderFor(userCompaniesRepository)
 final userCompaniesRepositoryProvider =
-    Provider<UserCompaniesRepository>.internal(
+    Provider<CompanyUsersRepository>.internal(
   userCompaniesRepository,
   name: r'userCompaniesRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,7 +22,7 @@ final userCompaniesRepositoryProvider =
   allTransitiveDependencies: null,
 );
 
-typedef UserCompaniesRepositoryRef = ProviderRef<UserCompaniesRepository>;
+typedef UserCompaniesRepositoryRef = ProviderRef<CompanyUsersRepository>;
 String _$userCompaniesFutureHash() =>
     r'9f7d3db0e0e7b95eea3f2cec34283e0f6406c5c1';
 
