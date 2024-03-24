@@ -59,11 +59,12 @@ class MoreOptionsScreen extends ConsumerWidget {
                       ),
                       const CommonResponsiveDivider(),
                       MorePageItemListTile(
-                          title: loc.profilePageTitle,
-                          onTap: () => context.pushNamed(
-                                AppRoute.profile.name,
-                              ),
-                          leadingIcon: Icons.person),
+                        title: loc.profilePageTitle,
+                        onTap: () => context.pushNamed(
+                          AppRoute.profile.name,
+                        ),
+                        leadingIcon: Icons.person,
+                      ),
                       MorePageItemListTile(
                         title: loc.settingsMenuTitle,
                         onTap: () => _showNotImplemented(context),
