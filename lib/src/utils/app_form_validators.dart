@@ -159,4 +159,18 @@ mixin AppFormValidators {
     if (value.isEmpty) return 'noCollectorConnectedToBoardErrorText';
     return null;
   }
+
+  /// Holds the logic to validate whether can submit email field
+  bool canSubmitEmail({required String value}) =>
+      EmailSubmitRegexValidator().isValid(value);
+
+  /// Gets the error key for email field
+  String? getEmailErrorKey({required String value}) {   
+    if (value.isEmpty) {
+      return 'emptyEmailErrorText';
+    } else if (!EmailSubmitRegexValidator().isValid(value)) {
+      return 'invalidEmailErrorText';
+    }
+    return null;
+  }
 }
