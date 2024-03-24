@@ -29,6 +29,8 @@ extension AppFormsErrorText on BuildContext {
         return loc.noPumpConnectedToSectorErrorText;
       case 'noCollectorConnectedToBoardErrorText':
         return loc.noCollectorConnectedToBoardErrorText;
+      case 'invalidEmailErrorText':
+        return loc.invalidEmailErrorText;
       default:
         return null;
     }
