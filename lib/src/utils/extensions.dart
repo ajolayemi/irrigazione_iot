@@ -31,6 +31,27 @@ extension BuildContextExtensions on BuildContext {
         ) ??
         false;
   }
+
+  // TODO: this should replace all alert dialogs for when user wants to save a form data
+  Future<bool> showSaveUpdateDialog({
+    required bool isUpdating,
+    required String what,
+  }) async {
+    final loc = this.loc;
+    return await showAlertDialog(
+          context: this,
+          title: isUpdating
+              ? loc.formGenericUpdateDialogTitle
+              : loc.formGenericSaveDialogTitle,
+          content: isUpdating
+              ? loc.formGenericUpdateDialogContent(what)
+              : loc.formGenericSaveDialogContent(what),
+          defaultActionText: isUpdating
+              ? loc.genericUpdateButtonLabel
+              : loc.genericSaveButtonLabel,
+        ) ??
+        false;
+  }
 }
 
 extension StringExtensions on String {
