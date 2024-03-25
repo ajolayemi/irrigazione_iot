@@ -1,6 +1,5 @@
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
-import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
@@ -35,12 +34,12 @@ abstract class CompanyUsersRepository {
       {required String email, required String companyId});
 
   /// Fetches a list of user email addresses linked with the provided company id
-  Future<List<String?>> fetchUsersEmailAssociatedWithCompany({
+  Future<List<CompanyUser?>> fetchUsersAssociatedWithCompany({
     required String companyId,
   });
 
-  /// Emits a list of user email addresses linked with the provided company id
-  Stream<List<String?>> watchUsersEmailAssociatedWithCompany({
+  /// Emits a list of [CompanyUser]s linked with the provided company id if any
+  Stream<List<CompanyUser?>> watchUsersAssociatedWithCompany({
     required String companyId,
   });
 
@@ -122,34 +121,14 @@ Stream<CompanyUserRoles?> companyUserRole(CompanyUserRoleRef ref) {
 }
 
 @riverpod
-Stream<List<String?>> usersEmailAssociatedWithCompanyStream(
-    UsersEmailAssociatedWithCompanyStreamRef ref) {
+Stream<List<CompanyUser?>> usersAssociatedWithCompanyStream(
+    UsersAssociatedWithCompanyStreamRef ref) {
   final userCompaniesRepository = ref.watch(userCompaniesRepositoryProvider);
   final currentSelectedCompany = ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompany == null) {
     return Stream.value([]);
   }
-  return userCompaniesRepository.watchUsersEmailAssociatedWithCompany(
+  return userCompaniesRepository.watchUsersAssociatedWithCompany(
     companyId: currentSelectedCompany.id,
   );
-}
-
-@riverpod
-Stream<List<AppUser?>> usersAssociatedWithCompanyStream(
-    UsersAssociatedWithCompanyStreamRef ref) {
-  final emailAddresses =
-      ref.watch(usersEmailAssociatedWithCompanyStreamProvider).valueOrNull ??
-          [];
-  List<AppUser?> users = [];
-  for (final email in emailAddresses) {
-    if (email != null) {
-      final user = ref.watch(watchUserWithEmailProvider(email)).valueOrNull;
-
-      if (user != null) {
-        users.add(user);
-      }
-    }
-  }
-
-  return Stream.value(users);
 }

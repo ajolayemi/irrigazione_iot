@@ -72,31 +72,13 @@ final companyUserRoleProvider = StreamProvider<CompanyUserRoles?>.internal(
 );
 
 typedef CompanyUserRoleRef = StreamProviderRef<CompanyUserRoles?>;
-String _$usersEmailAssociatedWithCompanyStreamHash() =>
-    r'836a084d52a1ca3f154b004d9187da624d02130c';
-
-/// See also [usersEmailAssociatedWithCompanyStream].
-@ProviderFor(usersEmailAssociatedWithCompanyStream)
-final usersEmailAssociatedWithCompanyStreamProvider =
-    AutoDisposeStreamProvider<List<String?>>.internal(
-  usersEmailAssociatedWithCompanyStream,
-  name: r'usersEmailAssociatedWithCompanyStreamProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$usersEmailAssociatedWithCompanyStreamHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef UsersEmailAssociatedWithCompanyStreamRef
-    = AutoDisposeStreamProviderRef<List<String?>>;
 String _$usersAssociatedWithCompanyStreamHash() =>
-    r'c45a2f165ff04cc1a198665711d743e1ae0178c9';
+    r'28904928a2f1afc5149931cf4b94a23d15e0f3cd';
 
 /// See also [usersAssociatedWithCompanyStream].
 @ProviderFor(usersAssociatedWithCompanyStream)
 final usersAssociatedWithCompanyStreamProvider =
-    AutoDisposeStreamProvider<List<AppUser?>>.internal(
+    AutoDisposeStreamProvider<List<CompanyUser?>>.internal(
   usersAssociatedWithCompanyStream,
   name: r'usersAssociatedWithCompanyStreamProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -107,6 +89,6 @@ final usersAssociatedWithCompanyStreamProvider =
 );
 
 typedef UsersAssociatedWithCompanyStreamRef
-    = AutoDisposeStreamProviderRef<List<AppUser?>>;
+    = AutoDisposeStreamProviderRef<List<CompanyUser?>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
