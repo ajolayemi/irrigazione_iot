@@ -516,5 +516,6 @@
         "format": "compact"
       }
     }
-  }
+  },
+  "noUsersConnectedWithCompany": "You have no registered users associated with your company"
 }

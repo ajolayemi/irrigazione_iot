@@ -182,5 +182,6 @@
   "dependentFieldsEmptyErrorText": "Uno tra {firstFieldName} e {secondFieldName} deve essere compilato",
   "addNewCompanyPageTitle": "Nuova Azienda",
   "updateCompanyPageTitle": "Aggiorna Azienda",
-  "nCompany": "{n, plural, =1{azienda} =2{aziende} other{aziende}}"
+  "nCompany": "{n, plural, =1{azienda} =2{aziende} other{aziende}}",
+  "noUsersConnectedWithCompany": "Non ci sono utenti associati a questa azienda"
 }
