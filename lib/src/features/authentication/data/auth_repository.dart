@@ -33,3 +33,10 @@ Stream<AppUser?> authStateChanges(AuthStateChangesRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.authStateChanges();
 }
+
+
+@riverpod
+Stream<AppUser?> watchUserWithEmail(WatchUserWithEmailRef ref, String email) {
+  final authRepository = ref.watch(authRepositoryProvider);
+  return authRepository.watchUserWithEmail(email);
+}
