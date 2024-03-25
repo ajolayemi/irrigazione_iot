@@ -14,6 +14,10 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
   final _userCompanies =
       InMemoryStore<List<CompanyUser>>(List.from(kFakeCompanyUsers));
 
+  static List<CompanyUser> _getUserCompanies(
+      List<CompanyUser> userCompanies, String email) {
+    return userCompanies.where((data) => data.email == email).toList();
+  }
   // A stream to watch the list of userCompanies connected to a user
   @override
   Stream<List<CompanyUser>> watchCompaniesAssociatedWithUser({required String email}) {
@@ -29,10 +33,6 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
     return Future.value(_getUserCompanies(_userCompanies.value, email));
   }
 
-  static List<CompanyUser> _getUserCompanies(
-      List<CompanyUser> userCompanies, String email) {
-    return userCompanies.where((data) => data.email == email).toList();
-  }
 
   @override
   Future<CompanyUserRoles?> fetchCompanyUserRole(
