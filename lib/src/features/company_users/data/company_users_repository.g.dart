@@ -90,5 +90,157 @@ final usersAssociatedWithCompanyStreamProvider =
 
 typedef UsersAssociatedWithCompanyStreamRef
     = AutoDisposeStreamProviderRef<List<CompanyUser?>>;
+String _$companyUserStreamHash() => r'd76223343d205a5771e37d47cde7cfacf60efd65';
+
+/// Copied from Dart SDK
+class _SystemHash {
+  _SystemHash._();
+
+  static int combine(int hash, int value) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + value);
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
+    return hash ^ (hash >> 6);
+  }
+
+  static int finish(int hash) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
+    // ignore: parameter_assignments
+    hash = hash ^ (hash >> 11);
+    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
+  }
+}
+
+/// See also [companyUserStream].
+@ProviderFor(companyUserStream)
+const companyUserStreamProvider = CompanyUserStreamFamily();
+
+/// See also [companyUserStream].
+class CompanyUserStreamFamily extends Family<AsyncValue<CompanyUser?>> {
+  /// See also [companyUserStream].
+  const CompanyUserStreamFamily();
+
+  /// See also [companyUserStream].
+  CompanyUserStreamProvider call({
+    required String companyUserId,
+  }) {
+    return CompanyUserStreamProvider(
+      companyUserId: companyUserId,
+    );
+  }
+
+  @override
+  CompanyUserStreamProvider getProviderOverride(
+    covariant CompanyUserStreamProvider provider,
+  ) {
+    return call(
+      companyUserId: provider.companyUserId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'companyUserStreamProvider';
+}
+
+/// See also [companyUserStream].
+class CompanyUserStreamProvider
+    extends AutoDisposeStreamProvider<CompanyUser?> {
+  /// See also [companyUserStream].
+  CompanyUserStreamProvider({
+    required String companyUserId,
+  }) : this._internal(
+          (ref) => companyUserStream(
+            ref as CompanyUserStreamRef,
+            companyUserId: companyUserId,
+          ),
+          from: companyUserStreamProvider,
+          name: r'companyUserStreamProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$companyUserStreamHash,
+          dependencies: CompanyUserStreamFamily._dependencies,
+          allTransitiveDependencies:
+              CompanyUserStreamFamily._allTransitiveDependencies,
+          companyUserId: companyUserId,
+        );
+
+  CompanyUserStreamProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.companyUserId,
+  }) : super.internal();
+
+  final String companyUserId;
+
+  @override
+  Override overrideWith(
+    Stream<CompanyUser?> Function(CompanyUserStreamRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: CompanyUserStreamProvider._internal(
+        (ref) => create(ref as CompanyUserStreamRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        companyUserId: companyUserId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<CompanyUser?> createElement() {
+    return _CompanyUserStreamProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is CompanyUserStreamProvider &&
+        other.companyUserId == companyUserId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, companyUserId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin CompanyUserStreamRef on AutoDisposeStreamProviderRef<CompanyUser?> {
+  /// The parameter `companyUserId` of this provider.
+  String get companyUserId;
+}
+
+class _CompanyUserStreamProviderElement
+    extends AutoDisposeStreamProviderElement<CompanyUser?>
+    with CompanyUserStreamRef {
+  _CompanyUserStreamProviderElement(super.provider);
+
+  @override
+  String get companyUserId =>
+      (origin as CompanyUserStreamProvider).companyUserId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

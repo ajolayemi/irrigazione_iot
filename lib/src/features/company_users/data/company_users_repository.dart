@@ -43,6 +43,9 @@ abstract class CompanyUsersRepository {
     required String companyId,
   });
 
+  /// Emits a [CompanyUser] linked with the provided user companyUserId
+  Stream<CompanyUser?> watchCompanyUser({required String companyUserId});
+
   /// Adds a new [CompanyUser] to the database and returns the newly added [CompanyUser] if successful
   Future<CompanyUser?> addCompanyUser({required CompanyUser companyUser});
 
@@ -131,4 +134,12 @@ Stream<List<CompanyUser?>> usersAssociatedWithCompanyStream(
   return userCompaniesRepository.watchUsersAssociatedWithCompany(
     companyId: currentSelectedCompany.id,
   );
+}
+
+@riverpod
+Stream<CompanyUser?> companyUserStream(CompanyUserStreamRef ref,
+    {required String companyUserId}) {
+  final userCompaniesRepository = ref.watch(userCompaniesRepositoryProvider);
+
+  return userCompaniesRepository.watchCompanyUser(companyUserId: companyUserId);
 }
