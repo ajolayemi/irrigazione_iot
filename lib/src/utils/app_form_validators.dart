@@ -161,21 +161,47 @@ mixin AppFormValidators {
   }
 
   /// Holds the logic to validate whether can submit email field
-  bool canSubmitEmail({required String value}) =>
-      EmailSubmitRegexValidator().isValid(value);
+  /// In some cases, check is done against a list of other email addresses
+  /// to ensure uniqueness. This is used, for example, in the form to add or update company users
+  bool canSubmitEmail({
+    required String value,
+    String? initialValue,
+    List<String?> namesToCompareAgainst = const [],
+  }) {
+    // if an initialValue was provided, which should be the case when updating
+    // and the email is the same as the initial value, then the email is valid without running
+    // check against the namesToCompareAgainst
+    if (initialValue != null &&
+        value.toLowerCase() == initialValue.toLowerCase()) {
+      return nonEmptyValidator.isValid(value) &&
+          EmailSubmitRegexValidator().isValid(value);
+    }
+    return nonEmptyValidator.isValid(value) &&
+        EmailSubmitRegexValidator().isValid(value) &&
+        !namesToCompareAgainst.contains(value.toLowerCase());
+  }
 
   /// Gets the error key for email field
-  String? getEmailErrorKey({required String value}) {   
+  /// In some cases, check is done against a list of other email addresses
+  /// to ensure uniqueness. This is used, for example, in the form to add or update company users
+  String? getEmailErrorKey({
+    required String value,
+    String? initialValue,
+    List<String?> namesToCompareAgainst = const [],
+  }) {
     if (value.isEmpty) {
-      return 'emptyEmailErrorText';
+      return 'emptyFormFieldErrorText';
     } else if (!EmailSubmitRegexValidator().isValid(value)) {
       return 'invalidEmailErrorText';
+    } else if (namesToCompareAgainst.contains(value.toLowerCase()) &&
+        value.toLowerCase() != initialValue?.toLowerCase()) {
+      return 'emailAlreadyInUseErrorText';
     }
     return null;
   }
 
   /// Holds the logic to validate whether user can submit dependent fields
-  /// This is used, for example, to validate the fiscal code and vat number fields 
+  /// This is used, for example, to validate the fiscal code and vat number fields
   /// in the form to add or update companies
   /// The constraints are:
   /// - one field is non-empty
@@ -183,7 +209,8 @@ mixin AppFormValidators {
     required String value1,
     required String value2,
   }) {
-    return nonEmptyValidator.isValid(value1) || nonEmptyValidator.isValid(value2);
+    return nonEmptyValidator.isValid(value1) ||
+        nonEmptyValidator.isValid(value2);
   }
 
   /// Gets the error key for dependent fields
