@@ -16,8 +16,6 @@ abstract class AuthRepository {
   Stream<AppUser?> authStateChanges();
 
   AppUser? get currentUser;
-
-  Stream<AppUser?> watchUserWithEmail(String email);
 }
 
 /// General auth repository provider
@@ -34,9 +32,3 @@ Stream<AppUser?> authStateChanges(AuthStateChangesRef ref) {
   return authRepository.authStateChanges();
 }
 
-
-@riverpod
-Stream<AppUser?> watchUserWithEmail(WatchUserWithEmailRef ref, String email) {
-  final authRepository = ref.watch(authRepositoryProvider);
-  return authRepository.watchUserWithEmail(email);
-}
