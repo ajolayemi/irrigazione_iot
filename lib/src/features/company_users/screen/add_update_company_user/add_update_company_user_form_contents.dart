@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
+import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
@@ -71,6 +72,74 @@ class _AddUpdateCompanyUserFormContentsState
     _roleController.dispose();
     super.dispose();
   }
+
+  /// for
+  /// - fullName field
+  /// - role field
+  void _nonEmptyFieldsEditingComplete(String value) {
+    if (canSubmitNonEmptyFields(value: value)) {
+      _node.nextFocus();
+    }
+  }
+
+  /// for
+  /// - email field
+  /// - role field
+  String? _nonEmptyFieldsErrorText(String value) {
+    if (_submitted) return null;
+
+    return context.getLocalizedErrorText(
+      errorKey: getNonEmptyFieldsErrorKey(value: value),
+    );
+  }
+
+  void _emailFieldEditingComplete(
+    String value,
+    List<String?> existingEmails,
+  ) {
+    if (canSubmitEmail(
+      value: value,
+      initialValue: _initialCompanyUser?.email,
+      mailsToCompareAgainst: existingEmails,
+    )) {
+      _node.nextFocus();
+    }
+  }
+
+  String? _emailFieldErrorText(
+    String value,
+    List<String?> existingEmails,
+  ) {
+    if (_submitted) return null;
+
+    return context.getLocalizedErrorText(
+      errorKey: getEmailErrorKey(
+        value: value,
+        initialValue: _initialCompanyUser?.email,
+        mailsToCompareAgainst: existingEmails,
+      ),
+    );
+  }
+
+  Future<void> _submit() async {
+    _node.unfocus();
+    setState(() => _submitted = true);
+
+    if (_formKey.currentState!.validate()) {
+      if (await context.showSaveUpdateDialog(
+        isUpdating: _isUpdating,
+        what: context.loc.nCompanyUsers(1),
+      )) {
+        print('form is valid and user chose to submit');
+      } else {
+        print('form is valid but user chose not to submit');
+      }
+    } else {
+      print('form is invalid');
+    }
+  }
+
+  void _popScreen() => context.popNavigator();
 
   @override
   Widget build(BuildContext context) {
