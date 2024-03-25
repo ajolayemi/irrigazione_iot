@@ -33,13 +33,13 @@ abstract class CompanyUsersRepository {
   Future<CompanyUserRoles?> fetchCompanyUserRole(
       {required String email, required String companyId});
 
-  /// Fetches a list of [AppUser] linked with the provided company id
-  Future<List<CompanyUser>> fetchUsersAssociatedWithCompany({
+  /// Fetches a list of user email addresses linked with the provided company id
+  Future<List<String>?> fetchUsersAssociatedWithCompany({
     required String companyId,
   });
 
-  /// Emits a list of [AppUser] linked with the provided company id
-  Stream<List<CompanyUser>> watchUsersAssociatedWithCompany({
+  /// Emits a list of user email addresses linked with the provided company id
+  Stream<List<String>?> watchUsersAssociatedWithCompany({
     required String companyId,
   });
 
