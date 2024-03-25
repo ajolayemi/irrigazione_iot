@@ -9,22 +9,26 @@ import 'package:irrigazione_iot/src/utils/extensions.dart';
 class CompanyUser extends Equatable {
   const CompanyUser({
     required this.email,
+    required this.fullName,
     required this.companyId,
     required this.role,
     required this.createdAt,
     required this.updatedAt,
   });
   final String email;
+  final String fullName;
   final CompanyID companyId;
   final CompanyUserRoles role;
   final DateTime createdAt;
   final DateTime updatedAt;
 
+ 
 
   @override
   List<Object> get props {
     return [
       email,
+      fullName,
       companyId,
       role,
       createdAt,
@@ -32,8 +36,19 @@ class CompanyUser extends Equatable {
     ];
   }
 
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'email': email,
+      'fullName': fullName,
+      'companyId': companyId,
+      'role': role.name,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+      'updatedAt': updatedAt.millisecondsSinceEpoch,
+    };
+  }
   CompanyUser copyWith({
     String? email,
+    String? fullName,
     CompanyID? companyId,
     CompanyUserRoles? role,
     DateTime? createdAt,
@@ -41,6 +56,7 @@ class CompanyUser extends Equatable {
   }) {
     return CompanyUser(
       email: email ?? this.email,
+      fullName: fullName ?? this.fullName,
       companyId: companyId ?? this.companyId,
       role: role ?? this.role,
       createdAt: createdAt ?? this.createdAt,
@@ -48,19 +64,10 @@ class CompanyUser extends Equatable {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'email': email,
-      'companyId': companyId,
-      'role': role.name,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
-    };
-  }
-
-  factory CompanyUser.fromJson(Map<String, dynamic> map) {
+  factory CompanyUser.fromMap(Map<String, dynamic> map) {
     return CompanyUser(
       email: map['email'] as String,
+      fullName: map['fullName'] as String,
       companyId: map['companyId'] as CompanyID,
       role: (map['role'] as String).toCompanyUserRoles,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
@@ -68,4 +75,5 @@ class CompanyUser extends Equatable {
     );
   }
 
-  }
+
+}
