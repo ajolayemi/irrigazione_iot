@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 
@@ -54,28 +55,30 @@ class FormTitleAndField extends StatelessWidget {
           style: context.textTheme.titleSmall,
         ),
         gapH8,
-        TextFormField(
-          key: fieldKey,
-          controller: fieldController,
-          onTap: onTap,
-          canRequestFocus: canRequestFocus ?? true,
-          //maxLines: maxLines,
-          decoration: InputDecoration(
-            hintText: fieldHintText,
-            errorMaxLines: 3,
-            enabled: enabled ?? true,
-            suffixIcon: suffixIcon,
+        IgnorePointer(
+          ignoring: enabled ?? false,
+          child: TextFormField(
+            key: fieldKey,
+            controller: fieldController,
+            onTap: onTap,
+            canRequestFocus: canRequestFocus ?? true,
+            //maxLines: maxLines,
+            decoration: InputDecoration(
+              hintText: fieldHintText,
+              errorMaxLines: 3,
+              suffixIcon: suffixIcon,
+            ),
+            autovalidateMode:
+                autovalidateMode ?? AutovalidateMode.onUserInteraction,
+            validator: validator,
+            autocorrect: autoCorrect ?? false,
+            textInputAction: textInputAction,
+            keyboardType: keyboardType,
+            keyboardAppearance: keyboardAppearance ?? Brightness.light,
+            onEditingComplete: onEditingComplete,
+            inputFormatters: inputFormatters,
+            obscureText: obscureText ?? false,
           ),
-          autovalidateMode:
-              autovalidateMode ?? AutovalidateMode.onUserInteraction,
-          validator: validator,
-          autocorrect: autoCorrect ?? false,
-          textInputAction: textInputAction,
-          keyboardType: keyboardType,
-          keyboardAppearance: keyboardAppearance ?? Brightness.light,
-          onEditingComplete: onEditingComplete,
-          inputFormatters: inputFormatters,
-          obscureText: obscureText ?? false,
         ),
       ],
     );
