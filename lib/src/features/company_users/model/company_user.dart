@@ -5,7 +5,7 @@ import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 
-typedef CompanyUserID = String;
+typedef CompanyUserID = int;
 
 // A representation of the relationship between a user and a company
 class CompanyUser extends Equatable {
