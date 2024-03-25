@@ -1,6 +1,6 @@
 import 'package:irrigazione_iot/src/config/mock/fake_companies_list.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/company_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 

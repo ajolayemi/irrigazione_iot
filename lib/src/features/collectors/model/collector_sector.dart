@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
-import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 
 /// A representation of a [Sector] in a [Collector]
 class CollectorSector extends Equatable {

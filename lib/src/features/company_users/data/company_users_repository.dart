@@ -1,12 +1,12 @@
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/company_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:irrigazione_iot/src/features/user_companies/data/fake_company_users_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/model/company_user.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/fake_company_users_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 
 part 'company_users_repository.g.dart';
 

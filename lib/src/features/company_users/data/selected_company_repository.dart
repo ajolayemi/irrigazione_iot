@@ -1,6 +1,6 @@
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/company_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:irrigazione_iot/src/providers/shared_prefs_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';

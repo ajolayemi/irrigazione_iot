@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/screen/user_company_list/user_companies_controller.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/user_company_list/user_companies_controller.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../../mocks.dart';

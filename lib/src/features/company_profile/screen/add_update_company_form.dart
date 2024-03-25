@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_controller.dart';
 import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_form_content.dart';
-import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 
 class AddUpdateCompanyForm extends ConsumerWidget {

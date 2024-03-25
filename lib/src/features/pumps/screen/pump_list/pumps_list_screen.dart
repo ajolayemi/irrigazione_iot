@@ -9,7 +9,7 @@ import 'package:irrigazione_iot/src/features/pumps/screen/pump_list_tile.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_status_switch_controller.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/dismiss_pump_controller.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_list_tile_skeleton.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';

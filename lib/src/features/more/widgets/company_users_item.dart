@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/more/widgets/more_page_item_list_tile.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 

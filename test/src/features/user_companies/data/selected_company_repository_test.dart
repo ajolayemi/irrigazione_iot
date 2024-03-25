@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_users_list.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {

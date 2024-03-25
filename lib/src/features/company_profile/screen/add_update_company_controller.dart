@@ -1,5 +1,5 @@
-import 'package:irrigazione_iot/src/features/user_companies/data/company_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'add_update_company_controller.g.dart';

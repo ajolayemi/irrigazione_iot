@@ -6,7 +6,7 @@ import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_pumps_repo
 import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_status_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/fake_sectors_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/service/dismiss_sector_service.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:irrigazione_iot/src/features/collectors/data/fake_collector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/model/company.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'collector_repository.g.dart';

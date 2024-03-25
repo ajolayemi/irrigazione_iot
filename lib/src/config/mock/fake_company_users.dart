@@ -1,6 +1,6 @@
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_users_list.dart';
-import 'package:irrigazione_iot/src/features/user_companies/model/company_user.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 
 final kFakeCompanyUsers = <CompanyUser>[
   CompanyUser(

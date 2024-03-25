@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_companies_list.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/fake_company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/fake_company_repository.dart';
 
 void main() {
   final testCompany = kFakeCompanies.first;
