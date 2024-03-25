@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/screen/company_user_details/company_user_details_screen_contents.dart';
-import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/widgets/common_edit_icon_button.dart';
@@ -28,8 +29,12 @@ class CompanyUserDetailsScreen extends ConsumerWidget {
               title: user.valueOrNull?.fullName ?? '',
               actions: [
                 CommonEditIconButton(
-                  onPressed: () =>
-                      showNotImplementedAlertDialog(context: context),
+                  onPressed: () => context.pushNamed(
+                    AppRoute.updateCompanyUser.name,
+                    pathParameters: {
+                      'companyUserId': companyUserId,
+                    },
+                  ),
                 ),
               ],
             ),
