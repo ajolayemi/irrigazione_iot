@@ -73,7 +73,7 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
   }
   
   @override
-  Future<List<CompanyUser>> fetchUsersAssociatedWithCompany({required String companyId}) {
+  Future<List<String>?> fetchUsersAssociatedWithCompany({required String companyId}) {
     // TODO: implement fetchUsersAssociatedWithCompany
     throw UnimplementedError();
   }
@@ -85,7 +85,7 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
   }
   
   @override
-  Stream<List<CompanyUser>> watchUsersAssociatedWithCompany({required String companyId}) {
+  Stream<List<String>?> watchUsersAssociatedWithCompany({required String companyId}) {
     // TODO: implement watchUsersAssociatedWithCompany
     throw UnimplementedError();
   }
