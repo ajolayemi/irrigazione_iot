@@ -10,6 +10,7 @@ typedef CompanyUserID = String;
 // A representation of the relationship between a user and a company
 class CompanyUser extends Equatable {
   const CompanyUser({
+    required this.id,
     required this.email,
     required this.fullName,
     required this.companyId,
@@ -17,6 +18,7 @@ class CompanyUser extends Equatable {
     required this.createdAt,
     required this.updatedAt,
   });
+  final CompanyUserID id;
   final String email;
   final String fullName;
   final CompanyID companyId;
@@ -24,9 +26,12 @@ class CompanyUser extends Equatable {
   final DateTime createdAt;
   final DateTime updatedAt;
 
+
+
   @override
   List<Object> get props {
     return [
+      id,
       email,
       fullName,
       companyId,
@@ -36,18 +41,8 @@ class CompanyUser extends Equatable {
     ];
   }
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'email': email,
-      'fullName': fullName,
-      'companyId': companyId,
-      'role': role.name,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
-    };
-  }
-
   CompanyUser copyWith({
+    CompanyUserID? id,
     String? email,
     String? fullName,
     CompanyID? companyId,
@@ -56,6 +51,7 @@ class CompanyUser extends Equatable {
     DateTime? updatedAt,
   }) {
     return CompanyUser(
+      id: id ?? this.id,
       email: email ?? this.email,
       fullName: fullName ?? this.fullName,
       companyId: companyId ?? this.companyId,
@@ -65,8 +61,21 @@ class CompanyUser extends Equatable {
     );
   }
 
-  factory CompanyUser.fromMap(Map<String, dynamic> map) {
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'id': id,
+      'email': email,
+      'fullName': fullName,
+      'companyId': companyId,
+      'role': role.name,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+      'updatedAt': updatedAt.millisecondsSinceEpoch,
+    };
+  }
+
+  factory CompanyUser.fromJson(Map<String, dynamic> map) {
     return CompanyUser(
+      id: map['id'] as CompanyUserID,
       email: map['email'] as String,
       fullName: map['fullName'] as String,
       companyId: map['companyId'] as CompanyID,
@@ -74,5 +83,5 @@ class CompanyUser extends Equatable {
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),
     );
-  }
+  } 
 }
