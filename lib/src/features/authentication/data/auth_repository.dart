@@ -16,6 +16,8 @@ abstract class AuthRepository {
   Stream<AppUser?> authStateChanges();
 
   AppUser? get currentUser;
+
+  Stream<AppUser?> watchUserWithEmail(String email);
 }
 
 /// General auth repository provider
