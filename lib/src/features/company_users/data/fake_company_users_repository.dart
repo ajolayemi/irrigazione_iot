@@ -25,12 +25,9 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
     return userCompanies.where((data) => data.email == email).toList();
   }
 
-  static List<String?> _getUsersMailAssociatedWithCompany(
+  static List<CompanyUser?> _getUsersMailAssociatedWithCompany(
       List<CompanyUser> userCompanies, String companyId) {
-    return userCompanies
-        .where((data) => data.companyId == companyId)
-        .map((data) => data.email)
-        .toList();
+    return userCompanies.where((data) => data.companyId == companyId).toList();
   }
 
   // A stream to watch the list of userCompanies connected to a user
@@ -89,7 +86,7 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
   }
 
   @override
-  Future<List<String?>> fetchUsersEmailAssociatedWithCompany(
+  Future<List<CompanyUser?>> fetchUsersAssociatedWithCompany(
       {required String companyId}) async {
     await delay(addDelay);
     return Future.value(
@@ -97,7 +94,7 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
   }
 
   @override
-  Stream<List<String?>> watchUsersEmailAssociatedWithCompany(
+  Stream<List<CompanyUser?>> watchUsersAssociatedWithCompany(
       {required String companyId}) {
     return _companyUsersStream.map(
       (userCompanies) =>
