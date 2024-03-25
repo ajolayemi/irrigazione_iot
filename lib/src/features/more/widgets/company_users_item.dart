@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/features/more/widgets/more_page_item_list_tile.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 
 class CompanyUsersMoreOptionItem extends ConsumerWidget {
   const CompanyUsersMoreOptionItem({super.key});
@@ -19,7 +20,9 @@ class CompanyUsersMoreOptionItem extends ConsumerWidget {
     return MorePageItemListTile(
       title: loc.companyUsersMenuTitle,
       onTap: hasPermission
-          ? () => showNotImplementedAlertDialog(context: context)
+          ? () => context.pushNamed(
+                AppRoute.companyUsers.name,
+              )
           : () {},
       leadingIcon: Icons.people,
     );
