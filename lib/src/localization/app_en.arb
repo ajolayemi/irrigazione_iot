@@ -529,5 +529,16 @@
   "companyUserLastUpdated": "Last updated",
   "addNewCompanyUserPageTitle": "New Company User",
   "updateCompanyUserPageTitle": "Update Company User",
-  "emailAlreadyInUseErrorText": "This email is already in use"
+  "emailAlreadyInUseErrorText": "This email is already in use",
+  "nCompanyUsers": "{n, plural, =1{company user} =2{company users} other{company users}}",
+  "@nCompanyUsers": {
+    "description": "The pluralized version of the word 'company user'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  }
 }

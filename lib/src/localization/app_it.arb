@@ -195,5 +195,6 @@
   "companyUserLastUpdated": "Ultimo aggiornamento",
   "addNewCompanyUserPageTitle": "Nuovo Utente Aziendale",
   "updateCompanyUserPageTitle": "Aggiorna Utente Aziendale",
-  "emailAlreadyInUseErrorText": "Questo indirizzo email è già in uso"
+  "emailAlreadyInUseErrorText": "Questo indirizzo email è già in uso",
+  "nCompanyUsers": "{n, plural, =1{utente aziendale} =2{utenti aziendali} other{utenti aziendali}}"
 }
