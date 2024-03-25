@@ -90,5 +90,23 @@ final usersEmailAssociatedWithCompanyStreamProvider =
 
 typedef UsersEmailAssociatedWithCompanyStreamRef
     = AutoDisposeStreamProviderRef<List<String?>>;
+String _$usersAssociatedWithCompanyStreamHash() =>
+    r'c45a2f165ff04cc1a198665711d743e1ae0178c9';
+
+/// See also [usersAssociatedWithCompanyStream].
+@ProviderFor(usersAssociatedWithCompanyStream)
+final usersAssociatedWithCompanyStreamProvider =
+    AutoDisposeStreamProvider<List<AppUser?>>.internal(
+  usersAssociatedWithCompanyStream,
+  name: r'usersAssociatedWithCompanyStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$usersAssociatedWithCompanyStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef UsersAssociatedWithCompanyStreamRef
+    = AutoDisposeStreamProviderRef<List<AppUser?>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

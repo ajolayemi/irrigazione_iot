@@ -1,5 +1,6 @@
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
@@ -131,4 +132,24 @@ Stream<List<String?>> usersEmailAssociatedWithCompanyStream(
   return userCompaniesRepository.watchUsersEmailAssociatedWithCompany(
     companyId: currentSelectedCompany.id,
   );
+}
+
+@riverpod
+Stream<List<AppUser?>> usersAssociatedWithCompanyStream(
+    UsersAssociatedWithCompanyStreamRef ref) {
+  final emailAddresses =
+      ref.watch(usersEmailAssociatedWithCompanyStreamProvider).valueOrNull ??
+          [];
+  List<AppUser?> users = [];
+  for (final email in emailAddresses) {
+    if (email != null) {
+      final user = ref.watch(watchUserWithEmailProvider(email)).valueOrNull;
+
+      if (user != null) {
+        users.add(user);
+      }
+    }
+  }
+
+  return Stream.value(users);
 }
