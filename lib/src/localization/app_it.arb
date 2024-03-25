@@ -183,5 +183,14 @@
   "addNewCompanyPageTitle": "Nuova Azienda",
   "updateCompanyPageTitle": "Aggiorna Azienda",
   "nCompany": "{n, plural, =1{azienda} =2{aziende} other{aziende}}",
-  "noUsersConnectedWithCompany": "Non ci sono utenti associati a questa azienda"
+  "noUsersConnectedWithCompany": "Non ci sono utenti associati a questa azienda",
+  "companyUserFullName": "Nome e cognome",
+  "companyUserFullNameHintTest": "eg: Francesco Rossi",
+  "companyUserEmail": "Indirizzo email",
+  "companyUserEmailHintText": "eg: example@example.com",
+  "companyUserRole": "Assegna un ruolo",
+  "companyUserRoleHintText": "Seleziona un ruolo",
+  "companyUserAssignedRoleForDetails": "Ruolo assegnato",
+  "companyUserAddedOn": "Aggiunto il",
+  "companyUserLastUpdated": "Ultimo aggiornamento"
 }

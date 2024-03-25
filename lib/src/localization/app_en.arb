@@ -517,5 +517,14 @@
       }
     }
   },
-  "noUsersConnectedWithCompany": "You have no registered users associated with your company"
+  "noUsersConnectedWithCompany": "You have no registered users associated with your company",
+  "companyUserFullName": "Full Name",
+  "companyUserFullNameHintTest": "eg: John Doe",
+  "companyUserEmail": "Email",
+  "companyUserEmailHintText": "eg: example@example.com",
+  "companyUserRole": "Assign a role",
+  "companyUserRoleHintText": "Select a role",
+  "companyUserAssignedRoleForDetails": "Assigned Role",
+  "companyUserAddedOn": "Added on",
+  "companyUserLastUpdated": "Last updated"
 }
