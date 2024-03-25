@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/features/company_users/screen/company_users_list/company_users_list_screen_contents.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/common_add_icon_button.dart';
 
@@ -19,8 +20,8 @@ class CompanyUsersListScreen extends StatelessWidget {
             title: loc.companyUsersMenuTitle,
             actions: [
               CommonAddIconButton(
-                onPressed: () => showNotImplementedAlertDialog(
-                  context: context,
+                onPressed: () => context.pushNamed(
+                  AppRoute.addCompanyUser.name,
                 ),
               )
             ],
