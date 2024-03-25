@@ -91,7 +91,7 @@ enum AppRoute {
   companyUsers,
   companyUserDetails,
   addCompanyUser,
-  editCompanyUser
+  updateCompanyUser
 }
 
 @Riverpod(keepAlive: true)
@@ -508,7 +508,7 @@ GoRouter goRouter(GoRouterRef ref) {
             routes: [
               GoRoute(
                 path: 'edit',
-                name: AppRoute.editCompanyUser.name,
+                name: AppRoute.updateCompanyUser.name,
                 pageBuilder: (context, state) => MaterialPage(
                   fullscreenDialog: true,
                   child: AddUpdateCompanyUserForm(
