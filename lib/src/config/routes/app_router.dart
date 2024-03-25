@@ -87,6 +87,9 @@ enum AppRoute {
   companyProfile,
   updateCompany,
   companyUsers,
+  companyUserDetails,
+  addCompanyUser,
+  editCompanyUser
 }
 
 @Riverpod(keepAlive: true)
@@ -479,6 +482,7 @@ GoRouter goRouter(GoRouterRef ref) {
           fullscreenDialog: true,
           child: CompanyUsersListScreen(),
         ),
+        routes: []
       ),
     ],
   );
