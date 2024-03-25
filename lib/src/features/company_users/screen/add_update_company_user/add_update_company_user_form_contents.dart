@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
@@ -173,6 +176,23 @@ class _AddUpdateCompanyUserFormContentsState
                       onEditingComplete: () =>
                           _nonEmptyFieldsEditingComplete(_fullName),
                       validator: (_) => _nonEmptyFieldsErrorText(_fullName),
+                    ),
+                    gapH16,
+                    Consumer(
+                      builder: (context, ref, child) {
+                        // TODO replace
+                        final existingMails = <String?>[];
+                        return FormTitleAndField(
+                          fieldKey: _emailFieldKey,
+                          fieldTitle: loc.companyUserEmail,
+                          fieldHintText: loc.companyUserEmailHintText,
+                          fieldController: _emailController,
+                          onEditingComplete: () =>
+                              _emailFieldEditingComplete(_email, existingMails),
+                          validator: (_) =>
+                              _emailFieldErrorText(_email, existingMails),
+                        );
+                      },
                     )
                   ],
                 ),
