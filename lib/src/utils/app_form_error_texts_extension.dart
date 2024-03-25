@@ -31,6 +31,8 @@ extension AppFormsErrorText on BuildContext {
         return loc.noCollectorConnectedToBoardErrorText;
       case 'invalidEmailErrorText':
         return loc.invalidEmailErrorText;
+      case 'emailAlreadyInUseErrorText':
+        return loc.emailAlreadyInUseErrorText;
       default:
         return null;
     }
