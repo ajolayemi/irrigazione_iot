@@ -192,5 +192,7 @@
   "companyUserRoleHintText": "Seleziona un ruolo",
   "companyUserAssignedRoleForDetails": "Ruolo assegnato",
   "companyUserAddedOn": "Aggiunto il",
-  "companyUserLastUpdated": "Ultimo aggiornamento"
+  "companyUserLastUpdated": "Ultimo aggiornamento",
+  "addNewCompanyUserPageTitle": "Nuovo Utente Aziendale",
+  "updateCompanyUserPageTitle": "Aggiorna Utente Aziendale"
 }

@@ -526,5 +526,7 @@
   "companyUserRoleHintText": "Select a role",
   "companyUserAssignedRoleForDetails": "Assigned Role",
   "companyUserAddedOn": "Added on",
-  "companyUserLastUpdated": "Last updated"
+  "companyUserLastUpdated": "Last updated",
+  "addNewCompanyUserPageTitle": "New Company User",
+  "updateCompanyUserPageTitle": "Update Company User"
 }
