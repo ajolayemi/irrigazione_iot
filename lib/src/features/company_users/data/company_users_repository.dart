@@ -32,6 +32,26 @@ abstract class CompanyUsersRepository {
   /// Fetches the [CompanyUserRoles] linked with the provided user email and company id
   Future<CompanyUserRoles?> fetchCompanyUserRole(
       {required String email, required String companyId});
+
+  /// Fetches a list of [AppUser] linked with the provided company id
+  Future<List<CompanyUser>> fetchUsersAssociatedWithCompany({
+    required String companyId,
+  });
+
+  /// Emits a list of [AppUser] linked with the provided company id
+  Stream<List<CompanyUser>> watchUsersAssociatedWithCompany({
+    required String companyId,
+  });
+
+  /// Adds a new [CompanyUser] to the database and returns the newly added [CompanyUser] if successful
+  Future<CompanyUser?> addCompanyUser({required CompanyUser companyUser});
+
+  /// Updates an existing [CompanyUser] in the database and returns the updated [CompanyUser] if successful
+  Future<CompanyUser?> updateCompanyUser({required CompanyUser companyUser});
+
+  /// Deletes a [CompanyUser] from the database and returns true if successful
+  Future<bool> deleteCompanyUser(
+      {required String email, required String companyId});
 }
 
 // TODO replace this with a real implementation of either Firebase or Supabase
@@ -49,8 +69,8 @@ Future<List<Company>> userCompaniesFuture(UserCompaniesFutureRef ref) async {
   }
   final userCompaniesRepository = ref.watch(userCompaniesRepositoryProvider);
   final companyRepository = ref.watch(companyRepositoryProvider);
-  final userCompanies =
-      await userCompaniesRepository.fetchCompaniesAssociatedWithUser(email: user.email);
+  final userCompanies = await userCompaniesRepository
+      .fetchCompaniesAssociatedWithUser(email: user.email);
   final companies = <Company>[];
   for (final userCompany in userCompanies) {
     final company = await companyRepository.fetchCompany(userCompany.companyId);
