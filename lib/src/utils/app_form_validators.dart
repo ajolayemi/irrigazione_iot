@@ -166,7 +166,7 @@ mixin AppFormValidators {
   bool canSubmitEmail({
     required String value,
     String? initialValue,
-    List<String?> namesToCompareAgainst = const [],
+    List<String?> mailsToCompareAgainst = const [],
   }) {
     // if an initialValue was provided, which should be the case when updating
     // and the email is the same as the initial value, then the email is valid without running
@@ -178,7 +178,7 @@ mixin AppFormValidators {
     }
     return nonEmptyValidator.isValid(value) &&
         EmailSubmitRegexValidator().isValid(value) &&
-        !namesToCompareAgainst.contains(value.toLowerCase());
+        !mailsToCompareAgainst.contains(value.toLowerCase());
   }
 
   /// Gets the error key for email field
@@ -187,13 +187,13 @@ mixin AppFormValidators {
   String? getEmailErrorKey({
     required String value,
     String? initialValue,
-    List<String?> namesToCompareAgainst = const [],
+    List<String?> mailsToCompareAgainst = const [],
   }) {
     if (value.isEmpty) {
       return 'emptyFormFieldErrorText';
     } else if (!EmailSubmitRegexValidator().isValid(value)) {
       return 'invalidEmailErrorText';
-    } else if (namesToCompareAgainst.contains(value.toLowerCase()) &&
+    } else if (mailsToCompareAgainst.contains(value.toLowerCase()) &&
         value.toLowerCase() != initialValue?.toLowerCase()) {
       return 'emailAlreadyInUseErrorText';
     }
