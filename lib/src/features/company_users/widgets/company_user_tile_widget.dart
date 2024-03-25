@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
-import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
@@ -11,7 +11,7 @@ class CompanyUserTileWidget extends StatelessWidget {
     required this.user,
   });
 
-  final AppUser user;
+  final CompanyUser user;
 
   @override
   Widget build(BuildContext context) {
