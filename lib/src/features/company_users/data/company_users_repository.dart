@@ -34,12 +34,12 @@ abstract class CompanyUsersRepository {
       {required String email, required String companyId});
 
   /// Fetches a list of user email addresses linked with the provided company id
-  Future<List<String>?> fetchUsersAssociatedWithCompany({
+  Future<List<String?>> fetchUsersEmailAssociatedWithCompany({
     required String companyId,
   });
 
   /// Emits a list of user email addresses linked with the provided company id
-  Stream<List<String>?> watchUsersAssociatedWithCompany({
+  Stream<List<String?>> watchUsersEmailAssociatedWithCompany({
     required String companyId,
   });
 
@@ -116,6 +116,19 @@ Stream<CompanyUserRoles?> companyUserRole(CompanyUserRoleRef ref) {
   }
   return userCompaniesRepository.watchCompanyUserRole(
     email: user.email,
+    companyId: currentSelectedCompany.id,
+  );
+}
+
+@riverpod
+Stream<List<String?>> usersEmailAssociatedWithCompanyStream(
+    UsersEmailAssociatedWithCompanyStreamRef ref) {
+  final userCompaniesRepository = ref.watch(userCompaniesRepositoryProvider);
+  final currentSelectedCompany = ref.watch(currentTappedCompanyProvider).value;
+  if (currentSelectedCompany == null) {
+    return Stream.value([]);
+  }
+  return userCompaniesRepository.watchUsersEmailAssociatedWithCompany(
     companyId: currentSelectedCompany.id,
   );
 }

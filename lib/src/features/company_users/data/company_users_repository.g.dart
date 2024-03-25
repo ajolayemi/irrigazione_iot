@@ -72,5 +72,23 @@ final companyUserRoleProvider = StreamProvider<CompanyUserRoles?>.internal(
 );
 
 typedef CompanyUserRoleRef = StreamProviderRef<CompanyUserRoles?>;
+String _$usersEmailAssociatedWithCompanyStreamHash() =>
+    r'836a084d52a1ca3f154b004d9187da624d02130c';
+
+/// See also [usersEmailAssociatedWithCompanyStream].
+@ProviderFor(usersEmailAssociatedWithCompanyStream)
+final usersEmailAssociatedWithCompanyStreamProvider =
+    AutoDisposeStreamProvider<List<String?>>.internal(
+  usersEmailAssociatedWithCompanyStream,
+  name: r'usersEmailAssociatedWithCompanyStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$usersEmailAssociatedWithCompanyStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef UsersEmailAssociatedWithCompanyStreamRef
+    = AutoDisposeStreamProviderRef<List<String?>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
