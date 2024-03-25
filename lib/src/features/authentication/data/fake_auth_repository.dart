@@ -85,5 +85,19 @@ class FakeAuthRepository implements AuthRepository {
         kFakeUsers[Random(kFakeUsers.length).nextInt(kFakeUsers.length)];
   }
 
+  @override
+  Stream<AppUser?> watchUserWithEmail(String email) {
+    return _authState.stream.map((user) => _getUserWithEmail(_users, email));
+  }
+
+
+  static AppUser? _getUserWithEmail(List<FakeAppUser> users, String email) {
+    try {
+      return users.firstWhere((user) => user.email == email);
+    } catch (e) {
+      return null;
+    }
+  }
+
   void dispose() => _authState.close();
 }
