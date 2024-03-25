@@ -60,5 +60,35 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
     });
   }
 
+  @override
+  Future<CompanyUser?> addCompanyUser({required CompanyUser companyUser}) {
+    // TODO: implement addCompanyUser
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<bool> deleteCompanyUser({required String email, required String companyId}) {
+    // TODO: implement deleteCompanyUser
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<List<CompanyUser>> fetchUsersAssociatedWithCompany({required String companyId}) {
+    // TODO: implement fetchUsersAssociatedWithCompany
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<CompanyUser?> updateCompanyUser({required CompanyUser companyUser}) {
+    // TODO: implement updateCompanyUser
+    throw UnimplementedError();
+  }
+  
+  @override
+  Stream<List<CompanyUser>> watchUsersAssociatedWithCompany({required String companyId}) {
+    // TODO: implement watchUsersAssociatedWithCompany
+    throw UnimplementedError();
+  }
+
   void dispose() => _userCompanies.close();
 }
