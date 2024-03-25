@@ -12,16 +12,15 @@ class CompanyUsersMoreOptionItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final shouldShowCompanyUser =
+    final hasPermission =
         ref.watch(companyUserRoleProvider).valueOrNull?.canAddNewUser ?? false;
     // Option to view and edit the list of users for the company
     // it's only available to admin, superuser, and owner
-    if (!shouldShowCompanyUser) {
-      return const SizedBox();
-    }
     return MorePageItemListTile(
       title: loc.companyUsersMenuTitle,
-      onTap: () => showNotImplementedAlertDialog(context: context),
+      onTap: hasPermission
+          ? () => showNotImplementedAlertDialog(context: context)
+          : () {},
       leadingIcon: Icons.people,
     );
   }
