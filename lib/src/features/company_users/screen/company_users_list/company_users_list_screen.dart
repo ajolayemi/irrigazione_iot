@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 
 class CompanyUsersListScreen extends ConsumerWidget {
   const CompanyUsersListScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold();
+    final loc = context.loc;
+    return Scaffold(
+      body: SafeArea(
+          child: CustomScrollView(
+        slivers: [
+          AppSliverBar(
+            title: loc.companyUsersMenuTitle,
+          )
+        ],
+      )),
+    );
   }
 }
