@@ -7,6 +7,8 @@ import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
 
 class AddUpdateCompanyUserFormContents extends ConsumerStatefulWidget {
   const AddUpdateCompanyUserFormContents({
@@ -143,6 +145,8 @@ class _AddUpdateCompanyUserFormContentsState
 
   @override
   Widget build(BuildContext context) {
+    // TODO replace with right state
+    final isLoading = false;
     final loc = context.loc;
     return GestureDetector(
       onTap: () => _node.unfocus(),
@@ -156,6 +160,21 @@ class _AddUpdateCompanyUserFormContentsState
                   title: _isUpdating
                       ? loc.updateCompanyUserPageTitle
                       : loc.addNewCompanyUserPageTitle,
+                ),
+                ResponsiveSliverForm(
+                  node: _node,
+                  formKey: _formKey,
+                  children: [
+                    FormTitleAndField(
+                      fieldKey: _nameFieldKey,
+                      fieldTitle: loc.companyUserFullName,
+                      fieldHintText: loc.companyUserFullNameHintTest,
+                      fieldController: _fullNameController,
+                      onEditingComplete: () =>
+                          _nonEmptyFieldsEditingComplete(_fullName),
+                      validator: (_) => _nonEmptyFieldsErrorText(_fullName),
+                    )
+                  ],
                 ),
               ],
             ),
