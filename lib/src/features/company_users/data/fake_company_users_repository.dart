@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_company_users.dart';
 
@@ -14,13 +16,27 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
   final _userCompanies =
       InMemoryStore<List<CompanyUser>>(List.from(kFakeCompanyUsers));
 
+  List<CompanyUser> get _companyUsersValue => _userCompanies.value;
+
+  Stream<List<CompanyUser>> get _companyUsersStream => _userCompanies.stream;
+
   static List<CompanyUser> _getUserCompanies(
       List<CompanyUser> userCompanies, String email) {
     return userCompanies.where((data) => data.email == email).toList();
   }
+
+  static List<String?> _getUsersMailAssociatedWithCompany(
+      List<CompanyUser> userCompanies, String companyId) {
+    return userCompanies
+        .where((data) => data.companyId == companyId)
+        .map((data) => data.email)
+        .toList();
+  }
+
   // A stream to watch the list of userCompanies connected to a user
   @override
-  Stream<List<CompanyUser>> watchCompaniesAssociatedWithUser({required String email}) {
+  Stream<List<CompanyUser>> watchCompaniesAssociatedWithUser(
+      {required String email}) {
     return _userCompanies.stream.map(
       (userCompanies) => _getUserCompanies(userCompanies, email),
     );
@@ -32,7 +48,6 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
     await delay(addDelay);
     return Future.value(_getUserCompanies(_userCompanies.value, email));
   }
-
 
   @override
   Future<CompanyUserRoles?> fetchCompanyUserRole(
@@ -65,28 +80,34 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
     // TODO: implement addCompanyUser
     throw UnimplementedError();
   }
-  
+
   @override
-  Future<bool> deleteCompanyUser({required String email, required String companyId}) {
+  Future<bool> deleteCompanyUser(
+      {required String email, required String companyId}) {
     // TODO: implement deleteCompanyUser
     throw UnimplementedError();
   }
-  
+
   @override
-  Future<List<String>?> fetchUsersAssociatedWithCompany({required String companyId}) {
-    // TODO: implement fetchUsersAssociatedWithCompany
-    throw UnimplementedError();
+  Future<List<String?>> fetchUsersEmailAssociatedWithCompany(
+      {required String companyId}) async {
+    await delay(addDelay);
+    return Future.value(
+        _getUsersMailAssociatedWithCompany(_companyUsersValue, companyId));
   }
-  
+
+  @override
+  Stream<List<String?>> watchUsersEmailAssociatedWithCompany(
+      {required String companyId}) {
+    return _companyUsersStream.map(
+      (userCompanies) =>
+          _getUsersMailAssociatedWithCompany(userCompanies, companyId),
+    );
+  }
+
   @override
   Future<CompanyUser?> updateCompanyUser({required CompanyUser companyUser}) {
     // TODO: implement updateCompanyUser
-    throw UnimplementedError();
-  }
-  
-  @override
-  Stream<List<String>?> watchUsersAssociatedWithCompany({required String companyId}) {
-    // TODO: implement watchUsersAssociatedWithCompany
     throw UnimplementedError();
   }
 
