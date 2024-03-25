@@ -14,6 +14,7 @@ import 'package:irrigazione_iot/src/features/collectors/screen/collector_details
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_list_screen.dart';
 import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_form.dart';
 import 'package:irrigazione_iot/src/features/company_profile/screen/company_profile_screen.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/company_users_list/company_users_list_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/screen/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/screen/home_nested_navigator.dart';
 import 'package:irrigazione_iot/src/features/more/screen/more_options_screen.dart';
@@ -85,6 +86,7 @@ enum AppRoute {
   connectCollectorToBoard,
   companyProfile,
   updateCompany,
+  companyUsers,
 }
 
 @Riverpod(keepAlive: true)
@@ -466,6 +468,17 @@ GoRouter goRouter(GoRouterRef ref) {
             },
           ),
         ],
+      ),
+
+      // Route to view the list of users for the company and 
+      // sub-route to edit and add new users
+      GoRoute(
+        path: '/company-users',
+        name: AppRoute.companyUsers.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: CompanyUsersListScreen(),
+        ),
       ),
     ],
   );
