@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_company_users.dart';
 
@@ -109,4 +110,14 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
   }
 
   void dispose() => _userCompanies.close();
+  
+  @override
+  Stream<CompanyUser?> watchCompanyUser({required String companyUserId}) {
+    return _companyUsersStream.map(
+      (userCompanies) => userCompanies.firstWhereOrNull(
+        (user) => user.id.toString() == companyUserId,
+
+      ),
+    );
+  }
 }
