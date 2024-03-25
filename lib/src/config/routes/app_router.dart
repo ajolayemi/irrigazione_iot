@@ -14,6 +14,8 @@ import 'package:irrigazione_iot/src/features/collectors/screen/collector_details
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_list_screen.dart';
 import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_form.dart';
 import 'package:irrigazione_iot/src/features/company_profile/screen/company_profile_screen.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/add_update_company_user/add_update_company_user_form.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/company_user_details/company_user_details_screen.dart';
 import 'package:irrigazione_iot/src/features/company_users/screen/company_users_list/company_users_list_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/screen/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/screen/home_nested_navigator.dart';
@@ -473,7 +475,7 @@ GoRouter goRouter(GoRouterRef ref) {
         ],
       ),
 
-      // Route to view the list of users for the company and 
+      // Route to view the list of users for the company and
       // sub-route to edit and add new users
       GoRoute(
         path: '/company-users',
@@ -482,8 +484,42 @@ GoRouter goRouter(GoRouterRef ref) {
           fullscreenDialog: true,
           child: CompanyUsersListScreen(),
         ),
-        routes: []
-      ),
-    ],
+        routes: [
+          GoRoute(
+            path: 'add',
+            name: AppRoute.addCompanyUser.name,
+            pageBuilder: (context, state) => const MaterialPage(
+              fullscreenDialog: true,
+              child: AddUpdateCompanyUserForm(
+                companyUserId: '',
+                formType: GenericFormTypes.add,
+              ),
+            ),
+          ),
+          GoRoute(
+            path: 'details/:companyUserId',
+            name: AppRoute.companyUserDetails.name,
+            pageBuilder: (context, state) => MaterialPage(
+              fullscreenDialog: true,
+              child: CompanyUserDetailsScreen(
+                companyUserId: state.pathParameters['companyUserId'] ?? '',
+              ),
+            ),
+            routes: [
+              GoRoute(
+                path: 'edit',
+                name: AppRoute.editCompanyUser.name,
+                pageBuilder: (context, state) => MaterialPage(
+                  fullscreenDialog: true,
+                  child: AddUpdateCompanyUserForm(
+                    companyUserId: state.pathParameters['companyUserId'] ?? '',
+                    formType: GenericFormTypes.update,
+                  ),
+                ),
+              ),
+            ],),
+            ]
+          ),
+        ],
   );
 }
