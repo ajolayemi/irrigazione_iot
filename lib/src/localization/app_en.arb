@@ -528,5 +528,6 @@
   "companyUserAddedOn": "Added on",
   "companyUserLastUpdated": "Last updated",
   "addNewCompanyUserPageTitle": "New Company User",
-  "updateCompanyUserPageTitle": "Update Company User"
+  "updateCompanyUserPageTitle": "Update Company User",
+  "emailAlreadyInUseErrorText": "This email is already in use"
 }

@@ -194,5 +194,6 @@
   "companyUserAddedOn": "Aggiunto il",
   "companyUserLastUpdated": "Ultimo aggiornamento",
   "addNewCompanyUserPageTitle": "Nuovo Utente Aziendale",
-  "updateCompanyUserPageTitle": "Aggiorna Utente Aziendale"
+  "updateCompanyUserPageTitle": "Aggiorna Utente Aziendale",
+  "emailAlreadyInUseErrorText": "Questo indirizzo email è già in uso"
 }
