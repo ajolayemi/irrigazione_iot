@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 class CompanyUserTileWidget extends StatelessWidget {
@@ -25,7 +26,12 @@ class CompanyUserTileWidget extends StatelessWidget {
           left: Sizes.p8,
         ),
         child: InkWell(
-          onTap: () => showNotImplementedAlertDialog(context: context),
+          onTap: () => context.pushNamed(
+            AppRoute.companyUserDetails.name,
+            pathParameters: {
+              'companyUserId': user.id.toString(),
+            },
+          ),
           child: ListTile(
             title: Text(user.fullName),
             subtitle: Text(
