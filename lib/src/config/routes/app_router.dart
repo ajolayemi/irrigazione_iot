@@ -517,9 +517,10 @@ GoRouter goRouter(GoRouterRef ref) {
                   ),
                 ),
               ),
-            ],),
-            ]
+            ],
           ),
         ],
+      ),
+    ],
   );
 }
