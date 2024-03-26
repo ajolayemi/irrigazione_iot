@@ -541,5 +541,6 @@
       }
     }
   },
-  "assignRoleDialogTitle": "Assign a role"
+  "assignRoleDialogTitle": "Assign a role",
+  "me": "Me"
 }
