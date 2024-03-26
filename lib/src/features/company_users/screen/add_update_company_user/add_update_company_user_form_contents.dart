@@ -193,7 +193,9 @@ class _AddUpdateCompanyUserFormContentsState
                               _emailFieldErrorText(_email, existingMails),
                         );
                       },
-                    )
+                    ),
+                    gapH16,
+                    
                   ],
                 ),
               ],
