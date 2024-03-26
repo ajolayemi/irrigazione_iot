@@ -5,10 +5,11 @@ import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/company_user_details/dismiss_company_user_controller.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
-class CompanyUserListTile extends StatelessWidget {
+class CompanyUserListTile extends ConsumerWidget {
   const CompanyUserListTile({
     super.key,
     required this.user,
@@ -17,11 +18,11 @@ class CompanyUserListTile extends StatelessWidget {
   final CompanyUser user;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = context.textTheme;
     final loc = context.loc;
-    // TODO: replace with proper state management
-    const shouldIgnore = false;
+
+    final shouldIgnore = ref.watch(dismissCompanyUserControllerProvider).isLoading;
     return IgnorePointer(
       ignoring: shouldIgnore,
       child: ResponsiveCenter(
