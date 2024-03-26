@@ -18,7 +18,7 @@ class CompanyUserDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(
+    final companyUser = ref.watch(
       companyUserStreamProvider(companyUserId: companyUserId),
     );
     return Scaffold(
@@ -26,7 +26,7 @@ class CompanyUserDetailsScreen extends ConsumerWidget {
         child: CustomScrollView(
           slivers: [
             AppSliverBar(
-              title: user.valueOrNull?.fullName ?? '',
+              title: companyUser.valueOrNull?.fullName ?? '',
               actions: [
                 CommonEditIconButton(
                   onPressed: () => context.pushNamed(
@@ -39,7 +39,7 @@ class CompanyUserDetailsScreen extends ConsumerWidget {
               ],
             ),
             AsyncValueSliverWidget(
-              value: user,
+              value: companyUser,
               loading: () => const SliverFillRemaining(
                 child: Center(
                   child: CircularProgressIndicator(),
