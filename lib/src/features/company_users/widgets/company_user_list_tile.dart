@@ -21,8 +21,11 @@ class CompanyUserListTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = context.textTheme;
     final loc = context.loc;
-
-    final shouldIgnore = ref.watch(dismissCompanyUserControllerProvider).isLoading;
+    final shouldIgnore =
+        ref.watch(dismissCompanyUserControllerProvider).isLoading;
+    final currentLoggedInUser = ref.watch(authRepositoryProvider).currentUser;
+    final isMe =
+        currentLoggedInUser != null && currentLoggedInUser.email == user.email;
     return IgnorePointer(
       ignoring: shouldIgnore,
       child: ResponsiveCenter(
@@ -30,30 +33,23 @@ class CompanyUserListTile extends ConsumerWidget {
           left: Sizes.p8,
         ),
         child: InkWell(
-            onTap: () => context.pushNamed(
-                  AppRoute.companyUserDetails.name,
-                  pathParameters: {
-                    'companyUserId': user.id.toString(),
-                  },
-                ),
-            child: Consumer(
-              builder: (context, ref, child) {
-                final currentLoggedInUser =
-                    ref.watch(authRepositoryProvider).currentUser;
-                final isMe = currentLoggedInUser != null &&
-                    currentLoggedInUser.email == user.email;
-                return ListTile(
-                  title: Text(isMe ? loc.me : user.fullName),
-                  subtitle: Text(
-                    user.email,
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                );
-              },
-            )),
+          onTap: () => context.pushNamed(
+            AppRoute.companyUserDetails.name,
+            pathParameters: {
+              'companyUserId': user.id.toString(),
+            },
+          ),
+          child: ListTile(
+            title: Text(isMe ? loc.me : user.fullName),
+            subtitle: Text(
+              user.email,
+              style: textTheme.bodyMedium?.copyWith(
+                color: Colors.grey[600],
+              ),
+            ),
+            trailing: const Icon(Icons.arrow_forward_ios),
+          ),
+        ),
       ),
     );
   }
