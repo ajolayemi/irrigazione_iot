@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_screen.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_boards_form.dart';
@@ -50,49 +51,6 @@ final _sectorShellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'Sector');
 final _moreShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'More');
 
-/// All supported routes in the app
-/// By using an enum, we can avoid using strings for route names
-/// and the syntax is used
-/// ```dart
-/// context.goNamed(AppRoute.sampleRoute.name)
-/// ```
-enum AppRoute {
-  home,
-  signIn,
-  companiesListGrid,
-  collector,
-  collectorDetails,
-  addCollector,
-  updateCollector,
-  pump,
-  pumpDetails,
-  addPump,
-  updatePump,
-  sector,
-  sectorDetails,
-  addSector,
-  updateSector,
-  selectASpecie,
-  selectAnIrrigationSystem,
-  selectAnIrrigationSource,
-  connectPumpsToSector,
-  sectorConnectedPumps,
-  connectSectorToCollector,
-  more,
-  settings,
-  boards, // centraline
-  boardDetails,
-  addBoard,
-  updateBoard,
-  profile,
-  connectCollectorToBoard,
-  companyProfile,
-  updateCompany,
-  companyUsers,
-  companyUserDetails,
-  addCompanyUser,
-  updateCompanyUser,
-}
 
 @Riverpod(keepAlive: true)
 GoRouter goRouter(GoRouterRef ref) {
