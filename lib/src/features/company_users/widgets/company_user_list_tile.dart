@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 import 'package:irrigazione_iot/src/features/company_users/screen/company_user_details/dismiss_company_user_controller.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
@@ -24,9 +25,27 @@ class CompanyUserListTile extends ConsumerWidget {
   Future<bool> _dismissCompanyUser({
     required BuildContext context,
     required WidgetRef ref,
-    required CompanyUser user,
+    required CompanyUser companyUser,
     required bool isMe,
   }) async {
+    final loc = context.loc;
+    if (isMe) {
+      showAlertDialog(
+        context: context,
+        title: loc.cantDeleteYourselfDialogTitle,
+      );
+      return false;
+    }
+    if (await context.showDismissalDialog(
+      alternateDialog: loc.companyUserDismissalDialogContent(
+        companyUser.fullName,
+      ),
+      alternateTitle: loc.companyUserDismissalDialogTitle,
+    )) {
+      return await ref
+          .read(dismissCompanyUserControllerProvider.notifier)
+          .dismissCompanyUser(companyUser.id.toString());
+    }
     return false;
   }
 
@@ -46,7 +65,7 @@ class CompanyUserListTile extends ConsumerWidget {
         confirmDismiss: (_) async => await _dismissCompanyUser(
           context: context,
           ref: ref,
-          user: user,
+          companyUser: user,
           isMe: isMe,
         ),
         isDeleting: shouldIgnore,
