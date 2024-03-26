@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 import 'package:irrigazione_iot/src/features/company_users/screen/company_user_details/dismiss_company_user_controller.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 class CompanyUserListTile extends ConsumerWidget {
@@ -16,6 +17,18 @@ class CompanyUserListTile extends ConsumerWidget {
   });
 
   final CompanyUser user;
+
+  static Key companyUserListTileKey(CompanyUser user) =>
+      Key('companyUserListTileKey_${user.id}');
+
+  Future<bool> _dismissCompanyUser({
+    required BuildContext context,
+    required WidgetRef ref,
+    required CompanyUser user,
+    required bool isMe,
+  }) async {
+    return false;
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,26 +41,36 @@ class CompanyUserListTile extends ConsumerWidget {
         currentLoggedInUser != null && currentLoggedInUser.email == user.email;
     return IgnorePointer(
       ignoring: shouldIgnore,
-      child: ResponsiveCenter(
-        padding: const EdgeInsets.only(
-          left: Sizes.p8,
+      child: CustomDismissibleWidget(
+        dismissibleKey: companyUserListTileKey(user),
+        confirmDismiss: (_) async => await _dismissCompanyUser(
+          context: context,
+          ref: ref,
+          user: user,
+          isMe: isMe,
         ),
-        child: InkWell(
-          onTap: () => context.pushNamed(
-            AppRoute.companyUserDetails.name,
-            pathParameters: {
-              'companyUserId': user.id.toString(),
-            },
+        isDeleting: shouldIgnore,
+        child: ResponsiveCenter(
+          padding: const EdgeInsets.only(
+            left: Sizes.p8,
           ),
-          child: ListTile(
-            title: Text(isMe ? loc.me : user.fullName),
-            subtitle: Text(
-              user.email,
-              style: textTheme.bodyMedium?.copyWith(
-                color: Colors.grey[600],
-              ),
+          child: InkWell(
+            onTap: () => context.pushNamed(
+              AppRoute.companyUserDetails.name,
+              pathParameters: {
+                'companyUserId': user.id.toString(),
+              },
             ),
-            trailing: const Icon(Icons.arrow_forward_ios),
+            child: ListTile(
+              title: Text(isMe ? loc.me : user.fullName),
+              subtitle: Text(
+                user.email,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: Colors.grey[600],
+                ),
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios),
+            ),
           ),
         ),
       ),
