@@ -21,14 +21,19 @@ extension BuildContextExtensions on BuildContext {
   /// An alert dialog to display when user is trying to delete an item
   /// such as board, collector, pump and so on.
   // TODO: this should replace all places where such dialog is being shown at the moment
-  Future<bool> showDismissalDialog(String where) async {
+  Future<bool> showDismissalDialog({
+    String? alternateDialog,
+    String? where,
+    String? alternateTitle,
+  }) async {
     final loc = this.loc;
     return await showAlertDialog(
           context: this,
-          title: loc.genericAlertDialogTitle,
+          title: alternateTitle ?? loc.genericAlertDialogTitle,
           defaultActionText: loc.alertDialogDelete,
           cancelActionText: loc.alertDialogCancel,
-          content: loc.deleteConfirmationDialogTitle(where),
+          content:
+              alternateDialog ?? loc.deleteConfirmationDialogTitle(where ?? ''),
         ) ??
         false;
   }
