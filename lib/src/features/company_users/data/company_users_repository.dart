@@ -76,7 +76,7 @@ Future<List<Company>> userCompaniesFuture(UserCompaniesFutureRef ref) async {
       .fetchCompaniesAssociatedWithUser(email: user.email);
   final companies = <Company>[];
   for (final userCompany in userCompanies) {
-    final company = await companyRepository.fetchCompany(userCompany.companyId);
+    final company = await companyRepository.fetchCompany(userCompany.companyId!);
     if (company != null) {
       companies.add(company);
     }
@@ -99,7 +99,7 @@ Stream<List<Company>> userCompaniesStream(UserCompaniesStreamRef ref) {
     final companies = <Company>[];
     for (final userCompany in userCompanies) {
       final company =
-          await companyRepository.fetchCompany(userCompany.companyId);
+          await companyRepository.fetchCompany(userCompany.companyId!);
       if (company != null) {
         companies.add(company);
       }
