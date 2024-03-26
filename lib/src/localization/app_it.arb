@@ -200,6 +200,6 @@
   "assignRoleDialogTitle": "Assegna un ruolo",
   "me": "Io",
   "companyUserDismissalDialogTitle": "Sei sicuro di voler eliminare questo utente?",
-  "companyUserDismissalDialogContent": "Stai per eliminare {companyUserName} come utente dell'azienda",
-  "cantDeleteYourselfDialogTitle": "Non puoi eliminare te stesso come utente dell'azienda"
+  "companyUserDismissalDialogContent": "Stai per eliminare {companyUserName} come utente",
+  "cantDeleteYourselfDialogTitle": "Non puoi eliminare te stesso come utente"
 }
