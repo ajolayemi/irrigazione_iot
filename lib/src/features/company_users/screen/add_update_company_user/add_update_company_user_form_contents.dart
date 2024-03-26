@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
@@ -10,6 +8,7 @@ import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/widgets/common_form_suffix_icon.dart';
 import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
 
@@ -146,6 +145,13 @@ class _AddUpdateCompanyUserFormContentsState
 
   void _popScreen() => context.popNavigator();
 
+  void _onTapAssignRole() async {
+    final role = await context.showAssignRoleDialog(_role);
+    if (role != null) {
+      _roleController.text = role;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO replace with right state
@@ -195,7 +201,21 @@ class _AddUpdateCompanyUserFormContentsState
                       },
                     ),
                     gapH16,
-                    
+                    FormTitleAndField(
+                      fieldKey: _roleFieldKey,
+                      fieldTitle: loc.companyUserRole,
+                      fieldHintText: loc.companyUserRoleHintText,
+                      fieldController: _roleController,
+                      onTap: _onTapAssignRole,
+                      validator: (_) => _nonEmptyFieldsErrorText(_role),
+                      onEditingComplete: () =>
+                          _nonEmptyFieldsEditingComplete(_role),
+                      canRequestFocus: false,
+                      suffixIcon: CommonFormSuffixIcon(
+                        onPressed: _onTapAssignRole,
+                      ),
+                    ),
+                    gapH32,
                   ],
                 ),
               ],
