@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/add_update_company_user/add_update_company_user_controller.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
@@ -136,12 +137,36 @@ class _AddUpdateCompanyUserFormContentsState
         isUpdating: _isUpdating,
         what: context.loc.nCompanyUsers(1),
       )) {
-        print('form is valid and user chose to submit');
+        final companyUser = _initialCompanyUser?.copyWith(
+          fullName: _fullName,
+          email: _email,
+          role: _role.toCompanyUserRoles,
+          createdAt: _initialCompanyUser?.createdAt ?? DateTime.now(),
+          updatedAt: DateTime.now(),
+        );
+
+        bool success = false;
+
+        if (_isUpdating) {
+          success = await ref
+              .read(addUpdateCompanyUserControllerProvider.notifier)
+              .updateUserInCompany(companyUser);
+        } else {
+          success = await ref
+              .read(addUpdateCompanyUserControllerProvider.notifier)
+              .addUserToCompany(companyUser);
+        }
+
+        if (success) {
+          _popScreen();
+          return;
+        }
+        return;
       } else {
-        print('form is valid but user chose not to submit');
+        debugPrint('form is valid but user chose not to submit');
       }
     } else {
-      print('form is invalid');
+      debugPrint('form is invalid');
     }
   }
 
@@ -156,8 +181,8 @@ class _AddUpdateCompanyUserFormContentsState
 
   @override
   Widget build(BuildContext context) {
-    // TODO replace with right state
-    final isLoading = false;
+    final isLoading =
+        ref.watch(addUpdateCompanyUserControllerProvider).isLoading;
     final loc = context.loc;
     return GestureDetector(
       onTap: () => _node.unfocus(),
