@@ -13,15 +13,25 @@ class CompanyUser extends Equatable {
     required this.id,
     required this.email,
     required this.fullName,
-    this.companyId,
+    required this.companyId,
     required this.role,
     required this.createdAt,
     required this.updatedAt,
   });
+
+  CompanyUser.empty()
+      : id = 0,
+        email = '',
+        fullName = '',
+        companyId = '',
+        role = CompanyUserRoles.user,
+        createdAt = DateTime.now(),
+        updatedAt = DateTime.now();
+
   final CompanyUserID id;
   final String email;
   final String fullName;
-  final CompanyID? companyId;
+  final CompanyID companyId;
   final CompanyUserRoles role;
   final DateTime createdAt;
   final DateTime updatedAt;
