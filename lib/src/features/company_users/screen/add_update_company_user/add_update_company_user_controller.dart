@@ -1,5 +1,5 @@
-import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
+import 'package:irrigazione_iot/src/features/company_users/service/add_update_company_user_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'add_update_company_user_controller.g.dart';
@@ -12,7 +12,7 @@ class AddUpdateCompanyUserController extends _$AddUpdateCompanyUserController {
   }
 
   Future<bool> addUserToCompany(CompanyUser? companyUser) async {
-    final companyUserRepo = ref.read(companyUsersRepositoryProvider);
+    final service = ref.read(addUpdateCompanyUserServiceProvider);
     state = const AsyncLoading();
     if (companyUser == null) {
       state = AsyncError(
@@ -20,21 +20,20 @@ class AddUpdateCompanyUserController extends _$AddUpdateCompanyUserController {
       return Future.value(false);
     }
 
-    state = await AsyncValue.guard(
-        () => companyUserRepo.addCompanyUser(companyUser: companyUser));
+    state = await AsyncValue.guard(() => service.addCompanyUser(companyUser));
     return !state.hasError;
   }
 
   Future<bool> updateUserInCompany(CompanyUser? companyUser) async {
-    final companyUserRepo = ref.read(companyUsersRepositoryProvider);
+    final service = ref.read(addUpdateCompanyUserServiceProvider);
     state = const AsyncLoading();
     if (companyUser == null) {
       state = AsyncError(
           'no companyUser object provided during update', StackTrace.current);
       return Future.value(false);
     }
-    state = await AsyncValue.guard(
-        () => companyUserRepo.updateCompanyUser(companyUser: companyUser));
+    state =
+        await AsyncValue.guard(() => service.updateCompanyUser(companyUser));
     return !state.hasError;
   }
 }
