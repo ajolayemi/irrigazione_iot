@@ -198,5 +198,8 @@
   "emailAlreadyInUseErrorText": "Questo indirizzo email è già in uso",
   "nCompanyUsers": "{n, plural, =1{utente aziendale} =2{utenti aziendali} other{utenti aziendali}}",
   "assignRoleDialogTitle": "Assegna un ruolo",
-  "me": "Io"
+  "me": "Io",
+  "companyUserDismissalDialogTitle": "Sei sicuro di voler eliminare questo utente?",
+  "companyUserDismissalDialogContent": "Stai per eliminare {companyUserName} come utente dell'azienda",
+  "cantDeleteYourselfDialogTitle": "Non puoi eliminare te stesso come utente dell'azienda"
 }

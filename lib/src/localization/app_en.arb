@@ -542,5 +542,17 @@
     }
   },
   "assignRoleDialogTitle": "Assign a role",
-  "me": "Me"
+  "me": "Me",
+  "companyUserDismissalDialogTitle": "Are you sure you want to delete this user?",
+  "companyUserDismissalDialogContent": "You're about to delete {companyUserName} as a user from your company",
+  "@companyUserDismissalDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to delete a company user",
+    "placeholders": {
+      "companyUserName": {
+        "description": "The name of the user",
+        "example": "John Doe"
+      }
+    }
+  },
+  "cantDeleteYourselfDialogTitle": "You can't delete yourself from your company"
 }
