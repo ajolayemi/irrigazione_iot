@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
@@ -18,6 +19,7 @@ class CompanyUserTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = context.textTheme;
+    final loc = context.loc;
     // TODO: replace with proper state management
     const shouldIgnore = false;
     return IgnorePointer(
@@ -35,8 +37,12 @@ class CompanyUserTileWidget extends StatelessWidget {
                 ),
             child: Consumer(
               builder: (context, ref, child) {
+                final currentLoggedInUser =
+                    ref.watch(authRepositoryProvider).currentUser;
+                final isMe = currentLoggedInUser != null &&
+                    currentLoggedInUser.email == user.email;
                 return ListTile(
-                  title: Text(user.fullName),
+                  title: Text(isMe ? loc.me : user.fullName),
                   subtitle: Text(
                     user.email,
                     style: textTheme.bodyMedium?.copyWith(
