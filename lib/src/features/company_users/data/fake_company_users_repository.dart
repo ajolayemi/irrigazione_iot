@@ -153,4 +153,14 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
       ),
     );
   }
+  
+  @override
+  Stream<List<String>> watchEmailsAssociatedWithCompany({required String companyId}) {
+    return _companyUsersStream.map(
+      (userCompanies) => userCompanies
+          .where((user) => user.companyId == companyId)
+          .map((user) => user.email)
+          .toList(),
+    );
+  }
 }
