@@ -16,7 +16,7 @@ class CompanyUserDetailsScreenContents extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dateFormatter = ref.watch(dateFormatProvider);
+    final dateFormatter = ref.watch(dateFormatWithTimeProvider);
     final loc = context.loc;
     return SliverList(
       delegate: SliverChildListDelegate(
