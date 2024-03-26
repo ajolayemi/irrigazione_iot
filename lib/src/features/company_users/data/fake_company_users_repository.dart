@@ -74,24 +74,48 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
   }
 
   @override
-  Future<CompanyUser?> addCompanyUser({required CompanyUser companyUser}) {
-    // TODO: implement addCompanyUser
-    throw UnimplementedError();
+  Future<CompanyUser?> addCompanyUser(
+      {required CompanyUser companyUser}) async {
+    await delay(addDelay);
+    final currentUsers = [..._companyUsersValue];
+    final lastId = currentUsers
+        .map((e) => e.id)
+        .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
+
+    // just the id is set here, all other values are provided or added from form
+    final newCompanyUser = companyUser.copyWith(id: lastId + 1);
+    currentUsers.add(newCompanyUser);
+    _userCompanies.value = currentUsers;
+    return fetchCompanyUser(companyUserId: newCompanyUser.id.toString());
   }
 
   @override
-  Future<bool> deleteCompanyUser(
-      {required String email, required String companyId}) {
-    // TODO: implement deleteCompanyUser
-    throw UnimplementedError();
+  Future<bool> deleteCompanyUser({required String companyUserId}) async {
+    await delay(addDelay);
+    final currentUsers = [..._companyUsersValue];
+    final index = currentUsers.indexWhere(
+      (user) => user.id.toString() == companyUserId,
+    );
+    if (index == -1) return false;
+    currentUsers.removeAt(index);
+    _userCompanies.value = currentUsers;
+    return await fetchCompanyUser(companyUserId: companyUserId) == null;
   }
 
   @override
-  Future<CompanyUser?> updateCompanyUser({required CompanyUser companyUser}) {
-    // TODO: implement updateCompanyUser
-    throw UnimplementedError();
-  }
-  
+  Future<CompanyUser?> updateCompanyUser(
+      {required CompanyUser companyUser}) async {
+    await delay(addDelay);
+    final currentUsers = [..._companyUsersValue];
+    final index = currentUsers.indexWhere(
+      (user) => user.id == companyUser.id,
+    );
+    if (index == -1) return null;
+    currentUsers[index] = companyUser;
+    _userCompanies.value = currentUsers;
+    return fetchCompanyUser(companyUserId: companyUser.id.toString());    
+ }
+
   @override
   Future<List<CompanyUser?>> fetchUsersAssociatedWithCompany(
       {required String companyId}) async {
@@ -109,15 +133,23 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
     );
   }
 
-
   void dispose() => _userCompanies.close();
-  
+
   @override
   Stream<CompanyUser?> watchCompanyUser({required String companyUserId}) {
     return _companyUsersStream.map(
       (userCompanies) => userCompanies.firstWhereOrNull(
         (user) => user.id.toString() == companyUserId,
+      ),
+    );
+  }
 
+  @override
+  Future<CompanyUser?> fetchCompanyUser({required String companyUserId}) async {
+    await delay(addDelay);
+    return Future.value(
+      _companyUsersValue.firstWhereOrNull(
+        (user) => user.id.toString() == companyUserId,
       ),
     );
   }
