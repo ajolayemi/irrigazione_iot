@@ -93,7 +93,6 @@ enum AppRoute {
   companyUserDetails,
   addCompanyUser,
   updateCompanyUser,
-  assignCompanyUserARole,
 }
 
 @Riverpod(keepAlive: true)
@@ -522,17 +521,6 @@ GoRouter goRouter(GoRouterRef ref) {
             ],
           ),
         ],
-      ),
-
-      // route to assign role to a company user
-      GoRoute(
-        path: '/assign-company-user-a-role/:currentRole',
-        name: AppRoute.assignCompanyUserARole.name,
-        pageBuilder: (context, state) => MaterialPage(
-          fullscreenDialog: true,
-          child: AssignCompanyUserARole(
-              currentRole: state.pathParameters['currentRole'] ?? ''),
-        ),
       ),
     ],
   );
