@@ -19,12 +19,9 @@ class AddUpdateCompanyUserController extends _$AddUpdateCompanyUserController {
           'no companyUser object provided during creation', StackTrace.current);
       return Future.value(false);
     }
-    final toAdd = companyUser.copyWith(
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    );
+
     state = await AsyncValue.guard(
-        () => companyUserRepo.addCompanyUser(companyUser: toAdd));
+        () => companyUserRepo.addCompanyUser(companyUser: companyUser));
     return !state.hasError;
   }
 
@@ -36,11 +33,8 @@ class AddUpdateCompanyUserController extends _$AddUpdateCompanyUserController {
           'no companyUser object provided during update', StackTrace.current);
       return Future.value(false);
     }
-    final toUpdate = companyUser.copyWith(
-      updatedAt: DateTime.now(),
-    );
     state = await AsyncValue.guard(
-        () => companyUserRepo.updateCompanyUser(companyUser: toUpdate));
+        () => companyUserRepo.updateCompanyUser(companyUser: companyUser));
     return !state.hasError;
   }
 }
