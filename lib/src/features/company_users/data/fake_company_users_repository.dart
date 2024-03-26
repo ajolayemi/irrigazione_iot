@@ -87,6 +87,12 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
   }
 
   @override
+  Future<CompanyUser?> updateCompanyUser({required CompanyUser companyUser}) {
+    // TODO: implement updateCompanyUser
+    throw UnimplementedError();
+  }
+  
+  @override
   Future<List<CompanyUser?>> fetchUsersAssociatedWithCompany(
       {required String companyId}) async {
     await delay(addDelay);
@@ -103,11 +109,6 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
     );
   }
 
-  @override
-  Future<CompanyUser?> updateCompanyUser({required CompanyUser companyUser}) {
-    // TODO: implement updateCompanyUser
-    throw UnimplementedError();
-  }
 
   void dispose() => _userCompanies.close();
   
