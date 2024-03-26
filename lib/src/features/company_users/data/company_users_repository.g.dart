@@ -242,5 +242,24 @@ class _CompanyUserStreamProviderElement
   String get companyUserId =>
       (origin as CompanyUserStreamProvider).companyUserId;
 }
+
+String _$emailsAssociatedWithCompanyStreamHash() =>
+    r'cee2d6dab360dd9d7260a9aa4adeb322835bdd94';
+
+/// See also [emailsAssociatedWithCompanyStream].
+@ProviderFor(emailsAssociatedWithCompanyStream)
+final emailsAssociatedWithCompanyStreamProvider =
+    AutoDisposeStreamProvider<List<String>>.internal(
+  emailsAssociatedWithCompanyStream,
+  name: r'emailsAssociatedWithCompanyStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$emailsAssociatedWithCompanyStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef EmailsAssociatedWithCompanyStreamRef
+    = AutoDisposeStreamProviderRef<List<String>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

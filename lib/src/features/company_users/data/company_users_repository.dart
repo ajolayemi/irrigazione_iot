@@ -49,6 +49,11 @@ abstract class CompanyUsersRepository {
   /// Fetches a [CompanyUser] linked with the provided user companyUserId
   Future<CompanyUser?> fetchCompanyUser({required String companyUserId});
 
+  /// Emits a list of email addresses already associated with the provided company id
+  Stream<List<String>> watchEmailsAssociatedWithCompany({
+    required String companyId,
+  });
+
   /// Adds a new [CompanyUser] to the database and returns the newly added [CompanyUser] if successful
   Future<CompanyUser?> addCompanyUser({required CompanyUser companyUser});
 
@@ -145,4 +150,18 @@ Stream<CompanyUser?> companyUserStream(CompanyUserStreamRef ref,
   final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
 
   return userCompaniesRepository.watchCompanyUser(companyUserId: companyUserId);
+}
+
+
+@riverpod
+Stream<List<String>> emailsAssociatedWithCompanyStream(
+    EmailsAssociatedWithCompanyStreamRef ref) {
+  final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
+  final currentSelectedCompany = ref.watch(currentTappedCompanyProvider).value;
+  if (currentSelectedCompany == null) {
+    return Stream.value([]);
+  }
+  return userCompaniesRepository.watchEmailsAssociatedWithCompany(
+    companyId: currentSelectedCompany.id,
+  );
 }
