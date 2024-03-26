@@ -141,7 +141,8 @@ class _AddUpdateCompanyUserFormContentsState
           fullName: _fullName,
           email: _email,
           role: _role.toCompanyUserRoles,
-          companyId: _initialCompanyUser?.companyId, // auto filled by service layer
+          companyId:
+              _initialCompanyUser?.companyId, // auto filled by service layer
           createdAt: _initialCompanyUser?.createdAt ?? DateTime.now(),
           updatedAt: DateTime.now(),
         );
@@ -215,8 +216,11 @@ class _AddUpdateCompanyUserFormContentsState
                     gapH16,
                     Consumer(
                       builder: (context, ref, child) {
-                        // TODO replace
-                        final existingMails = <String?>[];
+                        final existingMails = isLoading ? <String?>[] : ref
+                                .watch(
+                                    emailsAssociatedWithCompanyStreamProvider)
+                                .valueOrNull ??
+                            [];
                         return FormTitleAndField(
                           fieldKey: _emailFieldKey,
                           fieldTitle: loc.companyUserEmail,
