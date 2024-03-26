@@ -59,7 +59,7 @@ abstract class CompanyUsersRepository {
 
 // TODO replace this with a real implementation of either Firebase or Supabase
 @Riverpod(keepAlive: true)
-CompanyUsersRepository userCompaniesRepository(UserCompaniesRepositoryRef ref) {
+CompanyUsersRepository companyUsersRepository(CompanyUsersRepositoryRef ref) {
   return FakeUserCompaniesRepository();
 }
 
@@ -70,7 +70,7 @@ Future<List<Company>> userCompaniesFuture(UserCompaniesFutureRef ref) async {
   if (user == null) {
     return Future.value([]);
   }
-  final userCompaniesRepository = ref.watch(userCompaniesRepositoryProvider);
+  final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
   final companyRepository = ref.watch(companyRepositoryProvider);
   final userCompanies = await userCompaniesRepository
       .fetchCompaniesAssociatedWithUser(email: user.email);
@@ -91,7 +91,7 @@ Stream<List<Company>> userCompaniesStream(UserCompaniesStreamRef ref) {
   if (user == null) {
     return Stream.value([]);
   }
-  final userCompaniesRepository = ref.watch(userCompaniesRepositoryProvider);
+  final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
   final companyRepository = ref.watch(companyRepositoryProvider);
   return userCompaniesRepository
       .watchCompaniesAssociatedWithUser(email: user.email)
@@ -110,7 +110,7 @@ Stream<List<Company>> userCompaniesStream(UserCompaniesStreamRef ref) {
 
 @Riverpod(keepAlive: true)
 Stream<CompanyUserRoles?> companyUserRole(CompanyUserRoleRef ref) {
-  final userCompaniesRepository = ref.watch(userCompaniesRepositoryProvider);
+  final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
   final currentSelectedCompany = ref.watch(currentTappedCompanyProvider).value;
   final authRepository = ref.watch(authRepositoryProvider);
   final user = authRepository.currentUser;
@@ -126,7 +126,7 @@ Stream<CompanyUserRoles?> companyUserRole(CompanyUserRoleRef ref) {
 @riverpod
 Stream<List<CompanyUser?>> usersAssociatedWithCompanyStream(
     UsersAssociatedWithCompanyStreamRef ref) {
-  final userCompaniesRepository = ref.watch(userCompaniesRepositoryProvider);
+  final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
   final currentSelectedCompany = ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompany == null) {
     return Stream.value([]);
@@ -139,7 +139,7 @@ Stream<List<CompanyUser?>> usersAssociatedWithCompanyStream(
 @riverpod
 Stream<CompanyUser?> companyUserStream(CompanyUserStreamRef ref,
     {required String companyUserId}) {
-  final userCompaniesRepository = ref.watch(userCompaniesRepositoryProvider);
+  final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
 
   return userCompaniesRepository.watchCompanyUser(companyUserId: companyUserId);
 }

@@ -6,25 +6,25 @@ part of 'company_users_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userCompaniesRepositoryHash() =>
-    r'980a3613badb5264d65c0c1c0d95cbae30d46ac8';
+String _$companyUsersRepositoryHash() =>
+    r'd541cecdea41c3d236bf4b0014d2833be585e317';
 
-/// See also [userCompaniesRepository].
-@ProviderFor(userCompaniesRepository)
-final userCompaniesRepositoryProvider =
+/// See also [companyUsersRepository].
+@ProviderFor(companyUsersRepository)
+final companyUsersRepositoryProvider =
     Provider<CompanyUsersRepository>.internal(
-  userCompaniesRepository,
-  name: r'userCompaniesRepositoryProvider',
+  companyUsersRepository,
+  name: r'companyUsersRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$userCompaniesRepositoryHash,
+      : _$companyUsersRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef UserCompaniesRepositoryRef = ProviderRef<CompanyUsersRepository>;
+typedef CompanyUsersRepositoryRef = ProviderRef<CompanyUsersRepository>;
 String _$userCompaniesFutureHash() =>
-    r'68fa5fd3fe2c09674cd71900425e2a4bb9ca1346';
+    r'8f1767b8c67e2b951ce38a4d036ebd1f294fb025';
 
 /// See also [userCompaniesFuture].
 @ProviderFor(userCompaniesFuture)
@@ -41,7 +41,7 @@ final userCompaniesFutureProvider =
 
 typedef UserCompaniesFutureRef = AutoDisposeFutureProviderRef<List<Company>>;
 String _$userCompaniesStreamHash() =>
-    r'b1c0abbc1db0e7fe825a03e5ccc1478100ccdd5f';
+    r'9795ccbcc6b98c8ba8b9321cb0dc751e262fca05';
 
 /// See also [userCompaniesStream].
 @ProviderFor(userCompaniesStream)
@@ -57,7 +57,7 @@ final userCompaniesStreamProvider =
 );
 
 typedef UserCompaniesStreamRef = AutoDisposeStreamProviderRef<List<Company>>;
-String _$companyUserRoleHash() => r'0bae44f8dd6375c20dbbd9d1c5d1111d3ac44c05';
+String _$companyUserRoleHash() => r'4090a5b1c2a1aa562f6d629cbf0235f82ee0c3bc';
 
 /// See also [companyUserRole].
 @ProviderFor(companyUserRole)
@@ -73,7 +73,7 @@ final companyUserRoleProvider = StreamProvider<CompanyUserRoles?>.internal(
 
 typedef CompanyUserRoleRef = StreamProviderRef<CompanyUserRoles?>;
 String _$usersAssociatedWithCompanyStreamHash() =>
-    r'28904928a2f1afc5149931cf4b94a23d15e0f3cd';
+    r'cd02b46aa677e9bae1e734c0ed33a71632d4f6ab';
 
 /// See also [usersAssociatedWithCompanyStream].
 @ProviderFor(usersAssociatedWithCompanyStream)
@@ -90,7 +90,7 @@ final usersAssociatedWithCompanyStreamProvider =
 
 typedef UsersAssociatedWithCompanyStreamRef
     = AutoDisposeStreamProviderRef<List<CompanyUser?>>;
-String _$companyUserStreamHash() => r'd76223343d205a5771e37d47cde7cfacf60efd65';
+String _$companyUserStreamHash() => r'04698083d0d53272229d4cb552c11be0da092bfc';
 
 /// Copied from Dart SDK
 class _SystemHash {
