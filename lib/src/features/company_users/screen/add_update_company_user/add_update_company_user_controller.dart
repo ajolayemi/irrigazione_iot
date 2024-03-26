@@ -27,4 +27,20 @@ class AddUpdateCompanyUserController extends _$AddUpdateCompanyUserController {
         () => companyUserRepo.addCompanyUser(companyUser: toAdd));
     return !state.hasError;
   }
+
+  Future<bool> updateUserInCompany(CompanyUser? companyUser) async {
+    final companyUserRepo = ref.read(companyUsersRepositoryProvider);
+    state = const AsyncLoading();
+    if (companyUser == null) {
+      state = AsyncError(
+          'no companyUser object provided during update', StackTrace.current);
+      return Future.value(false);
+    }
+    final toUpdate = companyUser.copyWith(
+      updatedAt: DateTime.now(),
+    );
+    state = await AsyncValue.guard(
+        () => companyUserRepo.updateCompanyUser(companyUser: toUpdate));
+    return !state.hasError;
+  }
 }
