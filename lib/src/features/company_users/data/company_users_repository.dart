@@ -46,6 +46,9 @@ abstract class CompanyUsersRepository {
   /// Emits a [CompanyUser] linked with the provided user companyUserId
   Stream<CompanyUser?> watchCompanyUser({required String companyUserId});
 
+  /// Fetches a [CompanyUser] linked with the provided user companyUserId
+  Future<CompanyUser?> fetchCompanyUser({required String companyUserId});
+
   /// Adds a new [CompanyUser] to the database and returns the newly added [CompanyUser] if successful
   Future<CompanyUser?> addCompanyUser({required CompanyUser companyUser});
 
@@ -54,7 +57,7 @@ abstract class CompanyUsersRepository {
 
   /// Deletes a [CompanyUser] from the database and returns true if successful
   Future<bool> deleteCompanyUser(
-      {required String email, required String companyId});
+      {required String companyUserId});
 }
 
 // TODO replace this with a real implementation of either Firebase or Supabase
