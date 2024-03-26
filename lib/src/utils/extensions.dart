@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_radio_list_tile.dart';
 
 extension BuildContextExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);
@@ -52,6 +53,31 @@ extension BuildContextExtensions on BuildContext {
           cancelActionText: loc.alertDialogCancel,
         ) ??
         false;
+  }
+
+  // Dialog to show with options to assign roles to user
+  Future<String?> showAssignRoleDialog(String currentAssignedRole) async {
+    return await showAdaptiveDialog<String>(
+      context: this,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(loc.assignRoleDialogTitle),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: CompanyUserRoles.values
+                .map(
+                  (role) => ResponsiveRadioListTile(
+                    title: Text(role.name),
+                    value: role.name,
+                    groupValue: currentAssignedRole,
+                    onChanged: (value) => popNavigator(value),
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      },
+    );
   }
 }
 
