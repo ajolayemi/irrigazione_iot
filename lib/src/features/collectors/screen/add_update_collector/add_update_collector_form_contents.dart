@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
-import 'package:irrigazione_iot/src/config/routes/app_router.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
