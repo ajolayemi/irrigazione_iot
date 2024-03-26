@@ -24,7 +24,7 @@ final companyUsersRepositoryProvider =
 
 typedef CompanyUsersRepositoryRef = ProviderRef<CompanyUsersRepository>;
 String _$userCompaniesFutureHash() =>
-    r'8f1767b8c67e2b951ce38a4d036ebd1f294fb025';
+    r'8f355951a9d38d8c52133948b39f6ffec1ee94a9';
 
 /// See also [userCompaniesFuture].
 @ProviderFor(userCompaniesFuture)
@@ -41,7 +41,7 @@ final userCompaniesFutureProvider =
 
 typedef UserCompaniesFutureRef = AutoDisposeFutureProviderRef<List<Company>>;
 String _$userCompaniesStreamHash() =>
-    r'9795ccbcc6b98c8ba8b9321cb0dc751e262fca05';
+    r'9586ba3d78b52840a4cbf591bfd4480bd392c379';
 
 /// See also [userCompaniesStream].
 @ProviderFor(userCompaniesStream)
