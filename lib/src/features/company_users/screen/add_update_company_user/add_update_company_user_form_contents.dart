@@ -154,7 +154,6 @@ class _AddUpdateCompanyUserFormContentsState
               .read(addUpdateCompanyUserControllerProvider.notifier)
               .updateUserInCompany(companyUser);
         } else {
-          print('Got here');
           success = await ref
               .read(addUpdateCompanyUserControllerProvider.notifier)
               .addUserToCompany(companyUser);
