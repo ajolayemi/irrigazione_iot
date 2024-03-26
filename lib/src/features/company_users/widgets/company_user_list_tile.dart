@@ -8,8 +8,8 @@ import 'package:irrigazione_iot/src/features/company_users/model/company_user.da
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
-class CompanyUserTileWidget extends StatelessWidget {
-  const CompanyUserTileWidget({
+class CompanyUserListTile extends StatelessWidget {
+  const CompanyUserListTile({
     super.key,
     required this.user,
   });

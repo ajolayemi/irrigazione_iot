@@ -22,7 +22,7 @@ class CompanyUsersListScreenContents extends ConsumerWidget {
           delegate: SliverChildBuilderDelegate(
             (context, index) {
               final user = users[index]!;
-              return CompanyUserTileWidget(user: user);
+              return CompanyUserListTile(user: user);
             },
             childCount: users.length,
           ),
