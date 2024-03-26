@@ -25,7 +25,7 @@ class BoardListTile extends ConsumerWidget {
 
   Future<bool> _dismissBoard(BuildContext context, WidgetRef ref) async {
     final where = context.loc.nBoardsWithArticulatedPreposition(1);
-    if (await context.showDismissalDialog(where)) {
+    if (await context.showDismissalDialog(where: where)) {
       return await ref
           .read(dismissBoardControllerProvider.notifier)
           .confirmDismiss(board.id);
