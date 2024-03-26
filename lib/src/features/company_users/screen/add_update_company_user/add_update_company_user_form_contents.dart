@@ -92,7 +92,7 @@ class _AddUpdateCompanyUserFormContentsState
   /// - email field
   /// - role field
   String? _nonEmptyFieldsErrorText(String value) {
-    if (_submitted) return null;
+    if (!_submitted) return null;
 
     return context.getLocalizedErrorText(
       errorKey: getNonEmptyFieldsErrorKey(value: value),
@@ -116,7 +116,7 @@ class _AddUpdateCompanyUserFormContentsState
     String value,
     List<String?> existingEmails,
   ) {
-    if (_submitted) return null;
+    if (!_submitted) return null;
 
     return context.getLocalizedErrorText(
       errorKey: getEmailErrorKey(
