@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
@@ -7,6 +8,7 @@ import 'package:irrigazione_iot/src/features/company_users/model/company_user.da
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/common_form_suffix_icon.dart';
 import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
@@ -220,7 +222,17 @@ class _AddUpdateCompanyUserFormContentsState
                 ),
               ],
             ),
-          )
+          ),
+          gapH16,
+          SliverCTAButton(
+            isLoading: isLoading,
+            text: _isUpdating
+                ? loc.genericUpdateButtonLabel
+                : loc.genericSaveButtonLabel,
+            buttonType: ButtonType.primary,
+            onPressed: _submit,
+          ),
+          gapH32,
         ],
       ),
     );
