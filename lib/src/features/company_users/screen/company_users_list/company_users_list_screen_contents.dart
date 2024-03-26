@@ -11,9 +11,9 @@ class CompanyUsersListScreenContents extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final users = ref.watch(usersAssociatedWithCompanyStreamProvider);
+    final companyUsers = ref.watch(usersAssociatedWithCompanyStreamProvider);
     return AsyncValueSliverWidget(
-      value: users,
+      value: companyUsers,
       data: (users) {
         if (users.isEmpty) {
           return const EmptyCompanyUsers();
