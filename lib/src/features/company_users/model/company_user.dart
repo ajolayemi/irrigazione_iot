@@ -13,7 +13,7 @@ class CompanyUser extends Equatable {
     required this.id,
     required this.email,
     required this.fullName,
-    required this.companyId,
+    this.companyId,
     required this.role,
     required this.createdAt,
     required this.updatedAt,
@@ -21,15 +21,13 @@ class CompanyUser extends Equatable {
   final CompanyUserID id;
   final String email;
   final String fullName;
-  final CompanyID companyId;
+  final CompanyID? companyId;
   final CompanyUserRoles role;
   final DateTime createdAt;
   final DateTime updatedAt;
 
-
-
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       email,
@@ -83,5 +81,5 @@ class CompanyUser extends Equatable {
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),
     );
-  } 
+  }
 }
