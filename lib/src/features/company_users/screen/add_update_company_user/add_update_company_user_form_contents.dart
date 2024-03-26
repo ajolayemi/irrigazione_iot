@@ -53,7 +53,7 @@ class _AddUpdateCompanyUserFormContentsState
 
   bool get _isUpdating => widget.formType == GenericFormTypes.update;
 
-  CompanyUser? _initialCompanyUser;
+  CompanyUser? _initialCompanyUser = CompanyUser.empty();
 
   @override
   void initState() {
@@ -141,6 +141,7 @@ class _AddUpdateCompanyUserFormContentsState
           fullName: _fullName,
           email: _email,
           role: _role.toCompanyUserRoles,
+          companyId: _initialCompanyUser?.companyId, // auto filled by service layer
           createdAt: _initialCompanyUser?.createdAt ?? DateTime.now(),
           updatedAt: DateTime.now(),
         );
@@ -152,6 +153,7 @@ class _AddUpdateCompanyUserFormContentsState
               .read(addUpdateCompanyUserControllerProvider.notifier)
               .updateUserInCompany(companyUser);
         } else {
+          print('Got here');
           success = await ref
               .read(addUpdateCompanyUserControllerProvider.notifier)
               .addUserToCompany(companyUser);
