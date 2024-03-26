@@ -27,6 +27,28 @@ extension AppFormsErrorText on BuildContext {
         return loc.duplicateCommandsInFormErrorText(pluralFieldName ?? '');
       case 'noPumpConnectedToSectorErrorText':
         return loc.noPumpConnectedToSectorErrorText;
+      case 'noCollectorConnectedToBoardErrorText':
+        return loc.noCollectorConnectedToBoardErrorText;
+      case 'invalidEmailErrorText':
+        return loc.invalidEmailErrorText;
+      case 'emailAlreadyInUseErrorText':
+        return loc.emailAlreadyInUseErrorText;
+      default:
+        return null;
+    }
+  }
+
+  /// Get's localized message for form dependent fields
+  /// A different method is defined so as not to cluster up the getLocalizedErrorText method
+  String? getLocalizedDependentErrorText({
+    String? errorKey,
+    String? field1Name,
+    String? field2Name,
+  }) {
+    if (errorKey == null) return null;
+    switch (errorKey) {
+      case 'dependentFieldsEmptyErrorText':
+        return loc.dependentFieldsEmptyErrorText(field1Name ?? '', field2Name ?? '');
       default:
         return null;
     }

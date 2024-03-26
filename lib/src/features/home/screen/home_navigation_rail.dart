@@ -44,8 +44,8 @@ class HomeNavigationRail extends StatelessWidget {
               label: Text(context.loc.sectorPageTitle),
             ),
             NavigationRailDestination(
-              icon: const Icon(Icons.more_vert),
-              selectedIcon: const Icon(Icons.more_vert),
+              icon: const Icon(Icons.more_horiz),
+              selectedIcon: const Icon(Icons.more_horiz),
               label: Text(context.loc.morePageTitle),
             ),
           ],

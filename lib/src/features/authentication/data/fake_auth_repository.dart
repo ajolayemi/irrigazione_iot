@@ -85,5 +85,6 @@ class FakeAuthRepository implements AuthRepository {
         kFakeUsers[Random(kFakeUsers.length).nextInt(kFakeUsers.length)];
   }
 
+
   void dispose() => _authState.close();
 }

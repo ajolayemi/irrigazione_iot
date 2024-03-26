@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/user_companies_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/custom_text_button.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
@@ -28,6 +29,7 @@ class EmptyDataWidget extends ConsumerWidget {
         ref.watch(companyUserRoleProvider).valueOrNull?.canEdit ?? false;
     return ResponsiveCenter(
       maxContentWidth: Breakpoint.tablet,
+      padding: const EdgeInsets.all(Sizes.p8),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,

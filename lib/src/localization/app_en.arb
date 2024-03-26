@@ -407,5 +407,152 @@
   "allSectorsAreConnectedToACollector": "All available sectors have already been connected to a collector",
   "nConnectedSectors": "{n, plural, =0{0 sectors connected} =1{1 sector connected} other{{n} sectors connected}}",
   "batteryLevel": "Battery:",
-  "filterPressureDifference": "Filter diff:"
+  "filterPressureDifference": "Filter diff:",
+  "iotBoardsMenuTitle": "Boards",
+  "settingsMenuTitle": "Settings",
+  "profilePageTitle": "My Profile",
+  "logOutButtonTitle": "Logout",
+  "logOutAlertDialogTitle": "Are you sure you want to log out?",
+  "logOutAlertDialogContent": "You will be logged out of the application",
+  "logOutAlertDialogConfirm": "Logout",
+  "nBoards": "{n, plural, =1{board} =2{boards} other{boards}}",
+  "@nBoards": {
+    "description": "The pluralized version of the word 'board'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nBoardsWithIndefiniteArticle": "{n, plural, =1{a board} =2{boards} other{boards}}",
+  "@nBoardsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'board' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nBoardsWithDefiniteArticle": "{n, plural, =1{the board} =2{boards} other{boards}}",
+  "@nBoardsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'board' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nBoardsWithArticulatedPreposition": "{n, plural, =1{the board} =2{the boards} other{the boards}}",
+  "@nBoardsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'board' with an articulated preposition",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "addNewBoardPageTitle": "New Board",
+  "updateBoardPageTitle": "Update Board",
+  "boardName": "Board name",
+  "boardNameHintText": "eg: arduino mkr16",
+  "boardModel": "Model",
+  "boardModelHintText": "eg: MKR 1010",
+  "boardSerialNumber": "Serial Number",
+  "boardSerialNumberHintText": "eg: 123456789",
+  "boardConnectedCollector": "Connected Collector",
+  "boardConnectedCollectorHintText": "Select a collector",
+  "allCollectorsAreConnectedToABoard": "All available collectors have already been connected to a board",
+  "connectCollectorToBoardPageTitle": "Select a collector",
+  "nSelectedCollectors": "{n, plural, =0{0 collectors selected} =1{1 collector selected} other{{n} collectors selected}}",
+  "noCollectorConnectedToBoardErrorText": "You have to connect at least one collector to this board",
+  "userProfileDetailsName": "Names",
+  "userProfileDetailsEmail": "Email",
+  "userProfileDetailsCurrentCompany": "Current company profile",
+  "companyProfileMenuTitle": "Company Profile",
+  "companyUsersMenuTitle": "My Company Users",
+  "companyName": "Company Name",
+  "companyNameHintText": "eg: My Company",
+  "companyRegisteredAddress": "Registered office address",
+  "companyRegisteredAddressHintText": "eg: 123 Main Street, 12345, City, Country",
+  "companyVatNumber": "VAT Number",
+  "companyVatNumberHintText": "eg: 123456789",
+  "companyFiscalCode": "Fiscal Code",
+  "companyFiscalCodeHintText": "eg: 123456789",
+  "companyEmail": "Email",
+  "companyEmailHintText": "eg: email@company.com",
+  "companyPhone": "Phone",
+  "companyPhoneHintText": "eg: +123456789",
+  "dependentFieldsEmptyErrorText": "One between {firstFieldName} and {secondFieldName} has to be filled",
+  "@dependentFieldsEmptyErrorText": {
+    "description": "The error message that is displayed when one of two dependent fields is empty",
+    "placeholders": {
+      "firstFieldName": {
+        "description": "The name of the first field",
+        "example": "email"
+      },
+      "secondFieldName": {
+        "description": "The name of the second field",
+        "example": "phone"
+      }
+    }
+  },
+  "addNewCompanyPageTitle": "New Company",
+  "updateCompanyPageTitle": "Update Company",
+  "nCompany": "{n, plural, =1{company} =2{companies} other{companies}}",
+  "@nCompany": {
+    "description": "The pluralized version of the word 'company'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "noUsersConnectedWithCompany": "You have no registered users associated with your company",
+  "companyUserFullName": "Full Name",
+  "companyUserFullNameHintTest": "eg: John Doe",
+  "companyUserEmail": "Email",
+  "companyUserEmailHintText": "eg: example@example.com",
+  "companyUserRole": "Assign a role",
+  "companyUserRoleHintText": "Select a role",
+  "companyUserAssignedRoleForDetails": "Assigned Role",
+  "companyUserAddedOn": "Added on",
+  "companyUserLastUpdated": "Last updated",
+  "addNewCompanyUserPageTitle": "New Company User",
+  "updateCompanyUserPageTitle": "Update Company User",
+  "emailAlreadyInUseErrorText": "This email is already in use",
+  "nCompanyUsers": "{n, plural, =1{company user} =2{company users} other{company users}}",
+  "@nCompanyUsers": {
+    "description": "The pluralized version of the word 'company user'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "assignRoleDialogTitle": "Assign a role",
+  "me": "Me",
+  "companyUserDismissalDialogTitle": "Are you sure you want to delete this user?",
+  "companyUserDismissalDialogContent": "You're about to delete {companyUserName} as a user",
+  "@companyUserDismissalDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to delete a company user",
+    "placeholders": {
+      "companyUserName": {
+        "description": "The name of the user",
+        "example": "John Doe"
+      }
+    }
+  },
+  "cantDeleteYourselfDialogTitle": "You can't delete yourself as a user"
 }

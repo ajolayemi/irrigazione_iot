@@ -10,7 +10,7 @@ import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.d
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_details/colllector_details_screen_content.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
-import 'package:irrigazione_iot/src/widgets/custom_edit_icon_button.dart';
+import 'package:irrigazione_iot/src/widgets/common_edit_icon_button.dart';
 
 class CollectorDetailsScreen extends ConsumerWidget {
   const CollectorDetailsScreen({
@@ -56,7 +56,7 @@ class CollectorDetailsScreen extends ConsumerWidget {
                 AppSliverBar(
                   title: collector.name,
                   actions: [
-                    CustomEditIconButton(
+                    CommonEditIconButton(
                       onPressed: () => _onEditCollector(
                         connectedSectors: connectedSectors ?? [],
                         ref: ref,

@@ -7,7 +7,7 @@ import 'package:irrigazione_iot/src/features/collectors/data/collector_repositor
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 
 part 'add_update_collector_service.g.dart';
 

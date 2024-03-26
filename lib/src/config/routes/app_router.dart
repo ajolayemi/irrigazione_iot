@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_screen.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_boards_form.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/connect_collector_to_board_screen.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/board_details/board_details_screen.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/boards_list/boards_list_screen.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_form.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/connect_sectors_to_collector_screen.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_details/collector_details.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_list_screen.dart';
+import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_form.dart';
+import 'package:irrigazione_iot/src/features/company_profile/screen/company_profile_screen.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/add_update_company_user/add_update_company_user_form.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/company_user_details/company_user_details_screen.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/company_users_list/company_users_list_screen.dart';
 import 'package:irrigazione_iot/src/features/dashboard/screen/dashboard_screen.dart';
 import 'package:irrigazione_iot/src/features/home/screen/home_nested_navigator.dart';
+import 'package:irrigazione_iot/src/features/more/screen/more_options_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pump_form.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_details/pump_details_screen.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_list/pumps_list_screen.dart';
@@ -22,10 +31,12 @@ import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/se
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/connected_pumps_list_screen.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/sector_details.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_screen.dart';
-import 'package:irrigazione_iot/src/features/user_companies/data/selected_company_repository.dart';
-import 'package:irrigazione_iot/src/features/user_companies/screen/user_company_list/user_companies_list_screen.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/empty_placeholder_widget.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/user_company_list/user_companies_list_screen.dart';
+import 'package:irrigazione_iot/src/features/user_profile/screen/user_profile_screen.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'app_router.g.dart';
 
 // private navigator keys
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -69,12 +80,24 @@ enum AppRoute {
   connectSectorToCollector,
   more,
   settings,
+  boards, // centraline
+  boardDetails,
+  addBoard,
+  updateBoard,
+  profile,
+  connectCollectorToBoard,
+  companyProfile,
+  updateCompany,
+  companyUsers,
+  companyUserDetails,
+  addCompanyUser,
+  updateCompanyUser,
 }
 
-final goRouterProvider = Provider<GoRouter>((ref) {
+@Riverpod(keepAlive: true)
+GoRouter goRouter(GoRouterRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   final initialTappedCompanyRepo = ref.watch(selectedCompanyRepositoryProvider);
-
   return GoRouter(
     initialLocation: '/sign-in',
     debugLogDiagnostics: true,
@@ -221,11 +244,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/more',
                 name: AppRoute.more.name,
-                pageBuilder: (context, state) => NoTransitionPage(
-                  child: EmptyPlaceholderWidget(
-                    message: context.loc.morePageTitle,
-                  ),
-                ), // TODO: replace with more page
+                pageBuilder: (context, state) => const MaterialPage(
+                  fullscreenDialog: true,
+                  child: MoreOptionsScreen(),
+                ),
               ),
             ],
           ),
@@ -363,11 +385,142 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         name: AppRoute.connectSectorToCollector.name,
         pageBuilder: (context, state) => const MaterialPage(
           fullscreenDialog: true,
-          child: ConnectSectorsToCollector(
+          child: ConnectSectorsToCollector(),
+        ),
+      ),
 
+      /// Board (centraline) routes and it's sub-routes
+      GoRoute(
+        path: '/boards',
+        name: AppRoute.boards.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: BoardsListScreen(),
+        ),
+        routes: [
+          GoRoute(
+            path: 'details/:boardId',
+            name: AppRoute.boardDetails.name,
+            pageBuilder: (context, state) => MaterialPage(
+              fullscreenDialog: true,
+              child: BoardDetailsScreen(
+                boardID: state.pathParameters['boardId'] ?? '',
+              ),
+            ),
+          ),
+          GoRoute(
+            path: 'add',
+            name: AppRoute.addBoard.name,
+            pageBuilder: (context, state) => const MaterialPage(
+              fullscreenDialog: true,
+              child: AddUpdateBoardsForm(formType: GenericFormTypes.add),
+            ),
+          ),
+          GoRoute(
+            path: 'edit/:boardId',
+            name: AppRoute.updateBoard.name,
+            pageBuilder: (context, state) => MaterialPage(
+              fullscreenDialog: true,
+              child: AddUpdateBoardsForm(
+                formType: GenericFormTypes.update,
+                boardID: state.pathParameters['boardId'],
+              ),
+            ),
+          ),
+          GoRoute(
+            path: 'connect-collector',
+            name: AppRoute.connectCollectorToBoard.name,
+            pageBuilder: (context, state) => const MaterialPage(
+              fullscreenDialog: true,
+              child: ConnectCollectorToBoardScreen(),
+            ),
+          ),
+        ],
+      ),
+
+      // My profile route
+      GoRoute(
+        path: '/profile',
+        name: AppRoute.profile.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: UserProfileScreen(),
+        ),
+      ),
+
+      // Company profile route and sub-route to edit the company profile
+      GoRoute(
+        path: '/company-profile/:companyID',
+        name: AppRoute.companyProfile.name,
+        pageBuilder: (context, state) => MaterialPage(
+          fullscreenDialog: true,
+          child: CompanyProfileScreen(
+            companyID: state.pathParameters['companyID'] ?? '',
           ),
         ),
+        routes: [
+          GoRoute(
+            path: 'edit',
+            name: AppRoute.updateCompany.name,
+            pageBuilder: (context, state) {
+              return MaterialPage(
+                fullscreenDialog: true,
+                child: AddUpdateCompanyForm(
+                  companyID: state.pathParameters['companyID'] ?? '',
+                  formType: GenericFormTypes.update,
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+
+      // Route to view the list of users for the company and
+      // sub-route to edit and add new users
+      GoRoute(
+        path: '/company-users',
+        name: AppRoute.companyUsers.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: CompanyUsersListScreen(),
+        ),
+        routes: [
+          GoRoute(
+            path: 'add',
+            name: AppRoute.addCompanyUser.name,
+            pageBuilder: (context, state) => const MaterialPage(
+              fullscreenDialog: true,
+              child: AddUpdateCompanyUserForm(
+                companyUserId: '',
+                formType: GenericFormTypes.add,
+              ),
+            ),
+          ),
+          GoRoute(
+            path: 'details/:companyUserId',
+            name: AppRoute.companyUserDetails.name,
+            pageBuilder: (context, state) => MaterialPage(
+              fullscreenDialog: true,
+              child: CompanyUserDetailsScreen(
+                companyUserId: state.pathParameters['companyUserId'] ?? '',
+              ),
+            ),
+            routes: [
+              GoRoute(
+                path: 'edit',
+                name: AppRoute.updateCompanyUser.name,
+                pageBuilder: (context, state) => MaterialPage(
+                  fullscreenDialog: true,
+                  child: AddUpdateCompanyUserForm(
+                    companyUserId: state.pathParameters['companyUserId'] ?? '',
+                    formType: GenericFormTypes.update,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     ],
   );
-});
+}

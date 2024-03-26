@@ -37,7 +37,7 @@ class HomeNavigationBar extends StatelessWidget {
             label: context.loc.sectorPageTitle,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.more_vert),
+            icon: const Icon(Icons.more_horiz),
             label: context.loc.morePageTitle,
           ),
         ],
