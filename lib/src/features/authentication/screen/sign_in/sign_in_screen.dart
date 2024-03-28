@@ -37,8 +37,8 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  String get email => _emailController.text;
-  String get password => _passwordController.text;
+  String get _email => _emailController.text;
+  String get _password => _passwordController.text;
 
   // * Keys for testing using find.byKey()
   static const emailKey = Key('email');
@@ -62,8 +62,8 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
     if (_formKey.currentState!.validate()) {
       final controller = ref.read(signInControllerProvider.notifier);
       final success = await controller.authenticateWithEmailAndPassword(
-        email,
-        password,
+        _email,
+        _password,
       );
       if (success) {
         widget.onSignedIn?.call();
@@ -86,7 +86,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
   }
 
   void _emailEditingComplete() {
-    if (canSubmitEmail(value: email)) {
+    if (canSubmitEmail(value: _email)) {
       _node.nextFocus();
     }
   }
@@ -95,7 +95,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
     if (!_submitted) return null;
 
     return context.getLocalizedErrorText(
-      errorKey: getEmailErrorKey(value: email),
+      errorKey: getEmailErrorKey(value: _email),
     );
   }
 
@@ -104,7 +104,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
     //   _node.previousFocus();
     // }
     if (!canSubmitPassword(
-      value: password,
+      value: _password,
       minLength: AppConstants.minPasswordLength,
     )) {
       _node.nextFocus();
@@ -116,7 +116,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
     return context.getLocalizedErrorText(
       minFieldLength: AppConstants.minPasswordLength,
       errorKey: getPasswordErrorKey(
-        value: password,
+        value: _password,
         minLength: AppConstants.minPasswordLength,
       ),
     );
