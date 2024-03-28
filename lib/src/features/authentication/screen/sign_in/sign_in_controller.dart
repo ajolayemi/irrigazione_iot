@@ -24,6 +24,10 @@ class SignInController extends _$SignInController {
     String email,
     String password,
   ) async {
+    // The controller build method is called when the controller is initialized
+    // and so, to prevent having a previous state, we set the state to the initial state
+    // when this method is called
+    state = AsyncData<CustomControllerState>(_initState);
     _setLoading(signInStateKey, true);
     // set state to loading
     state = const AsyncLoading<CustomControllerState>().copyWithPrevious(state);
@@ -44,9 +48,13 @@ class SignInController extends _$SignInController {
   }
 
   Future<bool> authenticateWithGoogle() async {
+    // The controller build method is called when the controller is initialized
+    // and so, to prevent having a previous state, we set the state to the initial state
+    // when this method is called
+    state = AsyncData<CustomControllerState>(_initState);
     _setLoading(googleSignInStateKey, true);
     // set state to loading
-    state = const AsyncValue.loading();
+    state = const AsyncLoading<CustomControllerState>().copyWithPrevious(state);
     // call on the repository function to handle user sign in with google
     final authRepo = ref.read(authRepositoryProvider);
     final value = await AsyncValue.guard(
