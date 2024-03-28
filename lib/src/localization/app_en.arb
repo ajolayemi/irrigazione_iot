@@ -560,5 +560,6 @@
   "noNumberInPasswordErrorText": "Password has to contain at least one number",
   "noSpecialCharacterInPasswordErrorText": "Password has to contain at least one special character",
   "passwordsDoNotMatchErrorText": "Passwords do not match",
-  "invalidCredentialsErrorText": "The email or password you entered is incorrect"
+  "invalidCredentialsErrorText": "The email or password you entered is incorrect",
+  "introductorySignInText": "Sign in with your registered account details to continue"
 }
