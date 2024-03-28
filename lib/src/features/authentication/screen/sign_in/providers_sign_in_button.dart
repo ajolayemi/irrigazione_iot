@@ -24,6 +24,8 @@ class SliverAuthProviderSignInButton extends ConsumerWidget {
   final VoidCallback? onPressed;
   final Widget providerIcon;
 
+  static const signInWithAuthProviderKey = Key('signInWithAuthProviderKey');
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final thisButtonIsLoading = ref
@@ -46,6 +48,7 @@ class SliverAuthProviderSignInButton extends ConsumerWidget {
             ],
           );
     return IgnorePointer(
+      key: signInWithAuthProviderKey,
       ignoring: globalLoadingState,
       child: ResponsiveCenter(
         maxContentWidth: Breakpoint.tablet,
