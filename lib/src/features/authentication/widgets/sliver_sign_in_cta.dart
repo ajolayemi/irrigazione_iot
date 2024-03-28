@@ -25,12 +25,15 @@ class SignInSliverCtaButton extends ConsumerWidget {
     final globalLoadingState =
         ref.watch(signInControllerProvider).isGlobalLoading;
     final loc = context.loc;
-    return SliverCTAButton(
-      key: signInButtonKey,
-      buttonType: ButtonType.primary,
-      text: loc.signInButtonTitle,
-      isLoading: thisButtonIsLoading,
-      onPressed: globalLoadingState ? () {} : onPressed,
+    return IgnorePointer(
+      ignoring: globalLoadingState,
+      child: SliverCTAButton(
+        key: signInButtonKey,
+        buttonType: ButtonType.primary,
+        text: loc.signInButtonTitle,
+        isLoading: thisButtonIsLoading,
+        onPressed: globalLoadingState ? () {} : onPressed,
+      ),
     );
   }
 }
