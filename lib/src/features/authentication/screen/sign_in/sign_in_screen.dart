@@ -100,9 +100,9 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
   }
 
   void _passwordEditingComplete() {
-    // if (!canSubmitEmail(value: email)) {
-    //   _node.previousFocus();
-    // }
+    if (!canSubmitEmail(value: _email)) {
+      _node.previousFocus();
+    }
     if (!canSubmitPassword(
       value: _password,
       minLength: AppConstants.minPasswordLength,
