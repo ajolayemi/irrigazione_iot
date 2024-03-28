@@ -208,9 +208,9 @@ mixin AppFormValidators {
   /// - has at least one lowercase letter
   /// - has at least one digit
   /// - has at least one special character
-  bool canSubmitPassword({required String value}) {
+  bool canSubmitPassword({required String value, required int minLength}) {
     return nonEmptyValidator.isValid(value) &&
-        MinLengthStringValidator(8).isValid(value) &&
+        MinLengthStringValidator(minLength).isValid(value) &&
         PasswordUppercaseValidator().isValid(value) &&
         PasswordLowercaseValidator().isValid(value) &&
         PasswordDigitValidator().isValid(value) &&
@@ -223,14 +223,14 @@ mixin AppFormValidators {
       return 'emptyPasswordErrorText';
     } else if (!MinLengthStringValidator(minLength).isValid(value)) {
       return 'shortPasswordErrorText';
-    } else if (!PasswordUppercaseValidator().isValid(value)) {
+    } else if (!PasswordUppercaseValidator().isPartialValid(value)) {
       return 'noUppercaseInPasswordErrorText';
-    } else if (!PasswordDigitValidator().isValid(value)) {
-      return 'noNumberInPasswordErrorText';
-    } else if (!PasswordSpecialCharacterValidator().isValid(value)) {
-      return 'noSpecialCharacterInPasswordErrorText';
-    } else if (!PasswordLowercaseValidator().isValid(value)) {
+    } else if (!PasswordLowercaseValidator().isPartialValid(value)) {
       return 'noLowercaseInPasswordErrorText';
+    } else if (!PasswordDigitValidator().isPartialValid(value)) {
+      return 'noNumberInPasswordErrorText';
+    } else if (!PasswordSpecialCharacterValidator().isPartialValid(value)) {
+      return 'noSpecialCharacterInPasswordErrorText';
     }
     return null;
   }
