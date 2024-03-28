@@ -200,6 +200,25 @@ mixin AppFormValidators {
     return null;
   }
 
+  /// Holds the logic to validate whether can submit password field
+  /// The constraints are:
+  /// - non-empty
+  /// - minimum length of the specified length
+  /// - has at least one uppercase letter
+  /// - has at least one lowercase letter
+  /// - has at least one digit
+  /// - has at least one special character
+  bool canSubmitPassword({required String value}) {
+    return nonEmptyValidator.isValid(value) &&
+        MinLengthStringValidator(8).isValid(value) &&
+        PasswordUppercaseValidator().isValid(value) &&
+        PasswordLowercaseValidator().isValid(value) &&
+        PasswordDigitValidator().isValid(value) &&
+        PasswordSpecialCharacterValidator().isValid(value);
+  }
+
+  
+
   /// Holds the logic to validate whether user can submit dependent fields
   /// This is used, for example, to validate the fiscal code and vat number fields
   /// in the form to add or update companies
