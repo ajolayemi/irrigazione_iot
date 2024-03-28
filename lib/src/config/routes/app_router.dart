@@ -67,6 +67,7 @@ GoRouter goRouter(GoRouterRef ref) {
       final user = authRepository.currentUser;
       final isLoggedIn = user != null;
       final path = state.uri.path;
+      //final isLoginOrSign
       if (isLoggedIn && path == '/sign-in') {
         final userHasAlreadySelectedACompany =
             initialTappedCompanyRepo.loadSelectedCompanyId(user.uid) != null;
@@ -77,6 +78,10 @@ GoRouter goRouter(GoRouterRef ref) {
         return '/companies-list-grid';
       }
       if (!isLoggedIn && path != '/sign-in') {
+        // if user is trying to access sign-up page, let them
+        if (path == '/sign-up') {
+          return null;
+        }
         return '/sign-in'; // redirect to sign in page if user is not logged in
       }
       return null;
