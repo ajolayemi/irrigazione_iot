@@ -201,5 +201,10 @@
   "me": "Io",
   "companyUserDismissalDialogTitle": "Sei sicuro di voler eliminare questo utente?",
   "companyUserDismissalDialogContent": "Stai per eliminare {companyUserName} come utente",
-  "cantDeleteYourselfDialogTitle": "Non puoi eliminare te stesso come utente"
+  "cantDeleteYourselfDialogTitle": "Non puoi eliminare te stesso come utente",
+  "noUppercaseInPasswordErrorText": "La password deve contenere almeno una lettera maiuscola",
+  "noLowercaseInPasswordErrorText": "La password deve contenere almeno una lettera minuscola",
+  "noNumberInPasswordErrorText": "La password deve contenere almeno un numero",
+  "noSpecialCharacterInPasswordErrorText": "La password deve contenere almeno un carattere speciale"
+
 }

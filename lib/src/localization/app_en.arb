@@ -554,5 +554,9 @@
       }
     }
   },
-  "cantDeleteYourselfDialogTitle": "You can't delete yourself as a user"
+  "cantDeleteYourselfDialogTitle": "You can't delete yourself as a user",
+  "noUppercaseInPasswordErrorText": "Password has to contain at least one uppercase letter",
+  "noLowercaseInPasswordErrorText": "Password has to contain at least one lowercase letter",
+  "noNumberInPasswordErrorText": "Password has to contain at least one number",
+  "noSpecialCharacterInPasswordErrorText": "Password has to contain at least one special character"
 }
