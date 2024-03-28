@@ -16,7 +16,7 @@ import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/custom_text_button.dart';
 import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_scrollable.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
 
 // Widget to show the sign in form
 class SignInScreen extends ConsumerStatefulWidget {
@@ -137,94 +137,95 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
     final loc = context.loc;
 
     return Scaffold(
-      body: ResponsiveScrollable(
-        child: FocusScope(
-          node: _node,
-          child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(Sizes.p16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  gapH64,
-                  // email field
-                  FormTitleAndField(
-                    fieldKey: emailKey,
-                    fieldTitle: loc.emailFormFieldTitle,
-                    fieldHintText: loc.emailFormHint,
-                    fieldController: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (_) => _emailErrorText(),
-                    inputFormatters: <TextInputFormatter>[
-                      ValidatorInputFormatter(
-                        editingValidator: EmailEditingRegexValidator(),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: CustomScrollView(
+                slivers: [
+                  ResponsiveSliverForm(
+                    node: _node,
+                    formKey: _formKey,
+                    children: [
+                      gapH64,
+                      // email field
+                      FormTitleAndField(
+                        fieldKey: emailKey,
+                        fieldTitle: loc.emailFormFieldTitle,
+                        fieldHintText: loc.emailFormHint,
+                        fieldController: _emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (_) => _emailErrorText(),
+                        inputFormatters: <TextInputFormatter>[
+                          ValidatorInputFormatter(
+                            editingValidator: EmailEditingRegexValidator(),
+                          ),
+                        ],
+                        onEditingComplete: _emailEditingComplete,
                       ),
+                      gapH24,
+                      // Password Field
+                      FormTitleAndField(
+                        key: passwordKey,
+                        fieldKey: passwordKey,
+                        fieldTitle: loc.passwordFormFieldTitle,
+                        fieldHintText: loc.passwordFormHint,
+                        fieldController: _passwordController,
+                        keyboardType: TextInputType.visiblePassword,
+                        validator: (_) => _passwordErrorText(),
+                        onEditingComplete: _passwordEditingComplete,
+                        obscureText: true,
+                      ),
+              
+                      // Forgot password button
+                      Align(
+                        key: forgotPasswordButtonKey,
+                        alignment: Alignment.centerRight,
+                        child: CustomTextButton(
+                          onPressed: isLoading
+                              ? null
+                              : () => {}, // TODO add forgot password logic
+                          text: loc.forgotPasswordButtonTitle,
+                        ),
+                      ),
+              
+                      // If state is loading, replace the sign in section with a circular progress indicator
+                      if (isLoading) ...[
+                        gapH24,
+                        const Center(child: CircularProgressIndicator()),
+                      ] else ...[
+                        // sign in button
+                        CTAButton(
+                          key: signInButtonKey,
+                          buttonType: ButtonType.primary,
+                          text: loc.signInButtonTitle,
+                          isLoading: isLoading,
+                          onPressed: isLoading ? null : _submit,
+                        ),
+              
+                        gapH24,
+                        const OrSignWithWidget(),
+              
+                        // Sign in with Google Button
+                        AuthProviderSignInButton(
+                          key: signInWithGoogleButtonKey,
+                          text: loc.signInWithGoogleButtonTitle,
+                          providerIcon: Image.asset(
+                            'assets/images/google_logo.png',
+                            height: Sizes.p32,
+                            width: Sizes.p32,
+                          ),
+                          onPressed: isLoading ? null : _submitWithGoogle,
+                          isLoading: isLoading,
+                        ),
+                      ]
                     ],
-                    onEditingComplete: _emailEditingComplete,
-  
                   ),
-                  gapH24,
-                  // Password Field
-                  FormTitleAndField(
-                    key: passwordKey,
-                    fieldKey: passwordKey,
-                    fieldTitle: loc.passwordFormFieldTitle,
-                    fieldHintText: loc.passwordFormHint,
-                    fieldController: _passwordController,
-                    keyboardType: TextInputType.visiblePassword,
-                    validator: (_) => _passwordErrorText(),
-                    onEditingComplete: _passwordEditingComplete,
-                    obscureText: true,
-                  ),
-
-                  // Forgot password button
-                  Align(
-                    key: forgotPasswordButtonKey,
-                    alignment: Alignment.centerRight,
-                    child: CustomTextButton(
-                      onPressed: isLoading
-                          ? null
-                          : () => {}, // TODO add forgot password logic
-                      text: loc.forgotPasswordButtonTitle,
-                    ),
-                  ),
-
-                  // If state is loading, replace the sign in section with a circular progress indicator
-                  if (isLoading) ...[
-                    gapH24,
-                    const Center(child: CircularProgressIndicator()),
-                  ] else ...[
-                    // sign in button
-                    CTAButton(
-                      key: signInButtonKey,
-                      buttonType: ButtonType.primary,
-                      text: loc.signInButtonTitle,
-                      isLoading: isLoading,
-                      onPressed: isLoading ? null : _submit,
-                    ),
-
-                    gapH24,
-                    const OrSignWithWidget(),
-
-                    // Sign in with Google Button
-                    AuthProviderSignInButton(
-                      key: signInWithGoogleButtonKey,
-                      text:loc.signInWithGoogleButtonTitle,
-                      providerIcon: Image.asset(
-                        'assets/images/google_logo.png',
-                        height: Sizes.p32,
-                        width: Sizes.p32,
-                      ),
-                      onPressed: isLoading ? null : _submitWithGoogle,
-                      isLoading: isLoading,
-                    ),
-                  ]
                 ],
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
