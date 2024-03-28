@@ -3,10 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
+import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/or_sign_with_widget.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/providers_sign_in_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_controller.dart';
+import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
+import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/string_validators.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
@@ -30,7 +33,7 @@ class SignInScreen extends ConsumerStatefulWidget {
 }
 
 class _SignInContentsState extends ConsumerState<SignInScreen>
-    with EmailAndPasswordValidators {
+    with AppFormValidators {
   final _formKey = GlobalKey<FormState>();
   final _node = FocusScopeNode();
   final _emailController = TextEditingController();
@@ -88,17 +91,40 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
   }
 
   void _emailEditingComplete() {
-    if (canSubmitEmail(email)) {
+    if (canSubmitEmail(value: email)) {
       _node.nextFocus();
     }
   }
 
+  String? _emailErrorText() {
+    if (!_submitted) return null;
+
+    return context.getLocalizedErrorText(
+      errorKey: getEmailErrorKey(value: email),
+    );
+  }
+
   void _passwordEditingComplete() {
-    if (!canSubmitEmail(email)) {
-      _node.previousFocus();
-      return;
+    // if (!canSubmitEmail(value: email)) {
+    //   _node.previousFocus();
+    // }
+    if (!canSubmitPassword(
+      value: password,
+      minLength: AppConstants.minPasswordLength,
+    )) {
+      _node.nextFocus();
     }
-    _submit();
+  }
+
+  String? _passwordErrorText() {
+    if (!_submitted) return null;
+    return context.getLocalizedErrorText(
+      minFieldLength: AppConstants.minPasswordLength,
+      errorKey: getPasswordErrorKey(
+        value: password,
+        minLength: AppConstants.minPasswordLength,
+      ),
+    );
   }
 
   @override
@@ -132,12 +158,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
-                    validator: (email) => !_submitted
-                        ? null
-                        : emailErrorText(
-                            email ?? '',
-                            context,
-                          ),
+                    validator: (_) => _emailErrorText(),
                     inputFormatters: <TextInputFormatter>[
                       ValidatorInputFormatter(
                         editingValidator: EmailEditingRegexValidator(),
@@ -156,14 +177,9 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                     fieldController: _passwordController,
                     autoCorrect: false,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
-                    validator: (password) => !_submitted
-                        ? null
-                        : passwordErrorText(
-                            password ?? '',
-                            context,
-                          ),
+                    validator: (_) => _passwordErrorText(),
                     onEditingComplete: _passwordEditingComplete,
                     keyboardAppearance: Brightness.light,
                     obscureText: true,
