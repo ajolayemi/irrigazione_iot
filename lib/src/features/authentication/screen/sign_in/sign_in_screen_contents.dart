@@ -13,7 +13,6 @@ import 'package:irrigazione_iot/src/features/authentication/widgets/sliver_sign_
 import 'package:irrigazione_iot/src/providers/auth_providers.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
-import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/utils/string_validators.dart';
 import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
@@ -132,11 +131,7 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
 
   @override
   Widget build(BuildContext context) {
-    // Listen to controller state for when error occurs
-    ref.listen(
-      signInControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+
     final isLoading = ref.watch(signInControllerProvider).isLoading;
     final loc = context.loc;
 
