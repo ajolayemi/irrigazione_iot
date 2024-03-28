@@ -217,7 +217,23 @@ mixin AppFormValidators {
         PasswordSpecialCharacterValidator().isValid(value);
   }
 
-  
+  /// Gets the error key for password field
+  String? getPasswordErrorKey({required String value, required int minLength}) {
+    if (value.isEmpty) {
+      return 'emptyPasswordErrorText';
+    } else if (!MinLengthStringValidator(minLength).isValid(value)) {
+      return 'shortPasswordErrorText';
+    } else if (!PasswordUppercaseValidator().isValid(value)) {
+      return 'noUppercaseInPasswordErrorText';
+    } else if (!PasswordDigitValidator().isValid(value)) {
+      return 'noNumberInPasswordErrorText';
+    } else if (!PasswordSpecialCharacterValidator().isValid(value)) {
+      return 'noSpecialCharacterInPasswordErrorText';
+    } else if (!PasswordLowercaseValidator().isValid(value)) {
+      return 'noLowercaseInPasswordErrorText';
+    }
+    return null;
+  }
 
   /// Holds the logic to validate whether user can submit dependent fields
   /// This is used, for example, to validate the fiscal code and vat number fields
