@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart'
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_screen.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_up/sign_up_screen.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_boards_form.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/connect_collector_to_board_screen.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/board_details/board_details_screen.dart';
@@ -89,6 +90,13 @@ GoRouter goRouter(GoRouterRef ref) {
         name: AppRoute.signIn.name,
         pageBuilder: (context, state) =>
             const NoTransitionPage(child: SignInScreen()),
+      ),
+
+      GoRoute(
+        path: '/sign-up',
+        name: AppRoute.signUp.name,
+        pageBuilder: (context, state) =>
+            const NoTransitionPage(child: SignUpScreen()),
       ),
       GoRoute(
         path: '/companies-list-grid',
