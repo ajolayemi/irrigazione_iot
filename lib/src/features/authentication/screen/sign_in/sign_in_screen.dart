@@ -44,7 +44,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
   static const emailKey = Key('email');
   static const passwordKey = Key('password');
 
-  static const signInWithGoogleButtonKey = Key('signInWithGoogleButton');
+
   static const forgotPasswordButtonKey = Key('forgotPasswordButton');
 
   // local variable used to apply AutovalidateMode.onUserInteraction and show
@@ -200,7 +200,6 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
 
                         // Sign in with Google Button
                         SliverAuthProviderSignInButton(
-                          key: signInWithGoogleButtonKey,
                           text: loc.signInWithGoogleButtonTitle,
                           providerIcon: Image.asset(
                             'assets/images/google_logo.png',
