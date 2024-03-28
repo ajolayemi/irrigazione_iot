@@ -136,84 +136,87 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
     final loc = context.loc;
 
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: CustomScrollView(
-                slivers: [
-                  ResponsiveSliverForm(
-                    node: _node,
-                    formKey: _formKey,
-                    children: [
-                      gapH64,
-                      // email field
-                      FormTitleAndField(
-                        fieldKey: emailKey,
-                        fieldTitle: loc.emailFormFieldTitle,
-                        fieldHintText: loc.emailFormHint,
-                        fieldController: _emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (_) => _emailErrorText(),
-                        inputFormatters: <TextInputFormatter>[
-                          ValidatorInputFormatter(
-                            editingValidator: EmailEditingRegexValidator(),
+      body: GestureDetector(
+        onTap: _node.unfocus,
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: CustomScrollView(
+                  slivers: [
+                    ResponsiveSliverForm(
+                      node: _node,
+                      formKey: _formKey,
+                      children: [
+                        gapH64,
+                        // email field
+                        FormTitleAndField(
+                          fieldKey: emailKey,
+                          fieldTitle: loc.emailFormFieldTitle,
+                          fieldHintText: loc.emailFormHint,
+                          fieldController: _emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (_) => _emailErrorText(),
+                          inputFormatters: <TextInputFormatter>[
+                            ValidatorInputFormatter(
+                              editingValidator: EmailEditingRegexValidator(),
+                            ),
+                          ],
+                          onEditingComplete: _emailEditingComplete,
+                        ),
+                        gapH24,
+                        // Password Field
+                        FormTitleAndField(
+                          key: passwordKey,
+                          fieldKey: passwordKey,
+                          fieldTitle: loc.passwordFormFieldTitle,
+                          fieldHintText: loc.passwordFormHint,
+                          fieldController: _passwordController,
+                          keyboardType: TextInputType.visiblePassword,
+                          validator: (_) => _passwordErrorText(),
+                          onEditingComplete: _passwordEditingComplete,
+                          obscureText: true,
+                        ),
+        
+                        // Forgot password button
+                        Align(
+                          key: forgotPasswordButtonKey,
+                          alignment: Alignment.centerRight,
+                          child: CustomTextButton(
+                            onPressed: isLoading
+                                ? null
+                                : () => {}, // TODO add forgot password logic
+                            text: loc.forgotPasswordButtonTitle,
                           ),
-                        ],
-                        onEditingComplete: _emailEditingComplete,
-                      ),
-                      gapH24,
-                      // Password Field
-                      FormTitleAndField(
-                        key: passwordKey,
-                        fieldKey: passwordKey,
-                        fieldTitle: loc.passwordFormFieldTitle,
-                        fieldHintText: loc.passwordFormHint,
-                        fieldController: _passwordController,
-                        keyboardType: TextInputType.visiblePassword,
-                        validator: (_) => _passwordErrorText(),
-                        onEditingComplete: _passwordEditingComplete,
-                        obscureText: true,
-                      ),
-
-                      // Forgot password button
-                      Align(
-                        key: forgotPasswordButtonKey,
-                        alignment: Alignment.centerRight,
-                        child: CustomTextButton(
-                          onPressed: isLoading
-                              ? null
-                              : () => {}, // TODO add forgot password logic
-                          text: loc.forgotPasswordButtonTitle,
                         ),
-                      ),
-
-                      gapH32,
-
-                      // sign in button
-                      SignInSliverCtaButton(onPressed: _submit),
-                      gapH24,
-                      const OrSignWithWidget(),
-
-                      // Sign in with Google Button
-                      SliverAuthProviderSignInButton(
-                        key: signInWithGoogleButtonKey,
-                        text: loc.signInWithGoogleButtonTitle,
-                        providerIcon: Image.asset(
-                          'assets/images/google_logo.png',
-                          height: Sizes.p32,
-                          width: Sizes.p32,
+        
+                        gapH32,
+        
+                        // sign in button
+                        SignInSliverCtaButton(onPressed: _submit),
+                        gapH24,
+                        const OrSignWithWidget(),
+        
+                        // Sign in with Google Button
+                        SliverAuthProviderSignInButton(
+                          key: signInWithGoogleButtonKey,
+                          text: loc.signInWithGoogleButtonTitle,
+                          providerIcon: Image.asset(
+                            'assets/images/google_logo.png',
+                            height: Sizes.p32,
+                            width: Sizes.p32,
+                          ),
+                          onPressed: isLoading ? null : _submitWithGoogle,
+                          isLoading: isLoading,
                         ),
-                        onPressed: isLoading ? null : _submitWithGoogle,
-                        isLoading: isLoading,
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
