@@ -208,6 +208,7 @@
   "noSpecialCharacterInPasswordErrorText": "La password deve contenere almeno un carattere speciale",
   "passwordsDoNotMatchErrorText": "Le password non corrispondono",
   "invalidCredentialsErrorText": "La password o l'indirizzo email inseriti non sono corretti",
-  "introductorySignInText": "Accedi con le tue credenziali per continuare"
-
+  "introductorySignInText": "Accedi con le tue credenziali per continuare",
+  "noAccountText": "Non hai un account?",
+  "signUpText": "Registrati"
 }
