@@ -90,3 +90,27 @@ class MaxLengthStringValidator extends StringValidator {
 class NumericEditingRegexValidator extends RegexValidator {
   NumericEditingRegexValidator() : super(regexSource: '^[0-9]+\\.?[0-9]*\$');
 }
+
+// Regex to validate that a password has at least a capital letter
+class PasswordUppercaseValidator extends RegexValidator {
+  PasswordUppercaseValidator()
+      : super(regexSource: '[A-Z]');
+}
+
+// Regex to validate that a password has at least a lowercase letter
+class PasswordLowercaseValidator extends RegexValidator {
+  PasswordLowercaseValidator()
+      : super(regexSource: '[a-z]');
+}
+
+// Regex to validate that a password has at least a digit
+class PasswordDigitValidator extends RegexValidator {
+  PasswordDigitValidator()
+      : super(regexSource: '\\d');
+}
+
+// Regex to validate that a password has at least a special character
+class PasswordSpecialCharacterValidator extends RegexValidator {
+  PasswordSpecialCharacterValidator()
+      : super(regexSource: '[!@#\$%^&*(),.?":{}|<>]');
+}
