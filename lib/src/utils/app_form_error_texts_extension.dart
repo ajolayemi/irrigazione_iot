@@ -8,6 +8,7 @@ extension AppFormsErrorText on BuildContext {
     String? fieldName,
     String? pluralFieldName,
     int? maxFieldLength,
+    int? minFieldLength,
   }) {
     if (errorKey == null) return null;
     switch (errorKey) {
@@ -36,7 +37,7 @@ extension AppFormsErrorText on BuildContext {
       case 'emptyPasswordErrorText':
         return loc.emptyPasswordErrorText;
       case 'shortPasswordErrorText':
-        return loc.shortPasswordErrorText(maxFieldLength ?? 0);
+        return loc.shortPasswordErrorText(minFieldLength ?? 0);
       case 'passwordsDoNotMatchErrorText':
         return loc.passwordsDoNotMatchErrorText;
       case 'invalidCredentialsErrorText':
