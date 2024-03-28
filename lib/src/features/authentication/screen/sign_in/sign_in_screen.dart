@@ -178,7 +178,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                           onEditingComplete: _passwordEditingComplete,
                           obscureText: true,
                         ),
-        
+
                         // Forgot password button
                         Align(
                           key: forgotPasswordButtonKey,
@@ -190,14 +190,14 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                             text: loc.forgotPasswordButtonTitle,
                           ),
                         ),
-        
+
                         gapH32,
-        
+
                         // sign in button
                         SignInSliverCtaButton(onPressed: _submit),
                         gapH24,
                         const OrSignWithWidget(),
-        
+
                         // Sign in with Google Button
                         SliverAuthProviderSignInButton(
                           key: signInWithGoogleButtonKey,
@@ -207,8 +207,8 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                             height: Sizes.p32,
                             width: Sizes.p32,
                           ),
-                          onPressed: isLoading ? null : _submitWithGoogle,
-                          isLoading: isLoading,
+                          onPressed: _submitWithGoogle,
+                          buttonStateKey: SignInController.googleSignInStateKey,
                         ),
                       ],
                     ),
@@ -222,5 +222,3 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
     );
   }
 }
-
-
