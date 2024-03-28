@@ -177,7 +177,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                         onEditingComplete: _passwordEditingComplete,
                         obscureText: true,
                       ),
-              
+
                       // Forgot password button
                       Align(
                         key: forgotPasswordButtonKey,
@@ -189,37 +189,33 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                           text: loc.forgotPasswordButtonTitle,
                         ),
                       ),
-              
-                      // If state is loading, replace the sign in section with a circular progress indicator
-                      if (isLoading) ...[
-                        gapH24,
-                        const Center(child: CircularProgressIndicator()),
-                      ] else ...[
-                        // sign in button
-                        CTAButton(
-                          key: signInButtonKey,
-                          buttonType: ButtonType.primary,
-                          text: loc.signInButtonTitle,
-                          isLoading: isLoading,
-                          onPressed: isLoading ? null : _submit,
+
+                      gapH32,
+
+                      // sign in button
+                      SliverCTAButton(
+                        key: signInButtonKey,
+                        buttonType: ButtonType.primary,
+                        text: loc.signInButtonTitle,
+                        isLoading: isLoading,
+                        onPressed: isLoading ? null : _submit,
+                      ),
+
+                      gapH24,
+                      const OrSignWithWidget(),
+
+                      // Sign in with Google Button
+                      SliverAuthProviderSignInButton(
+                        key: signInWithGoogleButtonKey,
+                        text: loc.signInWithGoogleButtonTitle,
+                        providerIcon: Image.asset(
+                          'assets/images/google_logo.png',
+                          height: Sizes.p32,
+                          width: Sizes.p32,
                         ),
-              
-                        gapH24,
-                        const OrSignWithWidget(),
-              
-                        // Sign in with Google Button
-                        AuthProviderSignInButton(
-                          key: signInWithGoogleButtonKey,
-                          text: loc.signInWithGoogleButtonTitle,
-                          providerIcon: Image.asset(
-                            'assets/images/google_logo.png',
-                            height: Sizes.p32,
-                            width: Sizes.p32,
-                          ),
-                          onPressed: isLoading ? null : _submitWithGoogle,
-                          isLoading: isLoading,
-                        ),
-                      ]
+                        onPressed: isLoading ? null : _submitWithGoogle,
+                        isLoading: isLoading,
+                      ),
                     ],
                   ),
                 ],
