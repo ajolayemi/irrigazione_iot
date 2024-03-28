@@ -17,7 +17,6 @@ import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/custom_text_button.dart';
 import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_scrollable.dart';
-import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/email_password_sign_in_validators.dart';
 
 // Widget to show the sign in form
 class SignInScreen extends ConsumerStatefulWidget {
@@ -134,8 +133,9 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
       signInControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
-    final state = ref.watch(signInControllerProvider);
+    final isLoading = ref.watch(signInControllerProvider).isLoading;
     final loc = context.loc;
+
     return Scaffold(
       body: ResponsiveScrollable(
         child: FocusScope(
@@ -184,7 +184,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                     key: forgotPasswordButtonKey,
                     alignment: Alignment.centerRight,
                     child: CustomTextButton(
-                      onPressed: state.isLoading
+                      onPressed: isLoading
                           ? null
                           : () => {}, // TODO add forgot password logic
                       text: loc.forgotPasswordButtonTitle,
@@ -192,7 +192,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                   ),
 
                   // If state is loading, replace the sign in section with a circular progress indicator
-                  if (state.isLoading) ...[
+                  if (isLoading) ...[
                     gapH24,
                     const Center(child: CircularProgressIndicator()),
                   ] else ...[
@@ -201,8 +201,8 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                       key: signInButtonKey,
                       buttonType: ButtonType.primary,
                       text: loc.signInButtonTitle,
-                      isLoading: state.isLoading,
-                      onPressed: state.isLoading ? null : _submit,
+                      isLoading: isLoading,
+                      onPressed: isLoading ? null : _submit,
                     ),
 
                     gapH24,
@@ -217,8 +217,8 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                         height: Sizes.p32,
                         width: Sizes.p32,
                       ),
-                      onPressed: state.isLoading ? null : _submitWithGoogle,
-                      isLoading: state.isLoading,
+                      onPressed: isLoading ? null : _submitWithGoogle,
+                      isLoading: isLoading,
                     ),
                   ]
                 ],
