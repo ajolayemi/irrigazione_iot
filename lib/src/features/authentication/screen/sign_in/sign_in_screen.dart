@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
-import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/or_sign_with_widget.dart';
-import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/providers_sign_in_button.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/or_sign_with_widget.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/providers_sign_in_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_controller.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/forgot_password.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/sliver_sign_in_cta.dart';
