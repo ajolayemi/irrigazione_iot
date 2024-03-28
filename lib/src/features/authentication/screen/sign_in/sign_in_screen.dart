@@ -135,6 +135,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
       (_, state) => state.showAlertDialogOnError(context),
     );
     final state = ref.watch(signInControllerProvider);
+    final loc = context.loc;
     return Scaffold(
       body: ResponsiveScrollable(
         child: FocusScope(
@@ -151,13 +152,10 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                   // email field
                   FormTitleAndField(
                     fieldKey: emailKey,
-                    fieldTitle: context.loc.emailFormFieldTitle,
-                    fieldHintText: context.loc.emailFormHint,
+                    fieldTitle: loc.emailFormFieldTitle,
+                    fieldHintText: loc.emailFormHint,
                     fieldController: _emailController,
-                    autoCorrect: false,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
                     validator: (_) => _emailErrorText(),
                     inputFormatters: <TextInputFormatter>[
                       ValidatorInputFormatter(
@@ -165,23 +163,19 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                       ),
                     ],
                     onEditingComplete: _emailEditingComplete,
-                    keyboardAppearance: Brightness.light,
+  
                   ),
                   gapH24,
                   // Password Field
                   FormTitleAndField(
                     key: passwordKey,
-                    fieldKey: emailKey,
-                    fieldTitle: context.loc.passwordFormFieldTitle,
-                    fieldHintText: context.loc.passwordFormHint,
+                    fieldKey: passwordKey,
+                    fieldTitle: loc.passwordFormFieldTitle,
+                    fieldHintText: loc.passwordFormHint,
                     fieldController: _passwordController,
-                    autoCorrect: false,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     keyboardType: TextInputType.visiblePassword,
-                    textInputAction: TextInputAction.next,
                     validator: (_) => _passwordErrorText(),
                     onEditingComplete: _passwordEditingComplete,
-                    keyboardAppearance: Brightness.light,
                     obscureText: true,
                   ),
 
@@ -193,7 +187,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                       onPressed: state.isLoading
                           ? null
                           : () => {}, // TODO add forgot password logic
-                      text: context.loc.forgotPasswordButtonTitle,
+                      text: loc.forgotPasswordButtonTitle,
                     ),
                   ),
 
@@ -206,7 +200,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                     CTAButton(
                       key: signInButtonKey,
                       buttonType: ButtonType.primary,
-                      text: context.loc.signInButtonTitle,
+                      text: loc.signInButtonTitle,
                       isLoading: state.isLoading,
                       onPressed: state.isLoading ? null : _submit,
                     ),
@@ -217,7 +211,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                     // Sign in with Google Button
                     AuthProviderSignInButton(
                       key: signInWithGoogleButtonKey,
-                      text: context.loc.signInWithGoogleButtonTitle,
+                      text:loc.signInWithGoogleButtonTitle,
                       providerIcon: Image.asset(
                         'assets/images/google_logo.png',
                         height: Sizes.p32,
