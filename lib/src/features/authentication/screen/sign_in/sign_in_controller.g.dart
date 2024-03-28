@@ -6,12 +6,12 @@ part of 'sign_in_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$signInControllerHash() => r'1102c9b2f6a5c085f5f1458bb16aaa0e3bbe6023';
+String _$signInControllerHash() => r'f30bd2ed839037f580a28d47506fe621e0f75fef';
 
 /// See also [SignInController].
 @ProviderFor(SignInController)
-final signInControllerProvider =
-    AutoDisposeAsyncNotifierProvider<SignInController, void>.internal(
+final signInControllerProvider = AutoDisposeAsyncNotifierProvider<
+    SignInController, CustomControllerState>.internal(
   SignInController.new,
   name: r'signInControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,6 +21,6 @@ final signInControllerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$SignInController = AutoDisposeAsyncNotifier<void>;
+typedef _$SignInController = AutoDisposeAsyncNotifier<CustomControllerState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
