@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/dont_have_an_account.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/or_sign_with_widget.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/providers_sign_in_button.dart';
@@ -50,6 +51,9 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
   // error hints only when the form has been submitted
   var _submitted = false;
 
+  // An error text to display when user logging failed due to wrong email or password
+  String? _errorTextOnLoginFailed;
+
   @override
   void dispose() {
     _node.dispose();
@@ -59,6 +63,7 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
   }
 
   Future<void> _submit() async {
+    final loc = context.loc;
     _node.unfocus();
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
@@ -67,6 +72,13 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
         _email,
         _password,
       );
+      final hasUserNotFoundException =
+          ref.read(signInControllerProvider).error is UserNotFoundException;
+
+      // If user not found, invalidate password field
+      if (hasUserNotFoundException) {
+        _errorTextOnLoginFailed = loc.invalidCredentialsErrorText;
+      }
       if (success) {
         widget.onSignedIn?.call();
       }
@@ -131,7 +143,6 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
 
   @override
   Widget build(BuildContext context) {
-
     final isLoading = ref.watch(signInControllerProvider).isLoading;
     final loc = context.loc;
 
@@ -175,6 +186,7 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
                         fieldHintText: loc.passwordFormHint,
                         fieldController: _passwordController,
                         keyboardType: TextInputType.visiblePassword,
+                        errorText: _errorTextOnLoginFailed,
                         validator: (_) => _passwordErrorText(),
                         onEditingComplete: _passwordEditingComplete,
                         suffixIcon: IconButton(
