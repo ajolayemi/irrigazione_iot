@@ -558,5 +558,7 @@
   "noUppercaseInPasswordErrorText": "Password has to contain at least one uppercase letter",
   "noLowercaseInPasswordErrorText": "Password has to contain at least one lowercase letter",
   "noNumberInPasswordErrorText": "Password has to contain at least one number",
-  "noSpecialCharacterInPasswordErrorText": "Password has to contain at least one special character"
+  "noSpecialCharacterInPasswordErrorText": "Password has to contain at least one special character",
+  "passwordsDoNotMatchErrorText": "Passwords do not match",
+  "invalidCredentialsErrorText": "The email or password you entered is incorrect"
 }

@@ -205,6 +205,8 @@
   "noUppercaseInPasswordErrorText": "La password deve contenere almeno una lettera maiuscola",
   "noLowercaseInPasswordErrorText": "La password deve contenere almeno una lettera minuscola",
   "noNumberInPasswordErrorText": "La password deve contenere almeno un numero",
-  "noSpecialCharacterInPasswordErrorText": "La password deve contenere almeno un carattere speciale"
+  "noSpecialCharacterInPasswordErrorText": "La password deve contenere almeno un carattere speciale",
+  "passwordsDoNotMatchErrorText": "Le password non corrispondono",
+  "invalidCredentialsErrorText": "La password o l'indirizzo email inseriti non sono corretti"
 
 }
