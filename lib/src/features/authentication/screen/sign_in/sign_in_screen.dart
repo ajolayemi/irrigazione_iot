@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/dont_have_an_account.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/or_sign_with_widget.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/providers_sign_in_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_controller.dart';
@@ -215,6 +216,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                   ],
                 ),
               ),
+              const DontHaveAnAccount(),
             ],
           ),
         ),
