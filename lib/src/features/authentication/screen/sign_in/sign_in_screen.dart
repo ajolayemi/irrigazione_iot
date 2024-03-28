@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_controller.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_screen_contents.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
@@ -12,7 +13,12 @@ class SignInScreen extends ConsumerWidget {
     // Listen to controller state for when error occurs
     ref.listen(
       signInControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
+      (_, state) {
+        if (state.error is! UserNotFoundException) {
+          return state.showAlertDialogOnError(context);
+        }
+        debugPrint('User not found error occurred in sign in screen');
+      },
     );
     return const Scaffold(
       body: SignInScreenContents(),
