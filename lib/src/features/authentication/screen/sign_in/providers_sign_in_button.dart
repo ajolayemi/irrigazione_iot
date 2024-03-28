@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 
-class AuthProviderSignInButton extends StatelessWidget {
-  const AuthProviderSignInButton({
+class SliverAuthProviderSignInButton extends StatelessWidget {
+  const SliverAuthProviderSignInButton({
     super.key,
     required this.text,
-   this.onPressed,
+    this.onPressed,
     required this.isLoading,
     required this.providerIcon,
   });
