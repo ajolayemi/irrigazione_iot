@@ -33,6 +33,22 @@ extension AppFormsErrorText on BuildContext {
         return loc.invalidEmailErrorText;
       case 'emailAlreadyInUseErrorText':
         return loc.emailAlreadyInUseErrorText;
+      case 'emptyPasswordErrorText':
+        return loc.emptyPasswordErrorText;
+      case 'shortPasswordErrorText':
+        return loc.shortPasswordErrorText(maxFieldLength ?? 0);
+      case 'passwordsDoNotMatchErrorText':
+        return loc.passwordsDoNotMatchErrorText;
+      case 'invalidCredentialsErrorText':
+        return loc.invalidCredentialsErrorText;
+      case 'noUppercaseInPasswordErrorText':
+        return loc.noUppercaseInPasswordErrorText;
+      case 'noLowercaseInPasswordErrorText':
+        return loc.noLowercaseInPasswordErrorText;
+      case 'noNumberInPasswordErrorText':
+        return loc.noNumberInPasswordErrorText;
+      case 'noSpecialCharacterInPasswordErrorText':
+        return loc.noSpecialCharacterInPasswordErrorText;
       default:
         return null;
     }
