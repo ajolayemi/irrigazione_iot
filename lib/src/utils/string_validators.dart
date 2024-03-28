@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 abstract class StringValidator {
   bool isValid(String value);
+  bool isPartialValid(String value);
 }
 
 /// This class is used to validate a string using a regular expression.
@@ -11,6 +12,7 @@ class RegexValidator implements StringValidator {
   RegexValidator({required this.regexSource});
   final String regexSource;
 
+  /// Returns true if the value matches the regular expression in its entirety.
   @override
   bool isValid(String value) {
     try {
@@ -29,8 +31,20 @@ class RegexValidator implements StringValidator {
       return true;
     }
   }
-}
 
+  @override
+  bool isPartialValid(String value) {
+    try {
+      // https://regex101.com/
+      final RegExp regex = RegExp(regexSource);
+      return regex.hasMatch(value);
+    } catch (e) {
+      // Invalid regex
+      assert(false, e.toString());
+      return true;
+    }
+  }
+}
 
 class ValidatorInputFormatter implements TextInputFormatter {
   ValidatorInputFormatter({required this.editingValidator});
@@ -63,6 +77,12 @@ class NonEmptyStringValidator extends StringValidator {
   bool isValid(String value) {
     return value.isNotEmpty;
   }
+  
+  @override
+  bool isPartialValid(String value) {
+    // TODO: implement isPartialValid
+    throw UnimplementedError();
+  }
 }
 
 class MinLengthStringValidator extends StringValidator {
@@ -72,6 +92,12 @@ class MinLengthStringValidator extends StringValidator {
   @override
   bool isValid(String value) {
     return value.length >= minLength;
+  }
+  
+  @override
+  bool isPartialValid(String value) {
+    // TODO: implement isPartialValid
+    throw UnimplementedError();
   }
 }
 
@@ -83,8 +109,13 @@ class MaxLengthStringValidator extends StringValidator {
   bool isValid(String value) {
     return value.length <= maxLength;
   }
+  
+  @override
+  bool isPartialValid(String value) {
+    // TODO: implement isPartialValid
+    throw UnimplementedError();
+  }
 }
-
 
 // Regex to validate that user entered a numeric value
 class NumericEditingRegexValidator extends RegexValidator {
@@ -93,20 +124,17 @@ class NumericEditingRegexValidator extends RegexValidator {
 
 // Regex to validate that a password has at least a capital letter
 class PasswordUppercaseValidator extends RegexValidator {
-  PasswordUppercaseValidator()
-      : super(regexSource: '[A-Z]');
+  PasswordUppercaseValidator() : super(regexSource: '[A-Z]');
 }
 
 // Regex to validate that a password has at least a lowercase letter
 class PasswordLowercaseValidator extends RegexValidator {
-  PasswordLowercaseValidator()
-      : super(regexSource: '[a-z]');
+  PasswordLowercaseValidator() : super(regexSource: '[a-z]');
 }
 
 // Regex to validate that a password has at least a digit
 class PasswordDigitValidator extends RegexValidator {
-  PasswordDigitValidator()
-      : super(regexSource: '\\d');
+  PasswordDigitValidator() : super(regexSource: '\\d');
 }
 
 // Regex to validate that a password has at least a special character
