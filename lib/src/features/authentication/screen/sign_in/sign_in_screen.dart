@@ -7,13 +7,13 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/or_sign_with_widget.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/providers_sign_in_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_controller.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/forgot_password.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/sliver_sign_in_cta.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/utils/string_validators.dart';
-import 'package:irrigazione_iot/src/widgets/custom_text_button.dart';
 import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
 
@@ -43,9 +43,6 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
   // * Keys for testing using find.byKey()
   static const emailKey = Key('email');
   static const passwordKey = Key('password');
-
-
-  static const forgotPasswordButtonKey = Key('forgotPasswordButton');
 
   // local variable used to apply AutovalidateMode.onUserInteraction and show
   // error hints only when the form has been submitted
@@ -178,21 +175,9 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                           onEditingComplete: _passwordEditingComplete,
                           obscureText: true,
                         ),
-
-                        // Forgot password button
-                        Align(
-                          key: forgotPasswordButtonKey,
-                          alignment: Alignment.centerRight,
-                          child: CustomTextButton(
-                            onPressed: isLoading
-                                ? null
-                                : () => {}, // TODO add forgot password logic
-                            text: loc.forgotPasswordButtonTitle,
-                          ),
-                        ),
-
+                        gapH4,
+                        ForgotPassword(isLoading: isLoading),
                         gapH32,
-
                         // sign in button
                         SignInSliverCtaButton(onPressed: _submit),
                         gapH24,
