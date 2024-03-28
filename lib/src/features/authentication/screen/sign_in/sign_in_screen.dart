@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/or_sign_with_widget.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/providers_sign_in_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_controller.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/sliver_sign_in_cta.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
-import 'package:irrigazione_iot/src/utils/string_validators.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/utils/string_validators.dart';
 import 'package:irrigazione_iot/src/widgets/custom_text_button.dart';
 import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
@@ -44,7 +43,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
   // * Keys for testing using find.byKey()
   static const emailKey = Key('email');
   static const passwordKey = Key('password');
-  static const signInButtonKey = Key('signInButton');
+
   static const signInWithGoogleButtonKey = Key('signInWithGoogleButton');
   static const forgotPasswordButtonKey = Key('forgotPasswordButton');
 
@@ -193,14 +192,7 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
                       gapH32,
 
                       // sign in button
-                      SliverCTAButton(
-                        key: signInButtonKey,
-                        buttonType: ButtonType.primary,
-                        text: loc.signInButtonTitle,
-                        isLoading: isLoading,
-                        onPressed: isLoading ? null : _submit,
-                      ),
-
+                      SignInSliverCtaButton(onPressed: _submit),
                       gapH24,
                       const OrSignWithWidget(),
 
@@ -227,3 +219,5 @@ class _SignInContentsState extends ConsumerState<SignInScreen>
     );
   }
 }
+
+
