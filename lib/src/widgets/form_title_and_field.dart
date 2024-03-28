@@ -23,7 +23,8 @@ class FormTitleAndField extends StatelessWidget {
       this.maxLines,
       this.suffixIcon,
       this.onTap,
-      this.canRequestFocus = true});
+      this.canRequestFocus = true,
+      this.errorText});
 
   final Key fieldKey;
   final String fieldTitle;
@@ -43,6 +44,7 @@ class FormTitleAndField extends StatelessWidget {
   final bool? enabled;
   final Widget? suffixIcon;
   final bool canRequestFocus;
+  final String? errorText;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -65,6 +67,7 @@ class FormTitleAndField extends StatelessWidget {
               hintText: fieldHintText,
               errorMaxLines: 3,
               suffixIcon: suffixIcon,
+              errorText: errorText,
             ),
             autovalidateMode: autovalidateMode,
             validator: validator,
