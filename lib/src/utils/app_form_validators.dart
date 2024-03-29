@@ -235,6 +235,32 @@ mixin AppFormValidators {
     return null;
   }
 
+
+  /// Validates whether the confirm password field matches the password field
+  /// The constraints are:
+  /// - non-empty
+  /// - matches the password field
+  bool canSubmitConfirmPassword({
+    required String password,
+    required String confirmPassword,
+  }) {
+    return nonEmptyValidator.isValid(confirmPassword) &&
+        confirmPassword == password;
+  }
+
+  /// Gets the error key for confirm password field
+  String? getConfirmPasswordErrorKey({
+    required String password,
+    required String confirmPassword,
+  }) {
+    if (confirmPassword.isEmpty) {
+      return 'emptyPasswordErrorText';
+    } else if (confirmPassword != password) {
+      return 'passwordsDoNotMatchErrorText';
+    }
+    return null;
+  }
+
   /// Holds the logic to validate whether user can submit dependent fields
   /// This is used, for example, to validate the fiscal code and vat number fields
   /// in the form to add or update companies
