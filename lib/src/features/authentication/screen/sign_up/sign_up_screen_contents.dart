@@ -68,8 +68,7 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
     required List<String?> existingEmails,
   }) {
     if (!_submitted) return null;
-
-    return context.getLocalizedDependentErrorText(
+    return context.getLocalizedErrorText(
         errorKey: getEmailErrorKey(
       value: _email,
       mailsToCompareAgainst: existingEmails,
@@ -125,7 +124,15 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
     ref.read(showConfirmPasswordProvider.notifier).state = !currentState;
   }
 
-  Future<void> _signUp() async {}
+  Future<void> _signUp() async {
+    _node.unfocus();
+    setState(() => _submitted = true);
+    if (_formKey.currentState!.validate()) {
+      print('User can sign up');
+    } else {
+      print('User cannot sign up');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
