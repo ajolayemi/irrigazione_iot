@@ -563,5 +563,9 @@
   "invalidCredentialsErrorText": "The email or password you entered is incorrect",
   "introductorySignInText": "Sign in with your registered account details to continue",
   "noAccountText": "Don't have an account?",
-  "signUpText": "Sign Up"
+  "signUpText": "Sign Up",
+  "signUpButtonTitle": "Sign Up",
+  "confirmPasswordFormFieldTitle": "Confirm Password",
+  "confirmPasswordFormHint": "Re-enter your password...",
+  "alreadyHaveAnAccountText": "Already have an account?"
 }

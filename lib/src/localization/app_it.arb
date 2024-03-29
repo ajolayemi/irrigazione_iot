@@ -210,5 +210,9 @@
   "invalidCredentialsErrorText": "La password o l'indirizzo email inseriti non sono corretti",
   "introductorySignInText": "Accedi con le tue credenziali per continuare",
   "noAccountText": "Non hai un account?",
-  "signUpText": "Registrati"
+  "signUpText": "Registrati",
+  "signUpButtonTitle": "Registrati",
+  "confirmPasswordFormFieldTitle": "Conferma Password",
+  "confirmPasswordFormHint": "Ripeti la tua password...",
+  "alreadyHaveAnAccountText": "Hai già un account?"
 }
