@@ -10,6 +10,7 @@ import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
 
 class SignUpScreenContents extends ConsumerStatefulWidget {
@@ -133,7 +134,7 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
     final obscureConfirmPassword = !ref.watch(showConfirmPasswordProvider);
     return GestureDetector(
       onTap: _node.unfocus,
-      child: SafeArea(
+      child: PaddedSafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
