@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/dont_have_an_account.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/or_sign_with_widget.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/password_visibility_icon_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/providers_sign_in_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_controller.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/forgot_password.dart';
@@ -46,6 +47,7 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
   // * Keys for testing using find.byKey()
   static const emailKey = Key('email');
   static const passwordKey = Key('password');
+  static const passwordVisibilityKey = Key('signInPasswordVisibility');
 
   // local variable used to apply AutovalidateMode.onUserInteraction and show
   // error hints only when the form has been submitted
@@ -189,15 +191,11 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
                         errorText: _errorTextOnLoginFailed,
                         validator: (_) => _passwordErrorText(),
                         onEditingComplete: _passwordEditingComplete,
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            obscurePassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
+                        suffixIcon: PasswordVisibilityIconButton(
+                          key: passwordVisibilityKey,
+                          isVisible: obscurePassword,
                           onPressed: _onTapViewPassword,
                         ),
-                        obscureText: obscurePassword,
                       ),
                       gapH4,
                       ForgotPassword(isLoading: isLoading),
