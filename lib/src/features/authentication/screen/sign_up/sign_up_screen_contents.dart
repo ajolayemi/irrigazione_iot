@@ -137,6 +137,7 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            gapH64,
             Expanded(
               child: CustomScrollView(
                 slivers: [
