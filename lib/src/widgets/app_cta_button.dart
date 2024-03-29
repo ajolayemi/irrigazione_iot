@@ -69,10 +69,10 @@ class SliverCTAButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveCenter(
       maxContentWidth: Breakpoint.tablet,
-      padding: const EdgeInsets.only(
-        right: Sizes.p16,
-        left: Sizes.p16,
-      ),
+      // padding: const EdgeInsets.only(
+      //   right: Sizes.p16,
+      //   left: Sizes.p16,
+      // ),
       child: CTAButton(
         text: text,
         buttonType: buttonType,
