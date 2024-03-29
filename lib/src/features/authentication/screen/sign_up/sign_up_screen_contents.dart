@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
-import 'package:irrigazione_iot/src/features/authentication/screen/sign_up/sign_up_controller.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/already_have_an_account.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/password_visibility_icon_button.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/sliver_sign_up_cta.dart';
 import 'package:irrigazione_iot/src/providers/auth_providers.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
 
 class SignUpScreenContents extends ConsumerStatefulWidget {
   const SignUpScreenContents({super.key});
@@ -32,6 +37,9 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
   static const emailKey = Key('signUpEmail');
   static const passwordKey = Key('signUpPassword');
   static const confirmPasswordKey = Key('signUpConfirmPassword');
+  static const passwordVisibilityKey = Key('signUpPasswordVisibility');
+  static const confirmPasswordVisibilityKey =
+      Key('signUpConfirmPasswordVisibility');
 
   var _submitted = false;
 
@@ -116,12 +124,89 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
     ref.read(showConfirmPasswordProvider.notifier).state = !currentState;
   }
 
+  Future<void> _signUp() async {}
+
   @override
   Widget build(BuildContext context) {
-    final isSigningUp = ref.watch(signUpControllerProvider).isLoading;
     final loc = context.loc;
     final obscurePassword = !ref.watch(showPasswordProvider);
     final obscureConfirmPassword = !ref.watch(showConfirmPasswordProvider);
-    return Container();
+    return GestureDetector(
+      onTap: _node.unfocus,
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: CustomScrollView(
+                slivers: [
+                  ResponsiveSliverForm(
+                    node: _node,
+                    formKey: _formKey,
+                    children: [
+                      gapH64,
+                      // email field
+                      FormTitleAndField(
+                        fieldKey: emailKey,
+                        fieldTitle: loc.emailFormFieldTitle,
+                        fieldHintText: loc.emailFormHint,
+                        fieldController: _emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (_) => _emailErrorText(
+                            existingEmails: []), // TODO: Add existing emails
+                        onEditingComplete: () => _emailEditingComplete(
+                          existingEmails: [], // TODO: Add existing emails
+                        ),
+                      ),
+                      gapH24,
+                      // password field
+                      FormTitleAndField(
+                          fieldKey: passwordKey,
+                          fieldTitle: loc.passwordFormFieldTitle,
+                          fieldHintText: loc.passwordFormHint,
+                          fieldController: _passwordController,
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: obscurePassword,
+                          validator: (_) => _passwordErrorText(),
+                          onEditingComplete: _passwordEditingComplete,
+                          suffixIcon: PasswordVisibilityIconButton(
+                            key: passwordVisibilityKey,
+                            isVisible: obscurePassword,
+                            onPressed: _onTapViewPassword,
+                          )),
+                      gapH24,
+                      // confirm password field
+                      FormTitleAndField(
+                        fieldKey: confirmPasswordKey,
+                        fieldTitle: loc.confirmPasswordFormFieldTitle,
+                        fieldHintText: loc.confirmPasswordFormHint,
+                        fieldController: _confirmPasswordController,
+                        keyboardType: TextInputType.visiblePassword,
+                        obscureText: obscureConfirmPassword,
+                        validator: (_) => _confirmPasswordErrorText(),
+                        onEditingComplete: _confirmPasswordEditingComplete,
+                        suffixIcon: PasswordVisibilityIconButton(
+                          key: confirmPasswordVisibilityKey,
+                          isVisible: obscureConfirmPassword,
+                          onPressed: _onTapViewConfirmPassword,
+                        ),
+                      ),
+
+                      gapH32,
+                      // sign up button
+                      SignUpSliverCtaButton(
+                        onPressed: _signUp,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            // Already have an account? Sign in
+            const AlreadyHaveAnAccount(),
+          ],
+        ),
+      ),
+    );
   }
 }
