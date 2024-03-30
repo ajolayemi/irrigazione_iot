@@ -90,7 +90,8 @@ class FakeAuthRepository implements AuthRepository {
   Future<AppUser?> signUp({
     required AppUser appUser,
     required String password,
-  }) {
+  }) async {
+    await delay(addDelay);
     // Check if the email is already in use
     if (_users.any((user) => user.email == appUser.email)) {
       throw EmailAlreadyInUseException();
