@@ -26,15 +26,21 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
   final _node = FocusScopeNode();
   final _formKey = GlobalKey<FormState>();
 
+  final _nameController = TextEditingController();
+  final _surnameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
+  String get _name => _nameController.text;
+  String get _surname => _surnameController.text;
   String get _email => _emailController.text;
   String get _password => _passwordController.text;
   String get _confirmPassword => _confirmPasswordController.text;
 
   // * Keys for testing using find.byKey()
+  static const nameKey = Key('signUpName');
+  static const surnameKey = Key('signUpSurname');
   static const emailKey = Key('signUpEmail');
   static const passwordKey = Key('signUpPassword');
   static const confirmPasswordKey = Key('signUpConfirmPassword');
@@ -47,6 +53,8 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
   @override
   void dispose() {
     _node.dispose();
+    _nameController.dispose();
+    _surnameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
