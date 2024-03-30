@@ -175,6 +175,30 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
                     formKey: _formKey,
                     children: [
                       gapH64,
+                      // name field
+                      FormTitleAndField(
+                        fieldKey: nameKey,
+                        fieldTitle: loc.nameFormFieldTitle,
+                        fieldHintText: loc.nameFormHint,
+                        fieldController: _nameController,
+                        keyboardType: TextInputType.name,
+                        validator: (_) => _nonEmptyFieldsErrorText(_name),
+                        onEditingComplete: () =>
+                            _nonEmptyFieldsEditingComplete(_name),
+                      ),
+                      gapH16,
+                      // surname field
+                      FormTitleAndField(
+                        fieldKey: surnameKey,
+                        fieldTitle: loc.surnameFormFieldTitle,
+                        fieldHintText: loc.surnameFormHint,
+                        fieldController: _surnameController,
+                        keyboardType: TextInputType.name,
+                        validator: (_) => _nonEmptyFieldsErrorText(_surname),
+                        onEditingComplete: () =>
+                            _nonEmptyFieldsEditingComplete(_surname),
+                      ),
+                      gapH16,
                       // email field
                       FormTitleAndField(
                         fieldKey: emailKey,
