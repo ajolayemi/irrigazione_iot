@@ -61,6 +61,19 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
     super.dispose();
   }
 
+  void _nonEmptyFieldsEditingComplete(String value) {
+    if (canSubmitNonEmptyFields(value: value)) {
+      _node.nextFocus();
+    }
+  }
+
+  String? _nonEmptyFieldsErrorText(String value) {
+    if (!_submitted) return null;
+    return context.getLocalizedErrorText(
+      errorKey: getNonEmptyFieldsErrorKey(value: value),
+    );
+  }
+
   void _emailEditingComplete({
     required List<String?> existingEmails,
   }) {
