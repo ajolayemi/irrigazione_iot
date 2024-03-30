@@ -215,11 +215,13 @@ class _AddUpdateCompanyUserFormContentsState
                     gapH16,
                     Consumer(
                       builder: (context, ref, child) {
-                        final existingMails = isLoading ? <String?>[] : ref
-                                .watch(
-                                    emailsAssociatedWithCompanyStreamProvider)
-                                .valueOrNull ??
-                            [];
+                        final existingMails = isLoading
+                            ? <String?>[]
+                            : ref
+                                    .watch(
+                                        emailsAssociatedWithCompanyStreamProvider)
+                                    .valueOrNull ??
+                                [];
                         return FormTitleAndField(
                           fieldKey: _emailFieldKey,
                           fieldTitle: loc.companyUserEmail,
