@@ -192,6 +192,7 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
                         errorText: _errorTextOnLoginFailed,
                         validator: (_) => _passwordErrorText(),
                         onEditingComplete: _passwordEditingComplete,
+                        obscureText: obscurePassword,
                         suffixIcon: PasswordVisibilityIconButton(
                           key: passwordVisibilityKey,
                           isVisible: obscurePassword,
