@@ -23,6 +23,11 @@ abstract class AuthRepository {
     String newPassword,
   );
 
+  // Sign up an AppUser and returns the user if successful
+  Future<AppUser?> signUp({
+    required AppUser appUser,
+  });
+
   /// Emits the current user
   Stream<AppUser?> authStateChanges();
 
