@@ -212,7 +212,7 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
                           existingEmails: [], // TODO: Add existing emails
                         ),
                       ),
-                      gapH24,
+                      gapH16,
                       // password field
                       FormTitleAndField(
                           fieldKey: passwordKey,
@@ -228,7 +228,7 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
                             isVisible: obscurePassword,
                             onPressed: _onTapViewPassword,
                           )),
-                      gapH24,
+                      gapH16,
                       // confirm password field
                       FormTitleAndField(
                         fieldKey: confirmPasswordKey,
