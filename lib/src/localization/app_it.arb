@@ -214,5 +214,9 @@
   "signUpButtonTitle": "Registrati",
   "confirmPasswordFormFieldTitle": "Conferma Password",
   "confirmPasswordFormHint": "Ripeti la tua password...",
-  "alreadyHaveAnAccountText": "Hai già un account?"
+  "alreadyHaveAnAccountText": "Hai già un account?",
+  "nameFormFieldTitle": "Nome",
+  "nameFormHint": "Inserisci il tuo nome...",
+  "surnameFormFieldTitle": "Cognome",
+  "surnameFormHint": "Inserisci il tuo cognome..."
 }
