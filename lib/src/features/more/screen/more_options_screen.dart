@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/features/more/screen/more_options_screen_contents.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 
 class MoreOptionsScreen extends StatelessWidget {
   const MoreOptionsScreen({super.key});
@@ -7,7 +8,7 @@ class MoreOptionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: SafeArea(
+      body: PaddedSafeArea(
         child: MoreOptionsScreenContent(),
       ),
     );
