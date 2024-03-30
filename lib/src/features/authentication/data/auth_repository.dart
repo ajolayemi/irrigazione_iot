@@ -26,6 +26,7 @@ abstract class AuthRepository {
   // Sign up an AppUser and returns the user if successful
   Future<AppUser?> signUp({
     required AppUser appUser,
+    required String password,
   });
 
   /// Emits the current user
