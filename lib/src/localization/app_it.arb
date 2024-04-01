@@ -218,5 +218,9 @@
   "nameFormFieldTitle": "Nome",
   "nameFormHint": "Mario",
   "surnameFormFieldTitle": "Cognome",
-  "surnameFormHint": "Rossi"
+  "surnameFormHint": "Rossi",
+  "signInPageIntroductoryTitleText": "Benvenuto!",
+  "signUpPageIntroductoryTitleText": "Inizia con noi!",
+  "signUpPageIntroductorySubtitleText": "Crea il tuo account",
+  "signInPageIntroductorySubtitleText": "Accedi al tuo account"
 }

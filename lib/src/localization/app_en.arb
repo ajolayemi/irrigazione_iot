@@ -571,5 +571,9 @@
   "nameFormFieldTitle": "Name",
   "nameFormHint": "John",
   "surnameFormFieldTitle": "Surname",
-  "surnameFormHint": "Doe"
+  "surnameFormHint": "Doe",
+  "signInPageIntroductoryTitleText": "Welcome back!",
+  "signUpPageIntroductoryTitleText": "Get started with us!",
+  "signUpPageIntroductorySubtitleText": "Create your account",
+  "signInPageIntroductorySubtitleText": "Sign into your account"
 }
