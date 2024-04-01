@@ -15,6 +15,7 @@ import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_checkbox_tile.dart';
 
 class ConnectPumpsToSector extends ConsumerWidget {
@@ -27,7 +28,7 @@ class ConnectPumpsToSector extends ConsumerWidget {
     final selectedPumpsId = ref.watch(selectedPumpsIdProvider);
     final loc = context.loc;
     return Scaffold(
-      body: SafeArea(
+      body: PaddedSafeArea(
         child: Column(
           children: [
             Expanded(

@@ -15,6 +15,7 @@ import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 
 class PumpListScreen extends ConsumerWidget {
   const PumpListScreen({super.key});
@@ -33,9 +34,9 @@ class PumpListScreen extends ConsumerWidget {
 
     final companyPumps = ref.watch(companyPumpsStreamProvider);
 
-    return SafeArea(
-      child: Scaffold(
-        body: CustomScrollView(
+    return Scaffold(
+      body: PaddedSafeArea(
+        child: CustomScrollView(
           slivers: [
             AppSliverBar(
               title: context.loc.pumpPageTitle,

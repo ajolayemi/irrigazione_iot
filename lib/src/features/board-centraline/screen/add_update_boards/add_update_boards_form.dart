@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart'
 import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_board_controller.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_board_form_content.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 
 class AddUpdateBoardsForm extends ConsumerWidget {
   const AddUpdateBoardsForm({
@@ -32,7 +33,7 @@ class AddUpdateBoardsForm extends ConsumerWidget {
         }
       },
       child: Scaffold(
-        body: SafeArea(
+        body: PaddedSafeArea(
           child: AddUpdateBoardFormContent(
             formType: formType,
             boardID: boardID,

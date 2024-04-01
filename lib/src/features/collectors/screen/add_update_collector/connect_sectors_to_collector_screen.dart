@@ -14,6 +14,7 @@ import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/widgets/common_add_icon_button.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/widgets/responsive_checkbox_tile.dart';
 import 'package:irrigazione_iot/src/widgets/sliver_adaptive_circular_indicator.dart';
 
@@ -39,7 +40,7 @@ class ConnectSectorsToCollector extends ConsumerWidget {
         ref.watch(sectorsNotConnectedToACollectorStreamProvider);
     final selectedSectorsId = ref.watch(selectedSectorsIdProvider);
     return Scaffold(
-      body: SafeArea(
+      body: PaddedSafeArea(
           child: Column(
         children: [
           Expanded(

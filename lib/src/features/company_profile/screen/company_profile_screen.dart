@@ -9,6 +9,7 @@ import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/common_edit_icon_button.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 
 class CompanyProfileScreen extends ConsumerWidget {
   const CompanyProfileScreen({
@@ -22,7 +23,7 @@ class CompanyProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
     return Scaffold(
-      body: SafeArea(
+      body: PaddedSafeArea(
         child: CustomScrollView(
           slivers: [
             Consumer(

@@ -11,6 +11,7 @@ import 'package:irrigazione_iot/src/features/collectors/screen/collector_details
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/widgets/common_edit_icon_button.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 
 class CollectorDetailsScreen extends ConsumerWidget {
   const CollectorDetailsScreen({
@@ -43,7 +44,7 @@ class CollectorDetailsScreen extends ConsumerWidget {
         ref.watch(collectorSectorsStreamProvider(collectorId)).valueOrNull;
 
     return Scaffold(
-      body: SafeArea(
+      body: PaddedSafeArea(
         child: AsyncValueSliverWidget(
           value: collectorData,
           data: (collector) {

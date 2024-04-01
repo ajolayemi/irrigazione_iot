@@ -19,7 +19,7 @@ class FormTitleAndField extends StatelessWidget {
       this.validator,
       this.textInputAction = TextInputAction.next,
       this.obscureText = false,
-      this.enabled,
+      this.enabled = true,
       this.maxLines,
       this.suffixIcon,
       this.onTap,
@@ -41,7 +41,7 @@ class FormTitleAndField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final int? maxLines;
   final bool obscureText;
-  final bool? enabled;
+  final bool enabled;
   final Widget? suffixIcon;
   final bool canRequestFocus;
   final String? errorText;
@@ -56,7 +56,7 @@ class FormTitleAndField extends StatelessWidget {
         ),
         gapH8,
         IgnorePointer(
-          ignoring: enabled ?? false,
+          ignoring: !enabled,
           child: TextFormField(
             key: fieldKey,
             controller: fieldController,

@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_c
 import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_form_content.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 
 class AddUpdateCompanyForm extends ConsumerWidget {
   const AddUpdateCompanyForm({
@@ -35,7 +36,7 @@ class AddUpdateCompanyForm extends ConsumerWidget {
           }
         },
         child: Scaffold(
-          body: SafeArea(
+          body: PaddedSafeArea(
             child: AddUpdateCompanyFormContent(
               companyID: companyID,
               formType: formType,

@@ -11,6 +11,7 @@ import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/widgets/common_add_icon_button.dart';
 import 'package:irrigazione_iot/src/widgets/common_sliver_list_skeleton.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 
 /// Displays a list of boards, i.e centraline in italian.
 class BoardsListScreen extends ConsumerWidget {
@@ -35,7 +36,7 @@ class BoardsListScreen extends ConsumerWidget {
     return IgnorePointer(
       ignoring: ignoring,
       child: Scaffold(
-        body: SafeArea(
+        body: PaddedSafeArea(
             child: CustomScrollView(
           slivers: [
             AppSliverBar(
