@@ -81,25 +81,19 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
     );
   }
 
-  void _emailEditingComplete({
-    required List<String?> existingEmails,
-  }) {
+  void _emailEditingComplete() {
     if (canSubmitEmail(
       value: _email,
-      mailsToCompareAgainst: existingEmails,
     )) {
       _node.nextFocus();
     }
   }
 
-  String? _emailErrorText({
-    required List<String?> existingEmails,
-  }) {
+  String? _emailErrorText() {
     if (!_submitted) return null;
     return context.getLocalizedErrorText(
         errorKey: getEmailErrorKey(
       value: _email,
-      mailsToCompareAgainst: existingEmails,
     ));
   }
 
@@ -231,18 +225,14 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
                       gapH16,
                       // email field
                       FormTitleAndField(
-                        fieldKey: emailKey,
-                        fieldTitle: loc.emailFormFieldTitle,
-                        fieldHintText: loc.emailFormHint,
-                        fieldController: _emailController,
-                        errorText: _emailAlreadyInUseErrorText,
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (_) => _emailErrorText(
-                            existingEmails: []), // TODO: Add existing emails
-                        onEditingComplete: () => _emailEditingComplete(
-                          existingEmails: [], // TODO: Add existing emails
-                        ),
-                      ),
+                          fieldKey: emailKey,
+                          fieldTitle: loc.emailFormFieldTitle,
+                          fieldHintText: loc.emailFormHint,
+                          fieldController: _emailController,
+                          errorText: _emailAlreadyInUseErrorText,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (_) => _emailErrorText(),
+                          onEditingComplete: _emailEditingComplete),
                       gapH16,
                       // password field
                       FormTitleAndField(
