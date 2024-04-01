@@ -4,6 +4,7 @@ import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_controller.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_form_contents.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 
 class AddUpdateCollectorForm extends ConsumerWidget {
   const AddUpdateCollectorForm({
@@ -27,7 +28,7 @@ class AddUpdateCollectorForm extends ConsumerWidget {
         }
       },
       child: Scaffold(
-        body: SafeArea(
+        body: PaddedSafeArea(
             child: AddUpdateCollectorFormContents(
           collectorId: collectorId,
           formType: formType,

@@ -7,6 +7,7 @@
 enum AppRoute {
   home,
   signIn,
+  signUp,
   companiesListGrid,
   collector,
   collectorDetails,

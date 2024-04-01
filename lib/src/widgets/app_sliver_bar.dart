@@ -7,9 +7,11 @@ class AppSliverBar extends StatelessWidget {
     super.key,
     required this.title,
     this.actions,
+    this.expandedHeight,
   });
 
   final String title;
+  final double? expandedHeight;
   final List<Widget>? actions;
 
   @override
@@ -19,7 +21,7 @@ class AppSliverBar extends StatelessWidget {
       floating: true,
       pinned: true,
       snap: true,
-      expandedHeight: 100.0,
+      expandedHeight: expandedHeight ?? 100.0,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.symmetric(
           vertical: Sizes.p8,

@@ -5,16 +5,34 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'auth_repository.g.dart';
 
 abstract class AuthRepository {
-  Future<void> signInWithEmailAndPassword(String email, String password);
+  /// Sign in with email and password
+  Future<void> signInWithEmailAndPassword(
+    String email,
+    String password,
+  );
 
+  /// Sign in using Google
   Future<void> signInWithGoogle();
 
+  /// Signs user out
   Future<void> signOut();
 
-  Future<void> resetPassword(String email, String newPassword);
+  /// Reset password
+  Future<void> resetPassword(
+    String email,
+    String newPassword,
+  );
 
+  // Sign up an AppUser and returns the user if successful
+  Future<AppUser?> signUp({
+    required AppUser appUser,
+    required String password,
+  });
+
+  /// Emits the current user
   Stream<AppUser?> authStateChanges();
 
+  /// Get the current user
   AppUser? get currentUser;
 }
 
@@ -31,4 +49,3 @@ Stream<AppUser?> authStateChanges(AuthStateChangesRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.authStateChanges();
 }
-

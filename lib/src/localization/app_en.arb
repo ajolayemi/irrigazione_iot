@@ -20,11 +20,11 @@
   "@signInButtonTitle": {
     "description": "The title of the sign in button"
   },
-  "emailFormHint": "Enter your email...",
+  "emailFormHint": "example@example.com",
   "@emailFormHint": {
     "description": "The hint text for the email form field"
   },
-  "passwordFormHint": "Enter your password...",
+  "passwordFormHint": "••••••••",
   "@passwordFormHint": {
     "description": "The hint text for the password form field"
   },
@@ -554,5 +554,26 @@
       }
     }
   },
-  "cantDeleteYourselfDialogTitle": "You can't delete yourself as a user"
+  "cantDeleteYourselfDialogTitle": "You can't delete yourself as a user",
+  "noUppercaseInPasswordErrorText": "Password has to contain at least one uppercase letter",
+  "noLowercaseInPasswordErrorText": "Password has to contain at least one lowercase letter",
+  "noNumberInPasswordErrorText": "Password has to contain at least one number",
+  "noSpecialCharacterInPasswordErrorText": "Password has to contain at least one special character",
+  "passwordsDoNotMatchErrorText": "Passwords do not match",
+  "invalidCredentialsErrorText": "The email or password you entered is incorrect",
+  "introductorySignInText": "Sign in with your registered account details to continue",
+  "noAccountText": "Don't have an account?",
+  "signUpText": "Sign Up",
+  "signUpButtonTitle": "Sign Up",
+  "confirmPasswordFormFieldTitle": "Confirm Password",
+  "confirmPasswordFormHint": "••••••••",
+  "alreadyHaveAnAccountText": "Already have an account?",
+  "nameFormFieldTitle": "Name",
+  "nameFormHint": "John",
+  "surnameFormFieldTitle": "Surname",
+  "surnameFormHint": "Doe",
+  "signInPageIntroductoryTitleText": "Welcome back!",
+  "signUpPageIntroductoryTitleText": "Get started with us!",
+  "signUpPageIntroductorySubtitleText": "Create your account",
+  "signInPageIntroductorySubtitleText": "Sign into your account"
 }

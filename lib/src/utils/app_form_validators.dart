@@ -200,6 +200,67 @@ mixin AppFormValidators {
     return null;
   }
 
+  /// Holds the logic to validate whether can submit password field
+  /// The constraints are:
+  /// - non-empty
+  /// - minimum length of the specified length
+  /// - has at least one uppercase letter
+  /// - has at least one lowercase letter
+  /// - has at least one digit
+  /// - has at least one special character
+  bool canSubmitPassword({required String value, required int minLength}) {
+    return nonEmptyValidator.isValid(value) &&
+        MinLengthStringValidator(minLength).isValid(value) &&
+        PasswordUppercaseValidator().isValid(value) &&
+        PasswordLowercaseValidator().isValid(value) &&
+        PasswordDigitValidator().isValid(value) &&
+        PasswordSpecialCharacterValidator().isValid(value);
+  }
+
+  /// Gets the error key for password field
+  String? getPasswordErrorKey({required String value, required int minLength}) {
+    if (value.isEmpty) {
+      return 'emptyPasswordErrorText';
+    } else if (!MinLengthStringValidator(minLength).isValid(value)) {
+      return 'shortPasswordErrorText';
+    } else if (!PasswordUppercaseValidator().isPartialValid(value)) {
+      return 'noUppercaseInPasswordErrorText';
+    } else if (!PasswordLowercaseValidator().isPartialValid(value)) {
+      return 'noLowercaseInPasswordErrorText';
+    } else if (!PasswordDigitValidator().isPartialValid(value)) {
+      return 'noNumberInPasswordErrorText';
+    } else if (!PasswordSpecialCharacterValidator().isPartialValid(value)) {
+      return 'noSpecialCharacterInPasswordErrorText';
+    }
+    return null;
+  }
+
+
+  /// Validates whether the confirm password field matches the password field
+  /// The constraints are:
+  /// - non-empty
+  /// - matches the password field
+  bool canSubmitConfirmPassword({
+    required String password,
+    required String confirmPassword,
+  }) {
+    return nonEmptyValidator.isValid(confirmPassword) &&
+        confirmPassword == password;
+  }
+
+  /// Gets the error key for confirm password field
+  String? getConfirmPasswordErrorKey({
+    required String password,
+    required String confirmPassword,
+  }) {
+    if (confirmPassword.isEmpty) {
+      return 'emptyPasswordErrorText';
+    } else if (confirmPassword != password) {
+      return 'passwordsDoNotMatchErrorText';
+    }
+    return null;
+  }
+
   /// Holds the logic to validate whether user can submit dependent fields
   /// This is used, for example, to validate the fiscal code and vat number fields
   /// in the form to add or update companies

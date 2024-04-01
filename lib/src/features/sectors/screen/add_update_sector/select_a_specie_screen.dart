@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/re
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 
 class SelectASpecieScreen extends ConsumerWidget {
   const SelectASpecieScreen({super.key});
@@ -13,7 +14,7 @@ class SelectASpecieScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final species = ref.watch(specieNamesFutureProvider);
     return Scaffold(
-      body: SafeArea(
+      body: PaddedSafeArea(
         child: CustomScrollView(
           slivers: [
             AppSliverBar(

@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pump_controller.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pump_form_content.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 
 class AddUpdatePumpForm extends ConsumerWidget {
   const AddUpdatePumpForm({
@@ -33,7 +34,7 @@ class AddUpdatePumpForm extends ConsumerWidget {
         }
       },
       child: Scaffold(
-        body: SafeArea(
+        body: PaddedSafeArea(
           child: AddUpdatePumpContents(
             formType: formType,
             pumpId: pumpId,

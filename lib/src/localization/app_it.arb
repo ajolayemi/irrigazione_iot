@@ -11,8 +11,8 @@
   "@signInButtonTitle": {
     "description": "The title of the sign in button"
   },
-  "emailFormHint": "Inserisci la tua email...",
-  "passwordFormHint": "Inserisci la tua password...",
+  "emailFormHint": "esempio@esempio.com",
+  "passwordFormHint": "••••••••",
   "signInWithGoogleButtonTitle": "Google",
   "forgotPasswordButtonTitle": "Password dimenticata?",
   "orText": "oppure accedi con",
@@ -201,5 +201,26 @@
   "me": "Io",
   "companyUserDismissalDialogTitle": "Sei sicuro di voler eliminare questo utente?",
   "companyUserDismissalDialogContent": "Stai per eliminare {companyUserName} come utente",
-  "cantDeleteYourselfDialogTitle": "Non puoi eliminare te stesso come utente"
+  "cantDeleteYourselfDialogTitle": "Non puoi eliminare te stesso come utente",
+  "noUppercaseInPasswordErrorText": "La password deve contenere almeno una lettera maiuscola",
+  "noLowercaseInPasswordErrorText": "La password deve contenere almeno una lettera minuscola",
+  "noNumberInPasswordErrorText": "La password deve contenere almeno un numero",
+  "noSpecialCharacterInPasswordErrorText": "La password deve contenere almeno un carattere speciale",
+  "passwordsDoNotMatchErrorText": "Le password non corrispondono",
+  "invalidCredentialsErrorText": "La password o l'indirizzo email inseriti non sono corretti",
+  "introductorySignInText": "Accedi con le tue credenziali per continuare",
+  "noAccountText": "Non hai un account?",
+  "signUpText": "Registrati",
+  "signUpButtonTitle": "Registrati",
+  "confirmPasswordFormFieldTitle": "Conferma Password",
+  "confirmPasswordFormHint": "••••••••",
+  "alreadyHaveAnAccountText": "Hai già un account?",
+  "nameFormFieldTitle": "Nome",
+  "nameFormHint": "Mario",
+  "surnameFormFieldTitle": "Cognome",
+  "surnameFormHint": "Rossi",
+  "signInPageIntroductoryTitleText": "Benvenuto!",
+  "signUpPageIntroductoryTitleText": "Inizia con noi!",
+  "signUpPageIntroductorySubtitleText": "Crea il tuo account",
+  "signInPageIntroductorySubtitleText": "Accedi al tuo account"
 }

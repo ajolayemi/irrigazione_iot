@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/authentication/data/fake_app_user.dart';
 import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
+import 'package:irrigazione_iot/src/utils/gen_fake_uuid.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
 class FakeAuthRepository implements AuthRepository {
@@ -85,6 +86,30 @@ class FakeAuthRepository implements AuthRepository {
         kFakeUsers[Random(kFakeUsers.length).nextInt(kFakeUsers.length)];
   }
 
+  @override
+  Future<AppUser?> signUp({
+    required AppUser appUser,
+    required String password,
+  }) async {
+    await delay(addDelay);
+    // Check if the email is already in use
+    if (_users.any((user) => user.email == appUser.email)) {
+      throw EmailAlreadyInUseException();
+    }
+
+    // No other checks are performed here since the form validation should have already
+    // checked for the validity of the email, password, and other fields
+    final userToAdd = FakeAppUser(
+      uid: genFakeUuid(appUser.email),
+      email: appUser.email,
+      name: appUser.name,
+      surname: appUser.surname,
+      password: password,
+    );
+
+    _users.add(userToAdd);
+    return Future.value(userToAdd);
+  }
 
   void dispose() => _authState.close();
 }
