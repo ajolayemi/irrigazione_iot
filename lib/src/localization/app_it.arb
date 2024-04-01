@@ -11,8 +11,8 @@
   "@signInButtonTitle": {
     "description": "The title of the sign in button"
   },
-  "emailFormHint": "Inserisci la tua email...",
-  "passwordFormHint": "Inserisci la tua password...",
+  "emailFormHint": "esempio@esempio.com",
+  "passwordFormHint": "••••••••",
   "signInWithGoogleButtonTitle": "Google",
   "forgotPasswordButtonTitle": "Password dimenticata?",
   "orText": "oppure accedi con",
@@ -213,10 +213,10 @@
   "signUpText": "Registrati",
   "signUpButtonTitle": "Registrati",
   "confirmPasswordFormFieldTitle": "Conferma Password",
-  "confirmPasswordFormHint": "Ripeti la tua password...",
+  "confirmPasswordFormHint": "••••••••",
   "alreadyHaveAnAccountText": "Hai già un account?",
   "nameFormFieldTitle": "Nome",
-  "nameFormHint": "Inserisci il tuo nome...",
+  "nameFormHint": "Mario",
   "surnameFormFieldTitle": "Cognome",
-  "surnameFormHint": "Inserisci il tuo cognome..."
+  "surnameFormHint": "Rossi"
 }

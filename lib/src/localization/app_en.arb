@@ -20,11 +20,11 @@
   "@signInButtonTitle": {
     "description": "The title of the sign in button"
   },
-  "emailFormHint": "Enter your email...",
+  "emailFormHint": "example@example.com",
   "@emailFormHint": {
     "description": "The hint text for the email form field"
   },
-  "passwordFormHint": "Enter your password...",
+  "passwordFormHint": "••••••••",
   "@passwordFormHint": {
     "description": "The hint text for the password form field"
   },
@@ -566,10 +566,10 @@
   "signUpText": "Sign Up",
   "signUpButtonTitle": "Sign Up",
   "confirmPasswordFormFieldTitle": "Confirm Password",
-  "confirmPasswordFormHint": "Re-enter your password...",
+  "confirmPasswordFormHint": "••••••••",
   "alreadyHaveAnAccountText": "Already have an account?",
   "nameFormFieldTitle": "Name",
-  "nameFormHint": "Enter your name...",
+  "nameFormHint": "John",
   "surnameFormFieldTitle": "Surname",
-  "surnameFormHint": "Enter your surname..."
+  "surnameFormHint": "Doe"
 }
