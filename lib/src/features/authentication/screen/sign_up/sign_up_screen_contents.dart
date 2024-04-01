@@ -190,7 +190,6 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            gapH64,
             Expanded(
               child: CustomScrollView(
                 slivers: [
@@ -198,7 +197,17 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
                     node: _node,
                     formKey: _formKey,
                     children: [
-                      gapH16,
+                      gapH32,
+                      Text(
+                        loc.signUpPageIntroductoryTitleText,
+                        style: context.textTheme.titleLarge,
+                      ),
+                      gapH8,
+                      Text(
+                        loc.signUpPageIntroductorySubtitleText,
+                        style: context.textTheme.titleSmall,
+                      ),
+                      gapH32,
                       // name field
                       FormTitleAndField(
                         fieldKey: nameKey,
