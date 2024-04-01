@@ -148,8 +148,8 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
   Widget build(BuildContext context) {
     final isLoading = ref.watch(signInControllerProvider).isLoading;
     final loc = context.loc;
-
     final obscurePassword = !ref.watch(showPasswordProvider);
+    final textTheme = context.textTheme;
 
     return GestureDetector(
       onTap: _node.unfocus,
@@ -164,7 +164,17 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
                     node: _node,
                     formKey: _formKey,
                     children: [
-                      gapH64,
+                      gapH32,
+                      Text(
+                        loc.signInPageIntroductoryTitleText,
+                        style: textTheme.titleLarge,
+                      ),
+                      gapH8,
+                      Text(
+                        loc.signInPageIntroductorySubtitleText,
+                        style: textTheme.titleSmall,
+                      ),
+                      gapH32,
                       // email field
                       FormTitleAndField(
                         fieldKey: emailKey,
