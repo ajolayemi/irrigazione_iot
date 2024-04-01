@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
+import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_up/sign_up_controller.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/already_have_an_account.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/password_visibility_icon_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/sliver_sign_up_cta.dart';
@@ -50,6 +55,8 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
 
   var _submitted = false;
 
+  // Text error to display when the email is already in use
+  String? _emailAlreadyInUseErrorText;
   @override
   void dispose() {
     _node.dispose();
@@ -136,8 +143,8 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
   }
 
   void _onTapViewPassword() {
-    final currentState = ref.read(showPasswordProvider);
-    ref.read(showPasswordProvider.notifier).state = !currentState;
+    final currentState = ref.read(showSignUpPasswordProvider);
+    ref.read(showSignUpPasswordProvider.notifier).state = !currentState;
   }
 
   void _onTapViewConfirmPassword() {
@@ -146,19 +153,42 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
   }
 
   Future<void> _signUp() async {
+    final loc = context.loc;
     _node.unfocus();
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
-      print('User can sign up');
+      final data = AppUser(
+        uid: '',
+        email: _email,
+        name: _name,
+        surname: _surname,
+      );
+
+      final signUpSuccess = await ref
+          .read(signUpControllerProvider.notifier)
+          .signUpUser(appUser: data, password: _password);
+
+      final hasEmailAlreadyInUseError = ref.read(signUpControllerProvider).error
+          is EmailAlreadyInUseException;
+      if (hasEmailAlreadyInUseError) {
+        _emailAlreadyInUseErrorText = loc.emailAlreadyInUseErrorText;
+        return;
+      }
+
+      if (signUpSuccess) {
+        _popScreen();
+      }
     } else {
-      print('User cannot sign up');
+      debugPrint('User cannot sign up');
     }
   }
+
+  void _popScreen() => context.goNamed(AppRoute.signIn.name);
 
   @override
   Widget build(BuildContext context) {
     final loc = context.loc;
-    final obscurePassword = !ref.watch(showPasswordProvider);
+    final obscurePassword = !ref.watch(showSignUpPasswordProvider);
     final obscureConfirmPassword = !ref.watch(showConfirmPasswordProvider);
     return GestureDetector(
       onTap: _node.unfocus,
@@ -174,7 +204,7 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
                     node: _node,
                     formKey: _formKey,
                     children: [
-                      gapH64,
+                      gapH16,
                       // name field
                       FormTitleAndField(
                         fieldKey: nameKey,
@@ -205,6 +235,7 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
                         fieldTitle: loc.emailFormFieldTitle,
                         fieldHintText: loc.emailFormHint,
                         fieldController: _emailController,
+                        errorText: _emailAlreadyInUseErrorText,
                         keyboardType: TextInputType.emailAddress,
                         validator: (_) => _emailErrorText(
                             existingEmails: []), // TODO: Add existing emails
@@ -250,7 +281,8 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
                       // sign up button
                       SignUpSliverCtaButton(
                         onPressed: _signUp,
-                      )
+                      ),
+                      gapH32,
                     ],
                   ),
                 ],
