@@ -52,7 +52,6 @@ final _sectorShellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'Sector');
 final _moreShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'More');
 
-
 @Riverpod(keepAlive: true)
 GoRouter goRouter(GoRouterRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
@@ -106,8 +105,10 @@ GoRouter goRouter(GoRouterRef ref) {
       GoRoute(
         path: '/companies-list-grid',
         name: AppRoute.companiesListGrid.name,
-        pageBuilder: (context, state) =>
-            const NoTransitionPage(child: UserCompaniesListScreen()),
+        pageBuilder: (context, state) => const MaterialPage(
+          child: UserCompaniesListScreen(),
+          fullscreenDialog: true,
+        ),
       ),
       // Stateful navigation based on:
       // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
