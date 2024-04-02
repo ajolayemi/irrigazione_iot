@@ -37,6 +37,8 @@ class SectorDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // TODO: show sector pressure in the details screen (linea di aduzione)
+    // TODO: add an icon to show how many sensors are connected to this sector
     final canEdit = ref.watch(companyUserRoleProvider).valueOrNull?.canEdit;
     final sectorData = ref.watch(sectorStreamProvider(sectorID));
     final sectorConnectedPumps =

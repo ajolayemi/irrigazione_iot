@@ -12,6 +12,7 @@ class SectorListTileSubtitle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // TODO: add after sector name an indicator to show whether a sector is on
     // TODO: sector list tile should become ExpansionTile
     // TODO: when expanded, user should see
     // TODO: - switch to turn on/off the sector
@@ -22,6 +23,10 @@ class SectorListTileSubtitle extends ConsumerWidget {
     // TODO: last irrigation date should follow this format
     // TODO: esempio dom. 31 marzo 12:00 (giorno e ore, 2 gg e 3 ore fa or 1 ora fa )
     // TODO: second case for when it's <= a single day difference
+
+    // TODO: Expansion tile is not needed anymore
+    // TODO: the details screen should follow the same structure as that of pumps
+    // TODO: add Connected Sensors to the sector details screen
     final dateFormatter = ref.watch(dateFormatWithTimeProvider);
     final lastIrrigatedDate =
         ref.watch(sectorLastIrrigatedStreamProvider(sector)).valueOrNull;

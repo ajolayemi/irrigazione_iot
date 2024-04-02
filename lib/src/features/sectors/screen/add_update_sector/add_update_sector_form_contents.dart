@@ -364,6 +364,7 @@ class _AddUpdateSectorFormContentsState
                   ),
                   gapH16,
                   // variety field
+                  // TODO: should be dropdown just like specie
                   FormTitleAndField(
                     enabled: !isLoading,
                     fieldKey: _varietyFieldKey,
@@ -503,6 +504,7 @@ class _AddUpdateSectorFormContentsState
                           usedSectorOffCommands ?? [])),
                   gapH16,
                   // connected pump field
+                  // TODO: a sector can have just a single pump
                   Consumer(
                     builder: (context, ref, child) {
                       final selectedPumps = ref.watch(selectedPumpsIdProvider);

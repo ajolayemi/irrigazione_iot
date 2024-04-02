@@ -49,9 +49,12 @@ class PumpListTile extends ConsumerWidget {
     final globalLoadingState =
         ref.watch(pumpStatusSwitchControllerProvider).isGlobalLoading;
 
-    final isDeleting =
-        ref.watch(dismissPumpControllerProvider).isLoading;
+    final isDeleting = ref.watch(dismissPumpControllerProvider).isLoading;
 
+    // TODO: Remove switch
+    // TODO: replace with normal Outlined Button
+    // TODO: an indicator after pump name to indicate if on or off
+    // TODO: info icon button to view details
     return ResponsiveCenter(
       maxContentWidth: Breakpoint.tablet,
       child: InkWell(
@@ -69,9 +72,9 @@ class PumpListTile extends ConsumerWidget {
           onDismissed: (_) {},
           isDeleting: isDeleting,
           child: ListTile(
-            title: Text(pump.name),                
+            title: Text(pump.name),
             subtitle: PumpListTileSubtitle(pump: pump),
-            trailing: PumpSwitch(pump: pump),
+            trailing: OutlinedButton(onPressed: () {}, child: Text('Spegni'))
           ),
         ),
       ),

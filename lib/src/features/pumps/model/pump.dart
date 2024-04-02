@@ -5,6 +5,10 @@ import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 
 typedef PumpID = String;
 
+// TODO: add pump company
+// TODO: prevalenza, portata,
+
+
 class Pump extends Equatable {
   const Pump({
     required this.id,

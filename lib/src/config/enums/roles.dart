@@ -5,6 +5,10 @@ enum CompanyUserRoles {
   user,
 }
 
+
+// TODO for the first version
+// TODO superuser should be the only one who can perform CUD operations
+
 extension CompanyUserRolesExtension on CompanyUserRoles {
   bool get canEdit {
     return this == CompanyUserRoles.admin || this == CompanyUserRoles.owner;
