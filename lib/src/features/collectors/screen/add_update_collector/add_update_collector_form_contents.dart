@@ -238,6 +238,9 @@ class _AddUpdateCollectorFormContentsState
                   ),
                   gapH16,
                   // filter name field
+                  // TODO: this is not always available, take into consideration
+                  // TODO Use flags to indicate if a collector has a filter
+                  // TODO if it does, takes the same name as that of collector
                   FormTitleAndField(
                     enabled: !isLoading,
                     fieldKey: _filterNameKey,

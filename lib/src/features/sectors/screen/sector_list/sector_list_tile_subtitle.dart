@@ -19,6 +19,9 @@ class SectorListTileSubtitle extends ConsumerWidget {
     // TODO: - if on, since when is this sector being irrigated
     // TODO: - if on and automatic, how much longer till the end
     // TODO: - average litres/plant in the last 7 days
+    // TODO: last irrigation date should follow this format
+    // TODO: esempio dom. 31 marzo 12:00 (giorno e ore, 2 gg e 3 ore fa or 1 ora fa )
+    // TODO: second case for when it's <= a single day difference
     final dateFormatter = ref.watch(dateFormatWithTimeProvider);
     final lastIrrigatedDate =
         ref.watch(sectorLastIrrigatedStreamProvider(sector)).valueOrNull;

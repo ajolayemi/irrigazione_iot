@@ -1,8 +1,8 @@
 enum CompanyUserRoles {
-  admin,
-  user,
   superuser,
   owner,
+  admin,
+  user,
 }
 
 extension CompanyUserRolesExtension on CompanyUserRoles {
