@@ -212,6 +212,9 @@ class _AddUpdateCompanyFormContentsState
     final loc = context.loc;
     final isLoading = ref.watch(addUpdateCompanyControllerProvider).isLoading;
 
+    // TODO add company id field to form, it should not be modifiable
+    // TODO and should be filled progressively when user is adding a new company
+
     return GestureDetector(
       onTap: _node.unfocus,
       child: Column(
