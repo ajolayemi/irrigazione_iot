@@ -131,3 +131,6 @@ macos/firebase_app_id_file.json
 android/app/google-services.json
 
 untranslated_messages.txt
+
+// node related files
+node_modules/
