@@ -139,12 +139,8 @@ values
 
 -- Seed data for pump_pressures table
 insert into
-    public.pump_pressures (
-        pressure,
-        pressure_timestamp,
-        pump_id
-    ) 
-    values
+    public.pump_pressures (pressure, pressure_timestamp, pump_id)
+values
     (1.2, now (), 1),
     (1.3, now (), 2),
     (1.4, now (), 3),
@@ -309,6 +305,17 @@ values
         3,
         now ()
     );
+
+-- Seed data for sector_pumps table
+insert into
+    public.sector_pumps (sector_id, pump_id)
+values
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6);
 
 -- Seed data for collector table
 insert into
