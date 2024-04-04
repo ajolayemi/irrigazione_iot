@@ -120,6 +120,23 @@ values
         '12'
     );
 
+-- Seed data for pump_statuses table
+insert into
+    public.pump_statuses (status, pump_id, status_timestamp)
+values
+    ('1', 1, now ()),
+    ('2', 1, now ()),
+    ('3', 2, now ()),
+    ('4', 2, now ()),
+    ('5', 3, now ()),
+    ('6', 3, now ()),
+    ('7', 4, now ()),
+    ('8', 4, now ()),
+    ('9', 5, now ()),
+    ('10', 5, now ()),
+    ('11', 6, now ()),
+    ('12', 6, now ());
+
 -- Seed data for species table
 insert into
     public.species (name)
