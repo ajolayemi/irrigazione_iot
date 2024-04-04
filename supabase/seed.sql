@@ -90,15 +90,35 @@ insert into
         consume_rate_in_kw,
         company_id,
         created_at,
-        updated_at
+        updated_at,
+        turn_on_command,
+        turn_off_command
     )
 values
-    ('Pompa 1', 1000, 100, 1, now (), now ()),
-    ('Pompa 2', 2000, 200, 1, now (), now ()),
-    ('Pompa 3', 3000, 300, 2, now (), now ()),
-    ('Pompa 4', 4000, 400, 2, now (), now ()),
-    ('Pompa 5', 5000, 500, 3, now (), now ()),
-    ('Pompa 6', 6000, 600, 3, now (), now ());
+    ('Pompa 1', 1000, 100, 1, now (), now (), '1', '2'),
+    ('Pompa 2', 2000, 200, 1, now (), now (), '3', '4'),
+    ('Pompa 3', 3000, 300, 2, now (), now (), '5', '6'),
+    ('Pompa 4', 4000, 400, 2, now (), now (), '7', '8'),
+    (
+        'Pompa 5',
+        5000,
+        500,
+        3,
+        now (),
+        now (),
+        '9',
+        '10'
+    ),
+    (
+        'Pompa 6',
+        6000,
+        600,
+        3,
+        now (),
+        now (),
+        '11',
+        '12'
+    );
 
 -- Seed data for species table
 insert into
@@ -363,8 +383,8 @@ insert into
         filter_out_pressure,
         pressure_timestamp,
         collector_id
-    ) 
-    values
+    )
+values
     (1.2, 1.1, now (), 1),
     (1.3, 1.2, now (), 2),
     (1.4, 1.3, now (), 3),
