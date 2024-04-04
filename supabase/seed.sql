@@ -328,6 +328,23 @@ values
     (1.6, now (), 5),
     (1.7, now (), 6);
 
+-- Seed data for sector_statuses table
+insert into
+    public.sector_statuses (status, sector_id, status_timestamp)
+values
+    ('1', 1, now ()),
+    ('2', 1, now ()),
+    ('3', 2, now ()),
+    ('4', 2, now ()),
+    ('5', 3, now ()),
+    ('6', 3, now ()),
+    ('7', 4, now ()),
+    ('8', 4, now ()),
+    ('9', 5, now ()),
+    ('10', 5, now ()),
+    ('11', 6, now ()),
+    ('12', 6, now ());
+
 -- Seed data for collector table
 insert into
     public.collectors (
