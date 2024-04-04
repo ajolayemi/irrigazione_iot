@@ -277,10 +277,70 @@ values
 -- Seed data for collector_sectors table
 insert into
     public.collector_sectors (collector_id, sector_id, company_id)
-    values 
+values
     (1, 1, 1),
     (2, 2, 1),
     (3, 3, 2),
     (4, 4, 2),
     (5, 5, 3),
     (6, 6, 3);
+
+-- Seed data for boards table
+insert into
+    public.boards (
+        name,
+        model,
+        serial_number,
+        collector_id,
+        company_id,
+        updated_at
+    )
+values
+    (
+        'arduino mkr 3',
+        'mkr 3',
+        '1234567890',
+        1,
+        1,
+        now ()
+    ),
+    (
+        'arduino mkr 4',
+        'mkr 4',
+        '1234567891',
+        2,
+        1,
+        now ()
+    ),
+    (
+        'arduino mkr 5',
+        'mkr 5',
+        '1234567892',
+        3,
+        2,
+        now ()
+    ),
+    (
+        'arduino mkr 6',
+        'mkr 6',
+        '1234567893',
+        4,
+        2,
+        now ()
+    ),
+    (
+        'arduino mkr 7',
+        'mkr 7',
+        '1234567894',
+        5,
+        3,
+        now ()
+    ),
+    (
+        'arduino mkr 8',
+        'mkr 8',
+        '1234567895',
+        6,
+        3,
+        now ()
+    );
