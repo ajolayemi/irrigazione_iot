@@ -1,0 +1,1 @@
+ALTER TABLE public.sectors ADD CONSTRAINT sectors_turn_on_off_command_key UNIQUE (turn_on_command, turn_off_command);
