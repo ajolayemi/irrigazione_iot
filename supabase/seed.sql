@@ -273,3 +273,14 @@ values
     ('S4 (cisterne)', 'filtro s4', now (), 2),
     ('S5 (pozzo)', 'filtro s5', now (), 3),
     ('S6 (lago)', 'filtro s6', now (), 3);
+
+-- Seed data for collector_sectors table
+insert into
+    public.collector_sectors (collector_id, sector_id, company_id)
+    values 
+    (1, 1, 1),
+    (2, 2, 1),
+    (3, 3, 2),
+    (4, 4, 2),
+    (5, 5, 3),
+    (6, 6, 3);
