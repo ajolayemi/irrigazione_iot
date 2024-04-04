@@ -147,4 +147,113 @@ values
     ('Mela Royal Gala'),
     ('Mela Renetta'),
     ('Mela Annurca'),
-    ('Mela Stark Delicious')
+    ('Mela Stark Delicious');
+
+-- Seed data for sectors table
+insert into
+    public.sectors (
+        name,
+        area,
+        num_of_plants,
+        water_consumption_per_hour,
+        irrigation_system_type,
+        irrigation_source,
+        turn_on_command,
+        turn_off_command,
+        notes,
+        specie_id,
+        variety_id,
+        company_id,
+        updated_at
+    )
+values
+    (
+        'ME7',
+        100,
+        20,
+        2,
+        'pivot',
+        'pozzo',
+        '1',
+        '2',
+        'casa me8',
+        1,
+        2,
+        1,
+        now ()
+    ),
+    (
+        'ME8',
+        300,
+        25,
+        3,
+        'rotolo',
+        'lago',
+        '3',
+        '4',
+        '',
+        1,
+        1,
+        1,
+        now ()
+    ),
+    (
+        'san lio basso',
+        400,
+        100,
+        2,
+        'rotolo',
+        'lago',
+        '5',
+        '6',
+        '',
+        2,
+        1,
+        2,
+        now ()
+    ),
+    (
+        'san lio alto',
+        500,
+        200,
+        3,
+        'pivot',
+        'pozzo',
+        '7',
+        '8',
+        '',
+        2,
+        2,
+        2,
+        now ()
+    ),
+    (
+        'valenziani',
+        600,
+        300,
+        4,
+        'pivot',
+        'pozzo',
+        '9',
+        '10',
+        '',
+        3,
+        1,
+        3,
+        now ()
+    ),
+    (
+        'valenziani 2',
+        700,
+        400,
+        5,
+        'rotolo',
+        'lago',
+        '11',
+        '12',
+        '',
+        3,
+        2,
+        3,
+        now ()
+    )
