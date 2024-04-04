@@ -80,4 +80,22 @@ values
         now (),
         now (),
         3
+    );
+
+-- Seed data for pumps table
+insert into
+    public.pumps (
+        name,
+        capacity_in_volume,
+        consume_rate_in_kw,
+        company_id,
+        created_at,
+        updated_at
     )
+values
+    ('Pompa 1', 1000, 100, 1, now (), now ()),
+    ('Pompa 2', 2000, 200, 1, now (), now ()),
+    ('Pompa 3', 3000, 300, 2, now (), now ()),
+    ('Pompa 4', 4000, 400, 2, now (), now ()),
+    ('Pompa 5', 5000, 500, 3, now (), now ()),
+    ('Pompa 6', 6000, 600, 3, now (), now ())
