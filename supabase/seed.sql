@@ -344,3 +344,14 @@ values
         3,
         now ()
     );
+
+-- Seed data for board_statuses table
+insert into
+    public.board_statuses (battery_level, status_timestamp, board_id)
+values
+    (0.2, now (), 1),
+    (0.3, now (), 2),
+    (0.4, now (), 3),
+    (0.5, now (), 4),
+    (0.6, now (), 5),
+    (0.7, now (), 6);
