@@ -256,4 +256,20 @@ values
         2,
         3,
         now ()
+    );
+
+-- Seed data for collector table
+insert into
+    public.collectors (
+        name,
+        connected_filter_name,
+        updated_at,
+        company_id
     )
+values
+    ('S1 (cisterne)', 'filtro s1', now (), 1),
+    ('S2 (pozzo)', 'filtro s2', now (), 1),
+    ('S3 (lago)', 'filtro s3', now (), 2),
+    ('S4 (cisterne)', 'filtro s4', now (), 2),
+    ('S5 (pozzo)', 'filtro s5', now (), 3),
+    ('S6 (lago)', 'filtro s6', now (), 3);
