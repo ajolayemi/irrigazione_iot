@@ -137,6 +137,21 @@ values
     ('11', 6, now ()),
     ('12', 6, now ());
 
+-- Seed data for pump_pressures table
+insert into
+    public.pump_pressures (
+        pressure,
+        pressure_timestamp,
+        pump_id
+    ) 
+    values
+    (1.2, now (), 1),
+    (1.3, now (), 2),
+    (1.4, now (), 3),
+    (1.5, now (), 4),
+    (1.6, now (), 5),
+    (1.7, now (), 6);
+
 -- Seed data for species table
 insert into
     public.species (name)
