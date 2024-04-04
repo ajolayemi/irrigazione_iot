@@ -355,3 +355,19 @@ values
     (0.5, now (), 4),
     (0.6, now (), 5),
     (0.7, now (), 6);
+
+-- Seed data for collector_pressures table
+insert into
+    public.collector_pressures (
+        filter_in_pressure,
+        filter_out_pressure,
+        pressure_timestamp,
+        collector_id
+    ) 
+    values
+    (1.2, 1.1, now (), 1),
+    (1.3, 1.2, now (), 2),
+    (1.4, 1.3, now (), 3),
+    (1.5, 1.4, now (), 4),
+    (1.6, 1.5, now (), 5),
+    (1.7, 1.6, now (), 6);
