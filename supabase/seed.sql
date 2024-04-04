@@ -124,4 +124,27 @@ values
     ('ananas'),
     ('banana'),
     ('papaya'),
-    ('cocco')
+    ('cocco');
+
+-- Seed data for varieties table
+insert into
+    public.varieties (name)
+values
+    ('Tarocco'),
+    ('Moro'),
+    ('Sanguinello'),
+    ('Valencia'),
+    ('Navel'),
+    ('Washington'),
+    ('Mela Rossa'),
+    ('Mela Verde'),
+    ('Mela Gialla'),
+    ('Mela Fuji'),
+    ('Mela Pink Lady'),
+    ('Mela Granny Smith'),
+    ('Mela Golden'),
+    ('Mela Red Delicious'),
+    ('Mela Royal Gala'),
+    ('Mela Renetta'),
+    ('Mela Annurca'),
+    ('Mela Stark Delicious')
