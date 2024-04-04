@@ -98,4 +98,30 @@ values
     ('Pompa 3', 3000, 300, 2, now (), now ()),
     ('Pompa 4', 4000, 400, 2, now (), now ()),
     ('Pompa 5', 5000, 500, 3, now (), now ()),
-    ('Pompa 6', 6000, 600, 3, now (), now ())
+    ('Pompa 6', 6000, 600, 3, now (), now ());
+
+-- Seed data for species table
+insert into
+    public.species (name)
+values
+    ('arancia'),
+    ('mela'),
+    ('pera'),
+    ('pesca'),
+    ('ciliegia'),
+    ('albicocca'),
+    ('prugna'),
+    ('fico'),
+    ('uva'),
+    ('melograno'),
+    ('kiwi'),
+    ('limone'),
+    ('mandarino'),
+    ('pompelmo'),
+    ('limetta'),
+    ('clementina'),
+    ('mango'),
+    ('ananas'),
+    ('banana'),
+    ('papaya'),
+    ('cocco')
