@@ -36,4 +36,48 @@ values
         '12345678901',
         '12345678901',
         ''
+    );
+
+-- Seed data for companies_user table
+insert into
+    public.companies_user (
+        email,
+        full_name,
+        role,
+        created_at,
+        updated_at,
+        company_id
+    )
+values
+    (
+        'test1@email.com',
+        'Kehinde Jolayemi',
+        'admin',
+        now (),
+        now (),
+        1
+    ),
+    (
+        'test1@email.com',
+        'Kehinde Jolayemi',
+        'user',
+        now (),
+        now (),
+        2
+    ),
+    (
+        'test2@email.com',
+        'Salvo Clemenza',
+        'superuser',
+        now (),
+        now (),
+        2
+    ),
+    (
+        'test2@email.com',
+        'Salvo Clemenza',
+        'user',
+        now (),
+        now (),
+        3
     )
