@@ -317,6 +317,17 @@ values
     (5, 5),
     (6, 6);
 
+-- Seed data for sector_pressures table
+insert into
+    public.sector_pressures (pressure, pressure_timestamp, sector_id)
+values
+    (1.2, now (), 1),
+    (1.3, now (), 2),
+    (1.4, now (), 3),
+    (1.5, now (), 4),
+    (1.6, now (), 5),
+    (1.7, now (), 6);
+
 -- Seed data for collector table
 insert into
     public.collectors (
