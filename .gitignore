@@ -114,7 +114,7 @@ app.*.map.json
 firebase-exports
 
 # Environment variables
-.env
+.env.**
 
 # Ignore test coverage data
 coverage/
@@ -130,7 +130,8 @@ macos/Runner/GoogleService-Info.plist
 macos/firebase_app_id_file.json
 android/app/google-services.json
 
+# Translations
 untranslated_messages.txt
 
-// node related files
+# node related files
 node_modules/
