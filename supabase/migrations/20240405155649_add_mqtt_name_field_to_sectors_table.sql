@@ -1,0 +1,2 @@
+ALTER TABLE public.sectors
+ADD COLUMN mqtt_msg_name VARCHAR NOT NULL UNIQUE;
