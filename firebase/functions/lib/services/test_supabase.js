@@ -4,8 +4,8 @@ require("dotenv").config({ path: `../../../.env.${process.env.NODE_ENV}` });
 const supabase_js_1 = require("@supabase/supabase-js");
 const supabase = (0, supabase_js_1.createClient)(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
 (async () => {
-    const { data, error } = await supabase.functions.invoke("hello-world", {
-        body: { name: "Functions" },
+    const { data, error } = await supabase.functions.invoke("get-company-by-id", {
+        body: { name: "Jolayemi" },
     });
     console.log(data, error);
 })();
