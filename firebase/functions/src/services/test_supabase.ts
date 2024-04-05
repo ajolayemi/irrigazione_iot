@@ -1,4 +1,4 @@
-import {getCompanyById} from "../database/companies/read_companies_data";
+import {getCompanyById} from "../database/companies/read_company_data";
 import {getSecretFromCloud} from "./secrets";
 
 (async () => {
