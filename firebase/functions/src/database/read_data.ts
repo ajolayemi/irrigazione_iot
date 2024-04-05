@@ -10,7 +10,6 @@ export const getCompanyById = async (id: string): Promise<Tables<'companies'>> =
         body: {id},
     });
 
-
     if (error) {
         throw error;
     }
