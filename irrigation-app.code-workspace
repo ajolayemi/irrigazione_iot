@@ -11,13 +11,18 @@
       {
         "name": "supabase-functions",
         "path": "supabase/functions"
+      },
+      {
+        "name": "firebase-functions",
+        "path": "functions"
       }
     ],
     "settings": {
       "files.exclude": {
         "node_modules/": true,
         "app/": true,
-        "supabase/functions/": true
+        "supabase/functions/": true,
+        "functions/": true
       },
       "deno.importMap": "./supabase/functions/import_map.json"
     }
