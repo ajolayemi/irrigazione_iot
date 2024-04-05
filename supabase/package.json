@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "update-local-types-for-edge": "npx supabase gen types typescript --local > types/supabase.ts",
+    "update-types-for-edge": "npx supabase gen types typescript --project-id \"$PROJECT_REF\" > types/supabase.ts"
+  }
+}
