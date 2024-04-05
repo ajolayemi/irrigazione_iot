@@ -401,15 +401,16 @@ insert into
         name,
         connected_filter_name,
         updated_at,
-        company_id
+        company_id,
+        mqtt_msg_name
     )
 values
-    ('S1 (cisterne)', 'filtro s1', now (), 1),
-    ('S2 (pozzo)', 'filtro s2', now (), 1),
-    ('S3 (lago)', 'filtro s3', now (), 2),
-    ('S4 (cisterne)', 'filtro s4', now (), 2),
-    ('S5 (pozzo)', 'filtro s5', now (), 3),
-    ('S6 (lago)', 'filtro s6', now (), 3);
+    ('S1 (cisterne)', 'filtro s1', now (), 1, 's1'),
+    ('S2 (pozzo)', 'filtro s2', now (), 1, 's2'),
+    ('S3 (lago)', 'filtro s3', now (), 2, 's3'),
+    ('S4 (cisterne)', 'filtro s4', now (), 2, 's4'),
+    ('S5 (pozzo)', 'filtro s5', now (), 3, 's5'),
+    ('S6 (lago)', 'filtro s6', now (), 3, 's6');
 
 -- Seed data for collector_sectors table
 insert into
