@@ -3,7 +3,7 @@ import {getSecretFromCloud} from "./secrets";
 
 (async () => {
     const testCompany = await getCompanyById("3");
-    console.log(testCompany);
+    console.log(testCompany);  
 })();
 
 (async () => {
