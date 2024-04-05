@@ -27,19 +27,16 @@ Deno.serve(async (req) => {
       }
     );
 
-    console.log
-    
     // Get the id provided in the request body
     const {id} = await req.json();
-    console.log(`ID: ${id}`);
 
-    // Get the company by ID
-    
-    const data = {
-      message: `Hello from this outer world to ${id}!`,
-    };
 
-    return new Response(JSON.stringify(data), {
+    const {data: company, error} = await supabaseClient
+      .from("companies")
+      .select("*")
+      .eq("id", id as number).maybeSingle();
+    if (error) throw error;
+    return new Response(JSON.stringify(company), {
       headers: {"Content-Type": "application/json"},
     });
   } catch (error) {
@@ -50,15 +47,3 @@ Deno.serve(async (req) => {
     });
   }
 });
-
-/* To invoke locally:
-
-  1. Run `supabase start` (see: https://supabase.com/docs/reference/cli/supabase-start)
-  2. Make an HTTP request:
-
-  curl -i --location --request POST 'http://127.0.0.1:54321/functions/v1/get-company-by-id' \
-    --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
-    --header 'Content-Type: application/json' \
-    --data '{"name":"Functions"}'
-
-*/
