@@ -431,7 +431,8 @@ insert into
         serial_number,
         collector_id,
         company_id,
-        updated_at
+        updated_at,
+        mqtt_msg_name
     )
 values
     (
@@ -440,7 +441,8 @@ values
         '1234567890',
         1,
         1,
-        now ()
+        now (),
+        'mkr 3'
     ),
     (
         'arduino mkr 4',
@@ -448,7 +450,8 @@ values
         '1234567891',
         2,
         1,
-        now ()
+        now (),
+        'mkr 4'
     ),
     (
         'arduino mkr 5',
@@ -456,7 +459,8 @@ values
         '1234567892',
         3,
         2,
-        now ()
+        now (),
+        'mkr 5'
     ),
     (
         'arduino mkr 6',
@@ -464,7 +468,8 @@ values
         '1234567893',
         4,
         2,
-        now ()
+        now (),
+        'mkr 6'
     ),
     (
         'arduino mkr 7',
@@ -472,7 +477,8 @@ values
         '1234567894',
         5,
         3,
-        now ()
+        now (),
+        'mkr 7'
     ),
     (
         'arduino mkr 8',
@@ -480,7 +486,8 @@ values
         '1234567895',
         6,
         3,
-        now ()
+        now (),
+        'mkr 8'
     );
 
 -- Seed data for board_statuses table
