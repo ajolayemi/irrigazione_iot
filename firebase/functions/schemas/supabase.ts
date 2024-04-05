@@ -70,6 +70,7 @@ export type Database = {
           created_at: string
           id: number
           model: string
+          mqtt_msg_name: string
           name: string
           serial_number: string
           updated_at: string
@@ -80,6 +81,7 @@ export type Database = {
           created_at?: string
           id?: number
           model: string
+          mqtt_msg_name: string
           name: string
           serial_number: string
           updated_at: string
@@ -90,6 +92,7 @@ export type Database = {
           created_at?: string
           id?: number
           model?: string
+          mqtt_msg_name?: string
           name?: string
           serial_number?: string
           updated_at?: string
@@ -198,6 +201,7 @@ export type Database = {
           connected_filter_name: string | null
           created_at: string
           id: number
+          mqtt_msg_name: string
           name: string
           updated_at: string
         }
@@ -206,6 +210,7 @@ export type Database = {
           connected_filter_name?: string | null
           created_at?: string
           id?: number
+          mqtt_msg_name: string
           name: string
           updated_at: string
         }
@@ -214,6 +219,7 @@ export type Database = {
           connected_filter_name?: string | null
           created_at?: string
           id?: number
+          mqtt_msg_name?: string
           name?: string
           updated_at?: string
         }
@@ -230,6 +236,7 @@ export type Database = {
       companies: {
         Row: {
           cf: string | null
+          created_at: string
           email: string
           id: number
           image_url: string | null
@@ -237,9 +244,11 @@ export type Database = {
           phone_number: string
           piva: string | null
           registered_office_address: string
+          updated_at: string
         }
         Insert: {
           cf?: string | null
+          created_at?: string
           email: string
           id?: number
           image_url?: string | null
@@ -247,9 +256,11 @@ export type Database = {
           phone_number: string
           piva?: string | null
           registered_office_address: string
+          updated_at: string
         }
         Update: {
           cf?: string | null
+          created_at?: string
           email?: string
           id?: number
           image_url?: string | null
@@ -257,6 +268,7 @@ export type Database = {
           phone_number?: string
           piva?: string | null
           registered_office_address?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -363,6 +375,7 @@ export type Database = {
           consume_rate_in_kw: number
           created_at: string
           id: number
+          mqtt_msg_name: string
           name: string
           turn_off_command: string
           turn_on_command: string
@@ -374,6 +387,7 @@ export type Database = {
           consume_rate_in_kw: number
           created_at?: string
           id?: number
+          mqtt_msg_name: string
           name: string
           turn_off_command: string
           turn_on_command: string
@@ -385,6 +399,7 @@ export type Database = {
           consume_rate_in_kw?: number
           created_at?: string
           id?: number
+          mqtt_msg_name?: string
           name?: string
           turn_off_command?: string
           turn_on_command?: string
@@ -502,6 +517,7 @@ export type Database = {
           id: number
           irrigation_source: string
           irrigation_system_type: string
+          mqtt_msg_name: string
           name: string
           notes: string | null
           num_of_plants: number
@@ -520,6 +536,7 @@ export type Database = {
           id?: number
           irrigation_source: string
           irrigation_system_type: string
+          mqtt_msg_name: string
           name: string
           notes?: string | null
           num_of_plants: number
@@ -538,6 +555,7 @@ export type Database = {
           id?: number
           irrigation_source?: string
           irrigation_system_type?: string
+          mqtt_msg_name?: string
           name?: string
           notes?: string | null
           num_of_plants?: number
