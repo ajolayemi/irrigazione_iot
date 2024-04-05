@@ -1,6 +1,6 @@
 /// Contains functions to read data from the database (Supabase)
-import {Tables} from "../../schemas/supabase";
-import {createSupabaseClient} from "../services/supabase_client";
+import { Tables } from "../../../schemas/supabase";
+import { createSupabaseClient } from "../../services/supabase_client";
 
 export const getCompanyById = async (id: string): Promise<Tables<'companies'>> => {
     // Get the Supabase client
