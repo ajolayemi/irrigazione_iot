@@ -14,7 +14,7 @@
       },
       {
         "name": "firebase-functions",
-        "path": "functions"
+        "path": "firebase/functions"
       }
     ],
     "settings": {
@@ -22,7 +22,7 @@
         "node_modules/": true,
         "app/": true,
         "supabase/functions/": true,
-        "functions/": true
+        "firebase/functions/": true
       },
       "deno.importMap": "./supabase/functions/import_map.json"
     }
