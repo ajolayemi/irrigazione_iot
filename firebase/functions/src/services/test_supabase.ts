@@ -1,8 +1,8 @@
-import {getCompanyById} from "../database/read_data";
+import {getCompanyById} from "../database/companies/read_companies_data";
 import {getSecretFromCloud} from "./secrets";
 
 (async () => {
-    const testCompany = await getCompanyById("1");
+    const testCompany = await getCompanyById("3");
     console.log(testCompany);
 })();
 
