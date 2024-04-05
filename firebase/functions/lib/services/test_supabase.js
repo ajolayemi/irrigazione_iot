@@ -1,14 +1,14 @@
 "use strict";
-// import {createClient} from "@supabase/supabase-js";
-// const supabase = createClient(
-//     process.env.SUPABASE_URL as string,
-//     process.env.SUPABASE_ANON_KEY as string
-// );
-// (async () => {
-//     const {data, error} = await supabase.functions.invoke("hello-world", {
-//         body: {name: "Functions"},
-//     });
-//     console.log(data, error);
-// })();
-console.log(process.env.SUPABASE_URL);
+Object.defineProperty(exports, "__esModule", { value: true });
+require("dotenv").config({ path: `../../../.env.${process.env.NODE_ENV}` });
+const supabase_js_1 = require("@supabase/supabase-js");
+const supabase = (0, supabase_js_1.createClient)(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY);
+(async () => {
+    const { data, error } = await supabase.functions.invoke("hello-world", {
+        body: { name: "Functions" },
+    });
+    console.log(data, error);
+})();
+// console.log(process.env.SUPABASE_URL);
+// console.log(process.env.SUPABASE_ANON_KEY);
 //# sourceMappingURL=test_supabase.js.map

@@ -1,9 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const v1_1 = require("firebase-functions/v1");
-const logger = require("firebase-functions/logger");
-exports.processPressureMessages = v1_1.pubsub.topic('pressure').onPublish((message) => {
-    logger.info(`Received message: ${message.json}`);
-    return Promise.resolve();
-});
+const firebase_admin_1 = require("firebase-admin");
+(0, firebase_admin_1.initializeApp)();
+// exports.processPressureMessages = pubsub.onMessagePublished(
+//   "pressure",
+//   async (event) => {
+//     return;
+//     // const message = event.data.message;
+//     // console.log("I was called");
+//     // const data = Buffer.from(message.data, "base64").toString();
+//     // logger.info(`Received message: ${JSON.stringify(data)}`);
+//     // return Promise.resolve();
+//   }
+// );
+exports.processPressureMessages = () => console.log("I was called");
 //# sourceMappingURL=index.js.map
