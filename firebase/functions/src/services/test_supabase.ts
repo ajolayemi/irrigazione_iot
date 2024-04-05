@@ -1,20 +1,14 @@
-require("dotenv").config({path: `../../../.env.${process.env.NODE_ENV}`});
-
-import {createClient} from "@supabase/supabase-js";
-
-const supabase = createClient(
-    process.env.SUPABASE_URL as string,
-    process.env.SUPABASE_ANON_KEY as string
-    
-);
+import {getCompanyById} from "../database/read_data";
+import {getSecretFromCloud} from "./secrets";
 
 (async () => {
-    const {data, error} = await supabase.functions.invoke("get-company-by-id", {
-        body: {name: "Jolayemi"},
-    });
-
-    console.log(data, error);
+    const testCompany = await getCompanyById("1");
+    console.log(testCompany);
 })();
 
-// console.log(process.env.SUPABASE_URL);
-// console.log(process.env.SUPABASE_ANON_KEY);
+(async () => {
+  const url = await getSecretFromCloud("SUPABASE_URL");
+  const anon = await getSecretFromCloud("SUPABASE_ANON_KEY");
+  console.log(url);
+  console.log(anon);
+})();

@@ -3,14 +3,13 @@
     "module": "commonjs",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
+    "rootDir": ".",
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
     "target": "es2017"
   },
   "compileOnSave": true,
-  "include": [
-    "src",
-    "src/services"
-  ]
+
+  "include": ["src", "schemas"],
 }
