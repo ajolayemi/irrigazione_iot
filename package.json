@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "update-local-types": "npx supabase gen types typescript --local > schemas/supabase.ts",
+        "update-types": "npx supabase gen types typescript --project-id \"$PROJECT_REF\" > schemas/supabase.ts"
+      }
+}
