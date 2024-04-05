@@ -7,7 +7,8 @@ insert into
         registered_office_address,
         cf,
         piva,
-        image_url
+        image_url,
+        updated_at
     )
 values
     (
@@ -17,7 +18,8 @@ values
         'Via Roma 1, 12345, Roma',
         '12345678901',
         '12345678901',
-        'https://example.com/image.jpg'
+        'https://example.com/image.jpg',
+        now ()
     ),
     (
         'Azienda agricola San Lio',
@@ -26,7 +28,8 @@ values
         'Via vespri 2',
         '12345678901',
         '12345678901',
-        ''
+        '',
+        now ()
     ),
     (
         'Azienda agricola F.lli Valenziani',
@@ -35,7 +38,8 @@ values
         'Via San lio, Carlentini',
         '12345678901',
         '12345678901',
-        ''
+        '',
+        now ()
     );
 
 -- Seed data for companies_user table
