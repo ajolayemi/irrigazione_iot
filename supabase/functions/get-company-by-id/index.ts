@@ -1,10 +1,10 @@
-import {createSupabaseClient} from "../_utils/supabaseClient.ts";
+import {createEdgeSupabaseClient} from "../_utils/supabaseClient.ts";
 
 console.log(`Function "get-companies-by-id" up and running!`);
 
 Deno.serve(async (req) => {
   try {
-    const supabaseClient = createSupabaseClient(req);
+    const supabaseClient = createEdgeSupabaseClient(req);
 
     // Get the id provided in the request body
     const {id} = await req.json();
