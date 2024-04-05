@@ -92,13 +92,54 @@ insert into
         created_at,
         updated_at,
         turn_on_command,
-        turn_off_command
+        turn_off_command,
+        mqtt_msg_name
     )
 values
-    ('Pompa 1', 1000, 100, 1, now (), now (), '1', '2'),
-    ('Pompa 2', 2000, 200, 1, now (), now (), '3', '4'),
-    ('Pompa 3', 3000, 300, 2, now (), now (), '5', '6'),
-    ('Pompa 4', 4000, 400, 2, now (), now (), '7', '8'),
+    (
+        'Pompa 1',
+        1000,
+        100,
+        1,
+        now (),
+        now (),
+        '1',
+        '2',
+        'p1'
+    ),
+    (
+        'Pompa 2',
+        2000,
+        200,
+        1,
+        now (),
+        now (),
+        '3',
+        '4',
+        'p2'
+    ),
+    (
+        'Pompa 3',
+        3000,
+        300,
+        2,
+        now (),
+        now (),
+        '5',
+        '6',
+        'p3'
+    ),
+    (
+        'Pompa 4',
+        4000,
+        400,
+        2,
+        now (),
+        now (),
+        '7',
+        '8',
+        'p4'
+    ),
     (
         'Pompa 5',
         5000,
@@ -107,7 +148,8 @@ values
         now (),
         now (),
         '9',
-        '10'
+        '10',
+        'p5'
     ),
     (
         'Pompa 6',
@@ -117,7 +159,8 @@ values
         now (),
         now (),
         '11',
-        '12'
+        '12',
+        'p6'
     );
 
 -- Seed data for pump_statuses table
