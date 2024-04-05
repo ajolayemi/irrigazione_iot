@@ -255,7 +255,8 @@ insert into
         specie_id,
         variety_id,
         company_id,
-        updated_at
+        updated_at,
+        mqtt_msg_name
     )
 values
     (
@@ -271,7 +272,8 @@ values
         1,
         2,
         1,
-        now ()
+        now (),
+        'me7'
     ),
     (
         'ME8',
@@ -286,7 +288,8 @@ values
         1,
         1,
         1,
-        now ()
+        now (),
+        'me8'
     ),
     (
         'san lio basso',
@@ -301,7 +304,8 @@ values
         2,
         1,
         2,
-        now ()
+        now (),
+        'slb'
     ),
     (
         'san lio alto',
@@ -316,7 +320,8 @@ values
         2,
         2,
         2,
-        now ()
+        now (),
+        'sla'
     ),
     (
         'valenziani',
@@ -331,7 +336,8 @@ values
         3,
         1,
         3,
-        now ()
+        now (),
+        'valen1'
     ),
     (
         'valenziani 2',
@@ -346,7 +352,8 @@ values
         3,
         2,
         3,
-        now ()
+        now (),
+        'valen2'
     );
 
 -- Seed data for sector_pumps table
