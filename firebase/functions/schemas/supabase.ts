@@ -284,7 +284,7 @@ export type Database = {
         }
         Insert: {
           company_id: number
-          created_at: string
+          created_at?: string
           email: string
           full_name: string
           id?: number
