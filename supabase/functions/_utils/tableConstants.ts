@@ -1,7 +1,7 @@
 /**
  * A class to store the names of the tables in the database
  */
-export class TablesNames {
+export class TableNames {
   static readonly companies = "companies";
   static readonly companies_user = "company_users";
   static readonly boards = "boards";

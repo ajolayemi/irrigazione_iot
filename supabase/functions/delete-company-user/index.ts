@@ -1,8 +1,8 @@
 import {commonDelete} from "../_utils/commonDatabaseOperations.ts";
-import {TablesNames} from "../_utils/tablesConstants.ts";
+import {TableNames} from "../_utils/tableConstants.ts";
 
 console.log(`Function "delete-company-user" up and running!`);
 
 Deno.serve(async (req: Request): Promise<Response> => {
-  return await commonDelete(req, TablesNames.companies_user);
+  return await commonDelete(req, TableNames.companies_user);
 });
