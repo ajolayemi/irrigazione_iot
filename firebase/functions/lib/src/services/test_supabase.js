@@ -4,7 +4,7 @@ const read_company_data_1 = require("../database/pumps/read_company_data");
 const secrets_1 = require("./secrets");
 (async () => {
     // const testCompany = await getCompanyById("3");
-    // console.log(testCompany);  
+    // console.log(testCompany);
     const pump = await (0, read_company_data_1.getPumpById)("1");
     console.log(pump);
 })();
