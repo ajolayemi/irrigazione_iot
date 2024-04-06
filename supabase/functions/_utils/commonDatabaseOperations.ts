@@ -131,7 +131,8 @@ export const commonGetById = async (
     const {data: result, error} = await supabaseClient
       .from(tableName)
       .select(columnNames ?? "*")
-      .eq("id", id as number).maybeSingle();
+      .eq("id", id as number)
+      .maybeSingle();
 
     if (error) throw error;
 
@@ -141,6 +142,51 @@ export const commonGetById = async (
     });
   } catch (error) {
     console.error(`An error occurred in commonGetById: ${error.message}`);
+    return new Response(JSON.stringify({error: error.message}), {
+      status: 400,
+      headers: {"Content-Type": "application/json"},
+    });
+  }
+};
+
+/**
+ * There are some tables with "mqtt_msg_name" column which holds the short name
+ * provided for items like pumps, sectors in MQTT messages received from the
+ * boards (centraline). This function is used to get records from such tables
+ * by their "mqtt_msg_name" column.
+ * @param req A request object
+ * @param tableName The name of the table to get the record from
+ * @param columnNames (optional) The column names to get from the record separated by commas
+ * @returns A response object
+ */
+export const commonGetByMqttMsgName = async (
+  req: Request,
+  tableName: string,
+  columnNames?: string
+): Promise<Response> => {
+  try {
+    const supabaseClient = createEdgeSupabaseClient(req);
+
+    // Get the mqtt_msg_name provided in the request body
+    const {mqtt_msg_name} = await req.json();
+
+    // Get the record
+    const {data: result, error} = await supabaseClient
+      .from(tableName)
+      .select(columnNames ?? "*")
+      .eq("mqtt_msg_name", mqtt_msg_name as string)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    return new Response(JSON.stringify({result}), {
+      headers: {"Content-Type": "application/json"},
+      status: 200,
+    });
+  } catch (error) {
+    console.error(
+      `An error occurred in commonGetByMqttMsgName: ${error.message}`
+    );
     return new Response(JSON.stringify({error: error.message}), {
       status: 400,
       headers: {"Content-Type": "application/json"},
