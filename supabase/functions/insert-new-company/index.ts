@@ -1,4 +1,4 @@
-import {commonInsert} from "../_utils/commonInsert.ts";
+import { commonInsert } from "../_utils/commonDatabaseOperations.ts";
 
 console.log(`Function "insert-new-company" up and running!`);
 
