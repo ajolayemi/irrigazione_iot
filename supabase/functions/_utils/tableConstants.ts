@@ -3,7 +3,7 @@
  */
 export class TableNames {
   static readonly companies = "companies";
-  static readonly companies_user = "company_users";
+  static readonly company_users = "company_users";
   static readonly boards = "boards";
   static readonly boards_statuses = "boards_statuses";
   static readonly collectors = "collectors";
