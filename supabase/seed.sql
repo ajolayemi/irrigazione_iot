@@ -42,9 +42,9 @@ values
         now ()
     );
 
--- Seed data for companies_user table
+-- Seed data for company_users table
 insert into
-    public.companies_user (
+    public.company_users (
         email,
         full_name,
         role,
