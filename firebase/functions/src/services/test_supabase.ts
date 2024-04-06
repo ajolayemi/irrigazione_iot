@@ -1,9 +1,11 @@
-import {getCompanyById} from "../database/companies/read_company_data";
+import {getPumpById} from "../database/pumps/read_company_data";
 import {getSecretFromCloud} from "./secrets";
 
 (async () => {
-    const testCompany = await getCompanyById("3");
-    console.log(testCompany);  
+    // const testCompany = await getCompanyById("3");
+    // console.log(testCompany);  
+    const pump = await getPumpById("1");
+    console.log(pump);
 })();
 
 (async () => {
