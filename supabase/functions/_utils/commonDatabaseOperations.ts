@@ -46,7 +46,7 @@ export const commonUpdate = async (req: Request, tableName: string): Promise<Res
 export const commonInsert = async (
   req: Request,
   tableName: string,
-) => {
+): Promise<Response> => {
   try {
     const supabaseClient = createEdgeSupabaseClient(req);
 
