@@ -108,3 +108,42 @@ export const commonDelete = async (
     });
   }
 };
+
+/**
+ * A common function to get a record from a table by its id
+ * @param req A request object
+ * @param tableName The name of the table to get the record from
+ * @param columnNames (optional) The column names to get from the record separated by commas
+ * @returns A response object
+ */
+export const commonGetById = async (
+  req: Request,
+  tableName: string,
+  columnNames?: string
+): Promise<Response> => {
+  try {
+    const supabaseClient = createEdgeSupabaseClient(req);
+
+    // Get the id provided in the request body
+    const {id} = await req.json();
+
+    // Get the record
+    const {data: result, error} = await supabaseClient
+      .from(tableName)
+      .select(columnNames ?? "*")
+      .eq("id", id as number).maybeSingle();
+
+    if (error) throw error;
+
+    return new Response(JSON.stringify({result}), {
+      headers: {"Content-Type": "application/json"},
+      status: 200,
+    });
+  } catch (error) {
+    console.error(`An error occurred in commonGetById: ${error.message}`);
+    return new Response(JSON.stringify({error: error.message}), {
+      status: 400,
+      headers: {"Content-Type": "application/json"},
+    });
+  }
+};
