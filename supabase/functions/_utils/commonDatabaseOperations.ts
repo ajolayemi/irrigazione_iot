@@ -6,7 +6,10 @@ import {createEdgeSupabaseClient} from "./supabaseClient.ts";
  * @param tableName The name of the table to update the record in
  * @returns A response object
  */
-export const commonUpdate = async (req: Request, tableName: string): Promise<Response> => {
+export const commonUpdate = async (
+  req: Request,
+  tableName: string
+): Promise<Response> => {
   try {
     const supabaseClient = createEdgeSupabaseClient(req);
 
@@ -19,7 +22,7 @@ export const commonUpdate = async (req: Request, tableName: string): Promise<Res
       .update(toUpdate)
       .eq("id", toUpdate.id)
       .select();
-    
+
     if (error) throw error;
 
     return new Response(JSON.stringify({data}), {
@@ -35,7 +38,6 @@ export const commonUpdate = async (req: Request, tableName: string): Promise<Res
   }
 };
 
-
 /**
  * A common function to insert a record into a table
  * @param req A request object
@@ -45,7 +47,7 @@ export const commonUpdate = async (req: Request, tableName: string): Promise<Res
  */
 export const commonInsert = async (
   req: Request,
-  tableName: string,
+  tableName: string
 ): Promise<Response> => {
   try {
     const supabaseClient = createEdgeSupabaseClient(req);
@@ -63,6 +65,43 @@ export const commonInsert = async (
     );
   } catch (error) {
     console.error(`An error occurred in commonInsert: ${error.message}`);
+    return new Response(JSON.stringify({error: error.message}), {
+      status: 400,
+      headers: {"Content-Type": "application/json"},
+    });
+  }
+};
+
+/**
+ * A common function to delete a record from a table
+ * @param req A request object
+ * @param tableName The name of the table to delete the record from
+ * @returns A response object
+ */
+export const commonDelete = async (
+  req: Request,
+  tableName: string
+): Promise<Response> => {
+  try {
+    const supabaseClient = createEdgeSupabaseClient(req);
+
+    // Get the record id to delete
+    const {id} = await req.json();
+
+    // Delete the record
+    const {error} = await supabaseClient.from(tableName).delete().match({id});
+    if (error) throw error;
+    return new Response(
+      JSON.stringify({
+        message: `Record deleted from ${tableName} successfully!`,
+      }),
+      {
+        headers: {"Content-Type": "application/json"},
+        status: 200,
+      }
+    );
+  } catch (error) {
+    console.error(`An error occurred in commonDelete: ${error.message}`);
     return new Response(JSON.stringify({error: error.message}), {
       status: 400,
       headers: {"Content-Type": "application/json"},
