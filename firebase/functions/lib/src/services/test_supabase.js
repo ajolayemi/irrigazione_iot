@@ -5,7 +5,7 @@ const secrets_1 = require("./secrets");
 (async () => {
     // const testCompany = await getCompanyById("3");
     // console.log(testCompany);
-    const pump = await (0, read_pump_data_1.getPumpById)("1");
+    const pump = await (0, read_pump_data_1.getPumpByMqttMsgName)("p2");
     console.log(pump);
 })();
 (async () => {

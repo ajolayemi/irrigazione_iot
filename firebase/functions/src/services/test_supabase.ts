@@ -1,10 +1,10 @@
-import {getPumpById} from "../database/pumps/read_pump_data";
+import { getPumpByMqttMsgName} from "../database/pumps/read_pump_data";
 import {getSecretFromCloud} from "./secrets";
 
 (async () => {
     // const testCompany = await getCompanyById("3");
     // console.log(testCompany);
-    const pump = await getPumpById("1");
+    const pump = await getPumpByMqttMsgName("p2");
     console.log(pump);
 })();
 
