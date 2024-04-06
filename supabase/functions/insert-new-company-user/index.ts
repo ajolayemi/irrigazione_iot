@@ -6,10 +6,10 @@ Deno.serve(async (req: Request): Promise<Response> => {
   try {
     const supabaseClient = createEdgeSupabaseClient(req);
 
-    // Get the company data provided in the request body
+    // Get the company-user data provided in the request body
     const {data} = await req.json();
 
-    // Insert the new company
+    // Insert the new company-user
     const {error} = await supabaseClient.from("companies_user").insert(data);
     if (error) throw error;
     return new Response(
