@@ -1,4 +1,4 @@
-import {getPumpById} from "../database/pumps/read_company_data";
+import {getPumpById} from "../database/pumps/read_pump_data";
 import {getSecretFromCloud} from "./secrets";
 
 (async () => {
