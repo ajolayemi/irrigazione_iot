@@ -168,13 +168,13 @@ export const commonGetByMqttMsgName = async (
     const supabaseClient = createEdgeSupabaseClient(req);
 
     // Get the mqtt_msg_name provided in the request body
-    const {mqtt_msg_name} = await req.json();
+    const {name} = await req.json();
 
     // Get the record
     const {data: result, error} = await supabaseClient
       .from(tableName)
       .select(columnNames ?? "*")
-      .eq("mqtt_msg_name", mqtt_msg_name as string)
+      .eq("mqtt_msg_name", name)
       .maybeSingle();
 
     if (error) throw error;
