@@ -38,20 +38,20 @@ export type Database = {
         Row: {
           battery_level: number
           board_id: number
-          status_id: number
-          status_timestamp: string
+          created_at: string
+          id: number
         }
         Insert: {
           battery_level: number
           board_id: number
-          status_id?: number
-          status_timestamp: string
+          created_at?: string
+          id?: number
         }
         Update: {
           battery_level?: number
           board_id?: number
-          status_id?: number
-          status_timestamp?: string
+          created_at?: string
+          id?: number
         }
         Relationships: [
           {
@@ -117,27 +117,27 @@ export type Database = {
       collector_pressures: {
         Row: {
           collector_id: number
-          event_id: number
+          created_at: string
           filter_in_pressure: number
           filter_out_pressure: number
+          id: number
           pressure_difference: number
-          pressure_timestamp: string
         }
         Insert: {
           collector_id: number
-          event_id?: number
+          created_at?: string
           filter_in_pressure: number
           filter_out_pressure: number
+          id?: number
           pressure_difference?: number
-          pressure_timestamp: string
         }
         Update: {
           collector_id?: number
-          event_id?: number
+          created_at?: string
           filter_in_pressure?: number
           filter_out_pressure?: number
+          id?: number
           pressure_difference?: number
-          pressure_timestamp?: string
         }
         Relationships: [
           {
@@ -272,7 +272,7 @@ export type Database = {
         }
         Relationships: []
       }
-      companies_user: {
+      company_users: {
         Row: {
           company_id: number
           created_at: string
@@ -312,21 +312,21 @@ export type Database = {
       }
       pump_pressures: {
         Row: {
-          event_id: number
+          created_at: string
+          id: number
           pressure: number
-          pressure_timestamp: string
           pump_id: number
         }
         Insert: {
-          event_id?: number
+          created_at?: string
+          id?: number
           pressure: number
-          pressure_timestamp: string
           pump_id: number
         }
         Update: {
-          event_id?: number
+          created_at?: string
+          id?: number
           pressure?: number
-          pressure_timestamp?: string
           pump_id?: number
         }
         Relationships: [
@@ -341,22 +341,22 @@ export type Database = {
       }
       pump_statuses: {
         Row: {
+          created_at: string
+          id: number
           pump_id: number
           status: string
-          status_id: number
-          status_timestamp: string
         }
         Insert: {
+          created_at?: string
+          id?: number
           pump_id: number
           status: string
-          status_id?: number
-          status_timestamp: string
         }
         Update: {
+          created_at?: string
+          id?: number
           pump_id?: number
           status?: string
-          status_id?: number
-          status_timestamp?: string
         }
         Relationships: [
           {
@@ -417,21 +417,21 @@ export type Database = {
       }
       sector_pressures: {
         Row: {
-          event_id: number
+          created_at: string
+          id: number
           pressure: number
-          pressure_timestamp: string
           sector_id: number
         }
         Insert: {
-          event_id?: number
+          created_at?: string
+          id?: number
           pressure: number
-          pressure_timestamp: string
           sector_id: number
         }
         Update: {
-          event_id?: number
+          created_at?: string
+          id?: number
           pressure?: number
-          pressure_timestamp?: string
           sector_id?: number
         }
         Relationships: [
@@ -482,22 +482,22 @@ export type Database = {
       }
       sector_statuses: {
         Row: {
+          created_at: string
+          id: number
           sector_id: number
           status: string
-          status_id: number
-          status_timestamp: string
         }
         Insert: {
+          created_at?: string
+          id?: number
           sector_id: number
           status: string
-          status_id?: number
-          status_timestamp: string
         }
         Update: {
+          created_at?: string
+          id?: number
           sector_id?: number
           status?: string
-          status_id?: number
-          status_timestamp?: string
         }
         Relationships: [
           {
