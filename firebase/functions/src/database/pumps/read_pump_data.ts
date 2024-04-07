@@ -1,6 +1,11 @@
 import {Tables} from "../../../schemas/database.types";
 import {createSupabaseClient} from "../../services/supabase_client";
 
+/**
+ * References the get-pump-by-id Supabase Edge function to get a pump by id
+ * @param id The id of the pump to get
+ * @returns The pump with the given id
+ */
 export const getPumpById = async (id: string): Promise<Tables<"pumps">> => {
   // Get the Supabase client
   const supabase = await createSupabaseClient();
@@ -16,6 +21,11 @@ export const getPumpById = async (id: string): Promise<Tables<"pumps">> => {
   return data["result"] as Tables<"pumps">;
 };
 
+/**
+ * References the get-pump-by-mqtt-msg-name Supabase Edge function to get a pump by MQTT message name
+ * @param name The MQTT message name of the pump to get
+ * @returns The pump with the given MQTT message name
+ */
 export const getPumpByMqttMsgName = async (name: string): Promise<Tables<"pumps">> => {
   // Get the Supabase client
   const supabase = await createSupabaseClient();
