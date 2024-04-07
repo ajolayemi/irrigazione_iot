@@ -169,31 +169,43 @@ values
 
 -- Seed data for pump_statuses table
 insert into
-    public.pump_statuses (status, pump_id, status_timestamp)
+    public.pump_statuses (status, pump_id)
 values
-    ('1', 1, now ()),
-    ('2', 1, now ()),
-    ('3', 2, now ()),
-    ('4', 2, now ()),
-    ('5', 3, now ()),
-    ('6', 3, now ()),
-    ('7', 4, now ()),
-    ('8', 4, now ()),
-    ('9', 5, now ()),
-    ('10', 5, now ()),
-    ('11', 6, now ()),
-    ('12', 6, now ());
+    ('1', 1),
+    ('2', 1),
+    ('3', 2),
+    ('4', 2),
+    ('5', 3),
+    ('6', 3),
+    ('7', 4),
+    ('8', 4),
+    ('9', 5),
+    ('10', 5),
+    ('11', 6),
+    ('12', 6);
 
 -- Seed data for pump_pressures table
 insert into
-    public.pump_pressures (pressure, pressure_timestamp, pump_id)
+    public.pump_pressures (pressure, pump_id)
 values
-    (1.2, now (), 1),
-    (1.3, now (), 2),
-    (1.4, now (), 3),
-    (1.5, now (), 4),
-    (1.6, now (), 5),
-    (1.7, now (), 6);
+    (1.2, 1),
+    (1.1, 1),
+    (1.5, 1),
+    (1.3, 2),
+    (1.4, 2),
+    (1.6, 2),
+    (1.7, 3),
+    (1.8, 3),
+    (1.9, 3),
+    (1.2, 4),
+    (1.3, 4),
+    (1.4, 4),
+    (1.5, 5),
+    (1.6, 5),
+    (1.7, 5),
+    (1.8, 6),
+    (1.9, 6),
+    (1.2, 6);
 
 -- Seed data for species table
 insert into
@@ -373,31 +385,43 @@ values
 
 -- Seed data for sector_pressures table
 insert into
-    public.sector_pressures (pressure, pressure_timestamp, sector_id)
+    public.sector_pressures (pressure, sector_id)
 values
-    (1.2, now (), 1),
-    (1.3, now (), 2),
-    (1.4, now (), 3),
-    (1.5, now (), 4),
-    (1.6, now (), 5),
-    (1.7, now (), 6);
+    (1.2, 1),
+    (1.1, 1),
+    (0.9, 1),
+    (1.3, 2),
+    (1.4, 2),
+    (1.6, 2),
+    (1.7, 3),
+    (1.8, 3),
+    (1.9, 3),
+    (1.2, 4),
+    (1.3, 4),
+    (1.4, 4),
+    (1.5, 5),
+    (1.6, 5),
+    (1.7, 5),
+    (1.8, 6),
+    (1.9, 6),
+    (1.2, 6);
 
 -- Seed data for sector_statuses table
 insert into
-    public.sector_statuses (status, sector_id, status_timestamp)
+    public.sector_statuses (status, sector_id)
 values
-    ('1', 1, now ()),
-    ('2', 1, now ()),
-    ('3', 2, now ()),
-    ('4', 2, now ()),
-    ('5', 3, now ()),
-    ('6', 3, now ()),
-    ('7', 4, now ()),
-    ('8', 4, now ()),
-    ('9', 5, now ()),
-    ('10', 5, now ()),
-    ('11', 6, now ()),
-    ('12', 6, now ());
+    ('1', 1),
+    ('2', 1),
+    ('3', 2),
+    ('4', 2),
+    ('5', 3),
+    ('6', 3),
+    ('7', 4),
+    ('8', 4),
+    ('9', 5),
+    ('10', 5),
+    ('11', 6),
+    ('12', 6);
 
 -- Seed data for collector table
 insert into
@@ -496,27 +520,46 @@ values
 
 -- Seed data for board_statuses table
 insert into
-    public.board_statuses (battery_level, status_timestamp, board_id)
+    public.board_statuses (battery_level, board_id)
 values
-    (0.2, now (), 1),
-    (0.3, now (), 2),
-    (0.4, now (), 3),
-    (0.5, now (), 4),
-    (0.6, now (), 5),
-    (0.7, now (), 6);
+    (0.2, 1),
+    (0.1, 1),
+    (0.3, 2),
+    (0.4, 2),
+    (0.5, 3),
+    (0.6, 3),
+    (0.7, 4),
+    (0.8, 4),
+    (0.9, 5),
+    (0.2, 5),
+    (0.3, 6),
+    (0.4, 6),
+    (0.3, 2),
+    (0.4, 3),
+    (0.5, 4),
+    (0.6, 5),
+    (0.7, 6);
 
 -- Seed data for collector_pressures table
 insert into
     public.collector_pressures (
         filter_in_pressure,
         filter_out_pressure,
-        pressure_timestamp,
         collector_id
     )
 values
-    (1.2, 1.1, now (), 1),
-    (1.3, 1.2, now (), 2),
-    (1.4, 1.3, now (), 3),
-    (1.5, 1.4, now (), 4),
-    (1.6, 1.5, now (), 5),
-    (1.7, 1.6, now (), 6);
+    (1.2, 1.1, 1),
+    (1.0, 1.0, 1),
+    (1.3, 1.2, 1),
+    (1.3, 1.2, 2),
+    (1.4, 1.3, 2),
+    (1.6, 1.5, 2),
+    (1.7, 1.6, 3),
+    (1.8, 1.7, 3),
+    (1.9, 1.8, 3),
+    (1.2, 1.1, 4),
+    (1.3, 1.2, 4),
+    (1.4, 1.3, 3),
+    (1.5, 1.4, 4),
+    (1.6, 1.5, 5),
+    (1.7, 1.6, 6);
