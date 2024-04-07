@@ -2,6 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.insertPumpStatus = exports.insertPumpPressure = void 0;
 const supabase_client_1 = require("../../services/supabase_client");
+/**
+ * References the insert-pump-pressure Supabase Edge function to insert pump pressure data
+ * @param data The data to insert
+ */
 const insertPumpPressure = async (data) => {
     // Get the Supabase client
     const supabase = await (0, supabase_client_1.createSupabaseClient)();

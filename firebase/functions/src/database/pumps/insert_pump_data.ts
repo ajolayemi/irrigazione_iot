@@ -1,6 +1,10 @@
 import {TablesInsert} from "../../../schemas/database.types";
 import {createSupabaseClient} from "../../services/supabase_client";
 
+/**
+ * References the insert-pump-pressure Supabase Edge function to insert pump pressure data
+ * @param data The data to insert
+ */
 export const insertPumpPressure = async (
   data: TablesInsert<"pump_pressures">
 ): Promise<void> => {
