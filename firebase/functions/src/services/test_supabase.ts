@@ -1,12 +1,12 @@
-import {getPumpById} from "../database/pumps/read_pump_data";
+import {getSectorByMqttMsgName} from "../database/sectors/read_sector_data";
 import {getSecretFromCloud} from "./secrets";
 
 (async () => {
   // const testCompany = await getCompanyById("1");
   // console.log(testCompany);
 
-  const p = await getPumpById("1");
-  console.log(p);
+  // const p = await getPumpById("1");
+  // console.log(p);
   // const pump = await getPumpByMqttMsgName("p1");
   // console.log(pump);
 
@@ -25,6 +25,9 @@ import {getSecretFromCloud} from "./secrets";
   // };
 
   // await insertPumpStatus(testPumpStatus);
+
+  const sector = await getSectorByMqttMsgName("me8");
+  console.log(sector);
 })();
 
 (async () => {
