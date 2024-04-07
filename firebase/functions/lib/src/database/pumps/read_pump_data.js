@@ -12,7 +12,7 @@ const getPumpById = async (id) => {
     if (error) {
         throw error;
     }
-    return data;
+    return data["result"];
 };
 exports.getPumpById = getPumpById;
 const getPumpByMqttMsgName = async (name) => {
@@ -25,7 +25,7 @@ const getPumpByMqttMsgName = async (name) => {
     if (error) {
         throw error;
     }
-    return data;
+    return data["result"];
 };
 exports.getPumpByMqttMsgName = getPumpByMqttMsgName;
 //# sourceMappingURL=read_pump_data.js.map

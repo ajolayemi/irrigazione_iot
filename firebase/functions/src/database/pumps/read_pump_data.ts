@@ -13,7 +13,7 @@ export const getPumpById = async (id: string): Promise<Tables<"pumps">> => {
     throw error;
   }
 
-  return data as Tables<"pumps">;
+  return data["result"] as Tables<"pumps">;
 };
 
 export const getPumpByMqttMsgName = async (name: string): Promise<Tables<"pumps">> => {
@@ -28,5 +28,5 @@ export const getPumpByMqttMsgName = async (name: string): Promise<Tables<"pumps"
     throw error;
   }
 
-  return data as Tables<"pumps">;
+  return data["result"] as Tables<"pumps">;
 };
