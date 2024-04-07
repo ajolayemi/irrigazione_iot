@@ -12,7 +12,7 @@ const getCompanyById = async (id) => {
     if (error) {
         throw error;
     }
-    return data;
+    return data["result"];
 };
 exports.getCompanyById = getCompanyById;
 //# sourceMappingURL=read_company_data.js.map

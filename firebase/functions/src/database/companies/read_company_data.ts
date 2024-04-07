@@ -14,5 +14,5 @@ export const getCompanyById = async (id: string): Promise<Tables<'companies'>> =
         throw error;
     }
 
-    return data as Tables<'companies'>;
+    return data["result"] as Tables<'companies'>;
 }
