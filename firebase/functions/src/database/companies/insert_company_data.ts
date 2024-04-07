@@ -1,4 +1,4 @@
-import { TablesInsert } from "../../../schemas/supabase";
+import { TablesInsert } from "../../../schemas/database.types";
 import { createSupabaseClient } from "../../services/supabase_client";
 
 export const insertCompany = async (data: TablesInsert<'companies'>): Promise<void> => {

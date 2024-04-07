@@ -9,8 +9,8 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "update-local-types": "npx supabase gen types typescript --local > schemas/supabase.ts",
-    "update-types": "npx supabase gen types typescript --project-id \"$PROJECT_REF\" > schemas/supabase.ts"
+    "update-local-types": "npx supabase gen types typescript --local > schemas/database.types.ts",
+    "update-types": "npx supabase gen types typescript --project-id \"$PROJECT_REF\" > schemas/database.types.ts"
   },
   "engines": {
     "node": "18"

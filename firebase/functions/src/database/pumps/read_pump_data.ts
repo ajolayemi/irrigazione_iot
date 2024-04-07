@@ -1,4 +1,4 @@
-import {Tables} from "../../../schemas/supabase";
+import {Tables} from "../../../schemas/database.types";
 import {createSupabaseClient} from "../../services/supabase_client";
 
 export const getPumpById = async (id: string): Promise<Tables<"pumps">> => {

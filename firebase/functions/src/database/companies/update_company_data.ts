@@ -1,4 +1,4 @@
-import {TablesUpdate} from "../../../schemas/supabase";
+import {TablesUpdate} from "../../../schemas/database.types";
 import {createSupabaseClient} from "../../services/supabase_client";
 
 export const updateCompany = async (
