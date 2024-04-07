@@ -193,3 +193,51 @@ export const commonGetByMqttMsgName = async (
     });
   }
 };
+
+/**
+ * A common function that access tables like pump_pressures, collector_pressures, etc.
+ * It gets the last record from the table for a specific provided id that could be
+ * pump_id, collector_id, etc.
+ * @param req A request object
+ * @param tableName The name of the table to get the record from
+ * @param colName The name of the column to use in filtering the table
+ * @param columnNames (optional) The column names to get from the record separated by commas
+ * @returns A response object
+ */
+export const commonGetLastRecordById = async (
+  req: Request,
+  tableName: string,
+  colName: string,
+  columnNames?: string | undefined
+): Promise<Response> => {
+  try {
+    const supabaseClient = createEdgeSupabaseClient(req);
+    
+
+    const {id} = await req.json();
+
+    // Get the last record for the provided id
+    const {data: result, error} = await supabaseClient
+      .from(tableName)
+      .select(columnNames ?? "*")
+      .eq(colName, id as number)
+      .order("created_at", {ascending: false})
+      .limit(1)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    return new Response(JSON.stringify({result}), {
+      headers: {"Content-Type": "application/json"},
+      status: 200,
+    });
+  } catch (error) {
+    console.error(
+      `An error occurred in commonGetLastRecordById: ${error.message}`
+    );
+    return new Response(JSON.stringify({error: error.message}), {
+      status: 400,
+      headers: {"Content-Type": "application/json"},
+    });
+  }
+};
