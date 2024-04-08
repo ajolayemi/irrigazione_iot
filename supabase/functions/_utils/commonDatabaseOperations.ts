@@ -93,7 +93,7 @@ export const commonDelete = async (
     if (error) throw error;
     return new Response(
       JSON.stringify({
-        message: `Record deleted from ${tableName} successfully!`,
+        message: `Records deleted from ${tableName} successfully!`,
       }),
       {
         headers: {"Content-Type": "application/json"},
