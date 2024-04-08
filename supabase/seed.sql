@@ -442,14 +442,14 @@ values
 
 -- Seed data for collector_sectors table
 insert into
-    public.collector_sectors (collector_id, sector_id, company_id)
+    public.collector_sectors (collector_id, sector_id)
 values
-    (1, 1, 1),
-    (2, 2, 1),
-    (3, 3, 2),
-    (4, 4, 2),
-    (5, 5, 3),
-    (6, 6, 3);
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6);
 
 -- Seed data for boards table
 insert into
