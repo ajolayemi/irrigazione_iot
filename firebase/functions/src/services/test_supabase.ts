@@ -1,3 +1,4 @@
+import {insertSectorStatus} from "../database/sectors/insert_sector_data";
 import {getSectorByMqttMsgName} from "../database/sectors/read_sector_data";
 import {getSecretFromCloud} from "./secrets";
 
@@ -31,6 +32,11 @@ import {getSecretFromCloud} from "./secrets";
   //   created_at: new Date().toISOString(),   
   //   sector_id: sector.id,
   //   pressure: 1.0,
+  // });
+  // await insertSectorStatus({
+  //   created_at: new Date().toISOString(),
+  //   sector_id: sector.id,
+  //   status: "2",
   // });
   console.log(sector);
 })();

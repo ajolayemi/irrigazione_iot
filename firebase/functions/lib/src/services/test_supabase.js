@@ -27,6 +27,11 @@ const secrets_1 = require("./secrets");
     //   sector_id: sector.id,
     //   pressure: 1.0,
     // });
+    // await insertSectorStatus({
+    //   created_at: new Date().toISOString(),
+    //   sector_id: sector.id,
+    //   status: "2",
+    // });
     console.log(sector);
 })();
 (async () => {
