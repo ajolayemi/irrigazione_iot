@@ -17,7 +17,7 @@ export const commonUpdate = async (
     const {data} = await req.json();
 
     // Update the record
-    const {data: res, error} = await supabaseClient
+    const {data: result, error} = await supabaseClient
       .from(tableName)
       .update(data)
       .eq("id", data.id)
@@ -25,7 +25,7 @@ export const commonUpdate = async (
 
     if (error) throw error;
 
-    return new Response(JSON.stringify({res}), {
+    return new Response(JSON.stringify({result}), {
       headers: {"Content-Type": "application/json"},
       status: 200,
     });
