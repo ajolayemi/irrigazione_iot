@@ -1,4 +1,3 @@
-import {insertSectorStatus} from "../database/sectors/insert_sector_data";
 import {getSectorByMqttMsgName} from "../database/sectors/read_sector_data";
 import {getSecretFromCloud} from "./secrets";
 
