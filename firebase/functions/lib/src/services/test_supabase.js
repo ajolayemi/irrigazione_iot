@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const insert_board_data_1 = require("../database/boards/insert_board_data");
 const read_board_data_1 = require("../database/boards/read_board_data");
 const read_sector_data_1 = require("../database/sectors/read_sector_data");
 const secrets_1 = require("./secrets");
@@ -36,6 +37,11 @@ const secrets_1 = require("./secrets");
     console.log(sector);
     const board = await (0, read_board_data_1.getBoardByMqttMsgName)("mkr 7");
     console.log(board);
+    await (0, insert_board_data_1.insertBoardStatusData)({
+        created_at: new Date().toISOString(),
+        board_id: board.id,
+        battery_level: 2.0,
+    });
 })();
 (async () => {
     const url = await (0, secrets_1.getSecretFromCloud)("SUPABASE_URL");

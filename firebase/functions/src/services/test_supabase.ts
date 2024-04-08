@@ -1,3 +1,4 @@
+import {insertBoardStatusData} from "../database/boards/insert_board_data";
 import {getBoardByMqttMsgName} from "../database/boards/read_board_data";
 import {getSectorByMqttMsgName} from "../database/sectors/read_sector_data";
 import {getSecretFromCloud} from "./secrets";
@@ -42,6 +43,13 @@ import {getSecretFromCloud} from "./secrets";
 
   const board = await getBoardByMqttMsgName("mkr 7");
   console.log(board);
+
+  await insertBoardStatusData({
+    created_at: new Date().toISOString(),
+    board_id: board.id,
+    battery_level: 2.0,
+  });
+  
 })();
 
 (async () => {
