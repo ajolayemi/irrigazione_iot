@@ -1,8 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const insert_board_data_1 = require("../database/boards/insert_board_data");
-const read_board_data_1 = require("../database/boards/read_board_data");
-const read_sector_data_1 = require("../database/sectors/read_sector_data");
 const secrets_1 = require("./secrets");
 (async () => {
     // const testCompany = await getCompanyById("1");
@@ -23,7 +20,7 @@ const secrets_1 = require("./secrets");
     //   status: "2",
     // };
     // await insertPumpStatus(testPumpStatus);
-    const sector = await (0, read_sector_data_1.getSectorByMqttMsgName)("me8");
+    // const sector = await getSectorByMqttMsgName("me8");
     // await insertSectorPressure({
     //   created_at: new Date().toISOString(),   
     //   sector_id: sector.id,
@@ -34,14 +31,16 @@ const secrets_1 = require("./secrets");
     //   sector_id: sector.id,
     //   status: "2",
     // });
-    console.log(sector);
-    const board = await (0, read_board_data_1.getBoardByMqttMsgName)("mkr 7");
-    console.log(board);
-    await (0, insert_board_data_1.insertBoardStatusData)({
-        created_at: new Date().toISOString(),
-        board_id: board.id,
-        battery_level: 2.0,
-    });
+    // console.log(sector);
+    // const board = await getBoardByMqttMsgName("mkr 7");
+    // console.log(board);
+    // await insertBoardStatusData({
+    //   created_at: new Date().toISOString(),
+    //   board_id: board.id,
+    //   battery_level: 2.0,
+    // });
+    // const collector = await getCollectorByMqttMsgName("s4");
+    // console.log(collector);
 })();
 (async () => {
     const url = await (0, secrets_1.getSecretFromCloud)("SUPABASE_URL");

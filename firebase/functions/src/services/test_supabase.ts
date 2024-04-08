@@ -1,6 +1,3 @@
-import {insertBoardStatusData} from "../database/boards/insert_board_data";
-import {getBoardByMqttMsgName} from "../database/boards/read_board_data";
-import {getSectorByMqttMsgName} from "../database/sectors/read_sector_data";
 import {getSecretFromCloud} from "./secrets";
 
 (async () => {
@@ -28,7 +25,7 @@ import {getSecretFromCloud} from "./secrets";
 
   // await insertPumpStatus(testPumpStatus);
 
-  const sector = await getSectorByMqttMsgName("me8");
+  // const sector = await getSectorByMqttMsgName("me8");
   // await insertSectorPressure({
   //   created_at: new Date().toISOString(),   
   //   sector_id: sector.id,
@@ -39,16 +36,19 @@ import {getSecretFromCloud} from "./secrets";
   //   sector_id: sector.id,
   //   status: "2",
   // });
-  console.log(sector);
+  // console.log(sector);
 
-  const board = await getBoardByMqttMsgName("mkr 7");
-  console.log(board);
+  // const board = await getBoardByMqttMsgName("mkr 7");
+  // console.log(board);
 
-  await insertBoardStatusData({
-    created_at: new Date().toISOString(),
-    board_id: board.id,
-    battery_level: 2.0,
-  });
+  // await insertBoardStatusData({
+  //   created_at: new Date().toISOString(),
+  //   board_id: board.id,
+  //   battery_level: 2.0,
+  // });
+
+  // const collector = await getCollectorByMqttMsgName("s4");
+  // console.log(collector);
   
 })();
 
