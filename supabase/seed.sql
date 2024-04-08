@@ -563,3 +563,42 @@ values
     (1.5, 1.4, 4),
     (1.6, 1.5, 5),
     (1.7, 1.6, 6);
+
+-- Seed data for pump_flows table
+insert into
+    public.pump_flows (flow, pump_id)
+values
+    (100, 1),
+    (200, 1),
+    (300, 2),
+    (400, 2),
+    (500, 3),
+    (600, 3),
+    (700, 4),
+    (800, 4),
+    (900, 5),
+    (1000, 5),
+    (1100, 6),
+    (1200, 6);
+
+-- Seed data for terminal_pressure table
+insert into
+    public.terminal_pressure (pressure, collector_id)
+values
+    (1.2, 1),
+    (1.1, 1),
+    (1.3, 2),
+    (1.4, 2),
+    (1.6, 2),
+    (1.7, 3),
+    (1.8, 3),
+    (1.9, 3),
+    (1.2, 4),
+    (1.3, 4),
+    (1.4, 4),
+    (1.5, 5),
+    (1.6, 5),
+    (1.7, 5),
+    (1.8, 6),
+    (1.9, 6),
+    (1.2, 6);
