@@ -1,0 +1,1 @@
+ALTER TABLE public.sector_pumps ADD CONSTRAINT sector_pumps_pump_id_key UNIQUE (pump_id);
