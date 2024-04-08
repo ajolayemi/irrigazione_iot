@@ -152,21 +152,18 @@ export type Database = {
       collector_sectors: {
         Row: {
           collector_id: number
-          company_id: number
           created_at: string
           id: number
           sector_id: number
         }
         Insert: {
           collector_id: number
-          company_id: number
           created_at?: string
           id?: number
           sector_id: number
         }
         Update: {
           collector_id?: number
-          company_id?: number
           created_at?: string
           id?: number
           sector_id?: number
@@ -180,16 +177,9 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "public_collector_sectors_company_id_fkey"
-            columns: ["company_id"]
-            isOneToOne: false
-            referencedRelation: "companies"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "public_collector_sectors_sector_id_fkey"
             columns: ["sector_id"]
-            isOneToOne: false
+            isOneToOne: true
             referencedRelation: "sectors"
             referencedColumns: ["id"]
           },
@@ -467,7 +457,7 @@ export type Database = {
           {
             foreignKeyName: "public_sector_pumps_pump_id_fkey"
             columns: ["pump_id"]
-            isOneToOne: false
+            isOneToOne: true
             referencedRelation: "pumps"
             referencedColumns: ["id"]
           },
@@ -515,8 +505,8 @@ export type Database = {
           company_id: number
           created_at: string
           id: number
-          irrigation_source: string
-          irrigation_system_type: string
+          irrigation_source: Database["public"]["Enums"]["irrigation_source"]
+          irrigation_system_type: Database["public"]["Enums"]["irrigation_system"]
           mqtt_msg_name: string
           name: string
           notes: string | null
@@ -534,8 +524,8 @@ export type Database = {
           company_id: number
           created_at?: string
           id?: number
-          irrigation_source: string
-          irrigation_system_type: string
+          irrigation_source: Database["public"]["Enums"]["irrigation_source"]
+          irrigation_system_type: Database["public"]["Enums"]["irrigation_system"]
           mqtt_msg_name: string
           name: string
           notes?: string | null
@@ -553,8 +543,8 @@ export type Database = {
           company_id?: number
           created_at?: string
           id?: number
-          irrigation_source?: string
-          irrigation_system_type?: string
+          irrigation_source?: Database["public"]["Enums"]["irrigation_source"]
+          irrigation_system_type?: Database["public"]["Enums"]["irrigation_system"]
           mqtt_msg_name?: string
           name?: string
           notes?: string | null
@@ -635,6 +625,22 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      irrigation_source:
+        | "well"
+        | "cistern"
+        | "river"
+        | "lake"
+        | "canal"
+        | "invaso"
+        | "consortium"
+        | "other"
+      irrigation_system:
+        | "drip"
+        | "pivot"
+        | "rotolo"
+        | "sprinkler"
+        | "subirrigazione"
+        | "other"
       role: "superuser" | "owner" | "admin" | "user"
     }
     CompositeTypes: {
