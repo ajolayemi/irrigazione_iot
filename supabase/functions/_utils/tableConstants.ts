@@ -5,7 +5,7 @@ export class TableNames {
   static readonly companies = "companies";
   static readonly company_users = "company_users";
   static readonly boards = "boards";
-  static readonly boards_statuses = "boards_statuses";
+  static readonly boards_statuses = "board_statuses";
   static readonly collectors = "collectors";
   static readonly collector_sectors = "collector_sectors";
   static readonly collector_pressures = "collector_pressures";
