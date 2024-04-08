@@ -18,6 +18,8 @@ export class TableNames {
   static readonly sector_pressures = "sector_pressures";
   static readonly sector_statuses = "sector_statuses";
   static readonly sector_pumps = "sector_pumps";
+  static readonly pump_flows = "pump_flows";
+  static readonly terminal_pressures = "terminal_pressures";
 }
 
 
