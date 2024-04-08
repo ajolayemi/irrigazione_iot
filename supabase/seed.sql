@@ -581,9 +581,9 @@ values
     (1100, 6),
     (1200, 6);
 
--- Seed data for terminal_pressure table
+-- Seed data for terminal_pressures table
 insert into
-    public.terminal_pressure (pressure, collector_id)
+    public.terminal_pressures (pressure, collector_id)
 values
     (1.2, 1),
     (1.1, 1),
