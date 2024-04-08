@@ -1,3 +1,4 @@
+import {getBoardByMqttMsgName} from "../database/boards/read_board_data";
 import {getSectorByMqttMsgName} from "../database/sectors/read_sector_data";
 import {getSecretFromCloud} from "./secrets";
 
@@ -38,6 +39,9 @@ import {getSecretFromCloud} from "./secrets";
   //   status: "2",
   // });
   console.log(sector);
+
+  const board = await getBoardByMqttMsgName("mkr 7");
+  console.log(board);
 })();
 
 (async () => {
