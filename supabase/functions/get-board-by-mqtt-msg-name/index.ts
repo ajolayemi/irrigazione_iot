@@ -5,7 +5,7 @@ console.log(`Function 'get-board-by-mqtt-msg-name' invoked`);
 
 Deno.serve(
   async (req) =>
-    await commonGetByMqttMsgName(req, TableNames.boards, "id, company_id")
+    await commonGetByMqttMsgName(req, TableNames.boards, "id, company_id, collector_id")
 );
 
 /* To invoke locally:
