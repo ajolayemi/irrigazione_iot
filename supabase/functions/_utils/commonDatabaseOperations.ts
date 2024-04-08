@@ -85,11 +85,11 @@ export const commonDelete = async (
   try {
     const supabaseClient = createEdgeSupabaseClient(req);
 
-    // Get the record id to delete
-    const {id} = await req.json();
+    // Get the record id to delete, a list of ids can also be provided
+    const {ids} = await req.json();
 
     // Delete the record
-    const {error} = await supabaseClient.from(tableName).delete().match({id});
+    const {error} = await supabaseClient.from(tableName).delete().in("id", ids);
     if (error) throw error;
     return new Response(
       JSON.stringify({
