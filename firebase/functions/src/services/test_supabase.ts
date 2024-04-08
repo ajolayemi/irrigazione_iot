@@ -27,6 +27,11 @@ import {getSecretFromCloud} from "./secrets";
   // await insertPumpStatus(testPumpStatus);
 
   const sector = await getSectorByMqttMsgName("me8");
+  // await insertSectorPressure({
+  //   created_at: new Date().toISOString(),   
+  //   sector_id: sector.id,
+  //   pressure: 1.0,
+  // });
   console.log(sector);
 })();
 

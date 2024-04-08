@@ -22,6 +22,11 @@ const secrets_1 = require("./secrets");
     // };
     // await insertPumpStatus(testPumpStatus);
     const sector = await (0, read_sector_data_1.getSectorByMqttMsgName)("me8");
+    // await insertSectorPressure({
+    //   created_at: new Date().toISOString(),   
+    //   sector_id: sector.id,
+    //   pressure: 1.0,
+    // });
     console.log(sector);
 })();
 (async () => {
