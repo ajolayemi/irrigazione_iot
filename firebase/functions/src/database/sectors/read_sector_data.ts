@@ -19,9 +19,7 @@ export const getSectorByMqttMsgName = async (
     }
   );
 
-  if (error) {
-    throw error;
-  }
+  if (error) throw error;
 
   return data["result"] as Tables<"sectors">;
 };

@@ -14,9 +14,8 @@ const getSectorByMqttMsgName = async (name) => {
     const { data, error } = await supabase.functions.invoke("get-sector-by-mqtt-msg-name", {
         body: { name },
     });
-    if (error) {
+    if (error)
         throw error;
-    }
     return data["result"];
 };
 exports.getSectorByMqttMsgName = getSectorByMqttMsgName;
