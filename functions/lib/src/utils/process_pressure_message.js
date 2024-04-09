@@ -34,6 +34,7 @@ const processPressureMessageFromPubSub = async (message, debug = false) => {
         if (!collectorId) {
             throw new Error("No collector found for the sectors in the message");
         }
+        v1_1.logger.info(`Collector found for sectors in the message: ${collectorId}`);
         // Reaching here means that the message is valid and the collector that holds
         // the sectors in the message has been found
         // We can now proceed to process the message
