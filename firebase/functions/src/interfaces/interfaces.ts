@@ -6,4 +6,9 @@ export interface PressureMessageKeys {
   terminalPressureKey: string;
   collectorPressureKeys: string[];
   sectorKeys: string[];
+  splittedSectorKeys: string[];
+}
+
+export interface CustomJSON {
+  [key: string]: any;
 }
