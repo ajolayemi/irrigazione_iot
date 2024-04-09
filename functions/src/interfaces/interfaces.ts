@@ -31,9 +31,9 @@ export interface CustomJSON {
 }
 
 /**
- * An interface of what the sector status msg from MQTT - Dataflow - PubSub looks like
+ * An interface of what the status msgs from MQTT - Dataflow - PubSub looks like
  */
-export interface SectorStatusMessage {
+export interface StatusMessage {
   status: string;
-  mqttMsgName: string;
+  name: string;
 }
