@@ -300,6 +300,35 @@ export type Database = {
           },
         ]
       }
+      pump_flows: {
+        Row: {
+          created_at: string
+          flow: number
+          id: number
+          pump_id: number
+        }
+        Insert: {
+          created_at?: string
+          flow: number
+          id?: number
+          pump_id: number
+        }
+        Update: {
+          created_at?: string
+          flow?: number
+          id?: number
+          pump_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_pump_flows_pump_id_fkey"
+            columns: ["pump_id"]
+            isOneToOne: false
+            referencedRelation: "pumps"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       pump_pressures: {
         Row: {
           created_at: string
@@ -364,6 +393,7 @@ export type Database = {
           company_id: number
           consume_rate_in_kw: number
           created_at: string
+          has_filter: boolean
           id: number
           mqtt_msg_name: string
           name: string
@@ -376,6 +406,7 @@ export type Database = {
           company_id: number
           consume_rate_in_kw: number
           created_at?: string
+          has_filter?: boolean
           id?: number
           mqtt_msg_name: string
           name: string
@@ -388,6 +419,7 @@ export type Database = {
           company_id?: number
           consume_rate_in_kw?: number
           created_at?: string
+          has_filter?: boolean
           id?: number
           mqtt_msg_name?: string
           name?: string
@@ -504,6 +536,7 @@ export type Database = {
           area: number
           company_id: number
           created_at: string
+          has_filter: boolean
           id: number
           irrigation_source: Database["public"]["Enums"]["irrigation_source"]
           irrigation_system_type: Database["public"]["Enums"]["irrigation_system"]
@@ -523,6 +556,7 @@ export type Database = {
           area: number
           company_id: number
           created_at?: string
+          has_filter?: boolean
           id?: number
           irrigation_source: Database["public"]["Enums"]["irrigation_source"]
           irrigation_system_type: Database["public"]["Enums"]["irrigation_system"]
@@ -542,6 +576,7 @@ export type Database = {
           area?: number
           company_id?: number
           created_at?: string
+          has_filter?: boolean
           id?: number
           irrigation_source?: Database["public"]["Enums"]["irrigation_source"]
           irrigation_system_type?: Database["public"]["Enums"]["irrigation_system"]
@@ -598,6 +633,35 @@ export type Database = {
           name?: string
         }
         Relationships: []
+      }
+      terminal_pressures: {
+        Row: {
+          collector_id: number
+          created_at: string
+          id: number
+          pressure: number
+        }
+        Insert: {
+          collector_id: number
+          created_at?: string
+          id?: number
+          pressure: number
+        }
+        Update: {
+          collector_id?: number
+          created_at?: string
+          id?: number
+          pressure?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_terminal_pressure_collector_id_fkey"
+            columns: ["collector_id"]
+            isOneToOne: false
+            referencedRelation: "collectors"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       varieties: {
         Row: {
