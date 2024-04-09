@@ -9,7 +9,10 @@ import {SupabaseClient, createClient} from "@supabase/supabase-js";
 export const createSupabaseClient = async (): Promise<
   SupabaseClient<Database>
 > => {
-  const url = await getSecretFromCloud("SUPABASE_URL");
-  const anon = await getSecretFromCloud("SUPABASE_ANON_KEY");
+  const env = process.env.NODE_ENV;
+  const urlSecretKey = `supabase-url-${env}`;
+  const supabaseKeySecretKey = `supabase-key-${env}`;
+  const url = await getSecretFromCloud(urlSecretKey);
+  const anon = await getSecretFromCloud(supabaseKeySecretKey);
   return createClient<Database>(url, anon);
 };

@@ -8,8 +8,11 @@ const supabase_js_1 = require("@supabase/supabase-js");
  * @return {Promise<SupabaseClient<Database>>} The Supabase client
  */
 const createSupabaseClient = async () => {
-    const url = await (0, secrets_1.getSecretFromCloud)("SUPABASE_URL");
-    const anon = await (0, secrets_1.getSecretFromCloud)("SUPABASE_ANON_KEY");
+    const env = process.env.NODE_ENV;
+    const urlSecretKey = `supabase-url-${env}`;
+    const supabaseKeySecretKey = `supabase-key-${env}`;
+    const url = await (0, secrets_1.getSecretFromCloud)(urlSecretKey);
+    const anon = await (0, secrets_1.getSecretFromCloud)(supabaseKeySecretKey);
     return (0, supabase_js_1.createClient)(url, anon);
 };
 exports.createSupabaseClient = createSupabaseClient;
