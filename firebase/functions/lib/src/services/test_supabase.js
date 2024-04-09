@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const process_pressure_message_1 = require("../utils/process_pressure_message");
 (async () => {
     const msg = '{"me7_CH1": -1.389999986,  "me8_CH2": -1.399999976, "slb_CH3": -1.389999986, "Api_CH4": -1.399999976, "Filter_IN": -1.399999976, "Filter_OUT": -1.399999976, "Final_CH4": -2.569999933}';
-    await (0, process_pressure_message_1.processPressureMessage)(JSON.parse(msg));
+    await (0, process_pressure_message_1.processPressureMessageFromPubSub)(JSON.parse(msg));
     // const testCompany = await getCompanyById("1");
     // console.log(testCompany);
     // const p = await getPumpById("1");
