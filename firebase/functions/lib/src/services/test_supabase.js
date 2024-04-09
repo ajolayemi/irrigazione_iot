@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const secrets_1 = require("./secrets");
+const process_pressure_message_1 = require("../utils/process_pressure_message");
 (async () => {
+    const msg = '{"me7_CH1": -1.389999986,  "me8_CH2": -1.399999976, "slb_CH3": -1.389999986, "Api_CH4": -1.399999976, "Filter_IN": -1.399999976, "Filter_OUT": -1.399999976, "Final_CH4": -2.569999933}';
+    await (0, process_pressure_message_1.processPressureMessage)(JSON.parse(msg));
     // const testCompany = await getCompanyById("1");
     // console.log(testCompany);
     // const p = await getPumpById("1");
@@ -22,7 +24,7 @@ const secrets_1 = require("./secrets");
     // await insertPumpStatus(testPumpStatus);
     // const sector = await getSectorByMqttMsgName("me8");
     // await insertSectorPressure({
-    //   created_at: new Date().toISOString(),   
+    //   created_at: new Date().toISOString(),
     //   sector_id: sector.id,
     //   pressure: 1.0,
     // });
@@ -43,9 +45,9 @@ const secrets_1 = require("./secrets");
     // console.log(collector);
 })();
 (async () => {
-    const url = await (0, secrets_1.getSecretFromCloud)("SUPABASE_URL");
-    const anon = await (0, secrets_1.getSecretFromCloud)("SUPABASE_ANON_KEY");
-    console.log(url);
-    console.log(anon);
+    // const url = await getSecretFromCloud("SUPABASE_URL");
+    // const anon = await getSecretFromCloud("SUPABASE_ANON_KEY");
+    // console.log(url);
+    // console.log(anon);
 })();
 //# sourceMappingURL=test_supabase.js.map
