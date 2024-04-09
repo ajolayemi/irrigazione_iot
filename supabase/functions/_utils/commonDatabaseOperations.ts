@@ -1,3 +1,4 @@
+import {corsHeaders} from "./cors.ts";
 import {createEdgeSupabaseClient} from "./supabaseClient.ts";
 
 /**
@@ -10,6 +11,10 @@ export const commonUpdate = async (
   req: Request,
   tableName: string
 ): Promise<Response> => {
+  // This is needed if you're planning to invoke your function from a browser.
+  if (req.method === "OPTIONS") {
+    return new Response("ok", {headers: corsHeaders});
+  }
   try {
     const supabaseClient = createEdgeSupabaseClient(req);
 
@@ -49,6 +54,10 @@ export const commonInsert = async (
   req: Request,
   tableName: string
 ): Promise<Response> => {
+  // This is needed if you're planning to invoke your function from a browser.
+  if (req.method === "OPTIONS") {
+    return new Response("ok", {headers: corsHeaders});
+  }
   try {
     const supabaseClient = createEdgeSupabaseClient(req);
 
@@ -82,6 +91,10 @@ export const commonDelete = async (
   req: Request,
   tableName: string
 ): Promise<Response> => {
+  // This is needed if you're planning to invoke your function from a browser.
+  if (req.method === "OPTIONS") {
+    return new Response("ok", {headers: corsHeaders});
+  }
   try {
     const supabaseClient = createEdgeSupabaseClient(req);
 
@@ -121,6 +134,10 @@ export const commonGetById = async (
   tableName: string,
   columnNames?: string
 ): Promise<Response> => {
+  // This is needed if you're planning to invoke your function from a browser.
+  if (req.method === "OPTIONS") {
+    return new Response("ok", {headers: corsHeaders});
+  }
   try {
     const supabaseClient = createEdgeSupabaseClient(req);
 
@@ -164,6 +181,10 @@ export const commonGetByMqttMsgName = async (
   tableName: string,
   columnNames?: string
 ): Promise<Response> => {
+  // This is needed if you're planning to invoke your function from a browser.
+  if (req.method === "OPTIONS") {
+    return new Response("ok", {headers: corsHeaders});
+  }
   try {
     const supabaseClient = createEdgeSupabaseClient(req);
 
@@ -212,8 +233,6 @@ export const commonGetLastRecordById = async (
 ): Promise<Response> => {
   try {
     const supabaseClient = createEdgeSupabaseClient(req);
-    
-
     const {id} = await req.json();
 
     // Get the last record for the provided id
