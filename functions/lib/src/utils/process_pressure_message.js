@@ -21,7 +21,7 @@ const processPressureMessageFromPubSub = async (message, debug = false) => {
             throw new Error("Message to process is required");
         }
         v1_1.logger.info("Processing pressure message...");
-        v1_1.logger.info(`With message: ${message}`);
+        v1_1.logger.info(`With message: ${message.toString()}`);
         // Filter out all necessary keys from the message
         const { terminalPressureKey, collectorPressureKeys, sectorKeys, splittedSectorKeys, } = getPressureMessageKeys(message);
         // It's expected that at least a single sector key is found in the message

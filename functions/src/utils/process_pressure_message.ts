@@ -27,7 +27,7 @@ export const processPressureMessageFromPubSub = async (
       throw new Error("Message to process is required");
     }
     logger.info("Processing pressure message...");
-    logger.info(`With message: ${message}`);
+    logger.info(`With message: ${message.toString()}`);
 
     // Filter out all necessary keys from the message
     const {
