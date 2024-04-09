@@ -3,9 +3,26 @@
  * sent from the MQTT broker
  */
 export interface PressureMessageKeys {
+  /**
+   * The key identifying the terminal pressure just as it is in the received mqtt message
+   */
   terminalPressureKey: string;
+  /**
+   * A list of keys identifying the collector pressures just as they are in the received mqtt message
+   *
+   */
   collectorPressureKeys: string[];
+  /**
+   * A list keys identifying the sectors just as they are in the received mqtt message
+   * @example ["A_CH1", "ME8_CH2"] where the characters before the underscore
+   * are the sector names
+   */
   sectorKeys: string[];
+  /**
+   * A list of processed keys identifying the sectors from the mqtt message
+   * @example ["A", "ME8"] where the characters before the underscore
+   * are the sector names
+   */
   splittedSectorKeys: string[];
 }
 
