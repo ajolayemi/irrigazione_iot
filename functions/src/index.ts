@@ -9,9 +9,9 @@ exports.processPressureMessages = pubsub.onMessagePublished(
   "pressure",
   async (event) => {
     const message = event.data.message.json;
-      const successInProcessingMessage = await processPressureMessageFromPubSub(
-        message
-      );
-      return Promise.resolve(successInProcessingMessage);
+    const successInProcessingMessage = await processPressureMessageFromPubSub(
+      message
+    );
+    return Promise.resolve(successInProcessingMessage);
   }
 );
