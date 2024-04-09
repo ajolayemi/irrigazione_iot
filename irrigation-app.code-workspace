@@ -14,7 +14,7 @@
       },
       {
         "name": "firebase-functions",
-        "path": "firebase/functions"
+        "path": "functions"
       },
       {
         "name": "supabase-migrations",
