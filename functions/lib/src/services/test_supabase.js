@@ -2,7 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
 (async () => {
-    console.log(process.env.NODE_ENV);
+    // await processSectorStatusMessage({
+    //   name: "me7",
+    //   status: "2",
+    // });
     // const msg = `{"me7_CH1": -1.389999986, "me8_CH2": -1.399999976, "slb_CH3": -1.389999986,
     // "Api_CH4": -1.399999976, "Filter_IN": -1.399999976, "Filter_OUT": -1.399999976,
     // "Final_CH4": -2.569999933}`;
