@@ -12,3 +12,11 @@ export interface PressureMessageKeys {
 export interface CustomJSON {
   [key: string]: any;
 }
+
+/**
+ * An interface of what the sector status msg from MQTT - Dataflow - PubSub looks like
+ */
+export interface SectorStatusMessage {
+  status: string;
+  mqttMsgName: string;
+}
