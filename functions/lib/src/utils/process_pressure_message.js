@@ -108,6 +108,7 @@ const processCollectorPressure = async (collectorPressureKeys, message, collecto
             filter_in_pressure: _filterInPressure,
             filter_out_pressure: _filterOutPressure,
         };
+        v1_1.logger.info("Saving collector pressure to the database");
         // Save the data to database
         await (0, insert_collector_data_1.insertCollectorPressure)(_collectorPressure);
         return true;
@@ -127,6 +128,7 @@ const processCollectorPressure = async (collectorPressureKeys, message, collecto
  */
 const processTerminalPressure = async (terminalPressureKey, message, collectorId) => {
     try {
+        v1_1.logger.info("Processing terminal pressure...");
         const terminalPressure = message[terminalPressureKey].toFixed(2);
         if (!terminalPressure) {
             v1_1.logger.info("Exiting terminal pressure processing");

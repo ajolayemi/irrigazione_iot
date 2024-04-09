@@ -148,6 +148,7 @@ const processCollectorPressure = async (
       filter_out_pressure: _filterOutPressure,
     };
 
+    logger.info("Saving collector pressure to the database");
     // Save the data to database
     await insertCollectorPressure(_collectorPressure);
 
@@ -172,6 +173,7 @@ const processTerminalPressure = async (
   collectorId: number
 ): Promise<boolean> => {
   try {
+    logger.info("Processing terminal pressure...");
     const terminalPressure = message[terminalPressureKey].toFixed(2) as number;
 
     if (!terminalPressure) {
@@ -186,7 +188,6 @@ const processTerminalPressure = async (
       pressure: terminalPressure,
     };
     logger.info("Saving terminal pressure to the database");
-
     await insertTerminalPressure(_terminalPressure);
 
     return true;
