@@ -37,3 +37,12 @@ export interface StatusMessage {
   status: string;
   name: string;
 }
+
+/**
+ * An interface of what pump flow rate message from MQTT - Dataflow - PubSub looks like
+ */
+export interface PumpFlowRateMessage {
+  count: number;
+  name: string;
+  litresPerSeconds: number;
+}
