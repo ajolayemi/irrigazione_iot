@@ -46,3 +46,9 @@ export interface PumpFlowRateMessage {
   name: string;
   litresPerSeconds: number;
 }
+
+export interface PumpPressureKeys {
+  nameKey: string;
+  filterInKey: string;
+  filterOutKey: string;
+}
