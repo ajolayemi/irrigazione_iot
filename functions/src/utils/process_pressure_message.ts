@@ -98,7 +98,7 @@ const processSectorPressure = async (
         continue;
       }
 
-      const sectorPressure = message[sectorKey].toFixed(2) as number;
+      const sectorPressure = message[sectorKey] as number;
 
       const _sectorPressureForDatabase: TablesInsert<"sector_pressures"> = {
         created_at: new Date().toISOString(),
@@ -134,12 +134,8 @@ const processCollectorPressure = async (
   try {
     logger.info("Processing collector pressure...");
 
-    const _filterInPressure = message[collectorPressureKeys[0]].toFixed(
-      2
-    ) as number;
-    const _filterOutPressure = message[collectorPressureKeys[1]].toFixed(
-      2
-    ) as number;
+    const _filterInPressure = message[collectorPressureKeys[0]] as number;
+    const _filterOutPressure = message[collectorPressureKeys[1]] as number;
 
     const _collectorPressure: TablesInsert<"collector_pressures"> = {
       created_at: new Date().toISOString(),
@@ -174,7 +170,7 @@ const processTerminalPressure = async (
 ): Promise<boolean> => {
   try {
     logger.info("Processing terminal pressure...");
-    const terminalPressure = message[terminalPressureKey].toFixed(2) as number;
+    const terminalPressure = message[terminalPressureKey] as number;
 
     if (!terminalPressure) {
       logger.info("Exiting terminal pressure processing");
