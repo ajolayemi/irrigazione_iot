@@ -7,6 +7,7 @@ const process_pressure_message_1 = require("./utils/process_pressure_message");
 const process_sector_status_message_1 = require("./utils/process_sector_status_message");
 const process_pump_status_message_1 = require("./utils/process_pump_status_message");
 const process_pump_flow_message_1 = require("./utils/process_pump_flow_message");
+const process_pump_pressure_message_1 = require("./utils/process_pump_pressure_message");
 firebase_admin_1.default.initializeApp();
 /**
  * Cloud function is triggered by a message published to the `pressure` topic
@@ -32,6 +33,11 @@ exports.processPumpStatusMessages = v2_1.pubsub.onMessagePublished("pump-status"
 exports.processPumpFlowMessages = v2_1.pubsub.onMessagePublished("pump-flow", async (event) => {
     const message = event.data.message.json;
     const successInProcessingMessage = await (0, process_pump_flow_message_1.processPumpFlowMessage)(message);
+    return Promise.resolve(successInProcessingMessage);
+});
+exports.processPumpPumpPressureMessages = v2_1.pubsub.onMessagePublished("pump-pressure", async (event) => {
+    const message = event.data.message.json;
+    const successInProcessingMessage = await (0, process_pump_pressure_message_1.processPumpPressureMessage)(message);
     return Promise.resolve(successInProcessingMessage);
 });
 //# sourceMappingURL=index.js.map

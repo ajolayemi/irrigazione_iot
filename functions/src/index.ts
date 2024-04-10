@@ -5,6 +5,7 @@ import {processPressureMessageFromPubSub} from "./utils/process_pressure_message
 import {processSectorStatusMessage} from "./utils/process_sector_status_message";
 import {processPumpStatusMessage} from "./utils/process_pump_status_message";
 import {processPumpFlowMessage} from "./utils/process_pump_flow_message";
+import {processPumpPressureMessage} from "./utils/process_pump_pressure_message";
 
 admin.initializeApp();
 
@@ -50,6 +51,17 @@ exports.processPumpFlowMessages = pubsub.onMessagePublished(
   async (event) => {
     const message = event.data.message.json;
     const successInProcessingMessage = await processPumpFlowMessage(message);
+    return Promise.resolve(successInProcessingMessage);
+  }
+);
+
+exports.processPumpPumpPressureMessages = pubsub.onMessagePublished(
+  "pump-pressure",
+  async (event) => {
+    const message = event.data.message.json;
+    const successInProcessingMessage = await processPumpPressureMessage(
+      message
+    );
     return Promise.resolve(successInProcessingMessage);
   }
 );
