@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.insertPumpStatus = exports.insertPumpPressure = void 0;
+exports.insertPumpFlow = exports.insertPumpStatus = exports.insertPumpPressure = void 0;
 const supabase_client_1 = require("../../services/supabase_client");
 /**
  * References the insert-pump-pressure Supabase Edge function to insert pump pressure data
@@ -42,4 +42,22 @@ const insertPumpStatus = async (data) => {
     return Promise.resolve();
 };
 exports.insertPumpStatus = insertPumpStatus;
+/**
+ * References the insert-pump-flow Supabase Edge function to insert pump flow data
+ * @param {TablesInsert<"pump_flows">} data The data to insert
+ * @return {Promise<void>} A promise that resolves when the data is inserted
+ */
+const insertPumpFlow = async (data) => {
+    const supabase = await (0, supabase_client_1.createSupabaseClient)();
+    const { error } = await supabase.functions.invoke("insert-pump-flow", {
+        body: {
+            data: data,
+        },
+    });
+    if (error) {
+        throw error;
+    }
+    return Promise.resolve();
+};
+exports.insertPumpFlow = insertPumpFlow;
 //# sourceMappingURL=insert_pump_data.js.map

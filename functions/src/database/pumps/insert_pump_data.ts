@@ -47,3 +47,24 @@ export const insertPumpStatus = async (
 
   return Promise.resolve();
 };
+
+/**
+ * References the insert-pump-flow Supabase Edge function to insert pump flow data
+ * @param {TablesInsert<"pump_flows">} data The data to insert
+ * @return {Promise<void>} A promise that resolves when the data is inserted
+ */
+export const insertPumpFlow = async (
+  data: TablesInsert<"pump_flows">
+): Promise<void> => {
+  const supabase = await createSupabaseClient();
+  const {error} = await supabase.functions.invoke("insert-pump-flow", {
+    body: {
+      data: data,
+    },
+  });
+  if (error) {
+    throw error;
+  }
+
+  return Promise.resolve();
+};
