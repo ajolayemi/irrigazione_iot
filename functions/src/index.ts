@@ -6,6 +6,7 @@ import {processSectorStatusMessage} from "./utils/process_sector_status_message"
 import {processPumpStatusMessage} from "./utils/process_pump_status_message";
 import {processPumpFlowMessage} from "./utils/process_pump_flow_message";
 import {processPumpPressureMessage} from "./utils/process_pump_pressure_message";
+import {processBoardStatusMessage} from "./utils/process_board_status_message";
 
 admin.initializeApp();
 
@@ -62,6 +63,15 @@ exports.processPumpPumpPressureMessages = pubsub.onMessagePublished(
     const successInProcessingMessage = await processPumpPressureMessage(
       message
     );
+    return Promise.resolve(successInProcessingMessage);
+  }
+);
+
+exports.processBoardStatusMessages = pubsub.onMessagePublished(
+  "board-status",
+  async (event) => {
+    const message = event.data.message.json;
+    const successInProcessingMessage = await processBoardStatusMessage(message);
     return Promise.resolve(successInProcessingMessage);
   }
 );
