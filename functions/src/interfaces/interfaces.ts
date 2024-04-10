@@ -52,3 +52,8 @@ export interface PumpPressureKeys {
   filterInKey: string;
   filterOutKey: string;
 }
+
+export interface BoardStatusMessage {
+  vbat: number;
+  name: string;
+}
