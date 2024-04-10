@@ -73,7 +73,7 @@ const processSectorPressure = async (sectorKeys, message) => {
                 v1_1.logger.info("No sector found for sector key: ", sectorMqttName);
                 continue;
             }
-            const sectorPressure = message[sectorKey].toFixed(2);
+            const sectorPressure = message[sectorKey];
             const _sectorPressureForDatabase = {
                 created_at: new Date().toISOString(),
                 sector_id: sector.id,
@@ -100,8 +100,8 @@ const processSectorPressure = async (sectorKeys, message) => {
 const processCollectorPressure = async (collectorPressureKeys, message, collectorId) => {
     try {
         v1_1.logger.info("Processing collector pressure...");
-        const _filterInPressure = message[collectorPressureKeys[0]].toFixed(2);
-        const _filterOutPressure = message[collectorPressureKeys[1]].toFixed(2);
+        const _filterInPressure = message[collectorPressureKeys[0]];
+        const _filterOutPressure = message[collectorPressureKeys[1]];
         const _collectorPressure = {
             created_at: new Date().toISOString(),
             collector_id: collectorId,
@@ -129,7 +129,7 @@ const processCollectorPressure = async (collectorPressureKeys, message, collecto
 const processTerminalPressure = async (terminalPressureKey, message, collectorId) => {
     try {
         v1_1.logger.info("Processing terminal pressure...");
-        const terminalPressure = message[terminalPressureKey].toFixed(2);
+        const terminalPressure = message[terminalPressureKey];
         if (!terminalPressure) {
             v1_1.logger.info("Exiting terminal pressure processing");
             v1_1.logger.info("No terminal pressure found in the message");
