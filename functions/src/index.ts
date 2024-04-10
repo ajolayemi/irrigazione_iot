@@ -4,6 +4,7 @@ import "dotenv/config";
 import {processPressureMessageFromPubSub} from "./utils/process_pressure_message";
 import {processSectorStatusMessage} from "./utils/process_sector_status_message";
 import {processPumpStatusMessage} from "./utils/process_pump_status_message";
+import {processPumpFlowMessage} from "./utils/process_pump_flow_message";
 
 admin.initializeApp();
 
@@ -40,6 +41,15 @@ exports.processPumpStatusMessages = pubsub.onMessagePublished(
   async (event) => {
     const message = event.data.message.json;
     const successInProcessingMessage = await processPumpStatusMessage(message);
+    return Promise.resolve(successInProcessingMessage);
+  }
+);
+
+exports.processPumpFlowMessages = pubsub.onMessagePublished(
+  "pump-flow",
+  async (event) => {
+    const message = event.data.message.json;
+    const successInProcessingMessage = await processPumpFlowMessage(message);
     return Promise.resolve(successInProcessingMessage);
   }
 );
