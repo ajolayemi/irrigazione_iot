@@ -3,6 +3,7 @@ import {pubsub} from "firebase-functions/v2";
 import "dotenv/config";
 import {processPressureMessageFromPubSub} from "./utils/process_pressure_message";
 import {processSectorStatusMessage} from "./utils/process_sector_status_message";
+import {processPumpStatusMessage} from "./utils/process_pump_status_message";
 
 admin.initializeApp();
 
@@ -30,6 +31,15 @@ exports.processSectorStatusMessages = pubsub.onMessagePublished(
     const successInProcessingMessage = await processSectorStatusMessage(
       message
     );
+    return Promise.resolve(successInProcessingMessage);
+  }
+);
+
+exports.processPumpStatusMessages = pubsub.onMessagePublished(
+  "pump-status",
+  async (event) => {
+    const message = event.data.message.json;
+    const successInProcessingMessage = await processPumpStatusMessage(message);
     return Promise.resolve(successInProcessingMessage);
   }
 );

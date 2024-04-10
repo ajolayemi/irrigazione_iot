@@ -5,6 +5,7 @@ const v2_1 = require("firebase-functions/v2");
 require("dotenv/config");
 const process_pressure_message_1 = require("./utils/process_pressure_message");
 const process_sector_status_message_1 = require("./utils/process_sector_status_message");
+const process_pump_status_message_1 = require("./utils/process_pump_status_message");
 firebase_admin_1.default.initializeApp();
 /**
  * Cloud function is triggered by a message published to the `pressure` topic
@@ -20,6 +21,11 @@ exports.processPressureMessages = v2_1.pubsub.onMessagePublished("pressure", asy
 exports.processSectorStatusMessages = v2_1.pubsub.onMessagePublished("sector-status", async (event) => {
     const message = event.data.message.json;
     const successInProcessingMessage = await (0, process_sector_status_message_1.processSectorStatusMessage)(message);
+    return Promise.resolve(successInProcessingMessage);
+});
+exports.processPumpStatusMessages = v2_1.pubsub.onMessagePublished("pump-status", async (event) => {
+    const message = event.data.message.json;
+    const successInProcessingMessage = await (0, process_pump_status_message_1.processPumpStatusMessage)(message);
     return Promise.resolve(successInProcessingMessage);
 });
 //# sourceMappingURL=index.js.map
