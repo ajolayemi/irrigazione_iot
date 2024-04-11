@@ -602,3 +602,9 @@ values
     (1.8, 6),
     (1.9, 6),
     (1.2, 6);
+
+-- seed data for superusers
+insert into
+    public.superusers (email)
+values
+    ('test1@example.com');
