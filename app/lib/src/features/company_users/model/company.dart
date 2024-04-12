@@ -83,26 +83,24 @@ class Company extends Equatable {
       CompanySupabaseKeys.piva: vatNumber,
       CompanySupabaseKeys.cf: fiscalCode,
       CompanySupabaseKeys.imageUrl: imageUrl,
-      CompanySupabaseKeys.createdAt: createdAt.millisecondsSinceEpoch,
-      CompanySupabaseKeys.updatedAt: updatedAt.millisecondsSinceEpoch,
+      CompanySupabaseKeys.createdAt: createdAt,
+      CompanySupabaseKeys.updatedAt: updatedAt,
     };
   }
 
-  factory Company.fromJson(Map<String, dynamic> map) {
+  static Company fromJson(Map<String, dynamic> json) {
     return Company(
-      id: map[CompanySupabaseKeys.id] as String,
-      name: map[CompanySupabaseKeys.name] as String,
-      email: map[CompanySupabaseKeys.email] as String,
-      phoneNumber: map[CompanySupabaseKeys.phoneNumber] as String,
+      id: json[CompanySupabaseKeys.id] as String,
+      name: json[CompanySupabaseKeys.name] as String,
+      email: json[CompanySupabaseKeys.email] as String,
+      phoneNumber: json[CompanySupabaseKeys.phoneNumber] as String,
       registeredOfficeAddress:
-          map[CompanySupabaseKeys.registeredOfficeAddress] as String,
-      vatNumber: map[CompanySupabaseKeys.piva] as String,
-      fiscalCode: map[CompanySupabaseKeys.cf] as String,
-      imageUrl: map[CompanySupabaseKeys.imageUrl] as String,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(
-          map[CompanySupabaseKeys.createdAt] as int),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(
-          map[CompanySupabaseKeys.updatedAt] as int),
+          json[CompanySupabaseKeys.registeredOfficeAddress] as String,
+      vatNumber: json[CompanySupabaseKeys.piva] as String,
+      fiscalCode: json[CompanySupabaseKeys.cf] as String,
+      imageUrl: json[CompanySupabaseKeys.imageUrl] as String,
+      createdAt: json[CompanySupabaseKeys.createdAt] as DateTime,
+      updatedAt: json[CompanySupabaseKeys.updatedAt] as DateTime,
     );
   }
 }
