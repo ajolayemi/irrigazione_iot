@@ -603,6 +603,7 @@ values
     (1.9, 6),
     (1.2, 6);
 
+
 -- seed data for superusers
 insert into
     public.superusers (email)
