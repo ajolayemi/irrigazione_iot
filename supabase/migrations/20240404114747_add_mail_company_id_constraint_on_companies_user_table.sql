@@ -1,0 +1,1 @@
+ALTER TABLE public.companies_user ADD CONSTRAINT mail_company_id_constraint UNIQUE (email, company_id);

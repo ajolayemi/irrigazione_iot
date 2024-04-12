@@ -1,0 +1,1 @@
+ALTER TABLE public.collector_pressure RENAME TO collector_pressures;

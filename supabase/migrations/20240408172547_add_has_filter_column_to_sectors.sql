@@ -1,0 +1,1 @@
+ALTER TABLE public.sectors ADD COLUMN has_filter boolean NOT NULL DEFAULT false;

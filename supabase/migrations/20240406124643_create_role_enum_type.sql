@@ -1,0 +1,1 @@
+CREATE TYPE role AS ENUM ('superuser', 'owner', 'admin', 'user')

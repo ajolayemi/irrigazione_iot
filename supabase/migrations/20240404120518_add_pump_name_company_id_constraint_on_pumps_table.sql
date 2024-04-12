@@ -1,0 +1,1 @@
+ALTER TABLE public.pumps ADD CONSTRAINT pump_name_company_id_constraint UNIQUE (name, company_id);

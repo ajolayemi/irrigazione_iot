@@ -7,9 +7,10 @@
         
 
         {
-            "name": "irrigazione_iot",
+            "name": "irrigazione_iot (debug mode)",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "program": "app/lib/main.dart"
         },
         {
             "name": "irrigazione_iot (profile mode)",
