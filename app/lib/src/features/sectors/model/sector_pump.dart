@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:equatable/equatable.dart';
 
-import '../../pumps/model/pump.dart';
 import 'sector.dart';
 
 /// A representation of pumps that irrigate a sector.
@@ -12,14 +10,14 @@ class SectorPump extends Equatable {
     required this.sectorId,
   });
 
-  final PumpID pumpId;
+  final String pumpId;
   final SectorID sectorId;
 
   @override
   List<Object> get props => [pumpId, sectorId];
 
   SectorPump copyWith({
-    PumpID? pumpId,
+    String? pumpId,
     SectorID? sectorId,
   }) {
     return SectorPump(
@@ -37,7 +35,7 @@ class SectorPump extends Equatable {
 
   factory SectorPump.fromJson(Map<String, dynamic> map) {
     return SectorPump(
-      pumpId: map['pumpId'] as PumpID,
+      pumpId: map['pumpId'] as String,
       sectorId: map['sectorId'] as SectorID,
     );
   }
@@ -46,5 +44,4 @@ class SectorPump extends Equatable {
   String toString() {
     return 'SectorPump(pumpId: $pumpId, sectorId: $sectorId)';
   }
-
 }

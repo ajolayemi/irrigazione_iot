@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../config/enums/form_types.dart';
-import '../../model/pump.dart';
-import 'add_update_pump_controller.dart';
-import 'add_update_pump_form_content.dart';
-import '../../../../utils/async_value_ui.dart';
-import '../../../../widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/config/enums/form_types.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pump_controller.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pump_form_content.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
+
 
 class AddUpdatePumpForm extends ConsumerWidget {
   const AddUpdatePumpForm({
@@ -15,7 +15,7 @@ class AddUpdatePumpForm extends ConsumerWidget {
   });
 
   final GenericFormTypes formType;
-  final PumpID? pumpId;
+  final String? pumpId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

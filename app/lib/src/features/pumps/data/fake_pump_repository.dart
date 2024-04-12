@@ -33,13 +33,13 @@ class FakePumpRepository implements PumpRepository {
   }
 
   @override
-  Future<Pump?> getPump(PumpID pumpId) async {
+  Future<Pump?> getPump(String pumpId) async {
     await delay(addDelay);
     return Future.value(_getPump(_fakePumps.value, pumpId));
   }
 
   @override
-  Stream<Pump?> watchPump(PumpID pumpId) {
+  Stream<Pump?> watchPump(String pumpId) {
     return _fakePumps.stream.map((pumps) => _getPump(pumps, pumpId));
   }
 
@@ -107,7 +107,7 @@ class FakePumpRepository implements PumpRepository {
   }
 
   @override
-  Future<bool> deletePump(PumpID pumpId) async {
+  Future<bool> deletePump(String pumpId) async {
     await delay(addDelay);
     final currentPumps = [..._fakePumps.value];
     final pumpIndex = currentPumps.indexWhere((p) => p.id == pumpId);

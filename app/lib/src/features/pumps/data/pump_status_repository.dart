@@ -1,8 +1,7 @@
+import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_status_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import 'fake_pump_status_repository.dart';
-import 'pump_repository.dart';
-import '../model/pump.dart';
 
 part 'pump_status_repository.g.dart';
 
@@ -41,7 +40,7 @@ Future<void> pumpStatusToggle(
 
 @riverpod
 Stream<DateTime?> lastDispensationStream(
-    LastDispensationStreamRef ref, PumpID pumpId) {
+    LastDispensationStreamRef ref, String pumpId) {
   final pump = ref.watch(pumpStreamProvider(pumpId)).value;
   if (pump == null) return const Stream.empty();
   final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
@@ -50,7 +49,7 @@ Stream<DateTime?> lastDispensationStream(
 
 @riverpod
 Future<DateTime?> lastDispensationFuture(
-    LastDispensationFutureRef ref, PumpID pumpId) {
+    LastDispensationFutureRef ref, String pumpId) {
   final pump = ref.watch(pumpFutureProvider(pumpId)).value;
   if (pump == null) return Future.value(null);
   final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);

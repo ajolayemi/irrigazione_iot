@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../config/enums/roles.dart';
-import '../../../../config/routes/routes_enums.dart';
-import '../../data/pump_repository.dart';
-import '../../model/pump.dart';
-import 'pump_details_list.dart';
-import 'pump_details_list_skeleton.dart';
-import '../pump_status_switch_controller.dart';
-import '../../../company_users/data/company_users_repository.dart';
-import '../../../../utils/async_value_ui.dart';
-import '../../../../widgets/app_bar_icon_buttons.dart';
-import '../../../../widgets/app_sliver_bar.dart';
-import '../../../../widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_details/pump_details_list.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_details/pump_details_list_skeleton.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_status_switch_controller.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
+import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
+
 
 class PumpDetailsScreen extends ConsumerWidget {
   const PumpDetailsScreen({
@@ -20,7 +20,7 @@ class PumpDetailsScreen extends ConsumerWidget {
     required this.pumpId,
   });
 
-  final PumpID pumpId;
+  final String pumpId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -7,7 +7,7 @@ part of 'dismiss_pump_controller.dart';
 // **************************************************************************
 
 String _$dismissPumpControllerHash() =>
-    r'e9152db7206748e0d8f505656fb676ed3e5656f5';
+    r'8061a7f3249af2db66be4cad14cfe1f29958b98f';
 
 /// See also [DismissPumpController].
 @ProviderFor(DismissPumpController)

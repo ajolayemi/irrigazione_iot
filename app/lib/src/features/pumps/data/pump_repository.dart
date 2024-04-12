@@ -11,15 +11,15 @@ abstract class PumpRepository {
   // get the pumps pertaining to a company
   Future<List<Pump?>> getCompanyPumps(String companyId);
   // watches a specified pump with the given pumpId
-  Stream<Pump?> watchPump(PumpID pumpId);
+  Stream<Pump?> watchPump(String pumpId);
   // gets a specified pump with the given pumpId
-  Future<Pump?> getPump(PumpID pumpId);
+  Future<Pump?> getPump(String pumpId);
   // creates a pump
   Future<Pump?> createPump(Pump pump, String companyId);
   // updates a pump
   Future<Pump?> updatePump(Pump pump, String companyId);
   // deletes a pump
-  Future<bool> deletePump(PumpID pumpId);
+  Future<bool> deletePump(String pumpId);
   // watches a list of already used pump names for a specified company
   // this is used in form validation to prevent duplicate pump names for a company
   Stream<List<String?>> watchCompanyUsedPumpNames(String companyId);

@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // A representation of the status of a pump.
-
 import 'package:equatable/equatable.dart';
 
 import 'pump.dart';
@@ -11,7 +10,7 @@ class PumpStatus extends Equatable {
     required this.lastUpdated,
     required this.pumpId,
   });
-  final PumpID pumpId;
+  final String pumpId;
   // pump status are passed in as a string value because the status will be managed
   // using MQTT messages that sends and receives a string value
   // an internal logic will convert the string value to a boolean value when needed
@@ -30,7 +29,7 @@ class PumpStatus extends Equatable {
   }
 
   PumpStatus copyWith({
-    PumpID? pumpId,
+    String? pumpId,
     String? status,
     DateTime? lastUpdated,
   }) {
@@ -51,7 +50,7 @@ class PumpStatus extends Equatable {
 
   factory PumpStatus.fromJson(Map<String, dynamic> map) {
     return PumpStatus(
-      pumpId: map['pumpId'] as PumpID,
+      pumpId: map['pumpId'] as String,
       status: map['status'] as String,
       lastUpdated:
           DateTime.fromMillisecondsSinceEpoch(map['lastUpdate'] as int),

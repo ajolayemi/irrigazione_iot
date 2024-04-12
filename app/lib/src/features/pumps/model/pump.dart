@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
-typedef PumpID = String;
+
 
 // TODO: add pump company
 // TODO: prevalenza, portata,
@@ -27,7 +27,7 @@ class Pump extends Equatable {
         companyId = '';
 
   /// A unique identifier for the pump
-  final PumpID id;
+  final String id;
 
   /// The name of the pump
   final String name;
@@ -61,7 +61,7 @@ class Pump extends Equatable {
   }
 
   Pump copyWith({
-    PumpID? id,
+    String? id,
     String? name,
     double? capacityInVolume,
     double? consumeRateInKw,
@@ -97,7 +97,7 @@ class Pump extends Equatable {
 
   factory Pump.fromMap(Map<String, dynamic> map) {
     return Pump(
-      id: map['id'] as PumpID,
+      id: map['id'] as String,
       name: map['name'] as String,
       capacityInVolume: map['capacityInVolume'] as double,
       consumeRateInKw: map['consumeRateInKw'] as double,
