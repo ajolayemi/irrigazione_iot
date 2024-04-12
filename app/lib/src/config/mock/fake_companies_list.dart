@@ -1,8 +1,7 @@
 import '../../features/company_users/model/company.dart';
 
-
 const staticImageUrl = 'assets/images/company_logo.png';
-const kFakeCompanies = [
+final kFakeCompanies = [
   Company(
     id: '1',
     name: 'Azienda agricola Garrasi Mario',
@@ -10,6 +9,8 @@ const kFakeCompanies = [
     phoneNumber: "123456789",
     email: "test@example.com",
     imageUrl: staticImageUrl,
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
   ),
   Company(
     id: '2',
@@ -18,6 +19,8 @@ const kFakeCompanies = [
     phoneNumber: "92828282828",
     email: "test@example.com",
     imageUrl: staticImageUrl,
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
   ),
   Company(
     id: '7',
@@ -26,6 +29,8 @@ const kFakeCompanies = [
     phoneNumber: "12345678",
     email: "test2@example.com",
     imageUrl: staticImageUrl,
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
   ),
   Company(
     id: '3',
@@ -34,6 +39,8 @@ const kFakeCompanies = [
     phoneNumber: "456789444",
     email: "test3@example.com",
     imageUrl: staticImageUrl,
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
   ),
   Company(
     id: '4',
@@ -42,6 +49,8 @@ const kFakeCompanies = [
     phoneNumber: "123456784",
     email: "test4@example.com",
     imageUrl: staticImageUrl,
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
   ),
   Company(
     id: '5',
@@ -50,6 +59,8 @@ const kFakeCompanies = [
     phoneNumber: "9282736464",
     email: "test5@example.com",
     imageUrl: staticImageUrl,
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
   ),
   Company(
     id: '6',
@@ -58,5 +69,7 @@ const kFakeCompanies = [
     phoneNumber: "3248421870",
     email: "test@example.com",
     imageUrl: staticImageUrl,
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
   ),
 ];
