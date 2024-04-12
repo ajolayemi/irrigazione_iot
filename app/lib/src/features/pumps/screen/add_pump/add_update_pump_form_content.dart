@@ -60,7 +60,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   // https://codewithandrea.com/articles/flutter-text-field-form-validation/
   var _submitted = false;
 
-  Pump? _initialPump = const Pump.empty();
+  Pump? _initialPump = Pump.empty();
   static const _nameFieldKey = Key('name');
   static const _volumeCapacityFieldKey = Key('volumeCapacity');
   static const _kwCapacityFieldKey = Key('kwCapacity');
@@ -75,8 +75,8 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
       _nameController.text = pump?.name ?? '';
       _volumeCapacityController.text = pump?.capacityInVolume.toString() ?? '';
       _kwCapacityController.text = pump?.consumeRateInKw.toString() ?? '';
-      _onCommandController.text = pump?.commandForOn ?? '';
-      _offCommandController.text = pump?.commandForOff ?? '';
+      _onCommandController.text = pump?.turnOnCommand ?? '';
+      _offCommandController.text = pump?.turnOffCommand ?? '';
     }
 
     super.initState();
@@ -116,8 +116,8 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
         companyId: _initialPump?.companyId,
         capacityInVolume: double.tryParse(volumeCapacity) ?? 0.0,
         consumeRateInKw: double.tryParse(kwCapacity) ?? 0.0,
-        commandForOn: onCommand,
-        commandForOff: offCommand,
+        turnOnCommand: onCommand,
+        turnOffCommand: offCommand,
       );
 
       if (toSave == _initialPump && updating) {
@@ -324,14 +324,14 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                                 : _commandFieldsErrorText(
                                     value ?? '',
                                     offCommand,
-                                    _initialPump?.commandForOn,
+                                    _initialPump?.turnOnCommand,
                                     usedOnCommands,
                                   ),
                             onEditingComplete: () =>
                                 _commandFieldsEditingComplete(
                               onCommand,
                               offCommand,
-                              _initialPump?.commandForOn,
+                              _initialPump?.turnOnCommand,
                               usedOnCommands,
                             ),
                             keyboardType: numericFieldsKeyboardType,
@@ -349,14 +349,14 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                                 : _commandFieldsErrorText(
                                     value ?? '',
                                     onCommand,
-                                    _initialPump?.commandForOff,
+                                    _initialPump?.turnOffCommand,
                                     usedOffCommands,
                                   ),
                             onEditingComplete: () =>
                                 _commandFieldsEditingComplete(
                               offCommand,
                               onCommand,
-                              _initialPump?.commandForOff,
+                              _initialPump?.turnOffCommand,
                               usedOffCommands,
                             ),
                             keyboardType: numericFieldsKeyboardType,

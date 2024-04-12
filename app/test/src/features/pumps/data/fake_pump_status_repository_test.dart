@@ -10,14 +10,19 @@ void main() {
   final expectedPumpStatus = kFakePumpStatus[0].translatePumpStatusToBoolean(
     testPump,
   );
-  const pumpForInvalidTests = Pump(
-      id: 'aaa',
-      name: 'Invalid',
-      capacityInVolume: 100,
-      consumeRateInKw: 10,
-      commandForOn: '9',
-      commandForOff: '8',
-      companyId: 'invalid');
+  final pumpForInvalidTests = Pump(
+    id: 'aaa',
+    name: 'Invalid',
+    capacityInVolume: 100,
+    consumeRateInKw: 10,
+    turnOnCommand: '9',
+    turnOffCommand: '8',
+    companyId: 'invalid',
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    mqttMessageName: 'invalid',
+    hasFilter: false,
+  );
   FakePumpStatusRepository makePumpStatusRepository() =>
       FakePumpStatusRepository(addDelay: false);
   group('FakePumpStatusRepository', () {
@@ -31,7 +36,8 @@ void main() {
     test('getPumpStatus(9000) returns null', () {
       final pumpStatusRepository = makePumpStatusRepository();
       addTearDown(pumpStatusRepository.dispose);
-      expect(pumpStatusRepository.getPumpStatus(const Pump.empty()), completion(isNull));
+      expect(pumpStatusRepository.getPumpStatus(Pump.empty()),
+          completion(isNull));
     });
 
     test('watchPumpStatus(1) returns a valid pumpStatus', () {
@@ -46,14 +52,16 @@ void main() {
     test('watchPumpStatus(9000) emits null', () {
       final pumpStatusRepository = makePumpStatusRepository();
       addTearDown(pumpStatusRepository.dispose);
-      expect(pumpStatusRepository.watchPumpStatus(const Pump.empty()), emits(isNull));
+      expect(pumpStatusRepository.watchPumpStatus(Pump.empty()),
+          emits(isNull));
     });
 
     test('togglePumpStatus(1, 2) completes successfully', () async {
       final pumpStatusRepository = makePumpStatusRepository();
       addTearDown(pumpStatusRepository.dispose);
       await pumpStatusRepository.togglePumpStatus(testPump, '2');
-      final statusAfterUpdate = await pumpStatusRepository.getPumpStatus(testPump);
+      final statusAfterUpdate =
+          await pumpStatusRepository.getPumpStatus(testPump);
       expect(statusAfterUpdate, isFalse);
     });
 

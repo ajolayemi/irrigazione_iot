@@ -14,14 +14,18 @@ import '../../../mocks.dart';
 
 void main() {
   final testUser = kFakeUsers[0];
-  const testPump = Pump(
+  final testPump = Pump(
     id: '90',
     name: 'Test Pump',
     capacityInVolume: 1000,
     consumeRateInKw: 1000,
-    commandForOn: '91',
-    commandForOff: '92',
+    turnOnCommand: '91',
+    turnOffCommand: '92',
     companyId: '93',
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    mqttMessageName: 'test_pump',
+    hasFilter: true,
   );
   final testCompanyId = kFakeCompanies[0].id;
 
@@ -33,7 +37,7 @@ void main() {
     authRepository = MockAuthRepository();
     pumpRepository = MockPumpRepository();
     selectedCompanyRepository = MockSelectedCompanyRepository();
-    registerFallbackValue(const Pump.empty());
+    registerFallbackValue(Pump.empty());
   });
 
   AddUpdatePumpService makeAddUpdateService() {
@@ -111,8 +115,8 @@ void main() {
 
       test('non null user, pump data is updated', () async {
         final updatedTestPump = testPump.copyWith(
-          commandForOff: '45',
-          commandForOn: '56',
+          turnOffCommand: '45',
+          turnOnCommand: '56',
         );
         // setup
         when(() => authRepository.currentUser).thenReturn(testUser);

@@ -1,8 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // A representation of the status of a pump.
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 
-import 'pump.dart';
+
 
 class PumpStatus extends Equatable {
   const PumpStatus({
@@ -59,5 +60,5 @@ class PumpStatus extends Equatable {
 }
 
 extension PumpStatusX on PumpStatus {
-  bool translatePumpStatusToBoolean(Pump pump) => status == pump.commandForOn;
+  bool translatePumpStatusToBoolean(Pump pump) => status == pump.turnOnCommand;
 }

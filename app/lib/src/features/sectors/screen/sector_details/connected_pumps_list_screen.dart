@@ -64,7 +64,7 @@ class SectorConnectedPumpsTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pumpDetail =
-        ref.watch(pumpStreamProvider(pumpId)).valueOrNull ?? const Pump.empty();
+        ref.watch(pumpStreamProvider(pumpId)).valueOrNull ?? Pump.empty();
     return ResponsiveListTile(
       title: Text(pumpDetail.name),
     );

@@ -51,7 +51,7 @@ class FakePumpRepository implements PumpRepository {
     final lastUsedPumpId = _fakePumps.value
         .map((pump) => int.tryParse(pump.id) ?? 0)
         .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
-    
+
     final finalPump = pump.copyWith(
       id: '${lastUsedPumpId + 1}',
       companyId: companyId,
@@ -92,7 +92,7 @@ class FakePumpRepository implements PumpRepository {
   Stream<List<String?>> watchCompanyUsedPumpOffCommands(String companyId) {
     return _fakePumps.stream.map(
       (pumps) => _getCompanyPumps(pumps, companyId)
-          .map((pump) => pump.commandForOff)
+          .map((pump) => pump.turnOffCommand)
           .toList(),
     );
   }
@@ -101,7 +101,7 @@ class FakePumpRepository implements PumpRepository {
   Stream<List<String?>> watchCompanyUsedPumpOnCommands(String companyId) {
     return _fakePumps.stream.map(
       (pumps) => _getCompanyPumps(pumps, companyId)
-          .map((pump) => pump.commandForOn)
+          .map((pump) => pump.turnOnCommand)
           .toList(),
     );
   }

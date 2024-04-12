@@ -4,23 +4,31 @@ import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 
 void main() {
   final List<Pump> expectedResults = [
-    const Pump(
+    Pump(
       id: '1',
       name: 'Pompa 1',
       capacityInVolume: 100,
       consumeRateInKw: 10,
-      commandForOn: '1',
-      commandForOff: '2',
+      turnOnCommand: '1',
+      turnOffCommand: '2',
       companyId: '1',
+      createdAt: DateTime(2024, 2, 1),
+      updatedAt: DateTime(2024, 2, 1),
+      mqttMessageName: 'pump1',
+      hasFilter: true,
     ),
-    const Pump(
+    Pump(
       id: '2',
       name: 'Poia alta',
       capacityInVolume: 200,
       consumeRateInKw: 20,
-      commandForOn: '3',
-      commandForOff: '4',
+      turnOnCommand: '3',
+      turnOffCommand: '4',
       companyId: '1',
+      createdAt: DateTime(2024, 2, 1),
+      updatedAt: DateTime(2024, 2, 1),
+      mqttMessageName: 'pump2',
+      hasFilter: false,
     ),
   ];
   FakePumpRepository makePumpRepository() =>
@@ -77,14 +85,19 @@ void main() {
     test('createPump works as expected', () async {
       // id and companyId aren't provided as that is handled directly
       // by [createPump func]
-      const toCreate = Pump(
-          id: '',
-          name: 'Fake Pump',
-          capacityInVolume: 1000,
-          consumeRateInKw: 100,
-          commandForOn: '4',
-          commandForOff: '5',
-          companyId: '');
+      final toCreate = Pump(
+        id: '',
+        name: 'Fake Pump',
+        capacityInVolume: 1000,
+        consumeRateInKw: 100,
+        turnOnCommand: '4',
+        turnOffCommand: '5',
+        companyId: '',
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        mqttMessageName: 'fake_pump',
+        hasFilter: true,
+      );
 
       final repo = makePumpRepository();
       final createdPump = await repo.createPump(toCreate, '90');
@@ -98,8 +111,8 @@ void main() {
 
     test('updatePump with existing pump works as expected', () async {
       final updatedValue = expectedResults[0].copyWith(
-        commandForOff: '60',
-        commandForOn: '80',
+        turnOffCommand: '60',
+        turnOnCommand: '80',
       );
 
       final repo = makePumpRepository();
@@ -115,14 +128,19 @@ void main() {
 
     test('updatePump with non existing pump does not work as expected',
         () async {
-      const updatedValue = Pump(
-          id: '9000',
-          name: 'Not valid pump',
-          capacityInVolume: 100,
-          consumeRateInKw: 50,
-          commandForOn: '90',
-          commandForOff: '91',
-          companyId: '90');
+      final updatedValue = Pump(
+        id: '9000',
+        name: 'Not valid pump',
+        capacityInVolume: 100,
+        consumeRateInKw: 50,
+        turnOnCommand: '90',
+        turnOffCommand: '91',
+        companyId: '90',
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        mqttMessageName: 'not_valid_pump',
+        hasFilter: false,
+      );
 
       final repo = makePumpRepository();
       // access current value
@@ -167,14 +185,18 @@ void main() {
 
     test('deletePump with a non-existing pump does not work', () async {
       final repo = makePumpRepository();
-      const pumpToDelete = Pump(
+      final pumpToDelete = Pump(
         id: '9000',
         name: 'Not valid pump',
         capacityInVolume: 100,
         consumeRateInKw: 50,
-        commandForOn: '90',
-        commandForOff: '91',
+        turnOnCommand: '90',
+        turnOffCommand: '91',
         companyId: '90',
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        mqttMessageName: 'not_valid_pump',
+        hasFilter: false,
       );
       final currentVal = await repo.getPump(pumpToDelete.id);
       expect(currentVal, isNull);
