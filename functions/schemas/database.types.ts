@@ -187,7 +187,7 @@ export type Database = {
       }
       collectors: {
         Row: {
-          company_id: number | null
+          company_id: number
           connected_filter_name: string | null
           created_at: string
           id: number
@@ -196,7 +196,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
-          company_id?: number | null
+          company_id: number
           connected_filter_name?: string | null
           created_at?: string
           id?: number
@@ -205,7 +205,7 @@ export type Database = {
           updated_at: string
         }
         Update: {
-          company_id?: number | null
+          company_id?: number
           connected_filter_name?: string | null
           created_at?: string
           id?: number
@@ -640,6 +640,24 @@ export type Database = {
         }
         Relationships: []
       }
+      superusers: {
+        Row: {
+          created_at: string
+          email: string
+          id: number
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: number
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: number
+        }
+        Relationships: []
+      }
       terminal_pressures: {
         Row: {
           collector_id: number
@@ -692,7 +710,63 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      check_if_user_is: {
+        Args: {
+          user_email: string
+          current_company_id: number
+          this_role: string
+        }
+        Returns: boolean
+      }
+      check_if_user_is_privileged: {
+        Args: {
+          user_email: string
+          current_company_id: number
+        }
+        Returns: boolean
+      }
+      check_if_user_is_superuser: {
+        Args: {
+          user_email: string
+        }
+        Returns: boolean
+      }
+      get_board_company_id: {
+        Args: {
+          board_id_input: number
+        }
+        Returns: number
+      }
+      get_collector_company_id: {
+        Args: {
+          collector_id_input: number
+        }
+        Returns: number
+      }
+      get_companies_ids_for_user: {
+        Args: {
+          user_email: string
+        }
+        Returns: number[]
+      }
+      get_pump_company_id: {
+        Args: {
+          pump_id_input: number
+        }
+        Returns: number
+      }
+      get_sector_company_id: {
+        Args: {
+          sector_id_input: number
+        }
+        Returns: number
+      }
+      get_user_email: {
+        Args: {
+          user_id: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       irrigation_source:
