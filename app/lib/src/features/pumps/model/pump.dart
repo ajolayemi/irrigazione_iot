@@ -19,6 +19,19 @@ class Pump extends Equatable {
     required this.hasFilter,
   });
 
+  Pump.empty()
+      : id = '',
+        name = '',
+        capacityInVolume = 0,
+        consumeRateInKw = 0,
+        companyId = '',
+        createdAt = DateTime(2024),
+        updatedAt = DateTime(2024),
+        turnOnCommand = '',
+        turnOffCommand = '',
+        mqttMessageName = '',
+        hasFilter = false;
+
   final String id;
   final String name;
   final double capacityInVolume;
