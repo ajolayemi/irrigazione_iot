@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../config/enums/button_types.dart';
-import '../../../config/enums/form_types.dart';
-import '../../../constants/app_sizes.dart';
-import 'add_update_company_controller.dart';
-import '../../company_users/data/company_repository.dart';
-import '../../company_users/model/company.dart';
-import '../../../utils/app_form_error_texts_extension.dart';
-import '../../../utils/app_form_validators.dart';
-import '../../../utils/extensions.dart';
-import '../../../widgets/app_cta_button.dart';
-import '../../../widgets/app_sliver_bar.dart';
-import '../../../widgets/form_title_and_field.dart';
-import '../../../widgets/responsive_sliver_form.dart';
+import 'package:irrigazione_iot/src/config/enums/button_types.dart';
+import 'package:irrigazione_iot/src/config/enums/form_types.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_controller.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
+import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
+import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
+
 
 class AddUpdateCompanyFormContent extends ConsumerStatefulWidget {
   const AddUpdateCompanyFormContent({
@@ -21,7 +22,7 @@ class AddUpdateCompanyFormContent extends ConsumerStatefulWidget {
     required this.formType,
   });
 
-  final CompanyID? companyID;
+  final String? companyID;
   final GenericFormTypes formType;
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>

@@ -1,19 +1,18 @@
 import 'dart:async';
-
-import 'fake_collector_repository.dart';
-import '../model/collector.dart';
-import '../../company_users/data/selected_company_repository.dart';
-import '../../company_users/model/company.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/fake_collector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 
 part 'collector_repository.g.dart';
 
 abstract class CollectorRepository {
   /// returns a list of [Collector] pertaining to a company if any
-  Future<List<Collector?>> getCollectors(CompanyID companyId);
+  Future<List<Collector?>> getCollectors(String companyId);
 
   /// emits a list of [Collector] pertaining to a company if any
-  Stream<List<Collector?>> watchCollectors(CompanyID companyId);
+  Stream<List<Collector?>> watchCollectors(String companyId);
 
   /// emits a [Collector] with the given collectorID
   Stream<Collector?> watchCollector(CollectorID collectorID);
@@ -22,17 +21,17 @@ abstract class CollectorRepository {
   Future<Collector?> getCollector(CollectorID collectorID);
 
   /// adds a [Collector]
-  Future<Collector?> addCollector(Collector collector, CompanyID companyId);
+  Future<Collector?> addCollector(Collector collector, String companyId);
 
   /// updates a [Collector]
-  Future<Collector?> updateCollector(Collector collector, CompanyID companyId);
+  Future<Collector?> updateCollector(Collector collector, String companyId);
 
   /// deletes a [Collector]
   Future<bool> deleteCollector(CollectorID collectorID);
 
   /// emits a list of already used collector names for a specified company
   /// this is used in form validation to prevent duplicate collector names for a company
-  Stream<List<String?>> watchCompanyUsedCollectorNames(CompanyID companyId);
+  Stream<List<String?>> watchCompanyUsedCollectorNames(String companyId);
 
   /// emits the most recent battery level for the collector
   /// this is used to display the battery level in the UI

@@ -4,7 +4,6 @@ import '../models/board.dart';
 import '../../collectors/data/collector_repository.dart';
 import '../../collectors/model/collector.dart';
 import '../../company_users/data/selected_company_repository.dart';
-import '../../company_users/model/company.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'board_repository.g.dart';
@@ -14,15 +13,15 @@ part 'board_repository.g.dart';
 /// This repository is responsible for managing the boards.
 abstract class BoardRepository {
   /// Fetches a list of boards, if any, pertaining to the company specified with
-  /// [CompanyID]
+  /// [companyID]
   Future<List<Board?>> getBoardsByCompanyID({
-    required CompanyID companyID,
+    required String companyID,
   });
 
   /// Emits a list of boards, if any, pertaining to the company specified with
-  /// [CompanyID]
+  /// [String]
   Stream<List<Board?>> watchBoardsByCompanyID({
-    required CompanyID companyID,
+    required String companyID,
   });
 
   /// Fetches the [Board] associated with a collector specified by [CollectorID]

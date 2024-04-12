@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
-import '../../../config/mock/fake_sectors.dart';
-import 'sector_repository.dart';
-import '../model/sector.dart';
-import '../../company_users/model/company.dart';
-import '../../../utils/delay.dart';
-import '../../../utils/in_memory_store.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_sectors.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/utils/delay.dart';
+import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
+
 
 class FakeSectorsRepository extends SectorsRepository {
   FakeSectorsRepository({this.addDelay = true});
@@ -13,7 +13,7 @@ class FakeSectorsRepository extends SectorsRepository {
   final _sectorsState = InMemoryStore<List<Sector>>(kFakeSectors);
 
   @override
-  Future<Sector?> addSector(Sector sector, CompanyID companyId) async {
+  Future<Sector?> addSector(Sector sector, String companyId) async {
     // data validation logic is handled directly in the form
     await delay(addDelay);
     final lastUsedSectorId = _sectorsState.value
@@ -32,7 +32,7 @@ class FakeSectorsRepository extends SectorsRepository {
   @override
   Future<Sector?> updateSector(
     Sector sector,
-    CompanyID companyId,
+    String companyId,
   ) async {
     // data validation logic is handled directly in the form
     await delay(addDelay);
@@ -59,12 +59,12 @@ class FakeSectorsRepository extends SectorsRepository {
   }
 
   @override
-  Future<List<Sector?>> getSectors(CompanyID companyId) {
+  Future<List<Sector?>> getSectors(String companyId) {
     return Future.value(_getSectors(_sectorsState.value, companyId));
   }
 
   @override
-  Stream<List<Sector?>> watchSectors(CompanyID companyId) {
+  Stream<List<Sector?>> watchSectors(String companyId) {
     return _sectorsState.stream
         .map((sectors) => _getSectors(sectors, companyId));
   }
@@ -81,7 +81,7 @@ class FakeSectorsRepository extends SectorsRepository {
   }
 
   @override
-  Stream<List<String?>> watchCompanyUsedSectorNames(CompanyID companyId) {
+  Stream<List<String?>> watchCompanyUsedSectorNames(String companyId) {
     return _sectorsState.stream.map(
       (sectors) => _getSectors(sectors, companyId)
           .map((sector) => sector?.name.toLowerCase())
@@ -90,7 +90,7 @@ class FakeSectorsRepository extends SectorsRepository {
   }
 
   @override
-  Stream<List<String?>> watchCompanyUsedSectorOffCommands(CompanyID companyId) {
+  Stream<List<String?>> watchCompanyUsedSectorOffCommands(String companyId) {
     return _sectorsState.stream.map(
       (sectors) => _getSectors(sectors, companyId)
           .map((sector) => sector?.turnOffCommand)
@@ -99,7 +99,7 @@ class FakeSectorsRepository extends SectorsRepository {
   }
 
   @override
-  Stream<List<String?>> watchCompanyUsedSectorOnCommands(CompanyID companyId) {
+  Stream<List<String?>> watchCompanyUsedSectorOnCommands(String companyId) {
     return _sectorsState.stream.map(
       (sectors) => _getSectors(sectors, companyId)
           .map((sector) => sector?.turnOnCommand)
@@ -107,7 +107,7 @@ class FakeSectorsRepository extends SectorsRepository {
     );
   }
 
-  static List<Sector?> _getSectors(List<Sector?> sectors, CompanyID companyId) {
+  static List<Sector?> _getSectors(List<Sector?> sectors, String companyId) {
     return sectors.where((sector) => sector?.companyId == companyId).toList();
   }
 

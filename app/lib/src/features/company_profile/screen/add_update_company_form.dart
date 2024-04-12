@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../config/enums/form_types.dart';
-import 'add_update_company_controller.dart';
-import 'add_update_company_form_content.dart';
-import '../../company_users/model/company.dart';
-import '../../../utils/async_value_ui.dart';
-import '../../../widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/config/enums/form_types.dart';
+import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_controller.dart';
+import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_form_content.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
+
 
 class AddUpdateCompanyForm extends ConsumerWidget {
   const AddUpdateCompanyForm({
@@ -14,7 +14,7 @@ class AddUpdateCompanyForm extends ConsumerWidget {
     required this.formType,
   });
 
-  final CompanyID companyID;
+  final String companyID;
   final GenericFormTypes formType;
 
   @override

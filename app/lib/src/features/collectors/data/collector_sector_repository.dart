@@ -1,14 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../sectors/data/sector_status_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/fake_collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'fake_collector_sector_repository.dart';
-import '../model/collector.dart';
-import '../model/collector_sector.dart';
-import '../../sectors/data/sector_repository.dart';
-import '../../sectors/model/sector.dart';
-import '../../company_users/data/selected_company_repository.dart';
-import '../../company_users/model/company.dart';
 
 part 'collector_sector_repository.g.dart';
 
@@ -30,13 +29,13 @@ abstract class CollectorSectorRepository {
   Stream<List<CollectorSector?>> watchCollectorSectorsById(
       {required CollectorID collectorId});
 
-  /// Gets a list of [CollectorSector] belonging to a [CompanyID] from database if any
+  /// Gets a list of [CollectorSector] belonging to a [companyId] from database if any
   Future<List<CollectorSector?>> getCollectorSectorsByCompanyId(
-      {required CompanyID companyId});
+      {required String companyId});
 
-  /// Emits a list of [CollectorSector] belonging to a [CompanyID] from database if any
+  /// Emits a list of [CollectorSector] belonging to a [companyId] from database if any
   Stream<List<CollectorSector?>> watchCollectorSectorsByCompanyId(
-      {required CompanyID companyId});
+      {required String companyId});
 }
 
 @Riverpod(keepAlive: true)

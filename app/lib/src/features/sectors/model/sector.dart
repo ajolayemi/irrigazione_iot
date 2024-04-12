@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-
-import '../../../config/enums/irrigation_enums.dart';
-import '../../company_users/model/company.dart';
+import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
 
 typedef SectorID = String;
 
@@ -43,7 +41,7 @@ class Sector extends Equatable {
   final SectorID id;
 
   // * an id that identifies the company that owns this sector
-  final CompanyID companyId;
+  final String companyId;
 
   // * the name of the sector
   final String name;
@@ -105,7 +103,7 @@ class Sector extends Equatable {
 
   Sector copyWith({
     SectorID? id,
-    CompanyID? companyId,
+    String? companyId,
     String? name,
     String? availableSpecie,
     String? specieVariety,
@@ -158,7 +156,7 @@ class Sector extends Equatable {
   factory Sector.fromMap(Map<String, dynamic> map) {
     return Sector(
       id: map['id'] as SectorID,
-      companyId: map['companyId'] as CompanyID,
+      companyId: map['companyId'] as String,
       name: map['name'] as String,
       availableSpecie: map['availableSpecie'] as String,
       specieVariety: map['specieVariety'] as String,

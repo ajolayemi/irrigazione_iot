@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../constants/app_sizes.dart';
-import '../../company_users/data/company_repository.dart';
-import '../../company_users/model/company.dart';
-import '../../../utils/extensions.dart';
-import '../../../widgets/async_value_widget.dart';
-import '../../../widgets/common_sliver_list_skeleton.dart';
-import '../../../widgets/details_tile_widget.dart';
-import '../../../widgets/responsive_details_card.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/widgets/common_sliver_list_skeleton.dart';
+import 'package:irrigazione_iot/src/widgets/details_tile_widget.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_details_card.dart';
+
 
 class CompanyProfileScreenContents extends ConsumerWidget {
   const CompanyProfileScreenContents({
@@ -15,7 +15,7 @@ class CompanyProfileScreenContents extends ConsumerWidget {
     required this.companyID,
   });
 
-  final CompanyID companyID;
+  final String companyID;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

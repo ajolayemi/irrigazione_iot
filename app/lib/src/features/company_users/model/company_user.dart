@@ -1,9 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
-import '../../../config/enums/roles.dart';
-import 'company.dart';
-import '../../../utils/extensions.dart';
 
 typedef CompanyUserID = int;
 
@@ -31,7 +30,7 @@ class CompanyUser extends Equatable {
   final CompanyUserID id;
   final String email;
   final String fullName;
-  final CompanyID companyId;
+  final String companyId;
   final CompanyUserRoles role;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -53,7 +52,7 @@ class CompanyUser extends Equatable {
     CompanyUserID? id,
     String? email,
     String? fullName,
-    CompanyID? companyId,
+    String? companyId,
     CompanyUserRoles? role,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -86,7 +85,7 @@ class CompanyUser extends Equatable {
       id: map['id'] as CompanyUserID,
       email: map['email'] as String,
       fullName: map['fullName'] as String,
-      companyId: map['companyId'] as CompanyID,
+      companyId: map['companyId'] as String,
       role: (map['role'] as String).toCompanyUserRoles,
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),

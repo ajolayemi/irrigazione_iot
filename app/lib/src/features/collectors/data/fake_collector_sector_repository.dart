@@ -1,12 +1,12 @@
 import 'package:collection/collection.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_collector_sectors.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
+import 'package:irrigazione_iot/src/utils/delay.dart';
+import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
-import '../../../config/mock/fake_collector_sectors.dart';
-import 'collector_sector_repository.dart';
-import '../model/collector.dart';
-import '../model/collector_sector.dart';
-import '../../company_users/model/company.dart';
-import '../../../utils/delay.dart';
-import '../../../utils/in_memory_store.dart';
+
 
 class FakeCollectorSectorRepository implements CollectorSectorRepository {
   FakeCollectorSectorRepository({this.addDelay = true});
@@ -36,7 +36,7 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
 
   static List<CollectorSector?> _getCollectorSectorsByCompanyId(
     List<CollectorSector> collectorSectors,
-    CompanyID companyId,
+    String companyId,
   ) {
     return collectorSectors
         .where((collectorSector) => collectorSector.companyId == companyId)
@@ -87,13 +87,13 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
 
   @override
   Future<List<CollectorSector?>> getCollectorSectorsByCompanyId(
-      {required CompanyID companyId}) {
+      {required String companyId}) {
     return Future.value(_getCollectorSectorsByCompanyId(value, companyId));
   }
 
   @override
   Stream<List<CollectorSector?>> watchCollectorSectorsByCompanyId(
-      {required CompanyID companyId}) {
+      {required String companyId}) {
     return stream
       ..map(
         (collectorSector) =>

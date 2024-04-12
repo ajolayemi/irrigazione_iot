@@ -1,38 +1,35 @@
 import 'dart:async';
-
-import 'fake_sectors_repository.dart';
-import '../model/sector.dart';
-import '../../company_users/data/selected_company_repository.dart';
-import '../../company_users/model/company.dart';
-
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/fake_sectors_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sector_repository.g.dart';
 
 abstract class SectorsRepository {
   // returns a list of sectors pertaining to a company
-  Future<List<Sector?>> getSectors(CompanyID companyId);
+  Future<List<Sector?>> getSectors(String companyId);
   // emits a list of sectors pertaining to a company
-  Stream<List<Sector?>> watchSectors(CompanyID companyId);
+  Stream<List<Sector?>> watchSectors(String companyId);
   // emits a sector with the given sectorID
   Stream<Sector?> watchSector(SectorID sectorID);
   // returns a sector with the given sectorID
   Future<Sector?> getSector(SectorID sectorID);
   // adds a sector
-  Future<Sector?> addSector(Sector sector, CompanyID companyId);
+  Future<Sector?> addSector(Sector sector, String companyId);
   // updates a sector
-  Future<Sector?> updateSector(Sector sector, CompanyID companyId);
+  Future<Sector?> updateSector(Sector sector, String companyId);
   // deletes a sector
   Future<bool> deleteSector(SectorID sectorID);
   // emits a list of already used sector names for a specified company
   // this is used in form validation to prevent duplicate sector names for a company
-  Stream<List<String?>> watchCompanyUsedSectorNames(CompanyID companyId);
+  Stream<List<String?>> watchCompanyUsedSectorNames(String companyId);
   // emits a list of already used sector on commands for a specified company
   // this is used in form validation to prevent duplicate sector on commands for a company
-  Stream<List<String?>> watchCompanyUsedSectorOnCommands(CompanyID companyId);
+  Stream<List<String?>> watchCompanyUsedSectorOnCommands(String companyId);
   // emits a list of already used sector off commands for a specified company
   // this is used in form validation to prevent duplicate sector off commands for a company
-  Stream<List<String?>> watchCompanyUsedSectorOffCommands(CompanyID companyId);
+  Stream<List<String?>> watchCompanyUsedSectorOffCommands(String companyId);
 }
 
 @Riverpod(keepAlive: true)

@@ -1,9 +1,8 @@
-import '../../../config/mock/fake_pumps.dart';
-import 'pump_repository.dart';
-import '../model/pump.dart';
-import '../../company_users/model/company.dart';
-import '../../../utils/delay.dart';
-import '../../../utils/in_memory_store.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_pumps.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
+import 'package:irrigazione_iot/src/utils/delay.dart';
+import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
 class FakePumpRepository implements PumpRepository {
   FakePumpRepository({this.addDelay = true});
@@ -45,7 +44,7 @@ class FakePumpRepository implements PumpRepository {
   }
 
   @override
-  Future<Pump?> createPump(Pump pump, CompanyID companyId) async {
+  Future<Pump?> createPump(Pump pump, String companyId) async {
     // No validation is done here, the validation is done in the form
     await delay(addDelay);
 
@@ -65,7 +64,7 @@ class FakePumpRepository implements PumpRepository {
   }
 
   @override
-  Future<Pump?> updatePump(Pump pump, CompanyID companyId) async {
+  Future<Pump?> updatePump(Pump pump, String companyId) async {
     // No validation is done here, the validation is done in the form
     await delay(addDelay);
     final currentPumps = [..._fakePumps.value];
@@ -81,7 +80,7 @@ class FakePumpRepository implements PumpRepository {
   }
 
   @override
-  Stream<List<String?>> watchCompanyUsedPumpNames(CompanyID companyId) {
+  Stream<List<String?>> watchCompanyUsedPumpNames(String companyId) {
     return _fakePumps.stream.map(
       (pumps) => _getCompanyPumps(pumps, companyId)
           .map((pump) => pump.name.toLowerCase())
@@ -90,7 +89,7 @@ class FakePumpRepository implements PumpRepository {
   }
 
   @override
-  Stream<List<String?>> watchCompanyUsedPumpOffCommands(CompanyID companyId) {
+  Stream<List<String?>> watchCompanyUsedPumpOffCommands(String companyId) {
     return _fakePumps.stream.map(
       (pumps) => _getCompanyPumps(pumps, companyId)
           .map((pump) => pump.commandForOff)
@@ -99,7 +98,7 @@ class FakePumpRepository implements PumpRepository {
   }
 
   @override
-  Stream<List<String?>> watchCompanyUsedPumpOnCommands(CompanyID companyId) {
+  Stream<List<String?>> watchCompanyUsedPumpOnCommands(String companyId) {
     return _fakePumps.stream.map(
       (pumps) => _getCompanyPumps(pumps, companyId)
           .map((pump) => pump.commandForOn)

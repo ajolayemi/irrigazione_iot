@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 
-import 'collector.dart';
-import '../../sectors/model/sector.dart';
-import '../../company_users/model/company.dart';
+
 
 /// A representation of a [Sector] in a [Collector]
 class CollectorSector extends Equatable {
@@ -20,7 +20,7 @@ class CollectorSector extends Equatable {
         companyId = '';
   final CollectorID collectorId;
   final SectorID sectorId;
-  final CompanyID companyId;
+  final String companyId;
 
   @override
   List<Object> get props => [collectorId, sectorId, companyId];
@@ -28,7 +28,7 @@ class CollectorSector extends Equatable {
   CollectorSector copyWith({
     CollectorID? collectorId,
     SectorID? sectorId,
-    CompanyID? companyId,
+    String? companyId,
   }) {
     return CollectorSector(
       collectorId: collectorId ?? this.collectorId,
@@ -49,7 +49,7 @@ class CollectorSector extends Equatable {
     return CollectorSector(
       collectorId: map['collectorId'] as CollectorID,
       sectorId: map['sectorId'] as SectorID,
-      companyId: map['companyId'] as CompanyID,
+      companyId: map['companyId'] as String,
     );
   }
 }

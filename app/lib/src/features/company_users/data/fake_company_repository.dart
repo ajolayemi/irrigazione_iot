@@ -1,8 +1,8 @@
-import '../../../config/mock/fake_companies_list.dart';
-import 'company_repository.dart';
-import '../model/company.dart';
-import '../../../utils/delay.dart';
-import '../../../utils/in_memory_store.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_companies_list.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
+import 'package:irrigazione_iot/src/utils/delay.dart';
+import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
 class FakeCompanyRepository implements CompanyRepository {
   FakeCompanyRepository({this.addDelay = true});
@@ -10,18 +10,18 @@ class FakeCompanyRepository implements CompanyRepository {
   final bool addDelay;
   final _companies = InMemoryStore<List<Company>>(kFakeCompanies);
   @override
-  Future<Company?> fetchCompany(CompanyID companyId) async {
+  Future<Company?> fetchCompany(String companyId) async {
     await delay(addDelay);
     return Future.value(_getCompany(_companies.value, companyId));
   }
 
   @override
-  Stream<Company?> watchCompany(CompanyID companyId) {
+  Stream<Company?> watchCompany(String companyId) {
     return _companies.stream
         .map((companies) => _getCompany(companies, companyId));
   }
 
-  static Company? _getCompany(List<Company> companies, CompanyID companyId) {
+  static Company? _getCompany(List<Company> companies, String companyId) {
     try {
       return companies.firstWhere((company) => company.id == companyId);
     } catch (e) {
@@ -46,7 +46,7 @@ class FakeCompanyRepository implements CompanyRepository {
   }
 
   @override
-  Future<bool> deleteCompany({required CompanyID companyId}) async {
+  Future<bool> deleteCompany({required String companyId}) async {
     await delay(addDelay);
     final currentCompanies = [..._companies.value];
     final index = currentCompanies.indexWhere((company) => company.id == companyId);

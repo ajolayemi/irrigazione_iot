@@ -21,7 +21,7 @@ final companyRepositoryProvider = Provider<CompanyRepository>.internal(
 );
 
 typedef CompanyRepositoryRef = ProviderRef<CompanyRepository>;
-String _$companyFutureHash() => r'c658bde5750e4d8f687526e9489c0229b33c9cdc';
+String _$companyFutureHash() => r'3a499940fcc9834d75da96a96642adf97a61674c';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -170,7 +170,7 @@ class _CompanyFutureProviderElement
   String get companyId => (origin as CompanyFutureProvider).companyId;
 }
 
-String _$companyStreamHash() => r'1326a784aae24ba2302ce791691391311b60a726';
+String _$companyStreamHash() => r'39be41774e621ebd5f8fee24586c3e06385f50ff';
 
 /// See also [companyStream].
 @ProviderFor(companyStream)

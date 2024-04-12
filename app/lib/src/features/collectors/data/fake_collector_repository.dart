@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
-import '../../../config/mock/fake_collectors.dart';
-import 'collector_repository.dart';
-import '../model/collector.dart';
-import '../../company_users/model/company.dart';
-import '../../../utils/delay.dart';
-import '../../../utils/in_memory_store.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_collectors.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/utils/delay.dart';
+import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
+
 
 class FakeCollectorRepository implements CollectorRepository {
   FakeCollectorRepository({this.addDelay = true});
@@ -27,7 +27,7 @@ class FakeCollectorRepository implements CollectorRepository {
 
   @override
   Future<Collector?> addCollector(
-      Collector collector, CompanyID companyId) async {
+      Collector collector, String companyId) async {
     await delay(addDelay);
 
     // validation logic will be handled directly in the form
@@ -49,7 +49,7 @@ class FakeCollectorRepository implements CollectorRepository {
 
   @override
   Future<Collector?> updateCollector(
-      Collector collector, CompanyID companyId) async {
+      Collector collector, String companyId) async {
     await delay(addDelay);
     // validation logic will be handled directly in the form
     final currentCollectors = [...value];
@@ -86,7 +86,7 @@ class FakeCollectorRepository implements CollectorRepository {
   }
 
   @override
-  Future<List<Collector?>> getCollectors(CompanyID companyId) async {
+  Future<List<Collector?>> getCollectors(String companyId) async {
     await delay(addDelay);
     return Future.value(
       value.where((c) => c.companyId == companyId).toList(),
@@ -101,7 +101,7 @@ class FakeCollectorRepository implements CollectorRepository {
   }
 
   @override
-  Stream<List<Collector?>> watchCollectors(CompanyID companyId) {
+  Stream<List<Collector?>> watchCollectors(String companyId) {
     return stream.map((collectors) => collectors
         .where(
           (c) => c.companyId == companyId,
@@ -110,7 +110,7 @@ class FakeCollectorRepository implements CollectorRepository {
   }
 
   @override
-  Stream<List<String?>> watchCompanyUsedCollectorNames(CompanyID companyId) {
+  Stream<List<String?>> watchCompanyUsedCollectorNames(String companyId) {
     return stream.map(
       (collectors) => collectors
           .where(

@@ -1,9 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
-import 'collector_sector.dart';
-import '../../company_users/model/company.dart';
-
 typedef CollectorID = String;
 
 /// A collector, by definition in this project, is made up of one or more sectors as represented by the
@@ -26,7 +23,7 @@ class Collector extends Equatable {
   final CollectorID id;
   //
   final String name;
-  final CompanyID companyId;
+  final String companyId;
 
   // A global "filtro" name for all sectors pertaining to this collector
   final String filterName;
@@ -37,7 +34,7 @@ class Collector extends Equatable {
   Collector copyWith({
     CollectorID? id,
     String? name,
-    CompanyID? companyId,
+    String? companyId,
     String? filterName,
   }) {
     return Collector(
@@ -61,7 +58,7 @@ class Collector extends Equatable {
     return Collector(
       id: map['id'] as CollectorID,
       name: map['name'] as String,
-      companyId: map['companyId'] as CompanyID,
+      companyId: map['companyId'] as String,
       filterName: map['filterName'] as String,
     );
   }

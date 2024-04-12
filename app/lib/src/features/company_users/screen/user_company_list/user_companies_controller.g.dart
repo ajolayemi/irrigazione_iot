@@ -7,7 +7,7 @@ part of 'user_companies_controller.dart';
 // **************************************************************************
 
 String _$userCompaniesControllerHash() =>
-    r'a06e6d6797161a220683ef59fcb5423077867bca';
+    r'2370175d1577b986caa0f3c1365af80cb48db049';
 
 /// See also [UserCompaniesController].
 @ProviderFor(UserCompaniesController)

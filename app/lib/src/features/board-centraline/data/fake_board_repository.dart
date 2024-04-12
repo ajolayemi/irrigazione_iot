@@ -1,11 +1,11 @@
 import 'package:collection/collection.dart';
-import '../../../config/mock/fake_boards.dart';
-import 'board_repository.dart';
-import '../models/board.dart';
-import '../../collectors/model/collector.dart';
-import '../../company_users/model/company.dart';
-import '../../../utils/delay.dart';
-import '../../../utils/in_memory_store.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_boards.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/utils/delay.dart';
+import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
+
 
 class FakeBoardRepository implements BoardRepository {
   FakeBoardRepository({this.addDelay = true});
@@ -18,7 +18,7 @@ class FakeBoardRepository implements BoardRepository {
   Stream<List<Board>> get _streamBoards => _boardState.stream;
 
   static List<Board> _getBoardsByCompanyID(
-      List<Board> boards, CompanyID companyID) {
+      List<Board> boards, String companyID) {
     return boards.where((board) => board.companyId == companyID).toList();
   }
 
@@ -67,8 +67,7 @@ class FakeBoardRepository implements BoardRepository {
   }
 
   @override
-  Future<List<Board?>> getBoardsByCompanyID(
-      {required CompanyID companyID}) async {
+  Future<List<Board?>> getBoardsByCompanyID({required String companyID}) async {
     await delay(addDelay);
     return _getBoardsByCompanyID(_boards, companyID);
   }
@@ -87,7 +86,7 @@ class FakeBoardRepository implements BoardRepository {
   }
 
   @override
-  Stream<List<Board?>> watchBoardsByCompanyID({required CompanyID companyID}) {
+  Stream<List<Board?>> watchBoardsByCompanyID({required String companyID}) {
     return _streamBoards
         .map((boards) => _getBoardsByCompanyID(boards, companyID));
   }

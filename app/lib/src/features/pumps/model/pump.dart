@@ -1,13 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
-import '../../company_users/model/company.dart';
-
 typedef PumpID = String;
 
 // TODO: add pump company
 // TODO: prevalenza, portata,
-
 
 class Pump extends Equatable {
   const Pump({
@@ -48,7 +45,7 @@ class Pump extends Equatable {
   final String commandForOff;
 
   /// An id to identify the company the pump belongs to
-  final CompanyID companyId;
+  final String companyId;
 
   @override
   List<Object> get props {
@@ -70,7 +67,7 @@ class Pump extends Equatable {
     double? consumeRateInKw,
     String? commandForOn,
     String? commandForOff,
-    CompanyID? companyId,
+    String? companyId,
   }) {
     return Pump(
       id: id ?? this.id,
@@ -106,7 +103,7 @@ class Pump extends Equatable {
       consumeRateInKw: map['consumeRateInKw'] as double,
       commandForOn: map['commandForOn'] as String,
       commandForOff: map['commandForOff'] as String,
-      companyId: map['companyId'] as CompanyID,
+      companyId: map['companyId'] as String,
     );
   }
 }
