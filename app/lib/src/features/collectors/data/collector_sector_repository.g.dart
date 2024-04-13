@@ -374,28 +374,28 @@ final sectorsNotConnectedToACollectorStreamProvider =
 typedef SectorsNotConnectedToACollectorStreamRef
     = AutoDisposeStreamProviderRef<List<Sector?>>;
 String _$numberOfSectorsSwitchedOnHash() =>
-    r'3675493eddfa96e342c4493f9bf35ceb7ba3443e';
+    r'1980dcdaf3c9e90481dab7cbae67706cf42fc965';
 
 /// Provider that emits the number of sectors that are currently switched on for a particular
-/// collector indicated by the provided [CollectorID]
+/// collector indicated by the provided [String]
 ///
 /// Copied from [numberOfSectorsSwitchedOn].
 @ProviderFor(numberOfSectorsSwitchedOn)
 const numberOfSectorsSwitchedOnProvider = NumberOfSectorsSwitchedOnFamily();
 
 /// Provider that emits the number of sectors that are currently switched on for a particular
-/// collector indicated by the provided [CollectorID]
+/// collector indicated by the provided [String]
 ///
 /// Copied from [numberOfSectorsSwitchedOn].
 class NumberOfSectorsSwitchedOnFamily extends Family<AsyncValue<int>> {
   /// Provider that emits the number of sectors that are currently switched on for a particular
-  /// collector indicated by the provided [CollectorID]
+  /// collector indicated by the provided [String]
   ///
   /// Copied from [numberOfSectorsSwitchedOn].
   const NumberOfSectorsSwitchedOnFamily();
 
   /// Provider that emits the number of sectors that are currently switched on for a particular
-  /// collector indicated by the provided [CollectorID]
+  /// collector indicated by the provided [String]
   ///
   /// Copied from [numberOfSectorsSwitchedOn].
   NumberOfSectorsSwitchedOnProvider call({
@@ -431,12 +431,12 @@ class NumberOfSectorsSwitchedOnFamily extends Family<AsyncValue<int>> {
 }
 
 /// Provider that emits the number of sectors that are currently switched on for a particular
-/// collector indicated by the provided [CollectorID]
+/// collector indicated by the provided [String]
 ///
 /// Copied from [numberOfSectorsSwitchedOn].
 class NumberOfSectorsSwitchedOnProvider extends AutoDisposeStreamProvider<int> {
   /// Provider that emits the number of sectors that are currently switched on for a particular
-  /// collector indicated by the provided [CollectorID]
+  /// collector indicated by the provided [String]
   ///
   /// Copied from [numberOfSectorsSwitchedOn].
   NumberOfSectorsSwitchedOnProvider({

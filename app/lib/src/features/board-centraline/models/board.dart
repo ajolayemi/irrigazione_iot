@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:equatable/equatable.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+
 
 typedef BoardID = String;
 
@@ -30,7 +29,7 @@ class Board extends Equatable {
   final String serialNumber;
 
   /// Each board is associated with a collector.
-  final CollectorID collectorId;
+  final String collectorId;
   final String companyId;
 
   @override
@@ -50,7 +49,7 @@ class Board extends Equatable {
     String? name,
     String? model,
     String? serialNumber,
-    CollectorID? collectorId,
+    String? collectorId,
     String? companyId,
   }) {
     return Board(
@@ -80,7 +79,7 @@ class Board extends Equatable {
       name: map['name'] as String,
       model: map['model'] as String,
       serialNumber: map['serialNumber'] as String,
-      collectorId: map['collectorId'] as CollectorID,
+      collectorId: map['collectorId'] as String,
       companyId: map['companyId'] as String,
     );
   }

@@ -1,7 +1,6 @@
 import 'package:collection/collection.dart';
 import '../../../config/mock/fake_collector_pressures.dart';
 import 'collector_pressure_repository.dart';
-import '../model/collector.dart';
 import '../model/collector_pressure.dart';
 import '../../../utils/delay.dart';
 import '../../../utils/in_memory_store.dart';
@@ -16,7 +15,7 @@ class FakeCollectorPressureRepository implements CollectorPressureRepository {
 
   static CollectorPressure? _getCollectorPressureById({
     required List<CollectorPressure> collectorPressures,
-    required CollectorID id,
+    required String id,
   }) {
     return collectorPressures.firstWhereOrNull(
       (collectorPressure) => collectorPressure.collectorId == id,
@@ -25,7 +24,7 @@ class FakeCollectorPressureRepository implements CollectorPressureRepository {
 
   @override
   Future<CollectorPressure?> getCollectorPressure(
-      {required CollectorID collectorId}) async {
+      {required String collectorId}) async {
     await delay(addDelay);
     return Future.value(
       _getCollectorPressureById(
@@ -37,7 +36,7 @@ class FakeCollectorPressureRepository implements CollectorPressureRepository {
 
   @override
   Stream<CollectorPressure?> watchCollectorPressure(
-      {required CollectorID collectorId}) {
+      {required String collectorId}) {
     return _collectorPressureState.stream.map(
       (collectorPressures) => _getCollectorPressureById(
         collectorPressures: collectorPressures,

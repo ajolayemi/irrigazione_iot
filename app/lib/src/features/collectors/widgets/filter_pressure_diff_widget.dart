@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/collector_pressure_repository.dart';
-import '../model/collector.dart';
 import '../../../utils/extensions.dart';
 
 class CollectorFilterPressureDifference extends ConsumerWidget {
@@ -10,7 +9,7 @@ class CollectorFilterPressureDifference extends ConsumerWidget {
     required this.collectorId,
   });
 
-  final CollectorID collectorId;
+  final String collectorId;
 
   // Determine battery color based on level
   Color _getPressureColor(double pressureDifference) {

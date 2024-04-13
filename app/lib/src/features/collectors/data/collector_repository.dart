@@ -15,10 +15,10 @@ abstract class CollectorRepository {
   Stream<List<Collector?>> watchCollectors(String companyId);
 
   /// emits a [Collector] with the given collectorID
-  Stream<Collector?> watchCollector(CollectorID collectorID);
+  Stream<Collector?> watchCollector(String collectorID);
 
   /// returns a [Collector] with the given collectorID
-  Future<Collector?> getCollector(CollectorID collectorID);
+  Future<Collector?> getCollector(String collectorID);
 
   /// adds a [Collector]
   Future<Collector?> addCollector(Collector collector, String companyId);
@@ -27,7 +27,7 @@ abstract class CollectorRepository {
   Future<Collector?> updateCollector(Collector collector, String companyId);
 
   /// deletes a [Collector]
-  Future<bool> deleteCollector(CollectorID collectorID);
+  Future<bool> deleteCollector(String collectorID);
 
   /// emits a list of already used collector names for a specified company
   /// this is used in form validation to prevent duplicate collector names for a company
@@ -35,7 +35,7 @@ abstract class CollectorRepository {
 
   /// emits the most recent battery level for the collector
   /// this is used to display the battery level in the UI
-  Stream<double?> watchCollectorBatteryLevel(CollectorID collectorID);
+  Stream<double?> watchCollectorBatteryLevel(String collectorID);
 }
 
 @Riverpod(keepAlive: true)
@@ -69,25 +69,25 @@ Stream<List<String?>> usedCollectorNamesStream(
   return collectorRepository.watchCompanyUsedCollectorNames(companyId);
 }
 
-/// Watches a single instance of [Collector] as specified by [CollectorID]
+/// Watches a single instance of [Collector] as specified by [String]
 @riverpod
 Stream<Collector?> collectorStream(
-    CollectorStreamRef ref, CollectorID collectorId) {
+    CollectorStreamRef ref, String collectorId) {
   final collectorRepository = ref.watch(collectorRepositoryProvider);
   return collectorRepository.watchCollector(collectorId);
 }
 
-/// Gets a single instance of [Collector] as specified by [CollectorID]
+/// Gets a single instance of [Collector] as specified by [String]
 @riverpod
 Future<Collector?> collectorFuture(
-    CollectorFutureRef ref, CollectorID collectorId) {
+    CollectorFutureRef ref, String collectorId) {
   final collectorRepository = ref.watch(collectorRepositoryProvider);
   return collectorRepository.getCollector(collectorId);
 }
 
 @riverpod
 Stream<double?> collectorBatteryLevelStream(CollectorBatteryLevelStreamRef ref,
-    {required CollectorID collectorId}) {
+    {required String collectorId}) {
   final collectorRepository = ref.watch(collectorRepositoryProvider);
   return collectorRepository.watchCollectorBatteryLevel(collectorId);
 }

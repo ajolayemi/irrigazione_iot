@@ -7,7 +7,7 @@ part of 'dismiss_collector_controller.dart';
 // **************************************************************************
 
 String _$dismissCollectorControllerHash() =>
-    r'1f0c1c8720c5248c8c8b1163f343b5e4abc19bec';
+    r'c1be6d87c43673e8a9426e8c529feb6c4f4c62be';
 
 /// See also [DismissCollectorController].
 @ProviderFor(DismissCollectorController)

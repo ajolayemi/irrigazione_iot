@@ -54,7 +54,7 @@ final boardListFutureProvider =
 
 typedef BoardListFutureRef = AutoDisposeFutureProviderRef<List<Board?>>;
 String _$collectorBoardStreamHash() =>
-    r'377e6fa1cbe6816103e07b054ca67071087ce4ca';
+    r'f0a301ef5c9e262e64d781aacd60eff0241881e7';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -207,7 +207,7 @@ class _CollectorBoardStreamProviderElement
 }
 
 String _$collectorBoardFutureHash() =>
-    r'a498071eb29b1d7894e5e49a47a97a91d43493e7';
+    r'4c1a2719e9fe1f7c5c25029a09b3aa38bfada14a';
 
 /// See also [collectorBoardFuture].
 @ProviderFor(collectorBoardFuture)

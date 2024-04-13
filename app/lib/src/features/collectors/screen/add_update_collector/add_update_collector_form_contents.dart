@@ -28,7 +28,7 @@ class AddUpdateCollectorFormContents extends ConsumerStatefulWidget {
     required this.formType,
   });
 
-  final CollectorID? collectorId;
+  final String? collectorId;
   final GenericFormTypes formType;
 
   @override

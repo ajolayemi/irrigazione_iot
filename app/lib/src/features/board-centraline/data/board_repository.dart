@@ -24,14 +24,14 @@ abstract class BoardRepository {
     required String companyID,
   });
 
-  /// Fetches the [Board] associated with a collector specified by [CollectorID]
+  /// Fetches the [Board] associated with a collector specified by collectorId
   Future<Board?> getBoardByCollectorID({
-    required CollectorID collectorID,
+    required String collectorID,
   });
 
-  /// Emits the [Board] associated with a collector specified by [CollectorID]
+  /// Emits the [Board] associated with a collector specified by collectorId
   Stream<Board?> watchBoardByCollectorID({
-    required CollectorID collectorID,
+    required String collectorID,
   });
 
   /// Fetches the [Board] associated with [BoardId]
@@ -84,14 +84,14 @@ Future<List<Board?>> boardListFuture(BoardListFutureRef ref) {
 
 @riverpod
 Stream<Board?> collectorBoardStream(CollectorBoardStreamRef ref,
-    {required CollectorID collectorID}) {
+    {required String collectorID}) {
   final boardRepository = ref.read(boardRepositoryProvider);
   return boardRepository.watchBoardByCollectorID(collectorID: collectorID);
 }
 
 @riverpod
 Future<Board?> collectorBoardFuture(CollectorBoardFutureRef ref,
-    {required CollectorID collectorID}) {
+    {required String collectorID}) {
   final boardRepository = ref.read(boardRepositoryProvider);
   return boardRepository.getBoardByCollectorID(collectorID: collectorID);
 }

@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_boards.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
@@ -23,7 +22,7 @@ class FakeBoardRepository implements BoardRepository {
   }
 
   static Board? _getBoardsByCollectorID(
-      List<Board> boards, CollectorID collectorID) {
+      List<Board> boards, String collectorID) {
     return boards.firstWhereOrNull((board) => board.collectorId == collectorID);
   }
 
@@ -74,13 +73,13 @@ class FakeBoardRepository implements BoardRepository {
 
   @override
   Future<Board?> getBoardByCollectorID(
-      {required CollectorID collectorID}) async {
+      {required String collectorID}) async {
     await delay(addDelay);
     return _getBoardsByCollectorID(_boards, collectorID);
   }
 
   @override
-  Stream<Board?> watchBoardByCollectorID({required CollectorID collectorID}) {
+  Stream<Board?> watchBoardByCollectorID({required String collectorID}) {
     return _streamBoards
         .map((boards) => _getBoardsByCollectorID(boards, collectorID));
   }

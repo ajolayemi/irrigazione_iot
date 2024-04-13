@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
-import 'collector.dart';
 
 class CollectorPressure extends Equatable {
   const CollectorPressure({
@@ -18,7 +17,7 @@ class CollectorPressure extends Equatable {
         timestamp = DateTime.fromMillisecondsSinceEpoch(0),
         pressureDifference = 0.0;
 
-  final CollectorID collectorId;
+  final String collectorId;
   final double filterInPressure;
   final double filterOutPressure;
   final double pressureDifference;
@@ -45,7 +44,7 @@ class CollectorPressure extends Equatable {
 
   factory CollectorPressure.fromJson(Map<String, dynamic> map) {
     return CollectorPressure(
-      collectorId: map['collectorId'] as CollectorID,
+      collectorId: map['collectorId'] as String,
       filterInPressure: map['filterInPressure'] as double,
       filterOutPressure: map['filterOutPressure'] as double,
       timestamp: DateTime.fromMillisecondsSinceEpoch(map['timestamp'] as int),
@@ -53,7 +52,7 @@ class CollectorPressure extends Equatable {
   }
 
   CollectorPressure copyWith({
-    CollectorID? collectorId,
+    String? collectorId,
     double? filterInPressure,
     double? filterOutPressure,
     DateTime? timestamp,

@@ -5,7 +5,6 @@ import '../../../../config/routes/routes_enums.dart';
 import '../../data/board_repository.dart';
 import '../../models/board.dart';
 import 'board_details_screen_contents.dart';
-import '../../../collectors/model/collector.dart';
 import '../../../../widgets/app_sliver_bar.dart';
 import '../../../../widgets/async_value_widget.dart';
 import '../../../../widgets/common_sliver_list_skeleton.dart';
@@ -21,7 +20,7 @@ class BoardDetailsScreen extends ConsumerWidget {
   final BoardID boardID;
 
   void _onTapEdit(
-      BuildContext context, WidgetRef ref, CollectorID connectedCollectorID) {
+      BuildContext context, WidgetRef ref, String connectedCollectorID) {
     ref.read(collectorConnectedToBoardProvider.notifier).state =
         connectedCollectorID;
     ref.read(selectedCollectorIdProvider.notifier).state = connectedCollectorID;

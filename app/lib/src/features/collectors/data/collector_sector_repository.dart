@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/fake_collector_sector_repository.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
@@ -23,11 +22,11 @@ abstract class CollectorSectorRepository {
 
   /// Get a list of [CollectorSector] from database if any
   Future<List<CollectorSector?>> getCollectorSectorsById(
-      {required CollectorID collectorId});
+      {required String collectorId});
 
-  /// Emits a list of [CollectorSector] pertaining to a CollectorID from database if any
+  /// Emits a list of [CollectorSector] pertaining to a collector from database if any
   Stream<List<CollectorSector?>> watchCollectorSectorsById(
-      {required CollectorID collectorId});
+      {required String collectorId});
 
   /// Gets a list of [CollectorSector] belonging to a [companyId] from database if any
   Future<List<CollectorSector?>> getCollectorSectorsByCompanyId(
@@ -136,10 +135,10 @@ final selectedSectorsIdProvider = StateProvider<List<String?>>((ref) {
 });
 
 /// Provider that emits the number of sectors that are currently switched on for a particular
-/// collector indicated by the provided [CollectorID]
+/// collector indicated by the provided [String]
 @riverpod
 Stream<int> numberOfSectorsSwitchedOn(NumberOfSectorsSwitchedOnRef ref,
-    {required CollectorID collectorId}) {
+    {required String collectorId}) {
   // Get a list of collector sectors pertaining to the provided collector
   final collectorSectors =
       ref.watch(collectorSectorsFutureProvider(collectorId)).valueOrNull;

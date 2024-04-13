@@ -1,18 +1,17 @@
 import 'fake_collector_pressure_repository.dart';
-import '../model/collector.dart';
 import '../model/collector_pressure.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'collector_pressure_repository.g.dart';
 
 abstract class CollectorPressureRepository {
-  /// returns the most recent [CollectorPressure] if any for the collector with [CollectorID]
+  /// returns the most recent [CollectorPressure] if any for the collector with collectorId
   Future<CollectorPressure?> getCollectorPressure(
-      {required CollectorID collectorId});
+      {required String collectorId});
 
-  /// emits the most recent [CollectorPressure] if any for the collector with [CollectorID]
+  /// emits the most recent [CollectorPressure] if any for the collector with collectorId
   Stream<CollectorPressure?> watchCollectorPressure(
-      {required CollectorID collectorId});
+      {required String collectorId});
 }
 
 @Riverpod(keepAlive: true)
@@ -25,7 +24,7 @@ CollectorPressureRepository collectorPressureRepository(
 @riverpod
 Stream<CollectorPressure?> collectorPressureStream(
     CollectorPressureStreamRef ref,
-    {required CollectorID collectorId}) {
+    {required String collectorId}) {
   final collectorPressureRepository =
       ref.read(collectorPressureRepositoryProvider);
   return collectorPressureRepository.watchCollectorPressure(collectorId: collectorId);
@@ -35,7 +34,7 @@ Stream<CollectorPressure?> collectorPressureStream(
 @riverpod
 Future<CollectorPressure?> collectorPressureFuture(
     CollectorPressureFutureRef ref,
-    {required CollectorID collectorId}) {
+    {required String collectorId}) {
   final collectorPressureRepository =
       ref.read(collectorPressureRepositoryProvider);
   return collectorPressureRepository.getCollectorPressure(collectorId: collectorId);

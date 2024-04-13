@@ -5,7 +5,6 @@ import '../../../../config/routes/routes_enums.dart';
 
 import '../../data/collector_repository.dart';
 import '../../data/collector_sector_repository.dart';
-import '../../model/collector.dart';
 import '../../model/collector_sector.dart';
 import 'colllector_details_screen_content.dart';
 import '../../../../widgets/app_sliver_bar.dart';
@@ -19,7 +18,7 @@ class CollectorDetailsScreen extends ConsumerWidget {
     required this.collectorId,
   });
 
-  final CollectorID collectorId;
+  final String collectorId;
 
   void _onEditCollector(
       {required WidgetRef ref,

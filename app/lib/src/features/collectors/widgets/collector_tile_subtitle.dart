@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constants/app_sizes.dart';
 import '../../board-centraline/data/board_repository.dart';
-import '../model/collector.dart';
 import 'battery_level_indicator.dart';
 import 'filter_pressure_diff_widget.dart';
 
@@ -13,7 +12,7 @@ class CollectorTileSubtitle extends ConsumerWidget {
     required this.collectorId,
   });
 
-  final CollectorID collectorId;
+  final String collectorId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

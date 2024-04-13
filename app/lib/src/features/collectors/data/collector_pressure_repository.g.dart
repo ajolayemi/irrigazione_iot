@@ -25,7 +25,7 @@ final collectorPressureRepositoryProvider =
 typedef CollectorPressureRepositoryRef
     = ProviderRef<CollectorPressureRepository>;
 String _$collectorPressureStreamHash() =>
-    r'347fdb00359c9e9485fd96d06294fb52dd827baa';
+    r'758bffa0f8b5898983c8103cd081654f3e8c14de';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -182,7 +182,7 @@ class _CollectorPressureStreamProviderElement
 }
 
 String _$collectorPressureFutureHash() =>
-    r'7b9f027babd6260d62d19a055c2e0087cfd82825';
+    r'a32919a7b0bef10c69fea049ffcf135828b4d3bb';
 
 /// See also [collectorPressureFuture].
 @ProviderFor(collectorPressureFuture)

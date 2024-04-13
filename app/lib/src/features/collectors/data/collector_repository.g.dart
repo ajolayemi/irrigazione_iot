@@ -74,7 +74,7 @@ final usedCollectorNamesStreamProvider =
 
 typedef UsedCollectorNamesStreamRef
     = AutoDisposeStreamProviderRef<List<String?>>;
-String _$collectorStreamHash() => r'c41123527b6fb914da18afa43393a6ba99bd5877';
+String _$collectorStreamHash() => r'dfa541795f89f997fdd13a3a4bb79d1f887f7b6a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -97,22 +97,22 @@ class _SystemHash {
   }
 }
 
-/// Watches a single instance of [Collector] as specified by [CollectorID]
+/// Watches a single instance of [Collector] as specified by [String]
 ///
 /// Copied from [collectorStream].
 @ProviderFor(collectorStream)
 const collectorStreamProvider = CollectorStreamFamily();
 
-/// Watches a single instance of [Collector] as specified by [CollectorID]
+/// Watches a single instance of [Collector] as specified by [String]
 ///
 /// Copied from [collectorStream].
 class CollectorStreamFamily extends Family<AsyncValue<Collector?>> {
-  /// Watches a single instance of [Collector] as specified by [CollectorID]
+  /// Watches a single instance of [Collector] as specified by [String]
   ///
   /// Copied from [collectorStream].
   const CollectorStreamFamily();
 
-  /// Watches a single instance of [Collector] as specified by [CollectorID]
+  /// Watches a single instance of [Collector] as specified by [String]
   ///
   /// Copied from [collectorStream].
   CollectorStreamProvider call(
@@ -147,11 +147,11 @@ class CollectorStreamFamily extends Family<AsyncValue<Collector?>> {
   String? get name => r'collectorStreamProvider';
 }
 
-/// Watches a single instance of [Collector] as specified by [CollectorID]
+/// Watches a single instance of [Collector] as specified by [String]
 ///
 /// Copied from [collectorStream].
 class CollectorStreamProvider extends AutoDisposeStreamProvider<Collector?> {
-  /// Watches a single instance of [Collector] as specified by [CollectorID]
+  /// Watches a single instance of [Collector] as specified by [String]
   ///
   /// Copied from [collectorStream].
   CollectorStreamProvider(
@@ -236,24 +236,24 @@ class _CollectorStreamProviderElement
   String get collectorId => (origin as CollectorStreamProvider).collectorId;
 }
 
-String _$collectorFutureHash() => r'd9ef3258b76113fdebb92dec09dee8b171a0dbdf';
+String _$collectorFutureHash() => r'be315e81e6328d42925e6b3438438a1d40db2405';
 
-/// Gets a single instance of [Collector] as specified by [CollectorID]
+/// Gets a single instance of [Collector] as specified by [String]
 ///
 /// Copied from [collectorFuture].
 @ProviderFor(collectorFuture)
 const collectorFutureProvider = CollectorFutureFamily();
 
-/// Gets a single instance of [Collector] as specified by [CollectorID]
+/// Gets a single instance of [Collector] as specified by [String]
 ///
 /// Copied from [collectorFuture].
 class CollectorFutureFamily extends Family<AsyncValue<Collector?>> {
-  /// Gets a single instance of [Collector] as specified by [CollectorID]
+  /// Gets a single instance of [Collector] as specified by [String]
   ///
   /// Copied from [collectorFuture].
   const CollectorFutureFamily();
 
-  /// Gets a single instance of [Collector] as specified by [CollectorID]
+  /// Gets a single instance of [Collector] as specified by [String]
   ///
   /// Copied from [collectorFuture].
   CollectorFutureProvider call(
@@ -288,11 +288,11 @@ class CollectorFutureFamily extends Family<AsyncValue<Collector?>> {
   String? get name => r'collectorFutureProvider';
 }
 
-/// Gets a single instance of [Collector] as specified by [CollectorID]
+/// Gets a single instance of [Collector] as specified by [String]
 ///
 /// Copied from [collectorFuture].
 class CollectorFutureProvider extends AutoDisposeFutureProvider<Collector?> {
-  /// Gets a single instance of [Collector] as specified by [CollectorID]
+  /// Gets a single instance of [Collector] as specified by [String]
   ///
   /// Copied from [collectorFuture].
   CollectorFutureProvider(
@@ -378,7 +378,7 @@ class _CollectorFutureProviderElement
 }
 
 String _$collectorBatteryLevelStreamHash() =>
-    r'0541545cd32062179e8d42ef9e42c6239728aa21';
+    r'63b6561c6633dfffc18d965f31134f051236d57a';
 
 /// See also [collectorBatteryLevelStream].
 @ProviderFor(collectorBatteryLevelStream)

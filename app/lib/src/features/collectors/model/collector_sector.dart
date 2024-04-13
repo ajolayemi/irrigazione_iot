@@ -16,7 +16,7 @@ class CollectorSector extends Equatable {
       : collectorId = '',
         sectorId = '',
         companyId = '';
-  final CollectorID collectorId;
+  final String collectorId;
   final String sectorId;
   final String companyId;
 
@@ -24,7 +24,7 @@ class CollectorSector extends Equatable {
   List<Object> get props => [collectorId, sectorId, companyId];
 
   CollectorSector copyWith({
-    CollectorID? collectorId,
+    String? collectorId,
     String? sectorId,
     String? companyId,
   }) {
@@ -45,7 +45,7 @@ class CollectorSector extends Equatable {
 
   factory CollectorSector.fromJson(Map<String, dynamic> map) {
     return CollectorSector(
-      collectorId: map['collectorId'] as CollectorID,
+      collectorId: map['collectorId'] as String,
       sectorId: map['sectorId'] as String,
       companyId: map['companyId'] as String,
     );

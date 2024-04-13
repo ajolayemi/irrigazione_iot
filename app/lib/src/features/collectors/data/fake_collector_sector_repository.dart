@@ -1,7 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_collector_sectors.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
@@ -21,14 +20,14 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
   Stream<List<CollectorSector>> get stream => _collectorSectorsState.stream;
 
   static CollectorSector? _getCollectorSectorById(
-      List<CollectorSector> collectorSectors, CollectorID id) {
+      List<CollectorSector> collectorSectors, String id) {
     return collectorSectors.firstWhereOrNull(
       (collectorSector) => collectorSector.collectorId == id,
     );
   }
 
   static List<CollectorSector?> _getCollectorSectors(
-      List<CollectorSector> collectorSectors, CollectorID collectorId) {
+      List<CollectorSector> collectorSectors, String collectorId) {
     return collectorSectors
         .where((collectorSector) => collectorSector.collectorId == collectorId)
         .toList();

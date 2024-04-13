@@ -17,7 +17,7 @@ class FakeCollectorRepository implements CollectorRepository {
   Stream<List<Collector>> get stream => _collectorState.stream;
 
   static Collector? _getCollectorById(
-      List<Collector> collectors, CollectorID id) {
+      List<Collector> collectors, String id) {
     return collectors.firstWhereOrNull(
       (collector) => collector.id == id,
     );
@@ -67,7 +67,7 @@ class FakeCollectorRepository implements CollectorRepository {
   }
 
   @override
-  Future<bool> deleteCollector(CollectorID collectorID) async {
+  Future<bool> deleteCollector(String collectorID) async {
     await delay(addDelay);
     final currentCollectors = [...value];
     final index = currentCollectors.indexWhere((c) => c.id == collectorID);
@@ -80,7 +80,7 @@ class FakeCollectorRepository implements CollectorRepository {
   }
 
   @override
-  Future<Collector?> getCollector(CollectorID collectorID) async {
+  Future<Collector?> getCollector(String collectorID) async {
     await delay(addDelay);
     return Future.value(_getCollectorById(value, collectorID));
   }
@@ -94,7 +94,7 @@ class FakeCollectorRepository implements CollectorRepository {
   }
 
   @override
-  Stream<Collector?> watchCollector(CollectorID collectorID) {
+  Stream<Collector?> watchCollector(String collectorID) {
     return stream.map(
       (collectors) => _getCollectorById(collectors, collectorID),
     );
@@ -123,7 +123,7 @@ class FakeCollectorRepository implements CollectorRepository {
 
 // todo change how this is implemented
   @override
-  Stream<double?> watchCollectorBatteryLevel(CollectorID collectorID) {
+  Stream<double?> watchCollectorBatteryLevel(String collectorID) {
     return Stream.periodic(const Duration(seconds: 40), (_) {
     // Simulate battery level changes
     return (5.0 - 3.0) * (0.5 - 0.5 * (DateTime.now().second % 60) / 30).clamp(0.0, 1.0);
