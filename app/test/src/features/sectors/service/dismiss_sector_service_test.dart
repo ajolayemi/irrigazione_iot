@@ -30,7 +30,7 @@ void main() {
     addTearDown(container.dispose);
     dismissSectorService = container.read(dismissSectorServiceProvider);
     registerFallbackValue(
-      const Sector.empty(),
+    Sector.empty(),
     );
     registerFallbackValue(
       const SectorPump(pumpId: '9', sectorId: '9'),

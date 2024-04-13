@@ -75,16 +75,18 @@ class SectorDetailsScreenContents extends ConsumerWidget {
               },
             ),
           ),
+
+          // TODO variety and specie name should be displayed instead of id
           ResponsiveDetailsCard(
             child: DetailTileWidget(
               title: context.loc.sectorSpecie,
-              subtitle: sector.availableSpecie,
+              subtitle: sector.specieId,
             ),
           ),
           ResponsiveDetailsCard(
             child: DetailTileWidget(
               title: context.loc.sectorVariety,
-              subtitle: sector.specieVariety,
+              subtitle: sector.varietyId,
             ),
           ),
           ResponsiveDetailsCard(
@@ -96,13 +98,13 @@ class SectorDetailsScreenContents extends ConsumerWidget {
           ResponsiveDetailsCard(
             child: DetailTileWidget(
               title: context.loc.sectorUnitConsumptionPerHour,
-              subtitle: sector.waterConsumptionPerHourByPlant.toString(),
+              subtitle: sector.waterConsumptionPerHour.toString(),
             ),
           ),
           ResponsiveDetailsCard(
             child: DetailTileWidget(
               title: context.loc.sectorTotalConsumption,
-              subtitle: sector.totalWaterConsumption.toString(),
+              subtitle: sector.totalConsumption.toString(),
             ),
           ),
           ResponsiveDetailsCard(

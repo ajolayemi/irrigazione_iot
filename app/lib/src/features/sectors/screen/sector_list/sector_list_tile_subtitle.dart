@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../data/sector_status_repository.dart';
-import '../../model/sector.dart';
-import '../../../../utils/date_formatter.dart';
-import '../../../../utils/extensions.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/utils/date_formatter.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 class SectorListTileSubtitle extends ConsumerWidget {
   const SectorListTileSubtitle({super.key, required this.sector});
@@ -34,8 +34,8 @@ class SectorListTileSubtitle extends ConsumerWidget {
         ? dateFormatter.format(lastIrrigatedDate)
         : context.loc.notAvailable;
     return Text(
-      '${sector.displayName}\n${context.loc.sectorLastIrrigation(
-        lastIrrigatedString, 
+      '${sector.name}\n${context.loc.sectorLastIrrigation(
+        lastIrrigatedString,
       )}',
     );
   }

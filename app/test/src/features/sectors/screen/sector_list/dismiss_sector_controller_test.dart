@@ -12,7 +12,7 @@ void main() {
 
   final service = MockDismissSectorService();
 
-  const emptySector = Sector.empty();
+  final emptySector = Sector.empty();
 
   ProviderContainer makeContainer() {
     return ProviderContainer(

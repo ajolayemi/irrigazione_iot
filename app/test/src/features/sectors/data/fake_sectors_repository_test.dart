@@ -19,19 +19,24 @@ void main() {
 
   final sectorToUpdate = expectedCompanySectors.firstOrNull;
 
-  const sectorToAdd = Sector(
+  final sectorToAdd = Sector(
       id: '200',
       companyId: '4',
       name: 'Sector for test',
-      availableSpecie: 'arancia',
-      specieVariety: 'sanguinello',
+      specieId: '1',
+      varietyId: '2',
       area: 9000,
       numOfPlants: 20,
-      waterConsumptionPerHourByPlant: 20,
+      waterConsumptionPerHour: 20,
       irrigationSystemType: IrrigationSystemType.drip,
       irrigationSource: IrrigationSource.canal,
       turnOnCommand: '80',
-      turnOffCommand: '81');
+      turnOffCommand: '81',
+      notes: 'notes for sector',
+      createdAt: DateTime.parse('2024-01-01'),
+      updatedAt: DateTime.parse('2024-01-01'),
+      mqttMsgName: 'sector_4_1',
+      hasFilter: false);
 
   FakeSectorsRepository makeFakeSectorsRepository() {
     return FakeSectorsRepository(addDelay: false);
@@ -136,8 +141,8 @@ void main() {
 
     test('updateSector with new and valid values works as expected', () async {
       final updatedSector = sectorToUpdate?.copyWith(
-        availableSpecie: 'banana',
-        specieVariety: 'banana',
+        specieId: '1',
+        varietyId: '3',
       );
       expect(updatedSector, isNotNull);
       final currentValue = await repo.getSector(updatedSector!.id);
@@ -155,8 +160,8 @@ void main() {
     test('updateSector with new values and invalid sectorId returns null',
         () async {
       final updatedSector = sectorToUpdate?.copyWith(
-        availableSpecie: 'banana',
-        specieVariety: 'banana',
+        specieId: '1',
+        varietyId: '2',
         id: '90000',
       );
       expect(updatedSector, isNotNull);
@@ -173,8 +178,8 @@ void main() {
     test('updateSector with new values and invalid companyId returns null',
         () async {
       final updatedSector = sectorToUpdate?.copyWith(
-        availableSpecie: 'banana',
-        specieVariety: 'banana',
+        specieId: '1',
+        varietyId: '2',
         companyId: '1800',
       );
       expect(updatedSector, isNotNull);
@@ -189,7 +194,9 @@ void main() {
       await expectLater(repo.deleteSector(testSectorId), completion(isTrue));
     });
 
-    test('deleteSector with invalid sector id does not delete sector as expected', () async {
+    test(
+        'deleteSector with invalid sector id does not delete sector as expected',
+        () async {
       await expectLater(repo.deleteSector('8900'), completion(isFalse));
     });
   });

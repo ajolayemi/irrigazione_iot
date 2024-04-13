@@ -88,7 +88,7 @@ class _AddUpdateSectorFormContentsState
   static const _connectedPumpsFieldKey = Key('sectorConnectedPumpsField');
   static const _notesFieldKey = Key('sectorNotesField');
 
-  Sector? _initialSector = const Sector.empty();
+  Sector? _initialSector = Sector.empty();
 
   @override
   void initState() {
@@ -97,13 +97,14 @@ class _AddUpdateSectorFormContentsState
           ref.read(sectorStreamProvider(widget.sectorId!)).valueOrNull;
       _initialSector = sector;
       _nameController.text = _initialSector?.name ?? '';
-      _specieController.text = _initialSector?.availableSpecie ?? '';
-      _varietyController.text = _initialSector?.specieVariety ?? '';
+      // TODO: specie and variety names should be displayed in the form not their ids
+      _specieController.text = _initialSector?.specieId ?? '';
+      _varietyController.text = _initialSector?.varietyId ?? '';
       _areaController.text = _initialSector?.area.toString() ?? '';
       _numOfPlantsController.text =
           _initialSector?.numOfPlants.toString() ?? '';
       _unitConsumptionController.text =
-          _initialSector?.waterConsumptionPerHourByPlant.toString() ?? '';
+          _initialSector?.totalConsumption.toString() ?? '';
       _irrigationSystemController.text =
           _initialSector?.irrigationSystemType.uiName ?? '';
       _irrigationSourceController.text =
@@ -260,11 +261,11 @@ class _AddUpdateSectorFormContentsState
         id: _initialSector?.id,
         name: name,
         companyId: _initialSector?.companyId,
-        availableSpecie: specie,
-        specieVariety: variety,
+        specieId: specie,
+        varietyId: variety,
         area: double.tryParse(area) ?? 0.0,
-        numOfPlants: int.tryParse(numOfPlants) ?? 0,
-        waterConsumptionPerHourByPlant: double.tryParse(unitConsumption) ?? 0.0,
+        numOfPlants: double.tryParse(numOfPlants) ?? 0,
+        waterConsumptionPerHour: double.tryParse(unitConsumption) ?? 0.0,
         irrigationSystemType: irrigationSystem.toIrrigationSystemType(),
         irrigationSource: irrigationSource.toIrrigationSource(),
         turnOnCommand: turnOnCommand,

@@ -32,7 +32,7 @@ void main() {
           .where((sector) => sector.companyId == testCompanyId)
           .toList()
           .firstOrNull ??
-      const Sector.empty();
+     Sector.empty();
   // a list of [SectorPump] pertaining to the chosen company sector
   final List<SectorPump> validSectorPumpForTest = kFakeSectorPumps
       .where((sectorPump) => sectorPump.sectorId == validSectorForTest.id)
@@ -41,19 +41,24 @@ void main() {
   final validSectorPumpIdsForTest =
       validSectorPumpForTest.map((sp) => sp.pumpId).toList();
 
-  const nonExistentSectorForTest = Sector(
+  final nonExistentSectorForTest = Sector(
       id: '200',
       companyId: '4',
       name: 'Sector for test',
-      availableSpecie: 'arancia',
-      specieVariety: 'sanguinello',
+      specieId: '1',
+      varietyId: '3',
       area: 9000,
       numOfPlants: 20,
-      waterConsumptionPerHourByPlant: 20,
+      waterConsumptionPerHour: 20,
       irrigationSystemType: IrrigationSystemType.drip,
       irrigationSource: IrrigationSource.canal,
       turnOnCommand: '80',
-      turnOffCommand: '81');
+      turnOffCommand: '81',
+      notes: 'notes for sector',
+      createdAt: DateTime.parse('2024-01-01'),
+      updatedAt: DateTime.parse('2024-01-01'),
+      mqttMsgName: 'sector_4_1',
+      hasFilter: false);
 
   const testSectorPump = SectorPump(pumpId: '1', sectorId: '1');
 
@@ -81,7 +86,7 @@ void main() {
   }
 
   setUpAll(() {
-    registerFallbackValue(const Sector.empty());
+    registerFallbackValue(Sector.empty());
     registerFallbackValue(testSectorPump);
   });
 
@@ -241,7 +246,7 @@ void main() {
         // run
         // an empty sector can be passed here because the goal of this test isn't to test
         // the updateSector method from the service
-        await service.updateSector(const Sector.empty());
+        await service.updateSector(Sector.empty());
 
         // verify that the following call is made
         verify(() => authRepository.currentUser).called(1);
@@ -339,7 +344,7 @@ void main() {
         - addSectorPump from sectorPumpsRepository is called''', () async {
           final toUpdate = validSectorForTest.copyWith(
             area: 600,
-            specieVariety: 'tarocco',
+            varietyId: '1',
             numOfPlants: 5600,
           );
 
