@@ -1,4 +1,4 @@
-enum IrrigationSystemType {
+enum IrrigationSystem {
   pivot(uiName: 'Pivot'),
   drip(uiName: 'A Goccia'),
   rotolo(uiName: 'Rotolo'),
@@ -6,7 +6,7 @@ enum IrrigationSystemType {
   sprinkler(uiName: 'Sprinkler'),
   other(uiName: 'Altro');
 
-  const IrrigationSystemType({
+  const IrrigationSystem({
     required this.uiName,
   });
 
@@ -32,19 +32,19 @@ enum IrrigationSource {
   final String uiName;
 }
 
-extension IrrigationSystemTypeX on String {
-  IrrigationSystemType toIrrigationSystemType() {
+extension IrrigationSystemType on String {
+  IrrigationSystem toIrrigationSystemType() {
     switch (this) {
       case 'Pivot':
-        return IrrigationSystemType.pivot;
+        return IrrigationSystem.pivot;
       case 'A Goccia':
-        return IrrigationSystemType.drip;
+        return IrrigationSystem.drip;
       case 'Rotolo':
-        return IrrigationSystemType.rotolo;
+        return IrrigationSystem.rotolo;
       case 'Subirrigazione':
-        return IrrigationSystemType.subirrigazione;
+        return IrrigationSystem.subirrigazione;
       case 'Sprinkler':
-        return IrrigationSystemType.sprinkler;
+        return IrrigationSystem.sprinkler;
       default:
         throw ArgumentError('Invalid irrigation system type: $this');
     }
