@@ -151,7 +151,7 @@ void main() {
         // After update is done, the returned board
         // should be the same as the one passed as arg
         expect(res, updatedBoard);
-        // should be different from the original 
+        // should be different from the original
         // board (just for double check)
         expect(res, isNot(kFakeBoards.first));
         // It shouldn't be null
@@ -161,13 +161,16 @@ void main() {
       });
 
       test('updating a non-existent board returns null', () async {
-        const nonExistentBoardForTest = Board(
+        final nonExistentBoardForTest = Board(
           id: '9000',
           name: 'non-existent board',
           companyId: '1',
           collectorId: '1',
           model: 'model',
           serialNumber: 'serialNumber',
+          createdAt: DateTime.parse('2024-01-01'),
+          updatedAt: DateTime.parse('2024-01-01'),
+          mqttMsgName: 'mqttMsgName',
         );
 
         final res = await fakeBoardRepository.updateBoard(

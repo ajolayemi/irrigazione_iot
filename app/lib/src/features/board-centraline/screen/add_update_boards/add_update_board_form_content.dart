@@ -60,7 +60,7 @@ class _AddUpdateBoardFormContentState
   static const _serialNumberFieldKey = Key('boardSerialNumberField');
   static const _collectorFieldKey = Key('boardCollectorField');
 
-  Board? _initialBoard = const Board.empty();
+  Board? _initialBoard = Board.empty();
 
   bool get _isUpdating => widget.formType.isUpdating;
 
