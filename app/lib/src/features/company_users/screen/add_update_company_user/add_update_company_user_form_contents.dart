@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../config/enums/button_types.dart';
-import '../../../../config/enums/form_types.dart';
-import '../../../../constants/app_sizes.dart';
-import '../../data/company_users_repository.dart';
-import '../../model/company_user.dart';
-import 'add_update_company_user_controller.dart';
-import '../../../../utils/app_form_error_texts_extension.dart';
-import '../../../../utils/app_form_validators.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/app_cta_button.dart';
-import '../../../../widgets/app_sliver_bar.dart';
-import '../../../../widgets/common_form_suffix_icon.dart';
-import '../../../../widgets/form_title_and_field.dart';
-import '../../../../widgets/responsive_sliver_form.dart';
+import 'package:irrigazione_iot/src/config/enums/button_types.dart';
+import 'package:irrigazione_iot/src/config/enums/form_types.dart';
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/add_update_company_user/add_update_company_user_controller.dart';
+import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
+import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/widgets/common_form_suffix_icon.dart';
+import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
+
 
 class AddUpdateCompanyUserFormContents extends ConsumerStatefulWidget {
   const AddUpdateCompanyUserFormContents({
@@ -140,7 +142,7 @@ class _AddUpdateCompanyUserFormContentsState
         final companyUser = _initialCompanyUser?.copyWith(
           fullName: _fullName,
           email: _email,
-          role: _role.toCompanyUserRoles,
+          role: _role.toCompanyUserRoles(),
           companyId:
               _initialCompanyUser?.companyId, // auto filled by service layer
           createdAt: _initialCompanyUser?.createdAt ?? DateTime.now(),

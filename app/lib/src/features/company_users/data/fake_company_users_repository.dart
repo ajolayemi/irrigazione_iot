@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
-import '../../../config/enums/roles.dart';
-import '../../../config/mock/fake_company_users.dart';
-
-import 'company_users_repository.dart';
-import '../model/company_user.dart';
-import '../../../utils/delay.dart';
-import '../../../utils/in_memory_store.dart';
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_company_users.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
+import 'package:irrigazione_iot/src/utils/delay.dart';
+import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
 class FakeUserCompaniesRepository implements CompanyUsersRepository {
   FakeUserCompaniesRepository({this.addDelay = true});
@@ -79,11 +78,11 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
     await delay(addDelay);
     final currentUsers = [..._companyUsersValue];
     final lastId = currentUsers
-        .map((e) => e.id)
+        .map((e) => int.tryParse(e.id) ?? 0)
         .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
 
     // just the id is set here, all other values are provided or added from form
-    final newCompanyUser = companyUser.copyWith(id: lastId + 1);
+    final newCompanyUser = companyUser.copyWith(id: '${lastId + 1}');
     currentUsers.add(newCompanyUser);
     _userCompanies.value = currentUsers;
     return fetchCompanyUser(companyUserId: newCompanyUser.id.toString());
@@ -113,8 +112,8 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
     if (index == -1) return null;
     currentUsers[index] = companyUser;
     _userCompanies.value = currentUsers;
-    return fetchCompanyUser(companyUserId: companyUser.id.toString());    
- }
+    return fetchCompanyUser(companyUserId: companyUser.id.toString());
+  }
 
   @override
   Future<List<CompanyUser?>> fetchUsersAssociatedWithCompany(
@@ -153,9 +152,10 @@ class FakeUserCompaniesRepository implements CompanyUsersRepository {
       ),
     );
   }
-  
+
   @override
-  Stream<List<String>> watchEmailsAssociatedWithCompany({required String companyId}) {
+  Stream<List<String>> watchEmailsAssociatedWithCompany(
+      {required String companyId}) {
     return _companyUsersStream.map(
       (userCompanies) => userCompanies
           .where((user) => user.companyId == companyId)
