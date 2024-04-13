@@ -1,59 +1,47 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company_user_supabase_keys.dart';
 
-
-typedef CompanyUserID = int;
-
-// A representation of the relationship between a user and a company
 class CompanyUser extends Equatable {
   const CompanyUser({
     required this.id,
     required this.email,
     required this.fullName,
-    required this.companyId,
     required this.role,
+    required this.companyId,
     required this.createdAt,
     required this.updatedAt,
   });
 
-  CompanyUser.empty()
-      : id = 0,
-        email = '',
-        fullName = '',
-        companyId = '',
-        role = CompanyUserRoles.user,
-        createdAt = DateTime.now(),
-        updatedAt = DateTime.now();
-
-  final CompanyUserID id;
+  final String id;
   final String email;
   final String fullName;
-  final String companyId;
   final CompanyUserRoles role;
+  final String companyId;
   final DateTime createdAt;
   final DateTime updatedAt;
 
   @override
-  List<Object?> get props {
+  List<Object> get props {
     return [
       id,
       email,
       fullName,
-      companyId,
       role,
+      companyId,
       createdAt,
       updatedAt,
     ];
   }
 
   CompanyUser copyWith({
-    CompanyUserID? id,
+    String? id,
     String? email,
     String? fullName,
-    String? companyId,
     CompanyUserRoles? role,
+    String? companyId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -61,34 +49,36 @@ class CompanyUser extends Equatable {
       id: id ?? this.id,
       email: email ?? this.email,
       fullName: fullName ?? this.fullName,
-      companyId: companyId ?? this.companyId,
       role: role ?? this.role,
+      companyId: companyId ?? this.companyId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'id': id,
-      'email': email,
-      'fullName': fullName,
-      'companyId': companyId,
-      'role': role.name,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
+  Map<String, dynamic> toMap() {
+    return {
+      CompanyUserSupabaseKeys.id: id,
+      CompanyUserSupabaseKeys.email: email,
+      CompanyUserSupabaseKeys.fullName: fullName,
+      CompanyUserSupabaseKeys.role: role.name,
+      CompanyUserSupabaseKeys.companyId: companyId,
+      CompanyUserSupabaseKeys.createdAt: createdAt.toIso8601String(),
+      CompanyUserSupabaseKeys.updatedAt: updatedAt.toIso8601String(),
     };
   }
 
-  factory CompanyUser.fromJson(Map<String, dynamic> map) {
+  static CompanyUser fromMap(Map<String, dynamic> map) {
     return CompanyUser(
-      id: map['id'] as CompanyUserID,
-      email: map['email'] as String,
-      fullName: map['fullName'] as String,
-      companyId: map['companyId'] as String,
-      role: (map['role'] as String).toCompanyUserRoles,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),
+      id: map[CompanyUserSupabaseKeys.id] as String,
+      email: map[CompanyUserSupabaseKeys.email] as String,
+      fullName: map[CompanyUserSupabaseKeys.fullName] as String,
+      role: map[CompanyUserSupabaseKeys.role].toString().toCompanyUserRoles(),
+      companyId: map[CompanyUserSupabaseKeys.companyId] as String,
+      createdAt:
+          DateTime.parse(map[CompanyUserSupabaseKeys.createdAt] as String),
+      updatedAt:
+          DateTime.parse(map[CompanyUserSupabaseKeys.updatedAt] as String),
     );
   }
 }
