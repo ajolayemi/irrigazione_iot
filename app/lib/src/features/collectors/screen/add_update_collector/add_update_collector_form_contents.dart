@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/config/enums/button_types.dart';
+import 'package:irrigazione_iot/src/config/enums/form_types.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/constants/app_constants.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_controller.dart';
+import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
+import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
 
-import '../../../../config/enums/button_types.dart';
-import '../../../../config/enums/form_types.dart';
-import '../../../../config/routes/routes_enums.dart';
-import '../../../../constants/app_constants.dart';
-import '../../../../constants/app_sizes.dart';
-import '../../data/collector_repository.dart';
-import '../../data/collector_sector_repository.dart';
-import '../../model/collector.dart';
-import 'add_update_collector_controller.dart';
-import '../../../../utils/app_form_error_texts_extension.dart';
-import '../../../../utils/app_form_validators.dart';
-import '../../../../utils/async_value_ui.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/alert_dialogs.dart';
-import '../../../../widgets/app_cta_button.dart';
-import '../../../../widgets/app_sliver_bar.dart';
-import '../../../../widgets/form_title_and_field.dart';
-import '../../../../widgets/responsive_sliver_form.dart';
+
 
 class AddUpdateCollectorFormContents extends ConsumerStatefulWidget {
   const AddUpdateCollectorFormContents({
@@ -62,7 +63,7 @@ class _AddUpdateCollectorFormContentsState
   static const _filterNameKey = Key('filterNameField');
   static const _connectedSectorsKey = Key('connectedSectorsField');
 
-  Collector? _initialCollector = const Collector.empty();
+  Collector? _initialCollector = Collector.empty();
 
   @override
   void initState() {
@@ -70,7 +71,7 @@ class _AddUpdateCollectorFormContentsState
       final collector =
           ref.read(collectorStreamProvider(widget.collectorId!)).valueOrNull;
       _initialCollector = collector;
-      _filterNameController.text = _initialCollector?.filterName ?? '';
+      _filterNameController.text = _initialCollector?.connectedFilterName ?? '';
       _collectorNameController.text = _initialCollector?.name ?? '';
     }
     super.initState();
@@ -151,7 +152,7 @@ class _AddUpdateCollectorFormContentsState
         final collector = _initialCollector?.copyWith(
           id: _initialCollector?.id,
           name: _collectorName,
-          filterName: _filterName,
+          connectedFilterName: _filterName,
           companyId: _initialCollector?.companyId,
         );
 

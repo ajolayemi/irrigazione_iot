@@ -11,9 +11,9 @@ void main() {
       .where((collector) => collector.companyId == testCompanyId)
       .toList();
 
-  final collectorToAdd = const Collector.empty().copyWith(
+  final collectorToAdd = Collector.empty().copyWith(
     name: "testCollector",
-    filterName: "testFilter",
+    connectedFilterName: "testFilter",
   );
 
   final expectedCollectorAfterAddition = collectorToAdd.copyWith(
@@ -22,7 +22,7 @@ void main() {
   );
 
   final expectedResultAfterUpdate = expectedCollector.copyWith(
-    filterName: "testFilterUpdated",
+    connectedFilterName: "testFilterUpdated",
   );
 
   late FakeCollectorRepository fakeCollectorRepository;

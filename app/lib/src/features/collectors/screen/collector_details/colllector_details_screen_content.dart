@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../data/collector_sector_repository.dart';
-import '../../model/collector.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/details_tile_widget.dart';
-import '../../../../widgets/responsive_details_card.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/details_tile_widget.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_details_card.dart';
+
 
 class CollectorDetailsScreenContents extends ConsumerWidget {
   const CollectorDetailsScreenContents({
@@ -23,7 +24,7 @@ class CollectorDetailsScreenContents extends ConsumerWidget {
         ResponsiveDetailsCard(
           child: DetailTileWidget(
             title: loc.collectorFilterName,
-            subtitle: collector.filterName,
+            subtitle: collector.connectedFilterName,
           ),
         ),
         ResponsiveDetailsCard(child: Consumer(
