@@ -1,190 +1,183 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
 
+import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_supabase_keys.dart';
 
 class Sector extends Equatable {
   const Sector({
     required this.id,
-    required this.companyId,
     required this.name,
-    required this.availableSpecie,
-    required this.specieVariety,
     required this.area,
     required this.numOfPlants,
-    required this.waterConsumptionPerHourByPlant,
+    required this.waterConsumptionPerHour,
     required this.irrigationSystemType,
     required this.irrigationSource,
     required this.turnOnCommand,
     required this.turnOffCommand,
-    this.notes,
-  }) : totalWaterConsumption = numOfPlants * waterConsumptionPerHourByPlant;
+    required this.notes,
+    required this.specieId,
+    required this.varietyId,
+    required this.companyId,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.mqttMsgName,
+    required this.hasFilter,
+  }) : totalConsumption = waterConsumptionPerHour * numOfPlants;
 
-  const Sector.empty()
+  Sector.empty()
       : id = '',
-        companyId = '',
         name = '',
-        availableSpecie = '',
-        specieVariety = '',
         area = 0,
         numOfPlants = 0,
-        waterConsumptionPerHourByPlant = 0,
-        totalWaterConsumption = 0,
-        irrigationSystemType = IrrigationSystemType.drip,
-        irrigationSource = IrrigationSource.well,
+        waterConsumptionPerHour = 0,
+        irrigationSystemType = IrrigationSystemType.other,
+        irrigationSource = IrrigationSource.other,
         turnOnCommand = '',
         turnOffCommand = '',
-        notes = null;
+        notes = '',
+        totalConsumption = 0,
+        specieId = '',
+        varietyId = '',
+        companyId = '',
+        createdAt = DateTime.parse('2024-01-01'),
+        updatedAt = DateTime.parse('2024-01-01'),
+        mqttMsgName = '',
+        hasFilter = false;
 
-  // * the id of the sector
   final String id;
-
-  // * an id that identifies the company that owns this sector
-  final String companyId;
-
-  // * the name of the sector
   final String name;
-
-  // * a generic specie like arancia, limone for the
-  final String availableSpecie;
-
-  // * the variety of the specie like sanguinello, tarocco
-  final String specieVariety;
-
-  // * the area occupied bt this sector
   final double area;
-
-  // * the number of plants in this sector
-  final int numOfPlants;
-
-  // * the amount of water consumed per hour by each plant in this sector
-  final double waterConsumptionPerHourByPlant;
-
-  // *  the total amount of water consumed
-  // * this value should be calculated by the backend
-  // * it's the result of the multiplication of the waterConsumptionPerHourByPlant by the numOfPlants
-  final double totalWaterConsumption;
-
-  // * irrigation system type
+  final double numOfPlants;
+  final double waterConsumptionPerHour;
   final IrrigationSystemType irrigationSystemType;
-
-  // * irrigation source
   final IrrigationSource irrigationSource;
-
-  // * the mqtt command to turn on this sector
   final String turnOnCommand;
-
-  // * the mqtt command to turn off this sector
   final String turnOffCommand;
-
-  // * extra notes
-  final String? notes;
+  final String notes;
+  final double totalConsumption;
+  final String specieId;
+  final String varietyId;
+  final String companyId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final String mqttMsgName;
+  final bool hasFilter;
 
   @override
-  List<Object?> get props {
+  List<Object> get props {
     return [
       id,
-      companyId,
       name,
-      availableSpecie,
-      specieVariety,
       area,
       numOfPlants,
-      waterConsumptionPerHourByPlant,
-      totalWaterConsumption,
+      waterConsumptionPerHour,
       irrigationSystemType,
       irrigationSource,
       turnOnCommand,
       turnOffCommand,
       notes,
+      totalConsumption,
+      specieId,
+      varietyId,
+      companyId,
+      createdAt,
+      updatedAt,
+      mqttMsgName,
+      hasFilter,
     ];
   }
 
   Sector copyWith({
     String? id,
-    String? companyId,
     String? name,
-    String? availableSpecie,
-    String? specieVariety,
     double? area,
-    int? numOfPlants,
-    double? waterConsumptionPerHourByPlant,
+    double? numOfPlants,
+    double? waterConsumptionPerHour,
     IrrigationSystemType? irrigationSystemType,
     IrrigationSource? irrigationSource,
     String? turnOnCommand,
     String? turnOffCommand,
     String? notes,
+    String? specieId,
+    String? varietyId,
+    String? companyId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? mqttMsgName,
+    bool? hasFilter,
   }) {
     return Sector(
       id: id ?? this.id,
-      companyId: companyId ?? this.companyId,
       name: name ?? this.name,
-      availableSpecie: availableSpecie ?? this.availableSpecie,
-      specieVariety: specieVariety ?? this.specieVariety,
       area: area ?? this.area,
       numOfPlants: numOfPlants ?? this.numOfPlants,
-      waterConsumptionPerHourByPlant:
-          waterConsumptionPerHourByPlant ?? this.waterConsumptionPerHourByPlant,
+      waterConsumptionPerHour:
+          waterConsumptionPerHour ?? this.waterConsumptionPerHour,
       irrigationSystemType: irrigationSystemType ?? this.irrigationSystemType,
       irrigationSource: irrigationSource ?? this.irrigationSource,
       turnOnCommand: turnOnCommand ?? this.turnOnCommand,
       turnOffCommand: turnOffCommand ?? this.turnOffCommand,
       notes: notes ?? this.notes,
+      specieId: specieId ?? this.specieId,
+      varietyId: varietyId ?? this.varietyId,
+      companyId: companyId ?? this.companyId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      mqttMsgName: mqttMsgName ?? this.mqttMsgName,
+      hasFilter: hasFilter ?? this.hasFilter,
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'companyId': companyId,
-      'name': name,
-      'availableSpecie': availableSpecie,
-      'specieVariety': specieVariety,
-      'area': area,
-      'numOfPlants': numOfPlants,
-      'waterConsumptionPerHourByPlant': waterConsumptionPerHourByPlant,
-      'totalWaterConsumption': totalWaterConsumption,
-      'irrigationSystemType': irrigationSystemType.uiName,
-      'irrigationSource': irrigationSource.uiName,
-      'turnOnCommand': turnOnCommand,
-      'turnOffCommand': turnOffCommand,
-      'notes': notes,
+  Map<String, dynamic> toJson() {
+    return {
+      SectorSupabaseKeys.id: id,
+      SectorSupabaseKeys.name: name,
+      SectorSupabaseKeys.area: area,
+      SectorSupabaseKeys.numOfPlants: numOfPlants,
+      SectorSupabaseKeys.waterConsumptionPerHour: waterConsumptionPerHour,
+      SectorSupabaseKeys.irrigationSystemType: irrigationSystemType.name,
+      SectorSupabaseKeys.irrigationSource: irrigationSource.name,
+      SectorSupabaseKeys.turnOnCommand: turnOnCommand,
+      SectorSupabaseKeys.turnOffCommand: turnOffCommand,
+      SectorSupabaseKeys.notes: notes,
+      SectorSupabaseKeys.specieId: specieId,
+      SectorSupabaseKeys.varietyId: varietyId,
+      SectorSupabaseKeys.companyId: companyId,
+      SectorSupabaseKeys.createdAt: createdAt.toIso8601String(),
+      SectorSupabaseKeys.updatedAt: updatedAt.toIso8601String(),
+      SectorSupabaseKeys.mqttMsgName: mqttMsgName,
+      SectorSupabaseKeys.hasFilter: hasFilter,
     };
   }
 
-  factory Sector.fromMap(Map<String, dynamic> map) {
+  static Sector fromJson(Map<String, dynamic> json) {
     return Sector(
-      id: map['id'] as String,
-      companyId: map['companyId'] as String,
-      name: map['name'] as String,
-      availableSpecie: map['availableSpecie'] as String,
-      specieVariety: map['specieVariety'] as String,
-      area: map['area'] as double,
-      numOfPlants: map['numOfPlants'] as int,
-      waterConsumptionPerHourByPlant:
-          map['waterConsumptionPerHourByPlant'] as double,
+      id: json[SectorSupabaseKeys.id],
+      name: json[SectorSupabaseKeys.name],
+      area: json[SectorSupabaseKeys.area],
+      numOfPlants: json[SectorSupabaseKeys.numOfPlants],
+      waterConsumptionPerHour: json[SectorSupabaseKeys.waterConsumptionPerHour],
       irrigationSystemType:
-          map['irrigationSystemType'].toString().toIrrigationSystemType(),
-      irrigationSource: map['irrigationSource'].toString().toIrrigationSource(),
-      turnOnCommand: map['turnOnCommand'] as String,
-      turnOffCommand: map['turnOffCommand'] as String,
-      notes: map['notes'] != null ? map['notes'] as String : null,
+          (json[SectorSupabaseKeys.irrigationSystemType] as String)
+              .toIrrigationSystemType(),
+      irrigationSource: (json[SectorSupabaseKeys.irrigationSource] as String)
+          .toIrrigationSource(),
+      turnOnCommand: json[SectorSupabaseKeys.turnOnCommand],
+      turnOffCommand: json[SectorSupabaseKeys.turnOffCommand],
+      notes: json[SectorSupabaseKeys.notes],
+      specieId: json[SectorSupabaseKeys.specieId],
+      varietyId: json[SectorSupabaseKeys.varietyId],
+      companyId: json[SectorSupabaseKeys.companyId],
+      createdAt: DateTime.parse(json[SectorSupabaseKeys.createdAt]),
+      updatedAt: DateTime.parse(json[SectorSupabaseKeys.updatedAt]),
+      mqttMsgName: json[SectorSupabaseKeys.mqttMsgName],
+      hasFilter: json[SectorSupabaseKeys.hasFilter],
     );
-  }
-
-  @override
-  String toString() {
-    return '''Sector(id: $id, companyId: $companyId, name: $name
-    availableSpecie: $availableSpecie, specieVariety: $specieVariety, area: $area,
-    numOfPlants: $numOfPlants, waterConsumptionPerHourByPlant: $waterConsumptionPerHourByPlant, 
-    totalWaterConsumption: $totalWaterConsumption, irrigationSystemType: $irrigationSystemType, 
-    irrigationSource: $irrigationSource,turnOnCommand: $turnOnCommand, 
-    turnOffCommand: $turnOffCommand, notes: $notes)''';
   }
 }
 
 extension SectorX on Sector {
-  String get displayName => '$availableSpecie $specieVariety';
   String getMqttStatusCommand(bool status) =>
       status ? turnOnCommand : turnOffCommand;
 }
