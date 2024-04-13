@@ -92,11 +92,6 @@ extension StringExtensions on String {
   bool get isGreaterThanZero =>
       double.tryParse(this) != null && double.parse(this) > 0;
 
-  CompanyUserRoles get toCompanyUserRoles => CompanyUserRoles.values.firstWhere(
-        (role) => role.name == this,
-        orElse: () => CompanyUserRoles.user,
-      );
-
   // todo: remove this
   /// Returns true if the string is a number and is greater than 0
   /// Mostly used for validating form fields
