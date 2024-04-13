@@ -83,8 +83,8 @@ class Company extends Equatable {
       CompanySupabaseKeys.piva: vatNumber,
       CompanySupabaseKeys.cf: fiscalCode,
       CompanySupabaseKeys.imageUrl: imageUrl,
-      CompanySupabaseKeys.createdAt: createdAt,
-      CompanySupabaseKeys.updatedAt: updatedAt,
+      CompanySupabaseKeys.createdAt: createdAt.toIso8601String(),
+      CompanySupabaseKeys.updatedAt: updatedAt.toIso8601String(),
     };
   }
 
@@ -99,8 +99,8 @@ class Company extends Equatable {
       vatNumber: json[CompanySupabaseKeys.piva] as String,
       fiscalCode: json[CompanySupabaseKeys.cf] as String,
       imageUrl: json[CompanySupabaseKeys.imageUrl] as String,
-      createdAt: json[CompanySupabaseKeys.createdAt] as DateTime,
-      updatedAt: json[CompanySupabaseKeys.updatedAt] as DateTime,
+      createdAt: DateTime.parse(json[CompanySupabaseKeys.createdAt]),
+      updatedAt: DateTime.parse(json[CompanySupabaseKeys.updatedAt]),
     );
   }
 }
