@@ -1,9 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
-
-typedef BoardID = String;
-
 /// A representation of a board. (centraline)
 class Board extends Equatable {
   const Board({
@@ -23,7 +20,7 @@ class Board extends Equatable {
         collectorId = '',
         companyId = '';
 
-  final BoardID id;
+  final String id;
   final String name;
   final String model;
   final String serialNumber;
@@ -45,7 +42,7 @@ class Board extends Equatable {
   }
 
   Board copyWith({
-    BoardID? id,
+    String? id,
     String? name,
     String? model,
     String? serialNumber,
@@ -75,7 +72,7 @@ class Board extends Equatable {
 
   factory Board.fromJson(Map<String, dynamic> map) {
     return Board(
-      id: map['id'] as BoardID,
+      id: map['id'] as String,
       name: map['name'] as String,
       model: map['model'] as String,
       serialNumber: map['serialNumber'] as String,

@@ -338,7 +338,7 @@ class _CollectorBoardFutureProviderElement
       (origin as CollectorBoardFutureProvider).collectorID;
 }
 
-String _$boardStreamHash() => r'9f5209680e12746adc51c0c58b3ce5b924add2a8';
+String _$boardStreamHash() => r'a05c2886575ddfe9f14727ff9e35db61ae406d4e';
 
 /// See also [boardStream].
 @ProviderFor(boardStream)
@@ -466,7 +466,7 @@ class _BoardStreamProviderElement
   String get boardID => (origin as BoardStreamProvider).boardID;
 }
 
-String _$boardFutureHash() => r'3db75a724541bc99c7143e6267325e3f4be883c7';
+String _$boardFutureHash() => r'886fad78909bdc0b5dd494ec70152399e3acc1af';
 
 /// See also [boardFuture].
 @ProviderFor(boardFuture)

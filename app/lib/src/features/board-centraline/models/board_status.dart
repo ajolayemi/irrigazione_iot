@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
-import 'board.dart';
 
 class BoardStatus extends Equatable {
   const BoardStatus({
@@ -15,7 +14,7 @@ class BoardStatus extends Equatable {
         batteryLevel = 0,
         lastUpdated = DateTime.fromMillisecondsSinceEpoch(0);
 
-  final BoardID boardID;
+  final String boardID;
   final double batteryLevel;
   final DateTime lastUpdated;
 
@@ -32,14 +31,14 @@ class BoardStatus extends Equatable {
 
   factory BoardStatus.fromMap(Map<String, dynamic> map) {
     return BoardStatus(
-      boardID: map['boardID'] as BoardID,
+      boardID: map['boardID'] as String,
       batteryLevel: map['batteryLevel'] as double,
       lastUpdated: DateTime.fromMillisecondsSinceEpoch(map['lastUpdated'] as int),
     );
   }
 
   BoardStatus copyWith({
-    BoardID? boardID,
+    String? boardID,
     double? batteryLevel,
     DateTime? lastUpdated,
   }) {

@@ -7,7 +7,7 @@ part of 'dismiss_board_controller.dart';
 // **************************************************************************
 
 String _$dismissBoardControllerHash() =>
-    r'10367d4fb4dcecd99afec100386c41e19cb448ad';
+    r'1f346867c5538f8a5e35b72efaeed345d4e5e068';
 
 /// See also [DismissBoardController].
 @ProviderFor(DismissBoardController)

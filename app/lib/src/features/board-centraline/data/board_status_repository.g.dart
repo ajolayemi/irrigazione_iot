@@ -22,7 +22,7 @@ final boardStatusRepositoryProvider = Provider<BoardStatusRepository>.internal(
 );
 
 typedef BoardStatusRepositoryRef = ProviderRef<BoardStatusRepository>;
-String _$boardStatusStreamHash() => r'5689c948b59ec68c994573e09aec6f7574a2d3db';
+String _$boardStatusStreamHash() => r'e91951a43966ded35921173b6d285394fed6fc62';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -173,7 +173,7 @@ class _BoardStatusStreamProviderElement
   String get boardID => (origin as BoardStatusStreamProvider).boardID;
 }
 
-String _$boardStatusFutureHash() => r'6ebb5d8187d796f61d3636540f6b947be51d3207';
+String _$boardStatusFutureHash() => r'63f892c2a4b8ad73e7274ef02774d9846ee64f96';
 
 /// See also [boardStatusFuture].
 @ProviderFor(boardStatusFuture)

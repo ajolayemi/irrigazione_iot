@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../config/enums/button_types.dart';
-import '../../../../config/enums/form_types.dart';
-import '../../../../config/routes/routes_enums.dart';
-import '../../../../constants/app_constants.dart';
-import '../../../../constants/app_sizes.dart';
-import '../../data/board_repository.dart';
-import '../../models/board.dart';
-import 'add_update_board_controller.dart';
-import '../../../../utils/app_form_error_texts_extension.dart';
-import '../../../../utils/app_form_validators.dart';
-import '../../../../utils/async_value_ui.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/alert_dialogs.dart';
-import '../../../../widgets/app_cta_button.dart';
-import '../../../../widgets/app_sliver_bar.dart';
-import '../../../../widgets/common_form_suffix_icon.dart';
-import '../../../../widgets/form_title_and_field.dart';
-import '../../../../widgets/responsive_sliver_form.dart';
+import 'package:irrigazione_iot/src/config/enums/button_types.dart';
+import 'package:irrigazione_iot/src/config/enums/form_types.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/constants/app_constants.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_board_controller.dart';
+import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
+import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/widgets/common_form_suffix_icon.dart';
+import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
+
 
 class AddUpdateBoardFormContent extends ConsumerStatefulWidget {
   const AddUpdateBoardFormContent({
@@ -27,7 +28,7 @@ class AddUpdateBoardFormContent extends ConsumerStatefulWidget {
     this.boardID,
   });
 
-  final BoardID? boardID;
+  final String? boardID;
   final GenericFormTypes formType;
 
   @override

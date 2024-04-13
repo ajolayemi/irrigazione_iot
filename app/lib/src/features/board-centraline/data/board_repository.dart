@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'fake_board_repository.dart';
-import '../models/board.dart';
-import '../../collectors/data/collector_repository.dart';
-import '../../collectors/model/collector.dart';
-import '../../company_users/data/selected_company_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/board-centraline/data/fake_board_repository.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 
 part 'board_repository.g.dart';
 
@@ -34,14 +35,14 @@ abstract class BoardRepository {
     required String collectorID,
   });
 
-  /// Fetches the [Board] associated with [BoardId]
+  /// Fetches the [Board] associated with the provided boardId
   Future<Board?> getBoardByBoardID({
-    required BoardID boardID,
+    required String boardID,
   });
 
-  /// Emits the [Board] associated with [BoardId]
+  /// Emits the [Board] associated with the provided boardId
   Stream<Board?> watchBoardByBoardID({
-    required BoardID boardID,
+    required String boardID,
   });
 
   /// Add a new [Board] to the database and returns the newly added [Board] if successful
@@ -56,7 +57,7 @@ abstract class BoardRepository {
 
   /// Delete a [Board] from the database and returns true if successful
   Future<bool> deleteBoard({
-    required BoardID boardID,
+    required String boardID,
   });
 }
 
@@ -97,13 +98,13 @@ Future<Board?> collectorBoardFuture(CollectorBoardFutureRef ref,
 }
 
 @riverpod
-Stream<Board?> boardStream(BoardStreamRef ref, {required BoardID boardID}) {
+Stream<Board?> boardStream(BoardStreamRef ref, {required String boardID}) {
   final boardRepository = ref.watch(boardRepositoryProvider);
   return boardRepository.watchBoardByBoardID(boardID: boardID);
 }
 
 @riverpod
-Future<Board?> boardFuture(BoardFutureRef ref, {required BoardID boardID}) {
+Future<Board?> boardFuture(BoardFutureRef ref, {required String boardID}) {
   final boardRepository = ref.watch(boardRepositoryProvider);
   return boardRepository.getBoardByBoardID(boardID: boardID);
 }

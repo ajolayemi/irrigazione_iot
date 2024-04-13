@@ -26,7 +26,7 @@ class FakeBoardRepository implements BoardRepository {
     return boards.firstWhereOrNull((board) => board.collectorId == collectorID);
   }
 
-  static Board? _getBoardsByBoardID(List<Board> boards, BoardID boardID) {
+  static Board? _getBoardsByBoardID(List<Board> boards, String boardID) {
     return boards.firstWhereOrNull((board) => board.id == boardID);
   }
 
@@ -44,7 +44,7 @@ class FakeBoardRepository implements BoardRepository {
   }
 
   @override
-  Future<bool> deleteBoard({required BoardID boardID}) async {
+  Future<bool> deleteBoard({required String boardID}) async {
     await delay(addDelay);
     final currentBoards = [..._boards];
     final index = currentBoards.indexWhere((board) => board.id == boardID);
@@ -91,13 +91,13 @@ class FakeBoardRepository implements BoardRepository {
   }
 
   @override
-  Future<Board?> getBoardByBoardID({required BoardID boardID}) async {
+  Future<Board?> getBoardByBoardID({required String boardID}) async {
     await delay(addDelay);
     return _getBoardsByBoardID(_boards, boardID);
   }
 
   @override
-  Stream<Board?> watchBoardByBoardID({required BoardID boardID}) {
+  Stream<Board?> watchBoardByBoardID({required String boardID}) {
     return _streamBoards.map((boards) => _getBoardsByBoardID(boards, boardID));
   }
 
