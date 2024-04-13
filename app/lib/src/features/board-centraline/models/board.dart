@@ -1,7 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board_supabase_keys.dart';
 
-/// A representation of a board. (centraline)
 class Board extends Equatable {
   const Board({
     required this.id,
@@ -10,24 +9,31 @@ class Board extends Equatable {
     required this.serialNumber,
     required this.collectorId,
     required this.companyId,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.mqttMsgName,
   });
 
-  const Board.empty()
+  Board.empty()
       : id = '',
         name = '',
         model = '',
         serialNumber = '',
         collectorId = '',
-        companyId = '';
+        companyId = '',
+        createdAt = DateTime.parse('2024-01-01'),
+        updatedAt = DateTime.parse('2024-01-01'),
+        mqttMsgName = '';
 
   final String id;
   final String name;
   final String model;
   final String serialNumber;
-
-  /// Each board is associated with a collector.
   final String collectorId;
   final String companyId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final String mqttMsgName;
 
   @override
   List<Object> get props {
@@ -38,6 +44,9 @@ class Board extends Equatable {
       serialNumber,
       collectorId,
       companyId,
+      createdAt,
+      updatedAt,
+      mqttMsgName,
     ];
   }
 
@@ -48,6 +57,9 @@ class Board extends Equatable {
     String? serialNumber,
     String? collectorId,
     String? companyId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? mqttMsgName,
   }) {
     return Board(
       id: id ?? this.id,
@@ -56,28 +68,37 @@ class Board extends Equatable {
       serialNumber: serialNumber ?? this.serialNumber,
       collectorId: collectorId ?? this.collectorId,
       companyId: companyId ?? this.companyId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      mqttMsgName: mqttMsgName ?? this.mqttMsgName,
     );
   }
 
   Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'model': model,
-      'serialNumber': serialNumber,
-      'collectorId': collectorId,
-      'companyId': companyId,
+    return {
+      BoardSupabaseKeys.id: id,
+      BoardSupabaseKeys.name: name,
+      BoardSupabaseKeys.model: model,
+      BoardSupabaseKeys.serialNumber: serialNumber,
+      BoardSupabaseKeys.collectorId: collectorId,
+      BoardSupabaseKeys.companyId: companyId,
+      BoardSupabaseKeys.createdAt: createdAt.toIso8601String(),
+      BoardSupabaseKeys.updatedAt: updatedAt.toIso8601String(),
+      BoardSupabaseKeys.mqttMsgName: mqttMsgName,
     };
   }
 
-  factory Board.fromJson(Map<String, dynamic> map) {
+  static Board fromJson(Map<String, dynamic> json) {
     return Board(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      model: map['model'] as String,
-      serialNumber: map['serialNumber'] as String,
-      collectorId: map['collectorId'] as String,
-      companyId: map['companyId'] as String,
+      id: json[BoardSupabaseKeys.id] as String,
+      name: json[BoardSupabaseKeys.name] as String,
+      model: json[BoardSupabaseKeys.model] as String,
+      serialNumber: json[BoardSupabaseKeys.serialNumber] as String,
+      collectorId: json[BoardSupabaseKeys.collectorId] as String,
+      companyId: json[BoardSupabaseKeys.companyId] as String,
+      createdAt: DateTime.parse(json[BoardSupabaseKeys.createdAt] as String),
+      updatedAt: DateTime.parse(json[BoardSupabaseKeys.updatedAt] as String),
+      mqttMsgName: json[BoardSupabaseKeys.mqttMsgName] as String,
     );
   }
 }
