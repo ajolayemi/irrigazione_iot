@@ -3,7 +3,8 @@ enum IrrigationSystemType {
   drip(uiName: 'A Goccia'),
   rotolo(uiName: 'Rotolo'),
   subirrigazione(uiName: 'Subirrigazione'),
-  sprinkler(uiName: 'Sprinkler');
+  sprinkler(uiName: 'Sprinkler'),
+  other(uiName: 'Altro');
 
   const IrrigationSystemType({
     required this.uiName,
