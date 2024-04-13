@@ -1,65 +1,92 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_supabase_keys.dart';
 
-
-
-/// A collector, by definition in this project, is made up of one or more sectors as represented by the
-/// [CollectorSector] class. Each collector is assigned a "filtro" name, which serves as a global filtro for all sectors pertaining to this collector
 class Collector extends Equatable {
   const Collector({
     required this.id,
     required this.name,
+    required this.connectedFilterName,
+    required this.createdAt,
+    required this.updatedAt,
     required this.companyId,
-    required this.filterName,
+    required this.mqttMsgName,
   });
 
-  const Collector.empty()
+  Collector.empty()
       : id = '',
         name = '',
+        connectedFilterName = '',
+        createdAt = DateTime.parse('2024-01-01'),
+        updatedAt = DateTime.parse('2024-01-01'),
         companyId = '',
-        filterName = '';
+        mqttMsgName = '';
 
-  // A unique identifier for this collector
   final String id;
-  //
   final String name;
+  final String connectedFilterName;
+  final DateTime createdAt;
+  final DateTime updatedAt;
   final String companyId;
-
-  // A global "filtro" name for all sectors pertaining to this collector
-  final String filterName;
+  final String mqttMsgName;
 
   @override
-  List<Object> get props => [id, name, companyId, filterName];
+  List<Object> get props {
+    return [
+      id,
+      name,
+      connectedFilterName,
+      createdAt,
+      updatedAt,
+      companyId,
+      mqttMsgName,
+    ];
+  }
 
   Collector copyWith({
     String? id,
     String? name,
+    String? connectedFilterName,
+    DateTime? createdAt,
+    DateTime? updatedAt,
     String? companyId,
-    String? filterName,
+    String? mqttMsgName,
   }) {
     return Collector(
       id: id ?? this.id,
       name: name ?? this.name,
+      connectedFilterName: connectedFilterName ?? this.connectedFilterName,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
       companyId: companyId ?? this.companyId,
-      filterName: filterName ?? this.filterName,
+      mqttMsgName: mqttMsgName ?? this.mqttMsgName,
     );
   }
 
   Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'companyId': companyId,
-      'filterName': filterName,
+    return {
+      CollectorSupabaseKeys.id: id,
+      CollectorSupabaseKeys.name: name,
+      CollectorSupabaseKeys.connectedFilterName: connectedFilterName,
+      CollectorSupabaseKeys.createdAt: createdAt.toIso8601String(),
+      CollectorSupabaseKeys.updatedAt: updatedAt.toIso8601String(),
+      CollectorSupabaseKeys.companyId: companyId,
+      CollectorSupabaseKeys.mqttMsgName: mqttMsgName,
     };
   }
 
-  factory Collector.fromJson(Map<String, dynamic> map) {
+  static Collector fromJson(Map<String, dynamic> json) {
     return Collector(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      companyId: map['companyId'] as String,
-      filterName: map['filterName'] as String,
+      id: json[CollectorSupabaseKeys.id] as String,
+      name: json[CollectorSupabaseKeys.name] as String,
+      connectedFilterName:
+          json[CollectorSupabaseKeys.connectedFilterName] as String,
+      createdAt:
+          DateTime.parse(json[CollectorSupabaseKeys.createdAt] as String),
+      updatedAt:
+          DateTime.parse(json[CollectorSupabaseKeys.updatedAt] as String),
+      companyId: json[CollectorSupabaseKeys.companyId] as String,
+      mqttMsgName: json[CollectorSupabaseKeys.mqttMsgName] as String,
     );
   }
 }
