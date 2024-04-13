@@ -1,6 +1,7 @@
-import 'fake_collectors.dart';
-import 'fake_companies_list.dart';
-import '../../features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_collectors.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_companies_list.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+
 
 List<Board> _generateFakeBoards() {
   List<Board> boards = [];
@@ -20,6 +21,9 @@ List<Board> _generateFakeBoards() {
           serialNumber: '123456',
           collectorId: collector.id,
           companyId: company.id,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          mqttMsgName: 'board/$boardId',
         ),
       );
       boardId++;
