@@ -22,7 +22,7 @@ class SelectAnIrrigationSystem extends ConsumerWidget {
             SliverList(
                 delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final irrigationSystemType = IrrigationSystemType.values[index];
+                final irrigationSystemType = IrrigationSystem.values[index];
                 return ResponsiveSelectScreensTile(
                   title: irrigationSystemType.uiName,
                   onTap: () {
@@ -30,7 +30,7 @@ class SelectAnIrrigationSystem extends ConsumerWidget {
                   },
                 );
               },
-              childCount: IrrigationSystemType.values.length,
+              childCount: IrrigationSystem.values.length,
             ))
           ],
         ),

@@ -15,7 +15,7 @@ final kFakeSectors = kFakeCompanies.expand((company) {
     id++;
     turnOnCommand++;
     final speciesIndex = id % kFakeSpecies.length;
-    final irrigationSystemTypeIndex = id % IrrigationSystemType.values.length;
+    final irrigationSystemTypeIndex = id % IrrigationSystem.values.length;
     final irrigationSourceIndex = id % IrrigationSource.values.length;
     final specie = kFakeSpecies[speciesIndex];
     return Sector(
@@ -27,8 +27,7 @@ final kFakeSectors = kFakeCompanies.expand((company) {
       area: 100.0 + (index * 10),
       numOfPlants: 10 + (index * 2),
       waterConsumptionPerHour: 20 + (index * 5),
-      irrigationSystemType:
-          IrrigationSystemType.values[irrigationSystemTypeIndex],
+      irrigationSystemType: IrrigationSystem.values[irrigationSystemTypeIndex],
       irrigationSource: IrrigationSource.values[irrigationSourceIndex],
       turnOnCommand: forOn.toString(),
       turnOffCommand: forOff.toString(),

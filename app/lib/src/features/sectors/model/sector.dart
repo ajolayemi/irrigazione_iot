@@ -31,7 +31,7 @@ class Sector extends Equatable {
         area = 0,
         numOfPlants = 0,
         waterConsumptionPerHour = 0,
-        irrigationSystemType = IrrigationSystemType.other,
+        irrigationSystemType = IrrigationSystem.other,
         irrigationSource = IrrigationSource.other,
         turnOnCommand = '',
         turnOffCommand = '',
@@ -50,7 +50,7 @@ class Sector extends Equatable {
   final double area;
   final double numOfPlants;
   final double waterConsumptionPerHour;
-  final IrrigationSystemType irrigationSystemType;
+  final IrrigationSystem irrigationSystemType;
   final IrrigationSource irrigationSource;
   final String turnOnCommand;
   final String turnOffCommand;
@@ -94,7 +94,7 @@ class Sector extends Equatable {
     double? area,
     double? numOfPlants,
     double? waterConsumptionPerHour,
-    IrrigationSystemType? irrigationSystemType,
+    IrrigationSystem? irrigationSystemType,
     IrrigationSource? irrigationSource,
     String? turnOnCommand,
     String? turnOffCommand,

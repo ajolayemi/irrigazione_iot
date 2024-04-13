@@ -28,7 +28,7 @@ void main() {
       area: 9000,
       numOfPlants: 20,
       waterConsumptionPerHour: 20,
-      irrigationSystemType: IrrigationSystemType.drip,
+      irrigationSystemType: IrrigationSystem.drip,
       irrigationSource: IrrigationSource.canal,
       turnOnCommand: '80',
       turnOffCommand: '81',
