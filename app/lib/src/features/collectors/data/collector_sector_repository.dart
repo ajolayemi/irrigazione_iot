@@ -89,7 +89,7 @@ Future<List<CollectorSector?>> collectorSectorsByCompanyFuture(
 }
 
 final sectorIdsOfCollectorBeingEditedProvider =
-    StateProvider<List<SectorID?>>((ref) {
+    StateProvider<List<String?>>((ref) {
   return [];
 });
 

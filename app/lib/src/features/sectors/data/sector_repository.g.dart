@@ -53,7 +53,7 @@ final sectorListFutureProvider =
 );
 
 typedef SectorListFutureRef = AutoDisposeFutureProviderRef<List<Sector?>>;
-String _$sectorStreamHash() => r'7d1720be8adbe3382f1b537dae7b815a17cee198';
+String _$sectorStreamHash() => r'dc88d5b16df6dcba09a311fc39219c8a681e3d70';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -202,7 +202,7 @@ class _SectorStreamProviderElement
   String get sectorID => (origin as SectorStreamProvider).sectorID;
 }
 
-String _$sectorFutureHash() => r'faab67273d08e207b5314dfbcdfe2d86045c1a7d';
+String _$sectorFutureHash() => r'06eb5d78377ef752c90bd1064a70f181487322fc';
 
 /// See also [sectorFuture].
 @ProviderFor(sectorFuture)

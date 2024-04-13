@@ -7,7 +7,7 @@ part of 'dismiss_sector_controller.dart';
 // **************************************************************************
 
 String _$dismissSectorControllerHash() =>
-    r'636083273fce538dc42f5c76d94684783084d02e';
+    r'a21b6ae433b71c5dcfa2f526354a72aea5421bf1';
 
 /// See also [DismissSectorController].
 @ProviderFor(DismissSectorController)

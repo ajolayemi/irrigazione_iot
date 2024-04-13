@@ -9,7 +9,7 @@ class SectorStatus extends Equatable {
   const SectorStatus(
       {required this.sectorId, required this.status, required this.when});
 
-  final SectorID sectorId;
+  final String sectorId;
   // sector status are passed in as a string value because the status will be managed
   // using MQTT messages that sends and receives a string value
   // an internal logic will convert the string value to a boolean value when needed
@@ -21,7 +21,7 @@ class SectorStatus extends Equatable {
   List<Object> get props => [sectorId, status, when];
 
   SectorStatus copyWith({
-    SectorID? sectorId,
+    String? sectorId,
     String? status,
     DateTime? when,
   }) {
@@ -42,7 +42,7 @@ class SectorStatus extends Equatable {
 
   factory SectorStatus.fromMap(Map<String, dynamic> map) {
     return SectorStatus(
-      sectorId: map['sectorId'] as SectorID,
+      sectorId: map['sectorId'] as String,
       status: map['status'] as String,
       when: DateTime.fromMillisecondsSinceEpoch(map['when'] as int),
     );

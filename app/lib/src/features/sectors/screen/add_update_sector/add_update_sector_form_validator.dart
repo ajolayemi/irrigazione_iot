@@ -2,6 +2,8 @@ import '../../../../constants/app_constants.dart';
 import '../../../../utils/extensions.dart';
 import '../../../../utils/string_validators.dart';
 
+// TODO: replace with the universal form validator
+
 /// Mixin class to be used for validating the form fields in the AddUpdateSectorScreen
 /// To avoid mixin class dependency on BuildContext, the methods that retrieves error
 /// messages return the keys to access the said messages

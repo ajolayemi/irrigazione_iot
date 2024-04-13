@@ -12,15 +12,15 @@ abstract class SectorsRepository {
   // emits a list of sectors pertaining to a company
   Stream<List<Sector?>> watchSectors(String companyId);
   // emits a sector with the given sectorID
-  Stream<Sector?> watchSector(SectorID sectorID);
+  Stream<Sector?> watchSector(String sectorID);
   // returns a sector with the given sectorID
-  Future<Sector?> getSector(SectorID sectorID);
+  Future<Sector?> getSector(String sectorID);
   // adds a sector
   Future<Sector?> addSector(Sector sector, String companyId);
   // updates a sector
   Future<Sector?> updateSector(Sector sector, String companyId);
   // deletes a sector
-  Future<bool> deleteSector(SectorID sectorID);
+  Future<bool> deleteSector(String sectorID);
   // emits a list of already used sector names for a specified company
   // this is used in form validation to prevent duplicate sector names for a company
   Stream<List<String?>> watchCompanyUsedSectorNames(String companyId);
@@ -55,13 +55,13 @@ Future<List<Sector?>> sectorListFuture(SectorListFutureRef ref) {
 }
 
 @riverpod
-Stream<Sector?> sectorStream(SectorStreamRef ref, SectorID sectorID) {
+Stream<Sector?> sectorStream(SectorStreamRef ref, String sectorID) {
   final sectorsRepository = ref.read(sectorsRepositoryProvider);
   return sectorsRepository.watchSector(sectorID);
 }
 
 @riverpod
-Future<Sector?> sectorFuture(SectorFutureRef ref, SectorID sectorID) {
+Future<Sector?> sectorFuture(SectorFutureRef ref, String sectorID) {
   final sectorsRepository = ref.read(sectorsRepositoryProvider);
   return sectorsRepository.getSector(sectorID);
 }

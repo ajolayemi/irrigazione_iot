@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../config/enums/roles.dart';
-import '../../../../config/routes/routes_enums.dart';
-import '../../data/sector_pump_repository.dart';
-import '../../data/sector_repository.dart';
-import '../../model/sector.dart';
-import '../../model/sector_pump.dart';
-import 'sector_details_screen_content.dart';
-import '../sector_list/sectors_list_tile_skeleton.dart';
-import '../../../company_users/data/company_users_repository.dart';
-import '../../../../widgets/app_bar_icon_buttons.dart';
-import '../../../../widgets/app_sliver_bar.dart';
-import '../../../../widgets/async_value_widget.dart';
-import '../../../../widgets/empty_placeholder_widget.dart';
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/sector_details_screen_content.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_tile_skeleton.dart';
+import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
+import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/widgets/empty_placeholder_widget.dart';
+
 
 class SectorDetailsScreen extends ConsumerWidget {
   const SectorDetailsScreen({
@@ -21,7 +21,7 @@ class SectorDetailsScreen extends ConsumerWidget {
     required this.sectorID,
   });
 
-  final SectorID sectorID;
+  final String sectorID;
 
   void _onEditSector(WidgetRef ref, BuildContext context,
       List<SectorPump?>? connectedPumpsIds) {

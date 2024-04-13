@@ -48,7 +48,7 @@ class FakeSectorsRepository extends SectorsRepository {
   }
 
   @override
-  Future<bool> deleteSector(SectorID sectorID) async {
+  Future<bool> deleteSector(String sectorID) async {
     await delay(addDelay);
     final currentSectors = [..._sectorsState.value];
     final index = currentSectors.indexWhere((sector) => sector.id == sectorID);
@@ -70,12 +70,12 @@ class FakeSectorsRepository extends SectorsRepository {
   }
 
   @override
-  Stream<Sector?> watchSector(SectorID sectorID) {
+  Stream<Sector?> watchSector(String sectorID) {
     return _sectorsState.stream.map((sectors) => _getSector(sectors, sectorID));
   }
 
   @override
-  Future<Sector?> getSector(SectorID sectorID) async {
+  Future<Sector?> getSector(String sectorID) async {
     await delay(addDelay);
     return Future.value(_getSector(_sectorsState.value, sectorID));
   }
@@ -111,7 +111,7 @@ class FakeSectorsRepository extends SectorsRepository {
     return sectors.where((sector) => sector?.companyId == companyId).toList();
   }
 
-  static Sector? _getSector(List<Sector?> sectors, SectorID sectorID) {
+  static Sector? _getSector(List<Sector?> sectors, String sectorID) {
     return sectors.firstWhereOrNull((sector) => sector?.id == sectorID);
   }
 

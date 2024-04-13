@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
-import '../../../config/mock/fake_sector_pumps.dart';
-import 'sector_pump_repository.dart';
-import '../model/sector.dart';
-import '../model/sector_pump.dart';
-import '../../../utils/delay.dart';
-import '../../../utils/in_memory_store.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_sector_pumps.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
+import 'package:irrigazione_iot/src/utils/delay.dart';
+import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
+
 
 class FakeSectorPumpRepository implements SectorPumpRepository {
   FakeSectorPumpRepository({this.addDelay = true});
@@ -13,7 +13,7 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
   final _sectorPumpsState = InMemoryStore<List<SectorPump>>(kFakeSectorPumps);
 
   static List<SectorPump?> _getSectorPumps(
-      List<SectorPump> sectorPumps, SectorID sectorId) {
+      List<SectorPump> sectorPumps, String sectorId) {
     return sectorPumps
         .where((sectorPump) => sectorPump.sectorId == sectorId)
         .toList();

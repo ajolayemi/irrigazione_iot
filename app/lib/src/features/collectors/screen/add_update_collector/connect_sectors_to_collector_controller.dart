@@ -1,5 +1,4 @@
-import '../../data/collector_sector_repository.dart';
-import '../../../sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'connect_sectors_to_collector_controller.g.dart';
@@ -12,7 +11,7 @@ class ConnectSectorsToCollectorController
 
   void handleSelection({
     required bool value,
-    required SectorID sectorId,
+    required String sectorId,
   }) {
     final selectedSectorsId = [...ref.watch(selectedSectorsIdProvider)];
     final sectorIndexInList = selectedSectorsId.indexOf(sectorId);

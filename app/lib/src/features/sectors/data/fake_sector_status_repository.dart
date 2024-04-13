@@ -1,11 +1,11 @@
 import 'package:collection/collection.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_sectors_status.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_status.dart';
+import 'package:irrigazione_iot/src/utils/delay.dart';
+import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
-import '../../../config/mock/fake_sectors_status.dart';
-import 'sector_status_repository.dart';
-import '../model/sector.dart';
-import '../model/sector_status.dart';
-import '../../../utils/delay.dart';
-import '../../../utils/in_memory_store.dart';
 
 class FakeSectorStatusRepository implements SectorStatusRepository {
   FakeSectorStatusRepository({this.addDelay = true});
@@ -66,7 +66,7 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
 
   /// * Filters the statuses for the sector
   static List<SectorStatus> _filterSectorStatus(
-      List<SectorStatus> statuses, SectorID sectorID) {
+      List<SectorStatus> statuses, String sectorID) {
     return statuses
         .where((sectorStatus) => sectorStatus.sectorId == sectorID)
         .toList();
@@ -74,7 +74,7 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
 
   /// * Returns the most recent status for the sector
   static SectorStatus? _getMostRecentStatus(
-      List<SectorStatus> statuses, SectorID sectorId) {
+      List<SectorStatus> statuses, String sectorId) {
     statuses.sort((a, b) => b.when.compareTo(a.when));
     final statusesForSector = _filterSectorStatus(statuses, sectorId);
     if (statusesForSector.isEmpty) return null;

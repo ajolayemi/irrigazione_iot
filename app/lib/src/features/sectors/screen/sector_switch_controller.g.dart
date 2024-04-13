@@ -7,7 +7,7 @@ part of 'sector_switch_controller.dart';
 // **************************************************************************
 
 String _$sectorSwitchControllerHash() =>
-    r'fcd76e24128a535c48a7aa69ebc030be8219df24';
+    r'5363aca987e54ac0f7c6b412aba459a91fad887d';
 
 /// See also [SectorSwitchController].
 @ProviderFor(SectorSwitchController)

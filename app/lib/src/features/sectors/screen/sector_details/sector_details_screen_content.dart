@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../config/routes/routes_enums.dart';
-import '../../data/sector_pump_repository.dart';
-import '../../data/sector_status_repository.dart';
-import '../../model/sector.dart';
-import '../../model/sector_status.dart';
-import '../../../../utils/date_formatter.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/details_tile_widget.dart';
-import '../../../../widgets/responsive_details_card.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_status.dart';
+import 'package:irrigazione_iot/src/utils/date_formatter.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/details_tile_widget.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_details_card.dart';
+
 
 class SectorDetailsScreenContents extends ConsumerWidget {
   const SectorDetailsScreenContents(
@@ -18,7 +19,7 @@ class SectorDetailsScreenContents extends ConsumerWidget {
   final Sector sector;
   final SectorStatus? sectorStatus;
 
-  void _onTapConnectedPumpsTile(BuildContext context, SectorID sectorId) {
+  void _onTapConnectedPumpsTile(BuildContext context, String sectorId) {
     context.pushNamed(
       AppRoute.sectorConnectedPumps.name,
       pathParameters: {'sectorId': sectorId},

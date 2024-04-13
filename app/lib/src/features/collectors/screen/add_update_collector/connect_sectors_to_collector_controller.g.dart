@@ -7,7 +7,7 @@ part of 'connect_sectors_to_collector_controller.dart';
 // **************************************************************************
 
 String _$connectSectorsToCollectorControllerHash() =>
-    r'f9797068d32de0dd617d39447aaeba7c258dd8bf';
+    r'f018c4739239ca91ce46da32f96ef2e107188257';
 
 /// See also [ConnectSectorsToCollectorController].
 @ProviderFor(ConnectSectorsToCollectorController)

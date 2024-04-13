@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
@@ -16,7 +15,7 @@ class SectorConnectedPumpsList extends ConsumerWidget {
     required this.sectorId,
   });
 
-  final SectorID sectorId;
+  final String sectorId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

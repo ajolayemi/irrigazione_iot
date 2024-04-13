@@ -1,6 +1,6 @@
-import '../data/sector_status_repository.dart';
-import '../model/sector.dart';
-import '../../../utils/custom_controller_state.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sector_switch_controller.g.dart';
@@ -14,7 +14,7 @@ class SectorSwitchController extends _$SectorSwitchController {
     return initState;
   }
 
-  void setLoading(SectorID sectorId, bool isLoading) {
+  void setLoading(String sectorId, bool isLoading) {
     state = AsyncData(state.value!.setLoading(sectorId, isLoading));
   }
 
