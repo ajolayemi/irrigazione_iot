@@ -15,6 +15,15 @@ class CompanyUser extends Equatable {
     required this.updatedAt,
   });
 
+  CompanyUser.empty()
+      : id = '',
+        email = '',
+        fullName = '',
+        role = CompanyUserRoles.user,
+        companyId = '',
+        createdAt = DateTime.parse('2024-01-01'),
+        updatedAt = DateTime.parse('2024-01-01');
+
   final String id;
   final String email;
   final String fullName;
