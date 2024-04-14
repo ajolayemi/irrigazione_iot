@@ -1,5 +1,5 @@
-class SectorSupabaseKeys {
-  const SectorSupabaseKeys._();
+class SectorDatabaseKeys {
+  const SectorDatabaseKeys._();
 
   static const String id = 'id';
   static const String name = 'name';

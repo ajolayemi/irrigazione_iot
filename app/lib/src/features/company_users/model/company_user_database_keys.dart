@@ -1,4 +1,6 @@
-class CompanyUserSupabaseKeys {
+class CompanyUserDatabaseKeys {
+  const CompanyUserDatabaseKeys._();
+
   static const String id = 'id';
   static const String email = 'email';
   static const String fullName = 'full_name';

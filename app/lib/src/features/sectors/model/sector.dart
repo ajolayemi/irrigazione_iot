@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector_supabase_keys.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_database_keys.dart';
 
 class Sector extends Equatable {
   const Sector({
@@ -131,48 +131,48 @@ class Sector extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      SectorSupabaseKeys.id: id,
-      SectorSupabaseKeys.name: name,
-      SectorSupabaseKeys.area: area,
-      SectorSupabaseKeys.numOfPlants: numOfPlants,
-      SectorSupabaseKeys.waterConsumptionPerHour: waterConsumptionPerHour,
-      SectorSupabaseKeys.irrigationSystemType: irrigationSystemType.name,
-      SectorSupabaseKeys.irrigationSource: irrigationSource.name,
-      SectorSupabaseKeys.turnOnCommand: turnOnCommand,
-      SectorSupabaseKeys.turnOffCommand: turnOffCommand,
-      SectorSupabaseKeys.notes: notes,
-      SectorSupabaseKeys.specieId: specieId,
-      SectorSupabaseKeys.varietyId: varietyId,
-      SectorSupabaseKeys.companyId: companyId,
-      SectorSupabaseKeys.createdAt: createdAt.toIso8601String(),
-      SectorSupabaseKeys.updatedAt: updatedAt.toIso8601String(),
-      SectorSupabaseKeys.mqttMsgName: mqttMsgName,
-      SectorSupabaseKeys.hasFilter: hasFilter,
+      SectorDatabaseKeys.id: id,
+      SectorDatabaseKeys.name: name,
+      SectorDatabaseKeys.area: area,
+      SectorDatabaseKeys.numOfPlants: numOfPlants,
+      SectorDatabaseKeys.waterConsumptionPerHour: waterConsumptionPerHour,
+      SectorDatabaseKeys.irrigationSystemType: irrigationSystemType.name,
+      SectorDatabaseKeys.irrigationSource: irrigationSource.name,
+      SectorDatabaseKeys.turnOnCommand: turnOnCommand,
+      SectorDatabaseKeys.turnOffCommand: turnOffCommand,
+      SectorDatabaseKeys.notes: notes,
+      SectorDatabaseKeys.specieId: specieId,
+      SectorDatabaseKeys.varietyId: varietyId,
+      SectorDatabaseKeys.companyId: companyId,
+      SectorDatabaseKeys.createdAt: createdAt.toIso8601String(),
+      SectorDatabaseKeys.updatedAt: updatedAt.toIso8601String(),
+      SectorDatabaseKeys.mqttMsgName: mqttMsgName,
+      SectorDatabaseKeys.hasFilter: hasFilter,
     };
   }
 
   static Sector fromJson(Map<String, dynamic> json) {
     return Sector(
-      id: json[SectorSupabaseKeys.id],
-      name: json[SectorSupabaseKeys.name],
-      area: json[SectorSupabaseKeys.area],
-      numOfPlants: json[SectorSupabaseKeys.numOfPlants],
-      waterConsumptionPerHour: json[SectorSupabaseKeys.waterConsumptionPerHour],
+      id: json[SectorDatabaseKeys.id],
+      name: json[SectorDatabaseKeys.name],
+      area: json[SectorDatabaseKeys.area],
+      numOfPlants: json[SectorDatabaseKeys.numOfPlants],
+      waterConsumptionPerHour: json[SectorDatabaseKeys.waterConsumptionPerHour],
       irrigationSystemType:
-          (json[SectorSupabaseKeys.irrigationSystemType] as String)
+          (json[SectorDatabaseKeys.irrigationSystemType] as String)
               .toIrrigationSystemType(),
-      irrigationSource: (json[SectorSupabaseKeys.irrigationSource] as String)
+      irrigationSource: (json[SectorDatabaseKeys.irrigationSource] as String)
           .toIrrigationSource(),
-      turnOnCommand: json[SectorSupabaseKeys.turnOnCommand],
-      turnOffCommand: json[SectorSupabaseKeys.turnOffCommand],
-      notes: json[SectorSupabaseKeys.notes],
-      specieId: json[SectorSupabaseKeys.specieId],
-      varietyId: json[SectorSupabaseKeys.varietyId],
-      companyId: json[SectorSupabaseKeys.companyId],
-      createdAt: DateTime.parse(json[SectorSupabaseKeys.createdAt]),
-      updatedAt: DateTime.parse(json[SectorSupabaseKeys.updatedAt]),
-      mqttMsgName: json[SectorSupabaseKeys.mqttMsgName],
-      hasFilter: json[SectorSupabaseKeys.hasFilter],
+      turnOnCommand: json[SectorDatabaseKeys.turnOnCommand],
+      turnOffCommand: json[SectorDatabaseKeys.turnOffCommand],
+      notes: json[SectorDatabaseKeys.notes],
+      specieId: json[SectorDatabaseKeys.specieId],
+      varietyId: json[SectorDatabaseKeys.varietyId],
+      companyId: json[SectorDatabaseKeys.companyId],
+      createdAt: DateTime.parse(json[SectorDatabaseKeys.createdAt]),
+      updatedAt: DateTime.parse(json[SectorDatabaseKeys.updatedAt]),
+      mqttMsgName: json[SectorDatabaseKeys.mqttMsgName],
+      hasFilter: json[SectorDatabaseKeys.hasFilter],
     );
   }
 }

@@ -1,7 +1,7 @@
 /// A representation of the keys used to interact with the company table in the database
-class CompanySupabaseKeys {
-  const CompanySupabaseKeys._();
-  
+class CompanyDatabaseKeys {
+  const CompanyDatabaseKeys._();
+
   static const String id = 'id';
   static const String name = 'name';
   static const String email = 'email';

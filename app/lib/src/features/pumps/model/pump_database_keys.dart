@@ -1,5 +1,5 @@
-class PumpSupabaseKeys {
-  const PumpSupabaseKeys._();
+class PumpDatabaseKeys {
+  const PumpDatabaseKeys._();
 
   static const String id = 'id';
   static const String name = 'name';

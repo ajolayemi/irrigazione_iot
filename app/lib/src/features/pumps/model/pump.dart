@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump_supabase_keys.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump_database_keys.dart';
 
 // TODO: add pump company
 // TODO: prevalenza, portata,
@@ -91,33 +91,33 @@ class Pump extends Equatable {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      PumpSupabaseKeys.id: id,
-      PumpSupabaseKeys.name: name,
-      PumpSupabaseKeys.capacityInVolume: capacityInVolume,
-      PumpSupabaseKeys.consumeRateInKw: consumeRateInKw,
-      PumpSupabaseKeys.companyId: companyId,
-      PumpSupabaseKeys.createdAt: createdAt.toIso8601String(),
-      PumpSupabaseKeys.updatedAt: updatedAt.toIso8601String(),
-      PumpSupabaseKeys.turnOnCommand: turnOnCommand,
-      PumpSupabaseKeys.turnOffCommand: turnOffCommand,
-      PumpSupabaseKeys.mqttMessageName: mqttMessageName,
-      PumpSupabaseKeys.hasFilter: hasFilter,
+      PumpDatabaseKeys.id: id,
+      PumpDatabaseKeys.name: name,
+      PumpDatabaseKeys.capacityInVolume: capacityInVolume,
+      PumpDatabaseKeys.consumeRateInKw: consumeRateInKw,
+      PumpDatabaseKeys.companyId: companyId,
+      PumpDatabaseKeys.createdAt: createdAt.toIso8601String(),
+      PumpDatabaseKeys.updatedAt: updatedAt.toIso8601String(),
+      PumpDatabaseKeys.turnOnCommand: turnOnCommand,
+      PumpDatabaseKeys.turnOffCommand: turnOffCommand,
+      PumpDatabaseKeys.mqttMessageName: mqttMessageName,
+      PumpDatabaseKeys.hasFilter: hasFilter,
     };
   }
 
   static Pump fromJson(Map<String, dynamic> json) {
     return Pump(
-      id: json[PumpSupabaseKeys.id] as String,
-      name: json[PumpSupabaseKeys.name] as String,
-      capacityInVolume: json[PumpSupabaseKeys.capacityInVolume] as double,
-      consumeRateInKw: json[PumpSupabaseKeys.consumeRateInKw] as double,
-      companyId: json[PumpSupabaseKeys.companyId] as String,
-      createdAt: DateTime.parse(json[PumpSupabaseKeys.createdAt]),
-      updatedAt: DateTime.parse(json[PumpSupabaseKeys.updatedAt]),
-      turnOnCommand: json[PumpSupabaseKeys.turnOnCommand] as String,
-      turnOffCommand: json[PumpSupabaseKeys.turnOffCommand] as String,
-      mqttMessageName: json[PumpSupabaseKeys.mqttMessageName] as String,
-      hasFilter: json[PumpSupabaseKeys.hasFilter] as bool,
+      id: json[PumpDatabaseKeys.id] as String,
+      name: json[PumpDatabaseKeys.name] as String,
+      capacityInVolume: json[PumpDatabaseKeys.capacityInVolume] as double,
+      consumeRateInKw: json[PumpDatabaseKeys.consumeRateInKw] as double,
+      companyId: json[PumpDatabaseKeys.companyId] as String,
+      createdAt: DateTime.parse(json[PumpDatabaseKeys.createdAt]),
+      updatedAt: DateTime.parse(json[PumpDatabaseKeys.updatedAt]),
+      turnOnCommand: json[PumpDatabaseKeys.turnOnCommand] as String,
+      turnOffCommand: json[PumpDatabaseKeys.turnOffCommand] as String,
+      mqttMessageName: json[PumpDatabaseKeys.mqttMessageName] as String,
+      hasFilter: json[PumpDatabaseKeys.hasFilter] as bool,
     );
   }
 }

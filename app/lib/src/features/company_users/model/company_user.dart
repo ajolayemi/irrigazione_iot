@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
-import 'package:irrigazione_iot/src/features/company_users/model/company_user_supabase_keys.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company_user_database_keys.dart';
 
 class CompanyUser extends Equatable {
   const CompanyUser({
@@ -67,27 +67,27 @@ class CompanyUser extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      CompanyUserSupabaseKeys.id: id,
-      CompanyUserSupabaseKeys.email: email,
-      CompanyUserSupabaseKeys.fullName: fullName,
-      CompanyUserSupabaseKeys.role: role.name,
-      CompanyUserSupabaseKeys.companyId: companyId,
-      CompanyUserSupabaseKeys.createdAt: createdAt.toIso8601String(),
-      CompanyUserSupabaseKeys.updatedAt: updatedAt.toIso8601String(),
+      CompanyUserDatabaseKeys.id: id,
+      CompanyUserDatabaseKeys.email: email,
+      CompanyUserDatabaseKeys.fullName: fullName,
+      CompanyUserDatabaseKeys.role: role.name,
+      CompanyUserDatabaseKeys.companyId: companyId,
+      CompanyUserDatabaseKeys.createdAt: createdAt.toIso8601String(),
+      CompanyUserDatabaseKeys.updatedAt: updatedAt.toIso8601String(),
     };
   }
 
   static CompanyUser fromMap(Map<String, dynamic> map) {
     return CompanyUser(
-      id: map[CompanyUserSupabaseKeys.id] as String,
-      email: map[CompanyUserSupabaseKeys.email] as String,
-      fullName: map[CompanyUserSupabaseKeys.fullName] as String,
-      role: map[CompanyUserSupabaseKeys.role].toString().toCompanyUserRoles(),
-      companyId: map[CompanyUserSupabaseKeys.companyId] as String,
+      id: map[CompanyUserDatabaseKeys.id] as String,
+      email: map[CompanyUserDatabaseKeys.email] as String,
+      fullName: map[CompanyUserDatabaseKeys.fullName] as String,
+      role: map[CompanyUserDatabaseKeys.role].toString().toCompanyUserRoles(),
+      companyId: map[CompanyUserDatabaseKeys.companyId] as String,
       createdAt:
-          DateTime.parse(map[CompanyUserSupabaseKeys.createdAt] as String),
+          DateTime.parse(map[CompanyUserDatabaseKeys.createdAt] as String),
       updatedAt:
-          DateTime.parse(map[CompanyUserSupabaseKeys.updatedAt] as String),
+          DateTime.parse(map[CompanyUserDatabaseKeys.updatedAt] as String),
     );
   }
 }

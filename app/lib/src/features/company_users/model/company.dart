@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:equatable/equatable.dart';
-import 'package:irrigazione_iot/src/features/company_users/model/company_supabase_keys.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company_database_keys.dart';
 
 // A representation of companies, i.e the companies who uses the app
 class Company extends Equatable {
@@ -75,32 +75,32 @@ class Company extends Equatable {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      CompanySupabaseKeys.id: id,
-      CompanySupabaseKeys.name: name,
-      CompanySupabaseKeys.email: email,
-      CompanySupabaseKeys.phoneNumber: phoneNumber,
-      CompanySupabaseKeys.registeredOfficeAddress: registeredOfficeAddress,
-      CompanySupabaseKeys.piva: vatNumber,
-      CompanySupabaseKeys.cf: fiscalCode,
-      CompanySupabaseKeys.imageUrl: imageUrl,
-      CompanySupabaseKeys.createdAt: createdAt.toIso8601String(),
-      CompanySupabaseKeys.updatedAt: updatedAt.toIso8601String(),
+      CompanyDatabaseKeys.id: id,
+      CompanyDatabaseKeys.name: name,
+      CompanyDatabaseKeys.email: email,
+      CompanyDatabaseKeys.phoneNumber: phoneNumber,
+      CompanyDatabaseKeys.registeredOfficeAddress: registeredOfficeAddress,
+      CompanyDatabaseKeys.piva: vatNumber,
+      CompanyDatabaseKeys.cf: fiscalCode,
+      CompanyDatabaseKeys.imageUrl: imageUrl,
+      CompanyDatabaseKeys.createdAt: createdAt.toIso8601String(),
+      CompanyDatabaseKeys.updatedAt: updatedAt.toIso8601String(),
     };
   }
 
   static Company fromJson(Map<String, dynamic> json) {
     return Company(
-      id: json[CompanySupabaseKeys.id] as String,
-      name: json[CompanySupabaseKeys.name] as String,
-      email: json[CompanySupabaseKeys.email] as String,
-      phoneNumber: json[CompanySupabaseKeys.phoneNumber] as String,
+      id: json[CompanyDatabaseKeys.id] as String,
+      name: json[CompanyDatabaseKeys.name] as String,
+      email: json[CompanyDatabaseKeys.email] as String,
+      phoneNumber: json[CompanyDatabaseKeys.phoneNumber] as String,
       registeredOfficeAddress:
-          json[CompanySupabaseKeys.registeredOfficeAddress] as String,
-      vatNumber: json[CompanySupabaseKeys.piva] as String,
-      fiscalCode: json[CompanySupabaseKeys.cf] as String,
-      imageUrl: json[CompanySupabaseKeys.imageUrl] as String,
-      createdAt: DateTime.parse(json[CompanySupabaseKeys.createdAt]),
-      updatedAt: DateTime.parse(json[CompanySupabaseKeys.updatedAt]),
+          json[CompanyDatabaseKeys.registeredOfficeAddress] as String,
+      vatNumber: json[CompanyDatabaseKeys.piva] as String,
+      fiscalCode: json[CompanyDatabaseKeys.cf] as String,
+      imageUrl: json[CompanyDatabaseKeys.imageUrl] as String,
+      createdAt: DateTime.parse(json[CompanyDatabaseKeys.createdAt]),
+      updatedAt: DateTime.parse(json[CompanyDatabaseKeys.updatedAt]),
     );
   }
 }
