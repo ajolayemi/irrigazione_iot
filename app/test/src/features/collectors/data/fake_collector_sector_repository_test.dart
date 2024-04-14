@@ -13,7 +13,7 @@ void main() {
 
   final collectorToDelete = expectedCollectorSectors.isNotEmpty
       ? expectedCollectorSectors.first
-      : const CollectorSector.empty();
+      : CollectorSector.empty();
 
   late FakeCollectorSectorRepository fakeCollectorSectorRepository;
 
@@ -61,10 +61,11 @@ void main() {
     });
 
     test('addCollectorSector() adds a new collector sector', () async {
-      const toAdd = CollectorSector(
+      final toAdd = CollectorSector(
+        id: '9000',
         collectorId: '9000',
         sectorId: '9000',
-        companyId: '9000'
+        createdAt: DateTime.parse('2024-01-01')
       );
 
       expectLater(
@@ -87,7 +88,7 @@ void main() {
         () async {
       expectLater(
           fakeCollectorSectorRepository.deleteCollectorSector(
-      collectorSector: const CollectorSector.empty()
+      collectorSector: CollectorSector.empty()
           ),
           completion(isFalse));
     });
