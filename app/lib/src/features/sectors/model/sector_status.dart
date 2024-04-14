@@ -1,55 +1,36 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_status_database_keys.dart';
 
+part 'sector_status.g.dart';
+
+@JsonSerializable()
 class SectorStatus extends Equatable {
-  const SectorStatus(
-      {required this.sectorId, required this.status, required this.when});
+  const SectorStatus({
+    required this.id,
+    required this.sectorId,
+    required this.status,
+    required this.createdAt,
+  });
 
+  @JsonKey(name: SectorStatusDatabaseKeys.id)
+  final String id;
+  @JsonKey(name: SectorStatusDatabaseKeys.sectorId)
   final String sectorId;
-  // sector status are passed in as a string value because the status will be managed
-  // using MQTT messages that sends and receives a string value
-  // an internal logic will convert the string value to a boolean value when needed
+  @JsonKey(name: SectorStatusDatabaseKeys.status)
   final String status;
-
-  final DateTime when;
+  @JsonKey(name: SectorStatusDatabaseKeys.createdAt)
+  final DateTime createdAt;
 
   @override
-  List<Object> get props => [sectorId, status, when];
+  List<Object> get props => [id, sectorId, status, createdAt];
 
-  SectorStatus copyWith({
-    String? sectorId,
-    String? status,
-    DateTime? when,
-  }) {
-    return SectorStatus(
-      sectorId: sectorId ?? this.sectorId,
-      status: status ?? this.status,
-      when: when ?? this.when,
-    );
-  }
+  factory SectorStatus.fromJson(Map<String, dynamic> json) =>
+      _$SectorStatusFromJson(json);
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'sectorId': sectorId,
-      'status': status,
-      'when': when.millisecondsSinceEpoch,
-    };
-  }
-
-  factory SectorStatus.fromMap(Map<String, dynamic> map) {
-    return SectorStatus(
-      sectorId: map['sectorId'] as String,
-      status: map['status'] as String,
-      when: DateTime.fromMillisecondsSinceEpoch(map['when'] as int),
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory SectorStatus.fromJson(String source) =>
-      SectorStatus.fromMap(json.decode(source) as Map<String, dynamic>);
+  Map<String, dynamic> toJson() => _$SectorStatusToJson(this);
 }
 
 extension SectorStatusX on SectorStatus {

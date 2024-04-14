@@ -6,7 +6,6 @@ import 'package:irrigazione_iot/src/features/sectors/model/sector_status.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
-
 class FakeSectorStatusRepository implements SectorStatusRepository {
   FakeSectorStatusRepository({this.addDelay = true});
   final bool addDelay;
@@ -39,11 +38,16 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
     if (!statusIsValid) return;
     final sectorStatuses = [..._sectorStatusState.value];
 
+    final lastId = _sectorStatusState.value
+        .map((status) => int.tryParse(status.id) ?? 0)
+        .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
+
     sectorStatuses.add(
       SectorStatus(
+        id: (lastId + 1).toString(),
         sectorId: sector.id,
         status: status,
-        when: DateTime.now(),
+        createdAt: DateTime.now(),
       ),
     );
     _sectorStatusState.value = sectorStatuses;
@@ -75,7 +79,7 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
   /// * Returns the most recent status for the sector
   static SectorStatus? _getMostRecentStatus(
       List<SectorStatus> statuses, String sectorId) {
-    statuses.sort((a, b) => b.when.compareTo(a.when));
+    statuses.sort((a, b) => b.createdAt.compareTo(a.createdAt));
     final statusesForSector = _filterSectorStatus(statuses, sectorId);
     if (statusesForSector.isEmpty) return null;
     return statusesForSector.first;
@@ -84,14 +88,14 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
   /// * Returns the last time the sector was irrigated
   static DateTime? _getMostRecentIrrigationDate(
       List<SectorStatus> statuses, Sector sector) {
-    statuses.sort((a, b) => b.when.compareTo(a.when));
+    statuses.sort((a, b) => b.createdAt.compareTo(a.createdAt));
     final statusesForSector = _filterSectorStatus(statuses, sector.id);
 
     return statusesForSector
         .firstWhereOrNull(
           (status) => status.translateSectorStatusToBoolean(sector) == true,
         )
-        ?.when;
+        ?.createdAt;
   }
 
   void dispose() => _sectorStatusState.close();
