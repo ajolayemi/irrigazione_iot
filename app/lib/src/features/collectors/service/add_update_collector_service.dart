@@ -8,8 +8,6 @@ import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.d
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-
-
 part 'add_update_collector_service.g.dart';
 
 class AddUpdateCollectorService {
@@ -52,9 +50,10 @@ class AddUpdateCollectorService {
       // loop over each sector and connect it to the created collector
       for (final sectorId in sectorsToConnectToCollector) {
         final collectorSector = CollectorSector(
+            id: '',
             collectorId: createdCollector.id,
             sectorId: sectorId!,
-            companyId: companyId);
+            createdAt: DateTime.now());
         debugPrint(
             'Creating collector sector: ${collectorSector.toJson()} for collector: ${createdCollector.name}');
         final createdCollectorSector =
@@ -138,14 +137,14 @@ class AddUpdateCollectorService {
             !currentCollectorSectors.any((cs) => cs?.sectorId == sectorId))
         .toList();
 
-
     if (sectorsToConnect.isEmpty) return;
 
     for (final sectorId in sectorsToConnect) {
       final collectorSector = CollectorSector(
+        id: '',
         collectorId: updatedCollector.id,
         sectorId: sectorId!,
-        companyId: companyId,
+        createdAt: DateTime.now(),
       );
 
       // Reaching here means new sector(s) where selected to connect to the collector

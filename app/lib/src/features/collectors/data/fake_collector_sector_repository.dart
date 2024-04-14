@@ -33,14 +33,6 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
         .toList();
   }
 
-  static List<CollectorSector?> _getCollectorSectorsByCompanyId(
-    List<CollectorSector> collectorSectors,
-    String companyId,
-  ) {
-    return collectorSectors
-        .where((collectorSector) => collectorSector.companyId == companyId)
-        .toList();
-  }
 
   void dispose() => _collectorSectorsState.close();
 
@@ -84,19 +76,5 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
     );
   }
 
-  @override
-  Future<List<CollectorSector?>> getCollectorSectorsByCompanyId(
-      {required String companyId}) {
-    return Future.value(_getCollectorSectorsByCompanyId(value, companyId));
-  }
 
-  @override
-  Stream<List<CollectorSector?>> watchCollectorSectorsByCompanyId(
-      {required String companyId}) {
-    return stream
-      ..map(
-        (collectorSector) =>
-            _getCollectorSectorsByCompanyId(collectorSector, companyId),
-      );
-  }
 }
