@@ -8,9 +8,10 @@ List<SectorStatus> _generateSectorStatus() {
   for (int i = 0; i < 24; i++) {
     DateTime when = DateTime.now().subtract(Duration(minutes: i));
     SectorStatus sectorStatus = SectorStatus(
+      id: i.toString(),
       sectorId: sectorId.toString(),
       status: status.toString(),
-      when: when,
+      createdAt: when,
     );
     sectorStatusList.add(sectorStatus);
 
