@@ -8,7 +8,7 @@ part of 'pump_pressure.dart';
 
 PumpPressure _$PumpPressureFromJson(Map<String, dynamic> json) => PumpPressure(
       id: json['id'] as String,
-      pumpId: json['pumpId'] as String,
+      pumpId: json['pump_id'] as String,
       filterInPressure: (json['filter_in_pressure'] as num).toDouble(),
       filterOutPressure: (json['filter_out_pressure'] as num).toDouble(),
       createdAt: DateTime.parse(json['created_at'] as String),
@@ -17,7 +17,7 @@ PumpPressure _$PumpPressureFromJson(Map<String, dynamic> json) => PumpPressure(
 Map<String, dynamic> _$PumpPressureToJson(PumpPressure instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'pumpId': instance.pumpId,
+      'pump_id': instance.pumpId,
       'filter_in_pressure': instance.filterInPressure,
       'filter_out_pressure': instance.filterOutPressure,
       'created_at': instance.createdAt.toIso8601String(),
