@@ -14,7 +14,12 @@ List<SectorPump> generateSectorPumps() {
     if (companyPumps.isEmpty) continue;
     Pump pump = companyPumps[i % companyPumps.length];
 
-    SectorPump sectorPump = SectorPump(sectorId: sector.id, pumpId: pump.id);
+    SectorPump sectorPump = SectorPump(
+      sectorId: sector.id,
+      pumpId: pump.id,
+      id: i.toString(),
+      createdAt: DateTime.now(),
+    );
     sectorPumps.add(sectorPump);
   }
 
