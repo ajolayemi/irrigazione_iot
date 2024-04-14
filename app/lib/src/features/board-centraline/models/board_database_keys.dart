@@ -1,4 +1,4 @@
-class BoardSupabaseKeys {
+class BoardDatabaseKeys {
   static const String id = 'id';
   static const String name = 'name';
   static const String model = 'model';

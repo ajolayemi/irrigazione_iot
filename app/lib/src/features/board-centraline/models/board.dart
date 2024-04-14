@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:irrigazione_iot/src/features/board-centraline/models/board_supabase_keys.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board_database_keys.dart';
 
 class Board extends Equatable {
   const Board({
@@ -76,29 +76,29 @@ class Board extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      BoardSupabaseKeys.id: id,
-      BoardSupabaseKeys.name: name,
-      BoardSupabaseKeys.model: model,
-      BoardSupabaseKeys.serialNumber: serialNumber,
-      BoardSupabaseKeys.collectorId: collectorId,
-      BoardSupabaseKeys.companyId: companyId,
-      BoardSupabaseKeys.createdAt: createdAt.toIso8601String(),
-      BoardSupabaseKeys.updatedAt: updatedAt.toIso8601String(),
-      BoardSupabaseKeys.mqttMsgName: mqttMsgName,
+      BoardDatabaseKeys.id: id,
+      BoardDatabaseKeys.name: name,
+      BoardDatabaseKeys.model: model,
+      BoardDatabaseKeys.serialNumber: serialNumber,
+      BoardDatabaseKeys.collectorId: collectorId,
+      BoardDatabaseKeys.companyId: companyId,
+      BoardDatabaseKeys.createdAt: createdAt.toIso8601String(),
+      BoardDatabaseKeys.updatedAt: updatedAt.toIso8601String(),
+      BoardDatabaseKeys.mqttMsgName: mqttMsgName,
     };
   }
 
   static Board fromJson(Map<String, dynamic> json) {
     return Board(
-      id: json[BoardSupabaseKeys.id] as String,
-      name: json[BoardSupabaseKeys.name] as String,
-      model: json[BoardSupabaseKeys.model] as String,
-      serialNumber: json[BoardSupabaseKeys.serialNumber] as String,
-      collectorId: json[BoardSupabaseKeys.collectorId] as String,
-      companyId: json[BoardSupabaseKeys.companyId] as String,
-      createdAt: DateTime.parse(json[BoardSupabaseKeys.createdAt] as String),
-      updatedAt: DateTime.parse(json[BoardSupabaseKeys.updatedAt] as String),
-      mqttMsgName: json[BoardSupabaseKeys.mqttMsgName] as String,
+      id: json[BoardDatabaseKeys.id] as String,
+      name: json[BoardDatabaseKeys.name] as String,
+      model: json[BoardDatabaseKeys.model] as String,
+      serialNumber: json[BoardDatabaseKeys.serialNumber] as String,
+      collectorId: json[BoardDatabaseKeys.collectorId] as String,
+      companyId: json[BoardDatabaseKeys.companyId] as String,
+      createdAt: DateTime.parse(json[BoardDatabaseKeys.createdAt] as String),
+      updatedAt: DateTime.parse(json[BoardDatabaseKeys.updatedAt] as String),
+      mqttMsgName: json[BoardDatabaseKeys.mqttMsgName] as String,
     );
   }
 }
