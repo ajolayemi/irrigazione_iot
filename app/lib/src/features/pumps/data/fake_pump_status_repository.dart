@@ -12,20 +12,20 @@ class FakePumpStatusRepository extends PumpStatusRepository {
 
   static DateTime? _getMostRecentDispensationDate(
       List<PumpStatus> statuses, Pump pump) {
-    statuses.sort((a, b) => b.lastUpdated.compareTo(a.lastUpdated));
+    statuses.sort((a, b) => b.createdAt.compareTo(a.createdAt));
     final statusesForPump = _filterPumpStatus(statuses, pump.id);
     try {
       return statusesForPump
-          .firstWhere((status) =>
-              status.translatePumpStatusToBoolean(pump) == true)
-          .lastUpdated;
+          .firstWhere(
+              (status) => status.translatePumpStatusToBoolean(pump) == true)
+          .createdAt;
     } catch (e) {
       return null;
     }
   }
 
   static PumpStatus _getMostRecentStatus(List<PumpStatus> statuses) {
-    statuses.sort((a, b) => b.lastUpdated.compareTo(a.lastUpdated));
+    statuses.sort((a, b) => b.createdAt.compareTo(a.createdAt));
     return statuses.first;
   }
 
@@ -60,11 +60,16 @@ class FakePumpStatusRepository extends PumpStatusRepository {
     await delay(addDelay);
     // First get the current statuses data for all pumps
     final pumpStatuses = _fakePumpStatus.value;
+
+    final lastSectorId = _fakePumpStatus.value
+        .map((sector) => int.tryParse(sector.id) ?? 0)
+        .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
     // Then add a new status value for the said pump
     pumpStatuses.add(
       PumpStatus(
+        id: '${lastSectorId + 1}',
         status: status,
-        lastUpdated: DateTime.now(),
+        createdAt: DateTime.now(),
         pumpId: pump.id,
       ),
     );

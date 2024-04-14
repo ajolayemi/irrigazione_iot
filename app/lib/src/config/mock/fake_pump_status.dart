@@ -8,9 +8,10 @@ List<PumpStatus> _generatePumpStatus() {
   for (int i = 0; i < 24; i++) {
     DateTime lastUpdated = DateTime.now().subtract(Duration(minutes: i));
     PumpStatus pumpStatus = PumpStatus(
+      id: i.toString(),
       pumpId: pumpId.toString(),
       status: status.toString(),
-      lastUpdated: lastUpdated,
+      createdAt: lastUpdated,
     );
     pumpStatusList.add(pumpStatus);
 
