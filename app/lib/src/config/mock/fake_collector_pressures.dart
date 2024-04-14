@@ -11,10 +11,11 @@ List<CollectorPressure> _generateCollectorPressure() {
   for (int i = 0; i < availableCollectorsLength * 2; i++) {
     DateTime lastUpdated = DateTime.now().subtract(Duration(minutes: i));
     CollectorPressure collectorPressure = CollectorPressure(
+      id: i.toString(),
       collectorId: collectorId.toString(),
       filterInPressure: filterInPressure,
       filterOutPressure: filterOutPressure,
-      timestamp: lastUpdated,
+      createdAt: lastUpdated,
     );
     collectorPressureList.add(collectorPressure);
 
