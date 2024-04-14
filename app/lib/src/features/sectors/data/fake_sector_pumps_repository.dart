@@ -31,6 +31,7 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
   Future<SectorPump?> addSectorPump(SectorPump sectorPump) async {
     await delay(addDelay);
     final currentSectorPumps = [..._sectorPumpsState.value];
+    // TODO set the id of the sectorPump here before adding it to the list
     currentSectorPumps.add(sectorPump);
     _sectorPumpsState.value = currentSectorPumps;
     // get and return the added sectorPump
