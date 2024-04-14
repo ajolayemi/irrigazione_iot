@@ -1,7 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector_database_keys.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'collector.g.dart';
+
+@JsonSerializable()
 class Collector extends Equatable {
   const Collector({
     required this.id,
@@ -22,12 +26,19 @@ class Collector extends Equatable {
         companyId = '',
         mqttMsgName = '';
 
+  @JsonKey(name: CollectorDatabaseKeys.id)
   final String id;
+  @JsonKey(name: CollectorDatabaseKeys.name)
   final String name;
+  @JsonKey(name: CollectorDatabaseKeys.connectedFilterName)
   final String connectedFilterName;
+  @JsonKey(name: CollectorDatabaseKeys.createdAt)
   final DateTime createdAt;
+  @JsonKey(name: CollectorDatabaseKeys.updatedAt)
   final DateTime updatedAt;
+  @JsonKey(name: CollectorDatabaseKeys.companyId)
   final String companyId;
+  @JsonKey(name: CollectorDatabaseKeys.mqttMsgName)
   final String mqttMsgName;
 
   @override
@@ -63,30 +74,8 @@ class Collector extends Equatable {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      CollectorDatabaseKeys.id: id,
-      CollectorDatabaseKeys.name: name,
-      CollectorDatabaseKeys.connectedFilterName: connectedFilterName,
-      CollectorDatabaseKeys.createdAt: createdAt.toIso8601String(),
-      CollectorDatabaseKeys.updatedAt: updatedAt.toIso8601String(),
-      CollectorDatabaseKeys.companyId: companyId,
-      CollectorDatabaseKeys.mqttMsgName: mqttMsgName,
-    };
-  }
+  factory Collector.fromJson(Map<String, dynamic> json) =>
+      _$CollectorFromJson(json);
 
-  static Collector fromJson(Map<String, dynamic> json) {
-    return Collector(
-      id: json[CollectorDatabaseKeys.id] as String,
-      name: json[CollectorDatabaseKeys.name] as String,
-      connectedFilterName:
-          json[CollectorDatabaseKeys.connectedFilterName] as String,
-      createdAt:
-          DateTime.parse(json[CollectorDatabaseKeys.createdAt] as String),
-      updatedAt:
-          DateTime.parse(json[CollectorDatabaseKeys.updatedAt] as String),
-      companyId: json[CollectorDatabaseKeys.companyId] as String,
-      mqttMsgName: json[CollectorDatabaseKeys.mqttMsgName] as String,
-    );
-  }
+  Map<String, dynamic> toJson() => _$CollectorToJson(this);
 }

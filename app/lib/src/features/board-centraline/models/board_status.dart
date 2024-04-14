@@ -1,7 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board_status_database_keys.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'board_status.g.dart';
+
+@JsonSerializable()
 class BoardStatus extends Equatable {
   const BoardStatus({
     required this.id,
@@ -16,9 +20,13 @@ class BoardStatus extends Equatable {
         createdAt = DateTime.parse('2024-01-01'),
         boardId = '';
 
+  @JsonKey(name: BoardStatusDatabaseKeys.id)
   final String id;
+  @JsonKey(name: BoardStatusDatabaseKeys.batteryLevel)
   final double batteryLevel;
+  @JsonKey(name: BoardStatusDatabaseKeys.createdAt)
   final DateTime createdAt;
+  @JsonKey(name: BoardStatusDatabaseKeys.boardId)
   final String boardId;
 
   @override
@@ -38,21 +46,8 @@ class BoardStatus extends Equatable {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      BoardStatusDatabaseKeys.id: id,
-      BoardStatusDatabaseKeys.batteryLevel: batteryLevel,
-      BoardStatusDatabaseKeys.createdAt: createdAt.toIso8601String(),
-      BoardStatusDatabaseKeys.boardId: boardId,
-    };
-  }
+  factory BoardStatus.fromJson(Map<String, dynamic> json) =>
+      _$BoardStatusFromJson(json);
 
-  static BoardStatus fromJson(Map<String, dynamic> json) {
-    return BoardStatus(
-      id: json[BoardStatusDatabaseKeys.id],
-      batteryLevel: json[BoardStatusDatabaseKeys.batteryLevel],
-      createdAt: DateTime.parse(json[BoardStatusDatabaseKeys.createdAt]),
-      boardId: json[BoardStatusDatabaseKeys.boardId],
-    );
-  }
+  Map<String, dynamic> toJson() => _$BoardStatusToJson(this);
 }

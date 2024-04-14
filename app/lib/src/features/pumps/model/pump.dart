@@ -1,9 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump_database_keys.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 // TODO: add pump company
 // TODO: prevalenza, portata,
+
+part 'pump.g.dart';
+
+@JsonSerializable()
 class Pump extends Equatable {
   const Pump({
     required this.id,
@@ -32,16 +37,27 @@ class Pump extends Equatable {
         mqttMessageName = '',
         hasFilter = false;
 
+  @JsonKey(name: PumpDatabaseKeys.id)
   final String id;
+  @JsonKey(name: PumpDatabaseKeys.name)
   final String name;
+  @JsonKey(name: PumpDatabaseKeys.capacityInVolume)
   final double capacityInVolume;
+  @JsonKey(name: PumpDatabaseKeys.consumeRateInKw)
   final double consumeRateInKw;
+  @JsonKey(name: PumpDatabaseKeys.companyId)
   final String companyId;
+  @JsonKey(name: PumpDatabaseKeys.createdAt)
   final DateTime createdAt;
+  @JsonKey(name: PumpDatabaseKeys.updatedAt)
   final DateTime updatedAt;
+  @JsonKey(name: PumpDatabaseKeys.turnOnCommand)
   final String turnOnCommand;
+  @JsonKey(name: PumpDatabaseKeys.turnOffCommand)
   final String turnOffCommand;
+  @JsonKey(name: PumpDatabaseKeys.mqttMessageName)
   final String mqttMessageName;
+  @JsonKey(name: PumpDatabaseKeys.hasFilter)
   final bool hasFilter;
 
   @override
@@ -89,37 +105,9 @@ class Pump extends Equatable {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      PumpDatabaseKeys.id: id,
-      PumpDatabaseKeys.name: name,
-      PumpDatabaseKeys.capacityInVolume: capacityInVolume,
-      PumpDatabaseKeys.consumeRateInKw: consumeRateInKw,
-      PumpDatabaseKeys.companyId: companyId,
-      PumpDatabaseKeys.createdAt: createdAt.toIso8601String(),
-      PumpDatabaseKeys.updatedAt: updatedAt.toIso8601String(),
-      PumpDatabaseKeys.turnOnCommand: turnOnCommand,
-      PumpDatabaseKeys.turnOffCommand: turnOffCommand,
-      PumpDatabaseKeys.mqttMessageName: mqttMessageName,
-      PumpDatabaseKeys.hasFilter: hasFilter,
-    };
-  }
+  factory Pump.fromJson(Map<String, dynamic> json) => _$PumpFromJson(json);
 
-  static Pump fromJson(Map<String, dynamic> json) {
-    return Pump(
-      id: json[PumpDatabaseKeys.id] as String,
-      name: json[PumpDatabaseKeys.name] as String,
-      capacityInVolume: json[PumpDatabaseKeys.capacityInVolume] as double,
-      consumeRateInKw: json[PumpDatabaseKeys.consumeRateInKw] as double,
-      companyId: json[PumpDatabaseKeys.companyId] as String,
-      createdAt: DateTime.parse(json[PumpDatabaseKeys.createdAt]),
-      updatedAt: DateTime.parse(json[PumpDatabaseKeys.updatedAt]),
-      turnOnCommand: json[PumpDatabaseKeys.turnOnCommand] as String,
-      turnOffCommand: json[PumpDatabaseKeys.turnOffCommand] as String,
-      mqttMessageName: json[PumpDatabaseKeys.mqttMessageName] as String,
-      hasFilter: json[PumpDatabaseKeys.hasFilter] as bool,
-    );
-  }
+  Map<String, dynamic> toJson() => _$PumpToJson(this);
 }
 
 extension PumpX on Pump {

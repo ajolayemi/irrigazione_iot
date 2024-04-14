@@ -3,7 +3,11 @@ import 'package:equatable/equatable.dart';
 
 import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_database_keys.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'sector.g.dart';
+
+@JsonSerializable()
 class Sector extends Equatable {
   const Sector({
     required this.id,
@@ -45,23 +49,41 @@ class Sector extends Equatable {
         mqttMsgName = '',
         hasFilter = false;
 
+  @JsonKey(name: SectorDatabaseKeys.id)
   final String id;
+  @JsonKey(name: SectorDatabaseKeys.name)
   final String name;
+  @JsonKey(name: SectorDatabaseKeys.area)
   final double area;
+  @JsonKey(name: SectorDatabaseKeys.numOfPlants)
   final double numOfPlants;
+  @JsonKey(name: SectorDatabaseKeys.waterConsumptionPerHour)
   final double waterConsumptionPerHour;
+  @JsonKey(name: SectorDatabaseKeys.irrigationSystemType)
   final IrrigationSystem irrigationSystemType;
+  @JsonKey(name: SectorDatabaseKeys.irrigationSource)
   final IrrigationSource irrigationSource;
+  @JsonKey(name: SectorDatabaseKeys.turnOnCommand)
   final String turnOnCommand;
+  @JsonKey(name: SectorDatabaseKeys.turnOffCommand)
   final String turnOffCommand;
+  @JsonKey(name: SectorDatabaseKeys.notes)
   final String notes;
+  @JsonKey(name: SectorDatabaseKeys.totalConsumption)
   final double totalConsumption;
+  @JsonKey(name: SectorDatabaseKeys.specieId)
   final String specieId;
+  @JsonKey(name: SectorDatabaseKeys.varietyId)
   final String varietyId;
+  @JsonKey(name: SectorDatabaseKeys.companyId)
   final String companyId;
+  @JsonKey(name: SectorDatabaseKeys.createdAt)
   final DateTime createdAt;
+  @JsonKey(name: SectorDatabaseKeys.updatedAt)
   final DateTime updatedAt;
+  @JsonKey(name: SectorDatabaseKeys.mqttMsgName)
   final String mqttMsgName;
+  @JsonKey(name: SectorDatabaseKeys.hasFilter)
   final bool hasFilter;
 
   @override
@@ -129,52 +151,9 @@ class Sector extends Equatable {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      SectorDatabaseKeys.id: id,
-      SectorDatabaseKeys.name: name,
-      SectorDatabaseKeys.area: area,
-      SectorDatabaseKeys.numOfPlants: numOfPlants,
-      SectorDatabaseKeys.waterConsumptionPerHour: waterConsumptionPerHour,
-      SectorDatabaseKeys.irrigationSystemType: irrigationSystemType.name,
-      SectorDatabaseKeys.irrigationSource: irrigationSource.name,
-      SectorDatabaseKeys.turnOnCommand: turnOnCommand,
-      SectorDatabaseKeys.turnOffCommand: turnOffCommand,
-      SectorDatabaseKeys.notes: notes,
-      SectorDatabaseKeys.specieId: specieId,
-      SectorDatabaseKeys.varietyId: varietyId,
-      SectorDatabaseKeys.companyId: companyId,
-      SectorDatabaseKeys.createdAt: createdAt.toIso8601String(),
-      SectorDatabaseKeys.updatedAt: updatedAt.toIso8601String(),
-      SectorDatabaseKeys.mqttMsgName: mqttMsgName,
-      SectorDatabaseKeys.hasFilter: hasFilter,
-    };
-  }
+  factory Sector.fromJson(Map<String, dynamic> json) => _$SectorFromJson(json);
 
-  static Sector fromJson(Map<String, dynamic> json) {
-    return Sector(
-      id: json[SectorDatabaseKeys.id],
-      name: json[SectorDatabaseKeys.name],
-      area: json[SectorDatabaseKeys.area],
-      numOfPlants: json[SectorDatabaseKeys.numOfPlants],
-      waterConsumptionPerHour: json[SectorDatabaseKeys.waterConsumptionPerHour],
-      irrigationSystemType:
-          (json[SectorDatabaseKeys.irrigationSystemType] as String)
-              .toIrrigationSystemType(),
-      irrigationSource: (json[SectorDatabaseKeys.irrigationSource] as String)
-          .toIrrigationSource(),
-      turnOnCommand: json[SectorDatabaseKeys.turnOnCommand],
-      turnOffCommand: json[SectorDatabaseKeys.turnOffCommand],
-      notes: json[SectorDatabaseKeys.notes],
-      specieId: json[SectorDatabaseKeys.specieId],
-      varietyId: json[SectorDatabaseKeys.varietyId],
-      companyId: json[SectorDatabaseKeys.companyId],
-      createdAt: DateTime.parse(json[SectorDatabaseKeys.createdAt]),
-      updatedAt: DateTime.parse(json[SectorDatabaseKeys.updatedAt]),
-      mqttMsgName: json[SectorDatabaseKeys.mqttMsgName],
-      hasFilter: json[SectorDatabaseKeys.hasFilter],
-    );
-  }
+  Map<String, dynamic> toJson() => _$SectorToJson(this);
 }
 
 extension SectorX on Sector {

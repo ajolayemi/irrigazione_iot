@@ -2,8 +2,12 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_database_keys.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'company.g.dart';
 
 // A representation of companies, i.e the companies who uses the app
+@JsonSerializable()
 class Company extends Equatable {
   const Company({
     required this.id,
@@ -19,15 +23,25 @@ class Company extends Equatable {
   });
 
   // Unique identifier for the company from the database
+  @JsonKey(name: CompanyDatabaseKeys.id)
   final String id;
+  @JsonKey(name: CompanyDatabaseKeys.name)
   final String name;
+  @JsonKey(name: CompanyDatabaseKeys.registeredOfficeAddress)
   final String registeredOfficeAddress;
+  @JsonKey(name: CompanyDatabaseKeys.phoneNumber)
   final String phoneNumber;
+  @JsonKey(name: CompanyDatabaseKeys.email)
   final String email;
+  @JsonKey(name: CompanyDatabaseKeys.imageUrl)
   final String imageUrl;
+  @JsonKey(name: CompanyDatabaseKeys.createdAt)
   final DateTime createdAt;
+  @JsonKey(name: CompanyDatabaseKeys.updatedAt)
   final DateTime updatedAt;
+  @JsonKey(name: CompanyDatabaseKeys.piva)
   final String? vatNumber;
+  @JsonKey(name: CompanyDatabaseKeys.cf)
   final String? fiscalCode;
 
   @override
@@ -73,34 +87,8 @@ class Company extends Equatable {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      CompanyDatabaseKeys.id: id,
-      CompanyDatabaseKeys.name: name,
-      CompanyDatabaseKeys.email: email,
-      CompanyDatabaseKeys.phoneNumber: phoneNumber,
-      CompanyDatabaseKeys.registeredOfficeAddress: registeredOfficeAddress,
-      CompanyDatabaseKeys.piva: vatNumber,
-      CompanyDatabaseKeys.cf: fiscalCode,
-      CompanyDatabaseKeys.imageUrl: imageUrl,
-      CompanyDatabaseKeys.createdAt: createdAt.toIso8601String(),
-      CompanyDatabaseKeys.updatedAt: updatedAt.toIso8601String(),
-    };
-  }
+  factory Company.fromJson(Map<String, dynamic> json) =>
+      _$CompanyFromJson(json);
 
-  static Company fromJson(Map<String, dynamic> json) {
-    return Company(
-      id: json[CompanyDatabaseKeys.id] as String,
-      name: json[CompanyDatabaseKeys.name] as String,
-      email: json[CompanyDatabaseKeys.email] as String,
-      phoneNumber: json[CompanyDatabaseKeys.phoneNumber] as String,
-      registeredOfficeAddress:
-          json[CompanyDatabaseKeys.registeredOfficeAddress] as String,
-      vatNumber: json[CompanyDatabaseKeys.piva] as String,
-      fiscalCode: json[CompanyDatabaseKeys.cf] as String,
-      imageUrl: json[CompanyDatabaseKeys.imageUrl] as String,
-      createdAt: DateTime.parse(json[CompanyDatabaseKeys.createdAt]),
-      updatedAt: DateTime.parse(json[CompanyDatabaseKeys.updatedAt]),
-    );
-  }
+  Map<String, dynamic> toJson() => _$CompanyToJson(this);
 }

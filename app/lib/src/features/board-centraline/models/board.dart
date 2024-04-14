@@ -1,6 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board_database_keys.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'board.g.dart';
+
+@JsonSerializable()
 class Board extends Equatable {
   const Board({
     required this.id,
@@ -25,14 +29,23 @@ class Board extends Equatable {
         updatedAt = DateTime.parse('2024-01-01'),
         mqttMsgName = '';
 
+  @JsonKey(name: BoardDatabaseKeys.id)
   final String id;
+  @JsonKey(name: BoardDatabaseKeys.name)
   final String name;
+  @JsonKey(name: BoardDatabaseKeys.model)
   final String model;
+  @JsonKey(name: BoardDatabaseKeys.serialNumber)
   final String serialNumber;
+  @JsonKey(name: BoardDatabaseKeys.collectorId)
   final String collectorId;
+  @JsonKey(name: BoardDatabaseKeys.companyId)
   final String companyId;
+  @JsonKey(name: BoardDatabaseKeys.createdAt)
   final DateTime createdAt;
+  @JsonKey(name: BoardDatabaseKeys.updatedAt)
   final DateTime updatedAt;
+  @JsonKey(name: BoardDatabaseKeys.mqttMsgName)
   final String mqttMsgName;
 
   @override
@@ -74,31 +87,7 @@ class Board extends Equatable {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      BoardDatabaseKeys.id: id,
-      BoardDatabaseKeys.name: name,
-      BoardDatabaseKeys.model: model,
-      BoardDatabaseKeys.serialNumber: serialNumber,
-      BoardDatabaseKeys.collectorId: collectorId,
-      BoardDatabaseKeys.companyId: companyId,
-      BoardDatabaseKeys.createdAt: createdAt.toIso8601String(),
-      BoardDatabaseKeys.updatedAt: updatedAt.toIso8601String(),
-      BoardDatabaseKeys.mqttMsgName: mqttMsgName,
-    };
-  }
+  factory Board.fromJson(Map<String, dynamic> json) => _$BoardFromJson(json);
 
-  static Board fromJson(Map<String, dynamic> json) {
-    return Board(
-      id: json[BoardDatabaseKeys.id] as String,
-      name: json[BoardDatabaseKeys.name] as String,
-      model: json[BoardDatabaseKeys.model] as String,
-      serialNumber: json[BoardDatabaseKeys.serialNumber] as String,
-      collectorId: json[BoardDatabaseKeys.collectorId] as String,
-      companyId: json[BoardDatabaseKeys.companyId] as String,
-      createdAt: DateTime.parse(json[BoardDatabaseKeys.createdAt] as String),
-      updatedAt: DateTime.parse(json[BoardDatabaseKeys.updatedAt] as String),
-      mqttMsgName: json[BoardDatabaseKeys.mqttMsgName] as String,
-    );
-  }
+  Map<String, dynamic> toJson() => _$BoardToJson(this);
 }

@@ -1,9 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user_database_keys.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'company_user.g.dart';
+
+@JsonSerializable()
 class CompanyUser extends Equatable {
   const CompanyUser({
     required this.id,
@@ -24,12 +27,19 @@ class CompanyUser extends Equatable {
         createdAt = DateTime.parse('2024-01-01'),
         updatedAt = DateTime.parse('2024-01-01');
 
+  @JsonKey(name: CompanyUserDatabaseKeys.id)
   final String id;
+  @JsonKey(name: CompanyUserDatabaseKeys.email)
   final String email;
+  @JsonKey(name: CompanyUserDatabaseKeys.fullName)
   final String fullName;
+  @JsonKey(name: CompanyUserDatabaseKeys.role)
   final CompanyUserRoles role;
+  @JsonKey(name: CompanyUserDatabaseKeys.companyId)
   final String companyId;
+  @JsonKey(name: CompanyUserDatabaseKeys.createdAt)
   final DateTime createdAt;
+  @JsonKey(name: CompanyUserDatabaseKeys.updatedAt)
   final DateTime updatedAt;
 
   @override
@@ -65,29 +75,8 @@ class CompanyUser extends Equatable {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      CompanyUserDatabaseKeys.id: id,
-      CompanyUserDatabaseKeys.email: email,
-      CompanyUserDatabaseKeys.fullName: fullName,
-      CompanyUserDatabaseKeys.role: role.name,
-      CompanyUserDatabaseKeys.companyId: companyId,
-      CompanyUserDatabaseKeys.createdAt: createdAt.toIso8601String(),
-      CompanyUserDatabaseKeys.updatedAt: updatedAt.toIso8601String(),
-    };
-  }
+  factory CompanyUser.fromJson(Map<String, dynamic> json) =>
+      _$CompanyUserFromJson(json);
 
-  static CompanyUser fromMap(Map<String, dynamic> map) {
-    return CompanyUser(
-      id: map[CompanyUserDatabaseKeys.id] as String,
-      email: map[CompanyUserDatabaseKeys.email] as String,
-      fullName: map[CompanyUserDatabaseKeys.fullName] as String,
-      role: map[CompanyUserDatabaseKeys.role].toString().toCompanyUserRoles(),
-      companyId: map[CompanyUserDatabaseKeys.companyId] as String,
-      createdAt:
-          DateTime.parse(map[CompanyUserDatabaseKeys.createdAt] as String),
-      updatedAt:
-          DateTime.parse(map[CompanyUserDatabaseKeys.updatedAt] as String),
-    );
-  }
+  Map<String, dynamic> toJson() => _$CompanyUserToJson(this);
 }
