@@ -1,5 +1,5 @@
-import 'extensions.dart';
-import 'string_validators.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/string_validators.dart';
 
 /// A mixin that holds all validation logic for the various forms in the app
 /// To avoid mixin class dependency on BuildContext, the methods that retrieves error
@@ -234,7 +234,6 @@ mixin AppFormValidators {
     }
     return null;
   }
-
 
   /// Validates whether the confirm password field matches the password field
   /// The constraints are:

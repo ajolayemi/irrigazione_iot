@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../constants/breakpoints.dart';
-import '../utils/extensions.dart';
-import 'responsive_center.dart';
+import 'package:irrigazione_iot/src/constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 /// A common widget to display a checkbox with a label
 /// It is responsive and will center the content on the screen

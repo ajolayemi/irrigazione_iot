@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
-import '../../../config/mock/fake_collector_pressures.dart';
-import 'collector_pressure_repository.dart';
-import '../model/collector_pressure.dart';
-import '../../../utils/delay.dart';
-import '../../../utils/in_memory_store.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_collector_pressures.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_pressure_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_pressure.dart';
+import 'package:irrigazione_iot/src/utils/delay.dart';
+import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
 class FakeCollectorPressureRepository implements CollectorPressureRepository {
   FakeCollectorPressureRepository({this.addDelay = false});

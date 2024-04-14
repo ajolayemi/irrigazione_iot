@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'src/providers/shared_prefs_provider.dart';
-import 'src/settings/settings_controller.dart';
-import 'src/settings/settings_service.dart';
+import 'package:irrigazione_iot/src/providers/shared_prefs_provider.dart';
+import 'package:irrigazione_iot/src/settings/settings_controller.dart';
+import 'package:irrigazione_iot/src/settings/settings_service.dart';
 
 import 'src/app.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.

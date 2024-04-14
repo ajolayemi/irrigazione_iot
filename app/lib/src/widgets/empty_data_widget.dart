@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../config/enums/roles.dart';
-import '../constants/app_sizes.dart';
-import '../constants/breakpoints.dart';
-import '../features/company_users/data/company_users_repository.dart';
-import '../utils/extensions.dart';
-import 'custom_text_button.dart';
-import 'responsive_center.dart';
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/custom_text_button.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 /// A place holder widget to tell user that there is no data to show.
 /// It presents a text button to allow user to perform a specific action.

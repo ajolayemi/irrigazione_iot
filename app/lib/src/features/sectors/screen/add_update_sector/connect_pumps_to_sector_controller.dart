@@ -1,5 +1,6 @@
-import '../../data/sector_pump_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 
 part 'connect_pumps_to_sector_controller.g.dart';
 
@@ -7,7 +8,7 @@ part 'connect_pumps_to_sector_controller.g.dart';
 class ConnectPumpsToSectorController extends _$ConnectPumpsToSectorController {
   @override
   FutureOr<void> build() {
-   // nothing to do here
+    // nothing to do here
   }
 
   void handleSelection(bool value, String pumpId) {

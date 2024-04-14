@@ -1,8 +1,8 @@
-import 'fake_pumps.dart';
-import 'fake_sectors.dart';
-import '../../features/pumps/model/pump.dart';
-import '../../features/sectors/model/sector.dart';
-import '../../features/sectors/model/sector_pump.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_pumps.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_sectors.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 
 List<SectorPump> generateSectorPumps() {
   List<SectorPump> sectorPumps = [];

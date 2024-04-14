@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../constants/breakpoints.dart';
-import '../../../../widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 /// Useful for displaying items on the screen where user makes some selection
 /// like selecting an irrigation system, irrigation source, etc.

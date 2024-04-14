@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../config/routes/routes_enums.dart';
-import '../../../constants/breakpoints.dart';
-import '../model/pump.dart';
-import 'pump_list_tile_subtitle.dart';
-import 'pump_status_switch_controller.dart';
-import 'pump_status_switch.dart';
-import 'dismiss_pump_controller.dart';
-import '../../../utils/custom_controller_state.dart';
-import '../../../utils/extensions.dart';
-import '../../../widgets/alert_dialogs.dart';
-import '../../../widgets/custom_dismissible.dart';
-import '../../../widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/dismiss_pump_controller.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_list_tile_subtitle.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_status_switch_controller.dart';
+import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/widgets/custom_dismissible.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 class PumpListTile extends ConsumerWidget {
   const PumpListTile({
@@ -72,10 +71,10 @@ class PumpListTile extends ConsumerWidget {
           onDismissed: (_) {},
           isDeleting: isDeleting,
           child: ListTile(
-            title: Text(pump.name),
-            subtitle: PumpListTileSubtitle(pump: pump),
-            trailing: OutlinedButton(onPressed: () {}, child: Text('Spegni'))
-          ),
+              title: Text(pump.name),
+              subtitle: PumpListTileSubtitle(pump: pump),
+              trailing:
+                  OutlinedButton(onPressed: () {}, child: Text('Spegni'))),
         ),
       ),
     );

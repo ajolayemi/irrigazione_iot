@@ -1,4 +1,4 @@
-import '../../features/sectors/model/sector_status.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_status.dart';
 
 List<SectorStatus> _generateSectorStatus() {
   List<SectorStatus> sectorStatusList = [];

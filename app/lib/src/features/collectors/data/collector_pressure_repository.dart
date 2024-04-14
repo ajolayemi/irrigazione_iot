@@ -1,5 +1,5 @@
-import 'fake_collector_pressure_repository.dart';
-import '../model/collector_pressure.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/fake_collector_pressure_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_pressure.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'collector_pressure_repository.g.dart';

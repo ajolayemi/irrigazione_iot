@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../config/routes/routes_enums.dart';
-
-import '../../data/sector_pump_repository.dart';
-import '../../data/sector_repository.dart';
-import '../empty_sector_widget.dart';
-import 'dismiss_sector_controller.dart';
-import 'sector_list_tile.dart';
-import 'sectors_list_tile_skeleton.dart';
-import '../sector_switch_controller.dart';
-import '../../../../utils/async_value_ui.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/app_sliver_bar.dart';
-import '../../../../widgets/async_value_widget.dart';
-import '../../../../widgets/common_add_icon_button.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/empty_sector_widget.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/dismiss_sector_controller.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sector_list_tile.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_tile_skeleton.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch_controller.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/widgets/common_add_icon_button.dart';
 
 class SectorsListScreen extends ConsumerWidget {
   const SectorsListScreen({super.key});

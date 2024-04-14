@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../constants/app_sizes.dart';
-import '../utils/extensions.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 class AppSliverBar extends StatelessWidget {
   const AppSliverBar({

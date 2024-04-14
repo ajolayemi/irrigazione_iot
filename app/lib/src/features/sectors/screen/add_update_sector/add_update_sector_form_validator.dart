@@ -1,6 +1,6 @@
-import '../../../../constants/app_constants.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../utils/string_validators.dart';
+import 'package:irrigazione_iot/src/constants/app_constants.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/string_validators.dart';
 
 // TODO: replace with the universal form validator
 
@@ -29,7 +29,8 @@ mixin AddUpdateSectorValidators {
     // If an initialValue was provided, which should be the case when updating a sector
     // and the name is the same as the initial value, then the name is valid without running
     // check against the usedSectorNames
-    if (initialValue != null && name.toLowerCase() == initialValue.toLowerCase()) {
+    if (initialValue != null &&
+        name.toLowerCase() == initialValue.toLowerCase()) {
       return nonEmptyValidator.isValid(name) &&
           nameMaxLengthValidator.isValid(name);
     }

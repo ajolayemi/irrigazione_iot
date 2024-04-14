@@ -1,11 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../authentication/data/auth_repository.dart';
-import '../data/pump_repository.dart';
-import '../model/pump.dart';
-import '../../company_users/data/selected_company_repository.dart';
 
 part 'add_update_pump_service.g.dart';
 

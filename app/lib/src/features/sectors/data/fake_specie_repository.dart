@@ -1,8 +1,8 @@
-import '../../../config/mock/fake_species.dart';
-import 'specie_repository.dart';
-import '../model/specie.dart';
-import '../../../utils/delay.dart';
-import '../../../utils/in_memory_store.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_species.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/specie_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/specie.dart';
+import 'package:irrigazione_iot/src/utils/delay.dart';
+import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
 class FakeSpecieRepository implements SpecieRepository {
   FakeSpecieRepository({this.addDelay = true});

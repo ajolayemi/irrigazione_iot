@@ -1,5 +1,5 @@
-import '../../model/company_user.dart';
-import '../../service/add_update_company_user_service.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
+import 'package:irrigazione_iot/src/features/company_users/service/add_update_company_user_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'add_update_company_user_controller.g.dart';

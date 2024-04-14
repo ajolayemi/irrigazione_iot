@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../data/specie_repository.dart';
-import 'responsive_select_screens_tile.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/app_sliver_bar.dart';
-import '../../../../widgets/async_value_widget.dart';
-import '../../../../widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/specie_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/responsive_select_screens_tile.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 
 class SelectASpecieScreen extends ConsumerWidget {
   const SelectASpecieScreen({super.key});
@@ -32,7 +32,7 @@ class SelectASpecieScreen extends ConsumerWidget {
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         final specie = species[index];
-        
+
                         return ResponsiveSelectScreensTile(
                             title: specie,
                             onTap: () {

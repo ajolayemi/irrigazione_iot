@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'fake_collectors.dart';
-import 'fake_sectors.dart';
-import '../../features/collectors/model/collector_sector.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_collectors.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_sectors.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
 
 List<CollectorSector> generateFakeCollectorSectors() {
   final collectorSectors = <CollectorSector>[];

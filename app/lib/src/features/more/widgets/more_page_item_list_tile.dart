@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../constants/breakpoints.dart';
-import '../../../widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 class MorePageItemListTile extends StatelessWidget {
   const MorePageItemListTile({
@@ -22,7 +22,7 @@ class MorePageItemListTile extends StatelessWidget {
         maxContentWidth: Breakpoint.tablet,
         child: ListTile(
           title: Text(title),
-          leading: Icon( leadingIcon),
+          leading: Icon(leadingIcon),
           trailing: const Icon(Icons.arrow_forward_ios),
         ),
       ),

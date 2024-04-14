@@ -1,12 +1,11 @@
-import '../../../config/enums/roles.dart';
-import '../../authentication/data/auth_repository.dart';
-import 'company_repository.dart';
-import 'selected_company_repository.dart';
-import '../model/company.dart';
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/fake_company_users_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import 'fake_company_users_repository.dart';
-import '../model/company_user.dart';
 
 part 'company_users_repository.g.dart';
 
@@ -61,8 +60,7 @@ abstract class CompanyUsersRepository {
   Future<CompanyUser?> updateCompanyUser({required CompanyUser companyUser});
 
   /// Deletes a [CompanyUser] from the database and returns true if successful
-  Future<bool> deleteCompanyUser(
-      {required String companyUserId});
+  Future<bool> deleteCompanyUser({required String companyUserId});
 }
 
 // TODO replace this with a real implementation of either Firebase or Supabase
@@ -151,7 +149,6 @@ Stream<CompanyUser?> companyUserStream(CompanyUserStreamRef ref,
 
   return userCompaniesRepository.watchCompanyUser(companyUserId: companyUserId);
 }
-
 
 @riverpod
 Stream<List<String>> emailsAssociatedWithCompanyStream(

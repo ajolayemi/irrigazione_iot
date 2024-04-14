@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+
 
 /// Icon badge showing how many sectors are switched on for a sector
 class SectorsSwitchedOnCountBadge extends StatelessWidget {

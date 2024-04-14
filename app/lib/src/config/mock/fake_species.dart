@@ -1,4 +1,4 @@
-import '../../features/sectors/model/specie.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/specie.dart';
 
 const kFakeSpecies = [
   Specie(id: '1', name: 'arancia', variety: 'navelina'),
@@ -62,4 +62,4 @@ const kFakeSpecies = [
   Specie(id: '59', name: 'pistacchio', variety: 'kerman'),
   Specie(id: '60', name: 'albicocca', variety: 'apricot'),
   Specie(id: '61', name: 'albicocca', variety: 'moorpark'),
-  ];
+];

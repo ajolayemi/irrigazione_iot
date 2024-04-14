@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+
 
 /// Reusable error message widget (just a [Text] with a red color).
 class ErrorMessageWidget extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../config/enums/form_types.dart';
-import 'add_update_collector_controller.dart';
-import 'add_update_collector_form_contents.dart';
-import '../../../../widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/config/enums/form_types.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_controller.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_form_contents.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
 
 class AddUpdateCollectorForm extends ConsumerWidget {
   const AddUpdateCollectorForm({

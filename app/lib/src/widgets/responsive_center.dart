@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import '../constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 
 /// Reusable widget for showing a child with a maximum content width constraint.
 /// If available width is larger than the maximum width, the child will be

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../exceptions/app_exception.dart';
-import '../widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
+import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
 
 /// A helper [AsyncValue] helper function that helps in showing alert dialog on error
 extension AsyncValueUI on AsyncValue {

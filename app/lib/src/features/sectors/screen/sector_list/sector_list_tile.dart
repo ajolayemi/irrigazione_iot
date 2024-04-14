@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../config/routes/routes_enums.dart';
-import '../../../../constants/app_sizes.dart';
-import '../../../../constants/breakpoints.dart';
-import '../../model/sector.dart';
-import 'dismiss_sector_controller.dart';
-import 'sector_list_tile_subtitle.dart';
-import '../sector_switch.dart';
-import '../sector_switch_controller.dart';
-import '../../../../utils/custom_controller_state.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/alert_dialogs.dart';
-import '../../../../widgets/custom_dismissible.dart';
-import '../../../../widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/dismiss_sector_controller.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sector_list_tile_subtitle.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch_controller.dart';
+import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/widgets/custom_dismissible.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 class SectorListTile extends ConsumerWidget {
   const SectorListTile({
@@ -47,7 +47,6 @@ class SectorListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     // todo: add sector pressure in the list tile subtitle
     // todo: irrigation state (manual/automatic)
     // todo: since when is this sector being irrigated if on

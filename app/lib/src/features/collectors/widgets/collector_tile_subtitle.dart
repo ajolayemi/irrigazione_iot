@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../constants/app_sizes.dart';
-import '../../board-centraline/data/board_repository.dart';
-import 'battery_level_indicator.dart';
-import 'filter_pressure_diff_widget.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/widgets/battery_level_indicator.dart';
+import 'package:irrigazione_iot/src/features/collectors/widgets/filter_pressure_diff_widget.dart';
 
 /// A row widget that displays the battery level and the filter pressure difference
 class CollectorTileSubtitle extends ConsumerWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'responsive_scrollable.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_scrollable.dart';
 
 class ResponsiveSliverForm extends StatelessWidget {
   const ResponsiveSliverForm({

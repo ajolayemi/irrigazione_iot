@@ -1,7 +1,7 @@
-import '../enums/irrigation_enums.dart';
-import 'fake_companies_list.dart';
-import 'fake_species.dart';
-import '../../features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_companies_list.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_species.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 
 int id = 0;
 int turnOnCommand = 0;

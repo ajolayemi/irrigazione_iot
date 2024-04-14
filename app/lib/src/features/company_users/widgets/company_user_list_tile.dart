@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../config/routes/routes_enums.dart';
-import '../../../constants/app_sizes.dart';
-import '../../authentication/data/auth_repository.dart';
-import '../model/company_user.dart';
-import '../screen/company_user_details/dismiss_company_user_controller.dart';
-import '../../../utils/extensions.dart';
-import '../../../widgets/alert_dialogs.dart';
-import '../../../widgets/custom_dismissible.dart';
-import '../../../widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/company_user_details/dismiss_company_user_controller.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/widgets/custom_dismissible.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 class CompanyUserListTile extends ConsumerWidget {
   const CompanyUserListTile({

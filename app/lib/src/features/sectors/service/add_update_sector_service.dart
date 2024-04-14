@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../authentication/data/auth_repository.dart';
-import '../data/sector_pump_repository.dart';
-import '../data/sector_repository.dart';
-import '../model/sector.dart';
-import '../model/sector_pump.dart';
-import '../../company_users/data/selected_company_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 
 part 'add_update_sector_service.g.dart';
 
@@ -29,8 +30,6 @@ class AddUpdateSectorService {
     //create sector
     final createdSector = await sectorRepo.addSector(sector, companyId ?? '');
 
-    
-
     if (createdSector != null && pumpsToConnectToSector.isNotEmpty) {
       // loop over each pump and connect it to the created sector
       for (final pumpId in pumpsToConnectToSector) {
@@ -40,7 +39,8 @@ class AddUpdateSectorService {
         );
         debugPrint(
             'Creating sector pump: ${sectorPump.toJson()} for sector: ${createdSector.name}');
-        final createdSectorPump = await sectorPumpsRepo.addSectorPump(sectorPump);
+        final createdSectorPump =
+            await sectorPumpsRepo.addSectorPump(sectorPump);
         debugPrint('Created sectorPump: ${createdSectorPump?.toJson()}}');
       }
     }

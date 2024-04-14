@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../service/add_update_sector_service.dart';
-import '../../model/sector.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/service/add_update_sector_service.dart';
 
 part 'add_update_sector_controller.g.dart';
 

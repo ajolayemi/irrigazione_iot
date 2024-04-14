@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../authentication/data/auth_repository.dart';
-import '../data/board_repository.dart';
-import '../models/board.dart';
-import '../../company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'add_update_board_service.g.dart';

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../config/enums/roles.dart';
-import '../widgets/alert_dialogs.dart';
-import '../widgets/responsive_radio_list_tile.dart';
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_radio_list_tile.dart';
+
 
 extension BuildContextExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);

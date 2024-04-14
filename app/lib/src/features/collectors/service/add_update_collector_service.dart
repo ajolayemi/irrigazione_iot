@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../authentication/data/auth_repository.dart';
-import '../data/collector_repository.dart';
-import '../data/collector_sector_repository.dart';
-import '../model/collector.dart';
-import '../model/collector_sector.dart';
-import '../../company_users/data/selected_company_repository.dart';
+
 
 part 'add_update_collector_service.g.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../constants/breakpoints.dart';
-import 'responsive_center.dart';
+import 'package:irrigazione_iot/src/constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 class ResponsiveListTile extends StatelessWidget {
   const ResponsiveListTile({

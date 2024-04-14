@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../config/enums/roles.dart';
-import '../features/company_users/data/company_users_repository.dart';
-import 'app_bar_icon_buttons.dart';
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
 
 class CommonEditIconButton extends ConsumerWidget {
   const CommonEditIconButton({
@@ -12,6 +12,7 @@ class CommonEditIconButton extends ConsumerWidget {
   });
 
   final VoidCallback onPressed;
+
   /// If the button should be visible or not
   /// if not provided, the generic canEdit check on user role is used
   final bool? alternateIsVisible;

@@ -1,5 +1,5 @@
-import 'fake_boards.dart';
-import '../../features/board-centraline/models/board_status.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_boards.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board_status.dart';
 
 List<BoardStatus> _generateFakeBoardStatuses() {
   List<BoardStatus> boardStatuses = [];

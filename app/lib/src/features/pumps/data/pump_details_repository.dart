@@ -1,6 +1,6 @@
-import 'fake_pump_details_repository.dart';
-import 'pump_repository.dart';
-import '../model/pump.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_details_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'pump_details_repository.g.dart';
@@ -17,7 +17,8 @@ PumpDetailsRepository pumpDetailsRepository(PumpDetailsRepositoryRef ref) {
 }
 
 @riverpod
-Stream<int> pumpTotalDispensedLitres(PumpTotalDispensedLitresRef ref, String pumpId) {
+Stream<int> pumpTotalDispensedLitres(
+    PumpTotalDispensedLitresRef ref, String pumpId) {
   final pumpDetailsRepository = ref.watch(pumpDetailsRepositoryProvider);
   final pump = ref.watch(pumpStreamProvider(pumpId)).valueOrNull;
   if (pump == null) return Stream.value(0);

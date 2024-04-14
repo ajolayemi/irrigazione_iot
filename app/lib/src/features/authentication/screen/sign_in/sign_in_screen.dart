@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../exceptions/app_exception.dart';
-import 'sign_in_controller.dart';
-import 'sign_in_screen_contents.dart';
-import '../../../../utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_controller.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_screen_contents.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 
 class SignInScreen extends ConsumerWidget {
   const SignInScreen({super.key});

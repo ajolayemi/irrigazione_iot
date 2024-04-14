@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'error_message_widget.dart';
+import 'package:irrigazione_iot/src/widgets/error_message_widget.dart';
 
 /// A reusable widget to provide default loading and error widgets when working
 /// with AsyncValue.
@@ -24,8 +23,12 @@ class AsyncValueWidget<T> extends StatelessWidget {
 
 /// Sliver equivalent of [AsyncValueWidget]
 class AsyncValueSliverWidget<T> extends StatelessWidget {
-  const AsyncValueSliverWidget(
-      {super.key, required this.value, required this.data, required this.loading,});
+  const AsyncValueSliverWidget({
+    super.key,
+    required this.value,
+    required this.data,
+    required this.loading,
+  });
   final AsyncValue<T> value;
   final Widget Function(T) data;
   final Widget Function() loading;

@@ -1,5 +1,5 @@
-import '../../features/authentication/data/fake_app_user.dart';
-import '../../utils/gen_fake_uuid.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/fake_app_user.dart';
+import 'package:irrigazione_iot/src/utils/gen_fake_uuid.dart';
 
 final kFakeUsers = <FakeAppUser>[
   FakeAppUser(

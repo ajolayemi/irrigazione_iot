@@ -1,16 +1,13 @@
+import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/service/add_update_board_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../models/board.dart';
-import '../../service/add_update_board_service.dart';
 
 part 'add_update_board_controller.g.dart';
 
 @riverpod
 class AddUpdateBoardController extends _$AddUpdateBoardController {
   @override
-  FutureOr<void> build() {
-
-  }
+  FutureOr<void> build() {}
 
   Future<bool> createBoard({required Board? boardToCreate}) async {
     final boardService = ref.read(addUpdateBoardServiceProvider);
@@ -22,8 +19,8 @@ class AddUpdateBoardController extends _$AddUpdateBoardController {
       );
       return Future.value(false);
     }
-    state = await AsyncValue.guard(
-        () => boardService.createBoard(boardToCreate));
+    state =
+        await AsyncValue.guard(() => boardService.createBoard(boardToCreate));
     return !state.hasError;
   }
 
@@ -38,8 +35,8 @@ class AddUpdateBoardController extends _$AddUpdateBoardController {
       return false;
     }
 
-    state = await AsyncValue.guard(
-        () => boardService.updateBoard(boardToUpdate));
+    state =
+        await AsyncValue.guard(() => boardService.updateBoard(boardToUpdate));
     return !state.hasError;
   }
 }

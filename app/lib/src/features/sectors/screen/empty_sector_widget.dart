@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../config/routes/routes_enums.dart';
-import '../../../utils/extensions.dart';
-import '../../../widgets/empty_data_widget.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/empty_data_widget.dart';
 
 class EmptySectorWidget extends StatelessWidget {
   const EmptySectorWidget({
@@ -17,7 +17,8 @@ class EmptySectorWidget extends StatelessWidget {
     final loc = context.loc;
     return SliverFillRemaining(
       child: EmptyDataWidget(
-        message: alternativeMessage ?? loc.emptyDataPlaceholder(loc.nSectors(1)),
+        message:
+            alternativeMessage ?? loc.emptyDataPlaceholder(loc.nSectors(1)),
         buttonText: loc.addNewButtonLabel,
         onPressed: () => context.pushNamed(AppRoute.addSector.name),
       ),

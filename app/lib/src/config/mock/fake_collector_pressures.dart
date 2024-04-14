@@ -1,5 +1,5 @@
-import 'fake_collectors.dart';
-import '../../features/collectors/model/collector_pressure.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_collectors.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_pressure.dart';
 
 List<CollectorPressure> _generateCollectorPressure() {
   int availableCollectorsLength = kFakeCollectors.length;

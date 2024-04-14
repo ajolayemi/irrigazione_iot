@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../../utils/image_url_processor.dart';
+import 'package:irrigazione_iot/src/utils/image_url_processor.dart';
 
 class CompanyLogo extends StatelessWidget {
   const CompanyLogo({super.key, required this.imageUrl});

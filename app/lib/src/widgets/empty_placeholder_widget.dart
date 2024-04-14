@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../config/enums/button_types.dart';
-import '../config/routes/routes_enums.dart';
-import '../constants/app_sizes.dart';
-import '../utils/extensions.dart';
-import 'app_cta_button.dart';
+import 'package:irrigazione_iot/src/config/enums/button_types.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 
 /// Placeholder widget showing a message and CTA to go back to the home screen.
 class EmptyPlaceholderWidget extends StatelessWidget {

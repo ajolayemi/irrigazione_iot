@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../config/enums/button_types.dart';
-import '../constants/app_sizes.dart';
-import '../constants/breakpoints.dart';
-import '../utils/extensions.dart';
-import 'responsive_center.dart';
+import 'package:irrigazione_iot/src/config/enums/button_types.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 /// Call To Action button based on [ElevatedButton] or [OutlinedButton] base on
 /// whether it's a primary or secondary button..

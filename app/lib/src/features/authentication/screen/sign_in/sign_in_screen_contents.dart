@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/constants/app_constants.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_controller.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/dont_have_an_account.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/forgot_password.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/or_sign_with_widget.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/password_visibility_icon_button.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/providers_sign_in_button.dart';
+import 'package:irrigazione_iot/src/features/authentication/widgets/sliver_sign_in_cta.dart';
+import 'package:irrigazione_iot/src/providers/auth_providers.dart';
+import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
+import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/string_validators.dart';
+import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
 
-import '../../../../constants/app_constants.dart';
-import '../../../../constants/app_sizes.dart';
-import '../../../../exceptions/app_exception.dart';
-import '../../widgets/dont_have_an_account.dart';
-import '../../widgets/or_sign_with_widget.dart';
-import '../../widgets/password_visibility_icon_button.dart';
-import '../../widgets/providers_sign_in_button.dart';
-import 'sign_in_controller.dart';
-import '../../widgets/forgot_password.dart';
-import '../../widgets/sliver_sign_in_cta.dart';
-import '../../../../providers/auth_providers.dart';
-import '../../../../utils/app_form_error_texts_extension.dart';
-import '../../../../utils/app_form_validators.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../utils/string_validators.dart';
-import '../../../../widgets/form_title_and_field.dart';
-import '../../../../widgets/padded_safe_area.dart';
-import '../../../../widgets/responsive_sliver_form.dart';
+
 
 // Widget to show the sign in form
 class SignInScreenContents extends ConsumerStatefulWidget {

@@ -1,6 +1,9 @@
-import '../../../../constants/app_constants.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../utils/string_validators.dart';
+import 'package:irrigazione_iot/src/constants/app_constants.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/string_validators.dart';
+
+
+// TODO: this should be replaced by the global form validators
 
 /// Mixin class to be used for validating the form fields in the AddPumpScreen
 mixin AddPumpFormValidators {
@@ -96,7 +99,6 @@ mixin AddPumpFormValidators {
     } else if (!numericFieldsValidator.isValid(value)) {
       return "notANumberErrorText";
     } else if (usedCommands.contains(value) && value != initialValue) {
-
       return "commandAlreadyInUseErrorText";
     } else if (value == counterpartValue) {
       return "duplicateCommandsInFormErrorText";

@@ -1,7 +1,7 @@
 import 'dart:async';
-
-import 'fake_specie_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/sectors/data/fake_specie_repository.dart';
 
 part 'specie_repository.g.dart';
 

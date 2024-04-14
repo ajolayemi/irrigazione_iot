@@ -1,9 +1,7 @@
-import '../../service/dismiss_collector_service.dart';
+import 'package:irrigazione_iot/src/features/collectors/service/dismiss_collector_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-
 part 'dismiss_collector_controller.g.dart';
-
 
 @riverpod
 class DismissCollectorController extends _$DismissCollectorController {

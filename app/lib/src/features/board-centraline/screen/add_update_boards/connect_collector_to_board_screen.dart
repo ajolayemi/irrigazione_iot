@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../config/enums/button_types.dart';
-import '../../../../config/routes/routes_enums.dart';
-import '../../../../constants/app_sizes.dart';
-import '../../data/board_repository.dart';
-import '../../../collectors/data/collector_repository.dart';
-import '../../../collectors/widgets/empty_collector_widget.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/app_cta_button.dart';
-import '../../../../widgets/app_sliver_bar.dart';
-import '../../../../widgets/async_value_widget.dart';
-import '../../../../widgets/common_add_icon_button.dart';
-import '../../../../widgets/padded_safe_area.dart';
-import '../../../../widgets/responsive_radio_list_tile.dart';
-import '../../../../widgets/sliver_adaptive_circular_indicator.dart';
+import 'package:irrigazione_iot/src/config/enums/button_types.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/widgets/empty_collector_widget.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/widgets/common_add_icon_button.dart';
+import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_radio_list_tile.dart';
+import 'package:irrigazione_iot/src/widgets/sliver_adaptive_circular_indicator.dart';
 
 class ConnectCollectorToBoardScreen extends ConsumerWidget {
   const ConnectCollectorToBoardScreen({super.key});

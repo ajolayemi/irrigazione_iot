@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../data/pump_status_repository.dart';
-import '../model/pump.dart';
-import '../../../utils/date_formatter.dart';
-import '../../../utils/extensions.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
+import 'package:irrigazione_iot/src/utils/date_formatter.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 class PumpListTileSubtitle extends ConsumerWidget {
   const PumpListTileSubtitle({

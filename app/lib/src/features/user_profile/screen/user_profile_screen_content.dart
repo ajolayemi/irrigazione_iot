@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../constants/app_sizes.dart';
-import '../../authentication/data/auth_repository.dart';
-import '../../authentication/model/app_user.dart';
-import '../../company_users/data/company_repository.dart';
-import '../../company_users/data/selected_company_repository.dart';
-import '../../../utils/extensions.dart';
-import '../../../widgets/details_tile_widget.dart';
-import '../../../widgets/responsive_center.dart';
-import '../../../widgets/responsive_details_card.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/details_tile_widget.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_details_card.dart';
 
 class UserProfileScreenContents extends ConsumerWidget {
   const UserProfileScreenContents({super.key});
@@ -40,7 +40,8 @@ class UserProfileScreenContents extends ConsumerWidget {
             final companyId = ref
                 .watch(selectedCompanyRepositoryProvider)
                 .loadSelectedCompanyId(currentUser.uid);
-            final company = ref.watch(companyStreamProvider(companyId ?? '')).valueOrNull;
+            final company =
+                ref.watch(companyStreamProvider(companyId ?? '')).valueOrNull;
             return ResponsiveDetailsCard(
               child: DetailTileWidget(
                 title: loc.userProfileDetailsCurrentCompany,

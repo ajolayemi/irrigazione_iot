@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../data/collector_repository.dart';
-import '../data/collector_sector_repository.dart';
 
 part 'dismiss_collector_service.g.dart';
 

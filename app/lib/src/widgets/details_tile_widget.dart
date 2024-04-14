@@ -1,6 +1,7 @@
 // * Tile to display details of items like pumps, sectors etc
 import 'package:flutter/material.dart';
-import '../utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+
 
 class DetailTileWidget extends StatelessWidget {
   const DetailTileWidget({

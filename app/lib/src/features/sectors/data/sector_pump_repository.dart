@@ -1,8 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_pumps_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import 'fake_sector_pumps_repository.dart';
-import '../model/sector_pump.dart';
 
 part 'sector_pump_repository.g.dart';
 

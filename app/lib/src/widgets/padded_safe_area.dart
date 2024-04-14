@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 
 class PaddedSafeArea extends StatelessWidget {
   const PaddedSafeArea({super.key, required this.child, this.padding});

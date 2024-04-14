@@ -1,8 +1,8 @@
 // * Card to display details of items like pumps, sectors etc
 import 'package:flutter/material.dart';
-import '../constants/app_sizes.dart';
-import '../constants/breakpoints.dart';
-import 'responsive_center.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
 
 class ResponsiveDetailsCard extends StatelessWidget {
   const ResponsiveDetailsCard({

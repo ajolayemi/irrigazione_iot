@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../config/enums/button_types.dart';
-import '../screen/sign_up/sign_up_controller.dart';
-import '../../../utils/extensions.dart';
-import '../../../widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/config/enums/button_types.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_up/sign_up_controller.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
 
 class SignUpSliverCtaButton extends ConsumerWidget {
   const SignUpSliverCtaButton({
