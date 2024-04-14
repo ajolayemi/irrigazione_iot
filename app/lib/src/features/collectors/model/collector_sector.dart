@@ -1,53 +1,37 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:equatable/equatable.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_sector_database_keys.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-/// A representation of a [Sector] in a [Collector]
+part 'collector_sector.g.dart';
+
+@JsonSerializable()
 class CollectorSector extends Equatable {
   const CollectorSector({
+    required this.id,
     required this.collectorId,
     required this.sectorId,
-    required this.companyId,
+    required this.createdAt,
   });
 
-  const CollectorSector.empty()
-      : collectorId = '',
+  CollectorSector.empty()
+      : id = '',
+        collectorId = '',
         sectorId = '',
-        companyId = '';
+        createdAt = DateTime.parse('2024-01-01');
+  @JsonKey(name: CollectorSectorDatabaseKeys.id)
+  final String id;
+  @JsonKey(name: CollectorSectorDatabaseKeys.collectorId)
   final String collectorId;
+  @JsonKey(name: CollectorSectorDatabaseKeys.sectorId)
   final String sectorId;
-  final String companyId;
+  @JsonKey(name: CollectorSectorDatabaseKeys.createdAt)
+  final DateTime createdAt;
 
   @override
-  List<Object> get props => [collectorId, sectorId, companyId];
+  List<Object> get props => [id, collectorId, sectorId, createdAt];
 
-  CollectorSector copyWith({
-    String? collectorId,
-    String? sectorId,
-    String? companyId,
-  }) {
-    return CollectorSector(
-      collectorId: collectorId ?? this.collectorId,
-      sectorId: sectorId ?? this.sectorId,
-      companyId: companyId ?? this.companyId,
-    );
-  }
+  factory CollectorSector.fromJson(Map<String, dynamic> json) =>
+      _$CollectorSectorFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'collectorId': collectorId,
-      'sectorId': sectorId,
-      'companyId': companyId
-    };
-  }
-
-  factory CollectorSector.fromJson(Map<String, dynamic> map) {
-    return CollectorSector(
-      collectorId: map['collectorId'] as String,
-      sectorId: map['sectorId'] as String,
-      companyId: map['companyId'] as String,
-    );
-  }
+  Map<String, dynamic> toJson() => _$CollectorSectorToJson(this);
 }
