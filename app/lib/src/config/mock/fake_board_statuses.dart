@@ -10,9 +10,10 @@ List<BoardStatus> _generateFakeBoardStatuses() {
       final batteryLevel = boardIndex / kFakeBoards.length;
       boardStatuses.add(
         BoardStatus(
-          boardID: board.id,
+          id: 'boardStatus-$boardIndex-$i',
+          boardId: board.id,
           batteryLevel: batteryLevel.toDouble(),
-          lastUpdated: lastUpdated,
+          createdAt: lastUpdated,
         ),
       );
     }
