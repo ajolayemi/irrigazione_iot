@@ -16,8 +16,8 @@ class Company extends Equatable {
     required this.phoneNumber,
     required this.email,
     required this.imageUrl,
-    required this.createdAt,
-    required this.updatedAt,
+    this.createdAt,
+    this.updatedAt,
     this.vatNumber = '',
     this.fiscalCode = '',
   });
@@ -36,9 +36,9 @@ class Company extends Equatable {
   @JsonKey(name: CompanyDatabaseKeys.imageUrl)
   final String imageUrl;
   @JsonKey(name: CompanyDatabaseKeys.createdAt)
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @JsonKey(name: CompanyDatabaseKeys.updatedAt)
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
   @JsonKey(name: CompanyDatabaseKeys.piva)
   final String? vatNumber;
   @JsonKey(name: CompanyDatabaseKeys.cf)
