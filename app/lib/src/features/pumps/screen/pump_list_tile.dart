@@ -9,9 +9,9 @@ import 'package:irrigazione_iot/src/features/pumps/screen/pump_list_tile_subtitl
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_status_switch_controller.dart';
 import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
-import 'package:irrigazione_iot/src/widgets/custom_dismissible.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 
 class PumpListTile extends ConsumerWidget {
   const PumpListTile({

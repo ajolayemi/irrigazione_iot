@@ -7,9 +7,9 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 import 'package:irrigazione_iot/src/features/company_users/screen/company_user_details/dismiss_company_user_controller.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
-import 'package:irrigazione_iot/src/widgets/custom_dismissible.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 
 class CompanyUserListTile extends ConsumerWidget {
   const CompanyUserListTile({

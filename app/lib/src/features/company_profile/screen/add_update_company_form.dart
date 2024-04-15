@@ -4,7 +4,7 @@ import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_controller.dart';
 import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_form_content.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
-import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
 
 class AddUpdateCompanyForm extends ConsumerWidget {

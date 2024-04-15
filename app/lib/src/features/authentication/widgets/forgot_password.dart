@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/custom_text_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/custom_text_button.dart';
 
 class ForgotPassword extends StatelessWidget {
   const ForgotPassword({super.key, required this.isLoading});

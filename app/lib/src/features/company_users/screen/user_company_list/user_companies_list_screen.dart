@@ -12,11 +12,11 @@ import 'package:irrigazione_iot/src/features/company_users/screen/user_company_l
 import 'package:irrigazione_iot/src/features/company_users/screen/user_company_list/user_companies_controller.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
-import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
-import 'package:irrigazione_iot/src/widgets/common_sliver_list_skeleton.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_sliver_list_skeleton.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 
 class UserCompaniesListScreen extends ConsumerStatefulWidget {
   const UserCompaniesListScreen({super.key});

@@ -9,10 +9,10 @@ import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
-import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/widgets/form_title_and_field.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_sliver_form.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
 
 
 class AddUpdateCompanyFormContent extends ConsumerStatefulWidget {

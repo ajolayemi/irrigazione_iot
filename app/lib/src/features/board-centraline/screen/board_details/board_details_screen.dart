@@ -4,11 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/board_details/board_details_screen_contents.dart';
-import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
-import 'package:irrigazione_iot/src/widgets/common_edit_icon_button.dart';
-import 'package:irrigazione_iot/src/widgets/common_sliver_list_skeleton.dart';
-import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_edit_icon_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_sliver_list_skeleton.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
 class BoardDetailsScreen extends ConsumerWidget {
   const BoardDetailsScreen({

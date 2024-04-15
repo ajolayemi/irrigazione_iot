@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:irrigazione_iot/src/widgets/common_skeleton_tile.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_skeleton_tile.dart';
 
 // todo check if the skeleton can be refactored to be used in other places
 class SectorsListTileSkeleton extends StatelessWidget {

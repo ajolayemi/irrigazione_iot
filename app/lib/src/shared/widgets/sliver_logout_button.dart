@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
-import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 
 class SliverLogoutButton extends ConsumerWidget {
   const SliverLogoutButton({super.key});

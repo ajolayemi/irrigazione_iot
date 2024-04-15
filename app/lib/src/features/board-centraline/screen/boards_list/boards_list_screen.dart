@@ -7,11 +7,11 @@ import 'package:irrigazione_iot/src/features/board-centraline/screen/boards_list
 import 'package:irrigazione_iot/src/features/board-centraline/screen/boards_list/dismiss_board_controller.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/widgets/empty_board_widget.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
-import 'package:irrigazione_iot/src/widgets/common_add_icon_button.dart';
-import 'package:irrigazione_iot/src/widgets/common_sliver_list_skeleton.dart';
-import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_sliver_list_skeleton.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
 /// Displays a list of boards, i.e centraline in italian.
 class BoardsListScreen extends ConsumerWidget {

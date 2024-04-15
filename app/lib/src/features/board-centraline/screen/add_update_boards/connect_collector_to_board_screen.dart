@@ -8,13 +8,13 @@ import 'package:irrigazione_iot/src/features/board-centraline/data/board_reposit
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/widgets/empty_collector_widget.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
-import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
-import 'package:irrigazione_iot/src/widgets/common_add_icon_button.dart';
-import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_radio_list_tile.dart';
-import 'package:irrigazione_iot/src/widgets/sliver_adaptive_circular_indicator.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.dart';
+import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indicator.dart';
 
 class ConnectCollectorToBoardScreen extends ConsumerWidget {
   const ConnectCollectorToBoardScreen({super.key});

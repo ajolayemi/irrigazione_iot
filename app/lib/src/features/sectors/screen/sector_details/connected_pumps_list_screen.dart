@@ -4,10 +4,10 @@ import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_list_tile.dart';
-import 'package:irrigazione_iot/src/widgets/sliver_adaptive_circular_indicator.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_list_tile.dart';
+import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indicator.dart';
 
 class SectorConnectedPumpsList extends ConsumerWidget {
   const SectorConnectedPumpsList({

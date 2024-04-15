@@ -8,8 +8,8 @@ import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_status.dart';
 import 'package:irrigazione_iot/src/utils/date_formatter.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/details_tile_widget.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_details_card.dart';
+import 'package:irrigazione_iot/src/shared/widgets/details_tile_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart';
 
 
 class SectorDetailsScreenContents extends ConsumerWidget {

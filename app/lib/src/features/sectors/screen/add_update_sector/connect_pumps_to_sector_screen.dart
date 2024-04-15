@@ -11,12 +11,12 @@ import 'package:irrigazione_iot/src/features/pumps/screen/empty_pump_widget.dart
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/connect_pumps_to_sector_controller.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
-import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
-import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
-import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_checkbox_tile.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_bar_icon_buttons.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_checkbox_tile.dart';
 
 class ConnectPumpsToSector extends ConsumerWidget {
   const ConnectPumpsToSector({super.key});

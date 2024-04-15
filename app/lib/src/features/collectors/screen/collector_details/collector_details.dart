@@ -6,10 +6,10 @@ import 'package:irrigazione_iot/src/features/collectors/data/collector_repositor
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_details/collector_details_screen_content.dart';
-import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
-import 'package:irrigazione_iot/src/widgets/common_edit_icon_button.dart';
-import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_edit_icon_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
 class CollectorDetailsScreen extends ConsumerWidget {
   const CollectorDetailsScreen({

@@ -1,6 +1,6 @@
 // todo: this should replace all other skeletons in the app
 import 'package:flutter/material.dart';
-import 'package:irrigazione_iot/src/widgets/common_skeleton_tile.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_skeleton_tile.dart';
 
 /// A sliver version of the [CommonSkeletonTile]
 class CommonSliverListSkeleton extends StatelessWidget {

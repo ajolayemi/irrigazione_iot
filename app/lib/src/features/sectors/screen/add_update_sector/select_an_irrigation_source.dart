@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/responsive_select_screens_tile.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
 class SelectAnIrrigationSource extends StatelessWidget {
   const SelectAnIrrigationSource({super.key});

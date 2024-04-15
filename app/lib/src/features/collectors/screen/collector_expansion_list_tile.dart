@@ -12,9 +12,9 @@ import 'package:irrigazione_iot/src/features/collectors/widgets/collector_tile_t
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sector_list_tile.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/alert_dialogs.dart';
-import 'package:irrigazione_iot/src/widgets/custom_dismissible.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 
 class CollectorExpansionListTile extends ConsumerStatefulWidget {
   const CollectorExpansionListTile({

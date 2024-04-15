@@ -8,8 +8,8 @@ import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart'
 import 'package:irrigazione_iot/src/features/board-centraline/screen/boards_list/dismiss_board_controller.dart';
 import 'package:irrigazione_iot/src/features/collectors/widgets/battery_level_indicator.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/custom_dismissible.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 
 class BoardListTile extends ConsumerWidget {
   const BoardListTile({

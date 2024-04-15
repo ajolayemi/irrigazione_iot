@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 
 class CommonResponsiveDivider extends StatelessWidget {
   const CommonResponsiveDivider({super.key});

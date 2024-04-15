@@ -9,9 +9,9 @@ import 'package:irrigazione_iot/src/features/pumps/screen/pump_details/pump_deta
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_details/pump_details_list_skeleton.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_status_switch_controller.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
-import 'package:irrigazione_iot/src/widgets/app_bar_icon_buttons.dart';
-import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_bar_icon_buttons.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 
 
 class PumpDetailsScreen extends ConsumerWidget {

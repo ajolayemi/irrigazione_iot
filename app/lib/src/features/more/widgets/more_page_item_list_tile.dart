@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 
 class MorePageItemListTile extends StatelessWidget {
   const MorePageItemListTile({

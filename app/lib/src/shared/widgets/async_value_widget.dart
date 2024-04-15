@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/widgets/error_message_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/error_message_widget.dart';
 
 /// A reusable widget to provide default loading and error widgets when working
 /// with AsyncValue.

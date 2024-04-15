@@ -10,11 +10,11 @@ import 'package:irrigazione_iot/src/features/collectors/widgets/empty_collector_
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch_controller.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/widgets/async_value_widget.dart';
-import 'package:irrigazione_iot/src/widgets/common_add_icon_button.dart';
-import 'package:irrigazione_iot/src/widgets/common_sliver_list_skeleton.dart';
-import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_sliver_list_skeleton.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
 class CollectorListScreen extends ConsumerWidget {
   const CollectorListScreen({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 
 /// A common widget to display a radio list tile with a label
 /// It is responsive and will center the content on the screen

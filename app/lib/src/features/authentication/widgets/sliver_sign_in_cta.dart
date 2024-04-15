@@ -4,7 +4,7 @@ import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_controller.dart';
 import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 
 class SignInSliverCtaButton extends ConsumerWidget {
   const SignInSliverCtaButton({

@@ -4,7 +4,7 @@ import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_form_contents.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
-import 'package:irrigazione_iot/src/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
 class AddUpdateSectorForm extends ConsumerWidget {
   const AddUpdateSectorForm({
