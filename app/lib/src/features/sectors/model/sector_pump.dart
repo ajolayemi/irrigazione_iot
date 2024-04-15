@@ -1,46 +1,34 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+import 'package:irrigazione_iot/src/features/sectors/model/sector_pump_database_keys.dart';
 
-/// A representation of pumps that irrigate a sector.
+part 'sector_pump.g.dart';
+
+@JsonSerializable()
 class SectorPump extends Equatable {
   const SectorPump({
-    required this.pumpId,
+    required this.id,
     required this.sectorId,
+    required this.pumpId,
+    this.createdAt,
   });
 
-  final String pumpId;
+  @JsonKey(name: SectorPumpDatabaseKeys.id)
+  final String id;
+  @JsonKey(name: SectorPumpDatabaseKeys.sectorId)
   final String sectorId;
+  @JsonKey(name: SectorPumpDatabaseKeys.pumpId)
+  final String pumpId;
+  @JsonKey(name: SectorPumpDatabaseKeys.createdAt)
+  final DateTime? createdAt;
 
   @override
-  List<Object> get props => [pumpId, sectorId];
+  List<Object?> get props => [id, sectorId, pumpId, createdAt];
 
-  SectorPump copyWith({
-    String? pumpId,
-    String? sectorId,
-  }) {
-    return SectorPump(
-      pumpId: pumpId ?? this.pumpId,
-      sectorId: sectorId ?? this.sectorId,
-    );
-  }
+  factory SectorPump.fromJson(Map<String, dynamic> json) =>
+      _$SectorPumpFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'pumpId': pumpId,
-      'sectorId': sectorId,
-    };
-  }
-
-  factory SectorPump.fromJson(Map<String, dynamic> map) {
-    return SectorPump(
-      pumpId: map['pumpId'] as String,
-      sectorId: map['sectorId'] as String,
-    );
-  }
-
-  @override
-  String toString() {
-    return 'SectorPump(pumpId: $pumpId, sectorId: $sectorId)';
-  }
+  Map<String, dynamic> toJson() => _$SectorPumpToJson(this);
 }
