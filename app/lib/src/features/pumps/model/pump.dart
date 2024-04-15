@@ -15,23 +15,23 @@ class Pump extends Equatable {
     required this.name,
     required this.capacityInVolume,
     required this.consumeRateInKw,
-    required this.companyId,
-    required this.createdAt,
-    required this.updatedAt,
     required this.turnOnCommand,
     required this.turnOffCommand,
     required this.mqttMessageName,
     required this.hasFilter,
+    required this.companyId,
+    this.createdAt,
+    this.updatedAt
   });
 
-  Pump.empty()
+  const Pump.empty()
       : id = '',
         name = '',
         capacityInVolume = 0,
         consumeRateInKw = 0,
         companyId = '',
-        createdAt = DateTime(2024),
-        updatedAt = DateTime(2024),
+        createdAt = null,
+        updatedAt = null,
         turnOnCommand = '',
         turnOffCommand = '',
         mqttMessageName = '',
@@ -48,9 +48,9 @@ class Pump extends Equatable {
   @JsonKey(name: PumpDatabaseKeys.companyId)
   final String companyId;
   @JsonKey(name: PumpDatabaseKeys.createdAt)
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @JsonKey(name: PumpDatabaseKeys.updatedAt)
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
   @JsonKey(name: PumpDatabaseKeys.turnOnCommand)
   final String turnOnCommand;
   @JsonKey(name: PumpDatabaseKeys.turnOffCommand)
@@ -61,7 +61,7 @@ class Pump extends Equatable {
   final bool hasFilter;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       name,

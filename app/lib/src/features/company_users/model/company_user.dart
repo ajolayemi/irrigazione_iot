@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user_database_keys.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'company_user.g.dart';
 
@@ -14,18 +14,18 @@ class CompanyUser extends Equatable {
     required this.fullName,
     required this.role,
     required this.companyId,
-    required this.createdAt,
-    required this.updatedAt,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  CompanyUser.empty()
+  const CompanyUser.empty()
       : id = '',
         email = '',
         fullName = '',
         role = CompanyUserRoles.user,
         companyId = '',
-        createdAt = DateTime.parse('2024-01-01'),
-        updatedAt = DateTime.parse('2024-01-01');
+        createdAt = null,
+        updatedAt = null;
 
   @JsonKey(name: CompanyUserDatabaseKeys.id)
   final String id;
@@ -38,12 +38,12 @@ class CompanyUser extends Equatable {
   @JsonKey(name: CompanyUserDatabaseKeys.companyId)
   final String companyId;
   @JsonKey(name: CompanyUserDatabaseKeys.createdAt)
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @JsonKey(name: CompanyUserDatabaseKeys.updatedAt)
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       email,

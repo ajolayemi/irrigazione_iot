@@ -10,7 +10,9 @@ PumpStatus _$PumpStatusFromJson(Map<String, dynamic> json) => PumpStatus(
       id: json['id'] as String,
       pumpId: json['pumpId'] as String,
       status: json['status'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$PumpStatusToJson(PumpStatus instance) =>
@@ -18,5 +20,5 @@ Map<String, dynamic> _$PumpStatusToJson(PumpStatus instance) =>
       'id': instance.id,
       'pumpId': instance.pumpId,
       'status': instance.status,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt': instance.createdAt?.toIso8601String(),
     };

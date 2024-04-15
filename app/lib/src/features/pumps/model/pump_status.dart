@@ -10,7 +10,7 @@ class PumpStatus extends Equatable {
     required this.id,
     required this.pumpId,
     required this.status,
-    required this.createdAt,
+  this.createdAt,
   });
 
   final String id;
@@ -19,10 +19,10 @@ class PumpStatus extends Equatable {
   // using MQTT messages that sends and receives a string value
   // an internal logic will convert the string value to a boolean value when needed
   final String status;
-  final DateTime createdAt;
+  final DateTime? createdAt;
 
   @override
-  List<Object> get props => [id, pumpId, status, createdAt];
+  List<Object?> get props => [id, pumpId, status, createdAt];
 
   factory PumpStatus.fromJson(Map<String, dynamic> json) =>
       _$PumpStatusFromJson(json);

@@ -11,8 +11,10 @@ CollectorPressure _$CollectorPressureFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       filterInPressure: (json['filter_in_pressure'] as num).toDouble(),
       filterOutPressure: (json['filter_out_pressure'] as num).toDouble(),
-      createdAt: DateTime.parse(json['created_at'] as String),
       collectorId: json['collector_id'] as String,
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
     );
 
 Map<String, dynamic> _$CollectorPressureToJson(CollectorPressure instance) =>
@@ -20,6 +22,6 @@ Map<String, dynamic> _$CollectorPressureToJson(CollectorPressure instance) =>
       'id': instance.id,
       'filter_in_pressure': instance.filterInPressure,
       'filter_out_pressure': instance.filterOutPressure,
-      'created_at': instance.createdAt.toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
       'collector_id': instance.collectorId,
     };

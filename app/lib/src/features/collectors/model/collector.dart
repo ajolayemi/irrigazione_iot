@@ -11,18 +11,18 @@ class Collector extends Equatable {
     required this.id,
     required this.name,
     required this.connectedFilterName,
-    required this.createdAt,
-    required this.updatedAt,
     required this.companyId,
     required this.mqttMsgName,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  Collector.empty()
+ const Collector.empty()
       : id = '',
         name = '',
         connectedFilterName = '',
-        createdAt = DateTime.parse('2024-01-01'),
-        updatedAt = DateTime.parse('2024-01-01'),
+        createdAt = null,
+        updatedAt = null,
         companyId = '',
         mqttMsgName = '';
 
@@ -33,16 +33,16 @@ class Collector extends Equatable {
   @JsonKey(name: CollectorDatabaseKeys.connectedFilterName)
   final String connectedFilterName;
   @JsonKey(name: CollectorDatabaseKeys.createdAt)
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @JsonKey(name: CollectorDatabaseKeys.updatedAt)
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
   @JsonKey(name: CollectorDatabaseKeys.companyId)
   final String companyId;
   @JsonKey(name: CollectorDatabaseKeys.mqttMsgName)
   final String mqttMsgName;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       name,

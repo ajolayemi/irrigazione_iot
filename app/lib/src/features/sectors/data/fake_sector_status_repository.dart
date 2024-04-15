@@ -79,7 +79,7 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
   /// * Returns the most recent status for the sector
   static SectorStatus? _getMostRecentStatus(
       List<SectorStatus> statuses, String sectorId) {
-    statuses.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    statuses.sort((a, b) => b.createdAt?.compareTo(a.createdAt!) ?? 0);
     final statusesForSector = _filterSectorStatus(statuses, sectorId);
     if (statusesForSector.isEmpty) return null;
     return statusesForSector.first;
@@ -88,7 +88,7 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
   /// * Returns the last time the sector was irrigated
   static DateTime? _getMostRecentIrrigationDate(
       List<SectorStatus> statuses, Sector sector) {
-    statuses.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    statuses.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
     final statusesForSector = _filterSectorStatus(statuses, sector.id);
 
     return statusesForSector

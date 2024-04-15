@@ -36,13 +36,17 @@ class CompanyUserDetailsScreenContents extends ConsumerWidget {
           ResponsiveDetailsCard(
             child: DetailTileWidget(
               title: loc.companyUserAddedOn,
-              subtitle: dateFormatter.format(user.createdAt),
+              subtitle: user.createdAt == null
+                  ? 'N/A'
+                  : dateFormatter.format(user.createdAt!),
             ),
           ),
           ResponsiveDetailsCard(
             child: DetailTileWidget(
               title: loc.companyUserLastUpdated,
-              subtitle: dateFormatter.format(user.updatedAt),
+              subtitle: user.updatedAt == null
+                  ? "N/A"
+                  : dateFormatter.format(user.updatedAt!),
             ),
           ),
         ],

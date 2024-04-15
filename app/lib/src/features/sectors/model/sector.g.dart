@@ -23,10 +23,14 @@ Sector _$SectorFromJson(Map<String, dynamic> json) => Sector(
       specieId: json['specie_id'] as String,
       varietyId: json['variety_id'] as String,
       companyId: json['company_id'] as String,
-      createdAt: DateTime.parse(json['created_at'] as String),
-      updatedAt: DateTime.parse(json['updated_at'] as String),
       mqttMsgName: json['mqtt_msg_name'] as String,
       hasFilter: json['has_filter'] as bool,
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+      updatedAt: json['updated_at'] == null
+          ? null
+          : DateTime.parse(json['updated_at'] as String),
     );
 
 Map<String, dynamic> _$SectorToJson(Sector instance) => <String, dynamic>{
@@ -45,8 +49,8 @@ Map<String, dynamic> _$SectorToJson(Sector instance) => <String, dynamic>{
       'specie_id': instance.specieId,
       'variety_id': instance.varietyId,
       'company_id': instance.companyId,
-      'created_at': instance.createdAt.toIso8601String(),
-      'updated_at': instance.updatedAt.toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
       'mqtt_msg_name': instance.mqttMsgName,
       'has_filter': instance.hasFilter,
     };

@@ -12,7 +12,7 @@ class SectorStatus extends Equatable {
     required this.id,
     required this.sectorId,
     required this.status,
-    required this.createdAt,
+this.createdAt,
   });
 
   @JsonKey(name: SectorStatusDatabaseKeys.id)
@@ -22,10 +22,10 @@ class SectorStatus extends Equatable {
   @JsonKey(name: SectorStatusDatabaseKeys.status)
   final String status;
   @JsonKey(name: SectorStatusDatabaseKeys.createdAt)
-  final DateTime createdAt;
+  final DateTime? createdAt;
 
   @override
-  List<Object> get props => [id, sectorId, status, createdAt];
+  List<Object?> get props => [id, sectorId, status, createdAt];
 
   factory SectorStatus.fromJson(Map<String, dynamic> json) =>
       _$SectorStatusFromJson(json);

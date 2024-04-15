@@ -10,7 +10,9 @@ SectorStatus _$SectorStatusFromJson(Map<String, dynamic> json) => SectorStatus(
       id: json['id'] as String,
       sectorId: json['sector_id'] as String,
       status: json['status'] as String,
-      createdAt: DateTime.parse(json['created_at'] as String),
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
     );
 
 Map<String, dynamic> _$SectorStatusToJson(SectorStatus instance) =>
@@ -18,5 +20,5 @@ Map<String, dynamic> _$SectorStatusToJson(SectorStatus instance) =>
       'id': instance.id,
       'sector_id': instance.sectorId,
       'status': instance.status,
-      'created_at': instance.createdAt.toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
     };

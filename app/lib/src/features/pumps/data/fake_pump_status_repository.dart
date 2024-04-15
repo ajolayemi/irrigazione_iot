@@ -12,7 +12,7 @@ class FakePumpStatusRepository extends PumpStatusRepository {
 
   static DateTime? _getMostRecentDispensationDate(
       List<PumpStatus> statuses, Pump pump) {
-    statuses.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    statuses.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
     final statusesForPump = _filterPumpStatus(statuses, pump.id);
     try {
       return statusesForPump
@@ -25,7 +25,7 @@ class FakePumpStatusRepository extends PumpStatusRepository {
   }
 
   static PumpStatus _getMostRecentStatus(List<PumpStatus> statuses) {
-    statuses.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    statuses.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
     return statuses.first;
   }
 

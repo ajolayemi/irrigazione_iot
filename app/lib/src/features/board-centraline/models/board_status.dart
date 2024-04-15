@@ -10,14 +10,14 @@ class BoardStatus extends Equatable {
   const BoardStatus({
     required this.id,
     required this.batteryLevel,
-    required this.createdAt,
+    this.createdAt,
     required this.boardId,
   });
 
-  BoardStatus.empty()
+  const BoardStatus.empty()
       : id = '',
         batteryLevel = 0,
-        createdAt = DateTime.parse('2024-01-01'),
+        createdAt = null,
         boardId = '';
 
   @JsonKey(name: BoardStatusDatabaseKeys.id)
@@ -25,12 +25,12 @@ class BoardStatus extends Equatable {
   @JsonKey(name: BoardStatusDatabaseKeys.batteryLevel)
   final double batteryLevel;
   @JsonKey(name: BoardStatusDatabaseKeys.createdAt)
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @JsonKey(name: BoardStatusDatabaseKeys.boardId)
   final String boardId;
 
   @override
-  List<Object> get props => [id, batteryLevel, createdAt, boardId];
+  List<Object?> get props => [id, batteryLevel, createdAt, boardId];
 
   BoardStatus copyWith({
     String? id,

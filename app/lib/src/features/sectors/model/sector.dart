@@ -23,13 +23,13 @@ class Sector extends Equatable {
     required this.specieId,
     required this.varietyId,
     required this.companyId,
-    required this.createdAt,
-    required this.updatedAt,
     required this.mqttMsgName,
     required this.hasFilter,
+    this.createdAt,
+    this.updatedAt,
   }) : totalConsumption = waterConsumptionPerHour * numOfPlants;
 
-  Sector.empty()
+  const Sector.empty()
       : id = '',
         name = '',
         area = 0,
@@ -44,8 +44,8 @@ class Sector extends Equatable {
         specieId = '',
         varietyId = '',
         companyId = '',
-        createdAt = DateTime.parse('2024-01-01'),
-        updatedAt = DateTime.parse('2024-01-01'),
+        createdAt = null,
+        updatedAt = null,
         mqttMsgName = '',
         hasFilter = false;
 
@@ -78,16 +78,16 @@ class Sector extends Equatable {
   @JsonKey(name: SectorDatabaseKeys.companyId)
   final String companyId;
   @JsonKey(name: SectorDatabaseKeys.createdAt)
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @JsonKey(name: SectorDatabaseKeys.updatedAt)
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
   @JsonKey(name: SectorDatabaseKeys.mqttMsgName)
   final String mqttMsgName;
   @JsonKey(name: SectorDatabaseKeys.hasFilter)
   final bool hasFilter;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       name,

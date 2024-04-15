@@ -11,15 +11,15 @@ class CollectorPressure extends Equatable {
     required this.id,
     required this.filterInPressure,
     required this.filterOutPressure,
-    required this.createdAt,
     required this.collectorId,
+    this.createdAt
   }) : pressureDifference = filterInPressure - filterOutPressure;
 
-  CollectorPressure.empty()
+  const CollectorPressure.empty()
       : id = '',
         filterInPressure = 0,
         filterOutPressure = 0,
-        createdAt = DateTime.parse('2024-01-01'),
+        createdAt = null,
         collectorId = '',
         pressureDifference = 0;
 
@@ -30,14 +30,14 @@ class CollectorPressure extends Equatable {
   @JsonKey(name: CollectorPressureDatabaseKeys.filterOutPressure)
   final double filterOutPressure;
   @JsonKey(name: CollectorPressureDatabaseKeys.createdAt)
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @JsonKey(name: CollectorPressureDatabaseKeys.collectorId)
   final String collectorId;
   @JsonKey(name: CollectorPressureDatabaseKeys.pressureDifference)
   final double pressureDifference;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       filterInPressure,

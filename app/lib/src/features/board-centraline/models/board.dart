@@ -13,20 +13,20 @@ class Board extends Equatable {
     required this.serialNumber,
     required this.collectorId,
     required this.companyId,
-    required this.createdAt,
-    required this.updatedAt,
     required this.mqttMsgName,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  Board.empty()
+  const Board.empty()
       : id = '',
         name = '',
         model = '',
         serialNumber = '',
         collectorId = '',
         companyId = '',
-        createdAt = DateTime.parse('2024-01-01'),
-        updatedAt = DateTime.parse('2024-01-01'),
+        createdAt = null,
+        updatedAt = null,
         mqttMsgName = '';
 
   @JsonKey(name: BoardDatabaseKeys.id)
@@ -42,14 +42,14 @@ class Board extends Equatable {
   @JsonKey(name: BoardDatabaseKeys.companyId)
   final String companyId;
   @JsonKey(name: BoardDatabaseKeys.createdAt)
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @JsonKey(name: BoardDatabaseKeys.updatedAt)
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
   @JsonKey(name: BoardDatabaseKeys.mqttMsgName)
   final String mqttMsgName;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       name,

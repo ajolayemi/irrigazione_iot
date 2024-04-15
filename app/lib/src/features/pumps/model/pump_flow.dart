@@ -12,7 +12,7 @@ class PumpFlow extends Equatable {
     required this.id,
     required this.pumpId,
     required this.flow,
-    required this.createdAt,
+   this.createdAt,
   });
 
   @JsonKey(name: PumpFlowDatabaseKeys.id)
@@ -22,10 +22,10 @@ class PumpFlow extends Equatable {
   @JsonKey(name: PumpFlowDatabaseKeys.flow)
   final double flow;
   @JsonKey(name: PumpFlowDatabaseKeys.createdAt)
-  final DateTime createdAt;
+  final DateTime? createdAt;
 
   @override
-  List<Object> get props => [id, pumpId, flow, createdAt];
+  List<Object?> get props => [id, pumpId, flow, createdAt];
 
   factory PumpFlow.fromJson(Map<String, dynamic> json) =>
       _$PumpFlowFromJson(json);

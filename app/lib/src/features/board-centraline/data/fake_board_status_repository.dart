@@ -19,7 +19,7 @@ class FakeBoardStatusRepository implements BoardStatusRepository {
 
   static BoardStatus? _getMostRecentBoardStatus(
       List<BoardStatus> statuses, String boardID) {
-    statuses.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    statuses.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
     return statuses.firstWhereOrNull((st) => st.boardId == boardID);
   }
 

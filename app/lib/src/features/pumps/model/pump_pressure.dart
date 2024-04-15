@@ -13,7 +13,7 @@ class PumpPressure extends Equatable {
     required this.pumpId,
     required this.filterInPressure,
     required this.filterOutPressure,
-    required this.createdAt,
+  this.createdAt,
   }) : pressureDifference = filterInPressure - filterOutPressure;
 
   @JsonKey(name: PumpPressureDatabaseKeys.id)
@@ -27,10 +27,10 @@ class PumpPressure extends Equatable {
   @JsonKey(name: PumpPressureDatabaseKeys.pressureDifference)
   final double pressureDifference;
   @JsonKey(name: PumpPressureDatabaseKeys.createdAt)
-  final DateTime createdAt;
+  final DateTime? createdAt;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       pumpId,
