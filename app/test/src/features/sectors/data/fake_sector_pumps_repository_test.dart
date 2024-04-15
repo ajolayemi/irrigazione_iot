@@ -8,7 +8,12 @@ void main() {
   final expectedSectorPumps = kFakeSectorPumps
       .where((sectorPump) => sectorPump.sectorId == testSectorId)
       .toList();
-  const sectorPumpToAdd = SectorPump(pumpId: '90', sectorId: '20');
+  final sectorPumpToAdd = SectorPump(
+    pumpId: '90',
+    sectorId: '20',
+    id: '90',
+    createdAt: DateTime.parse('2022-01-01'),
+  );
   FakeSectorPumpRepository makeFakeSectorPumpRepository() =>
       FakeSectorPumpRepository(addDelay: false);
 

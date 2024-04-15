@@ -30,10 +30,15 @@ void main() {
     addTearDown(container.dispose);
     dismissSectorService = container.read(dismissSectorServiceProvider);
     registerFallbackValue(
-    Sector.empty(),
+      Sector.empty(),
     );
     registerFallbackValue(
-      const SectorPump(pumpId: '9', sectorId: '9'),
+      SectorPump(
+        pumpId: '9',
+        sectorId: '9',
+        id: '9',
+        createdAt: DateTime.parse('2022-01-01'),
+      ),
     );
   });
 
@@ -58,9 +63,19 @@ void main() {
 
     test("dismissSector(1) deletes sector and it's pumps", () async {
       // Sector pumps to return
-      const sectorPumps = [
-        SectorPump(pumpId: '9', sectorId: testSectorId),
-        SectorPump(pumpId: '10', sectorId: testSectorId)
+      final sectorPumps = [
+        SectorPump(
+          pumpId: '9',
+          sectorId: testSectorId,
+          id: '9',
+          createdAt: DateTime.parse('2022-01-01'),
+        ),
+        SectorPump(
+          pumpId: '10',
+          sectorId: testSectorId,
+          id: '10',
+          createdAt: DateTime.parse('2022-01-01'),
+        ),
       ];
       // setup
       when(() => sectorRepository.deleteSector(testSectorId)).thenAnswer(

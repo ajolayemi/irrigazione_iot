@@ -34,6 +34,7 @@ class AddUpdateSectorService {
       // loop over each pump and connect it to the created sector
       for (final pumpId in pumpsToConnectToSector) {
         final sectorPump = SectorPump(
+          id: '',
           sectorId: createdSector.id,
           pumpId: pumpId!,
         );
@@ -104,6 +105,7 @@ class AddUpdateSectorService {
       // Update the sectorPumps  with the new list of pumps connected to the sector
       for (final pumpId in newPumps) {
         final sectorPump = SectorPump(
+          id: '',
           sectorId: updatedSector.id,
           pumpId: pumpId!,
         );

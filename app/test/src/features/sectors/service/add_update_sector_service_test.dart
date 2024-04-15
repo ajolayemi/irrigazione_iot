@@ -31,7 +31,8 @@ void main() {
   final validSectorForTest = kFakeSectors
           .where((sector) => sector.companyId == testCompanyId)
           .toList()
-          .firstOrNull ??
+          .firstOrNull
+          ?.copyWith(createdAt: DateTime.parse('2024-01-01')) ??
       Sector.empty();
   // a list of [SectorPump] pertaining to the chosen company sector
   final List<SectorPump> validSectorPumpForTest = kFakeSectorPumps
@@ -60,7 +61,12 @@ void main() {
       mqttMsgName: 'sector_4_1',
       hasFilter: false);
 
-  const testSectorPump = SectorPump(pumpId: '1', sectorId: '1');
+  final testSectorPump = SectorPump(
+    pumpId: '1',
+    sectorId: '1',
+    id: '1',
+    createdAt: DateTime.parse('2022-01-01'),
+  );
 
   final MockAuthRepository authRepository = MockAuthRepository();
   final MockSectorRepository sectorRepository = MockSectorRepository();
@@ -351,6 +357,7 @@ void main() {
           final newSectorPumps = SectorPump(
             pumpId: '90',
             sectorId: validSectorForTest.id,
+            id: '',
           );
 
           // setup
