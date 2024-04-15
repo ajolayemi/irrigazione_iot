@@ -1,6 +1,7 @@
 import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_companies_list.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_species.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_varieties.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 
 int id = 0;
@@ -15,15 +16,17 @@ final kFakeSectors = kFakeCompanies.expand((company) {
     id++;
     turnOnCommand++;
     final speciesIndex = id % kFakeSpecies.length;
+    final varietiesIndex = id % kFakeVarieties.length;
     final irrigationSystemTypeIndex = id % IrrigationSystem.values.length;
     final irrigationSourceIndex = id % IrrigationSource.values.length;
     final specie = kFakeSpecies[speciesIndex];
+    final variety = kFakeVarieties[varietiesIndex];
     return Sector(
       id: id.toString(),
       companyId: company.id,
       name: 'Sector ${company.id}_$index',
       specieId: specie.id,
-      varietyId: specie.variety ?? '',
+      varietyId: variety.id,
       area: 100.0 + (index * 10),
       numOfPlants: 10 + (index * 2),
       waterConsumptionPerHour: 20 + (index * 5),
