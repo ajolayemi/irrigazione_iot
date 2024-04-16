@@ -1,37 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/providers/shared_prefs_provider.dart';
-import 'package:irrigazione_iot/src/settings/settings_controller.dart';
-import 'package:irrigazione_iot/src/settings/settings_service.dart';
+import 'package:irrigazione_iot/src/app_bootstrap.dart';
+import 'package:irrigazione_iot/src/app_bootstrap_supabase.dart';
 
-import 'src/app.dart';
+// ignore:depend_on_referenced_packages
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Set up the SettingsController, which will glue user settings to multiple
-  // Flutter Widgets.
-  final settingsController = SettingsController(SettingsService());
 
-  // Load the user's preferred theme while the splash screen is displayed.
-  // This prevents a sudden theme change when the app is first displayed.
-  await settingsController.loadSettings();
+  // TODO: initialize supabase here
 
-  // Move elsewhere later
-  final providerContainer = ProviderContainer(
-    overrides: [
-      settingsControllerProvider.overrideWithValue(settingsController),
-    ],
-  );
+  // turn off the # in the URLs on the web
+  usePathUrlStrategy();
 
-  // Load the SharedPreferences instance during initialization
-  await providerContainer.read(sharedPreferencesProvider.future);
-  // Run the app and pass in the SettingsController. The app listens to the
-  // SettingsController for changes, then passes it further down to the
-  // SettingsView.
-  runApp(
-    UncontrolledProviderScope(
-      container: providerContainer,
-      child: const MyApp(),
-    ),
-  );
+  // create an app bootstrap instance
+  final appBootstrap = AppBootstrap();
+
+  // create a container configured with all the Supabase repositories
+  final container = await appBootstrap.createSupabaseProviderContainer();
+  // use the container above to create the root widget
+  final root = await appBootstrap.createRootWidget(container: container);
+
+  // start the app
+  runApp(root);
 }
