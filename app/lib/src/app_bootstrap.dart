@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/app.dart';
 import 'package:irrigazione_iot/src/exceptions/error_logger.dart';
-import 'package:irrigazione_iot/src/providers/shared_prefs_provider.dart';
+import 'package:irrigazione_iot/src/shared/providers/shared_prefs_provider.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
 import 'package:irrigazione_iot/src/settings/settings_service.dart';
 

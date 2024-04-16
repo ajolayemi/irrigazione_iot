@@ -10,7 +10,7 @@ import 'package:irrigazione_iot/src/features/authentication/screen/sign_up/sign_
 import 'package:irrigazione_iot/src/features/authentication/widgets/already_have_an_account.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/password_visibility_icon_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/sliver_sign_up_cta.dart';
-import 'package:irrigazione_iot/src/providers/auth_providers.dart';
+import 'package:irrigazione_iot/src/shared/providers/auth_providers.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
