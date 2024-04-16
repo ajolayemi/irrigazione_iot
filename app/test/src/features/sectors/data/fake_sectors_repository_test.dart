@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_sectors.dart';
-import 'package:irrigazione_iot/src/features/sectors/data/fake_sectors_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 
 void main() {
@@ -38,11 +38,11 @@ void main() {
       mqttMsgName: 'sector_4_1',
       hasFilter: false);
 
-  FakeSectorsRepository makeFakeSectorsRepository() {
-    return FakeSectorsRepository(addDelay: false);
+  FakeSectorRepository makeFakeSectorsRepository() {
+    return FakeSectorRepository(addDelay: false);
   }
 
-  late FakeSectorsRepository repo;
+  late FakeSectorRepository repo;
 
   setUpAll(() {
     repo = makeFakeSectorsRepository();

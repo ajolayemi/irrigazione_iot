@@ -5,8 +5,8 @@ import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
-class FakeSectorsRepository extends SectorRepository {
-  FakeSectorsRepository({this.addDelay = true});
+class FakeSectorRepository extends SectorRepository {
+  FakeSectorRepository({this.addDelay = true});
   final bool addDelay;
 
   final _sectorsState = InMemoryStore<List<Sector>>(kFakeSectors);

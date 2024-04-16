@@ -6,7 +6,7 @@ part of 'sector_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sectorsRepositoryHash() => r'095c64cad07aa64e415f2d88fe5e37061116f731';
+String _$sectorsRepositoryHash() => r'dd519d63399fc4e29dc0fca4e561998b939b0387';
 
 /// See also [sectorsRepository].
 @ProviderFor(sectorsRepository)
