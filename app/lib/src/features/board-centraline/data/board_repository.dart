@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/data/supabase_board_repository.dart';
+import 'package:irrigazione_iot/src/providers/supabase_client_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:irrigazione_iot/src/features/board-centraline/data/fake_board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
@@ -63,8 +64,8 @@ abstract class BoardRepository {
 
 @Riverpod(keepAlive: true)
 BoardRepository boardRepository(BoardRepositoryRef ref) {
-  // TODO return remote repository as default
-  return FakeBoardRepository();
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  return SupabaseBoardRepository(supabaseClient);
 }
 
 @riverpod
@@ -138,13 +139,14 @@ Stream<List<Collector?>> collectorsNotConnectedToABoardStream(
   // [Board] has a collector connected to it.
   // The collector id of the collector connected to a board is omitted in this phase
   final connectedCollectorIds = ref
-      .watch(boardListStreamProvider)
-      .valueOrNull
-      ?.where((board) => board?.collectorId != collectorIdToOmit)
-      .map((board) => board?.collectorId)
-      .toList() ?? [];
+          .watch(boardListStreamProvider)
+          .valueOrNull
+          ?.where((board) => board?.collectorId != collectorIdToOmit)
+          .map((board) => board?.collectorId)
+          .toList() ??
+      [];
 
-final collectorsNotConnectedToABoard = collectorsPertainingToACompany
+  final collectorsNotConnectedToABoard = collectorsPertainingToACompany
       .where((collector) => !connectedCollectorIds.contains(collector?.id))
       .toList();
 
