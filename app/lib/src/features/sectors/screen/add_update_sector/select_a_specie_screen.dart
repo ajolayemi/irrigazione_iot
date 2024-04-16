@@ -12,7 +12,7 @@ class SelectASpecieScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final species = ref.watch(specieNamesFutureProvider);
+    final species = ref.watch(specieFutureProvider);
     return Scaffold(
       body: PaddedSafeArea(
         child: CustomScrollView(
@@ -28,13 +28,22 @@ class SelectASpecieScreen extends ConsumerWidget {
                       ),
                     ),
                 data: (species) {
+
+                  // TODO: replace this with more meaningful empty widget
+                  if (species == null || species.isEmpty) {
+                    return const SliverFillRemaining(
+                      child: Center(
+                        child: Text('No species found'),
+                      ),
+                    );
+                  }
                   return SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         final specie = species[index];
 
                         return ResponsiveSelectScreensTile(
-                            title: specie,
+                            title: specie.name,
                             onTap: () {
                               Navigator.of(context).pop(specie);
                             });
