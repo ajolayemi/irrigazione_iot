@@ -21,8 +21,10 @@ import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_status_reposit
 import 'package:irrigazione_iot/src/features/pumps/data/pump_flow_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_pumps_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_status_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
@@ -65,6 +67,7 @@ extension AppBootstrapFakes on AppBootstrap {
     final pumpStatusRepository = FakePumpStatusRepository(addDelay: addDelay);
     final sectorRepository = FakeSectorRepository(addDelay: addDelay);
     final sectorStatusRepository = FakeSectorStatusRepository(addDelay: addDelay);
+    final sectorPumpRepository = FakeSectorPumpRepository(addDelay: addDelay);
     return ProviderContainer(
       overrides: [
         // repositories
@@ -82,6 +85,7 @@ extension AppBootstrapFakes on AppBootstrap {
         pumpStatusRepositoryProvider.overrideWithValue(pumpStatusRepository),
         sectorRepositoryProvider.overrideWithValue(sectorRepository),
         sectorStatusRepositoryProvider.overrideWithValue(sectorStatusRepository),
+        sectorPumpRepositoryProvider.overrideWithValue(sectorPumpRepository),
         // services
         settingsControllerProvider.overrideWithValue(settingsController),
       ],
