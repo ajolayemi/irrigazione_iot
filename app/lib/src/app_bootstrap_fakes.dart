@@ -11,6 +11,8 @@ import 'package:irrigazione_iot/src/features/collectors/data/collector_pressure_
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/fake_collector_pressure_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/fake_collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/fake_company_repository.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
 
 /// Extension methods specific for "fakes" project configuration
@@ -43,6 +45,7 @@ extension AppBootstrapFakes on AppBootstrap {
         FakeCollectorPressureRepository(addDelay: addDelay);
     final collectorSectorRepository =
         FakeCollectorSectorRepository(addDelay: addDelay);
+    final companyRepository = FakeCompanyRepository(addDelay: addDelay);
     return ProviderContainer(
       overrides: [
         // repositories
@@ -53,6 +56,7 @@ extension AppBootstrapFakes on AppBootstrap {
             .overrideWithValue(collectorPressureRepository),
         collectorSectorRepositoryProvider
             .overrideWithValue(collectorSectorRepository),
+        companyRepositoryProvider.overrideWithValue(companyRepository),
         // services
         settingsControllerProvider.overrideWithValue(settingsController),
       ],
