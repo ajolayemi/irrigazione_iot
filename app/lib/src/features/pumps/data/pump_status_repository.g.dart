@@ -7,7 +7,7 @@ part of 'pump_status_repository.dart';
 // **************************************************************************
 
 String _$pumpStatusRepositoryHash() =>
-    r'520f01e3a384a9221c677c4d04821a41a2163be6';
+    r'f844aefee34c2e5129d0dae91ae404d23709276e';
 
 /// See also [pumpStatusRepository].
 @ProviderFor(pumpStatusRepository)
