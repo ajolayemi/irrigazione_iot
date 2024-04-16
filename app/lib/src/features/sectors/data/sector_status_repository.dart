@@ -1,7 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_status_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/supabase_sector_status_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'sector_status_repository.g.dart';
 
@@ -24,8 +25,8 @@ abstract class SectorStatusRepository {
 
 @Riverpod(keepAlive: true)
 SectorStatusRepository sectorStatusRepository(SectorStatusRepositoryRef ref) {
-  return FakeSectorStatusRepository();
-  // todo replace with real implementation
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  return SupabaseSectorStatusRepository(supabaseClient);
 }
 
 @riverpod

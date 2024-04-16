@@ -7,7 +7,7 @@ part of 'sector_status_repository.dart';
 // **************************************************************************
 
 String _$sectorStatusRepositoryHash() =>
-    r'6d865506ada01bd984405108d839f51bb6117621';
+    r'63297971576bdc468cde624716a79a8ce30a2e88';
 
 /// See also [sectorStatusRepository].
 @ProviderFor(sectorStatusRepository)
