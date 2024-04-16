@@ -3,20 +3,19 @@ import 'package:irrigazione_iot/src/app_bootstrap.dart';
 import 'package:irrigazione_iot/src/exceptions/async_error_logger.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
 
-/// Extension methods specific for "fakes" project configuration
+/// Extension methods specific for real Supabase project configuration
 extension AppBootstrapSupabase on AppBootstrap {
-  // TODO: update this documentation
   /// Creates the top-level [ProviderContainer] by overriding providers with fake
   /// repositories only. This is useful for testing purposes and for running the
-  /// app with a "fake" backend.
+  /// app with a real supabase backend.
   ///
   /// Note: all repositories needed by the app can be accessed via providers.
   /// Some of these providers throw an [UnimplementedError] by default.
   ///
   /// Example:
   /// ```dart
-  /// @Riverpod(keepAlive: true)
-  /// LocalCartRepository localCartRepository(LocalCartRepositoryRef ref) {
+  ///@riverpod
+  /// SettingsController settingsController(settingsControllerRef) {
   ///   throw UnimplementedError();
   /// }
   /// ```

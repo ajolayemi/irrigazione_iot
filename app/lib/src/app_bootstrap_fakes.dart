@@ -5,7 +5,6 @@ import 'package:irrigazione_iot/src/settings/settings_controller.dart';
 
 /// Extension methods specific for "fakes" project configuration
 extension AppBootstrapFakes on AppBootstrap {
-  // TODO: update this documentation
   /// Creates the top-level [ProviderContainer] by overriding providers with fake
   /// repositories only. This is useful for testing purposes and for running the
   /// app with a "fake" backend.
@@ -15,8 +14,8 @@ extension AppBootstrapFakes on AppBootstrap {
   ///
   /// Example:
   /// ```dart
-  /// @Riverpod(keepAlive: true)
-  /// LocalCartRepository localCartRepository(LocalCartRepositoryRef ref) {
+  ///@riverpod
+  /// SettingsController settingsController(settingsControllerRef) {
   ///   throw UnimplementedError();
   /// }
   /// ```
