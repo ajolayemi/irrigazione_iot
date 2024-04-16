@@ -1,4 +1,4 @@
-import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_details_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_flow_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -13,7 +13,7 @@ abstract class PumpFlowRepository {
 
 @Riverpod(keepAlive: true)
 PumpFlowRepository pumpDetailsRepository(PumpDetailsRepositoryRef ref) {
-  return FakePumpDetailsRepository(); // todo replace with real implementation
+  return FakePumpFlowRepository(); // todo replace with real implementation
 }
 
 @riverpod
