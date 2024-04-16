@@ -7,7 +7,7 @@ part of 'board_status_repository.dart';
 // **************************************************************************
 
 String _$boardStatusRepositoryHash() =>
-    r'eb256ef62070a71cc1bf3cce3f0513b5477203b6';
+    r'c2f3b33811e51cf53f5971b5e5fd906a01eec1fa';
 
 /// See also [boardStatusRepository].
 @ProviderFor(boardStatusRepository)
