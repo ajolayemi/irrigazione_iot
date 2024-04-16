@@ -32,7 +32,7 @@ abstract class AuthRepository {
   });
 
   /// Emits the current user
-  Stream<AuthState> authStateChanges();
+  Stream<AuthState?> authStateChanges();
 
   /// Get the current user
   AppUser? get currentUser;
@@ -45,7 +45,7 @@ AuthRepository authRepository(AuthRepositoryRef ref) {
 
 // * Using keepAlive since other providers need to listen to this provider
 @Riverpod(keepAlive: true)
-Stream<AuthState> authStateChanges(AuthStateChangesRef ref) {
+Stream<AuthState?> authStateChanges(AuthStateChangesRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.authStateChanges();
 }
