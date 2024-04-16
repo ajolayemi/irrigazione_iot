@@ -1,7 +1,8 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_status_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'pump_status_repository.g.dart';
 
