@@ -6,24 +6,24 @@ part of 'pump_flow_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pumpDetailsRepositoryHash() =>
-    r'46672893e839ed9efe5bf5cde41d55a2d754537b';
+String _$pumpFlowRepositoryHash() =>
+    r'fb5cb1b35eae4faf7876b9e8c0dc8cd3de1f6c55';
 
-/// See also [pumpDetailsRepository].
-@ProviderFor(pumpDetailsRepository)
-final pumpDetailsRepositoryProvider = Provider<PumpFlowRepository>.internal(
-  pumpDetailsRepository,
-  name: r'pumpDetailsRepositoryProvider',
+/// See also [pumpFlowRepository].
+@ProviderFor(pumpFlowRepository)
+final pumpFlowRepositoryProvider = Provider<PumpFlowRepository>.internal(
+  pumpFlowRepository,
+  name: r'pumpFlowRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$pumpDetailsRepositoryHash,
+      : _$pumpFlowRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef PumpDetailsRepositoryRef = ProviderRef<PumpFlowRepository>;
+typedef PumpFlowRepositoryRef = ProviderRef<PumpFlowRepository>;
 String _$pumpTotalDispensedLitresHash() =>
-    r'8468f8749064bc330e192da605b97360ae008294';
+    r'7aa791909bf7696659ac6bb3b568dcb56e3180cc';
 
 /// Copied from Dart SDK
 class _SystemHash {
