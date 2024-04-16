@@ -3,7 +3,7 @@ import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'pump_details_repository.g.dart';
+part 'pump_flow_repository.g.dart';
 
 // TODO do a complete refactor of this file
 

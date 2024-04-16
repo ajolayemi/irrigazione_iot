@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pump_details_repository.dart';
+part of 'pump_flow_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
