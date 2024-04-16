@@ -18,8 +18,8 @@ void main() {
       surname: 'User',
       password: 'fakeuser123');
 
-  FakeUserCompaniesRepository makeUserCompaniesRepository() =>
-      FakeUserCompaniesRepository(addDelay: false);
+  FakeCompanyUsersRepository makeUserCompaniesRepository() =>
+      FakeCompanyUsersRepository(addDelay: false);
 
   group('FakeUserCompaniesRepository - with valid user', () {
     test('watchCompaniesAssociatedWithUser emits valid companies', () {

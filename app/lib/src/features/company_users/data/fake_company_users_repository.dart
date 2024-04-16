@@ -8,8 +8,8 @@ import 'package:irrigazione_iot/src/features/company_users/model/company_user.da
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
-class FakeUserCompaniesRepository implements CompanyUsersRepository {
-  FakeUserCompaniesRepository({this.addDelay = true});
+class FakeCompanyUsersRepository implements CompanyUsersRepository {
+  FakeCompanyUsersRepository({this.addDelay = true});
   final bool addDelay;
 
   /// Preload userCompanies
