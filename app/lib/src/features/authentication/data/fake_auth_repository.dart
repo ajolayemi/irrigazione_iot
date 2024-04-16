@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:irrigazione_iot/src/config/mock/fake_users_list.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
@@ -9,7 +11,6 @@ import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart'
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/gen_fake_uuid.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class FakeAuthRepository implements AuthRepository {
   FakeAuthRepository({this.addDelay = true});
