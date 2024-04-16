@@ -1,8 +1,11 @@
 import 'dart:async';
-import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/supabase_sector_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'sector_repository.g.dart';
 
@@ -33,14 +36,14 @@ abstract class SectorRepository {
 }
 
 @Riverpod(keepAlive: true)
-SectorRepository sectorsRepository(SectorsRepositoryRef ref) {
-  // todo return remote repository as default
-  return FakeSectorRepository();
+SectorRepository sectorRepository(SectorRepositoryRef ref) {
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  return SupabaseSectorRepository(supabaseClient);
 }
 
 @riverpod
 Stream<List<Sector?>> sectorListStream(SectorListStreamRef ref) {
-  final sectorsRepository = ref.read(sectorsRepositoryProvider);
+  final sectorsRepository = ref.read(sectorRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return const Stream.empty();
   return sectorsRepository.watchSectors(companyId);
@@ -48,7 +51,7 @@ Stream<List<Sector?>> sectorListStream(SectorListStreamRef ref) {
 
 @riverpod
 Future<List<Sector?>> sectorListFuture(SectorListFutureRef ref) {
-  final sectorsRepository = ref.read(sectorsRepositoryProvider);
+  final sectorsRepository = ref.read(sectorRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return Future.value([]);
   return sectorsRepository.getSectors(companyId);
@@ -56,19 +59,19 @@ Future<List<Sector?>> sectorListFuture(SectorListFutureRef ref) {
 
 @riverpod
 Stream<Sector?> sectorStream(SectorStreamRef ref, String sectorID) {
-  final sectorsRepository = ref.read(sectorsRepositoryProvider);
+  final sectorsRepository = ref.read(sectorRepositoryProvider);
   return sectorsRepository.watchSector(sectorID);
 }
 
 @riverpod
 Future<Sector?> sectorFuture(SectorFutureRef ref, String sectorID) {
-  final sectorsRepository = ref.read(sectorsRepositoryProvider);
+  final sectorsRepository = ref.read(sectorRepositoryProvider);
   return sectorsRepository.getSector(sectorID);
 }
 
 @riverpod
 Stream<List<String?>> usedSectorNamesStream(UsedSectorNamesStreamRef ref) {
-  final sectorsRepository = ref.read(sectorsRepositoryProvider);
+  final sectorsRepository = ref.read(sectorRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.read(currentTappedCompanyProvider).valueOrNull;
   if (currentSelectedCompanyByUser == null) return const Stream.empty();
@@ -79,7 +82,7 @@ Stream<List<String?>> usedSectorNamesStream(UsedSectorNamesStreamRef ref) {
 @riverpod
 Stream<List<String?>> usedSectorOnCommandsStream(
     UsedSectorOnCommandsStreamRef ref) {
-  final sectorsRepository = ref.read(sectorsRepositoryProvider);
+  final sectorsRepository = ref.read(sectorRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.read(currentTappedCompanyProvider).valueOrNull;
   if (currentSelectedCompanyByUser == null) return const Stream.empty();
@@ -90,7 +93,7 @@ Stream<List<String?>> usedSectorOnCommandsStream(
 @riverpod
 Stream<List<String?>> usedSectorOffCommandsStream(
     UsedSectorOffCommandsStreamRef ref) {
-  final sectorsRepository = ref.read(sectorsRepositoryProvider);
+  final sectorsRepository = ref.read(sectorRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.read(currentTappedCompanyProvider).valueOrNull;
   if (currentSelectedCompanyByUser == null) return const Stream.empty();

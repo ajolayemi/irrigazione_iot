@@ -6,22 +6,22 @@ part of 'sector_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sectorsRepositoryHash() => r'dd519d63399fc4e29dc0fca4e561998b939b0387';
+String _$sectorRepositoryHash() => r'5a2329c3480807a5709e7698b2caea4c793b2667';
 
-/// See also [sectorsRepository].
-@ProviderFor(sectorsRepository)
-final sectorsRepositoryProvider = Provider<SectorRepository>.internal(
-  sectorsRepository,
-  name: r'sectorsRepositoryProvider',
+/// See also [sectorRepository].
+@ProviderFor(sectorRepository)
+final sectorRepositoryProvider = Provider<SectorRepository>.internal(
+  sectorRepository,
+  name: r'sectorRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$sectorsRepositoryHash,
+      : _$sectorRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef SectorsRepositoryRef = ProviderRef<SectorRepository>;
-String _$sectorListStreamHash() => r'17c9ef2867e2f16e52c1f07779ee28c157d8d02a';
+typedef SectorRepositoryRef = ProviderRef<SectorRepository>;
+String _$sectorListStreamHash() => r'382742696799ce2f968c1f51e357a198208d5607';
 
 /// See also [sectorListStream].
 @ProviderFor(sectorListStream)
@@ -37,7 +37,7 @@ final sectorListStreamProvider =
 );
 
 typedef SectorListStreamRef = AutoDisposeStreamProviderRef<List<Sector?>>;
-String _$sectorListFutureHash() => r'b0c769bac55ffc87b2cf589ab5d945b2d0c5e3ad';
+String _$sectorListFutureHash() => r'e0bc6bc737733d5b091ed5ae83b2015dacd8e8cf';
 
 /// See also [sectorListFuture].
 @ProviderFor(sectorListFuture)
@@ -53,7 +53,7 @@ final sectorListFutureProvider =
 );
 
 typedef SectorListFutureRef = AutoDisposeFutureProviderRef<List<Sector?>>;
-String _$sectorStreamHash() => r'dc88d5b16df6dcba09a311fc39219c8a681e3d70';
+String _$sectorStreamHash() => r'e879a344390bb894612641b4434f575bf5229c65';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -202,7 +202,7 @@ class _SectorStreamProviderElement
   String get sectorID => (origin as SectorStreamProvider).sectorID;
 }
 
-String _$sectorFutureHash() => r'06eb5d78377ef752c90bd1064a70f181487322fc';
+String _$sectorFutureHash() => r'24393a74de519316085a83cfcb076951b35f106d';
 
 /// See also [sectorFuture].
 @ProviderFor(sectorFuture)
@@ -331,7 +331,7 @@ class _SectorFutureProviderElement
 }
 
 String _$usedSectorNamesStreamHash() =>
-    r'f2b61219bdfe8ced3a8847b95e395f35c1ce465a';
+    r'5e50177ba9d06111a302162f2183d01eca4ba821';
 
 /// See also [usedSectorNamesStream].
 @ProviderFor(usedSectorNamesStream)
@@ -348,7 +348,7 @@ final usedSectorNamesStreamProvider =
 
 typedef UsedSectorNamesStreamRef = AutoDisposeStreamProviderRef<List<String?>>;
 String _$usedSectorOnCommandsStreamHash() =>
-    r'3ffc9344f248d59b537194ddd3b1ad0ce4d8e4f4';
+    r'4eaa224892af89ac39a7d2830a307c62fe5c52e8';
 
 /// See also [usedSectorOnCommandsStream].
 @ProviderFor(usedSectorOnCommandsStream)
@@ -366,7 +366,7 @@ final usedSectorOnCommandsStreamProvider =
 typedef UsedSectorOnCommandsStreamRef
     = AutoDisposeStreamProviderRef<List<String?>>;
 String _$usedSectorOffCommandsStreamHash() =>
-    r'4eaccd0b849a0a1c1c9625a77014653df39160f1';
+    r'89a702141679dd5a885097bf128db308ba63a579';
 
 /// See also [usedSectorOffCommandsStream].
 @ProviderFor(usedSectorOffCommandsStream)
