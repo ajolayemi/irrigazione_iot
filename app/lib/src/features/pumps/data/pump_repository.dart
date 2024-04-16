@@ -1,7 +1,9 @@
-import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/supabase_pump_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
+import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'pump_repository.g.dart';
 
@@ -33,8 +35,8 @@ abstract class PumpRepository {
 
 @Riverpod(keepAlive: true)
 PumpRepository pumpRepository(PumpRepositoryRef ref) {
-  return FakePumpRepository();
-  // todo replace with real implementation
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  return SupabasePumpRepository(supabaseClient);
 }
 
 @riverpod

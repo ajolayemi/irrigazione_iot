@@ -6,7 +6,7 @@ part of 'pump_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pumpRepositoryHash() => r'deb88bf39190b9957baae097097f7ad5f62ef4f2';
+String _$pumpRepositoryHash() => r'584d486b3b2bab3410ed4bf2ba15edffedf98999';
 
 /// See also [pumpRepository].
 @ProviderFor(pumpRepository)
