@@ -1,6 +1,8 @@
-import 'package:irrigazione_iot/src/features/company_users/data/fake_company_repository.dart';
-import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/company_users/data/supabase_company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
+import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'company_repository.g.dart';
 
@@ -25,7 +27,8 @@ abstract class CompanyRepository {
 
 @Riverpod(keepAlive: true)
 CompanyRepository companyRepository(CompanyRepositoryRef ref) {
-  return FakeCompanyRepository();
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  return SupabaseCompanyRepository(supabaseClient);
 }
 
 @riverpod
