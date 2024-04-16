@@ -15,7 +15,7 @@ class FakeAppUser extends AppUser {
   });
   final String password;
 
-  @override
+
   FakeAppUser copyWith({
     String? uid,
     String? email,

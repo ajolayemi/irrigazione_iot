@@ -9,26 +9,35 @@ import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart'
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/gen_fake_uuid.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class FakeAuthRepository implements AuthRepository {
   FakeAuthRepository({this.addDelay = true});
   final bool addDelay;
 
   // In-memory store to hold the current user, it's initial value is null
-  final _authState = InMemoryStore<AppUser?>(null);
+  final _authUser = InMemoryStore<AppUser?>(null);
+
+  final _authState = InMemoryStore<AuthState>(
+    AuthState(
+      AuthChangeEvent.initialSession,
+      null,
+    ),
+  );
 
   @override
-  Stream<AppUser?> authStateChanges() => _authState.stream;
+  Stream<AuthState> authStateChanges() => _authState.stream;
 
   @override
-  AppUser? get currentUser => _authState.value;
+  AppUser? get currentUser => _authUser.value;
 
   // List to keep track of all user accounts
   final List<FakeAppUser> _users = kFakeUsers;
 
   @override
   Future<void> signOut() async {
-    _authState.value = null;
+    _authUser.value = null;
+    _authState.value = AuthState(AuthChangeEvent.signedOut, null);
   }
 
   @override
@@ -60,7 +69,8 @@ class FakeAuthRepository implements AuthRepository {
     // update the password
     final updatedUser = fakeUser.copyWith(password: newPassword);
     _users[userIndexInList] = updatedUser;
-    _authState.value = updatedUser;
+    _authUser.value = updatedUser;
+    _authState.value = AuthState(AuthChangeEvent.passwordRecovery, null);
   }
 
   @override
@@ -70,7 +80,8 @@ class FakeAuthRepository implements AuthRepository {
     // check the given credentials against each registered user
     for (final user in _users) {
       if (user.email == email && user.password == password) {
-        _authState.value = user;
+        _authUser.value = user;
+        _authState.value = AuthState(AuthChangeEvent.signedIn, null);
         return;
       }
     }
@@ -82,8 +93,9 @@ class FakeAuthRepository implements AuthRepository {
   @override
   Future<void> signInWithGoogle() async {
     await delay(addDelay);
-    _authState.value =
+    _authUser.value =
         kFakeUsers[Random(kFakeUsers.length).nextInt(kFakeUsers.length)];
+    _authState.value = AuthState(AuthChangeEvent.signedIn, null);
   }
 
   @override
@@ -111,5 +123,5 @@ class FakeAuthRepository implements AuthRepository {
     return Future.value(userToAdd);
   }
 
-  void dispose() => _authState.close();
+  void dispose() => _authUser.close();
 }

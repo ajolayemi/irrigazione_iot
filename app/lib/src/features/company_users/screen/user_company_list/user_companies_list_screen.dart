@@ -94,7 +94,7 @@ class EmptyUserCompanyWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(authStateChangesProvider).value;
+    final user = ref.watch(authRepositoryProvider).currentUser;
     return Scaffold(
       body: ResponsiveCenter(
         padding: const EdgeInsets.all(Sizes.p24),
