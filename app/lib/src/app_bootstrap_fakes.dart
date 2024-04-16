@@ -17,8 +17,10 @@ import 'package:irrigazione_iot/src/features/company_users/data/fake_company_rep
 import 'package:irrigazione_iot/src/features/company_users/data/fake_company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_flow_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_status_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_flow_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
 
 /// Extension methods specific for "fakes" project configuration
@@ -56,6 +58,7 @@ extension AppBootstrapFakes on AppBootstrap {
         FakeCompanyUsersRepository(addDelay: addDelay);
     final pumpRepository = FakePumpRepository(addDelay: addDelay);
     final pumpFlowRepository = FakePumpFlowRepository(addDelay: addDelay);
+    final pumpStatusRepository = FakePumpStatusRepository(addDelay: addDelay);
     return ProviderContainer(
       overrides: [
         // repositories
@@ -70,6 +73,7 @@ extension AppBootstrapFakes on AppBootstrap {
         companyUsersRepositoryProvider.overrideWithValue(companyUserRepository),
         pumpRepositoryProvider.overrideWithValue(pumpRepository),
         pumpFlowRepositoryProvider.overrideWithValue(pumpFlowRepository),
+        pumpStatusRepositoryProvider.overrideWithValue(pumpStatusRepository),
         // services
         settingsControllerProvider.overrideWithValue(settingsController),
       ],
