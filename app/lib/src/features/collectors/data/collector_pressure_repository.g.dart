@@ -7,7 +7,7 @@ part of 'collector_pressure_repository.dart';
 // **************************************************************************
 
 String _$collectorPressureRepositoryHash() =>
-    r'0be56a6076c9fc2f446dbf8c84714c5b8dde4036';
+    r'31387df3cdebf3e532d01a6991131ea515a8cb06';
 
 /// See also [collectorPressureRepository].
 @ProviderFor(collectorPressureRepository)

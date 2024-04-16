@@ -1,6 +1,8 @@
-import 'package:irrigazione_iot/src/features/collectors/data/fake_collector_pressure_repository.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector_pressure.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/collectors/data/supabase_collector_pressure_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_pressure.dart';
+import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'collector_pressure_repository.g.dart';
 
@@ -17,8 +19,8 @@ abstract class CollectorPressureRepository {
 @Riverpod(keepAlive: true)
 CollectorPressureRepository collectorPressureRepository(
     CollectorPressureRepositoryRef ref) {
-  // todo return remote repository as default
-  return FakeCollectorPressureRepository();
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  return SupabaseCollectorPressureRepository(supabaseClient);
 }
 
 @riverpod
@@ -27,9 +29,9 @@ Stream<CollectorPressure?> collectorPressureStream(
     {required String collectorId}) {
   final collectorPressureRepository =
       ref.read(collectorPressureRepositoryProvider);
-  return collectorPressureRepository.watchCollectorPressure(collectorId: collectorId);
+  return collectorPressureRepository.watchCollectorPressure(
+      collectorId: collectorId);
 }
-
 
 @riverpod
 Future<CollectorPressure?> collectorPressureFuture(
@@ -37,5 +39,6 @@ Future<CollectorPressure?> collectorPressureFuture(
     {required String collectorId}) {
   final collectorPressureRepository =
       ref.read(collectorPressureRepositoryProvider);
-  return collectorPressureRepository.getCollectorPressure(collectorId: collectorId);
+  return collectorPressureRepository.getCollectorPressure(
+      collectorId: collectorId);
 }
