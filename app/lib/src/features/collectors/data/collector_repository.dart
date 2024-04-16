@@ -1,9 +1,11 @@
 import 'dart:async';
-import 'package:irrigazione_iot/src/features/collectors/data/fake_collector_repository.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
-import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'package:irrigazione_iot/src/features/collectors/data/supabase_collector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'collector_repository.g.dart';
 
@@ -40,8 +42,8 @@ abstract class CollectorRepository {
 
 @Riverpod(keepAlive: true)
 CollectorRepository collectorRepository(CollectorRepositoryRef ref) {
-  // todo return remote repository as default
-  return FakeCollectorRepository();
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  return SupabaseCollectorRepository(supabaseClient);
 }
 
 @riverpod
@@ -71,16 +73,14 @@ Stream<List<String?>> usedCollectorNamesStream(
 
 /// Watches a single instance of [Collector] as specified by [String]
 @riverpod
-Stream<Collector?> collectorStream(
-    CollectorStreamRef ref, String collectorId) {
+Stream<Collector?> collectorStream(CollectorStreamRef ref, String collectorId) {
   final collectorRepository = ref.watch(collectorRepositoryProvider);
   return collectorRepository.watchCollector(collectorId);
 }
 
 /// Gets a single instance of [Collector] as specified by [String]
 @riverpod
-Future<Collector?> collectorFuture(
-    CollectorFutureRef ref, String collectorId) {
+Future<Collector?> collectorFuture(CollectorFutureRef ref, String collectorId) {
   final collectorRepository = ref.watch(collectorRepositoryProvider);
   return collectorRepository.getCollector(collectorId);
 }
