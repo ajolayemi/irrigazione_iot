@@ -9,7 +9,7 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'specie_repository.g.dart';
 
 abstract class SpecieRepository {
-  Future<List<Specie>?> getSpecieNames();
+  Future<List<Specie>?> getSpecies();
 }
 
 @Riverpod(keepAlive: true)
@@ -25,5 +25,5 @@ Future<List<Specie>?> specieFuture(SpecieFutureRef ref) {
   final timer = Timer(const Duration(seconds: 60), link.close);
   ref.onDispose(() => timer.cancel());
   final specieRepository = ref.watch(specieRepositoryProvider);
-  return specieRepository.getSpecieNames();
+  return specieRepository.getSpecies();
 }
