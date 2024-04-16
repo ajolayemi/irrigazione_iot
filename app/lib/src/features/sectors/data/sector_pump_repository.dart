@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_pumps_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/sectors/data/supabase_sector_pump_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
+import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'sector_pump_repository.g.dart';
 
@@ -21,8 +23,8 @@ abstract class SectorPumpRepository {
 
 @Riverpod(keepAlive: true)
 SectorPumpRepository sectorPumpRepository(SectorPumpRepositoryRef ref) {
-  // todo return remote repository as default
-  return FakeSectorPumpRepository();
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  return SupabaseSectorPumpRepository(supabaseClient);
 }
 
 @riverpod

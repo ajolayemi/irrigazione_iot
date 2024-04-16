@@ -7,7 +7,7 @@ part of 'sector_pump_repository.dart';
 // **************************************************************************
 
 String _$sectorPumpRepositoryHash() =>
-    r'8b7da41a10a53142fcb94802d53893402c933c74';
+    r'8a9e8c7a5ca0a3f21f14614ff83a11d9c1a23fc5';
 
 /// See also [sectorPumpRepository].
 @ProviderFor(sectorPumpRepository)
