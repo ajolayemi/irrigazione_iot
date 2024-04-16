@@ -13,14 +13,8 @@ class FakeSpecieRepository implements SpecieRepository {
   void dispose() => _speciesState.close();
 
   @override
-  Future<List<String>> getSpecieNames() async {
+  Future<List<Specie>?> getSpecies() async {
     await delay(addDelay);
-    // build a list containing unique species names
-    final speciesNames = _speciesState.value
-        .map((specie) => specie.name)
-        .toSet()
-        .toList(growable: false);
-    speciesNames.sort((a, b) => a.compareTo(b));
-    return speciesNames;
+    return _speciesState.value;
   }
 }
