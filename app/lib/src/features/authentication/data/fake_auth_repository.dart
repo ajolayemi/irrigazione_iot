@@ -18,15 +18,10 @@ class FakeAuthRepository implements AuthRepository {
   // In-memory store to hold the current user, it's initial value is null
   final _authUser = InMemoryStore<AppUser?>(null);
 
-  final _authState = InMemoryStore<AuthState>(
-    AuthState(
-      AuthChangeEvent.initialSession,
-      null,
-    ),
-  );
+  final _authState = InMemoryStore<AuthState?>(null);
 
   @override
-  Stream<AuthState> authStateChanges() => _authState.stream;
+  Stream<AuthState?> authStateChanges() => _authState.stream;
 
   @override
   AppUser? get currentUser => _authUser.value;
@@ -37,7 +32,7 @@ class FakeAuthRepository implements AuthRepository {
   @override
   Future<void> signOut() async {
     _authUser.value = null;
-    _authState.value = AuthState(AuthChangeEvent.signedOut, null);
+    _authState.value = null;
   }
 
   @override
@@ -123,5 +118,8 @@ class FakeAuthRepository implements AuthRepository {
     return Future.value(userToAdd);
   }
 
-  void dispose() => _authUser.close();
+  void dispose() {
+    _authState.close();
+    _authUser.close();
+  }
 }
