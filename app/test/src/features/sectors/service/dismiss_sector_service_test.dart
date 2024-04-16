@@ -20,7 +20,7 @@ void main() {
 
   ProviderContainer makeContainer() {
     return ProviderContainer(overrides: [
-      sectorsRepositoryProvider.overrideWithValue(sectorRepository),
+      sectorRepositoryProvider.overrideWithValue(sectorRepository),
       sectorPumpRepositoryProvider.overrideWithValue(sectorPumpRepository),
     ]);
   }

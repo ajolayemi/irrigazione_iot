@@ -17,7 +17,7 @@ class DismissSectorService {
   /// Handles the deletion of all data related to a sector
   /// i.e the standard sector data and its connected pumps
   Future<void> dismissSector(String sectorId) async {
-    final sectorRepository = _ref.read(sectorsRepositoryProvider);
+    final sectorRepository = _ref.read(sectorRepositoryProvider);
     final sectorPumpsRepository = _ref.read(sectorPumpRepositoryProvider);
     final sectorWasDeleted = await sectorRepository.deleteSector(sectorId);
     // if the sector deletion was completed successfully

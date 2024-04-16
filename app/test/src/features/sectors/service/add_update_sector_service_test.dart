@@ -80,7 +80,7 @@ void main() {
     final container = ProviderContainer(
       overrides: [
         authRepositoryProvider.overrideWithValue(authRepository),
-        sectorsRepositoryProvider.overrideWithValue(sectorRepository),
+        sectorRepositoryProvider.overrideWithValue(sectorRepository),
         sectorPumpRepositoryProvider.overrideWithValue(sectorPumpRepository),
         selectedCompanyRepositoryProvider
             .overrideWithValue(selectedCompanyRepository),

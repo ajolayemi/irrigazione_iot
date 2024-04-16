@@ -21,7 +21,7 @@ class AddUpdateSectorService {
     final user = ref.read(authRepositoryProvider).currentUser;
     if (user == null) return;
 
-    final sectorRepo = ref.read(sectorsRepositoryProvider);
+    final sectorRepo = ref.read(sectorRepositoryProvider);
     final sectorPumpsRepo = ref.read(sectorPumpRepositoryProvider);
     final selectedCompanyRepo = ref.read(selectedCompanyRepositoryProvider);
     final pumpsToConnectToSector = ref.read(selectedPumpsIdProvider);
@@ -51,7 +51,7 @@ class AddUpdateSectorService {
     final user = ref.read(authRepositoryProvider).currentUser;
     if (user == null) return;
 
-    final sectorRepo = ref.read(sectorsRepositoryProvider);
+    final sectorRepo = ref.read(sectorRepositoryProvider);
     final sectorPumpsRepository = ref.read(sectorPumpRepositoryProvider);
     final selectedCompanyRepo = ref.read(selectedCompanyRepositoryProvider);
     final companyId = selectedCompanyRepo.loadSelectedCompanyId(user.uid);
