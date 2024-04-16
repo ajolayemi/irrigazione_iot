@@ -1,10 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
-import 'package:equatable/equatable.dart';
-
 typedef UserID = String;
 
-class AppUser extends Equatable {
+class AppUser {
   const AppUser({
     required this.uid,
     required this.email,
@@ -17,39 +14,22 @@ class AppUser extends Equatable {
   final String name;
   final String surname;
 
+  // * Here we override methods from [Object] directly rather than using
+  // * [Equatable], since this class will be subclassed or implemented
+  // * by other classes.
   @override
-  List<Object> get props => [uid, email, name, surname];
+  bool operator ==(covariant AppUser other) {
+    if (identical(this, other)) return true;
 
-  AppUser copyWith({
-    UserID? uid,
-    String? email,
-    String? name,
-    String? surname,
-  }) {
-    return AppUser(
-      uid: uid ?? this.uid,
-      email: email ?? this.email,
-      name: name ?? this.name,
-      surname: surname ?? this.surname,
-    );
+    return other.uid == uid &&
+        other.email == email &&
+        other.name == name &&
+        other.surname == surname;
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'uid': uid,
-      'email': email,
-      'name': name,
-      'surname': surname,
-    };
-  }
-
-  factory AppUser.fromMap(Map<String, dynamic> map) {
-    return AppUser(
-      uid: map['uid'] as UserID,
-      email: map['email'] as String,
-      name: map['name'] as String,
-      surname: map['surname'] as String,
-    );
+  @override
+  int get hashCode {
+    return uid.hashCode ^ email.hashCode ^ name.hashCode ^ surname.hashCode;
   }
 }
 
