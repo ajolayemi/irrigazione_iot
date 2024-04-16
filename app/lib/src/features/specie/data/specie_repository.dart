@@ -19,7 +19,7 @@ SpecieRepository specieRepository(SpecieRepositoryRef ref) {
 }
 
 @riverpod
-Future<List<Specie>?> specieFuture(SpecieFutureRef ref) {
+Future<List<Specie>?> speciesFuture(SpeciesFutureRef ref) {
   final link = ref.keepAlive();
   // * keep the previous value in memory for 60 seconds
   final timer = Timer(const Duration(seconds: 60), link.close);

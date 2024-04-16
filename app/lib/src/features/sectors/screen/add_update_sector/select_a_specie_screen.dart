@@ -12,7 +12,7 @@ class SelectASpecieScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final species = ref.watch(specieFutureProvider);
+    final species = ref.watch(speciesFutureProvider);
     return Scaffold(
       body: PaddedSafeArea(
         child: CustomScrollView(

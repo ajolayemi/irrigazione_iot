@@ -21,19 +21,20 @@ final specieRepositoryProvider = Provider<SpecieRepository>.internal(
 );
 
 typedef SpecieRepositoryRef = ProviderRef<SpecieRepository>;
-String _$specieFutureHash() => r'a7f0f0a755c6ecd864899fabdfd38aefaaff8722';
+String _$speciesFutureHash() => r'0df312bdef24436f7eef4264063e98dcb4fb9e39';
 
-/// See also [specieFuture].
-@ProviderFor(specieFuture)
-final specieFutureProvider = AutoDisposeFutureProvider<List<Specie>?>.internal(
-  specieFuture,
-  name: r'specieFutureProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$specieFutureHash,
+/// See also [speciesFuture].
+@ProviderFor(speciesFuture)
+final speciesFutureProvider = AutoDisposeFutureProvider<List<Specie>?>.internal(
+  speciesFuture,
+  name: r'speciesFutureProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$speciesFutureHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef SpecieFutureRef = AutoDisposeFutureProviderRef<List<Specie>?>;
+typedef SpeciesFutureRef = AutoDisposeFutureProviderRef<List<Specie>?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
