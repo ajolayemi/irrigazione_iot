@@ -7,10 +7,8 @@ import 'package:irrigazione_iot/src/settings/settings_controller.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 /// The Widget that configures your application.
-class MyApp extends ConsumerWidget {
-  const MyApp({
-    super.key,
-  });
+class IotIrrigationApp extends ConsumerWidget {
+  const IotIrrigationApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
