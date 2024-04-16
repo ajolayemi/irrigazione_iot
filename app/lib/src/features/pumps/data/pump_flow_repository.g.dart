@@ -7,11 +7,11 @@ part of 'pump_flow_repository.dart';
 // **************************************************************************
 
 String _$pumpDetailsRepositoryHash() =>
-    r'eea008c190f73783cae10ee2379676a68d9c3492';
+    r'c3e9605cad5172f41319c2c442159dc9c0515dc6';
 
 /// See also [pumpDetailsRepository].
 @ProviderFor(pumpDetailsRepository)
-final pumpDetailsRepositoryProvider = Provider<PumpDetailsRepository>.internal(
+final pumpDetailsRepositoryProvider = Provider<PumpFlowRepository>.internal(
   pumpDetailsRepository,
   name: r'pumpDetailsRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,7 +21,7 @@ final pumpDetailsRepositoryProvider = Provider<PumpDetailsRepository>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef PumpDetailsRepositoryRef = ProviderRef<PumpDetailsRepository>;
+typedef PumpDetailsRepositoryRef = ProviderRef<PumpFlowRepository>;
 String _$pumpTotalDispensedLitresHash() =>
     r'8468f8749064bc330e192da605b97360ae008294';
 

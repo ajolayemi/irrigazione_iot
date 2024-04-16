@@ -7,12 +7,12 @@ part 'pump_flow_repository.g.dart';
 
 // TODO do a complete refactor of this file
 
-abstract class PumpDetailsRepository {
+abstract class PumpFlowRepository {
   Stream<int> watchTotalLitresDispensed(Pump pump);
 }
 
 @Riverpod(keepAlive: true)
-PumpDetailsRepository pumpDetailsRepository(PumpDetailsRepositoryRef ref) {
+PumpFlowRepository pumpDetailsRepository(PumpDetailsRepositoryRef ref) {
   return FakePumpDetailsRepository(); // todo replace with real implementation
 }
 
