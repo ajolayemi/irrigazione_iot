@@ -1,11 +1,13 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
-import 'package:irrigazione_iot/src/features/company_users/data/fake_company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/supabase_company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'company_users_repository.g.dart';
 
@@ -63,10 +65,10 @@ abstract class CompanyUsersRepository {
   Future<bool> deleteCompanyUser({required String companyUserId});
 }
 
-// TODO replace this with a real implementation of either Firebase or Supabase
 @Riverpod(keepAlive: true)
 CompanyUsersRepository companyUsersRepository(CompanyUsersRepositoryRef ref) {
-  return FakeUserCompaniesRepository();
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  return SupabaseCompanyUsersRepository(supabaseClient);
 }
 
 @riverpod
