@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sector_repository.g.dart';
 
-abstract class SectorsRepository {
+abstract class SectorRepository {
   // returns a list of sectors pertaining to a company
   Future<List<Sector?>> getSectors(String companyId);
   // emits a list of sectors pertaining to a company
@@ -33,7 +33,7 @@ abstract class SectorsRepository {
 }
 
 @Riverpod(keepAlive: true)
-SectorsRepository sectorsRepository(SectorsRepositoryRef ref) {
+SectorRepository sectorsRepository(SectorsRepositoryRef ref) {
   // todo return remote repository as default
   return FakeSectorsRepository();
 }

@@ -6,11 +6,11 @@ part of 'sector_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sectorsRepositoryHash() => r'bd90b585bac3b557dd60f33e115efd7357069770';
+String _$sectorsRepositoryHash() => r'095c64cad07aa64e415f2d88fe5e37061116f731';
 
 /// See also [sectorsRepository].
 @ProviderFor(sectorsRepository)
-final sectorsRepositoryProvider = Provider<SectorsRepository>.internal(
+final sectorsRepositoryProvider = Provider<SectorRepository>.internal(
   sectorsRepository,
   name: r'sectorsRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -20,7 +20,7 @@ final sectorsRepositoryProvider = Provider<SectorsRepository>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef SectorsRepositoryRef = ProviderRef<SectorsRepository>;
+typedef SectorsRepositoryRef = ProviderRef<SectorRepository>;
 String _$sectorListStreamHash() => r'17c9ef2867e2f16e52c1f07779ee28c157d8d02a';
 
 /// See also [sectorListStream].
