@@ -7,6 +7,8 @@ import 'package:irrigazione_iot/src/features/board-centraline/data/board_reposit
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_status_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/fake_board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/fake_board_status_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_pressure_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/fake_collector_pressure_repository.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
 
 /// Extension methods specific for "fakes" project configuration
@@ -35,12 +37,16 @@ extension AppBootstrapFakes on AppBootstrap {
     final authRepository = FakeAuthRepository(addDelay: addDelay);
     final boardRepository = FakeBoardRepository(addDelay: addDelay);
     final boardStatusRepository = FakeBoardStatusRepository(addDelay: addDelay);
+    final collectorPressureRepository =
+        FakeCollectorPressureRepository(addDelay: addDelay);
     return ProviderContainer(
       overrides: [
         // repositories
         authRepositoryProvider.overrideWithValue(authRepository),
         boardRepositoryProvider.overrideWithValue(boardRepository),
         boardStatusRepositoryProvider.overrideWithValue(boardStatusRepository),
+        collectorPressureRepositoryProvider
+            .overrideWithValue(collectorPressureRepository),
         // services
         settingsControllerProvider.overrideWithValue(settingsController),
       ],
