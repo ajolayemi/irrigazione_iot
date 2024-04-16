@@ -3,6 +3,8 @@ import 'package:irrigazione_iot/src/app_bootstrap.dart';
 import 'package:irrigazione_iot/src/exceptions/async_error_logger.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/fake_auth_repository.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/data/fake_board_repository.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
 
 /// Extension methods specific for "fakes" project configuration
@@ -29,10 +31,12 @@ extension AppBootstrapFakes on AppBootstrap {
       {bool addDelay = true}) async {
     final settingsController = await bootSettingsController();
     final authRepository = FakeAuthRepository(addDelay: addDelay);
+    final boardRepository = FakeBoardRepository(addDelay: addDelay);
     return ProviderContainer(
       overrides: [
         // repositories
         authRepositoryProvider.overrideWithValue(authRepository),
+        boardRepositoryProvider.overrideWithValue(boardRepository),
         // services
         settingsControllerProvider.overrideWithValue(settingsController),
       ],
