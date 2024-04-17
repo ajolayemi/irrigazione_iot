@@ -18,6 +18,9 @@ final class Env {
   @EnviedField(varName: 'SUPABASE_PROD_URL', obfuscate: true)
   static final String supabaseProdUrl = _Env.supabaseProdUrl;
 
-  @EnviedField(varName: 'SUPABASE_ANON_KEY', obfuscate: true)
-  static final String supabaseAnonKey = _Env.supabaseAnonKey;
+  @EnviedField(varName: 'SUPABASE_PROD_ANON_KEY', obfuscate: true)
+  static final String supabaseProdAnonKey = _Env.supabaseProdAnonKey;
+
+  @EnviedField(varName: 'SUPABASE_LOCAL_ANON_KEY', obfuscate: true)
+  static final String supabaseLocalAnonKey = _Env.supabaseLocalAnonKey;
 }
