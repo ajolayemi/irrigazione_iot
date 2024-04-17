@@ -23,10 +23,11 @@ class SupabaseAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> signInWithEmailAndPassword(String email, String password) {
-    // TODO: implement signInWithEmailAndPassword
-    throw UnimplementedError();
-  }
+  Future<void> signInWithEmailAndPassword(String email, String password) =>
+      _authClient.signInWithPassword(
+        password: password,
+        email: email,
+      );
 
   @override
   Future<void> signInWithGoogle() {
@@ -35,10 +36,7 @@ class SupabaseAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
-  }
+  Future<void> signOut() => _authClient.signOut();
 
   @override
   Future<AppUser?> signUp(
