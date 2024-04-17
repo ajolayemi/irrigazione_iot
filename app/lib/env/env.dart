@@ -23,4 +23,13 @@ final class Env {
 
   @EnviedField(varName: 'SUPABASE_LOCAL_ANON_KEY', obfuscate: true)
   static final String supabaseLocalAnonKey = _Env.supabaseLocalAnonKey;
+
+  @EnviedField(varName: 'IOS_CLIENT_ID', obfuscate: true)
+  static final String iosClientId = _Env.iosClientId;
+
+  @EnviedField(varName: 'WEB_CLIENT_ID', obfuscate: true)
+  static final String webClientId = _Env.webClientId;
+
+  @EnviedField(varName: 'ANDROID_CLIENT_ID', obfuscate: true)
+  static final String androidClientId = _Env.androidClientId;
 }
