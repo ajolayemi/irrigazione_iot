@@ -1,4 +1,5 @@
-import 'package:gotrue/src/types/auth_state.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:irrigazione_iot/env/env.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/supabase_app_user.dart';
 import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
@@ -30,9 +31,35 @@ class SupabaseAuthRepository implements AuthRepository {
       );
 
   @override
-  Future<void> signInWithGoogle() {
-    // TODO: implement signInWithGoogle
-    throw UnimplementedError();
+  Future<void> signInWithGoogle() async {
+    /// TODO: update the Web client ID with your own.
+    ///
+    /// Web Client ID that you registered with Google Cloud.
+    final webClientId = Env.webClientId;
+
+    /// iOS Client ID that you registered with Google Cloud.
+    final iosClientId = Env.iosClientId;
+
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+      clientId: iosClientId,
+      serverClientId: webClientId,
+    );
+    final googleUser = await googleSignIn.signIn();
+    final googleAuth = await googleUser!.authentication;
+    final accessToken = googleAuth.accessToken;
+    final idToken = googleAuth.idToken;
+    if (accessToken == null) {
+      throw 'No Access Token found.';
+    }
+    if (idToken == null) {
+      throw 'No ID Token found.';
+    }
+
+    await _authClient.signInWithIdToken(
+      provider: OAuthProvider.google,
+      idToken: idToken,
+      accessToken: accessToken,
+    );
   }
 
   @override
