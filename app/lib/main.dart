@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/env/env.dart';
+import 'package:irrigazione_iot/firebase_options.dart';
 import 'package:irrigazione_iot/src/app_bootstrap.dart';
 import 'package:irrigazione_iot/src/app_bootstrap_supabase.dart';
 
@@ -10,12 +12,17 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // initialize firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   // initialize Supabase with the production environment variables
   await Supabase.initialize(
     anonKey: Env.supabaseProdAnonKey,
     url: Env.supabaseProdUrl,
   );
-  
+
   // turn off the # in the URLs on the web
   usePathUrlStrategy();
 
