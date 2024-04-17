@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:irrigazione_iot/env/env.dart';
 import 'package:irrigazione_iot/src/app_bootstrap.dart';
 import 'package:irrigazione_iot/src/app_bootstrap_supabase.dart';
 
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // TODO: initialize supabase here
-
+  // initialize Supabase with the production environment variables
+  await Supabase.initialize(
+    anonKey: Env.supabaseProdAnonKey,
+    url: Env.supabaseProdUrl,
+  );
+  
   // turn off the # in the URLs on the web
   usePathUrlStrategy();
 
