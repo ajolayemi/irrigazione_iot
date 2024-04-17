@@ -1,5 +1,6 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:irrigazione_iot/env/env.dart';
+import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/supabase_app_user.dart';
 import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
@@ -24,16 +25,27 @@ class SupabaseAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> signInWithEmailAndPassword(String email, String password) =>
-      _authClient.signInWithPassword(
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
+    try {
+      await _authClient.signInWithPassword(
         password: password,
         email: email,
       );
+      return;
+    } catch (error) {
+      if (error is AuthException) {
+        final errorMessage = error.message.toLowerCase();
+        if (errorMessage.contains('invalid login credentials')) {
+          throw UserNotFoundException();
+        }
+        rethrow;
+      }
+      rethrow;
+    }
+  }
 
   @override
   Future<void> signInWithGoogle() async {
-    /// TODO: update the Web client ID with your own.
-    ///
     /// Web Client ID that you registered with Google Cloud.
     final webClientId = Env.webClientId;
 
