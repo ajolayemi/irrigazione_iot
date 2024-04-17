@@ -15,8 +15,8 @@ part 'company_users_repository.g.dart';
 // When either Supabase or Firebase is implemented, the repository that will be connected
 // to this class will access the table where the users associated with the companies are stored
 abstract class CompanyUsersRepository {
-  /// Emits a list of [CompanyUser] linked with the provided user email
-  Stream<List<CompanyUser>> watchCompaniesAssociatedWithUser(
+  /// Emits a list of [Company] linked with the provided user email
+  Stream<List<Company>> watchCompaniesAssociatedWithUser(
       {required String email});
 
   /// Fetches a list of [CompanyUser] linked with the provided user email
@@ -100,20 +100,9 @@ Stream<List<Company>> userCompaniesStream(UserCompaniesStreamRef ref) {
     return Stream.value([]);
   }
   final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
-  final companyRepository = ref.watch(companyRepositoryProvider);
-  return userCompaniesRepository
-      .watchCompaniesAssociatedWithUser(email: user.email)
-      .asyncMap((userCompanies) async {
-    final companies = <Company>[];
-    for (final userCompany in userCompanies) {
-      final company =
-          await companyRepository.fetchCompany(userCompany.companyId);
-      if (company != null) {
-        companies.add(company);
-      }
-    }
-    return companies;
-  });
+  return userCompaniesRepository.watchCompaniesAssociatedWithUser(
+    email: user.email,
+  );
 }
 
 @Riverpod(keepAlive: true)
