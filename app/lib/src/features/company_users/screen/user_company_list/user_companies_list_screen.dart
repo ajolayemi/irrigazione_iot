@@ -44,6 +44,14 @@ class _UserCompaniesListScreenState
         slivers: [
           AppSliverBar(
             title: context.loc.chooseCompany,
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.logout),
+                onPressed: () {
+                  ref.read(authRepositoryProvider).signOut();
+                },
+              ),
+            ],
           ),
           AsyncValueSliverWidget<List<Company>>(
             value: userCompanies,
