@@ -39,10 +39,20 @@ class SupabaseAuthRepository implements AuthRepository {
   Future<void> signOut() => _authClient.signOut();
 
   @override
-  Future<AppUser?> signUp(
-      {required AppUser appUser, required String password}) {
-    // TODO: implement signUp
-    throw UnimplementedError();
+  Future<AppUser?> signUp({
+    required AppUser appUser,
+    required String password,
+  }) async {
+    // TODO enable email redirection here
+    final signUpResponse = await _authClient.signUp(
+      email: appUser.email,
+      password: password,
+      data: {
+        'name': appUser.name,
+        'surname': appUser.surname,
+      },
+    );
+    return _convertUser(signUpResponse.session?.user);
   }
 
   /// Helper method to convert a [User] to an [AppUser]
