@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_companies_list.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_company_users.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
@@ -16,6 +18,8 @@ class FakeCompanyUsersRepository implements CompanyUsersRepository {
   final _userCompanies =
       InMemoryStore<List<CompanyUser>>(List.from(kFakeCompanyUsers));
 
+  final _companies = InMemoryStore<List<Company>>(List.from(kFakeCompanies));
+
   List<CompanyUser> get _companyUsersValue => _userCompanies.value;
 
   Stream<List<CompanyUser>> get _companyUsersStream => _userCompanies.stream;
@@ -25,6 +29,10 @@ class FakeCompanyUsersRepository implements CompanyUsersRepository {
     return userCompanies.where((data) => data.email == email).toList();
   }
 
+  static Company _getCompany(List<Company> companies, String companyId) {
+    return companies.firstWhere((data) => data.id == companyId);
+  }
+
   static List<CompanyUser?> _getUsersMailAssociatedWithCompany(
       List<CompanyUser> userCompanies, String companyId) {
     return userCompanies.where((data) => data.companyId == companyId).toList();
@@ -32,11 +40,15 @@ class FakeCompanyUsersRepository implements CompanyUsersRepository {
 
   // A stream to watch the list of userCompanies connected to a user
   @override
-  Stream<List<CompanyUser>> watchCompaniesAssociatedWithUser(
+  Stream<List<Company>> watchCompaniesAssociatedWithUser(
       {required String email}) {
-    return _userCompanies.stream.map(
+    final userCompanies = _userCompanies.stream.map(
       (userCompanies) => _getUserCompanies(userCompanies, email),
     );
+    return userCompanies.map((userCs) => userCs
+        .map((userCompany) =>
+            _getCompany(_companies.value, userCompany.companyId))
+        .toList());
   }
 
   @override
@@ -50,7 +62,7 @@ class FakeCompanyUsersRepository implements CompanyUsersRepository {
   Future<CompanyUserRoles?> fetchCompanyUserRole(
       {required String email, required String companyId}) async {
     await delay(addDelay);
-    final userCompanies = await fetchCompaniesAssociatedWithUser(email: email);
+    final userCompanies = _getUserCompanies(_userCompanies.value, email);
     try {
       return userCompanies.firstWhere((val) => val.companyId == companyId).role;
     } catch (e) {
@@ -61,7 +73,10 @@ class FakeCompanyUsersRepository implements CompanyUsersRepository {
   @override
   Stream<CompanyUserRoles?> watchCompanyUserRole(
       {required String email, required String companyId}) {
-    return watchCompaniesAssociatedWithUser(email: email).map((userCompanies) {
+    final userCompaniesStream = _userCompanies.stream.map(
+      (userCompanies) => _getUserCompanies(userCompanies, email),
+    );
+    return userCompaniesStream.map((userCompanies) {
       try {
         return userCompanies
             .firstWhere((val) => val.companyId == companyId)
