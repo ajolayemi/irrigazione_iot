@@ -15,6 +15,12 @@
       "request": "launch",
       "type": "dart",
       "program": "app/lib/main.dart"
+    },
+    {
+      "name": "irrigazione_iot (Supabase Local)",
+      "request": "launch",
+      "type": "dart",
+      "program": "app/lib/main_supabase_local.dart"
     }
   ]
 }
