@@ -114,7 +114,8 @@ app.*.map.json
 firebase-exports
 
 # Environment variables
-.env.**
+.env**
+env.g.dart
 
 # Ignore test coverage data
 coverage/
