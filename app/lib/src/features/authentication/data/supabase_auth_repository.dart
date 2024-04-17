@@ -82,16 +82,28 @@ class SupabaseAuthRepository implements AuthRepository {
     required AppUser appUser,
     required String password,
   }) async {
-    // TODO enable email redirection here
-    final signUpResponse = await _authClient.signUp(
-      email: appUser.email,
-      password: password,
-      data: {
-        'name': appUser.name,
-        'surname': appUser.surname,
-      },
-    );
-    return _convertUser(signUpResponse.session?.user);
+    try {
+      final signUpResponse = await _authClient.signUp(
+        email: appUser.email,
+        password: password,
+        data: {
+          'name': appUser.name,
+          'surname': appUser.surname,
+        },
+      );
+      return _convertUser(signUpResponse.session?.user);
+    } catch (error) {
+      
+      if (error is AuthException) {
+        final errorMessage = error.message.toLowerCase();
+        if (errorMessage.contains('user already registered')) {
+          throw EmailAlreadyInUseException();
+        }
+        rethrow;
+      }
+      rethrow;
+    }
+
   }
 
   /// Helper method to convert a [User] to an [AppUser]
