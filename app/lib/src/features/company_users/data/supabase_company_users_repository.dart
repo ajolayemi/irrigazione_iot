@@ -9,16 +9,6 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   SupabaseCompanyUsersRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
-  PostgrestFilterBuilder<List<Map<String, dynamic>>>
-      _staticRelationSelectQuery() => _supabaseClient
-          .from('company_users')
-          .select(''' company: company_id(*) ''');
-
-  List<Company> _convertCompanies(List<Map<String, dynamic>> data) {
-    return data
-        .map((e) => Company.fromJson(e['company'] as Map<String, dynamic>))
-        .toList();
-  }
 
   @override
   Future<CompanyUser?> addCompanyUser({required CompanyUser companyUser}) {
@@ -68,10 +58,11 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   @override
   Stream<List<Company>> watchCompaniesAssociatedWithUser(
       {required String email}) {
-    return _staticRelationSelectQuery()
-        .eq('email', email)
-        .withConverter((data) => _convertCompanies(data))
-        .asStream();
+    // The email parameter is not used in the query because the companies table
+    // has a RLS policy that filters the rows based on the user's email already in the backendZ
+    final stc = _supabaseClient.from('companies').stream(primaryKey: ['id']);
+    return stc.map((companies) =>
+        companies.map((company) => Company.fromJson(company)).toList());
   }
 
   @override
