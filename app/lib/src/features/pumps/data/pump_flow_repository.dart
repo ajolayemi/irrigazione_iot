@@ -8,6 +8,9 @@ part 'pump_flow_repository.g.dart';
 abstract class PumpFlowRepository {
   /// Emits the total litres dispensed by the pump with the provided [pumpId]
   Stream<int> watchTotalLitresDispensed(String pumpId);
+
+  /// Emits the last time the pump with the provided [pumpId] dispensed water
+  Stream<DateTime?> watchLastDispensation(String pumpId);
 }
 
 @Riverpod(keepAlive: true)
@@ -21,4 +24,11 @@ Stream<int> pumpTotalDispensedLitres(
     PumpTotalDispensedLitresRef ref, String pumpId) {
   final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
   return pumpDetailsRepository.watchTotalLitresDispensed(pumpId);
+}
+
+@riverpod
+Stream<DateTime?> lastDispensationStream(
+    LastDispensationStreamRef ref, String pumpId) {
+  final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
+  return pumpDetailsRepository.watchLastDispensation(pumpId);
 }

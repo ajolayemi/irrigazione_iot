@@ -172,5 +172,136 @@ class _PumpTotalDispensedLitresProviderElement
   @override
   String get pumpId => (origin as PumpTotalDispensedLitresProvider).pumpId;
 }
+
+String _$lastDispensationStreamHash() =>
+    r'c0f3e98ccf0dafb6d4683986b0d4e9281f5e71af';
+
+/// See also [lastDispensationStream].
+@ProviderFor(lastDispensationStream)
+const lastDispensationStreamProvider = LastDispensationStreamFamily();
+
+/// See also [lastDispensationStream].
+class LastDispensationStreamFamily extends Family<AsyncValue<DateTime?>> {
+  /// See also [lastDispensationStream].
+  const LastDispensationStreamFamily();
+
+  /// See also [lastDispensationStream].
+  LastDispensationStreamProvider call(
+    String pumpId,
+  ) {
+    return LastDispensationStreamProvider(
+      pumpId,
+    );
+  }
+
+  @override
+  LastDispensationStreamProvider getProviderOverride(
+    covariant LastDispensationStreamProvider provider,
+  ) {
+    return call(
+      provider.pumpId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'lastDispensationStreamProvider';
+}
+
+/// See also [lastDispensationStream].
+class LastDispensationStreamProvider
+    extends AutoDisposeStreamProvider<DateTime?> {
+  /// See also [lastDispensationStream].
+  LastDispensationStreamProvider(
+    String pumpId,
+  ) : this._internal(
+          (ref) => lastDispensationStream(
+            ref as LastDispensationStreamRef,
+            pumpId,
+          ),
+          from: lastDispensationStreamProvider,
+          name: r'lastDispensationStreamProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$lastDispensationStreamHash,
+          dependencies: LastDispensationStreamFamily._dependencies,
+          allTransitiveDependencies:
+              LastDispensationStreamFamily._allTransitiveDependencies,
+          pumpId: pumpId,
+        );
+
+  LastDispensationStreamProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.pumpId,
+  }) : super.internal();
+
+  final String pumpId;
+
+  @override
+  Override overrideWith(
+    Stream<DateTime?> Function(LastDispensationStreamRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: LastDispensationStreamProvider._internal(
+        (ref) => create(ref as LastDispensationStreamRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        pumpId: pumpId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<DateTime?> createElement() {
+    return _LastDispensationStreamProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LastDispensationStreamProvider && other.pumpId == pumpId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, pumpId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin LastDispensationStreamRef on AutoDisposeStreamProviderRef<DateTime?> {
+  /// The parameter `pumpId` of this provider.
+  String get pumpId;
+}
+
+class _LastDispensationStreamProviderElement
+    extends AutoDisposeStreamProviderElement<DateTime?>
+    with LastDispensationStreamRef {
+  _LastDispensationStreamProviderElement(super.provider);
+
+  @override
+  String get pumpId => (origin as LastDispensationStreamProvider).pumpId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
