@@ -1,4 +1,5 @@
 import 'package:irrigazione_iot/src/features/pumps/model/pump_flow_database_keys.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump_status_database_keys.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/company_users/model/company_database_keys.dart';
@@ -12,6 +13,8 @@ extension SupabaseClientExtensions on SupabaseClient {
   SupabaseQueryBuilder get companyUsers => from(CompanyUserDatabaseKeys.table);
 
   SupabaseQueryBuilder get pumpFlow => from(PumpFlowDatabaseKeys.table);
+
+  SupabaseQueryBuilder get pumpStatus => from(PumpStatusDatabaseKeys.table);
 
   /// Getter for the current access token
   String? get accessToken => auth.currentSession?.accessToken;
