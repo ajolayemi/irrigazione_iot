@@ -54,6 +54,24 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   }
 
   @override
+  Future<CompanyUser?> updateCompanyUser(
+      {required CompanyUser companyUser}) async {
+    final res = await _supabaseClient
+        .invokeFunction(functionName: 'update-company-user', body: {
+      'id': companyUser.id,
+      'data': companyUser.copyWith(updatedAt: DateTime.now()).toJson(),
+    });
+
+    final returnedData = res.data;
+
+    if (returnedData == null) {
+      return null;
+    }
+
+    return CompanyUser.fromJson(returnedData[0]);
+  }
+
+  @override
   Future<CompanyUser?> fetchCompanyUser({required String companyUserId}) {
     // TODO: implement fetchCompanyUser
     throw UnimplementedError();
@@ -70,12 +88,6 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   Future<List<CompanyUser?>> fetchUsersAssociatedWithCompany(
       {required String companyId}) {
     // TODO: implement fetchUsersAssociatedWithCompany
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<CompanyUser?> updateCompanyUser({required CompanyUser companyUser}) {
-    // TODO: implement updateCompanyUser
     throw UnimplementedError();
   }
 
