@@ -10,7 +10,7 @@ part 'env.g.dart';
 // * SUPABASE_ANON_KEY=your_anon_key
 // * 3 run the generator: dart run build_runner build -d
 
-@Envied()
+@Envied( path: '../.env')
 final class Env {
   @EnviedField(varName: 'SUPABASE_LOCAL_URL', obfuscate: true)
   static final String supabaseLocalUrl = _Env.supabaseLocalUrl;
