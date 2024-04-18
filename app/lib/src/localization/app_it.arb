@@ -222,5 +222,7 @@
   "signInPageIntroductoryTitleText": "Benvenuto!",
   "signUpPageIntroductoryTitleText": "Inizia con noi!",
   "signUpPageIntroductorySubtitleText": "Crea il tuo account",
-  "signInPageIntroductorySubtitleText": "Accedi al tuo account per continuare"
+  "signInPageIntroductorySubtitleText": "Accedi al tuo account per continuare",
+  "mqttMessageNameFormFieldTitle": "Nome nei messaggi MQTT",
+  "mqttMessageNameFormHint": "eg: p1"
 }
