@@ -2,8 +2,11 @@ import 'package:irrigazione_iot/src/features/company_users/model/company_databas
 import 'package:irrigazione_iot/src/features/company_users/model/company_user_database_keys.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+// TODO rename module to supabase extensions
 extension SupabaseClientExtensions on SupabaseClient {
   SupabaseQueryBuilder get companies => from(CompanyDatabaseKeys.table);
+
+  PostgrestFilterBuilder get selectedCompanies => companies.select();
 
   SupabaseQueryBuilder get companyUsers => from(CompanyUserDatabaseKeys.table);
 
@@ -20,4 +23,18 @@ extension SupabaseClientExtensions on SupabaseClient {
         body: body,
         headers: {'Authorization': 'Bearer $accessToken'},
       );
+}
+
+extension FunctionResponseExtensions on FunctionResponse {
+  T? toObject<T>(T Function(Map<String, dynamic>) fromJson) {
+    final data = this.data as Map<String, dynamic>?;
+
+    if (data != null) {
+      return fromJson(data);
+    }
+
+    return null;
+  }
+
+  bool get onDelete => status == 200 || status == 204;
 }
