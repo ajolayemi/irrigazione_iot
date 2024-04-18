@@ -8,24 +8,31 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'pump_repository.g.dart';
 
 abstract class PumpRepository {
-  // watch the pumps pertaining to a company
+  /// watch the pumps pertaining to a company
   Stream<List<Pump?>> watchCompanyPumps(String companyId);
-  // watches a specified pump with the given pumpId
+
+  /// watches a specified pump with the given pumpId
   Stream<Pump?> watchPump(String pumpId);
-  // creates a pump
-  Future<Pump?> createPump(Pump pump, String companyId);
-  // updates a pump
-  Future<Pump?> updatePump(Pump pump, String companyId);
-  // deletes a pump
+
+  /// creates a pump
+  Future<Pump?> createPump(Pump pump);
+
+  /// updates a pump
+  Future<Pump?> updatePump(Pump pump);
+
+  /// deletes a pump
   Future<bool> deletePump(String pumpId);
-  // watches a list of already used pump names for a specified company
-  // this is used in form validation to prevent duplicate pump names for a company
+
+  /// watches a list of already used pump names for a specified company
+  /// this is used in form validation to prevent duplicate pump names for a company
   Stream<List<String?>> watchCompanyUsedPumpNames(String companyId);
-  // watches a list of already used pump on commands for a specified company
-  // this is used in form validation to prevent duplicate pump on commands for a company
+
+  /// watches a list of already used pump on commands for a specified company
+  /// this is used in form validation to prevent duplicate pump on commands for a company
   Stream<List<String?>> watchCompanyUsedPumpOnCommands(String companyId);
-  // watches a list of already used pump off commands for a specified company
-  // this is used in form validation to prevent duplicate pump off commands for a company
+
+  /// watches a list of already used pump off commands for a specified company
+  /// this is used in form validation to prevent duplicate pump off commands for a company
   Stream<List<String?>> watchCompanyUsedPumpOffCommands(String companyId);
 }
 
@@ -46,7 +53,6 @@ Stream<List<Pump?>> companyPumpsStream(
   return pumpRepository.watchCompanyPumps(currentSelectedCompanyByUser.id);
 }
 
-
 @riverpod
 Stream<Pump?> pumpStream(
   PumpStreamRef ref,
@@ -55,7 +61,6 @@ Stream<Pump?> pumpStream(
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   return pumpRepository.watchPump(pumpId);
 }
-
 
 @riverpod
 Stream<List<String?>> companyUsedPumpNamesStream(
