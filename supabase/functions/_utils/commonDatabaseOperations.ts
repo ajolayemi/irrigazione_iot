@@ -105,15 +105,19 @@ export const commonDelete = async (
     const {ids} = await req.json();
 
     // Delete the record
-    const {error} = await supabaseClient.from(tableName).delete().in("id", ids);
+    const {
+      status: stat,
+      statusText,
+      error,
+    } = await supabaseClient.from(tableName).delete().in("id", ids);
     if (error) throw error;
     return new Response(
       JSON.stringify({
-        message: `Records deleted from ${tableName} successfully!`,
+        status: stat,
+        statusText,
       }),
       {
         headers: {"Content-Type": "application/json"},
-        status: 200,
       }
     );
   } catch (error) {
