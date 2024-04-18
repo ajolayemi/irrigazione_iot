@@ -2,11 +2,23 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 
 class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
-  const SupabaseCompanyUsersRepository(this._supabaseClient);
+  SupabaseCompanyUsersRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
+
+  PostgrestFilterBuilder<List<Map<String, dynamic>>>
+      _staticRelationSelectQuery() => _supabaseClient
+          .from('company_users')
+          .select(''' company: company_id(*) ''');
+
+  List<Company> _convertCompanies(List<Map<String, dynamic>> data) {
+    return data
+        .map((e) => Company.fromJson(e['company'] as Map<String, dynamic>))
+        .toList();
+  }
 
   @override
   Future<CompanyUser?> addCompanyUser({required CompanyUser companyUser}) {
@@ -21,7 +33,8 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   }
 
   @override
-  Future<List<CompanyUser>> fetchCompaniesAssociatedWithUser({required String email}) {
+  Future<List<CompanyUser>> fetchCompaniesAssociatedWithUser(
+      {required String email}) {
     // TODO: implement fetchCompaniesAssociatedWithUser
     throw UnimplementedError();
   }
@@ -33,13 +46,15 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   }
 
   @override
-  Future<CompanyUserRoles?> fetchCompanyUserRole({required String email, required String companyId}) {
+  Future<CompanyUserRoles?> fetchCompanyUserRole(
+      {required String email, required String companyId}) {
     // TODO: implement fetchCompanyUserRole
     throw UnimplementedError();
   }
 
   @override
-  Future<List<CompanyUser?>> fetchUsersAssociatedWithCompany({required String companyId}) {
+  Future<List<CompanyUser?>> fetchUsersAssociatedWithCompany(
+      {required String companyId}) {
     // TODO: implement fetchUsersAssociatedWithCompany
     throw UnimplementedError();
   }
@@ -51,9 +66,12 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   }
 
   @override
-  Stream<List<CompanyUser>> watchCompaniesAssociatedWithUser({required String email}) {
-    // TODO: implement watchCompaniesAssociatedWithUser
-    throw UnimplementedError();
+  Stream<List<Company>> watchCompaniesAssociatedWithUser(
+      {required String email}) {
+    return _staticRelationSelectQuery()
+        .eq('email', email)
+        .withConverter((data) => _convertCompanies(data))
+        .asStream();
   }
 
   @override
@@ -63,19 +81,22 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   }
 
   @override
-  Stream<CompanyUserRoles?> watchCompanyUserRole({required String email, required String companyId}) {
+  Stream<CompanyUserRoles?> watchCompanyUserRole(
+      {required String email, required String companyId}) {
     // TODO: implement watchCompanyUserRole
     throw UnimplementedError();
   }
 
   @override
-  Stream<List<String>> watchEmailsAssociatedWithCompany({required String companyId}) {
+  Stream<List<String>> watchEmailsAssociatedWithCompany(
+      {required String companyId}) {
     // TODO: implement watchEmailsAssociatedWithCompany
     throw UnimplementedError();
   }
 
   @override
-  Stream<List<CompanyUser?>> watchUsersAssociatedWithCompany({required String companyId}) {
+  Stream<List<CompanyUser?>> watchUsersAssociatedWithCompany(
+      {required String companyId}) {
     // TODO: implement watchUsersAssociatedWithCompany
     throw UnimplementedError();
   }
