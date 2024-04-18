@@ -27,6 +27,7 @@ class Company extends Equatable {
   // Unique identifier for the company from the database
   @JsonKey(
     name: CompanyDatabaseKeys.id,
+    includeToJson: false,
   )
   @IntConverter()
   final String id;
@@ -97,4 +98,3 @@ class Company extends Equatable {
 
   Map<String, dynamic> toJson() => _$CompanyToJson(this);
 }
-

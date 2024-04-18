@@ -24,7 +24,6 @@ Company _$CompanyFromJson(Map<String, dynamic> json) => Company(
     );
 
 Map<String, dynamic> _$CompanyToJson(Company instance) => <String, dynamic>{
-      'id': const IntConverter().toJson(instance.id),
       'name': instance.name,
       'registered_office_address': instance.registeredOfficeAddress,
       'phone_number': instance.phoneNumber,
