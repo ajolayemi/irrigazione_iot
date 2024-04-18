@@ -92,6 +92,7 @@ Future<List<Company>> userCompaniesFuture(UserCompaniesFutureRef ref) async {
   return companies;
 }
 
+/// A stream that emits a list of companies associated with the current user
 @riverpod
 Stream<List<Company>> userCompaniesStream(UserCompaniesStreamRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);

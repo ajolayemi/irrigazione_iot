@@ -43,7 +43,9 @@ typedef UserCompaniesFutureRef = AutoDisposeFutureProviderRef<List<Company>>;
 String _$userCompaniesStreamHash() =>
     r'6d6ec724d7afe51a216f2b470307a7adca678819';
 
-/// See also [userCompaniesStream].
+/// A stream that emits a list of companies associated with the current user
+///
+/// Copied from [userCompaniesStream].
 @ProviderFor(userCompaniesStream)
 final userCompaniesStreamProvider =
     AutoDisposeStreamProvider<List<Company>>.internal(
