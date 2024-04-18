@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/utils/supabase_client_extension.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
@@ -18,14 +19,6 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   SupabaseQueryBuilder get _baseCompanyQuery =>
       _supabaseClient.from(_companyTableName);
 
-  String? get _currentAccessToken =>
-      _supabaseClient.auth.currentSession?.accessToken;
-
-  Future<FunctionResponse> _invokeFunction(
-          String functionName, Map<String, dynamic> body) =>
-      _supabaseClient.functions.invoke(functionName,
-          body: body,
-          headers: {'Authorization': 'Bearer $_currentAccessToken'});
 
   @override
   Future<CompanyUser?> addCompanyUser(
@@ -34,7 +27,10 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
     final data = companyUser
         .copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now())
         .toJson();
-    final res = await _invokeFunction('insert-company-user', {'data': data});
+    final res = await _supabaseClient.invokeFunction(
+      functionName: 'insert-company-user',
+      body: {'data': data},
+    );
 
     final returnedData = res.data;
 
