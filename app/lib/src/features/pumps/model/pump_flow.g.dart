@@ -7,8 +7,8 @@ part of 'pump_flow.dart';
 // **************************************************************************
 
 PumpFlow _$PumpFlowFromJson(Map<String, dynamic> json) => PumpFlow(
-      id: json['id'] as String,
-      pumpId: json['pump_id'] as String,
+      id: const IntConverter().fromJson(json['id'] as int),
+      pumpId: const IntConverter().fromJson(json['pump_id'] as int),
       flow: (json['flow'] as num).toDouble(),
       createdAt: json['created_at'] == null
           ? null
@@ -16,8 +16,7 @@ PumpFlow _$PumpFlowFromJson(Map<String, dynamic> json) => PumpFlow(
     );
 
 Map<String, dynamic> _$PumpFlowToJson(PumpFlow instance) => <String, dynamic>{
-      'id': instance.id,
-      'pump_id': instance.pumpId,
+      'pump_id': const IntConverter().toJson(instance.pumpId),
       'flow': instance.flow,
       'created_at': instance.createdAt?.toIso8601String(),
     };
