@@ -10,12 +10,8 @@ part 'pump_repository.g.dart';
 abstract class PumpRepository {
   // watch the pumps pertaining to a company
   Stream<List<Pump?>> watchCompanyPumps(String companyId);
-  // get the pumps pertaining to a company
-  Future<List<Pump?>> getCompanyPumps(String companyId);
   // watches a specified pump with the given pumpId
   Stream<Pump?> watchPump(String pumpId);
-  // gets a specified pump with the given pumpId
-  Future<Pump?> getPump(String pumpId);
   // creates a pump
   Future<Pump?> createPump(Pump pump, String companyId);
   // updates a pump
@@ -50,14 +46,6 @@ Stream<List<Pump?>> companyPumpsStream(
   return pumpRepository.watchCompanyPumps(currentSelectedCompanyByUser.id);
 }
 
-@riverpod
-Future<List<Pump?>> companyPumpsFuture(CompanyPumpsFutureRef ref) {
-  final pumpRepository = ref.watch(pumpRepositoryProvider);
-  final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).value;
-  if (currentSelectedCompanyByUser == null) return Future.value([]);
-  return pumpRepository.getCompanyPumps(currentSelectedCompanyByUser.id);
-}
 
 @riverpod
 Stream<Pump?> pumpStream(
@@ -68,14 +56,6 @@ Stream<Pump?> pumpStream(
   return pumpRepository.watchPump(pumpId);
 }
 
-@riverpod
-Future<Pump?> pumpFuture(
-  PumpFutureRef ref,
-  String pumpId,
-) {
-  final pumpRepository = ref.watch(pumpRepositoryProvider);
-  return pumpRepository.getPump(pumpId);
-}
 
 @riverpod
 Stream<List<String?>> companyUsedPumpNamesStream(
