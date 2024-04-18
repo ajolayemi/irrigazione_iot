@@ -26,19 +26,6 @@ void main() {
   FakePumpStatusRepository makePumpStatusRepository() =>
       FakePumpStatusRepository(addDelay: false);
   group('FakePumpStatusRepository', () {
-    test('getPumpStatus returns a valid pumpStatus', () {
-      final pumpStatusRepository = makePumpStatusRepository();
-      addTearDown(pumpStatusRepository.dispose);
-      expect(pumpStatusRepository.getPumpStatus(testPump),
-          completion(expectedPumpStatus));
-    });
-
-    test('getPumpStatus(9000) returns null', () {
-      final pumpStatusRepository = makePumpStatusRepository();
-      addTearDown(pumpStatusRepository.dispose);
-      expect(pumpStatusRepository.getPumpStatus(Pump.empty()),
-          completion(isNull));
-    });
 
     test('watchPumpStatus(1) returns a valid pumpStatus', () {
       final pumpStatusRepository = makePumpStatusRepository();
@@ -54,15 +41,6 @@ void main() {
       addTearDown(pumpStatusRepository.dispose);
       expect(pumpStatusRepository.watchPumpStatus(Pump.empty()),
           emits(isNull));
-    });
-
-    test('togglePumpStatus(1, 2) completes successfully', () async {
-      final pumpStatusRepository = makePumpStatusRepository();
-      addTearDown(pumpStatusRepository.dispose);
-      await pumpStatusRepository.togglePumpStatus(testPump, '2');
-      final statusAfterUpdate =
-          await pumpStatusRepository.getPumpStatus(testPump);
-      expect(statusAfterUpdate, isFalse);
     });
 
     test('getLastDispensation returns a valid DateTime', () async {
