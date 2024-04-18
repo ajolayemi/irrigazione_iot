@@ -87,7 +87,7 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
 
   @override
   Stream<CompanyUser?> watchCompanyUser({required String companyUserId}) {
-    final stream =  _supabaseClient.from(_companyUserTable)
+    final stream =  _baseCompanyUserTableQuery
         .stream(primaryKey: [CompanyUserDatabaseKeys.id])
         .eq(CompanyUserDatabaseKeys.id, companyUserId)
         .limit(1);
