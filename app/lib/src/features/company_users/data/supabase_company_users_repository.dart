@@ -19,7 +19,6 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   SupabaseQueryBuilder get _baseCompanyQuery =>
       _supabaseClient.from(_companyTableName);
 
-
   @override
   Future<CompanyUser?> addCompanyUser(
       {required CompanyUser companyUser}) async {
@@ -42,16 +41,16 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   }
 
   @override
-  Future<bool> deleteCompanyUser({required String companyUserId}) {
-    // TODO: implement deleteCompanyUser
-    throw UnimplementedError();
-  }
+  Future<bool> deleteCompanyUser({required String companyUserId}) async {
+    final res = await _supabaseClient
+        .invokeFunction(functionName: 'delete-company-user', body: {
+      'ids': [
+        companyUserId,
+      ]
+    });
 
-  @override
-  Future<List<CompanyUser>> fetchCompaniesAssociatedWithUser(
-      {required String email}) {
-    // TODO: implement fetchCompaniesAssociatedWithUser
-    throw UnimplementedError();
+    final status = res.status;
+    return status == 200 || status == 204;
   }
 
   @override
