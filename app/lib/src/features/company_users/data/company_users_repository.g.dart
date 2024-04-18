@@ -41,7 +41,7 @@ final userCompaniesFutureProvider =
 
 typedef UserCompaniesFutureRef = AutoDisposeFutureProviderRef<List<Company>>;
 String _$userCompaniesStreamHash() =>
-    r'9795ccbcc6b98c8ba8b9321cb0dc751e262fca05';
+    r'6d6ec724d7afe51a216f2b470307a7adca678819';
 
 /// See also [userCompaniesStream].
 @ProviderFor(userCompaniesStream)
