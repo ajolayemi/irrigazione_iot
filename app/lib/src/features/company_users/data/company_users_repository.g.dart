@@ -23,23 +23,6 @@ final companyUsersRepositoryProvider =
 );
 
 typedef CompanyUsersRepositoryRef = ProviderRef<CompanyUsersRepository>;
-String _$userCompaniesFutureHash() =>
-    r'8f1767b8c67e2b951ce38a4d036ebd1f294fb025';
-
-/// See also [userCompaniesFuture].
-@ProviderFor(userCompaniesFuture)
-final userCompaniesFutureProvider =
-    AutoDisposeFutureProvider<List<Company>>.internal(
-  userCompaniesFuture,
-  name: r'userCompaniesFutureProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$userCompaniesFutureHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef UserCompaniesFutureRef = AutoDisposeFutureProviderRef<List<Company>>;
 String _$userCompaniesStreamHash() =>
     r'6d6ec724d7afe51a216f2b470307a7adca678819';
 

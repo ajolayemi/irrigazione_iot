@@ -2,7 +2,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
-import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/supabase_company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
@@ -18,11 +17,6 @@ abstract class CompanyUsersRepository {
   /// Emits a list of [Company] linked with the provided user email
   Stream<List<Company>> watchCompaniesAssociatedWithUser(
       {required String email});
-
-  /// Fetches a list of [CompanyUser] linked with the provided user email
-  Future<List<CompanyUser>> fetchCompaniesAssociatedWithUser({
-    required String email,
-  });
 
   /// Emits the [CompanyUserRoles] linked with the provided user email and company id
   Stream<CompanyUserRoles?> watchCompanyUserRole({
@@ -71,26 +65,7 @@ CompanyUsersRepository companyUsersRepository(CompanyUsersRepositoryRef ref) {
   return SupabaseCompanyUsersRepository(supabaseClient);
 }
 
-@riverpod
-Future<List<Company>> userCompaniesFuture(UserCompaniesFutureRef ref) async {
-  final authRepository = ref.watch(authRepositoryProvider);
-  final user = authRepository.currentUser;
-  if (user == null) {
-    return Future.value([]);
-  }
-  final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
-  final companyRepository = ref.watch(companyRepositoryProvider);
-  final userCompanies = await userCompaniesRepository
-      .fetchCompaniesAssociatedWithUser(email: user.email);
-  final companies = <Company>[];
-  for (final userCompany in userCompanies) {
-    final company = await companyRepository.fetchCompany(userCompany.companyId);
-    if (company != null) {
-      companies.add(company);
-    }
-  }
-  return companies;
-}
+
 
 /// A stream that emits a list of companies associated with the current user
 @riverpod
