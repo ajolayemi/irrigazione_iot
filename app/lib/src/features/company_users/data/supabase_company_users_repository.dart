@@ -19,6 +19,10 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   SupabaseQueryBuilder get _baseCompanyQuery =>
       _supabaseClient.from(_companyTableName);
 
+  /// Base query for the company user table
+  SupabaseQueryBuilder get _baseCompanyUserTableQuery =>
+      _supabaseClient.from(_companyUserTable);
+
   @override
   Future<CompanyUser?> addCompanyUser(
       {required CompanyUser companyUser}) async {
@@ -72,26 +76,6 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   }
 
   @override
-  Future<CompanyUser?> fetchCompanyUser({required String companyUserId}) {
-    // TODO: implement fetchCompanyUser
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<CompanyUserRoles?> fetchCompanyUserRole(
-      {required String email, required String companyId}) {
-    // TODO: implement fetchCompanyUserRole
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<CompanyUser?>> fetchUsersAssociatedWithCompany(
-      {required String companyId}) {
-    // TODO: implement fetchUsersAssociatedWithCompany
-    throw UnimplementedError();
-  }
-
-  @override
   Stream<List<Company>> watchCompaniesAssociatedWithUser(
       {required String email}) {
     // The email parameter is not used in the query because the companies table
@@ -103,8 +87,15 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
 
   @override
   Stream<CompanyUser?> watchCompanyUser({required String companyUserId}) {
-    // TODO: implement watchCompanyUser
-    throw UnimplementedError();
+    final stream =  _supabaseClient.from(_companyUserTable)
+        .stream(primaryKey: [CompanyUserDatabaseKeys.id])
+        .eq(CompanyUserDatabaseKeys.id, companyUserId)
+        .limit(1);
+    return stream.map(
+      (companyUser) => companyUser.isNotEmpty
+          ? CompanyUser.fromJson(companyUser.first)
+          : null,
+    );
   }
 
   @override
