@@ -9,26 +9,8 @@ class SupabasePumpStatusRepository implements PumpStatusRepository {
   final SupabaseClient _supabaseClient;
 
   @override
-  Future<DateTime?> getLastDispensation(Pump pump) {
-    // TODO: implement getLastDispensation
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool?> getPumpStatus(Pump pump) {
-    // TODO: implement getPumpStatus
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> togglePumpStatus(Pump pump, String status) {
     // TODO: implement togglePumpStatus
-    throw UnimplementedError();
-  }
-
-  @override
-  Stream<DateTime?> watchLastDispensation(Pump pump) {
-    // TODO: implement watchLastDispensation
     throw UnimplementedError();
   }
 
