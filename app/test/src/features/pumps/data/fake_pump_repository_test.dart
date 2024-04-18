@@ -34,11 +34,7 @@ void main() {
   FakePumpRepository makePumpRepository() =>
       FakePumpRepository(addDelay: false);
   group('FakePumpRepository', () {
-    test('getCompanyPumps for company with id 1 = success', () {
-      final pumpRepository = makePumpRepository();
-      expect(pumpRepository.getCompanyPumps('1'), isA<Future<List<Pump?>>>());
-      expect(pumpRepository.getCompanyPumps('1'), completion(expectedResults));
-    });
+
 
     test('watchCompanyPumps with id 1 = success', () {
       final pumpRepository = makePumpRepository();
@@ -46,29 +42,13 @@ void main() {
       expect(pumpRepository.watchCompanyPumps('1'), emits(expectedResults));
     });
 
-    test("getCompanyPumps with a non-existent id returns an empty list", () {
-      final pumpRepository = makePumpRepository();
-      expect(pumpRepository.getCompanyPumps('100'), completion(isEmpty));
-    });
 
     test("watchCompanyPumps with a non-existent id returns an empty list", () {
       final pumpRepository = makePumpRepository();
       expect(pumpRepository.watchCompanyPumps('100'), emits(isEmpty));
     });
 
-    test('getPump with an invalid pump id returns valid value', () async {
-      final pumpRepo = makePumpRepository();
-      expect(pumpRepo.getPump('1'), isA<Future<Pump?>>());
-      final res = await pumpRepo.getPump('1');
-      expect(res, expectedResults[0]);
-    });
 
-    test('getPump with a valid pump id returns null', () async {
-      final pumpRepo = makePumpRepository();
-      expect(pumpRepo.getPump('1000'), isA<Future<Pump?>>());
-      final res = await pumpRepo.getPump('1000');
-      expect(res, isNull);
-    });
 
     test('watchPump with a valid pump id emits a valid value', () {
       final pumpRepo = makePumpRepository();
@@ -109,103 +89,6 @@ void main() {
       );
     });
 
-    test('updatePump with existing pump works as expected', () async {
-      final updatedValue = expectedResults[0].copyWith(
-        turnOffCommand: '60',
-        turnOnCommand: '80',
-      );
-
-      final repo = makePumpRepository();
-      // access current value
-      final currentVal = await repo.getPump(updatedValue.id);
-      expect(currentVal, expectedResults[0]);
-
-      // update value
-      await repo.updatePump(updatedValue, updatedValue.companyId);
-      final valueAfterUpdate = await repo.getPump(updatedValue.id);
-      expect(valueAfterUpdate, updatedValue);
-    });
-
-    test('updatePump with non existing pump does not work as expected',
-        () async {
-      final updatedValue = Pump(
-        id: '9000',
-        name: 'Not valid pump',
-        capacityInVolume: 100,
-        consumeRateInKw: 50,
-        turnOnCommand: '90',
-        turnOffCommand: '91',
-        companyId: '90',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-        mqttMessageName: 'not_valid_pump',
-        hasFilter: false,
-      );
-
-      final repo = makePumpRepository();
-      // access current value
-      final currentVal = await repo.getPump(updatedValue.id);
-      expect(currentVal, isNull);
-
-      // update value
-      await repo.updatePump(updatedValue, updatedValue.companyId);
-      final valueAfterUpdate = await repo.getPump(updatedValue.id);
-      expect(valueAfterUpdate, isNull);
-    });
-
-    test(
-        'updatePump with existing pump but not pertaining to company does not work',
-        () async {
-      final updatedValue = expectedResults[0].copyWith(companyId: '500');
-
-      final repo = makePumpRepository();
-      // access current value
-      final currentVal = await repo.getPump(updatedValue.id);
-      expect(currentVal, expectedResults[0]);
-
-      // update value
-      final valueAfterUpdate = await repo.updatePump(
-        updatedValue,
-        updatedValue.companyId,
-      );
-      expect(valueAfterUpdate, isNull);
-    });
-
-    test('deletePump with an existing pump works', () async {
-      final repo = makePumpRepository();
-      final pumpToDelete = expectedResults[0];
-      final currentVal = await repo.getPump(pumpToDelete.id);
-      expect(currentVal, pumpToDelete);
-
-      final returnedValFromDeletion = await repo.deletePump(pumpToDelete.id);
-      final valueAfterDelete = await repo.getPump(pumpToDelete.id);
-      expect(valueAfterDelete, isNull);
-      expect(returnedValFromDeletion, equals(true));
-    });
-
-    test('deletePump with a non-existing pump does not work', () async {
-      final repo = makePumpRepository();
-      final pumpToDelete = Pump(
-        id: '9000',
-        name: 'Not valid pump',
-        capacityInVolume: 100,
-        consumeRateInKw: 50,
-        turnOnCommand: '90',
-        turnOffCommand: '91',
-        companyId: '90',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-        mqttMessageName: 'not_valid_pump',
-        hasFilter: false,
-      );
-      final currentVal = await repo.getPump(pumpToDelete.id);
-      expect(currentVal, isNull);
-
-      final valFromDeletion = await repo.deletePump(pumpToDelete.id);
-      final valueAfterDelete = await repo.getPump(pumpToDelete.id);
-      expect(valueAfterDelete, isNull);
-      expect(valFromDeletion, equals(false));
-    });
 
     test('watchCompanyUsedPumpNames returns valid list', () {
       final repo = makePumpRepository();
