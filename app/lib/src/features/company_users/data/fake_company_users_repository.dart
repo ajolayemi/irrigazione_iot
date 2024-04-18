@@ -52,13 +52,6 @@ class FakeCompanyUsersRepository implements CompanyUsersRepository {
   }
 
   @override
-  Future<List<CompanyUser>> fetchCompaniesAssociatedWithUser(
-      {required String email}) async {
-    await delay(addDelay);
-    return Future.value(_getUserCompanies(_userCompanies.value, email));
-  }
-
-  @override
   Future<CompanyUserRoles?> fetchCompanyUserRole(
       {required String email, required String companyId}) async {
     await delay(addDelay);

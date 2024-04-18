@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_companies_list.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_company_users.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_users_list.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/fake_app_user.dart';
@@ -8,8 +9,12 @@ import 'package:irrigazione_iot/src/utils/gen_fake_uuid.dart';
 
 void main() {
   final testUserWithAssociatedCompanies = kFakeUsers.first;
-  final associatedCompanies = kFakeCompanyUsers
+  final associatedCompaniesId = kFakeCompanyUsers
       .where((user) => user.email == testUserWithAssociatedCompanies.email)
+      .map((user) => user.companyId)
+      .toList();
+  final associatedCompanies = kFakeCompanies
+      .where((company) => associatedCompaniesId.contains(company.id))
       .toList();
   final testUserWithoutAssociatedCompanies = FakeAppUser(
       uid: genFakeUuid('fake@fake.com'),
@@ -30,23 +35,16 @@ void main() {
       expect(res, emits(associatedCompanies));
     });
 
-    test('fetchCompaniesAssociateWithUser returns valid companies', () async {
-      final repo = makeUserCompaniesRepository();
-      addTearDown(repo.dispose);
-      final res = await repo.fetchCompaniesAssociatedWithUser(
-          email: testUserWithAssociatedCompanies.email);
-      expect(res, associatedCompanies);
-    });
 
     test('fetchCompanyUserRole returns a valid role', () async {
       final repo = makeUserCompaniesRepository();
       addTearDown(repo.dispose);
       final role = await repo.fetchCompanyUserRole(
           email: testUserWithAssociatedCompanies.email,
-          companyId: associatedCompanies.first.companyId);
+          companyId: associatedCompanies.first.id);
       final secondRole = await repo.fetchCompanyUserRole(
           email: testUserWithAssociatedCompanies.email,
-          companyId: associatedCompanies[1].companyId);
+          companyId: associatedCompanies[1].id);
 
       expect(role, CompanyUserRoles.admin);
       expect(secondRole, CompanyUserRoles.user);
@@ -71,10 +69,10 @@ void main() {
       addTearDown(repo.dispose);
       final role = repo.watchCompanyUserRole(
           email: testUserWithAssociatedCompanies.email,
-          companyId: associatedCompanies.first.companyId);
+          companyId: associatedCompanies.first.id);
       final secondRole = repo.watchCompanyUserRole(
           email: testUserWithAssociatedCompanies.email,
-          companyId: associatedCompanies[1].companyId);
+          companyId: associatedCompanies[1].id);
 
       expect(role, emits(CompanyUserRoles.admin));
       expect(secondRole, emits(CompanyUserRoles.user));
@@ -104,23 +102,15 @@ void main() {
       expect(res, emits(isEmpty));
     });
 
-    test('fetchCompaniesAssociateWithUser returns empty list', () async {
-      final repo = makeUserCompaniesRepository();
-      addTearDown(repo.dispose);
-      final res = await repo.fetchCompaniesAssociatedWithUser(
-          email: testUserWithoutAssociatedCompanies.email);
-      expect(res, isEmpty);
-    });
-
     test('fetchCompanyUserRole returns null', () async {
       final repo = makeUserCompaniesRepository();
       addTearDown(repo.dispose);
       final role = await repo.fetchCompanyUserRole(
           email: testUserWithoutAssociatedCompanies.email,
-          companyId: associatedCompanies.first.companyId);
+          companyId: associatedCompanies.first.id);
       final secondRole = await repo.fetchCompanyUserRole(
           email: testUserWithoutAssociatedCompanies.uid,
-          companyId: associatedCompanies[1].companyId);
+          companyId: associatedCompanies[1].id);
 
       expect(role, isNull);
       expect(secondRole, isNull);
@@ -131,10 +121,10 @@ void main() {
       addTearDown(repo.dispose);
       final role = repo.watchCompanyUserRole(
           email: testUserWithoutAssociatedCompanies.uid,
-          companyId: associatedCompanies.first.companyId);
+          companyId: associatedCompanies.first.id);
       final secondRole = repo.watchCompanyUserRole(
           email: testUserWithoutAssociatedCompanies.uid,
-          companyId: associatedCompanies[1].companyId);
+          companyId: associatedCompanies[1].id);
 
       expect(role, emits(isNull));
       expect(secondRole, emits(isNull));
