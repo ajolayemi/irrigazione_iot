@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_database_keys.dart';
+import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
 import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
 
 class SupabaseCompanyRepository implements CompanyRepository {
@@ -27,7 +28,7 @@ class SupabaseCompanyRepository implements CompanyRepository {
 
     final res = await _supabaseClient.invokeFunction(
       functionName: 'insert-company',
-      body: {'data': data},
+      body: InsertBody(data: data).toJson(),
     );
 
     return res.toObject<Company>(Company.fromJson);
@@ -35,16 +36,14 @@ class SupabaseCompanyRepository implements CompanyRepository {
 
   @override
   Future<Company?> updateCompany({required Company company}) async {
+    // add the updated_at field
+    final data = company.copyWith(updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'update-company',
-      body: {
-        'id': company.id,
-        'data': company
-            .copyWith(
-              updatedAt: DateTime.now(),
-            )
-            .toJson(),
-      },
+      body: UpdateBody(
+        id: company.id,
+        data: data,
+      ).toJson(),
     );
 
     return res.toObject<Company>(Company.fromJson);
@@ -54,11 +53,7 @@ class SupabaseCompanyRepository implements CompanyRepository {
   Future<bool> deleteCompany({required String companyId}) async {
     final res = await _supabaseClient.invokeFunction(
       functionName: 'delete-company',
-      body: {
-        'ids': [
-          companyId,
-        ]
-      },
+      body: DeleteBody(ids: [companyId]).toJson(),
     );
 
     return res.onDelete;

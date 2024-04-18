@@ -7,12 +7,12 @@ import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_database_keys.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user_database_keys.dart';
+import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
 import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
 
 class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   SupabaseCompanyUsersRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
-
 
   @override
   Future<CompanyUser?> addCompanyUser(
@@ -23,7 +23,7 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
         .toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'insert-company-user',
-      body: {'data': data},
+      body: InsertBody(data: data).toJson(),
     );
 
     return res.toObject<CompanyUser>(CompanyUser.fromJson);
@@ -31,12 +31,10 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
 
   @override
   Future<bool> deleteCompanyUser({required String companyUserId}) async {
-    final res = await _supabaseClient
-        .invokeFunction(functionName: 'delete-company-user', body: {
-      'ids': [
-        companyUserId,
-      ]
-    });
+    final res = await _supabaseClient.invokeFunction(
+      functionName: 'delete-company-user',
+      body: DeleteBody(ids: [companyUserId]).toJson(),
+    );
 
     return res.onDelete;
   }
@@ -44,11 +42,12 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   @override
   Future<CompanyUser?> updateCompanyUser(
       {required CompanyUser companyUser}) async {
-    final res = await _supabaseClient
-        .invokeFunction(functionName: 'update-company-user', body: {
-      'id': companyUser.id,
-      'data': companyUser.copyWith(updatedAt: DateTime.now()).toJson(),
-    });
+    // add the updated_at field
+    final data = companyUser.copyWith(updatedAt: DateTime.now()).toJson();
+    final res = await _supabaseClient.invokeFunction(
+      functionName: 'update-company-user',
+      body: UpdateBody(id: companyUser.id, data: data).toJson(),
+    );
 
     return res.toObject<CompanyUser>(CompanyUser.fromJson);
   }
