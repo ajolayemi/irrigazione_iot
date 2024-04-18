@@ -71,6 +71,7 @@ Stream<List<Company>> userCompaniesStream(UserCompaniesStreamRef ref) {
   );
 }
 
+/// Emits the [CompanyUserRoles] of the current user in the current company
 @Riverpod(keepAlive: true)
 Stream<CompanyUserRoles?> companyUserRole(CompanyUserRoleRef ref) {
   final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
@@ -86,6 +87,7 @@ Stream<CompanyUserRoles?> companyUserRole(CompanyUserRoleRef ref) {
   );
 }
 
+/// Emits a list of [CompanyUser]s associated with the current company
 @riverpod
 Stream<List<CompanyUser?>> usersAssociatedWithCompanyStream(
     UsersAssociatedWithCompanyStreamRef ref) {
@@ -99,6 +101,7 @@ Stream<List<CompanyUser?>> usersAssociatedWithCompanyStream(
   );
 }
 
+/// Emits the [CompanyUser] linked with the provided companyUserId
 @riverpod
 Stream<CompanyUser?> companyUserStream(CompanyUserStreamRef ref,
     {required String companyUserId}) {
@@ -107,6 +110,7 @@ Stream<CompanyUser?> companyUserStream(CompanyUserStreamRef ref,
   return userCompaniesRepository.watchCompanyUser(companyUserId: companyUserId);
 }
 
+/// Emits a list of email addresses already associated with the current company
 @riverpod
 Stream<List<String>> emailsAssociatedWithCompanyStream(
     EmailsAssociatedWithCompanyStreamRef ref) {

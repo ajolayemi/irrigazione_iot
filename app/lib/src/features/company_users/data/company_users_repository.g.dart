@@ -44,7 +44,9 @@ final userCompaniesStreamProvider =
 typedef UserCompaniesStreamRef = AutoDisposeStreamProviderRef<List<Company>>;
 String _$companyUserRoleHash() => r'4090a5b1c2a1aa562f6d629cbf0235f82ee0c3bc';
 
-/// See also [companyUserRole].
+/// Emits the [CompanyUserRoles] of the current user in the current company
+///
+/// Copied from [companyUserRole].
 @ProviderFor(companyUserRole)
 final companyUserRoleProvider = StreamProvider<CompanyUserRoles?>.internal(
   companyUserRole,
@@ -60,7 +62,9 @@ typedef CompanyUserRoleRef = StreamProviderRef<CompanyUserRoles?>;
 String _$usersAssociatedWithCompanyStreamHash() =>
     r'cd02b46aa677e9bae1e734c0ed33a71632d4f6ab';
 
-/// See also [usersAssociatedWithCompanyStream].
+/// Emits a list of [CompanyUser]s associated with the current company
+///
+/// Copied from [usersAssociatedWithCompanyStream].
 @ProviderFor(usersAssociatedWithCompanyStream)
 final usersAssociatedWithCompanyStreamProvider =
     AutoDisposeStreamProvider<List<CompanyUser?>>.internal(
@@ -98,16 +102,24 @@ class _SystemHash {
   }
 }
 
-/// See also [companyUserStream].
+/// Emits the [CompanyUser] linked with the provided companyUserId
+///
+/// Copied from [companyUserStream].
 @ProviderFor(companyUserStream)
 const companyUserStreamProvider = CompanyUserStreamFamily();
 
-/// See also [companyUserStream].
+/// Emits the [CompanyUser] linked with the provided companyUserId
+///
+/// Copied from [companyUserStream].
 class CompanyUserStreamFamily extends Family<AsyncValue<CompanyUser?>> {
-  /// See also [companyUserStream].
+  /// Emits the [CompanyUser] linked with the provided companyUserId
+  ///
+  /// Copied from [companyUserStream].
   const CompanyUserStreamFamily();
 
-  /// See also [companyUserStream].
+  /// Emits the [CompanyUser] linked with the provided companyUserId
+  ///
+  /// Copied from [companyUserStream].
   CompanyUserStreamProvider call({
     required String companyUserId,
   }) {
@@ -140,10 +152,14 @@ class CompanyUserStreamFamily extends Family<AsyncValue<CompanyUser?>> {
   String? get name => r'companyUserStreamProvider';
 }
 
-/// See also [companyUserStream].
+/// Emits the [CompanyUser] linked with the provided companyUserId
+///
+/// Copied from [companyUserStream].
 class CompanyUserStreamProvider
     extends AutoDisposeStreamProvider<CompanyUser?> {
-  /// See also [companyUserStream].
+  /// Emits the [CompanyUser] linked with the provided companyUserId
+  ///
+  /// Copied from [companyUserStream].
   CompanyUserStreamProvider({
     required String companyUserId,
   }) : this._internal(
@@ -231,7 +247,9 @@ class _CompanyUserStreamProviderElement
 String _$emailsAssociatedWithCompanyStreamHash() =>
     r'cee2d6dab360dd9d7260a9aa4adeb322835bdd94';
 
-/// See also [emailsAssociatedWithCompanyStream].
+/// Emits a list of email addresses already associated with the current company
+///
+/// Copied from [emailsAssociatedWithCompanyStream].
 @ProviderFor(emailsAssociatedWithCompanyStream)
 final emailsAssociatedWithCompanyStreamProvider =
     AutoDisposeStreamProvider<List<String>>.internal(
