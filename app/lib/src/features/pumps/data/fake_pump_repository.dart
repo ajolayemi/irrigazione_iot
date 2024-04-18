@@ -21,22 +21,12 @@ class FakePumpRepository implements PumpRepository {
     }
   }
 
-  @override
-  Future<List<Pump?>> getCompanyPumps(String companyId) async {
-    await delay(true);
-    return Future.value(_getCompanyPumps(_fakePumps.value, companyId));
-  }
 
   @override
   Stream<List<Pump?>> watchCompanyPumps(String companyId) {
     return _fakePumps.stream.map((pumps) => _getCompanyPumps(pumps, companyId));
   }
 
-  @override
-  Future<Pump?> getPump(String pumpId) async {
-    await delay(addDelay);
-    return Future.value(_getPump(_fakePumps.value, pumpId));
-  }
 
   @override
   Stream<Pump?> watchPump(String pumpId) {
