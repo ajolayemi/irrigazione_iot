@@ -23,7 +23,7 @@ class AddUpdatePumpService {
     final companyId = selectedCompanyRepo.loadSelectedCompanyId(user.uid);
 
     // create pump
-    await pumpRepo.createPump(pump, companyId ?? '');
+    await pumpRepo.createPump(pump.copyWith(companyId: companyId));
   }
 
   Future<void> updatePump(Pump pump) async {
@@ -35,7 +35,7 @@ class AddUpdatePumpService {
     final companyId = selectedCompanyRepo.loadSelectedCompanyId(user.uid);
 
     // update pump
-    await pumpRepo.updatePump(pump, companyId ?? '');
+    await pumpRepo.updatePump(pump.copyWith(companyId: companyId));
   }
 }
 
