@@ -1,4 +1,3 @@
-import 'package:irrigazione_iot/src/utils/supabase_client_extension.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
@@ -7,6 +6,7 @@ import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_database_keys.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/supabase_client_extension.dart';
 
 class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   SupabaseCompanyUsersRepository(this._supabaseClient);
