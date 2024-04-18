@@ -34,7 +34,7 @@ class FakePumpRepository implements PumpRepository {
   }
 
   @override
-  Future<Pump?> createPump(Pump pump, String companyId) async {
+  Future<Pump?> createPump(Pump pump) async {
     // No validation is done here, the validation is done in the form
     await delay(addDelay);
 
@@ -44,7 +44,6 @@ class FakePumpRepository implements PumpRepository {
 
     final finalPump = pump.copyWith(
       id: '${lastUsedPumpId + 1}',
-      companyId: companyId,
     );
     final currentPumps = [..._fakePumps.value];
     currentPumps.add(finalPump);
@@ -54,12 +53,12 @@ class FakePumpRepository implements PumpRepository {
   }
 
   @override
-  Future<Pump?> updatePump(Pump pump, String companyId) async {
+  Future<Pump?> updatePump(Pump pump) async {
     // No validation is done here, the validation is done in the form
     await delay(addDelay);
     final currentPumps = [..._fakePumps.value];
     final pumpIndex = currentPumps.indexWhere(
-      (p) => p.id == pump.id && p.companyId == companyId,
+      (p) => p.id == pump.id && p.companyId == pump.companyId,
     );
     if (pumpIndex >= 0) {
       currentPumps[pumpIndex] = pump;
