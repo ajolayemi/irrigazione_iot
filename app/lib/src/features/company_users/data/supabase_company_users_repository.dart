@@ -14,6 +14,10 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   final _companyTableName = CompanyDatabaseKeys.table;
   final _companyUserTable = CompanyUserDatabaseKeys.table;
 
+  /// Base query for the company table
+  SupabaseQueryBuilder get _baseCompanyQuery =>
+      _supabaseClient.from(_companyTableName);
+
   @override
   Future<CompanyUser?> addCompanyUser({required CompanyUser companyUser}) {
     // TODO: implement addCompanyUser
@@ -64,8 +68,7 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
       {required String email}) {
     // The email parameter is not used in the query because the companies table
     // has a RLS policy that filters the rows based on the user's email already in the backend
-    final stc = _supabaseClient
-        .from(_companyTableName)
+    final stc = _baseCompanyQuery
         .stream(primaryKey: [CompanyDatabaseKeys.id]);
     return stc.map((companies) =>
         companies.map((company) => Company.fromJson(company)).toList());
