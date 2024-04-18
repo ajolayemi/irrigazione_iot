@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:equatable/equatable.dart';
-import 'package:irrigazione_iot/src/features/company_users/model/company_database_keys.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/company_users/model/company_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
 part 'company.g.dart';
 
@@ -23,7 +25,10 @@ class Company extends Equatable {
   });
 
   // Unique identifier for the company from the database
-  @JsonKey(name: CompanyDatabaseKeys.id)
+  @JsonKey(
+    name: CompanyDatabaseKeys.id,
+  )
+  @IntConverter()
   final String id;
   @JsonKey(name: CompanyDatabaseKeys.name)
   final String name;
@@ -92,3 +97,4 @@ class Company extends Equatable {
 
   Map<String, dynamic> toJson() => _$CompanyToJson(this);
 }
+

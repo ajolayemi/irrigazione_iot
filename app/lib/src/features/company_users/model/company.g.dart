@@ -7,7 +7,7 @@ part of 'company.dart';
 // **************************************************************************
 
 Company _$CompanyFromJson(Map<String, dynamic> json) => Company(
-      id: json['id'] as String,
+      id: const IntConverter().fromJson(json['id'] as int),
       name: json['name'] as String,
       registeredOfficeAddress: json['registered_office_address'] as String,
       phoneNumber: json['phone_number'] as String,
@@ -24,7 +24,7 @@ Company _$CompanyFromJson(Map<String, dynamic> json) => Company(
     );
 
 Map<String, dynamic> _$CompanyToJson(Company instance) => <String, dynamic>{
-      'id': instance.id,
+      'id': const IntConverter().toJson(instance.id),
       'name': instance.name,
       'registered_office_address': instance.registeredOfficeAddress,
       'phone_number': instance.phoneNumber,
