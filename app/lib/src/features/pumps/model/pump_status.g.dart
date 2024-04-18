@@ -8,16 +8,16 @@ part of 'pump_status.dart';
 
 PumpStatus _$PumpStatusFromJson(Map<String, dynamic> json) => PumpStatus(
       id: const IntConverter().fromJson(json['id'] as int),
-      pumpId: const IntConverter().fromJson(json['pumpId'] as int),
+      pumpId: const IntConverter().fromJson(json['pump_id'] as int),
       status: json['status'] as String,
-      createdAt: json['createdAt'] == null
+      createdAt: json['created_at'] == null
           ? null
-          : DateTime.parse(json['createdAt'] as String),
+          : DateTime.parse(json['created_at'] as String),
     );
 
 Map<String, dynamic> _$PumpStatusToJson(PumpStatus instance) =>
     <String, dynamic>{
-      'pumpId': const IntConverter().toJson(instance.pumpId),
+      'pump_id': const IntConverter().toJson(instance.pumpId),
       'status': instance.status,
-      'createdAt': instance.createdAt?.toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
     };
