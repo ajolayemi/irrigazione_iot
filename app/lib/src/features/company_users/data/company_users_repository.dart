@@ -24,14 +24,6 @@ abstract class CompanyUsersRepository {
     required String companyId,
   });
 
-  /// Fetches the [CompanyUserRoles] linked with the provided user email and company id
-  Future<CompanyUserRoles?> fetchCompanyUserRole(
-      {required String email, required String companyId});
-
-  /// Fetches a list of user email addresses linked with the provided company id
-  Future<List<CompanyUser?>> fetchUsersAssociatedWithCompany({
-    required String companyId,
-  });
 
   /// Emits a list of [CompanyUser]s linked with the provided company id if any
   Stream<List<CompanyUser?>> watchUsersAssociatedWithCompany({
@@ -41,8 +33,6 @@ abstract class CompanyUsersRepository {
   /// Emits a [CompanyUser] linked with the provided user companyUserId
   Stream<CompanyUser?> watchCompanyUser({required String companyUserId});
 
-  /// Fetches a [CompanyUser] linked with the provided user companyUserId
-  Future<CompanyUser?> fetchCompanyUser({required String companyUserId});
 
   /// Emits a list of email addresses already associated with the provided company id
   Stream<List<String>> watchEmailsAssociatedWithCompany({
