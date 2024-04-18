@@ -41,6 +41,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   // form fields controllers
   final _nameController = TextEditingController();
   final _volumeCapacityController = TextEditingController();
+  final _mqttMessageNameController = TextEditingController();
   final _kwCapacityController = TextEditingController();
   final _onCommandController = TextEditingController();
   final _offCommandController = TextEditingController();
@@ -53,6 +54,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   String get kwCapacity => _kwCapacityController.text;
   String get onCommand => _onCommandController.text;
   String get offCommand => _offCommandController.text;
+  String get mqttMessageName => _mqttMessageNameController.text;
 
   // local variable used to apply AutovalidateMode.onUserInteraction and show
   // error hints only when the form has been submitted
@@ -60,12 +62,13 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   // https://codewithandrea.com/articles/flutter-text-field-form-validation/
   var _submitted = false;
 
-  Pump? _initialPump = Pump.empty();
+  Pump? _initialPump = const Pump.empty();
   static const _nameFieldKey = Key('name');
   static const _volumeCapacityFieldKey = Key('volumeCapacity');
   static const _kwCapacityFieldKey = Key('kwCapacity');
   static const _onCommandFieldKey = Key('onCommand');
   static const _offCommandFieldKey = Key('offCommand');
+  static const _mqttMessageNameFieldKey = Key('mqttMessageName');
 
   @override
   void initState() {
@@ -77,6 +80,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
       _kwCapacityController.text = pump?.consumeRateInKw.toString() ?? '';
       _onCommandController.text = pump?.turnOnCommand ?? '';
       _offCommandController.text = pump?.turnOffCommand ?? '';
+      _mqttMessageNameController.text = pump?.mqttMessageName ?? '';
     }
 
     super.initState();
@@ -118,6 +122,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
         consumeRateInKw: double.tryParse(kwCapacity) ?? 0.0,
         turnOnCommand: onCommand,
         turnOffCommand: offCommand,
+        mqttMessageName: mqttMessageName,
       );
 
       if (toSave == _initialPump && updating) {
@@ -282,6 +287,18 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                             validator: (_) => _nameErrorText(usedPumpNames),
                             onEditingComplete: () =>
                                 _nameEditingComplete(usedPumpNames),
+                          ),
+                          gapH16,
+                          // TODO: add validator for mqttMessageName
+                          FormTitleAndField(
+                            enabled: !state.isLoading,
+                            fieldKey: _mqttMessageNameFieldKey,
+                            fieldTitle: loc.mqttMessageNameFormFieldTitle,
+                            fieldHintText: loc.mqttMessageNameFormHint,
+                            fieldController: _mqttMessageNameController,
+                            textInputAction: TextInputAction.next,
+                            validator: (_) => null,
+                            onEditingComplete: () => _node.nextFocus(),
                           ),
                           gapH16,
                           FormTitleAndField(
