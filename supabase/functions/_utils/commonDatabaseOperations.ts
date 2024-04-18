@@ -26,7 +26,7 @@ export const commonUpdate = async (
       .from(tableName)
       .update(toUpdate)
       .eq("id", id)
-      .select();
+      .select().maybeSingle();
 
     if (error) throw error;
 
@@ -66,7 +66,7 @@ export const commonInsert = async (
     const {data, error} = await supabaseClient
       .from(tableName)
       .insert(toInsert)
-      .select();
+      .select().maybeSingle();
     if (error) throw error;
     return new Response(
       JSON.stringify({data, message: `Record inserted into ${tableName}!`}),
