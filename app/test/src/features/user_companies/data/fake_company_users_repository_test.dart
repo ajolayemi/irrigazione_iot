@@ -36,33 +36,6 @@ void main() {
     });
 
 
-    test('fetchCompanyUserRole returns a valid role', () async {
-      final repo = makeUserCompaniesRepository();
-      addTearDown(repo.dispose);
-      final role = await repo.fetchCompanyUserRole(
-          email: testUserWithAssociatedCompanies.email,
-          companyId: associatedCompanies.first.id);
-      final secondRole = await repo.fetchCompanyUserRole(
-          email: testUserWithAssociatedCompanies.email,
-          companyId: associatedCompanies[1].id);
-
-      expect(role, CompanyUserRoles.admin);
-      expect(secondRole, CompanyUserRoles.user);
-    });
-
-    test('fetchCompanyUserRole with an invalid company returns null', () async {
-      final repo = makeUserCompaniesRepository();
-      addTearDown(repo.dispose);
-      final role = await repo.fetchCompanyUserRole(
-          email: testUserWithAssociatedCompanies.email,
-          companyId: 'invalid_company_id');
-      final secondRole = await repo.fetchCompanyUserRole(
-          email: testUserWithAssociatedCompanies.email,
-          companyId: 'invalid_company_id');
-
-      expect(role, isNull);
-      expect(secondRole, isNull);
-    });
 
     test('watchCompanyUserRole emits a valid role', () {
       final repo = makeUserCompaniesRepository();
@@ -100,20 +73,6 @@ void main() {
       final res = repo.watchCompaniesAssociatedWithUser(
           email: testUserWithoutAssociatedCompanies.email);
       expect(res, emits(isEmpty));
-    });
-
-    test('fetchCompanyUserRole returns null', () async {
-      final repo = makeUserCompaniesRepository();
-      addTearDown(repo.dispose);
-      final role = await repo.fetchCompanyUserRole(
-          email: testUserWithoutAssociatedCompanies.email,
-          companyId: associatedCompanies.first.id);
-      final secondRole = await repo.fetchCompanyUserRole(
-          email: testUserWithoutAssociatedCompanies.uid,
-          companyId: associatedCompanies[1].id);
-
-      expect(role, isNull);
-      expect(secondRole, isNull);
     });
 
     test('watchCompanyUserRole emits null', () {
