@@ -61,12 +61,15 @@ export const commonInsert = async (
   try {
     const supabaseClient = createEdgeSupabaseClient(req);
 
-    const {data} = await req.json();
+    const {data: toInsert} = await req.json();
     // Insert the new record
-    const {error} = await supabaseClient.from(tableName).insert(data);
+    const {data, error} = await supabaseClient
+      .from(tableName)
+      .insert(toInsert)
+      .select();
     if (error) throw error;
     return new Response(
-      JSON.stringify({message: `Data inserted in ${tableName} successfully!`}),
+      JSON.stringify({data, message: `Record inserted into ${tableName}!`}),
       {
         headers: {"Content-Type": "application/json"},
         status: 200,
