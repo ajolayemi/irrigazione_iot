@@ -18,10 +18,31 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   SupabaseQueryBuilder get _baseCompanyQuery =>
       _supabaseClient.from(_companyTableName);
 
+  String? get _currentAccessToken =>
+      _supabaseClient.auth.currentSession?.accessToken;
+
+  Future<FunctionResponse> _invokeFunction(
+          String functionName, Map<String, dynamic> body) =>
+      _supabaseClient.functions.invoke(functionName,
+          body: body,
+          headers: {'Authorization': 'Bearer $_currentAccessToken'});
+
   @override
-  Future<CompanyUser?> addCompanyUser({required CompanyUser companyUser}) {
-    // TODO: implement addCompanyUser
-    throw UnimplementedError();
+  Future<CompanyUser?> addCompanyUser(
+      {required CompanyUser companyUser}) async {
+    // set created_at and updated_at fields
+    final data = companyUser
+        .copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now())
+        .toJson();
+    final res = await _invokeFunction('insert-company-user', {'data': data});
+
+    final returnedData = res.data;
+
+    if (returnedData == null) {
+      return null;
+    }
+
+    return CompanyUser.fromJson(returnedData[0]);
   }
 
   @override
@@ -68,8 +89,7 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
       {required String email}) {
     // The email parameter is not used in the query because the companies table
     // has a RLS policy that filters the rows based on the user's email already in the backend
-    final stc = _baseCompanyQuery
-        .stream(primaryKey: [CompanyDatabaseKeys.id]);
+    final stc = _baseCompanyQuery.stream(primaryKey: [CompanyDatabaseKeys.id]);
     return stc.map((companies) =>
         companies.map((company) => Company.fromJson(company)).toList());
   }
