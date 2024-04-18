@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
@@ -28,6 +29,7 @@ class CompanyUser extends Equatable {
         updatedAt = null;
 
   @JsonKey(name: CompanyUserDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
   final String id;
   @JsonKey(name: CompanyUserDatabaseKeys.email)
   final String email;
@@ -36,6 +38,7 @@ class CompanyUser extends Equatable {
   @JsonKey(name: CompanyUserDatabaseKeys.role)
   final CompanyUserRoles role;
   @JsonKey(name: CompanyUserDatabaseKeys.companyId)
+  @IntConverter()
   final String companyId;
   @JsonKey(name: CompanyUserDatabaseKeys.createdAt)
   final DateTime? createdAt;

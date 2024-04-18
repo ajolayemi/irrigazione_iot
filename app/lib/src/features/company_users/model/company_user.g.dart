@@ -7,11 +7,11 @@ part of 'company_user.dart';
 // **************************************************************************
 
 CompanyUser _$CompanyUserFromJson(Map<String, dynamic> json) => CompanyUser(
-      id: json['id'] as String,
+      id: const IntConverter().fromJson(json['id'] as int),
       email: json['email'] as String,
       fullName: json['full_name'] as String,
       role: $enumDecode(_$CompanyUserRolesEnumMap, json['role']),
-      companyId: json['company_id'] as String,
+      companyId: const IntConverter().fromJson(json['company_id'] as int),
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
@@ -25,7 +25,7 @@ Map<String, dynamic> _$CompanyUserToJson(CompanyUser instance) =>
       'email': instance.email,
       'full_name': instance.fullName,
       'role': _$CompanyUserRolesEnumMap[instance.role]!,
-      'company_id': instance.companyId,
+      'company_id': const IntConverter().toJson(instance.companyId),
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
     };
