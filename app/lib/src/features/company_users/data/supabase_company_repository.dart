@@ -33,7 +33,13 @@ class SupabaseCompanyRepository implements CompanyRepository {
 
   @override
   Stream<Company?> watchCompany(String companyId) {
-    // TODO: implement watchCompany
-    throw UnimplementedError();
+    final companyStream = _supabaseClient
+        .from('companies')
+        .stream(primaryKey: ['id'])
+        .eq('id', companyId)
+        .limit(1);
+    return companyStream.map(
+      (company) => company.isEmpty ? null : Company.fromJson(company.first),
+    );
   }
 }
