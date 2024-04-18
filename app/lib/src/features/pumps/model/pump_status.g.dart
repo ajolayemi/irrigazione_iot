@@ -7,8 +7,8 @@ part of 'pump_status.dart';
 // **************************************************************************
 
 PumpStatus _$PumpStatusFromJson(Map<String, dynamic> json) => PumpStatus(
-      id: json['id'] as String,
-      pumpId: json['pumpId'] as String,
+      id: const IntConverter().fromJson(json['id'] as int),
+      pumpId: const IntConverter().fromJson(json['pumpId'] as int),
       status: json['status'] as String,
       createdAt: json['createdAt'] == null
           ? null
@@ -17,8 +17,7 @@ PumpStatus _$PumpStatusFromJson(Map<String, dynamic> json) => PumpStatus(
 
 Map<String, dynamic> _$PumpStatusToJson(PumpStatus instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'pumpId': instance.pumpId,
+      'pumpId': const IntConverter().toJson(instance.pumpId),
       'status': instance.status,
       'createdAt': instance.createdAt?.toIso8601String(),
     };

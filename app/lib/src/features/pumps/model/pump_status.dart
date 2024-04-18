@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 
@@ -10,10 +11,13 @@ class PumpStatus extends Equatable {
     required this.id,
     required this.pumpId,
     required this.status,
-  this.createdAt,
+    this.createdAt,
   });
 
+  @JsonKey(includeToJson: false)
+  @IntConverter()
   final String id;
+  @IntConverter()
   final String pumpId;
   // pump status are passed in as a string value because the status will be managed
   // using MQTT messages that sends and receives a string value
