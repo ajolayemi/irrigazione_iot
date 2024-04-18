@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
@@ -87,10 +88,11 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
 
   @override
   Stream<CompanyUser?> watchCompanyUser({required String companyUserId}) {
-    final stream =  _baseCompanyUserTableQuery
+    final stream = _baseCompanyUserTableQuery
         .stream(primaryKey: [CompanyUserDatabaseKeys.id])
         .eq(CompanyUserDatabaseKeys.id, companyUserId)
         .limit(1);
+
     return stream.map(
       (companyUser) => companyUser.isNotEmpty
           ? CompanyUser.fromJson(companyUser.first)
@@ -99,23 +101,53 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   }
 
   @override
-  Stream<CompanyUserRoles?> watchCompanyUserRole(
-      {required String email, required String companyId}) {
-    // TODO: implement watchCompanyUserRole
-    throw UnimplementedError();
+  Stream<CompanyUserRoles?> watchCompanyUserRole({
+    required String email,
+    required String companyId,
+  }) {
+    // Get the list of users associated with the company
+    final usersAssociatedWithCompany = watchUsersAssociatedWithCompany(
+      companyId: companyId,
+    );
+
+    return usersAssociatedWithCompany.map((companyUser) {
+      final user = companyUser.firstWhereOrNull(
+        (user) => user?.email == email,
+      );
+      return user?.role;
+    });
   }
 
   @override
   Stream<List<String>> watchEmailsAssociatedWithCompany(
       {required String companyId}) {
-    // TODO: implement watchEmailsAssociatedWithCompany
-    throw UnimplementedError();
+    // Users associated with the company
+    final usersAssociatedWithCompany = watchUsersAssociatedWithCompany(
+      companyId: companyId,
+    );
+
+    return usersAssociatedWithCompany.map(
+      (companyUsers) => companyUsers
+          .map((companyUser) => companyUser?.email)
+          .whereNotNull()
+          .toList(),
+    );
   }
 
   @override
-  Stream<List<CompanyUser?>> watchUsersAssociatedWithCompany(
-      {required String companyId}) {
-    // TODO: implement watchUsersAssociatedWithCompany
-    throw UnimplementedError();
+  Stream<List<CompanyUser?>> watchUsersAssociatedWithCompany({
+    required String companyId,
+  }) {
+    final stream = _baseCompanyUserTableQuery
+        .stream(primaryKey: [CompanyUserDatabaseKeys.id]).eq(
+      CompanyUserDatabaseKeys.companyId,
+      companyId,
+    );
+
+    return stream.map(
+      (companyUsers) => companyUsers
+          .map((companyUser) => CompanyUser.fromJson(companyUser))
+          .toList(),
+    );
   }
 }
