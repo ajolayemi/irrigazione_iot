@@ -1,10 +1,12 @@
+import 'package:irrigazione_iot/src/features/pumps/model/pump_database_keys.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump_status_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 
 class SupabasePumpRepository implements PumpRepository {
-
   const SupabasePumpRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
@@ -17,18 +19,6 @@ class SupabasePumpRepository implements PumpRepository {
   @override
   Future<bool> deletePump(String pumpId) {
     // TODO: implement deletePump
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<Pump?>> getCompanyPumps(String companyId) {
-    // TODO: implement getCompanyPumps
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Pump?> getPump(String pumpId) {
-    // TODO: implement getPump
     throw UnimplementedError();
   }
 
@@ -64,7 +54,17 @@ class SupabasePumpRepository implements PumpRepository {
 
   @override
   Stream<Pump?> watchPump(String pumpId) {
-    // TODO: implement watchPump
-    throw UnimplementedError();
+    final stream = _supabaseClient.pumps
+        .stream(primaryKey: [PumpDatabaseKeys.id])
+        .eq(
+          PumpStatusDatabaseKeys.id,
+          pumpId,
+        )
+        .limit(1);
+
+    return stream.map((pump) {
+      if (pump.isEmpty) return null;
+      return Pump.fromJson(pump.first);
+    });
   }
 }
