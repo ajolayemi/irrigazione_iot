@@ -65,7 +65,7 @@ void main() {
         verify(() => authRepository.currentUser).called(1);
 
         // the following calls aren't made
-        verifyNever(() => pumpRepository.createPump(any(), any()));
+        verifyNever(() => pumpRepository.createPump(any()));
         verifyNever(
             () => selectedCompanyRepository.loadSelectedCompanyId(any()));
       });
@@ -76,8 +76,8 @@ void main() {
         when(() =>
                 selectedCompanyRepository.loadSelectedCompanyId(testUser.uid))
             .thenReturn(testCompanyId);
-        when(() => pumpRepository.createPump(testPump, testCompanyId))
-            .thenAnswer((_) => Future.value());
+        when(() => pumpRepository.createPump(any()))
+            .thenAnswer((_) => Future.value(testPump));
 
         final service = makeAddUpdateService();
 
@@ -90,8 +90,7 @@ void main() {
               testUser.uid,
             )).called(1);
         verify(() => pumpRepository.createPump(
-              testPump,
-              testCompanyId,
+              any(),
             )).called(1);
       });
     });
@@ -110,7 +109,7 @@ void main() {
         // the following calls shouldn't be made
         verifyNever(
             () => selectedCompanyRepository.loadSelectedCompanyId(any()));
-        verifyNever(() => pumpRepository.updatePump(any(), any()));
+        verifyNever(() => pumpRepository.updatePump(any()));
       });
 
       test('non null user, pump data is updated', () async {
@@ -123,8 +122,8 @@ void main() {
         when(() =>
                 selectedCompanyRepository.loadSelectedCompanyId(testUser.uid))
             .thenReturn(testCompanyId);
-        when(() => pumpRepository.updatePump(updatedTestPump, testCompanyId))
-            .thenAnswer((_) => Future.value());
+        when(() => pumpRepository.updatePump(any()))
+            .thenAnswer((_) => Future.value(updatedTestPump));
 
         final service = makeAddUpdateService();
         // run
@@ -135,7 +134,7 @@ void main() {
         verify(
           () => selectedCompanyRepository.loadSelectedCompanyId(testUser.uid),
         ).called(1);
-        verify(() => pumpRepository.updatePump(updatedTestPump, testCompanyId))
+        verify(() => pumpRepository.updatePump(any()))
             .called(1);
       });
     });
