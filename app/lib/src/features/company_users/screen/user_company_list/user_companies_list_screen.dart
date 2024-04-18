@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
@@ -9,13 +10,13 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
 import 'package:irrigazione_iot/src/features/company_users/screen/user_company_list/user_companies_controller.dart';
-import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_sliver_list_skeleton.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 class UserCompaniesListScreen extends ConsumerStatefulWidget {
   const UserCompaniesListScreen({super.key});
@@ -43,14 +44,6 @@ class _UserCompaniesListScreenState
         slivers: [
           AppSliverBar(
             title: context.loc.chooseCompany,
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.logout),
-                onPressed: () {
-                  ref.read(authRepositoryProvider).signOut();
-                },
-              ),
-            ],
           ),
           AsyncValueSliverWidget<List<Company>>(
             value: userCompanies,
