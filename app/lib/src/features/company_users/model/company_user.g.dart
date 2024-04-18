@@ -22,7 +22,6 @@ CompanyUser _$CompanyUserFromJson(Map<String, dynamic> json) => CompanyUser(
 
 Map<String, dynamic> _$CompanyUserToJson(CompanyUser instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'email': instance.email,
       'full_name': instance.fullName,
       'role': _$CompanyUserRolesEnumMap[instance.role]!,

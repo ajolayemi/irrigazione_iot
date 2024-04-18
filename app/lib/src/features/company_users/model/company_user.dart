@@ -27,7 +27,7 @@ class CompanyUser extends Equatable {
         createdAt = null,
         updatedAt = null;
 
-  @JsonKey(name: CompanyUserDatabaseKeys.id)
+  @JsonKey(name: CompanyUserDatabaseKeys.id, includeToJson: false)
   final String id;
   @JsonKey(name: CompanyUserDatabaseKeys.email)
   final String email;
