@@ -22,4 +22,18 @@ class SupabasePumpFlowRepository implements PumpFlowRepository {
       });
     });
   }
+
+  @override
+  Stream<DateTime?> watchLastDispensation(String pumpId) {
+    final stream = _supabaseClient.pumpFlow
+        .stream(primaryKey: [PumpFlowDatabaseKeys.id])
+        .eq(PumpFlowDatabaseKeys.pumpId, pumpId)
+        .order(PumpFlowDatabaseKeys.createdAt, ascending: false).limit(1);
+
+    return stream.map((flows) {
+      if (flows.isEmpty) return null;
+      final pumpFlow = PumpFlow.fromJson(flows.first);
+      return pumpFlow.createdAt;
+    });
+  }
 }

@@ -11,4 +11,9 @@ class FakePumpFlowRepository implements PumpFlowRepository {
   Stream<int> watchTotalLitresDispensed(String pumpId) {
     return Stream.value(0);
   }
+
+  @override
+  Stream<DateTime?> watchLastDispensation(String pumpId) {
+    return Stream.value(null);
+  }
 }
