@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // TODO: add pump company
@@ -37,7 +38,8 @@ class Pump extends Equatable {
         mqttMessageName = '',
         hasFilter = false;
 
-  @JsonKey(name: PumpDatabaseKeys.id)
+  @JsonKey(name: PumpDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
   final String id;
   @JsonKey(name: PumpDatabaseKeys.name)
   final String name;
@@ -46,6 +48,7 @@ class Pump extends Equatable {
   @JsonKey(name: PumpDatabaseKeys.consumeRateInKw)
   final double consumeRateInKw;
   @JsonKey(name: PumpDatabaseKeys.companyId)
+  @IntConverter()
   final String companyId;
   @JsonKey(name: PumpDatabaseKeys.createdAt)
   final DateTime? createdAt;
