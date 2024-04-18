@@ -19,13 +19,13 @@ export const commonUpdate = async (
     const supabaseClient = createEdgeSupabaseClient(req);
 
     // Get the data to update
-    const {data: toUpdate} = await req.json();
+    const {data: toUpdate, id} = await req.json();
 
     // Update the record
     const {data, error} = await supabaseClient
       .from(tableName)
       .update(toUpdate)
-      .eq("id", toUpdate.id)
+      .eq("id", id)
       .select();
 
     if (error) throw error;
