@@ -26,13 +26,7 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
       body: {'data': data},
     );
 
-    final returnedData = res.data;
-
-    if (returnedData == null) {
-      return null;
-    }
-
-    return CompanyUser.fromJson(returnedData[0]);
+    return res.toObject<CompanyUser>(CompanyUser.fromJson);
   }
 
   @override
@@ -44,8 +38,7 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
       ]
     });
 
-    final status = res.status;
-    return status == 200 || status == 204;
+    return res.onDelete;
   }
 
   @override
@@ -57,13 +50,7 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
       'data': companyUser.copyWith(updatedAt: DateTime.now()).toJson(),
     });
 
-    final returnedData = res.data;
-
-    if (returnedData == null) {
-      return null;
-    }
-
-    return CompanyUser.fromJson(returnedData[0]);
+    return res.toObject<CompanyUser>(CompanyUser.fromJson);
   }
 
   @override
