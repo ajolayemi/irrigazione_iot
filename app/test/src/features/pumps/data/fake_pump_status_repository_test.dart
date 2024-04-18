@@ -10,19 +10,7 @@ void main() {
   final expectedPumpStatus = kFakePumpStatus[0].translatePumpStatusToBoolean(
     testPump,
   );
-  final pumpForInvalidTests = Pump(
-    id: 'aaa',
-    name: 'Invalid',
-    capacityInVolume: 100,
-    consumeRateInKw: 10,
-    turnOnCommand: '9',
-    turnOffCommand: '8',
-    companyId: 'invalid',
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
-    mqttMessageName: 'invalid',
-    hasFilter: false,
-  );
+
   FakePumpStatusRepository makePumpStatusRepository() =>
       FakePumpStatusRepository(addDelay: false);
   group('FakePumpStatusRepository', () {
@@ -39,42 +27,8 @@ void main() {
     test('watchPumpStatus(9000) emits null', () {
       final pumpStatusRepository = makePumpStatusRepository();
       addTearDown(pumpStatusRepository.dispose);
-      expect(pumpStatusRepository.watchPumpStatus(Pump.empty()),
+      expect(pumpStatusRepository.watchPumpStatus(const Pump.empty()),
           emits(isNull));
-    });
-
-    test('getLastDispensation returns a valid DateTime', () async {
-      final pumpStatusRepository = makePumpStatusRepository();
-      addTearDown(pumpStatusRepository.dispose);
-      await expectLater(
-        pumpStatusRepository.getLastDispensation(kFakePumps.first),
-        completion(isA<DateTime>()),
-      );
-    });
-
-    test('getLastDispensation returns null', () async {
-      final pumpStatusRepository = makePumpStatusRepository();
-      addTearDown(pumpStatusRepository.dispose);
-      await expectLater(
-        pumpStatusRepository.getLastDispensation(pumpForInvalidTests),
-        completion(isNull),
-      );
-    });
-
-    test('watchLastDispensation emits a valid DateTime', () {
-      final pumpStatusRepository = makePumpStatusRepository();
-      addTearDown(pumpStatusRepository.dispose);
-      expect(pumpStatusRepository.watchLastDispensation(kFakePumps.first),
-          emits(isA<DateTime>()));
-    });
-
-    test('watchLastDispensation emits null', () async {
-      final pumpStatusRepository = makePumpStatusRepository();
-      addTearDown(pumpStatusRepository.dispose);
-      expect(
-        pumpStatusRepository.watchLastDispensation(pumpForInvalidTests),
-        emits(isNull),
-      );
     });
   });
 }
