@@ -8,7 +8,6 @@ import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
-import 'package:irrigazione_iot/src/features/company_users/screen/user_company_list/company_logo.dart';
 import 'package:irrigazione_iot/src/features/company_users/screen/user_company_list/user_companies_controller.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
@@ -73,9 +72,9 @@ class _UserCompaniesListScreenState
                           context.goNamed(AppRoute.home.name);
                         },
                         child: ListTile(
-                          leading: CompanyLogo(
-                            imageUrl: company.imageUrl,
-                          ),
+                          // leading: CompanyLogo(
+                          //   imageUrl: company.imageUrl,
+                          // ),
                           title: Text(
                             company.name,
                           ),
