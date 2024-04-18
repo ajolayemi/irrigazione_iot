@@ -1,5 +1,4 @@
 import 'package:irrigazione_iot/src/features/pumps/data/pump_flow_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 
 
 
@@ -9,7 +8,7 @@ class FakePumpFlowRepository implements PumpFlowRepository {
   final bool addDelay;
 
   @override
-  Stream<int> watchTotalLitresDispensed(Pump pump) {
+  Stream<int> watchTotalLitresDispensed(String pumpId) {
     return Stream.value(0);
   }
 }

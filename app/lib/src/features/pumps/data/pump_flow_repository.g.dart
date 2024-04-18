@@ -23,7 +23,7 @@ final pumpFlowRepositoryProvider = Provider<PumpFlowRepository>.internal(
 
 typedef PumpFlowRepositoryRef = ProviderRef<PumpFlowRepository>;
 String _$pumpTotalDispensedLitresHash() =>
-    r'7aa791909bf7696659ac6bb3b568dcb56e3180cc';
+    r'3be126b953bec9091136df38a149dcbfa3022ef2';
 
 /// Copied from Dart SDK
 class _SystemHash {
