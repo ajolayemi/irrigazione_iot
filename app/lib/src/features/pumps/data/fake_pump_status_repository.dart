@@ -36,14 +36,6 @@ class FakePumpStatusRepository extends PumpStatusRepository {
     return toReturn;
   }
 
-  @override
-  Future<bool?> getPumpStatus(Pump pump) async {
-    await delay(addDelay);
-    final statusesForPump = _filterPumpStatus(_fakePumpStatus.value, pump.id);
-    if (statusesForPump.isEmpty) return Future.value(null);
-    final mostRecentStatus = _getMostRecentStatus(statusesForPump);
-    return Future.value(mostRecentStatus.translatePumpStatusToBoolean(pump));
-  }
 
   @override
   Stream<bool?> watchPumpStatus(Pump pump) {
