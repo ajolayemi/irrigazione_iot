@@ -73,16 +73,16 @@ void main() {
         turnOnCommand: '4',
         turnOffCommand: '5',
         companyId: '',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
+        createdAt: DateTime.parse('2024-02-01'),
+        updatedAt: DateTime.parse('2024-02-01'),
         mqttMessageName: 'fake_pump',
         hasFilter: true,
       );
 
       final repo = makePumpRepository();
-      final createdPump = await repo.createPump(toCreate, '90');
+      final createdPump = await repo.createPump(toCreate,);
       final expectedRes =
-          toCreate.copyWith(id: createdPump?.id, companyId: '90');
+          toCreate.copyWith(id: createdPump?.id, companyId: '');
       expect(
         createdPump,
         expectedRes,
