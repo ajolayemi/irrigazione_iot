@@ -37,15 +37,17 @@ extension SupabaseClientExtensions on SupabaseClient {
 }
 
 extension FunctionResponseExtensions on FunctionResponse {
+  /// Converts the response data to a [T] object
+  /// This is useful when the response data is a single object
   T? toObject<T>(T Function(Map<String, dynamic>) fromJson) {
     final data = this.data as Map<String, dynamic>?;
-
     if (data != null) {
-      return fromJson(data);
+      return fromJson(data['data']);
     }
 
     return null;
   }
 
+  /// Returns true if the status code is 200 or 204
   bool get onDelete => status == 200 || status == 204;
 }
