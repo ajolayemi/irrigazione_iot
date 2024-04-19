@@ -47,15 +47,14 @@ void main() {
     });
 
     test('addSectorPump works as expected', () async {
-      await expectLater(repository.addSectorPump(sectorPumpToAdd),
+      await expectLater(repository.createSectorPump(sectorPumpToAdd),
           completion(isA<SectorPump>()));
     });
 
     test('deleteSectorPump with valid data completes with true', () async {
       final sectorPump = expectedSectorPumps.first;
       await expectLater(
-          repository.deleteSectorPump(sectorPump.id),
-          completion(isTrue));
+          repository.deleteSectorPump(sectorPump.id), completion(isTrue));
     });
 
     test(
@@ -66,7 +65,5 @@ void main() {
         completion(isFalse),
       );
     });
-
-
   });
 }

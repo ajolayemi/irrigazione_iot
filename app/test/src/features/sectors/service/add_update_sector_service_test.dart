@@ -114,7 +114,7 @@ void main() {
 
         // the following calls shouldn't be made
         verifyNever(() => sectorRepository.createSector(any()));
-        verifyNever(() => sectorPumpRepository.addSectorPump(any()));
+        verifyNever(() => sectorPumpRepository.createSectorPump(any()));
       });
 
       group('non null user', () {
@@ -143,7 +143,8 @@ void main() {
               .called(1);
 
           // verify that the following isn't called
-          verifyNever(() => sectorPumpRepository.addSectorPump(testSectorPump));
+          verifyNever(
+              () => sectorPumpRepository.createSectorPump(testSectorPump));
         });
 
         test(
@@ -156,7 +157,7 @@ void main() {
               .thenReturn(testCompanyId);
           when(() => sectorRepository.createSector(nonExistentSectorForTest))
               .thenAnswer((_) => Future.value(nonExistentSectorForTest));
-          when(() => sectorPumpRepository.addSectorPump(any())).thenAnswer(
+          when(() => sectorPumpRepository.createSectorPump(any())).thenAnswer(
             (_) => Future.value(),
           );
 
@@ -173,7 +174,7 @@ void main() {
               .called(1);
           verify(() => sectorRepository.createSector(nonExistentSectorForTest))
               .called(1);
-          verify(() => sectorPumpRepository.addSectorPump(any()))
+          verify(() => sectorPumpRepository.createSectorPump(any()))
               .called(companyPumpsIds.length);
         });
 
@@ -187,7 +188,7 @@ void main() {
               .thenReturn(testCompanyId);
           when(() => sectorRepository.createSector(nonExistentSectorForTest))
               .thenAnswer((_) => Future.value());
-          when(() => sectorPumpRepository.addSectorPump(any())).thenAnswer(
+          when(() => sectorPumpRepository.createSectorPump(any())).thenAnswer(
             (_) => Future.value(),
           );
 
@@ -204,7 +205,7 @@ void main() {
               .called(1);
           verify(() => sectorRepository.createSector(nonExistentSectorForTest))
               .called(1);
-          verifyNever(() => sectorPumpRepository.addSectorPump(any()));
+          verifyNever(() => sectorPumpRepository.createSectorPump(any()));
         });
 
         test(
@@ -217,7 +218,7 @@ void main() {
               .thenReturn(testCompanyId);
           when(() => sectorRepository.createSector(nonExistentSectorForTest))
               .thenAnswer((_) => Future.value(nonExistentSectorForTest));
-          when(() => sectorPumpRepository.addSectorPump(any())).thenAnswer(
+          when(() => sectorPumpRepository.createSectorPump(any())).thenAnswer(
             (_) => Future.value(),
           );
           final service = makeServiceWithArgs();
@@ -232,7 +233,7 @@ void main() {
               .called(1);
           verify(() => sectorRepository.createSector(nonExistentSectorForTest))
               .called(1);
-          verifyNever(() => sectorPumpRepository.addSectorPump(any()));
+          verifyNever(() => sectorPumpRepository.createSectorPump(any()));
         });
       });
     });
@@ -258,7 +259,7 @@ void main() {
         verifyNever(() => sectorRepository.updateSector(any()));
         verifyNever(() => sectorPumpRepository.getSectorPumps(any()));
         verifyNever(() => sectorPumpRepository.deleteSectorPump(any()));
-        verifyNever(() => sectorPumpRepository.addSectorPump(any()));
+        verifyNever(() => sectorPumpRepository.createSectorPump(any()));
       });
 
       group('non null user', () {
@@ -286,9 +287,8 @@ void main() {
 
           // Verify that the following calls aren't made
           verifyNever(() => sectorPumpRepository.getSectorPumps(any()));
-          verifyNever(
-              () => sectorPumpRepository.deleteSectorPump(any()));
-          verifyNever(() => sectorPumpRepository.addSectorPump(any()));
+          verifyNever(() => sectorPumpRepository.deleteSectorPump(any()));
+          verifyNever(() => sectorPumpRepository.createSectorPump(any()));
         });
 
         test(
@@ -331,7 +331,7 @@ void main() {
             () => sectorPumpRepository.deleteSectorPump(any()),
           );
           verifyNever(
-            () => sectorPumpRepository.addSectorPump(any()),
+            () => sectorPumpRepository.createSectorPump(any()),
           );
         });
 
@@ -364,11 +364,10 @@ void main() {
               .thenAnswer(
             (_) => Future.value(validSectorPumpForTest),
           );
-          when(() => sectorPumpRepository.deleteSectorPump(any()))
-              .thenAnswer(
+          when(() => sectorPumpRepository.deleteSectorPump(any())).thenAnswer(
             (_) => Future.value(true),
           );
-          when(() => sectorPumpRepository.addSectorPump(newSectorPumps))
+          when(() => sectorPumpRepository.createSectorPump(newSectorPumps))
               .thenAnswer(
             (_) => Future.value(newSectorPumps),
           );
@@ -384,11 +383,10 @@ void main() {
               .called(1);
 
           // verify that all previous pumps were deleted
-          verify(() =>
-                  sectorPumpRepository.deleteSectorPump(any()))
+          verify(() => sectorPumpRepository.deleteSectorPump(any()))
               .called(validSectorPumpIdsForTest.length);
           // verify that new pump was added
-          verify(() => sectorPumpRepository.addSectorPump(newSectorPumps))
+          verify(() => sectorPumpRepository.createSectorPump(newSectorPumps))
               .called(1);
         });
       });

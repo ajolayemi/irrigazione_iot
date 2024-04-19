@@ -27,13 +27,13 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
   void dispose() => _sectorPumpsState.close();
 
   @override
-  Future<SectorPump?> addSectorPump(SectorPump sectorPump) async {
+  Future<SectorPump?> createSectorPump(SectorPump sectorPump) async {
     await delay(addDelay);
     final currentSectorPumps = [..._sectorPumpsState.value];
     final lastId = currentSectorPumps
         .map((sectorPump) => int.tryParse(sectorPump.id) ?? 0)
         .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
-        final toAdd = sectorPump.copyWith(id: '${lastId + 1}');
+    final toAdd = sectorPump.copyWith(id: '${lastId + 1}');
     currentSectorPumps.add(toAdd);
     _sectorPumpsState.value = currentSectorPumps;
     // get and return the added sectorPump

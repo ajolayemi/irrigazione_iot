@@ -42,7 +42,7 @@ class AddUpdateSectorService {
         debugPrint(
             'Creating sector pump: ${sectorPump.toJson()} for sector: ${createdSector.name}');
         final createdSectorPump =
-            await sectorPumpsRepo.addSectorPump(sectorPump);
+            await sectorPumpsRepo.createSectorPump(sectorPump);
         debugPrint('Created sectorPump: ${createdSectorPump?.toJson()}}');
       }
     }
@@ -112,7 +112,7 @@ class AddUpdateSectorService {
 
         // Reaching here means we have new pump(s) to connect to the sector, that is
         // why the addSectorPump method is called instead of updateSectorPump
-        final a = await sectorPumpsRepository.addSectorPump(sectorPump);
+        final a = await sectorPumpsRepository.createSectorPump(sectorPump);
         debugPrint(
             'Updating sector pump: ${a?.toJson()} for sector: ${updatedSector.name}');
       }

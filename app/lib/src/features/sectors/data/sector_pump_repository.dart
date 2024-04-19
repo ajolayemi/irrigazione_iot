@@ -9,7 +9,7 @@ part 'sector_pump_repository.g.dart';
 
 abstract class SectorPumpRepository {
   /// Add a new [SectorPump] to database and return the added [SectorPump] if the addition was successful
-  Future<SectorPump?> addSectorPump(SectorPump sectorPump);
+  Future<SectorPump?> createSectorPump(SectorPump sectorPump);
 
   /// Delete a [SectorPump] from database and return true if the deletion was successful
   Future<bool> deleteSectorPump(String sectorPumpId);
