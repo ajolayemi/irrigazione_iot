@@ -43,7 +43,7 @@ class FakeSectorRepository extends SectorRepository {
     if (currentSectors[index] == sector) return Future.value(sector);
     currentSectors[index] = sector;
     _sectorsState.value = currentSectors;
-    return getSector(sector.id);
+    return _getSector(_sectorsState.value, sector.id);
   }
 
   @override
@@ -54,12 +54,7 @@ class FakeSectorRepository extends SectorRepository {
     if (index < 0) return Future.value(false);
     currentSectors.removeAt(index);
     _sectorsState.value = currentSectors;
-    return await getSector(sectorID) == null;
-  }
-
-  @override
-  Future<List<Sector?>> getSectors(String companyId) {
-    return Future.value(_getSectors(_sectorsState.value, companyId));
+    return _getSector(_sectorsState.value, sectorID) == null;
   }
 
   @override
@@ -71,12 +66,6 @@ class FakeSectorRepository extends SectorRepository {
   @override
   Stream<Sector?> watchSector(String sectorID) {
     return _sectorsState.stream.map((sectors) => _getSector(sectors, sectorID));
-  }
-
-  @override
-  Future<Sector?> getSector(String sectorID) async {
-    await delay(addDelay);
-    return Future.value(_getSector(_sectorsState.value, sectorID));
   }
 
   @override
