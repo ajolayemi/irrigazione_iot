@@ -241,5 +241,23 @@ final companyUsedPumpOffCommandsStreamProvider =
 
 typedef CompanyUsedPumpOffCommandsStreamRef
     = AutoDisposeStreamProviderRef<List<String?>>;
+String _$usedMqttMessageNamesStreamHash() =>
+    r'8fb2ccedd8365ae379d726390493daec63c51899';
+
+/// See also [usedMqttMessageNamesStream].
+@ProviderFor(usedMqttMessageNamesStream)
+final usedMqttMessageNamesStreamProvider =
+    AutoDisposeStreamProvider<List<String?>>.internal(
+  usedMqttMessageNamesStream,
+  name: r'usedMqttMessageNamesStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$usedMqttMessageNamesStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef UsedMqttMessageNamesStreamRef
+    = AutoDisposeStreamProviderRef<List<String?>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -34,6 +34,9 @@ abstract class PumpRepository {
   /// watches a list of already used pump off commands for a specified company
   /// this is used in form validation to prevent duplicate pump off commands for a company
   Stream<List<String?>> watchCompanyUsedPumpOffCommands(String companyId);
+
+  /// emits the list of mqtt messages names already used generally
+  Stream<List<String?>> watchUsedMqttMessageNames();
 }
 
 @Riverpod(keepAlive: true)
@@ -99,4 +102,13 @@ Stream<List<String?>> companyUsedPumpOffCommandsStream(
 
   return pumpRepository
       .watchCompanyUsedPumpOffCommands(currentSelectedCompanyByUser.id);
+}
+
+
+@riverpod
+Stream<List<String?>> usedMqttMessageNamesStream(
+  UsedMqttMessageNamesStreamRef ref,
+) {
+  final pumpRepository = ref.watch(pumpRepositoryProvider);
+  return pumpRepository.watchUsedMqttMessageNames();
 }
