@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
@@ -104,6 +105,9 @@ class _AddUpdateSectorFormContentsState
           ref.read(sectorStreamProvider(widget.sectorId!)).valueOrNull;
       final sectorPump =
           ref.read(sectorPumpStreamProvider(widget.sectorId!)).valueOrNull;
+      final pump = sectorPump == null
+          ? null
+          : ref.read(pumpStreamProvider(sectorPump.pumpId)).valueOrNull;
       _initialSectorPump = sectorPump;
       _initialSector = sector;
       _nameController.text = _initialSector?.name ?? '';
@@ -122,6 +126,7 @@ class _AddUpdateSectorFormContentsState
       _turnOnCommandController.text = _initialSector?.turnOnCommand ?? '';
       _turnOffCommandController.text = _initialSector?.turnOffCommand ?? '';
       _notesController.text = _initialSector?.notes ?? '';
+      _selectedPumpController.text = pump?.name ?? '';
     }
     super.initState();
   }
@@ -175,7 +180,7 @@ class _AddUpdateSectorFormContentsState
         });
 
     if (selectedPump == null) return;
-    _selectedPumpController.text = selectedPump.value;
+    _selectedPumpController.text = selectedPump.label;
   }
 
   void _nameEditingComplete(List<String?> usedSectorNames) {

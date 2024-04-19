@@ -66,8 +66,8 @@ class ConnectPumpToSector extends ConsumerWidget {
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
                             final pump = pumps[index]!;
-                            final pumpIsSelected = selectedPumpId == pump.id ||
-                                pumpIdAlreadyConnected == pump.id;
+                            final pumpIsSelected =
+                                selectedPumpId?.value == pump.id;
                             return ResponsiveCheckboxTile(
                               title: pump.name,
                               value: pumpIsSelected,
