@@ -72,7 +72,7 @@ class SupabasePumpRepository implements PumpRepository {
   @override
   Stream<List<String?>> watchCompanyUsedPumpNames(String companyId) {
     return watchCompanyPumps(companyId).map(
-      (pumps) => pumps.map((pump) => pump?.name).toList(),
+      (pumps) => pumps.map((pump) => pump?.name.toLowerCase()).toList(),
     );
   }
 
