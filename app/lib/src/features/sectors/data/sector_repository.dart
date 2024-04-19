@@ -10,7 +10,6 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'sector_repository.g.dart';
 
 abstract class SectorRepository {
-
   /// emits a list of sectors pertaining to a company
   Stream<List<Sector?>> watchSectors(String companyId);
 
@@ -18,7 +17,7 @@ abstract class SectorRepository {
   Stream<Sector?> watchSector(String sectorID);
 
   /// adds a sector
-  Future<Sector?> addSector(Sector sector);
+  Future<Sector?> createSector(Sector sector);
 
   /// updates a sector
   Future<Sector?> updateSector(Sector sector);
@@ -37,6 +36,10 @@ abstract class SectorRepository {
   /// emits a list of already used sector off commands for a specified company
   /// this is used in form validation to prevent duplicate sector off commands for a company
   Stream<List<String?>> watchCompanyUsedSectorOffCommands(String companyId);
+
+  /// emits a list of general already used mqtt names
+  /// this is used in form validation to prevent duplicate mqtt names
+  Stream<List<String?>> watchSectorUsedMqttMsgNames();
 }
 
 @Riverpod(keepAlive: true)
@@ -53,13 +56,11 @@ Stream<List<Sector?>> sectorListStream(SectorListStreamRef ref) {
   return sectorsRepository.watchSectors(companyId);
 }
 
-
 @riverpod
 Stream<Sector?> sectorStream(SectorStreamRef ref, String sectorID) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
   return sectorsRepository.watchSector(sectorID);
 }
-
 
 @riverpod
 Stream<List<String?>> usedSectorNamesStream(UsedSectorNamesStreamRef ref) {
@@ -91,4 +92,11 @@ Stream<List<String?>> usedSectorOffCommandsStream(
   if (currentSelectedCompanyByUser == null) return const Stream.empty();
   return sectorsRepository
       .watchCompanyUsedSectorOffCommands(currentSelectedCompanyByUser.id);
+}
+
+@riverpod
+Stream<List<String?>> usedMqttMessageNamesStream(
+    UsedMqttMessageNamesStreamRef ref) {
+  final sectorsRepository = ref.read(sectorRepositoryProvider);
+  return sectorsRepository.watchSectorUsedMqttMsgNames();
 }

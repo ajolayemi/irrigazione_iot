@@ -29,7 +29,7 @@ class AddUpdateSectorService {
 
     //create sector
     final createdSector =
-        await sectorRepo.addSector(sector.copyWith(companyId: companyId));
+        await sectorRepo.createSector(sector.copyWith(companyId: companyId));
 
     if (createdSector != null && pumpsToConnectToSector.isNotEmpty) {
       // loop over each pump and connect it to the created sector

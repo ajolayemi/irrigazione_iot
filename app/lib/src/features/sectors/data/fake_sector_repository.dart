@@ -12,7 +12,7 @@ class FakeSectorRepository extends SectorRepository {
   final _sectorsState = InMemoryStore<List<Sector>>(kFakeSectors);
 
   @override
-  Future<Sector?> addSector(Sector sector) async {
+  Future<Sector?> createSector(Sector sector) async {
     // data validation logic is handled directly in the form
     await delay(addDelay);
     final lastUsedSectorId = _sectorsState.value
@@ -34,8 +34,8 @@ class FakeSectorRepository extends SectorRepository {
     // data validation logic is handled directly in the form
     await delay(addDelay);
     final currentSectors = [..._sectorsState.value];
-    final index = currentSectors
-        .indexWhere((s) => s.id == sector.id && s.companyId == sector.companyId);
+    final index = currentSectors.indexWhere(
+        (s) => s.id == sector.id && s.companyId == sector.companyId);
     if (index < 0) return Future.value(null);
     // return early if the new provided sector is the same as the old one
     if (currentSectors[index] == sector) return Future.value(sector);
@@ -102,4 +102,11 @@ class FakeSectorRepository extends SectorRepository {
   }
 
   void dispose() => _sectorsState.close();
+
+  @override
+  Stream<List<String?>> watchSectorUsedMqttMsgNames() {
+    return _sectorsState.stream.map(
+      (sectors) => sectors.map((sector) => sector.mqttMsgName).toList(),
+    );
+  }
 }

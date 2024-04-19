@@ -53,8 +53,6 @@ void main() {
   });
 
   group('FakeSectorRepository', () {
- 
-
     test('watchSectors(testCompanyId) works as expected', () async {
       expect(repo.watchSectors(testCompanyId), emits(expectedCompanySectors));
     });
@@ -62,8 +60,6 @@ void main() {
     test('watchSectors with invalid company id emits an empty list', () async {
       expect(repo.watchSectors('9000'), emits(isEmpty));
     });
-
-
 
     test('watchSector(testSectorId) emits the expected sector', () {
       expect(repo.watchSector(testSectorId), emits(expectedSector));
@@ -113,7 +109,7 @@ void main() {
 
     test('addSector works as expected', () async {
       await expectLater(
-        repo.addSector(sectorToAdd),
+        repo.createSector(sectorToAdd),
         completion(isA<Sector>()),
       );
     });
@@ -159,9 +155,7 @@ void main() {
       expect(updatedSector, isNotNull);
 
       // update
-      await expectLater(
-          repo.updateSector(updatedSector!),
-          completion(isNull));
+      await expectLater(repo.updateSector(updatedSector!), completion(isNull));
     });
 
     test('deleteSector(testSectorId) deletes sector as expected', () async {
