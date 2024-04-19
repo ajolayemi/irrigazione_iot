@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/shared/models/radio_button_return_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
@@ -11,16 +12,15 @@ class ConnectPumpsToSectorController extends _$ConnectPumpsToSectorController {
     // nothing to do here
   }
 
-  void handleSelection(bool value, String pumpId) {
-    final selectedPumpsId = [...ref.watch(selectedPumpsIdProvider)];
-    final pumpIndexInList = selectedPumpsId.indexOf(pumpId);
-    if (value && pumpIndexInList >= 0) return;
+  void handleSelection(bool value, String pumpId, String pumpName) {
     if (value) {
-      selectedPumpsId.add(pumpId);
-      ref.read(selectedPumpsIdProvider.notifier).state = selectedPumpsId;
+      ref.read(selectPumpRadioButtonProvider.notifier).state =
+          RadioButtonReturnType(
+        value: pumpId,
+        label: pumpName,
+      );
     } else {
-      selectedPumpsId.removeAt(pumpIndexInList);
-      ref.read(selectedPumpsIdProvider.notifier).state = selectedPumpsId;
+      ref.read(selectPumpRadioButtonProvider.notifier).state = null;
     }
   }
 }

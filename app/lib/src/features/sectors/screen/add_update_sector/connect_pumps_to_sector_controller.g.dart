@@ -7,7 +7,7 @@ part of 'connect_pumps_to_sector_controller.dart';
 // **************************************************************************
 
 String _$connectPumpsToSectorControllerHash() =>
-    r'a8c318e76fabb248e532228393fbd4b4a0146f9f';
+    r'52f54574f8a80325858c8969e1ec5be2aaefe7ee';
 
 /// See also [ConnectPumpsToSectorController].
 @ProviderFor(ConnectPumpsToSectorController)
