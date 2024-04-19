@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_return_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/supabase_sector_pump_repository.dart';
@@ -16,11 +17,11 @@ abstract class SectorPumpRepository {
   /// Delete a [SectorPump] from database and return true if the deletion was successful
   Future<bool> deleteSectorPump(String sectorPumpId);
 
-  /// Get a list of [SectorPump] from database if any
-  Future<List<SectorPump?>> getSectorPumps(String sectorId);
+  /// Get the [SectorPump] connected to the specified [sectorId] from database if any
+  Future<SectorPump?> getSectorPump(String sectorId);
 
-  /// Emits a list of [SectorPump] from database if any
-  Stream<List<SectorPump?>> watchSectorPumps(String sectorId);
+  /// Watch the [SectorPump] connected to the specified [sectorId] from database
+  Stream<SectorPump?> watchSectorPump(String sectorId);
 
   /// Gets a list of [Pump]s of the current company that aren't connected yet to a sector
   Future<List<Pump>?> getAvailablePumps(
@@ -37,17 +38,15 @@ SectorPumpRepository sectorPumpRepository(SectorPumpRepositoryRef ref) {
 }
 
 @riverpod
-Stream<List<SectorPump?>> sectorPumpsStream(
-    SectorPumpsStreamRef ref, String sectorId) {
+Stream<SectorPump?> sectorPumpStream(SectorPumpStreamRef ref, String sectorId) {
   final sectorPumpRepo = ref.watch(sectorPumpRepositoryProvider);
-  return sectorPumpRepo.watchSectorPumps(sectorId);
+  return sectorPumpRepo.watchSectorPump(sectorId);
 }
 
 @riverpod
-Future<List<SectorPump?>> sectorPumpsFuture(
-    SectorPumpsFutureRef ref, String sectorId) {
+Future<SectorPump?> sectorPumpFuture(SectorPumpFutureRef ref, String sectorId) {
   final sectorPumpRepo = ref.watch(sectorPumpRepositoryProvider);
-  return sectorPumpRepo.getSectorPumps(sectorId);
+  return sectorPumpRepo.getSectorPump(sectorId);
 }
 
 @riverpod
@@ -70,8 +69,8 @@ Future<List<Pump>?> availablePumpsFuture(
   );
 }
 
-// Keeps track of the ids of the pumps selected to be connected to the sector
-
-final selectedPumpsIdProvider = StateProvider<List<String?>>((ref) {
-  return [];
+// Keeps track of the id of the pump selected to be connected to the sector
+final selectPumpRadioButtonProvider =
+    StateProvider<RadioButtonReturnType?>((ref) {
+  return null;
 });

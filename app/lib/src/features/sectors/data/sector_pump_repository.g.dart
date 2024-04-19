@@ -22,7 +22,7 @@ final sectorPumpRepositoryProvider = Provider<SectorPumpRepository>.internal(
 );
 
 typedef SectorPumpRepositoryRef = ProviderRef<SectorPumpRepository>;
-String _$sectorPumpsStreamHash() => r'e411abe6ccd35b14609add55297a5944fd886486';
+String _$sectorPumpStreamHash() => r'beee4e032bb8beaf0c33d2f80a9a84f73955a097';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -45,27 +45,27 @@ class _SystemHash {
   }
 }
 
-/// See also [sectorPumpsStream].
-@ProviderFor(sectorPumpsStream)
-const sectorPumpsStreamProvider = SectorPumpsStreamFamily();
+/// See also [sectorPumpStream].
+@ProviderFor(sectorPumpStream)
+const sectorPumpStreamProvider = SectorPumpStreamFamily();
 
-/// See also [sectorPumpsStream].
-class SectorPumpsStreamFamily extends Family<AsyncValue<List<SectorPump?>>> {
-  /// See also [sectorPumpsStream].
-  const SectorPumpsStreamFamily();
+/// See also [sectorPumpStream].
+class SectorPumpStreamFamily extends Family<AsyncValue<SectorPump?>> {
+  /// See also [sectorPumpStream].
+  const SectorPumpStreamFamily();
 
-  /// See also [sectorPumpsStream].
-  SectorPumpsStreamProvider call(
+  /// See also [sectorPumpStream].
+  SectorPumpStreamProvider call(
     String sectorId,
   ) {
-    return SectorPumpsStreamProvider(
+    return SectorPumpStreamProvider(
       sectorId,
     );
   }
 
   @override
-  SectorPumpsStreamProvider getProviderOverride(
-    covariant SectorPumpsStreamProvider provider,
+  SectorPumpStreamProvider getProviderOverride(
+    covariant SectorPumpStreamProvider provider,
   ) {
     return call(
       provider.sectorId,
@@ -84,33 +84,32 @@ class SectorPumpsStreamFamily extends Family<AsyncValue<List<SectorPump?>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'sectorPumpsStreamProvider';
+  String? get name => r'sectorPumpStreamProvider';
 }
 
-/// See also [sectorPumpsStream].
-class SectorPumpsStreamProvider
-    extends AutoDisposeStreamProvider<List<SectorPump?>> {
-  /// See also [sectorPumpsStream].
-  SectorPumpsStreamProvider(
+/// See also [sectorPumpStream].
+class SectorPumpStreamProvider extends AutoDisposeStreamProvider<SectorPump?> {
+  /// See also [sectorPumpStream].
+  SectorPumpStreamProvider(
     String sectorId,
   ) : this._internal(
-          (ref) => sectorPumpsStream(
-            ref as SectorPumpsStreamRef,
+          (ref) => sectorPumpStream(
+            ref as SectorPumpStreamRef,
             sectorId,
           ),
-          from: sectorPumpsStreamProvider,
-          name: r'sectorPumpsStreamProvider',
+          from: sectorPumpStreamProvider,
+          name: r'sectorPumpStreamProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$sectorPumpsStreamHash,
-          dependencies: SectorPumpsStreamFamily._dependencies,
+                  : _$sectorPumpStreamHash,
+          dependencies: SectorPumpStreamFamily._dependencies,
           allTransitiveDependencies:
-              SectorPumpsStreamFamily._allTransitiveDependencies,
+              SectorPumpStreamFamily._allTransitiveDependencies,
           sectorId: sectorId,
         );
 
-  SectorPumpsStreamProvider._internal(
+  SectorPumpStreamProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -124,12 +123,12 @@ class SectorPumpsStreamProvider
 
   @override
   Override overrideWith(
-    Stream<List<SectorPump?>> Function(SectorPumpsStreamRef provider) create,
+    Stream<SectorPump?> Function(SectorPumpStreamRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: SectorPumpsStreamProvider._internal(
-        (ref) => create(ref as SectorPumpsStreamRef),
+      override: SectorPumpStreamProvider._internal(
+        (ref) => create(ref as SectorPumpStreamRef),
         from: from,
         name: null,
         dependencies: null,
@@ -141,13 +140,13 @@ class SectorPumpsStreamProvider
   }
 
   @override
-  AutoDisposeStreamProviderElement<List<SectorPump?>> createElement() {
-    return _SectorPumpsStreamProviderElement(this);
+  AutoDisposeStreamProviderElement<SectorPump?> createElement() {
+    return _SectorPumpStreamProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is SectorPumpsStreamProvider && other.sectorId == sectorId;
+    return other is SectorPumpStreamProvider && other.sectorId == sectorId;
   }
 
   @override
@@ -159,43 +158,43 @@ class SectorPumpsStreamProvider
   }
 }
 
-mixin SectorPumpsStreamRef on AutoDisposeStreamProviderRef<List<SectorPump?>> {
+mixin SectorPumpStreamRef on AutoDisposeStreamProviderRef<SectorPump?> {
   /// The parameter `sectorId` of this provider.
   String get sectorId;
 }
 
-class _SectorPumpsStreamProviderElement
-    extends AutoDisposeStreamProviderElement<List<SectorPump?>>
-    with SectorPumpsStreamRef {
-  _SectorPumpsStreamProviderElement(super.provider);
+class _SectorPumpStreamProviderElement
+    extends AutoDisposeStreamProviderElement<SectorPump?>
+    with SectorPumpStreamRef {
+  _SectorPumpStreamProviderElement(super.provider);
 
   @override
-  String get sectorId => (origin as SectorPumpsStreamProvider).sectorId;
+  String get sectorId => (origin as SectorPumpStreamProvider).sectorId;
 }
 
-String _$sectorPumpsFutureHash() => r'7d6cdd44370db8220194d80d65d85cafe0485b11';
+String _$sectorPumpFutureHash() => r'f516e19248eb5e380591d346b1c4987b2c37acf3';
 
-/// See also [sectorPumpsFuture].
-@ProviderFor(sectorPumpsFuture)
-const sectorPumpsFutureProvider = SectorPumpsFutureFamily();
+/// See also [sectorPumpFuture].
+@ProviderFor(sectorPumpFuture)
+const sectorPumpFutureProvider = SectorPumpFutureFamily();
 
-/// See also [sectorPumpsFuture].
-class SectorPumpsFutureFamily extends Family<AsyncValue<List<SectorPump?>>> {
-  /// See also [sectorPumpsFuture].
-  const SectorPumpsFutureFamily();
+/// See also [sectorPumpFuture].
+class SectorPumpFutureFamily extends Family<AsyncValue<SectorPump?>> {
+  /// See also [sectorPumpFuture].
+  const SectorPumpFutureFamily();
 
-  /// See also [sectorPumpsFuture].
-  SectorPumpsFutureProvider call(
+  /// See also [sectorPumpFuture].
+  SectorPumpFutureProvider call(
     String sectorId,
   ) {
-    return SectorPumpsFutureProvider(
+    return SectorPumpFutureProvider(
       sectorId,
     );
   }
 
   @override
-  SectorPumpsFutureProvider getProviderOverride(
-    covariant SectorPumpsFutureProvider provider,
+  SectorPumpFutureProvider getProviderOverride(
+    covariant SectorPumpFutureProvider provider,
   ) {
     return call(
       provider.sectorId,
@@ -214,33 +213,32 @@ class SectorPumpsFutureFamily extends Family<AsyncValue<List<SectorPump?>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'sectorPumpsFutureProvider';
+  String? get name => r'sectorPumpFutureProvider';
 }
 
-/// See also [sectorPumpsFuture].
-class SectorPumpsFutureProvider
-    extends AutoDisposeFutureProvider<List<SectorPump?>> {
-  /// See also [sectorPumpsFuture].
-  SectorPumpsFutureProvider(
+/// See also [sectorPumpFuture].
+class SectorPumpFutureProvider extends AutoDisposeFutureProvider<SectorPump?> {
+  /// See also [sectorPumpFuture].
+  SectorPumpFutureProvider(
     String sectorId,
   ) : this._internal(
-          (ref) => sectorPumpsFuture(
-            ref as SectorPumpsFutureRef,
+          (ref) => sectorPumpFuture(
+            ref as SectorPumpFutureRef,
             sectorId,
           ),
-          from: sectorPumpsFutureProvider,
-          name: r'sectorPumpsFutureProvider',
+          from: sectorPumpFutureProvider,
+          name: r'sectorPumpFutureProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$sectorPumpsFutureHash,
-          dependencies: SectorPumpsFutureFamily._dependencies,
+                  : _$sectorPumpFutureHash,
+          dependencies: SectorPumpFutureFamily._dependencies,
           allTransitiveDependencies:
-              SectorPumpsFutureFamily._allTransitiveDependencies,
+              SectorPumpFutureFamily._allTransitiveDependencies,
           sectorId: sectorId,
         );
 
-  SectorPumpsFutureProvider._internal(
+  SectorPumpFutureProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -254,12 +252,12 @@ class SectorPumpsFutureProvider
 
   @override
   Override overrideWith(
-    FutureOr<List<SectorPump?>> Function(SectorPumpsFutureRef provider) create,
+    FutureOr<SectorPump?> Function(SectorPumpFutureRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: SectorPumpsFutureProvider._internal(
-        (ref) => create(ref as SectorPumpsFutureRef),
+      override: SectorPumpFutureProvider._internal(
+        (ref) => create(ref as SectorPumpFutureRef),
         from: from,
         name: null,
         dependencies: null,
@@ -271,13 +269,13 @@ class SectorPumpsFutureProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<SectorPump?>> createElement() {
-    return _SectorPumpsFutureProviderElement(this);
+  AutoDisposeFutureProviderElement<SectorPump?> createElement() {
+    return _SectorPumpFutureProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is SectorPumpsFutureProvider && other.sectorId == sectorId;
+    return other is SectorPumpFutureProvider && other.sectorId == sectorId;
   }
 
   @override
@@ -289,18 +287,18 @@ class SectorPumpsFutureProvider
   }
 }
 
-mixin SectorPumpsFutureRef on AutoDisposeFutureProviderRef<List<SectorPump?>> {
+mixin SectorPumpFutureRef on AutoDisposeFutureProviderRef<SectorPump?> {
   /// The parameter `sectorId` of this provider.
   String get sectorId;
 }
 
-class _SectorPumpsFutureProviderElement
-    extends AutoDisposeFutureProviderElement<List<SectorPump?>>
-    with SectorPumpsFutureRef {
-  _SectorPumpsFutureProviderElement(super.provider);
+class _SectorPumpFutureProviderElement
+    extends AutoDisposeFutureProviderElement<SectorPump?>
+    with SectorPumpFutureRef {
+  _SectorPumpFutureProviderElement(super.provider);
 
   @override
-  String get sectorId => (origin as SectorPumpsFutureProvider).sectorId;
+  String get sectorId => (origin as SectorPumpFutureProvider).sectorId;
 }
 
 String _$availablePumpsFutureHash() =>
