@@ -312,7 +312,7 @@ GoRouter goRouter(GoRouterRef ref) {
         name: AppRoute.connectPumpToSector.name,
         pageBuilder: (context, state) => MaterialPage(
           fullscreenDialog: true,
-          child: ConnectPumpsToSector(
+          child: ConnectPumpToSector(
             pumpIdAlreadyConnected:
                 state.pathParameters['pumpIdAlreadyConnected'],
           ),
