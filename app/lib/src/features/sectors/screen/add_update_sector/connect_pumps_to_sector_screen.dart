@@ -21,6 +21,11 @@ import 'package:irrigazione_iot/src/shared/widgets/responsive_checkbox_tile.dart
 class ConnectPumpsToSector extends ConsumerWidget {
   const ConnectPumpsToSector({super.key});
 
+  // TODO: accept a string parameter that holds the id of the pump that's 
+  // TODO already connected to the sector. pass that over to the provider that 
+  // TODO fetches the available pumps so that it can include that pump from the
+  // TODO list of available pumps
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final canEdit = ref.watch(companyUserRoleProvider).valueOrNull?.canEdit;
