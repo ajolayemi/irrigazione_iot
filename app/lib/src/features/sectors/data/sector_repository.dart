@@ -10,28 +10,37 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'sector_repository.g.dart';
 
 abstract class SectorRepository {
-  // returns a list of sectors pertaining to a company
+  /// returns a list of sectors pertaining to a company
   Future<List<Sector?>> getSectors(String companyId);
-  // emits a list of sectors pertaining to a company
+
+  /// emits a list of sectors pertaining to a company
   Stream<List<Sector?>> watchSectors(String companyId);
-  // emits a sector with the given sectorID
+
+  /// emits a sector with the given sectorID
   Stream<Sector?> watchSector(String sectorID);
-  // returns a sector with the given sectorID
+
+  /// returns a sector with the given sectorID
   Future<Sector?> getSector(String sectorID);
-  // adds a sector
+
+  /// adds a sector
   Future<Sector?> addSector(Sector sector, String companyId);
-  // updates a sector
+
+  /// updates a sector
   Future<Sector?> updateSector(Sector sector, String companyId);
-  // deletes a sector
+
+  /// deletes a sector
   Future<bool> deleteSector(String sectorID);
-  // emits a list of already used sector names for a specified company
-  // this is used in form validation to prevent duplicate sector names for a company
+
+  /// emits a list of already used sector names for a specified company
+  /// this is used in form validation to prevent duplicate sector names for a company
   Stream<List<String?>> watchCompanyUsedSectorNames(String companyId);
-  // emits a list of already used sector on commands for a specified company
-  // this is used in form validation to prevent duplicate sector on commands for a company
+
+  /// emits a list of already used sector on commands for a specified company
+  /// this is used in form validation to prevent duplicate sector on commands for a company
   Stream<List<String?>> watchCompanyUsedSectorOnCommands(String companyId);
-  // emits a list of already used sector off commands for a specified company
-  // this is used in form validation to prevent duplicate sector off commands for a company
+
+  /// emits a list of already used sector off commands for a specified company
+  /// this is used in form validation to prevent duplicate sector off commands for a company
   Stream<List<String?>> watchCompanyUsedSectorOffCommands(String companyId);
 }
 
