@@ -3,6 +3,7 @@ import 'package:irrigazione_iot/src/features/pumps/model/pump_flow_database_keys
 import 'package:irrigazione_iot/src/features/pumps/model/pump_status_database_keys.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_database_keys.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pressure_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_pump_database_keys.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_status_database_keys.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -28,11 +29,14 @@ extension SupabaseClientExtensions on SupabaseClient {
 
   PostgrestFilterBuilder get selectedSectors => sectors.select();
 
-  SupabaseQueryBuilder get sectorPressure => from(SectorPressureDatabaseKeys.table);
+  SupabaseQueryBuilder get sectorPressure =>
+      from(SectorPressureDatabaseKeys.table);
 
   SupabaseQueryBuilder get sectorStatus => from(SectorStatusDatabaseKeys.table);
 
-  
+  SupabaseQueryBuilder get sectorPump => from(SectorPumpDatabaseKeys.table);
+
+  PostgrestFilterBuilder get selectedSectorPumps => sectorPump.select();
 
   /// Getter for the current access token
   String? get accessToken => auth.currentSession?.accessToken;
