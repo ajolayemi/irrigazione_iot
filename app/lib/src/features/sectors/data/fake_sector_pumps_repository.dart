@@ -1,5 +1,7 @@
 import 'package:collection/collection.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_pumps.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_sector_pumps.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
@@ -68,5 +70,10 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
     return _sectorPumpsState.stream.map((sectorPumps) {
       return _getSectorPumps(sectorPumps, sectorId);
     });
+  }
+
+  @override
+  Future<List<Pump>> getAvailablePumps(String sectorId) {
+    return Future.value(kFakePumps);
   }
 }
