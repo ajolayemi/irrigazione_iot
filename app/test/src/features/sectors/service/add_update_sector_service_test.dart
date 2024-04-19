@@ -33,7 +33,7 @@ void main() {
           .toList()
           .firstOrNull
           ?.copyWith(createdAt: DateTime.parse('2024-01-01')) ??
-      Sector.empty();
+      const Sector.empty();
   // a list of [SectorPump] pertaining to the chosen company sector
   final List<SectorPump> validSectorPumpForTest = kFakeSectorPumps
       .where((sectorPump) => sectorPump.sectorId == validSectorForTest.id)
@@ -44,7 +44,7 @@ void main() {
 
   final nonExistentSectorForTest = Sector(
       id: '200',
-      companyId: '4',
+      companyId: testCompanyId,
       name: 'Sector for test',
       specieId: '1',
       varietyId: '3',
@@ -92,7 +92,7 @@ void main() {
   }
 
   setUpAll(() {
-    registerFallbackValue(Sector.empty());
+    registerFallbackValue(const Sector.empty());
     registerFallbackValue(testSectorPump);
   });
 
@@ -113,7 +113,7 @@ void main() {
         verify(() => authRepository.currentUser).called(1);
 
         // the following calls shouldn't be made
-        verifyNever(() => sectorRepository.addSector(any(), any()));
+        verifyNever(() => sectorRepository.addSector(any()));
         verifyNever(() => sectorPumpRepository.addSectorPump(any()));
       });
 
@@ -126,8 +126,7 @@ void main() {
           when(() =>
                   selectedCompanyRepository.loadSelectedCompanyId(testUser.uid))
               .thenReturn(testCompanyId);
-          when(() => sectorRepository.addSector(
-                  nonExistentSectorForTest, testCompanyId))
+          when(() => sectorRepository.addSector(nonExistentSectorForTest))
               .thenAnswer((_) => Future.value());
 
           final service = makeServiceWithArgs();
@@ -140,8 +139,8 @@ void main() {
           verify(() =>
                   selectedCompanyRepository.loadSelectedCompanyId(testUser.uid))
               .called(1);
-          verify(() => sectorRepository.addSector(
-              nonExistentSectorForTest, testCompanyId)).called(1);
+          verify(() => sectorRepository.addSector(nonExistentSectorForTest))
+              .called(1);
 
           // verify that the following isn't called
           verifyNever(() => sectorPumpRepository.addSectorPump(testSectorPump));
@@ -155,8 +154,7 @@ void main() {
           when(() =>
                   selectedCompanyRepository.loadSelectedCompanyId(testUser.uid))
               .thenReturn(testCompanyId);
-          when(() => sectorRepository.addSector(
-                  nonExistentSectorForTest, testCompanyId))
+          when(() => sectorRepository.addSector(nonExistentSectorForTest))
               .thenAnswer((_) => Future.value(nonExistentSectorForTest));
           when(() => sectorPumpRepository.addSectorPump(any())).thenAnswer(
             (_) => Future.value(),
@@ -173,8 +171,8 @@ void main() {
           verify(() =>
                   selectedCompanyRepository.loadSelectedCompanyId(testUser.uid))
               .called(1);
-          verify(() => sectorRepository.addSector(
-              nonExistentSectorForTest, testCompanyId)).called(1);
+          verify(() => sectorRepository.addSector(nonExistentSectorForTest))
+              .called(1);
           verify(() => sectorPumpRepository.addSectorPump(any()))
               .called(companyPumpsIds.length);
         });
@@ -187,8 +185,7 @@ void main() {
           when(() =>
                   selectedCompanyRepository.loadSelectedCompanyId(testUser.uid))
               .thenReturn(testCompanyId);
-          when(() => sectorRepository.addSector(
-                  nonExistentSectorForTest, testCompanyId))
+          when(() => sectorRepository.addSector(nonExistentSectorForTest))
               .thenAnswer((_) => Future.value());
           when(() => sectorPumpRepository.addSectorPump(any())).thenAnswer(
             (_) => Future.value(),
@@ -205,8 +202,8 @@ void main() {
           verify(() =>
                   selectedCompanyRepository.loadSelectedCompanyId(testUser.uid))
               .called(1);
-          verify(() => sectorRepository.addSector(
-              nonExistentSectorForTest, testCompanyId)).called(1);
+          verify(() => sectorRepository.addSector(nonExistentSectorForTest))
+              .called(1);
           verifyNever(() => sectorPumpRepository.addSectorPump(any()));
         });
 
@@ -218,8 +215,7 @@ void main() {
           when(() =>
                   selectedCompanyRepository.loadSelectedCompanyId(testUser.uid))
               .thenReturn(testCompanyId);
-          when(() => sectorRepository.addSector(
-                  nonExistentSectorForTest, testCompanyId))
+          when(() => sectorRepository.addSector(nonExistentSectorForTest))
               .thenAnswer((_) => Future.value(nonExistentSectorForTest));
           when(() => sectorPumpRepository.addSectorPump(any())).thenAnswer(
             (_) => Future.value(),
@@ -234,8 +230,8 @@ void main() {
           verify(() =>
                   selectedCompanyRepository.loadSelectedCompanyId(testUser.uid))
               .called(1);
-          verify(() => sectorRepository.addSector(
-              nonExistentSectorForTest, testCompanyId)).called(1);
+          verify(() => sectorRepository.addSector(nonExistentSectorForTest))
+              .called(1);
           verifyNever(() => sectorPumpRepository.addSectorPump(any()));
         });
       });
@@ -252,14 +248,14 @@ void main() {
         // run
         // an empty sector can be passed here because the goal of this test isn't to test
         // the updateSector method from the service
-        await service.updateSector(Sector.empty());
+        await service.updateSector(const Sector.empty());
 
         // verify that the following call is made
         verify(() => authRepository.currentUser).called(1);
 
         // verify that the following calls aren't made
-        verifyNever(() => sectorRepository.addSector(any(), any()));
-        verifyNever(() => sectorRepository.updateSector(any(), any()));
+        verifyNever(() => sectorRepository.addSector(any()));
+        verifyNever(() => sectorRepository.updateSector(any()));
         verifyNever(() => sectorPumpRepository.getSectorPumps(any()));
         verifyNever(() => sectorPumpRepository.deleteSectorPump(any(), any()));
         verifyNever(() => sectorPumpRepository.addSectorPump(any()));
@@ -275,8 +271,7 @@ void main() {
                   selectedCompanyRepository.loadSelectedCompanyId(testUser.uid))
               .thenReturn(nonExistentSectorForTest.companyId);
           when(
-            () => sectorRepository.updateSector(
-                nonExistentSectorForTest, nonExistentSectorForTest.companyId),
+            () => sectorRepository.updateSector(nonExistentSectorForTest),
           ).thenAnswer((_) => Future.value());
 
           final service = makeServiceWithArgs(pumpIds: ['9', '19']);
@@ -286,8 +281,7 @@ void main() {
 
           // verify that the following calls are made
           verify(() => authRepository.currentUser).called(1);
-          verify(() => sectorRepository.updateSector(
-                  nonExistentSectorForTest, nonExistentSectorForTest.companyId))
+          verify(() => sectorRepository.updateSector(nonExistentSectorForTest))
               .called(1);
 
           // Verify that the following calls aren't made
@@ -310,8 +304,7 @@ void main() {
           when(() =>
                   selectedCompanyRepository.loadSelectedCompanyId(testUser.uid))
               .thenReturn(testCompanyId);
-          when(() => sectorRepository.updateSector(toUpdate, testCompanyId))
-              .thenAnswer(
+          when(() => sectorRepository.updateSector(toUpdate)).thenAnswer(
             (_) => Future.value(toUpdate),
           );
           when(() => sectorPumpRepository.getSectorPumps(toUpdate.id))
@@ -329,8 +322,7 @@ void main() {
           verify(() => authRepository.currentUser).called(1);
           verify(() =>
               selectedCompanyRepository.loadSelectedCompanyId(testUser.uid));
-          verify(() => sectorRepository.updateSector(toUpdate, testCompanyId))
-              .called(1);
+          verify(() => sectorRepository.updateSector(toUpdate)).called(1);
           verify(() => sectorPumpRepository.getSectorPumps(toUpdate.id))
               .called(1);
 
@@ -365,8 +357,7 @@ void main() {
           when(() =>
                   selectedCompanyRepository.loadSelectedCompanyId(testUser.uid))
               .thenReturn(testCompanyId);
-          when(() => sectorRepository.updateSector(toUpdate, testCompanyId))
-              .thenAnswer(
+          when(() => sectorRepository.updateSector(toUpdate)).thenAnswer(
             (_) => Future.value(toUpdate),
           );
           when(() => sectorPumpRepository.getSectorPumps(toUpdate.id))
@@ -388,8 +379,7 @@ void main() {
 
           // verify that the following calls were made
           verify(() => authRepository.currentUser).called(1);
-          verify(() => sectorRepository.updateSector(toUpdate, testCompanyId))
-              .called(1);
+          verify(() => sectorRepository.updateSector(toUpdate)).called(1);
           verify(() => sectorPumpRepository.getSectorPumps(toUpdate.id))
               .called(1);
 
