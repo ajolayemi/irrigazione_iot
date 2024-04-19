@@ -10,8 +10,10 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_form_validator.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_return_type.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
@@ -21,7 +23,6 @@ import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
-
 
 class AddUpdateSectorFormContents extends ConsumerStatefulWidget {
   const AddUpdateSectorFormContents(
@@ -60,6 +61,7 @@ class _AddUpdateSectorFormContentsState
   final _turnOnCommandController = TextEditingController();
   final _turnOffCommandController = TextEditingController();
   final _notesController = TextEditingController();
+  final _selectedPumpController = TextEditingController();
 
   // form field values
   String get name => _nameController.text;
@@ -73,6 +75,7 @@ class _AddUpdateSectorFormContentsState
   String get turnOnCommand => _turnOnCommandController.text;
   String get turnOffCommand => _turnOffCommandController.text;
   String get notes => _notesController.text;
+  String get selectedPump => _selectedPumpController.text;
 
   // Keys for testing
   static const _nameFieldKey = Key('sectorNameField');
@@ -88,13 +91,18 @@ class _AddUpdateSectorFormContentsState
   static const _connectedPumpsFieldKey = Key('sectorConnectedPumpsField');
   static const _notesFieldKey = Key('sectorNotesField');
 
-  Sector? _initialSector = Sector.empty();
+  Sector? _initialSector = const Sector.empty();
+
+  SectorPump? _initialSectorPump = const SectorPump.empty();
 
   @override
   void initState() {
     if (widget.formType.isUpdating && widget.sectorId != null) {
       final sector =
           ref.read(sectorStreamProvider(widget.sectorId!)).valueOrNull;
+      final sectorPump =
+          ref.read(sectorPumpStreamProvider(widget.sectorId!)).valueOrNull;
+      _initialSectorPump = sectorPump;
       _initialSector = sector;
       _nameController.text = _initialSector?.name ?? '';
       // TODO: specie and variety names should be displayed in the form not their ids
@@ -129,6 +137,7 @@ class _AddUpdateSectorFormContentsState
     _turnOnCommandController.dispose();
     _turnOffCommandController.dispose();
     _notesController.dispose();
+    _selectedPumpController.dispose();
     _node.dispose();
     super.dispose();
   }
@@ -156,10 +165,16 @@ class _AddUpdateSectorFormContentsState
     }
   }
 
-  void _onTappedConnectedPumps() {
-    context.pushNamed<int>(
+  void _onTappedConnectedPumps() async {
+    final selectedPump = await context.pushNamed<RadioButtonReturnType>(
       AppRoute.connectPumpToSector.name,
+      pathParameters: {
+        'pumpIdAlreadyConnected': _initialSectorPump?.pumpId ?? '',
+      },
     );
+
+    if (selectedPump == null) return;
+    _selectedPumpController.text = selectedPump.value;
   }
 
   void _nameEditingComplete(List<String?> usedSectorNames) {
@@ -294,7 +309,7 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _popScreen() {
-    ref.read(selectedPumpsIdProvider.notifier).state = [];
+    ref.read(selectPumpRadioButtonProvider.notifier).state = null;
     Navigator.of(context).pop();
   }
 
@@ -342,7 +357,8 @@ class _AddUpdateSectorFormContentsState
                     fieldHintText: loc.sectorNameHintText,
                     textInputAction: TextInputAction.next,
                     fieldController: _nameController,
-                    onEditingComplete: () => _nameEditingComplete(usedSectorNames ?? []),
+                    onEditingComplete: () =>
+                        _nameEditingComplete(usedSectorNames ?? []),
                     validator: (_) => _nameErrorText(usedSectorNames ?? []),
                   ),
                   gapH16,
@@ -505,26 +521,24 @@ class _AddUpdateSectorFormContentsState
                           _initialSector?.turnOffCommand,
                           usedSectorOffCommands ?? [])),
                   gapH16,
+
+                  // TODO display selected pump name
                   // connected pump field
-                  // TODO: a sector can have just a single pump
-                  Consumer(
-                    builder: (context, ref, child) {
-                      final selectedPumps = ref.watch(selectedPumpsIdProvider);
-                      return FormTitleAndField(
-                        enabled: !isLoading,
-                        fieldKey: _connectedPumpsFieldKey,
-                        fieldTitle: loc.sectorConnectedPumps,
-                        fieldHintText: loc.nSelectedPumps(selectedPumps.length),
-                        canRequestFocus: false,
-                        keyboardType: TextInputType.none,
-                        onTap: _onTappedConnectedPumps,
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.arrow_drop_down),
-                          onPressed: _onTappedConnectedPumps,
-                        ),
-                      );
-                    },
+                  FormTitleAndField(
+                    enabled: !isLoading,
+                    fieldController: _selectedPumpController,
+                    fieldKey: _connectedPumpsFieldKey,
+                    fieldTitle: loc.sectorConnectedPumps,
+                    fieldHintText: loc.selectAPump,
+                    canRequestFocus: false,
+                    keyboardType: TextInputType.none,
+                    onTap: _onTappedConnectedPumps,
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.arrow_drop_down),
+                      onPressed: _onTappedConnectedPumps,
+                    ),
                   ),
+
                   gapH16,
                   // notes field
                   FormTitleAndField(

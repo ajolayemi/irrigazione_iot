@@ -18,19 +18,23 @@ import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_checkbox_tile.dart';
 
-class ConnectPumpsToSector extends ConsumerWidget {
-  const ConnectPumpsToSector({super.key});
+class ConnectPumpToSector extends ConsumerWidget {
+  const ConnectPumpToSector({
+    super.key,
+    this.pumpIdAlreadyConnected,
+  });
 
-  // TODO: accept a string parameter that holds the id of the pump that's 
-  // TODO already connected to the sector. pass that over to the provider that 
+  // TODO: accept a string parameter that holds the id of the pump that's
+  // TODO already connected to the sector. pass that over to the provider that
   // TODO fetches the available pumps so that it can include that pump from the
   // TODO list of available pumps
 
+  final String? pumpIdAlreadyConnected;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final canEdit = ref.watch(companyUserRoleProvider).valueOrNull?.canEdit;
     final availablePumps = ref.watch(companyPumpsStreamProvider);
-    final selectedPumpsId = ref.watch(selectedPumpsIdProvider);
+    final selectedPumpId = ref.watch(selectPumpRadioButtonProvider);
     final loc = context.loc;
     return Scaffold(
       body: PaddedSafeArea(
@@ -62,15 +66,16 @@ class ConnectPumpsToSector extends ConsumerWidget {
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
                             final pump = pumps[index]!;
-                            final pumpIsSelected =
-                                selectedPumpsId.contains(pump.id);
+                            final pumpIsSelected = selectedPumpId == pump.id ||
+                                pumpIdAlreadyConnected == pump.id;
                             return ResponsiveCheckboxTile(
                               title: pump.name,
                               value: pumpIsSelected,
                               onChanged: (val) => ref
                                   .read(connectPumpsToSectorControllerProvider
                                       .notifier)
-                                  .handleSelection(val ?? false, pump.id),
+                                  .handleSelection(
+                                      val ?? false, pump.id, pump.name),
                             );
                           },
                           childCount: pumps.length,
@@ -91,8 +96,7 @@ class ConnectPumpsToSector extends ConsumerWidget {
             SliverCTAButton(
               text: 'Confirm',
               buttonType: ButtonType.primary,
-              onPressed: () =>
-                  Navigator.of(context).pop(selectedPumpsId.length),
+              onPressed: () => Navigator.of(context).pop(selectedPumpId),
             ),
             gapH32,
           ],

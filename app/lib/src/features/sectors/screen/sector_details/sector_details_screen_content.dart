@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pressure_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
@@ -10,7 +11,6 @@ import 'package:irrigazione_iot/src/utils/date_formatter.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/details_tile_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart';
-
 
 class SectorDetailsScreenContents extends ConsumerWidget {
   const SectorDetailsScreenContents(
@@ -46,32 +46,21 @@ class SectorDetailsScreenContents extends ConsumerWidget {
           ResponsiveDetailsCard(
             child: Consumer(
               builder: (context, ref, child) {
-                final connectedPumps = ref
-                        .watch(sectorPumpsStreamProvider(sector.id))
-                        .valueOrNull
-                        ?.length ??
-                    0;
+                final connectedPumps =
+                    ref.watch(sectorPumpStreamProvider(sector.id)).valueOrNull;
+                if (connectedPumps == null) return const DetailTileWidget();
+                final pump = ref
+                    .watch(pumpStreamProvider(connectedPumps.pumpId))
+                    .valueOrNull;
 
                 return DetailTileWidget(
-                    onTap: () => _onTapConnectedPumpsTile(
-                          context,
-                          sector.id,
-                        ),
-                    title: context.loc.sectorConnectedPumps,
-                    subtitle: context.loc.nConnectedPumps(
-                      connectedPumps,
-                    ),
-                    trailing: connectedPumps <= 0
-                        ? null
-                        : IconButton(
-                            onPressed: () => _onTapConnectedPumpsTile(
-                              context,
-                              sector.id,
-                            ),
-                            icon: const Icon(
-                              Icons.visibility,
-                            ),
-                          ));
+                  onTap: () => _onTapConnectedPumpsTile(
+                    context,
+                    sector.id,
+                  ),
+                  title: context.loc.sectorConnectedPumps,
+                  subtitle: pump?.name,
+                );
               },
             ),
           ),
