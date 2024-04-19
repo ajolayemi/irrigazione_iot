@@ -29,21 +29,21 @@ void main() {
 
   group('FakeSectorPumpRepository', () {
     test('getSectorPumps(testSectorId) returns the expected result', () async {
-      await expectLater(repository.getSectorPumps(testSectorId),
+      await expectLater(repository.getSectorPump(testSectorId),
           completion(expectedSectorPumps));
     });
 
     test('getSectorPumps(9000) returns an empty list', () async {
-      await expectLater(repository.getSectorPumps('9000'), completion(isEmpty));
+      await expectLater(repository.getSectorPump('9000'), completion(isEmpty));
     });
 
     test('watchSectorPumps(testSectorId) emits the expected result', () {
-      expect(repository.watchSectorPumps(testSectorId),
-          emits(expectedSectorPumps));
+      expect(
+          repository.watchSectorPump(testSectorId), emits(expectedSectorPumps));
     });
 
     test('watchSectorPumps(9000) emits an empty list', () {
-      expect(repository.watchSectorPumps('9000'), emits(isEmpty));
+      expect(repository.watchSectorPump('9000'), emits(isEmpty));
     });
 
     test('addSectorPump works as expected', () async {
