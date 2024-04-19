@@ -10,17 +10,12 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'sector_repository.g.dart';
 
 abstract class SectorRepository {
-  /// returns a list of sectors pertaining to a company
-  Future<List<Sector?>> getSectors(String companyId);
 
   /// emits a list of sectors pertaining to a company
   Stream<List<Sector?>> watchSectors(String companyId);
 
   /// emits a sector with the given sectorID
   Stream<Sector?> watchSector(String sectorID);
-
-  /// returns a sector with the given sectorID
-  Future<Sector?> getSector(String sectorID);
 
   /// adds a sector
   Future<Sector?> addSector(Sector sector, String companyId);
@@ -58,13 +53,6 @@ Stream<List<Sector?>> sectorListStream(SectorListStreamRef ref) {
   return sectorsRepository.watchSectors(companyId);
 }
 
-@riverpod
-Future<List<Sector?>> sectorListFuture(SectorListFutureRef ref) {
-  final sectorsRepository = ref.read(sectorRepositoryProvider);
-  final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return Future.value([]);
-  return sectorsRepository.getSectors(companyId);
-}
 
 @riverpod
 Stream<Sector?> sectorStream(SectorStreamRef ref, String sectorID) {
@@ -72,11 +60,6 @@ Stream<Sector?> sectorStream(SectorStreamRef ref, String sectorID) {
   return sectorsRepository.watchSector(sectorID);
 }
 
-@riverpod
-Future<Sector?> sectorFuture(SectorFutureRef ref, String sectorID) {
-  final sectorsRepository = ref.read(sectorRepositoryProvider);
-  return sectorsRepository.getSector(sectorID);
-}
 
 @riverpod
 Stream<List<String?>> usedSectorNamesStream(UsedSectorNamesStreamRef ref) {
