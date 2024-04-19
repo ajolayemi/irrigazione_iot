@@ -189,7 +189,7 @@
   "sectorOffCommand": "Off Command",
   "sectorOffCommandHintText": "eg: 2",
   "sectorNotes": "Notes",
-  "sectorConnectedPumps": "Connected Pumps",
+  "sectorConnectedPumps": "Connected Pump",
   "sectorLastIrrigationEmpty": "Never irrigated",
   "sectorLastIrrigationForTile": "Last irrigated",
   "addSectorPageTitle": "New Sector",
