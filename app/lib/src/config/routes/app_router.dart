@@ -307,13 +307,13 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Connect pumps to sector
       GoRoute(
-        path: '/connect-pump-to-sector/:pumpIdAlreadyConnected',
+        path: '/connect-pump-to-sector',
         name: AppRoute.connectPumpToSector.name,
         pageBuilder: (context, state) => MaterialPage(
           fullscreenDialog: true,
           child: ConnectPumpToSector(
             pumpIdAlreadyConnected:
-                state.pathParameters['pumpIdAlreadyConnected'],
+                state.uri.queryParameters['pumpIdAlreadyConnected'],
           ),
         ),
       ),
