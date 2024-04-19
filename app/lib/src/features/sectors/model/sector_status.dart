@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
@@ -12,12 +13,14 @@ class SectorStatus extends Equatable {
     required this.id,
     required this.sectorId,
     required this.status,
-this.createdAt,
+    this.createdAt,
   });
 
-  @JsonKey(name: SectorStatusDatabaseKeys.id)
+  @JsonKey(name: SectorStatusDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
   final String id;
   @JsonKey(name: SectorStatusDatabaseKeys.sectorId)
+  @IntConverter()
   final String sectorId;
   @JsonKey(name: SectorStatusDatabaseKeys.status)
   final String status;

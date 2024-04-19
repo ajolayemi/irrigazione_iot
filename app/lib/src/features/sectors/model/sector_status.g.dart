@@ -7,8 +7,8 @@ part of 'sector_status.dart';
 // **************************************************************************
 
 SectorStatus _$SectorStatusFromJson(Map<String, dynamic> json) => SectorStatus(
-      id: json['id'] as String,
-      sectorId: json['sector_id'] as String,
+      id: const IntConverter().fromJson(json['id'] as int),
+      sectorId: const IntConverter().fromJson(json['sector_id'] as int),
       status: json['status'] as String,
       createdAt: json['created_at'] == null
           ? null
@@ -17,8 +17,7 @@ SectorStatus _$SectorStatusFromJson(Map<String, dynamic> json) => SectorStatus(
 
 Map<String, dynamic> _$SectorStatusToJson(SectorStatus instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'sector_id': instance.sectorId,
+      'sector_id': const IntConverter().toJson(instance.sectorId),
       'status': instance.status,
       'created_at': instance.createdAt?.toIso8601String(),
     };
