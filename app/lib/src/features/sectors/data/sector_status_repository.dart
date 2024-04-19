@@ -7,20 +7,11 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'sector_status_repository.g.dart';
 
 abstract class SectorStatusRepository {
-  ///  Returns the most recent status for the sector
-  Future<bool?> getSectorStatus(Sector sector);
-
   /// Emits a stream of the most recent status for the sector
   Stream<bool?> watchSectorStatus(Sector sector);
 
   /// Toggles the status of the sector
   Future<void> toggleSectorStatus(Sector sector, String status);
-
-  /// Emits the most recent irrigation date for the sector
-  Stream<DateTime?> watchSectorLastIrrigation(Sector sector);
-
-  /// Returns the most recent irrigation date for the sector
-  Future<DateTime?> getSectorLastIrrigation(Sector sector);
 }
 
 @Riverpod(keepAlive: true)
@@ -35,22 +26,3 @@ Stream<bool?> sectorStatusStream(SectorStatusStreamRef ref, Sector sector) {
   return sectorStatusRepository.watchSectorStatus(sector);
 }
 
-@riverpod
-Future<bool?> sectorStatusFuture(SectorStatusFutureRef ref, Sector sector) {
-  final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);
-  return sectorStatusRepository.getSectorStatus(sector);
-}
-
-@riverpod
-Stream<DateTime?> sectorLastIrrigatedStream(
-    SectorLastIrrigatedStreamRef ref, Sector sector) {
-  final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);
-  return sectorStatusRepository.watchSectorLastIrrigation(sector);
-}
-
-@riverpod
-Future<DateTime?> sectorLastIrrigatedFuture(
-    SectorLastIrrigatedFutureRef ref, Sector sector) {
-  final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);
-  return sectorStatusRepository.getSectorLastIrrigation(sector);
-}

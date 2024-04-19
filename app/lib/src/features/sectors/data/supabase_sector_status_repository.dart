@@ -9,28 +9,11 @@ class SupabaseSectorStatusRepository implements SectorStatusRepository {
   final SupabaseClient _supabaseClient;
 
   @override
-  Future<DateTime?> getSectorLastIrrigation(Sector sector) {
-    // TODO: implement getSectorLastIrrigation
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool?> getSectorStatus(Sector sector) {
-    // TODO: implement getSectorStatus
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> toggleSectorStatus(Sector sector, String status) {
     // TODO: implement toggleSectorStatus
     throw UnimplementedError();
   }
 
-  @override
-  Stream<DateTime?> watchSectorLastIrrigation(Sector sector) {
-    // TODO: implement watchSectorLastIrrigation
-    throw UnimplementedError();
-  }
 
   @override
   Stream<bool?> watchSectorStatus(Sector sector) {

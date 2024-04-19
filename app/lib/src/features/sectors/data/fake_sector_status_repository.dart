@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_sectors_status.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
@@ -12,24 +11,6 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
 
   final _sectorStatusState =
       InMemoryStore<List<SectorStatus>>(kFakeSectorStatus);
-  @override
-  Future<DateTime?> getSectorLastIrrigation(Sector sector) async {
-    await delay(addDelay);
-    return Future.value(
-      _getMostRecentIrrigationDate(_sectorStatusState.value, sector),
-    );
-  }
-
-  @override
-  Future<bool?> getSectorStatus(Sector sector) async {
-    await delay(addDelay);
-    final mostRecentStatus =
-        _getMostRecentStatus(_sectorStatusState.value, sector.id);
-    return Future.value(
-      mostRecentStatus?.translateSectorStatusToBoolean(sector),
-    );
-  }
-
   @override
   Future<void> toggleSectorStatus(Sector sector, String status) async {
     await delay(addDelay);
@@ -53,12 +34,6 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
     _sectorStatusState.value = sectorStatuses;
   }
 
-  @override
-  Stream<DateTime?> watchSectorLastIrrigation(Sector sector) {
-    return _sectorStatusState.stream.map((statuses) {
-      return _getMostRecentIrrigationDate(statuses, sector);
-    });
-  }
 
   @override
   Stream<bool?> watchSectorStatus(Sector sector) {
@@ -83,19 +58,6 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
     final statusesForSector = _filterSectorStatus(statuses, sectorId);
     if (statusesForSector.isEmpty) return null;
     return statusesForSector.first;
-  }
-
-  /// * Returns the last time the sector was irrigated
-  static DateTime? _getMostRecentIrrigationDate(
-      List<SectorStatus> statuses, Sector sector) {
-    statuses.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
-    final statusesForSector = _filterSectorStatus(statuses, sector.id);
-
-    return statusesForSector
-        .firstWhereOrNull(
-          (status) => status.translateSectorStatusToBoolean(sector) == true,
-        )
-        ?.createdAt;
   }
 
   void dispose() => _sectorStatusState.close();
