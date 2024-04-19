@@ -8,7 +8,6 @@ import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
-import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_pump_form_validators.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pump_controller.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
@@ -16,6 +15,7 @@ import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_scrollable.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
+import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/utils/numeric_fields_text_type.dart';
 
@@ -35,7 +35,7 @@ class AddUpdatePumpContents extends ConsumerStatefulWidget {
 }
 
 class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
-    with AddPumpFormValidators {
+    with AppFormValidators {
   final _formKey = GlobalKey<FormState>();
 
   // form fields controllers
@@ -167,14 +167,24 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   }
 
   void _nameEditingComplete(List<String?> existingNames) {
-    if (canSubmitNameField(name, _initialPump?.name, existingNames)) {
+    if (canSubmitFormNameFields(
+      value: name,
+      maxLength: AppConstants.maxPumpNameLength,
+      namesToCompareAgainst: existingNames,
+      initialValue: _initialPump?.name,
+    )) {
       _node.nextFocus();
     }
   }
 
   String? _nameErrorText(List<String?> existingNames) {
     if (!_submitted) return null;
-    final errorKey = nameErrorKey(name, _initialPump?.name, existingNames);
+    final errorKey = getFormNameFieldErrorKey(
+      value: name,
+      maxLength: AppConstants.maxCollectorNameLength,
+      namesToCompareAgainst: existingNames,
+      initialValue: _initialPump?.name,
+    );
 
     if (errorKey == null) return null;
     final fieldName = context.loc.nPumps(1);
@@ -186,14 +196,14 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   }
 
   void _numericFieldsEditingComplete(String value) {
-    if (canSubmitNumericFields(value)) {
+    if (canSubmitNumericFields(value: value)) {
       _node.nextFocus();
     }
   }
 
   String? _numericFieldsErrorText(String value) {
     if (!_submitted) return null;
-    final errorKey = numericFieldsErrorKey(value);
+    final errorKey = getNumericFieldsErrorKey(value: value);
 
     if (errorKey == null) return null;
     return context.getLocalizedErrorText(
@@ -208,10 +218,10 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     List<String?> usedCommands,
   ) {
     if (canSubmitCommandFields(
-      value,
-      counterpartValue,
-      initialValue,
-      usedCommands,
+      value: value,
+      counterpartValue: counterpartValue,
+      initialValue: initialValue,
+      valuesToCompareAgainst: usedCommands,
     )) {
       _node.nextFocus();
     }
@@ -229,11 +239,11 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     final singularFieldName = loc.nPumps(1);
     final pluralFieldName = loc.nPumps(2);
 
-    final errorKey = commandFieldsErrorKey(
-      value,
-      counterpartValue,
-      initialValue,
-      usedCommands,
+    final errorKey = getCommandFieldErrorKey(
+      value: value,
+      counterpartValue: counterpartValue,
+      initialValue: initialValue,
+      valuesToCompareAgainst: usedCommands,
     );
 
     if (errorKey == null) return null;
