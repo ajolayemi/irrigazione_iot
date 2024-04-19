@@ -11,9 +11,11 @@ class SupabaseSectorPumpRepository implements SectorPumpRepository {
   const SupabaseSectorPumpRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
-  List<SectorPump?> _sectorPumpsFromJsonList(List<Map<String, dynamic>> data) {
-    return data.map((sectorPump) => SectorPump.fromJson(sectorPump)).toList();
-  }
+  SectorPump? _sectorPumpFromJson(Map<String, dynamic>? data) =>
+      data == null ? null : SectorPump.fromJson(data);
+
+  SectorPump? _sectorPumpSingleFromJson(List<Map<String, dynamic>> data) =>
+      data.isEmpty ? null : SectorPump.fromJson(data.first);
 
   @override
   Future<SectorPump?> createSectorPump(SectorPump sectorPump) async {
@@ -36,20 +38,23 @@ class SupabaseSectorPumpRepository implements SectorPumpRepository {
   }
 
   @override
-  Future<List<SectorPump?>> getSectorPumps(String sectorId) =>
+  Future<SectorPump?> getSectorPump(String sectorId) =>
       _supabaseClient.selectedSectorPumps
           .eq(SectorPumpDatabaseKeys.sectorId, sectorId)
-          .withConverter(_sectorPumpsFromJsonList);
+          .maybeSingle()
+          .withConverter(_sectorPumpFromJson);
 
   @override
-  Stream<List<SectorPump?>> watchSectorPumps(String sectorId) {
+  Stream<SectorPump?> watchSectorPump(String sectorId) {
     final stream = _supabaseClient.sectorPump
-        .stream(primaryKey: [SectorPumpDatabaseKeys.id]).eq(
-      SectorPumpDatabaseKeys.sectorId,
-      sectorId,
-    );
+        .stream(primaryKey: [SectorPumpDatabaseKeys.id])
+        .eq(
+          SectorPumpDatabaseKeys.sectorId,
+          sectorId,
+        )
+        .limit(1);
 
-    return stream.map(_sectorPumpsFromJsonList);
+    return stream.map(_sectorPumpSingleFromJson);
   }
 
   @override
@@ -58,17 +63,17 @@ class SupabaseSectorPumpRepository implements SectorPumpRepository {
     String companyId,
     String? alreadyConnectedPumpId,
   ) async {
-    return await _supabaseClient
-        .rpc<List<Map<String, dynamic>>>('get_pumps_not_connected_to_sector', params: {
+    return await _supabaseClient.rpc<List<Map<String, dynamic>>>(
+        'get_pumps_not_connected_to_sector',
+        params: {
           'sector_id_input': sectorId,
           'company_id_input': companyId,
           'pump_id_already_connected': int.tryParse(
             alreadyConnectedPumpId ?? '',
           ),
-        })
-        .withConverter((pumps) {
-          if (pumps.isEmpty) return null;
-          return pumps.map((pump) => Pump.fromJson(pump)).toList();
-        });
+        }).withConverter((pumps) {
+      if (pumps.isEmpty) return null;
+      return pumps.map((pump) => Pump.fromJson(pump)).toList();
+    });
   }
 }
