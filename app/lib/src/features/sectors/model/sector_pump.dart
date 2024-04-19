@@ -16,6 +16,12 @@ class SectorPump extends Equatable {
     this.createdAt,
   });
 
+  const SectorPump.empty()
+      : id = '',
+        sectorId = '',
+        pumpId = '',
+        createdAt = null;
+
   @JsonKey(name: SectorPumpDatabaseKeys.id, includeToJson: false)
   @IntConverter()
   final String id;
