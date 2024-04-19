@@ -4,16 +4,13 @@ import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/sector_details_screen_content.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_tile_skeleton.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/empty_placeholder_widget.dart';
-
 
 class SectorDetailsScreen extends ConsumerWidget {
   const SectorDetailsScreen({
@@ -23,10 +20,10 @@ class SectorDetailsScreen extends ConsumerWidget {
 
   final String sectorID;
 
-  void _onEditSector(WidgetRef ref, BuildContext context,
-      List<SectorPump?>? connectedPumpsIds) {
-    final pumpIds = connectedPumpsIds?.map((pump) => pump?.pumpId).toList();
-    ref.read(selectedPumpsIdProvider.notifier).state = pumpIds ?? [];
+  void _onEditSector(
+    WidgetRef ref,
+    BuildContext context,
+  ) {
     context.pushNamed(
       AppRoute.updateSector.name,
       pathParameters: {
@@ -41,8 +38,6 @@ class SectorDetailsScreen extends ConsumerWidget {
     // TODO: add an icon to show how many sensors are connected to this sector
     final canEdit = ref.watch(companyUserRoleProvider).valueOrNull?.canEdit;
     final sectorData = ref.watch(sectorStreamProvider(sectorID));
-    final sectorConnectedPumps =
-        ref.watch(sectorPumpsStreamProvider(sectorID)).valueOrNull;
     return SafeArea(
       child: Scaffold(
         body: AsyncValueSliverWidget(
@@ -58,8 +53,7 @@ class SectorDetailsScreen extends ConsumerWidget {
                   title: sector.name,
                   actions: [
                     AppBarIconButton(
-                      onPressed: () =>
-                          _onEditSector(ref, context, sectorConnectedPumps),
+                      onPressed: () => _onEditSector(ref, context),
                       icon: Icons.edit,
                       isVisibile: canEdit,
                     )
