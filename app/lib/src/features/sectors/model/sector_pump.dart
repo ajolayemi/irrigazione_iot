@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pump_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
 part 'sector_pump.g.dart';
 
@@ -15,12 +16,18 @@ class SectorPump extends Equatable {
     this.createdAt,
   });
 
-  @JsonKey(name: SectorPumpDatabaseKeys.id)
+  @JsonKey(name: SectorPumpDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
   final String id;
+
   @JsonKey(name: SectorPumpDatabaseKeys.sectorId)
+  @IntConverter()
   final String sectorId;
+
   @JsonKey(name: SectorPumpDatabaseKeys.pumpId)
+  @IntConverter()
   final String pumpId;
+
   @JsonKey(name: SectorPumpDatabaseKeys.createdAt)
   final DateTime? createdAt;
 
@@ -31,4 +38,18 @@ class SectorPump extends Equatable {
       _$SectorPumpFromJson(json);
 
   Map<String, dynamic> toJson() => _$SectorPumpToJson(this);
+
+  SectorPump copyWith({
+    String? id,
+    String? sectorId,
+    String? pumpId,
+    DateTime? createdAt,
+  }) {
+    return SectorPump(
+      id: id ?? this.id,
+      sectorId: sectorId ?? this.sectorId,
+      pumpId: pumpId ?? this.pumpId,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
 }
