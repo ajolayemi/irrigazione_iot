@@ -53,16 +53,7 @@ void main() {
   });
 
   group('FakeSectorRepository', () {
-    test('getSectors(testCompanyId) works as expected', () async {
-      await expectLater(
-        repo.getSectors(testCompanyId),
-        completion(expectedCompanySectors),
-      );
-    });
-
-    test('getSectors with invalid company id returns an empty list', () async {
-      await expectLater(repo.getSectors('9000'), completion(isEmpty));
-    });
+ 
 
     test('watchSectors(testCompanyId) works as expected', () async {
       expect(repo.watchSectors(testCompanyId), emits(expectedCompanySectors));
@@ -72,19 +63,7 @@ void main() {
       expect(repo.watchSectors('9000'), emits(isEmpty));
     });
 
-    test('getSector(testSectorId) returns the expected sector', () async {
-      await expectLater(
-        repo.getSector(testSectorId),
-        completion(expectedSector),
-      );
-    });
 
-    test('getSector with invalid sector id returns null', () async {
-      await expectLater(
-        repo.getSector('8900'),
-        completion(isNull),
-      );
-    });
 
     test('watchSector(testSectorId) emits the expected sector', () {
       expect(repo.watchSector(testSectorId), emits(expectedSector));
@@ -134,7 +113,7 @@ void main() {
 
     test('addSector works as expected', () async {
       await expectLater(
-        repo.addSector(sectorToAdd, sectorToAdd.companyId),
+        repo.addSector(sectorToAdd),
         completion(isA<Sector>()),
       );
     });
@@ -145,12 +124,9 @@ void main() {
         varietyId: '3',
       );
       expect(updatedSector, isNotNull);
-      final currentValue = await repo.getSector(updatedSector!.id);
-      expect(currentValue, sectorToUpdate);
-
       // update
       await expectLater(
-        repo.updateSector(updatedSector, updatedSector.companyId),
+        repo.updateSector(updatedSector!),
         completion(
           isNot(sectorToUpdate),
         ),
@@ -165,12 +141,10 @@ void main() {
         id: '90000',
       );
       expect(updatedSector, isNotNull);
-      final currentValue = await repo.getSector(updatedSector!.id);
-      expect(currentValue, isNull);
 
       // update
       await expectLater(
-        repo.updateSector(updatedSector, updatedSector.companyId),
+        repo.updateSector(updatedSector!),
         completion(isNull),
       );
     });
@@ -186,7 +160,7 @@ void main() {
 
       // update
       await expectLater(
-          repo.updateSector(updatedSector!, updatedSector.companyId),
+          repo.updateSector(updatedSector!),
           completion(isNull));
     });
 
