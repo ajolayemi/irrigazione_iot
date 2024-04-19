@@ -5,7 +5,6 @@ import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
-
 class FakeSectorPumpRepository implements SectorPumpRepository {
   FakeSectorPumpRepository({this.addDelay = true});
   final bool addDelay;
@@ -20,9 +19,9 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
   }
 
   static SectorPump? _getSectorPump(
-      List<SectorPump> sectorPumps, String sectorId, String pumpId) {
-    return sectorPumps.firstWhereOrNull((sectorPump) =>
-        sectorPump.sectorId == sectorId && sectorPump.pumpId == pumpId);
+      List<SectorPump> sectorPumps, String sectorPumpId) {
+    return sectorPumps
+        .firstWhereOrNull((sectorPump) => sectorPump.id == sectorPumpId);
   }
 
   void dispose() => _sectorPumpsState.close();
@@ -31,30 +30,31 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
   Future<SectorPump?> addSectorPump(SectorPump sectorPump) async {
     await delay(addDelay);
     final currentSectorPumps = [..._sectorPumpsState.value];
-    // TODO set the id of the sectorPump here before adding it to the list
-    currentSectorPumps.add(sectorPump);
+    final lastId = currentSectorPumps
+        .map((sectorPump) => int.tryParse(sectorPump.id) ?? 0)
+        .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
+        final toAdd = sectorPump.copyWith(id: '${lastId + 1}');
+    currentSectorPumps.add(toAdd);
     _sectorPumpsState.value = currentSectorPumps;
     // get and return the added sectorPump
     return _getSectorPump(
       _sectorPumpsState.value,
-      sectorPump.sectorId,
-      sectorPump.pumpId,
+      toAdd.id,
     );
   }
 
-
   @override
-  Future<bool> deleteSectorPump(String sectorId, String pumpId) async {
+  Future<bool> deleteSectorPump(String sectorPumpId) async {
     await delay(addDelay);
     final currentSectorPumps = [..._sectorPumpsState.value];
-    final sectorPumpIndex = currentSectorPumps.indexWhere((sectorPump) =>
-        sectorPump.sectorId == sectorId && sectorPump.pumpId == pumpId);
+    final sectorPumpIndex = currentSectorPumps
+        .indexWhere((sectorPump) => sectorPump.id == sectorPumpId);
     if (sectorPumpIndex == -1) {
       return false;
     }
     currentSectorPumps.removeAt(sectorPumpIndex);
     _sectorPumpsState.value = currentSectorPumps;
-    return _getSectorPump(_sectorPumpsState.value, sectorId, pumpId) == null;
+    return _getSectorPump(_sectorPumpsState.value, sectorPumpId) == null;
   }
 
   @override

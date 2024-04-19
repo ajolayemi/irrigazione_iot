@@ -12,7 +12,7 @@ abstract class SectorPumpRepository {
   Future<SectorPump?> addSectorPump(SectorPump sectorPump);
 
   /// Delete a [SectorPump] from database and return true if the deletion was successful
-  Future<bool> deleteSectorPump(String sectorId, String pumpId);
+  Future<bool> deleteSectorPump(String sectorPumpId);
 
   /// Get a list of [SectorPump] from database if any
   Future<List<SectorPump?>> getSectorPumps(String sectorId);
