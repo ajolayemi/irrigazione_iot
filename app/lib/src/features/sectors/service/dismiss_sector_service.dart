@@ -5,7 +5,6 @@ import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-
 part 'dismiss_sector_service.g.dart';
 
 class DismissSectorService {
@@ -32,14 +31,12 @@ class DismissSectorService {
       for (final sectorPump in sectorPumps) {
         debugPrint('Deleting sector pump: ${sectorPump?.pumpId}');
         await sectorPumpsRepository.deleteSectorPump(
-          sectorId,
-          sectorPump!.pumpId,
+          sectorPump!.id,
         );
       }
     }
   }
 }
-
 
 @Riverpod(keepAlive: true)
 DismissSectorService dismissSectorService(DismissSectorServiceRef ref) {

@@ -70,18 +70,17 @@ class AddUpdateSectorService {
       // Since we're updating sector data, it's possible that the user has removed some pumps
       // from the sector. We need to remove those pumps from the sectorPumps collection
       // Get a list of pumpIds that are no longer connected to the sector
-      final pumpIdsToRemove = currentSectorPumps
+      final sectorPumpIdsToRemove = currentSectorPumps
           .where((sp) => !updatedConnectedPumpIds.contains(sp?.pumpId))
-          .map((sp) => sp?.pumpId)
+          .map((sp) => sp?.id)
           .toList();
 
       // Remove the pumps that are no longer connected to the sector
-      if (pumpIdsToRemove.isNotEmpty) {
-        for (final pumpId in pumpIdsToRemove) {
+      if (sectorPumpIdsToRemove.isNotEmpty) {
+        for (final sectorPumpId in sectorPumpIdsToRemove) {
           debugPrint(
-              'Removing pump: $pumpId from sector: ${updatedSector.name}');
-          await sectorPumpsRepository.deleteSectorPump(
-              updatedSector.id, pumpId!);
+              'Removing pump: $sectorPumpId from sector: ${updatedSector.name}');
+          await sectorPumpsRepository.deleteSectorPump(sectorPumpId!);
         }
       }
 
