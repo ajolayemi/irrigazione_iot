@@ -21,9 +21,11 @@ import 'package:irrigazione_iot/src/features/pumps/data/fake_pump_status_reposit
 import 'package:irrigazione_iot/src/features/pumps/data/pump_flow_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_pressure_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_pumps_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/fake_sector_status_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pressure_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
@@ -75,6 +77,8 @@ extension AppBootstrapFakes on AppBootstrap {
     final sectorPumpRepository = FakeSectorPumpRepository(addDelay: addDelay);
     final specieRepository = FakeSpecieRepository(addDelay: addDelay);
     final varietyRepository = FakeVarietyRepository(addDelay: addDelay);
+    final pumpFlowRepo = FakePumpFlowRepository(addDelay: addDelay);
+    final sectorPressureRepo = FakeSectorPressureRepository();
     return ProviderContainer(
       overrides: [
         // repositories
@@ -96,6 +100,8 @@ extension AppBootstrapFakes on AppBootstrap {
         sectorPumpRepositoryProvider.overrideWithValue(sectorPumpRepository),
         specieRepositoryProvider.overrideWithValue(specieRepository),
         varietyRepositoryProvider.overrideWithValue(varietyRepository),
+        pumpFlowRepositoryProvider.overrideWithValue(pumpFlowRepo),
+        sectorPressureRepositoryProvider.overrideWithValue(sectorPressureRepo),
         // services
         settingsControllerProvider.overrideWithValue(settingsController),
       ],
