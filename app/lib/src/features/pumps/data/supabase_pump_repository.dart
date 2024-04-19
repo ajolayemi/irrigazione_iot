@@ -23,10 +23,9 @@ class SupabasePumpRepository implements PumpRepository {
     // set created_at and updated_at fields
     final data = pump
         .copyWith(
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-          mqttMessageName: 'pump-${pump.name}'
-        )
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+            mqttMessageName: 'pump-${pump.name}')
         .toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'insert-pump',
@@ -101,5 +100,13 @@ class SupabasePumpRepository implements PumpRepository {
         .limit(1);
 
     return stream.map(_pumpFromJsonSingle);
+  }
+
+  @override
+  Stream<List<String?>> watchUsedMqttMessageNames() {
+    return _supabaseClient.pumps.stream(primaryKey: [PumpDatabaseKeys.id]).map(
+      (pumps) =>
+          pumps.map((pump) => Pump.fromJson(pump).mqttMessageName).toList(),
+    );
   }
 }

@@ -21,12 +21,10 @@ class FakePumpRepository implements PumpRepository {
     }
   }
 
-
   @override
   Stream<List<Pump?>> watchCompanyPumps(String companyId) {
     return _fakePumps.stream.map((pumps) => _getCompanyPumps(pumps, companyId));
   }
-
 
   @override
   Stream<Pump?> watchPump(String pumpId) {
@@ -106,5 +104,12 @@ class FakePumpRepository implements PumpRepository {
       return Future.value(true);
     }
     return Future.value(false);
+  }
+
+  @override
+  Stream<List<String?>> watchUsedMqttMessageNames() {
+    return _fakePumps.stream.map(
+      (pumps) => pumps.map((pump) => pump.mqttMessageName).toList(),
+    );
   }
 }
