@@ -158,7 +158,7 @@ class _AddUpdateSectorFormContentsState
 
   void _onTappedConnectedPumps() {
     context.pushNamed<int>(
-      AppRoute.connectPumpsToSector.name,
+      AppRoute.connectPumpToSector.name,
     );
   }
 
