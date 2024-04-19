@@ -23,8 +23,8 @@ final sectorPressureRepositoryProvider =
 );
 
 typedef SectorPressureRepositoryRef = ProviderRef<SectorPressureRepository>;
-String _$sectorPressureStreamHash() =>
-    r'40148a2c3ede827214c621121549aec948723d55';
+String _$sectorLastPressureStreamHash() =>
+    r'15073320b18aae2f0fabb1529094fde4f6a34f4d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -47,27 +47,27 @@ class _SystemHash {
   }
 }
 
-/// See also [sectorPressureStream].
-@ProviderFor(sectorPressureStream)
-const sectorPressureStreamProvider = SectorPressureStreamFamily();
+/// See also [sectorLastPressureStream].
+@ProviderFor(sectorLastPressureStream)
+const sectorLastPressureStreamProvider = SectorLastPressureStreamFamily();
 
-/// See also [sectorPressureStream].
-class SectorPressureStreamFamily extends Family<AsyncValue<DateTime?>> {
-  /// See also [sectorPressureStream].
-  const SectorPressureStreamFamily();
+/// See also [sectorLastPressureStream].
+class SectorLastPressureStreamFamily extends Family<AsyncValue<DateTime?>> {
+  /// See also [sectorLastPressureStream].
+  const SectorLastPressureStreamFamily();
 
-  /// See also [sectorPressureStream].
-  SectorPressureStreamProvider call(
+  /// See also [sectorLastPressureStream].
+  SectorLastPressureStreamProvider call(
     String sectorId,
   ) {
-    return SectorPressureStreamProvider(
+    return SectorLastPressureStreamProvider(
       sectorId,
     );
   }
 
   @override
-  SectorPressureStreamProvider getProviderOverride(
-    covariant SectorPressureStreamProvider provider,
+  SectorLastPressureStreamProvider getProviderOverride(
+    covariant SectorLastPressureStreamProvider provider,
   ) {
     return call(
       provider.sectorId,
@@ -86,33 +86,33 @@ class SectorPressureStreamFamily extends Family<AsyncValue<DateTime?>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'sectorPressureStreamProvider';
+  String? get name => r'sectorLastPressureStreamProvider';
 }
 
-/// See also [sectorPressureStream].
-class SectorPressureStreamProvider
+/// See also [sectorLastPressureStream].
+class SectorLastPressureStreamProvider
     extends AutoDisposeStreamProvider<DateTime?> {
-  /// See also [sectorPressureStream].
-  SectorPressureStreamProvider(
+  /// See also [sectorLastPressureStream].
+  SectorLastPressureStreamProvider(
     String sectorId,
   ) : this._internal(
-          (ref) => sectorPressureStream(
-            ref as SectorPressureStreamRef,
+          (ref) => sectorLastPressureStream(
+            ref as SectorLastPressureStreamRef,
             sectorId,
           ),
-          from: sectorPressureStreamProvider,
-          name: r'sectorPressureStreamProvider',
+          from: sectorLastPressureStreamProvider,
+          name: r'sectorLastPressureStreamProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$sectorPressureStreamHash,
-          dependencies: SectorPressureStreamFamily._dependencies,
+                  : _$sectorLastPressureStreamHash,
+          dependencies: SectorLastPressureStreamFamily._dependencies,
           allTransitiveDependencies:
-              SectorPressureStreamFamily._allTransitiveDependencies,
+              SectorLastPressureStreamFamily._allTransitiveDependencies,
           sectorId: sectorId,
         );
 
-  SectorPressureStreamProvider._internal(
+  SectorLastPressureStreamProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -126,12 +126,12 @@ class SectorPressureStreamProvider
 
   @override
   Override overrideWith(
-    Stream<DateTime?> Function(SectorPressureStreamRef provider) create,
+    Stream<DateTime?> Function(SectorLastPressureStreamRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: SectorPressureStreamProvider._internal(
-        (ref) => create(ref as SectorPressureStreamRef),
+      override: SectorLastPressureStreamProvider._internal(
+        (ref) => create(ref as SectorLastPressureStreamRef),
         from: from,
         name: null,
         dependencies: null,
@@ -144,12 +144,13 @@ class SectorPressureStreamProvider
 
   @override
   AutoDisposeStreamProviderElement<DateTime?> createElement() {
-    return _SectorPressureStreamProviderElement(this);
+    return _SectorLastPressureStreamProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is SectorPressureStreamProvider && other.sectorId == sectorId;
+    return other is SectorLastPressureStreamProvider &&
+        other.sectorId == sectorId;
   }
 
   @override
@@ -161,18 +162,18 @@ class SectorPressureStreamProvider
   }
 }
 
-mixin SectorPressureStreamRef on AutoDisposeStreamProviderRef<DateTime?> {
+mixin SectorLastPressureStreamRef on AutoDisposeStreamProviderRef<DateTime?> {
   /// The parameter `sectorId` of this provider.
   String get sectorId;
 }
 
-class _SectorPressureStreamProviderElement
+class _SectorLastPressureStreamProviderElement
     extends AutoDisposeStreamProviderElement<DateTime?>
-    with SectorPressureStreamRef {
-  _SectorPressureStreamProviderElement(super.provider);
+    with SectorLastPressureStreamRef {
+  _SectorLastPressureStreamProviderElement(super.provider);
 
   @override
-  String get sectorId => (origin as SectorPressureStreamProvider).sectorId;
+  String get sectorId => (origin as SectorLastPressureStreamProvider).sectorId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

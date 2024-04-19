@@ -19,8 +19,8 @@ SectorPressureRepository sectorPressureRepository(
 }
 
 @riverpod
-Stream<DateTime?> sectorPressureStream(
-    SectorPressureStreamRef ref, String sectorId) {
+Stream<DateTime?> sectorLastPressureStream(
+    SectorLastPressureStreamRef ref, String sectorId) {
   final sectorPressureRepository = ref.watch(sectorPressureRepositoryProvider);
   return sectorPressureRepository.watchLastPressureReading(sectorId);
 }
