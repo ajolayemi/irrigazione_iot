@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pressure_database_keys.dart';
@@ -14,9 +15,11 @@ class SectorPressure extends Equatable {
     this.createdAt,
   });
 
-  @JsonKey(name: SectorPressureDatabaseKeys.id)
+  @JsonKey(name: SectorPressureDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
   final String id;
   @JsonKey(name: SectorPressureDatabaseKeys.sectorId)
+  @IntConverter()
   final String sectorId;
   @JsonKey(name: SectorPressureDatabaseKeys.pressure)
   final double pressure;

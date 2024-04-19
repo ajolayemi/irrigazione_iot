@@ -8,8 +8,8 @@ part of 'sector_pressure.dart';
 
 SectorPressure _$SectorPressureFromJson(Map<String, dynamic> json) =>
     SectorPressure(
-      id: json['id'] as String,
-      sectorId: json['sector_id'] as String,
+      id: const IntConverter().fromJson(json['id'] as int),
+      sectorId: const IntConverter().fromJson(json['sector_id'] as int),
       pressure: (json['pressure'] as num).toDouble(),
       createdAt: json['created_at'] == null
           ? null
@@ -18,8 +18,7 @@ SectorPressure _$SectorPressureFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$SectorPressureToJson(SectorPressure instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'sector_id': instance.sectorId,
+      'sector_id': const IntConverter().toJson(instance.sectorId),
       'pressure': instance.pressure,
       'created_at': instance.createdAt?.toIso8601String(),
     };
