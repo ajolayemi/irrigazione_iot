@@ -18,10 +18,10 @@ abstract class SectorRepository {
   Stream<Sector?> watchSector(String sectorID);
 
   /// adds a sector
-  Future<Sector?> addSector(Sector sector, String companyId);
+  Future<Sector?> addSector(Sector sector);
 
   /// updates a sector
-  Future<Sector?> updateSector(Sector sector, String companyId);
+  Future<Sector?> updateSector(Sector sector);
 
   /// deletes a sector
   Future<bool> deleteSector(String sectorID);
