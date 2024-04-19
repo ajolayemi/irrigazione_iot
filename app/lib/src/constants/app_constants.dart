@@ -6,4 +6,5 @@ class AppConstants {
   static const int maxSectorNameLength = 20;
   static const int maxCollectorNameLength = 20;
   static const int maxBoardNameLength = 25;
+  static const int maxMqttMessageNameLength = 10;
 }
