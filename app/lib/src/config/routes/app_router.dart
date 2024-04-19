@@ -39,8 +39,6 @@ import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart'
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 
-
-
 part 'app_router.g.dart';
 
 // private navigator keys
@@ -310,11 +308,14 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Connect pumps to sector
       GoRoute(
-        path: '/connect-pumps-to-sector',
-        name: AppRoute.connectPumpsToSector.name,
-        pageBuilder: (context, state) => const MaterialPage(
+        path: '/connect-pump-to-sector/:pumpIdAlreadyConnected',
+        name: AppRoute.connectPumpToSector.name,
+        pageBuilder: (context, state) => MaterialPage(
           fullscreenDialog: true,
-          child: ConnectPumpsToSector(),
+          child: ConnectPumpsToSector(
+            pumpIdAlreadyConnected:
+                state.pathParameters['pumpIdAlreadyConnected'],
+          ),
         ),
       ),
 
