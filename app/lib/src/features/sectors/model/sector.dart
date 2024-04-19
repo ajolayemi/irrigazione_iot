@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 
 import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'sector.g.dart';
@@ -49,40 +50,61 @@ class Sector extends Equatable {
         mqttMsgName = '',
         hasFilter = false;
 
-  @JsonKey(name: SectorDatabaseKeys.id)
+  @JsonKey(name: SectorDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
   final String id;
+
   @JsonKey(name: SectorDatabaseKeys.name)
   final String name;
+
   @JsonKey(name: SectorDatabaseKeys.area)
   final double area;
+
   @JsonKey(name: SectorDatabaseKeys.numOfPlants)
   final double numOfPlants;
+
   @JsonKey(name: SectorDatabaseKeys.waterConsumptionPerHour)
   final double waterConsumptionPerHour;
+
   @JsonKey(name: SectorDatabaseKeys.irrigationSystemType)
   final IrrigationSystem irrigationSystemType;
+
   @JsonKey(name: SectorDatabaseKeys.irrigationSource)
   final IrrigationSource irrigationSource;
+
   @JsonKey(name: SectorDatabaseKeys.turnOnCommand)
   final String turnOnCommand;
+
   @JsonKey(name: SectorDatabaseKeys.turnOffCommand)
   final String turnOffCommand;
+
   @JsonKey(name: SectorDatabaseKeys.notes)
   final String notes;
+
   @JsonKey(name: SectorDatabaseKeys.totalConsumption)
   final double totalConsumption;
+
   @JsonKey(name: SectorDatabaseKeys.specieId)
+  @IntConverter()
   final String specieId;
+
   @JsonKey(name: SectorDatabaseKeys.varietyId)
+  @IntConverter()
   final String varietyId;
+
   @JsonKey(name: SectorDatabaseKeys.companyId)
+  @IntConverter()
   final String companyId;
+
   @JsonKey(name: SectorDatabaseKeys.createdAt)
   final DateTime? createdAt;
+
   @JsonKey(name: SectorDatabaseKeys.updatedAt)
   final DateTime? updatedAt;
+
   @JsonKey(name: SectorDatabaseKeys.mqttMsgName)
   final String mqttMsgName;
+
   @JsonKey(name: SectorDatabaseKeys.hasFilter)
   final bool hasFilter;
 

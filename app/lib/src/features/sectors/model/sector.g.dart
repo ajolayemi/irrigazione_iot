@@ -7,7 +7,7 @@ part of 'sector.dart';
 // **************************************************************************
 
 Sector _$SectorFromJson(Map<String, dynamic> json) => Sector(
-      id: json['id'] as String,
+      id: const IntConverter().fromJson(json['id'] as int),
       name: json['name'] as String,
       area: (json['area'] as num).toDouble(),
       numOfPlants: (json['num_of_plants'] as num).toDouble(),
@@ -20,9 +20,9 @@ Sector _$SectorFromJson(Map<String, dynamic> json) => Sector(
       turnOnCommand: json['turn_on_command'] as String,
       turnOffCommand: json['turn_off_command'] as String,
       notes: json['notes'] as String,
-      specieId: json['specie_id'] as String,
-      varietyId: json['variety_id'] as String,
-      companyId: json['company_id'] as String,
+      specieId: const IntConverter().fromJson(json['specie_id'] as int),
+      varietyId: const IntConverter().fromJson(json['variety_id'] as int),
+      companyId: const IntConverter().fromJson(json['company_id'] as int),
       mqttMsgName: json['mqtt_msg_name'] as String,
       hasFilter: json['has_filter'] as bool,
       createdAt: json['created_at'] == null
@@ -34,7 +34,6 @@ Sector _$SectorFromJson(Map<String, dynamic> json) => Sector(
     );
 
 Map<String, dynamic> _$SectorToJson(Sector instance) => <String, dynamic>{
-      'id': instance.id,
       'name': instance.name,
       'area': instance.area,
       'num_of_plants': instance.numOfPlants,
@@ -46,9 +45,9 @@ Map<String, dynamic> _$SectorToJson(Sector instance) => <String, dynamic>{
       'turn_on_command': instance.turnOnCommand,
       'turn_off_command': instance.turnOffCommand,
       'notes': instance.notes,
-      'specie_id': instance.specieId,
-      'variety_id': instance.varietyId,
-      'company_id': instance.companyId,
+      'specie_id': const IntConverter().toJson(instance.specieId),
+      'variety_id': const IntConverter().toJson(instance.varietyId),
+      'company_id': const IntConverter().toJson(instance.companyId),
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
       'mqtt_msg_name': instance.mqttMsgName,
