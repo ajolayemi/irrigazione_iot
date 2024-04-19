@@ -93,6 +93,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     _kwCapacityController.dispose();
     _onCommandController.dispose();
     _offCommandController.dispose();
+    _mqttMessageNameController.dispose();
     _node.dispose();
     super.dispose();
   }
