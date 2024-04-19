@@ -166,24 +166,34 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     context.pop();
   }
 
-  void _nameEditingComplete(List<String?> existingNames) {
+  /// Validates pump name field and mqtt message name field
+  void _nameEditingComplete(
+      {required List<String?> existingNames,
+      required int maxLength,
+      String? initialValue,
+      required String value}) {
     if (canSubmitFormNameFields(
-      value: name,
-      maxLength: AppConstants.maxPumpNameLength,
+      value: value,
+      maxLength: maxLength,
       namesToCompareAgainst: existingNames,
-      initialValue: _initialPump?.name,
+      initialValue: initialValue,
     )) {
       _node.nextFocus();
     }
   }
 
-  String? _nameErrorText(List<String?> existingNames) {
+  /// Returns the error text for the name field
+  String? _nameErrorText(
+      {required List<String?> existingNames,
+      required int maxLength,
+      required String value,
+      String? initialValue}) {
     if (!_submitted) return null;
     final errorKey = getFormNameFieldErrorKey(
-      value: name,
-      maxLength: AppConstants.maxCollectorNameLength,
+      value: value,
+      maxLength: maxLength,
       namesToCompareAgainst: existingNames,
-      initialValue: _initialPump?.name,
+      initialValue: initialValue,
     );
 
     if (errorKey == null) return null;
@@ -191,7 +201,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     return context.getLocalizedErrorText(
       errorKey: errorKey,
       fieldName: fieldName,
-      maxFieldLength: AppConstants.maxPumpNameLength,
+      maxFieldLength: maxLength,
     );
   }
 
@@ -264,6 +274,9 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
         ref.watch(companyUsedPumpOnCommandsStreamProvider).valueOrNull ?? [];
     final usedOffCommands =
         ref.watch(companyUsedPumpOffCommandsStreamProvider).valueOrNull ?? [];
+
+    final usedMqttNames =
+        ref.watch(usedMqttMessageNamesStreamProvider).valueOrNull ?? [];
     final state = ref.watch(addUpdatePumpControllerProvider);
 
     final isUpdating = widget.formType.isUpdating;
@@ -295,12 +308,20 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                             fieldHintText: loc.pumpNameFormHint,
                             fieldController: _nameController,
                             textInputAction: TextInputAction.next,
-                            validator: (_) => _nameErrorText(usedPumpNames),
-                            onEditingComplete: () =>
-                                _nameEditingComplete(usedPumpNames),
+                            validator: (_) => _nameErrorText(
+                              existingNames: usedPumpNames,
+                              value: name,
+                              maxLength: AppConstants.maxPumpNameLength,
+                              initialValue: _initialPump?.name,
+                            ),
+                            onEditingComplete: () => _nameEditingComplete(
+                              existingNames: usedPumpNames,
+                              maxLength: AppConstants.maxPumpNameLength,
+                              initialValue: _initialPump?.name,
+                              value: name,
+                            ),
                           ),
                           gapH16,
-                          // TODO: add validator for mqttMessageName
                           FormTitleAndField(
                             enabled: !state.isLoading,
                             fieldKey: _mqttMessageNameFieldKey,
@@ -308,8 +329,18 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                             fieldHintText: loc.mqttMessageNameFormHint,
                             fieldController: _mqttMessageNameController,
                             textInputAction: TextInputAction.next,
-                            validator: (_) => null,
-                            onEditingComplete: () => _node.nextFocus(),
+                            validator: (_) => _nameErrorText(
+                              existingNames: usedMqttNames,
+                              value: mqttMessageName,
+                              maxLength: AppConstants.maxMqttMessageNameLength,
+                              initialValue: _initialPump?.mqttMessageName,
+                            ),
+                            onEditingComplete: () => _nameEditingComplete(
+                              existingNames: usedMqttNames,
+                              maxLength: AppConstants.maxMqttMessageNameLength,
+                              initialValue: _initialPump?.mqttMessageName,
+                              value: mqttMessageName,
+                            ),
                           ),
                           gapH16,
                           FormTitleAndField(
