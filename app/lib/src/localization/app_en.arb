@@ -577,5 +577,6 @@
   "signUpPageIntroductorySubtitleText": "Create your account",
   "signInPageIntroductorySubtitleText": "Sign into your account to continue",
   "mqttMessageNameFormFieldTitle": "Code name in MQTT message",
-  "mqttMessageNameFormHint": "eg: p1"
+  "mqttMessageNameFormHint": "eg: p1",
+  "itemHasFilter": "Has a filter connected?"
 }
