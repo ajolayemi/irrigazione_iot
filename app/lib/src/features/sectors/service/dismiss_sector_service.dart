@@ -19,20 +19,16 @@ class DismissSectorService {
     final sectorRepository = _ref.read(sectorRepositoryProvider);
     final sectorPumpsRepository = _ref.read(sectorPumpRepositoryProvider);
     final sectorWasDeleted = await sectorRepository.deleteSector(sectorId);
+
     // if the sector deletion was completed successfully
     if (sectorWasDeleted) {
       debugPrint('Sector deleted successfully');
-      // get a list of all the pumps connected to the sector
-      final sectorPumps = await sectorPumpsRepository.getSectorPumps(sectorId);
-      if (sectorPumps.isEmpty) {
+      final connectedSectorPump =
+          await sectorPumpsRepository.getSectorPump(sectorId);
+
+      if (connectedSectorPump != null) {
+        await sectorPumpsRepository.deleteSectorPump(connectedSectorPump.id);
         return;
-      }
-      // delete all the pumps connected to the sector
-      for (final sectorPump in sectorPumps) {
-        debugPrint('Deleting sector pump: ${sectorPump?.pumpId}');
-        await sectorPumpsRepository.deleteSectorPump(
-          sectorPump!.id,
-        );
       }
     }
   }

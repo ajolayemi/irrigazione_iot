@@ -1,20 +1,21 @@
+import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:irrigazione_iot/src/config/mock/fake_sector_pumps.dart';
-import 'package:irrigazione_iot/src/config/mock/fake_sectors.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_companies_list.dart';
-import 'package:irrigazione_iot/src/config/mock/fake_pumps.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_sector_pumps.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_sectors.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_users_list.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/service/add_update_sector_service.dart';
-import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_return_type.dart';
 
 import '../../../mocks.dart';
 
@@ -22,11 +23,6 @@ void main() {
   final testUser = kFakeUsers.first;
 
   final testCompanyId = kFakeCompanies.first.id;
-
-  final companyPumps = kFakePumps.where((pump) => pump.id == testCompanyId);
-  // A general list of all pumps available in a particular company without distinction
-  // of which sector they're connected to
-  final companyPumpsIds = companyPumps.map((pump) => pump.id).toList();
   // an arbitral existent sector for test cases
   final validSectorForTest = kFakeSectors
           .where((sector) => sector.companyId == testCompanyId)
@@ -35,12 +31,8 @@ void main() {
           ?.copyWith(createdAt: DateTime.parse('2024-01-01')) ??
       const Sector.empty();
   // a list of [SectorPump] pertaining to the chosen company sector
-  final List<SectorPump> validSectorPumpForTest = kFakeSectorPumps
-      .where((sectorPump) => sectorPump.sectorId == validSectorForTest.id)
-      .toList();
-  // a list of pumpsIds pertaining to the chosen company sector
-  final validSectorPumpIdsForTest =
-      validSectorPumpForTest.map((sp) => sp.pumpId).toList();
+  final SectorPump validSectorPumpForTest = kFakeSectorPumps
+      .firstWhere((sectorPump) => sectorPump.sectorId == validSectorForTest.id);
 
   final nonExistentSectorForTest = Sector(
       id: '200',
@@ -76,7 +68,7 @@ void main() {
       MockSelectedCompanyRepository();
 
   AddUpdateSectorService makeServiceWithArgs(
-      {List<String> pumpIds = const []}) {
+      {RadioButtonReturnType? selectedPumpId}) {
     final container = ProviderContainer(
       overrides: [
         authRepositoryProvider.overrideWithValue(authRepository),
@@ -84,7 +76,7 @@ void main() {
         sectorPumpRepositoryProvider.overrideWithValue(sectorPumpRepository),
         selectedCompanyRepositoryProvider
             .overrideWithValue(selectedCompanyRepository),
-        selectedPumpsIdProvider.overrideWith((ref) => pumpIds),
+        selectPumpRadioButtonProvider.overrideWith((ref) => selectedPumpId),
       ],
     );
     addTearDown(container.dispose);
@@ -162,7 +154,9 @@ void main() {
           );
 
           // A list of pumpIds are provided
-          final service = makeServiceWithArgs(pumpIds: companyPumpsIds);
+          final service = makeServiceWithArgs(
+              selectedPumpId:
+                  RadioButtonReturnType(value: '1', label: 'Pompa 1'));
 
           // run
           await service.createSector(nonExistentSectorForTest);
@@ -174,8 +168,7 @@ void main() {
               .called(1);
           verify(() => sectorRepository.createSector(nonExistentSectorForTest))
               .called(1);
-          verify(() => sectorPumpRepository.createSectorPump(any()))
-              .called(companyPumpsIds.length);
+          verify(() => sectorPumpRepository.createSectorPump(any())).called(1);
         });
 
         test(
@@ -193,7 +186,9 @@ void main() {
           );
 
           // A list of pumpIds are provided
-          final service = makeServiceWithArgs(pumpIds: companyPumpsIds);
+          final service = makeServiceWithArgs(
+              selectedPumpId:
+                  RadioButtonReturnType(value: '1', label: 'Pompa 1'));
 
           // run
           await service.createSector(nonExistentSectorForTest);
@@ -257,7 +252,7 @@ void main() {
         // verify that the following calls aren't made
         verifyNever(() => sectorRepository.createSector(any()));
         verifyNever(() => sectorRepository.updateSector(any()));
-        verifyNever(() => sectorPumpRepository.getSectorPumps(any()));
+        verifyNever(() => sectorPumpRepository.getSectorPump(any()));
         verifyNever(() => sectorPumpRepository.deleteSectorPump(any()));
         verifyNever(() => sectorPumpRepository.createSectorPump(any()));
       });
@@ -275,7 +270,9 @@ void main() {
             () => sectorRepository.updateSector(nonExistentSectorForTest),
           ).thenAnswer((_) => Future.value());
 
-          final service = makeServiceWithArgs(pumpIds: ['9', '19']);
+          final service = makeServiceWithArgs(
+              selectedPumpId:
+                  RadioButtonReturnType(value: '9', label: 'Pump 9'));
 
           // run
           await service.updateSector(nonExistentSectorForTest);
@@ -286,7 +283,7 @@ void main() {
               .called(1);
 
           // Verify that the following calls aren't made
-          verifyNever(() => sectorPumpRepository.getSectorPumps(any()));
+          verifyNever(() => sectorPumpRepository.getSectorPump(any()));
           verifyNever(() => sectorPumpRepository.deleteSectorPump(any()));
           verifyNever(() => sectorPumpRepository.createSectorPump(any()));
         });
@@ -307,13 +304,16 @@ void main() {
           when(() => sectorRepository.updateSector(toUpdate)).thenAnswer(
             (_) => Future.value(toUpdate),
           );
-          when(() => sectorPumpRepository.getSectorPumps(toUpdate.id))
+          when(() => sectorPumpRepository.getSectorPump(toUpdate.id))
               .thenAnswer(
             (_) => Future.value(validSectorPumpForTest),
           );
 
-          final service =
-              makeServiceWithArgs(pumpIds: validSectorPumpIdsForTest);
+          final service = makeServiceWithArgs(
+              selectedPumpId: RadioButtonReturnType(
+            value: validSectorPumpForTest.pumpId,
+            label: 'Pump 9',
+          ));
 
           // run
           await service.updateSector(toUpdate);
@@ -323,7 +323,7 @@ void main() {
           verify(() =>
               selectedCompanyRepository.loadSelectedCompanyId(testUser.uid));
           verify(() => sectorRepository.updateSector(toUpdate)).called(1);
-          verify(() => sectorPumpRepository.getSectorPumps(toUpdate.id))
+          verify(() => sectorPumpRepository.getSectorPump(toUpdate.id))
               .called(1);
 
           // the following calls shouldn't be made
@@ -360,7 +360,7 @@ void main() {
           when(() => sectorRepository.updateSector(toUpdate)).thenAnswer(
             (_) => Future.value(toUpdate),
           );
-          when(() => sectorPumpRepository.getSectorPumps(toUpdate.id))
+          when(() => sectorPumpRepository.getSectorPump(toUpdate.id))
               .thenAnswer(
             (_) => Future.value(validSectorPumpForTest),
           );
@@ -372,19 +372,20 @@ void main() {
             (_) => Future.value(newSectorPumps),
           );
 
-          final service = makeServiceWithArgs(pumpIds: [newSectorPumps.pumpId]);
+          final service = makeServiceWithArgs(
+              selectedPumpId: RadioButtonReturnType(
+                  value: newSectorPumps.pumpId, label: 'Pump 90'));
           // run
           await service.updateSector(toUpdate);
 
           // verify that the following calls were made
           verify(() => authRepository.currentUser).called(1);
           verify(() => sectorRepository.updateSector(toUpdate)).called(1);
-          verify(() => sectorPumpRepository.getSectorPumps(toUpdate.id))
+          verify(() => sectorPumpRepository.getSectorPump(toUpdate.id))
               .called(1);
 
           // verify that all previous pumps were deleted
-          verify(() => sectorPumpRepository.deleteSectorPump(any()))
-              .called(validSectorPumpIdsForTest.length);
+          verify(() => sectorPumpRepository.deleteSectorPump(any())).called(1);
           // verify that new pump was added
           verify(() => sectorPumpRepository.createSectorPump(newSectorPumps))
               .called(1);

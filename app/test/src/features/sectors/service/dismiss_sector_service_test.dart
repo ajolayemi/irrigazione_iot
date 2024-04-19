@@ -49,43 +49,35 @@ void main() {
         (_) => Future.value(true),
       );
 
-      when(() => sectorPumpRepository.getSectorPumps(testSectorId))
-          .thenAnswer((_) => Future.value([]));
+      when(() => sectorPumpRepository.getSectorPump(testSectorId))
+          .thenAnswer((_) => Future.value());
 
       // run
       await dismissSectorService.dismissSector(testSectorId);
 
       // verify
       verify(() => sectorRepository.deleteSector(testSectorId)).called(1);
-      verify(() => sectorPumpRepository.getSectorPumps(testSectorId)).called(1);
+      verify(() => sectorPumpRepository.getSectorPump(testSectorId)).called(1);
       verifyNever(() => sectorPumpRepository.deleteSectorPump(any()));
     });
 
     test("dismissSector(1) deletes sector and it's pumps", () async {
       // Sector pumps to return
-      final sectorPumps = [
-        SectorPump(
-          pumpId: '9',
-          sectorId: testSectorId,
-          id: '9',
-          createdAt: DateTime.parse('2022-01-01'),
-        ),
-        SectorPump(
-          pumpId: '10',
-          sectorId: testSectorId,
-          id: '10',
-          createdAt: DateTime.parse('2022-01-01'),
-        ),
-      ];
+      final sectorPump = SectorPump(
+        pumpId: '9',
+        sectorId: testSectorId,
+        id: '9',
+        createdAt: DateTime.parse('2022-01-01'),
+      );
+
       // setup
       when(() => sectorRepository.deleteSector(testSectorId)).thenAnswer(
         (_) => Future.value(true),
       );
 
-      when(() => sectorPumpRepository.getSectorPumps(testSectorId))
-          .thenAnswer((_) => Future.value(sectorPumps));
-      when(() => sectorPumpRepository.deleteSectorPump(any()))
-          .thenAnswer(
+      when(() => sectorPumpRepository.getSectorPump(testSectorId))
+          .thenAnswer((_) => Future.value(sectorPump));
+      when(() => sectorPumpRepository.deleteSectorPump(any())).thenAnswer(
         (_) => Future.value(true),
       );
 
@@ -94,11 +86,9 @@ void main() {
 
       // verify
       verify(() => sectorRepository.deleteSector(testSectorId)).called(1);
-      verify(() => sectorPumpRepository.getSectorPumps(testSectorId)).called(1);
-      verify(() => sectorPumpRepository.deleteSectorPump(
-          sectorPumps.first.id)).called(1);
-      verify(() => sectorPumpRepository.deleteSectorPump(
-          sectorPumps.last.id)).called(1);
+      verify(() => sectorPumpRepository.getSectorPump(testSectorId)).called(1);
+      verify(() => sectorPumpRepository.deleteSectorPump(sectorPump.id))
+          .called(1);
     });
   });
 }
