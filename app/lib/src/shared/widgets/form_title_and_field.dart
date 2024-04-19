@@ -52,7 +52,7 @@ class FormTitleAndField extends StatelessWidget {
       children: [
         Text(
           fieldTitle,
-          style: context.textTheme.titleSmall,
+          style: context.textTheme.titleMedium,
         ),
         gapH8,
         IgnorePointer(
