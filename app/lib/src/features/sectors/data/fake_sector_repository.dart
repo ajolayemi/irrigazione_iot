@@ -12,7 +12,7 @@ class FakeSectorRepository extends SectorRepository {
   final _sectorsState = InMemoryStore<List<Sector>>(kFakeSectors);
 
   @override
-  Future<Sector?> addSector(Sector sector, String companyId) async {
+  Future<Sector?> addSector(Sector sector) async {
     // data validation logic is handled directly in the form
     await delay(addDelay);
     final lastUsedSectorId = _sectorsState.value
@@ -20,7 +20,6 @@ class FakeSectorRepository extends SectorRepository {
         .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
     final finalSector = sector.copyWith(
       id: '${lastUsedSectorId + 1}',
-      companyId: companyId,
     );
     final currentSectors = [..._sectorsState.value];
     currentSectors.add(finalSector);
@@ -31,13 +30,12 @@ class FakeSectorRepository extends SectorRepository {
   @override
   Future<Sector?> updateSector(
     Sector sector,
-    String companyId,
   ) async {
     // data validation logic is handled directly in the form
     await delay(addDelay);
     final currentSectors = [..._sectorsState.value];
     final index = currentSectors
-        .indexWhere((s) => s.id == sector.id && s.companyId == companyId);
+        .indexWhere((s) => s.id == sector.id && s.companyId == sector.companyId);
     if (index < 0) return Future.value(null);
     // return early if the new provided sector is the same as the old one
     if (currentSectors[index] == sector) return Future.value(sector);
