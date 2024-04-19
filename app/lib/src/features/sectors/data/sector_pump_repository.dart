@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -22,7 +23,11 @@ abstract class SectorPumpRepository {
   Stream<List<SectorPump?>> watchSectorPumps(String sectorId);
 
   /// Gets a list of [Pump]s of the current company that aren't connected yet to a sector
-  Future<List<Pump>> getAvailablePumps(String sectorId);
+  Future<List<Pump>?> getAvailablePumps(
+    String sectorId,
+    String companyId,
+    String? alreadyConnectedPumpId,
+  );
 }
 
 @Riverpod(keepAlive: true)
@@ -46,10 +51,23 @@ Future<List<SectorPump?>> sectorPumpsFuture(
 }
 
 @riverpod
-Future<List<Pump>> availablePumpsFuture(
-    AvailablePumpsFutureRef ref, String sectorId) {
+Future<List<Pump>?> availablePumpsFuture(
+  AvailablePumpsFutureRef ref, {
+  required String sectorId,
+  String? alreadyConnectedPumpId,
+}) {
+  final currentSelectedCompanyByUser =
+      ref.watch(currentTappedCompanyProvider).value;
+
+  if (currentSelectedCompanyByUser == null) {
+    return Future.value(null);
+  }
   final sectorPumpRepo = ref.watch(sectorPumpRepositoryProvider);
-  return sectorPumpRepo.getAvailablePumps(sectorId);
+  return sectorPumpRepo.getAvailablePumps(
+    sectorId,
+    currentSelectedCompanyByUser.id,
+    alreadyConnectedPumpId,
+  );
 }
 
 // Keeps track of the ids of the pumps selected to be connected to the sector

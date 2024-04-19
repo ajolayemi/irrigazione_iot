@@ -304,23 +304,25 @@ class _SectorPumpsFutureProviderElement
 }
 
 String _$availablePumpsFutureHash() =>
-    r'43fd7805a8c94e59ca4aa909104c0d1bb718a6b6';
+    r'eff951d19bb76794396a19eea8281832db3587e2';
 
 /// See also [availablePumpsFuture].
 @ProviderFor(availablePumpsFuture)
 const availablePumpsFutureProvider = AvailablePumpsFutureFamily();
 
 /// See also [availablePumpsFuture].
-class AvailablePumpsFutureFamily extends Family<AsyncValue<List<Pump>>> {
+class AvailablePumpsFutureFamily extends Family<AsyncValue<List<Pump>?>> {
   /// See also [availablePumpsFuture].
   const AvailablePumpsFutureFamily();
 
   /// See also [availablePumpsFuture].
-  AvailablePumpsFutureProvider call(
-    String sectorId,
-  ) {
+  AvailablePumpsFutureProvider call({
+    required String sectorId,
+    String? alreadyConnectedPumpId,
+  }) {
     return AvailablePumpsFutureProvider(
-      sectorId,
+      sectorId: sectorId,
+      alreadyConnectedPumpId: alreadyConnectedPumpId,
     );
   }
 
@@ -329,7 +331,8 @@ class AvailablePumpsFutureFamily extends Family<AsyncValue<List<Pump>>> {
     covariant AvailablePumpsFutureProvider provider,
   ) {
     return call(
-      provider.sectorId,
+      sectorId: provider.sectorId,
+      alreadyConnectedPumpId: provider.alreadyConnectedPumpId,
     );
   }
 
@@ -350,14 +353,16 @@ class AvailablePumpsFutureFamily extends Family<AsyncValue<List<Pump>>> {
 
 /// See also [availablePumpsFuture].
 class AvailablePumpsFutureProvider
-    extends AutoDisposeFutureProvider<List<Pump>> {
+    extends AutoDisposeFutureProvider<List<Pump>?> {
   /// See also [availablePumpsFuture].
-  AvailablePumpsFutureProvider(
-    String sectorId,
-  ) : this._internal(
+  AvailablePumpsFutureProvider({
+    required String sectorId,
+    String? alreadyConnectedPumpId,
+  }) : this._internal(
           (ref) => availablePumpsFuture(
             ref as AvailablePumpsFutureRef,
-            sectorId,
+            sectorId: sectorId,
+            alreadyConnectedPumpId: alreadyConnectedPumpId,
           ),
           from: availablePumpsFutureProvider,
           name: r'availablePumpsFutureProvider',
@@ -369,6 +374,7 @@ class AvailablePumpsFutureProvider
           allTransitiveDependencies:
               AvailablePumpsFutureFamily._allTransitiveDependencies,
           sectorId: sectorId,
+          alreadyConnectedPumpId: alreadyConnectedPumpId,
         );
 
   AvailablePumpsFutureProvider._internal(
@@ -379,13 +385,15 @@ class AvailablePumpsFutureProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.sectorId,
+    required this.alreadyConnectedPumpId,
   }) : super.internal();
 
   final String sectorId;
+  final String? alreadyConnectedPumpId;
 
   @override
   Override overrideWith(
-    FutureOr<List<Pump>> Function(AvailablePumpsFutureRef provider) create,
+    FutureOr<List<Pump>?> Function(AvailablePumpsFutureRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -397,41 +405,51 @@ class AvailablePumpsFutureProvider
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         sectorId: sectorId,
+        alreadyConnectedPumpId: alreadyConnectedPumpId,
       ),
     );
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<Pump>> createElement() {
+  AutoDisposeFutureProviderElement<List<Pump>?> createElement() {
     return _AvailablePumpsFutureProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is AvailablePumpsFutureProvider && other.sectorId == sectorId;
+    return other is AvailablePumpsFutureProvider &&
+        other.sectorId == sectorId &&
+        other.alreadyConnectedPumpId == alreadyConnectedPumpId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, sectorId.hashCode);
+    hash = _SystemHash.combine(hash, alreadyConnectedPumpId.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin AvailablePumpsFutureRef on AutoDisposeFutureProviderRef<List<Pump>> {
+mixin AvailablePumpsFutureRef on AutoDisposeFutureProviderRef<List<Pump>?> {
   /// The parameter `sectorId` of this provider.
   String get sectorId;
+
+  /// The parameter `alreadyConnectedPumpId` of this provider.
+  String? get alreadyConnectedPumpId;
 }
 
 class _AvailablePumpsFutureProviderElement
-    extends AutoDisposeFutureProviderElement<List<Pump>>
+    extends AutoDisposeFutureProviderElement<List<Pump>?>
     with AvailablePumpsFutureRef {
   _AvailablePumpsFutureProviderElement(super.provider);
 
   @override
   String get sectorId => (origin as AvailablePumpsFutureProvider).sectorId;
+  @override
+  String? get alreadyConnectedPumpId =>
+      (origin as AvailablePumpsFutureProvider).alreadyConnectedPumpId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
