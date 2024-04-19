@@ -12,6 +12,7 @@ import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pu
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/form_field_checkbox.dart';
 import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_scrollable.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
@@ -63,6 +64,9 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   var _submitted = false;
 
   Pump? _initialPump = const Pump.empty();
+
+  bool _thisPumpHasFilter = false;
+
   static const _nameFieldKey = Key('name');
   static const _volumeCapacityFieldKey = Key('volumeCapacity');
   static const _kwCapacityFieldKey = Key('kwCapacity');
@@ -75,6 +79,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     if (widget.formType == GenericFormTypes.update && widget.pumpId != null) {
       final pump = ref.read(pumpStreamProvider(widget.pumpId!)).valueOrNull;
       _initialPump = pump;
+      _thisPumpHasFilter = pump?.hasFilter ?? false;
       _nameController.text = pump?.name ?? '';
       _volumeCapacityController.text = pump?.capacityInVolume.toString() ?? '';
       _kwCapacityController.text = pump?.consumeRateInKw.toString() ?? '';
@@ -124,6 +129,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
         turnOnCommand: onCommand,
         turnOffCommand: offCommand,
         mqttMessageName: mqttMessageName,
+        hasFilter: _thisPumpHasFilter
       );
 
       if (toSave == _initialPump && updating) {
@@ -301,6 +307,14 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
+                          FormFieldCheckboxTile(
+                            title: loc.itemHasFilter,
+                            value: _thisPumpHasFilter,
+                            onChanged: (value) => setState(
+                              () => _thisPumpHasFilter = value ?? false,
+                            ),
+                          ),
+                          gapH16,
                           FormTitleAndField(
                             enabled: !state.isLoading,
                             fieldKey: _nameFieldKey,
