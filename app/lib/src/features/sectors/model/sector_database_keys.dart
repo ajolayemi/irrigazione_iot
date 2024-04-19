@@ -1,6 +1,8 @@
 class SectorDatabaseKeys {
   const SectorDatabaseKeys._();
 
+  static const String table = 'sectors';
+
   static const String id = 'id';
   static const String name = 'name';
   static const String area = 'area';
