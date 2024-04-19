@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pressure_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_status.dart';
 import 'package:irrigazione_iot/src/utils/date_formatter.dart';
@@ -33,7 +33,7 @@ class SectorDetailsScreenContents extends ConsumerWidget {
         [
           ResponsiveDetailsCard(child: Consumer(builder: (context, ref, child) {
             final lastIrrigated = ref
-                .watch(sectorLastIrrigatedStreamProvider(sector))
+                .watch(sectorLastPressureStreamProvider(sector.id))
                 .valueOrNull;
             final dateFormatter = ref.watch(dateFormatWithTimeProvider);
             return DetailTileWidget(
