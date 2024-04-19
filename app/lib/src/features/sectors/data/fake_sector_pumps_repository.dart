@@ -13,12 +13,6 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
 
   final _sectorPumpsState = InMemoryStore<List<SectorPump>>(kFakeSectorPumps);
 
-  static List<SectorPump?> _getSectorPumps(
-      List<SectorPump> sectorPumps, String sectorId) {
-    return sectorPumps
-        .where((sectorPump) => sectorPump.sectorId == sectorId)
-        .toList();
-  }
 
   static SectorPump? _getSectorPump(
       List<SectorPump> sectorPumps, String sectorPumpId) {
@@ -60,15 +54,15 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
   }
 
   @override
-  Future<List<SectorPump?>> getSectorPumps(String sectorId) async {
+  Future<SectorPump?> getSectorPump(String sectorId) async {
     await delay(addDelay);
-    return _getSectorPumps(_sectorPumpsState.value, sectorId);
+    return _getSectorPump(_sectorPumpsState.value, sectorId);
   }
 
   @override
-  Stream<List<SectorPump?>> watchSectorPumps(String sectorId) {
+  Stream<SectorPump?> watchSectorPump(String sectorId) {
     return _sectorPumpsState.stream.map((sectorPumps) {
-      return _getSectorPumps(sectorPumps, sectorId);
+      return _getSectorPump(sectorPumps, sectorId);
     });
   }
 
