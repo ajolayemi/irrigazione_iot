@@ -30,7 +30,7 @@ void main() {
     addTearDown(container.dispose);
     dismissSectorService = container.read(dismissSectorServiceProvider);
     registerFallbackValue(
-      Sector.empty(),
+      const Sector.empty(),
     );
     registerFallbackValue(
       SectorPump(
@@ -58,7 +58,7 @@ void main() {
       // verify
       verify(() => sectorRepository.deleteSector(testSectorId)).called(1);
       verify(() => sectorPumpRepository.getSectorPumps(testSectorId)).called(1);
-      verifyNever(() => sectorPumpRepository.deleteSectorPump(any(), any()));
+      verifyNever(() => sectorPumpRepository.deleteSectorPump(any()));
     });
 
     test("dismissSector(1) deletes sector and it's pumps", () async {
@@ -84,7 +84,7 @@ void main() {
 
       when(() => sectorPumpRepository.getSectorPumps(testSectorId))
           .thenAnswer((_) => Future.value(sectorPumps));
-      when(() => sectorPumpRepository.deleteSectorPump(any(), any()))
+      when(() => sectorPumpRepository.deleteSectorPump(any()))
           .thenAnswer(
         (_) => Future.value(true),
       );
@@ -96,9 +96,9 @@ void main() {
       verify(() => sectorRepository.deleteSector(testSectorId)).called(1);
       verify(() => sectorPumpRepository.getSectorPumps(testSectorId)).called(1);
       verify(() => sectorPumpRepository.deleteSectorPump(
-          sectorPumps.first.sectorId, sectorPumps.first.pumpId)).called(1);
+          sectorPumps.first.id)).called(1);
       verify(() => sectorPumpRepository.deleteSectorPump(
-          sectorPumps.last.sectorId, sectorPumps.last.pumpId)).called(1);
+          sectorPumps.last.id)).called(1);
     });
   });
 }

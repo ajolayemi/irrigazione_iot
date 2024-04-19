@@ -257,7 +257,7 @@ void main() {
         verifyNever(() => sectorRepository.createSector(any()));
         verifyNever(() => sectorRepository.updateSector(any()));
         verifyNever(() => sectorPumpRepository.getSectorPumps(any()));
-        verifyNever(() => sectorPumpRepository.deleteSectorPump(any(), any()));
+        verifyNever(() => sectorPumpRepository.deleteSectorPump(any()));
         verifyNever(() => sectorPumpRepository.addSectorPump(any()));
       });
 
@@ -287,7 +287,7 @@ void main() {
           // Verify that the following calls aren't made
           verifyNever(() => sectorPumpRepository.getSectorPumps(any()));
           verifyNever(
-              () => sectorPumpRepository.deleteSectorPump(any(), any()));
+              () => sectorPumpRepository.deleteSectorPump(any()));
           verifyNever(() => sectorPumpRepository.addSectorPump(any()));
         });
 
@@ -328,7 +328,7 @@ void main() {
 
           // the following calls shouldn't be made
           verifyNever(
-            () => sectorPumpRepository.deleteSectorPump(any(), any()),
+            () => sectorPumpRepository.deleteSectorPump(any()),
           );
           verifyNever(
             () => sectorPumpRepository.addSectorPump(any()),
@@ -364,7 +364,7 @@ void main() {
               .thenAnswer(
             (_) => Future.value(validSectorPumpForTest),
           );
-          when(() => sectorPumpRepository.deleteSectorPump(toUpdate.id, any()))
+          when(() => sectorPumpRepository.deleteSectorPump(any()))
               .thenAnswer(
             (_) => Future.value(true),
           );
@@ -385,7 +385,7 @@ void main() {
 
           // verify that all previous pumps were deleted
           verify(() =>
-                  sectorPumpRepository.deleteSectorPump(toUpdate.id, any()))
+                  sectorPumpRepository.deleteSectorPump(any()))
               .called(validSectorPumpIdsForTest.length);
           // verify that new pump was added
           verify(() => sectorPumpRepository.addSectorPump(newSectorPumps))
