@@ -28,7 +28,8 @@ class AddUpdateSectorService {
     final companyId = selectedCompanyRepo.loadSelectedCompanyId(user.uid);
 
     //create sector
-    final createdSector = await sectorRepo.addSector(sector, companyId ?? '');
+    final createdSector =
+        await sectorRepo.addSector(sector.copyWith(companyId: companyId));
 
     if (createdSector != null && pumpsToConnectToSector.isNotEmpty) {
       // loop over each pump and connect it to the created sector
@@ -59,7 +60,7 @@ class AddUpdateSectorService {
 
     // update sector, the function will return early if the sector is the same as the old one
     final updatedSector =
-        await sectorRepo.updateSector(sector, companyId ?? '');
+        await sectorRepo.updateSector(sector.copyWith(companyId: companyId));
 
     if (updatedSector != null) {
       // Get the list of current pumps connected to the sector
