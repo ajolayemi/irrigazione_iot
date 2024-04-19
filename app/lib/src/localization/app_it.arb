@@ -224,5 +224,5 @@
   "mqttMessageNameFormFieldTitle": "Nome nei messaggi MQTT",
   "mqttMessageNameFormHint": "eg: p1",
   "itemHasFilter": "Dispone di un filtro?",
-  "selectAPump": "Seleziona una pompa dall'elenco"
+  "selectAPump": "Seleziona una pompa..."
 }

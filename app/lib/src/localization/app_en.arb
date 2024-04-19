@@ -577,5 +577,5 @@
   "mqttMessageNameFormFieldTitle": "Code name in MQTT message",
   "mqttMessageNameFormHint": "eg: p1",
   "itemHasFilter": "Has a filter connected?",
-  "selectAPump": "Select a pump from list"
+  "selectAPump": "Select a pump..."
 }
