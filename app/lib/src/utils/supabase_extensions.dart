@@ -13,7 +13,8 @@ import 'package:irrigazione_iot/src/features/company_users/model/company_user_da
 extension SupabaseClientExtensions on SupabaseClient {
   SupabaseQueryBuilder get companies => from(CompanyDatabaseKeys.table);
 
-  PostgrestFilterBuilder get selectedCompanies => companies.select();
+  PostgrestFilterBuilder<List<Map<String, dynamic>>> get selectedCompanies =>
+      companies.select();
 
   SupabaseQueryBuilder get companyUsers => from(CompanyUserDatabaseKeys.table);
 
@@ -23,7 +24,8 @@ extension SupabaseClientExtensions on SupabaseClient {
 
   SupabaseQueryBuilder get pumps => from(PumpDatabaseKeys.table);
 
-  PostgrestFilterBuilder get selectedPumps => pumps.select();
+  PostgrestFilterBuilder<List<Map<String, dynamic>>> get selectedPumps =>
+      pumps.select();
 
   SupabaseQueryBuilder get sectors => from(SectorDatabaseKeys.table);
 
@@ -36,7 +38,8 @@ extension SupabaseClientExtensions on SupabaseClient {
 
   SupabaseQueryBuilder get sectorPump => from(SectorPumpDatabaseKeys.table);
 
-  PostgrestFilterBuilder get selectedSectorPumps => sectorPump.select();
+  PostgrestFilterBuilder<List<Map<String, dynamic>>> get selectedSectorPumps =>
+      sectorPump.select();
 
   /// Getter for the current access token
   String? get accessToken => auth.currentSession?.accessToken;
