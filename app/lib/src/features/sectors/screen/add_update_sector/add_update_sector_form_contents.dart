@@ -95,6 +95,8 @@ class _AddUpdateSectorFormContentsState
 
   SectorPump? _initialSectorPump = const SectorPump.empty();
 
+  bool get _isUpdating => widget.formType.isUpdating;
+
   @override
   void initState() {
     if (widget.formType.isUpdating && widget.sectorId != null) {
@@ -167,11 +169,10 @@ class _AddUpdateSectorFormContentsState
 
   void _onTappedConnectedPumps() async {
     final selectedPump = await context.pushNamed<RadioButtonReturnType>(
-      AppRoute.connectPumpToSector.name,
-      pathParameters: {
-        'pumpIdAlreadyConnected': _initialSectorPump?.pumpId ?? '',
-      },
-    );
+        AppRoute.connectPumpToSector.name,
+        queryParameters: {
+          'pumpIdAlreadyConnected': _initialSectorPump?.pumpId ?? '',
+        });
 
     if (selectedPump == null) return;
     _selectedPumpController.text = selectedPump.value;
