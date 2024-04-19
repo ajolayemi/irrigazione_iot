@@ -302,5 +302,136 @@ class _SectorPumpsFutureProviderElement
   @override
   String get sectorId => (origin as SectorPumpsFutureProvider).sectorId;
 }
+
+String _$availablePumpsFutureHash() =>
+    r'43fd7805a8c94e59ca4aa909104c0d1bb718a6b6';
+
+/// See also [availablePumpsFuture].
+@ProviderFor(availablePumpsFuture)
+const availablePumpsFutureProvider = AvailablePumpsFutureFamily();
+
+/// See also [availablePumpsFuture].
+class AvailablePumpsFutureFamily extends Family<AsyncValue<List<Pump>>> {
+  /// See also [availablePumpsFuture].
+  const AvailablePumpsFutureFamily();
+
+  /// See also [availablePumpsFuture].
+  AvailablePumpsFutureProvider call(
+    String sectorId,
+  ) {
+    return AvailablePumpsFutureProvider(
+      sectorId,
+    );
+  }
+
+  @override
+  AvailablePumpsFutureProvider getProviderOverride(
+    covariant AvailablePumpsFutureProvider provider,
+  ) {
+    return call(
+      provider.sectorId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'availablePumpsFutureProvider';
+}
+
+/// See also [availablePumpsFuture].
+class AvailablePumpsFutureProvider
+    extends AutoDisposeFutureProvider<List<Pump>> {
+  /// See also [availablePumpsFuture].
+  AvailablePumpsFutureProvider(
+    String sectorId,
+  ) : this._internal(
+          (ref) => availablePumpsFuture(
+            ref as AvailablePumpsFutureRef,
+            sectorId,
+          ),
+          from: availablePumpsFutureProvider,
+          name: r'availablePumpsFutureProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$availablePumpsFutureHash,
+          dependencies: AvailablePumpsFutureFamily._dependencies,
+          allTransitiveDependencies:
+              AvailablePumpsFutureFamily._allTransitiveDependencies,
+          sectorId: sectorId,
+        );
+
+  AvailablePumpsFutureProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.sectorId,
+  }) : super.internal();
+
+  final String sectorId;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<Pump>> Function(AvailablePumpsFutureRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: AvailablePumpsFutureProvider._internal(
+        (ref) => create(ref as AvailablePumpsFutureRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        sectorId: sectorId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<Pump>> createElement() {
+    return _AvailablePumpsFutureProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AvailablePumpsFutureProvider && other.sectorId == sectorId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, sectorId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin AvailablePumpsFutureRef on AutoDisposeFutureProviderRef<List<Pump>> {
+  /// The parameter `sectorId` of this provider.
+  String get sectorId;
+}
+
+class _AvailablePumpsFutureProviderElement
+    extends AutoDisposeFutureProviderElement<List<Pump>>
+    with AvailablePumpsFutureRef {
+  _AvailablePumpsFutureProviderElement(super.provider);
+
+  @override
+  String get sectorId => (origin as AvailablePumpsFutureProvider).sectorId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
