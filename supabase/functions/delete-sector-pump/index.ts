@@ -1,7 +1,7 @@
 import {TableNames} from "../_utils/tableConstants.ts";
 import {commonDelete} from "../_utils/commonDatabaseOperations.ts";
 
-console.log(`Function 'delete-sector-pumps' invoked.`);
+console.log(`Function 'delete-sector-pump' invoked.`);
 
 Deno.serve(async (req) => await commonDelete(req, TableNames.sector_pumps));
 
