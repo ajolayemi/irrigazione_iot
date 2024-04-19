@@ -1,5 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pump_database_keys.dart';
@@ -49,5 +50,25 @@ class SupabaseSectorPumpRepository implements SectorPumpRepository {
     );
 
     return stream.map(_sectorPumpsFromJsonList);
+  }
+
+  @override
+  Future<List<Pump>?> getAvailablePumps(
+    String sectorId,
+    String companyId,
+    String? alreadyConnectedPumpId,
+  ) async {
+    return await _supabaseClient
+        .rpc<List<Map<String, dynamic>>>('get_pumps_not_connected_to_sector', params: {
+          'sector_id_input': sectorId,
+          'company_id_input': companyId,
+          'pump_id_already_connected': int.tryParse(
+            alreadyConnectedPumpId ?? '',
+          ),
+        })
+        .withConverter((pumps) {
+          if (pumps.isEmpty) return null;
+          return pumps.map((pump) => Pump.fromJson(pump)).toList();
+        });
   }
 }
