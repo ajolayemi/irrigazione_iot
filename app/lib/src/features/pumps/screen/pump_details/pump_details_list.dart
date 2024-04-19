@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_flow_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/utils/date_formatter.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
@@ -18,20 +17,6 @@ class PumpDetailsList extends ConsumerWidget {
     final loc = context.loc;
     return SliverList(
       delegate: SliverChildListDelegate.fixed([
-        // ResponsiveDetailsCard(
-        //   child: Consumer(
-        //     builder: (context, ref, child) {
-        //       final status =
-        //           ref.watch(pumpStatusStreamProvider(pump)).valueOrNull ??
-        //               false;
-        //       return DetailTileWidget(
-        //         title: loc.statusListTileTitle,
-        //         subtitle: status ? loc.onStatusValue : loc.offStatusValue,
-        //         trailing: PumpSwitch(pump: pump),
-        //       );
-        //     },
-        //   ),
-        // ),
         ResponsiveDetailsCard(child: Consumer(builder: (context, ref, child) {
           final lastDispensation =
               ref.watch(lastDispensationStreamProvider(pump.id)).valueOrNull;
