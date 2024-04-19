@@ -73,7 +73,8 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
   }
 
   @override
-  Future<List<Pump>> getAvailablePumps(String sectorId) {
+  Future<List<Pump>?> getAvailablePumps(
+      String sectorId, String companyId, String? alreadyConnectedPumpId) {
     return Future.value(kFakePumps);
   }
 }
