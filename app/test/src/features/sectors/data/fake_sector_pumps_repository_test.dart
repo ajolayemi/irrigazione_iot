@@ -48,43 +48,25 @@ void main() {
 
     test('addSectorPump works as expected', () async {
       await expectLater(repository.addSectorPump(sectorPumpToAdd),
-          completion(sectorPumpToAdd));
+          completion(isA<SectorPump>()));
     });
 
     test('deleteSectorPump with valid data completes with true', () async {
       final sectorPump = expectedSectorPumps.first;
       await expectLater(
-          repository.deleteSectorPump(sectorPump.sectorId, sectorPump.pumpId),
+          repository.deleteSectorPump(sectorPump.id),
           completion(isTrue));
     });
 
     test(
-        'deleteSectorPump with valid sectorId but invalid pumpId completes with false ',
+        'deleteSectorPump with valid sectorId but invalid sectorPumpId completes with false',
         () async {
-      final sectorPump = expectedSectorPumps.first;
       await expectLater(
-        repository.deleteSectorPump(sectorPump.sectorId, '980'),
+        repository.deleteSectorPump('901919'),
         completion(isFalse),
       );
     });
 
-    test(
-        'deleteSectorPump with invalid sectorId but valid pumpId completes with false ',
-        () async {
-      final sectorPump = expectedSectorPumps.first;
-      await expectLater(
-        repository.deleteSectorPump('10000', sectorPump.pumpId),
-        completion(isFalse),
-      );
-    });
 
-    test(
-        'deleteSectorPump with invalid sectorId and pumpId completes with false ',
-        () async {
-      await expectLater(
-        repository.deleteSectorPump('9000', '6000'),
-        completion(isFalse),
-      );
-    });
   });
 }
