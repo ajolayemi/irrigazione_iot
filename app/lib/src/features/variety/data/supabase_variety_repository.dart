@@ -27,9 +27,10 @@ class SupabaseVarietyRepository implements VarietyRepository {
 
   @override
   Stream<List<Variety>?> watchVarieties(String? previouslySelectedVarietyId) =>
-      _supabaseClient.varieties.stream(primaryKey: [
-        VarietyDatabaseKeys.id
-      ]).map((data) => _varietiesFromJson(data, previouslySelectedVarietyId));
+      _supabaseClient.varieties
+          .stream(primaryKey: [VarietyDatabaseKeys.id])
+          .order(VarietyDatabaseKeys.name, ascending: true)
+          .map((data) => _varietiesFromJson(data, previouslySelectedVarietyId));
 
   @override
   Stream<Variety?> watchVariety(String varietyId) => _supabaseClient.varieties
