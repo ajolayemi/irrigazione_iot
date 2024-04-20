@@ -9,7 +9,7 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'variety_repository.g.dart';
 
 abstract class VarietyRepository {
-  Stream<List<Variety>?> watchVarieties();
+  Stream<List<Variety>?> watchVarieties(String? previouslySelectedVarietyId);
   Stream<Variety?> watchVariety(String varietyId);
 }
 
@@ -20,9 +20,10 @@ VarietyRepository varietyRepository(VarietyRepositoryRef ref) {
 }
 
 @riverpod
-Stream<List<Variety>?> varietiesStream(VarietiesStreamRef ref) {
+Stream<List<Variety>?> varietiesStream(VarietiesStreamRef ref,
+    {String? previouslySelectedVarietyId}) {
   final repo = ref.watch(varietyRepositoryProvider);
-  return repo.watchVarieties();
+  return repo.watchVarieties(previouslySelectedVarietyId);
 }
 
 @riverpod

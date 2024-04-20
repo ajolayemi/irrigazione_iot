@@ -12,7 +12,7 @@ class FakeVarietyRepository implements VarietyRepository {
   void dispose() => _varietyState.close();
 
   @override
-  Stream<List<Variety>?> watchVarieties() => _varietyState.stream;
+  Stream<List<Variety>?> watchVarieties(String? previouslySelectedVarietyId) => _varietyState.stream;
   
   @override
   Stream<Variety?> watchVariety(String varietyId) => _varietyState.stream

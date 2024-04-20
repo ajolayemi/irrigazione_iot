@@ -21,23 +21,7 @@ final varietyRepositoryProvider = Provider<VarietyRepository>.internal(
 );
 
 typedef VarietyRepositoryRef = ProviderRef<VarietyRepository>;
-String _$varietiesStreamHash() => r'9596324dbced73e226570bab83ede821c6acc675';
-
-/// See also [varietiesStream].
-@ProviderFor(varietiesStream)
-final varietiesStreamProvider =
-    AutoDisposeStreamProvider<List<Variety>?>.internal(
-  varietiesStream,
-  name: r'varietiesStreamProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$varietiesStreamHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef VarietiesStreamRef = AutoDisposeStreamProviderRef<List<Variety>?>;
-String _$varietyStreamHash() => r'9fed81c2f1f779b367da07d21b20d0722461ffab';
+String _$varietiesStreamHash() => r'9c569805c016eea0d34f91f81056e0c2d9805516';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -59,6 +43,138 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
+
+/// See also [varietiesStream].
+@ProviderFor(varietiesStream)
+const varietiesStreamProvider = VarietiesStreamFamily();
+
+/// See also [varietiesStream].
+class VarietiesStreamFamily extends Family<AsyncValue<List<Variety>?>> {
+  /// See also [varietiesStream].
+  const VarietiesStreamFamily();
+
+  /// See also [varietiesStream].
+  VarietiesStreamProvider call({
+    String? previouslySelectedVarietyId,
+  }) {
+    return VarietiesStreamProvider(
+      previouslySelectedVarietyId: previouslySelectedVarietyId,
+    );
+  }
+
+  @override
+  VarietiesStreamProvider getProviderOverride(
+    covariant VarietiesStreamProvider provider,
+  ) {
+    return call(
+      previouslySelectedVarietyId: provider.previouslySelectedVarietyId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'varietiesStreamProvider';
+}
+
+/// See also [varietiesStream].
+class VarietiesStreamProvider
+    extends AutoDisposeStreamProvider<List<Variety>?> {
+  /// See also [varietiesStream].
+  VarietiesStreamProvider({
+    String? previouslySelectedVarietyId,
+  }) : this._internal(
+          (ref) => varietiesStream(
+            ref as VarietiesStreamRef,
+            previouslySelectedVarietyId: previouslySelectedVarietyId,
+          ),
+          from: varietiesStreamProvider,
+          name: r'varietiesStreamProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$varietiesStreamHash,
+          dependencies: VarietiesStreamFamily._dependencies,
+          allTransitiveDependencies:
+              VarietiesStreamFamily._allTransitiveDependencies,
+          previouslySelectedVarietyId: previouslySelectedVarietyId,
+        );
+
+  VarietiesStreamProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.previouslySelectedVarietyId,
+  }) : super.internal();
+
+  final String? previouslySelectedVarietyId;
+
+  @override
+  Override overrideWith(
+    Stream<List<Variety>?> Function(VarietiesStreamRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: VarietiesStreamProvider._internal(
+        (ref) => create(ref as VarietiesStreamRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        previouslySelectedVarietyId: previouslySelectedVarietyId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<List<Variety>?> createElement() {
+    return _VarietiesStreamProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is VarietiesStreamProvider &&
+        other.previouslySelectedVarietyId == previouslySelectedVarietyId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, previouslySelectedVarietyId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin VarietiesStreamRef on AutoDisposeStreamProviderRef<List<Variety>?> {
+  /// The parameter `previouslySelectedVarietyId` of this provider.
+  String? get previouslySelectedVarietyId;
+}
+
+class _VarietiesStreamProviderElement
+    extends AutoDisposeStreamProviderElement<List<Variety>?>
+    with VarietiesStreamRef {
+  _VarietiesStreamProviderElement(super.provider);
+
+  @override
+  String? get previouslySelectedVarietyId =>
+      (origin as VarietiesStreamProvider).previouslySelectedVarietyId;
+}
+
+String _$varietyStreamHash() => r'9fed81c2f1f779b367da07d21b20d0722461ffab';
 
 /// See also [varietyStream].
 @ProviderFor(varietyStream)

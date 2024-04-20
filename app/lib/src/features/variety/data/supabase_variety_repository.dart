@@ -9,15 +9,27 @@ class SupabaseVarietyRepository implements VarietyRepository {
   const SupabaseVarietyRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
-  List<Variety>? _varietiesFromJson(List<Map<String, dynamic>>? json) =>
-      json?.map((variety) => Variety.fromJson(variety)).toList();
+  List<Variety>? _varietiesFromJson(
+      List<Map<String, dynamic>>? json, String? selectedId) {
+    if (json == null) return null;
+    final varieties = json.map((e) => Variety.fromJson(e)).toList();
+    final indexOfSelected =
+        varieties.indexWhere((variety) => variety.id == selectedId);
+    if (indexOfSelected != -1) {
+      final selectedVariety = varieties.removeAt(indexOfSelected);
+      varieties.insert(0, selectedVariety);
+    }
+    return varieties;
+  }
 
   Variety? _varietySingleFromJsonList(List<Map<String, dynamic>>? json) =>
       json?.map((e) => Variety.fromJson(e)).first;
 
   @override
-  Stream<List<Variety>?> watchVarieties() => _supabaseClient.varieties
-      .stream(primaryKey: [VarietyDatabaseKeys.id]).map(_varietiesFromJson);
+  Stream<List<Variety>?> watchVarieties(String? previouslySelectedVarietyId) =>
+      _supabaseClient.varieties.stream(primaryKey: [
+        VarietyDatabaseKeys.id
+      ]).map((data) => _varietiesFromJson(data, previouslySelectedVarietyId));
 
   @override
   Stream<Variety?> watchVariety(String varietyId) => _supabaseClient.varieties
