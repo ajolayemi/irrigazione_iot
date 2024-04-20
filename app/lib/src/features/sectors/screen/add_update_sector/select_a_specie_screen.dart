@@ -9,22 +9,36 @@ import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 
 class SelectASpecieScreen extends ConsumerStatefulWidget {
-  const SelectASpecieScreen({super.key});
+  const SelectASpecieScreen({
+    super.key,
+    this.selectedSpecieId,
+    this.selectedSpecieName,
+  });
 
+  final String? selectedSpecieId;
+  final String? selectedSpecieName;
   @override
   ConsumerState<SelectASpecieScreen> createState() =>
       _SelectASpecieScreenState();
 }
 
 class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
-  RadioButtonItem _selectedSpecie = const RadioButtonItem(
-    value: '10',
-    label: 'melograno',
-  );
+  late RadioButtonItem _selectedSpecie;
+
+  @override
+  void initState() {
+    _selectedSpecie = RadioButtonItem(
+      value: widget.selectedSpecieId ?? '',
+      label: widget.selectedSpecieName ?? '',
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final species = ref.watch(
-      speciesStreamProvider(previouslySelectedSpecieId: '10'),
+      speciesStreamProvider(
+          previouslySelectedSpecieId: widget.selectedSpecieId),
     );
     final loc = context.loc;
     return CustomSliverConnectSomethingTo(
