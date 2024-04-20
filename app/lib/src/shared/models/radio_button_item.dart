@@ -11,4 +11,14 @@ class RadioButtonItem extends Equatable {
 
   @override
   List<Object> get props => [value, label];
+
+  RadioButtonItem copyWith({
+    String? value,
+    String? label,
+  }) {
+    return RadioButtonItem(
+      value: value ?? this.value,
+      label: label ?? this.label,
+    );
+  }
 }
