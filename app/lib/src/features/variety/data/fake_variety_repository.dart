@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_varieties.dart';
 import 'package:irrigazione_iot/src/features/variety/data/variety_repository.dart';
 import 'package:irrigazione_iot/src/features/variety/model/variety.dart';
@@ -12,4 +13,8 @@ class FakeVarietyRepository implements VarietyRepository {
 
   @override
   Stream<List<Variety>?> watchVarieties() => _varietyState.stream;
+  
+  @override
+  Stream<Variety?> watchVariety(String varietyId) => _varietyState.stream
+      .map((varieties) => varieties.firstWhereOrNull((v) => v.id == varietyId));
 }

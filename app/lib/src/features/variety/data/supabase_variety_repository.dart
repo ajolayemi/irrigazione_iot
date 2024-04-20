@@ -12,7 +12,17 @@ class SupabaseVarietyRepository implements VarietyRepository {
   List<Variety>? _varietiesFromJson(List<Map<String, dynamic>>? json) =>
       json?.map((variety) => Variety.fromJson(variety)).toList();
 
+  Variety? _varietySingleFromJsonList(List<Map<String, dynamic>>? json) =>
+      json?.map((e) => Variety.fromJson(e)).first;
+
   @override
   Stream<List<Variety>?> watchVarieties() => _supabaseClient.varieties
       .stream(primaryKey: [VarietyDatabaseKeys.id]).map(_varietiesFromJson);
+
+  @override
+  Stream<Variety?> watchVariety(String varietyId) => _supabaseClient.varieties
+      .stream(primaryKey: [VarietyDatabaseKeys.id])
+      .eq(VarietyDatabaseKeys.id, varietyId)
+      .limit(1)
+      .map(_varietySingleFromJsonList);
 }

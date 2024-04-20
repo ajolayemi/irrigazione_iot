@@ -10,6 +10,7 @@ part 'variety_repository.g.dart';
 
 abstract class VarietyRepository {
   Stream<List<Variety>?> watchVarieties();
+  Stream<Variety?> watchVariety(String varietyId);
 }
 
 @Riverpod(keepAlive: true)
@@ -22,4 +23,10 @@ VarietyRepository varietyRepository(VarietyRepositoryRef ref) {
 Stream<List<Variety>?> varietiesStream(VarietiesStreamRef ref) {
   final repo = ref.watch(varietyRepositoryProvider);
   return repo.watchVarieties();
+}
+
+@riverpod
+Stream<Variety?> varietyStream(VarietyStreamRef ref, String varietyId) {
+  final repo = ref.watch(varietyRepositoryProvider);
+  return repo.watchVariety(varietyId);
 }
