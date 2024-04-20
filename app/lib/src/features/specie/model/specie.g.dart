@@ -7,7 +7,7 @@ part of 'specie.dart';
 // **************************************************************************
 
 Specie _$SpecieFromJson(Map<String, dynamic> json) => Specie(
-      id: json['id'] as String,
+      id: const IntConverter().fromJson(json['id'] as int),
       name: json['name'] as String,
       createdAt: json['created_at'] == null
           ? null
@@ -15,7 +15,7 @@ Specie _$SpecieFromJson(Map<String, dynamic> json) => Specie(
     );
 
 Map<String, dynamic> _$SpecieToJson(Specie instance) => <String, dynamic>{
-      'id': instance.id,
+      'id': const IntConverter().toJson(instance.id),
       'name': instance.name,
       'created_at': instance.createdAt?.toIso8601String(),
     };

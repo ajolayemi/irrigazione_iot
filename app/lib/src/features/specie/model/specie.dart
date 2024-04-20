@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/specie/model/specie_database_keys.dart';
@@ -15,9 +16,12 @@ class Specie extends Equatable {
   });
 
   @JsonKey(name: SpecieDatabaseKeys.id)
+  @IntConverter()
   final String id;
+
   @JsonKey(name: SpecieDatabaseKeys.name)
   final String name;
+
   @JsonKey(name: SpecieDatabaseKeys.createdAt)
   final DateTime? createdAt;
 

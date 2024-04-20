@@ -7,7 +7,7 @@ part of 'variety.dart';
 // **************************************************************************
 
 Variety _$VarietyFromJson(Map<String, dynamic> json) => Variety(
-      id: json['id'] as String,
+      id: const IntConverter().fromJson(json['id'] as int),
       name: json['name'] as String,
       createdAt: json['created_at'] == null
           ? null
@@ -15,7 +15,7 @@ Variety _$VarietyFromJson(Map<String, dynamic> json) => Variety(
     );
 
 Map<String, dynamic> _$VarietyToJson(Variety instance) => <String, dynamic>{
-      'id': instance.id,
+      'id': const IntConverter().toJson(instance.id),
       'name': instance.name,
       'created_at': instance.createdAt?.toIso8601String(),
     };
