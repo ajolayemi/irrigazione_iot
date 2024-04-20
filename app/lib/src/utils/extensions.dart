@@ -75,11 +75,11 @@ extension BuildContextExtensions on BuildContext {
             children: roles.map((role) {
               return ResponsiveRadioListTile(
                 title: Text(role.name),
-                value: RadioButtonReturnType(
+                value: RadioButtonItem(
                   value: role.name,
                   label: role.name,
                 ),
-                groupValue: RadioButtonReturnType(
+                groupValue: RadioButtonItem(
                   value: currentAssignedRole,
                   label: currentAssignedRole,
                 ),

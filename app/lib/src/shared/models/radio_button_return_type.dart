@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
-class RadioButtonReturnType extends Equatable {
-  const RadioButtonReturnType({
+class RadioButtonItem extends Equatable {
+  const RadioButtonItem({
     required this.value,
     required this.label,
   });

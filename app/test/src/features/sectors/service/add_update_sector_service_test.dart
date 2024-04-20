@@ -68,7 +68,7 @@ void main() {
       MockSelectedCompanyRepository();
 
   AddUpdateSectorService makeServiceWithArgs(
-      {RadioButtonReturnType? selectedPumpId}) {
+      {RadioButtonItem? selectedPumpId}) {
     final container = ProviderContainer(
       overrides: [
         authRepositoryProvider.overrideWithValue(authRepository),
@@ -155,8 +155,7 @@ void main() {
 
           // A list of pumpIds are provided
           final service = makeServiceWithArgs(
-              selectedPumpId:
-                  RadioButtonReturnType(value: '1', label: 'Pompa 1'));
+              selectedPumpId: RadioButtonItem(value: '1', label: 'Pompa 1'));
 
           // run
           await service.createSector(nonExistentSectorForTest);
@@ -187,8 +186,7 @@ void main() {
 
           // A list of pumpIds are provided
           final service = makeServiceWithArgs(
-              selectedPumpId:
-                  RadioButtonReturnType(value: '1', label: 'Pompa 1'));
+              selectedPumpId: RadioButtonItem(value: '1', label: 'Pompa 1'));
 
           // run
           await service.createSector(nonExistentSectorForTest);
@@ -271,8 +269,7 @@ void main() {
           ).thenAnswer((_) => Future.value());
 
           final service = makeServiceWithArgs(
-              selectedPumpId:
-                  RadioButtonReturnType(value: '9', label: 'Pump 9'));
+              selectedPumpId: RadioButtonItem(value: '9', label: 'Pump 9'));
 
           // run
           await service.updateSector(nonExistentSectorForTest);
@@ -310,7 +307,7 @@ void main() {
           );
 
           final service = makeServiceWithArgs(
-              selectedPumpId: RadioButtonReturnType(
+              selectedPumpId: RadioButtonItem(
             value: validSectorPumpForTest.pumpId,
             label: 'Pump 9',
           ));
@@ -373,7 +370,7 @@ void main() {
           );
 
           final service = makeServiceWithArgs(
-              selectedPumpId: RadioButtonReturnType(
+              selectedPumpId: RadioButtonItem(
                   value: newSectorPumps.pumpId, label: 'Pump 90'));
           // run
           await service.updateSector(toUpdate);

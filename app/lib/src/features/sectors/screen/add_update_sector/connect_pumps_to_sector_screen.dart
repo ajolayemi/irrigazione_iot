@@ -67,11 +67,11 @@ class ConnectPumpToSector extends ConsumerWidget {
                             final pump = pumps[index];
                             return ResponsiveRadioListTile(
                               title: Text(pump.name),
-                              value: RadioButtonReturnType(
+                              value: RadioButtonItem(
                                 value: pump.id,
                                 label: pump.name,
                               ),
-                              groupValue: RadioButtonReturnType(
+                              groupValue: RadioButtonItem(
                                 value: selectedPumpId?.value ?? '',
                                 label: selectedPumpId?.label ?? '',
                               ),

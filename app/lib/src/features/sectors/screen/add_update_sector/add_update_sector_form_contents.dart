@@ -173,7 +173,7 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _onTappedConnectedPumps() async {
-    final selectedPump = await context.pushNamed<RadioButtonReturnType>(
+    final selectedPump = await context.pushNamed<RadioButtonItem>(
         AppRoute.connectPumpToSector.name,
         queryParameters: {
           'pumpIdAlreadyConnected': _initialSectorPump?.pumpId ?? '',

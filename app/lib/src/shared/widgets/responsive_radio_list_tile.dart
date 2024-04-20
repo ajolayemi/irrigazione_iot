@@ -18,13 +18,13 @@ class ResponsiveRadioListTile extends StatelessWidget {
   final Widget title;
 
   /// The value of the radio list tile
-  final RadioButtonReturnType value;
+  final RadioButtonItem value;
 
   /// The current selected value among the radio list tiles
-  final RadioButtonReturnType groupValue;
+  final RadioButtonItem groupValue;
 
   /// The function to call when the radio list tile is selected
-  final void Function(RadioButtonReturnType?)? onChanged;
+  final void Function(RadioButtonItem?)? onChanged;
 
   @override
   Widget build(BuildContext context) {

@@ -67,7 +67,6 @@ Future<List<Pump>?> availablePumpsFuture(
 }
 
 // Keeps track of the id of the pump selected to be connected to the sector
-final selectPumpRadioButtonProvider =
-    StateProvider<RadioButtonReturnType?>((ref) {
+final selectPumpRadioButtonProvider = StateProvider<RadioButtonItem?>((ref) {
   return null;
 });

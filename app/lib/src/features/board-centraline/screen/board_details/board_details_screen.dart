@@ -28,7 +28,7 @@ class BoardDetailsScreen extends ConsumerWidget {
     ref.read(selectedCollectorProvider.notifier).state =
         connectedCollector == null
             ? null
-            : RadioButtonReturnType(
+            : RadioButtonItem(
                 value: connectedCollector.id,
                 label: connectedCollector.name,
               );

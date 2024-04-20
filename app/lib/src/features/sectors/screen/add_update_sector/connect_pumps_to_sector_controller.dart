@@ -12,7 +12,7 @@ class ConnectPumpsToSectorController extends _$ConnectPumpsToSectorController {
     // nothing to do here
   }
 
-  void handleSelection(RadioButtonReturnType? newValue) {
+  void handleSelection(RadioButtonItem? newValue) {
     ref.read(selectPumpRadioButtonProvider.notifier).state = newValue;
   }
 }

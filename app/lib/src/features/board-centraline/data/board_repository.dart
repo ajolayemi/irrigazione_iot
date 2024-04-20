@@ -119,7 +119,7 @@ final collectorConnectedToBoardProvider = StateProvider<String?>((ref) {
 
 /// Keeps track of the the collector that user wants to connect
 /// to a [Board]
-final selectedCollectorProvider = StateProvider<RadioButtonReturnType?>((ref) {
+final selectedCollectorProvider = StateProvider<RadioButtonItem?>((ref) {
   return null;
 });
 

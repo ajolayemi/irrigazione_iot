@@ -29,11 +29,10 @@ class SectorDetailsScreen extends ConsumerWidget {
     BuildContext context,
     Pump? connectedPump,
   ) {
-    ref.read(selectPumpRadioButtonProvider.notifier).state =
-        connectedPump == null
-            ? null
-            : RadioButtonReturnType(
-                value: connectedPump.id, label: connectedPump.name);
+    ref.read(selectPumpRadioButtonProvider.notifier).state = connectedPump ==
+            null
+        ? null
+        : RadioButtonItem(value: connectedPump.id, label: connectedPump.name);
     context.pushNamed(
       AppRoute.updateSector.name,
       pathParameters: {
@@ -52,9 +51,7 @@ class SectorDetailsScreen extends ConsumerWidget {
         ref.watch(sectorPumpStreamProvider(sectorID)).valueOrNull;
     final connectedPump = connectedSectorPump == null
         ? null
-        : ref
-            .watch(pumpStreamProvider(connectedSectorPump.pumpId))
-            .valueOrNull;
+        : ref.watch(pumpStreamProvider(connectedSectorPump.pumpId)).valueOrNull;
 
     return SafeArea(
       child: Scaffold(
