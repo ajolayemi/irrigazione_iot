@@ -4,8 +4,8 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 class PaddedSafeArea extends StatelessWidget {
   const PaddedSafeArea({
     super.key,
-    required this.child,
     this.padding = const EdgeInsets.symmetric(horizontal: Sizes.p8),
+    required this.child,
   });
 
   final EdgeInsets padding;
