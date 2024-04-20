@@ -107,7 +107,7 @@ class _AddUpdateSectorFormContentsState
 
   @override
   void initState() {
-    if (widget.formType.isUpdating && widget.sectorId != null) {
+    if (_isUpdating && widget.sectorId != null) {
       final sector =
           ref.read(sectorStreamProvider(widget.sectorId!)).valueOrNull;
       final sectorPump =
@@ -333,7 +333,7 @@ class _AddUpdateSectorFormContentsState
 
       bool success = false;
 
-      if (widget.formType.isUpdating) {
+      if (_isUpdating) {
         success = await ref
             .read(addUpdateSectorControllerProvider.notifier)
             .updateSector(toSave);
@@ -362,7 +362,7 @@ class _AddUpdateSectorFormContentsState
         (_, state) => state.showAlertDialogOnError(context));
     final numberFieldKeyboardType =
         ref.watch(numericFieldsTextInputTypeProvider);
-    final isUpdating = widget.formType.isUpdating;
+    final isUpdating = _isUpdating;
 
     // already used values for form validation
     final usedSectorNames =
