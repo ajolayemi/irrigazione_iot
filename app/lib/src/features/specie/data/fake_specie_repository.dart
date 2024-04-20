@@ -1,7 +1,6 @@
 import 'package:irrigazione_iot/src/config/mock/fake_species.dart';
 import 'package:irrigazione_iot/src/features/specie/data/specie_repository.dart';
 import 'package:irrigazione_iot/src/features/specie/model/specie.dart';
-import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
 class FakeSpecieRepository implements SpecieRepository {
@@ -13,8 +12,8 @@ class FakeSpecieRepository implements SpecieRepository {
   void dispose() => _speciesState.close();
 
   @override
-  Future<List<Specie>?> getSpecies() async {
-    await delay(addDelay);
-    return _speciesState.value;
-  }
+  Stream<List<Specie>?> watchSpecies({
+    String? previouslySelectedSpecieId,
+  }) =>
+      _speciesState.stream;
 }

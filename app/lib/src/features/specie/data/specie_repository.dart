@@ -9,7 +9,7 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'specie_repository.g.dart';
 
 abstract class SpecieRepository {
-  Future<List<Specie>?> getSpecies();
+  Stream<List<Specie>?> watchSpecies({String? previouslySelectedSpecieId});
 }
 
 @Riverpod(keepAlive: true)
@@ -19,11 +19,8 @@ SpecieRepository specieRepository(SpecieRepositoryRef ref) {
 }
 
 @riverpod
-Future<List<Specie>?> speciesFuture(SpeciesFutureRef ref) {
-  final link = ref.keepAlive();
-  // * keep the previous value in memory for 60 seconds
-  final timer = Timer(const Duration(seconds: 60), link.close);
-  ref.onDispose(() => timer.cancel());
-  final specieRepository = ref.watch(specieRepositoryProvider);
-  return specieRepository.getSpecies();
+Stream<List<Specie>?> speciesStream(SpeciesStreamRef ref,
+    {String? previouslySelectedSpecieId}) {
+  final repo = ref.watch(specieRepositoryProvider);
+  return repo.watchSpecies(previouslySelectedSpecieId: previouslySelectedSpecieId);
 }
