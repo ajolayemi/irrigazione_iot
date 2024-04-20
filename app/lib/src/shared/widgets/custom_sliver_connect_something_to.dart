@@ -3,7 +3,6 @@ import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 
@@ -20,7 +19,7 @@ class CustomSliverConnectSomethingTo extends StatelessWidget {
   });
 
   final String title;
-  final AsyncValueSliverWidget child;
+  final Widget child;
   final List<Widget>? actions;
   final VoidCallback? onCTAPressed;
   final String? ctaAlternativeText;
