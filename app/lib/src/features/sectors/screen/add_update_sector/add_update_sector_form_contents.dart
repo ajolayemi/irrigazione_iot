@@ -18,6 +18,7 @@ import 'package:irrigazione_iot/src/features/specie/data/specie_repository.dart'
 import 'package:irrigazione_iot/src/features/variety/data/variety_repository.dart';
 import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_form_suffix_icon.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
@@ -190,6 +191,23 @@ class _AddUpdateSectorFormContentsState
     if (selectedSpecie != null) {
       _specieController.text = selectedSpecie.label;
       _selectedSpecieId = selectedSpecie.value;
+    }
+  }
+
+  void _onTappedVariety() async {
+    final queryParam = QueryParameters(
+      id: _selectedVarietyId,
+      name: variety,
+    ).toJson();
+
+    final selectedVariety = await context.pushNamed<RadioButtonItem>(
+      AppRoute.selectAVariety.name,
+      queryParameters: queryParam,
+    );
+
+    if (selectedVariety != null) {
+      _varietyController.text = selectedVariety.label;
+      _selectedVarietyId = selectedVariety.value;
     }
   }
 
@@ -414,10 +432,8 @@ class _AddUpdateSectorFormContentsState
                     canRequestFocus: false,
                     keyboardType: TextInputType.none,
                     onTap: _onTappedSpecie,
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.arrow_drop_down),
-                      onPressed: _onTappedSpecie,
-                    ),
+                    suffixIcon:
+                        CommonFormSuffixIcon(onPressed: _onTappedSpecie),
                     fieldController: _specieController,
                     onEditingComplete: () =>
                         _nonEmptyFieldsEditingComplete(specie),
@@ -431,8 +447,13 @@ class _AddUpdateSectorFormContentsState
                     fieldKey: _varietyFieldKey,
                     fieldTitle: loc.sectorVariety,
                     fieldHintText: loc.sectorVarietyHintText,
-                    textInputAction: TextInputAction.next,
+                    textInputAction: TextInputAction.none,
+                    canRequestFocus: false,
                     fieldController: _varietyController,
+                    onTap: _onTappedVariety,
+                    suffixIcon: CommonFormSuffixIcon(
+                      onPressed: _onTappedVariety,
+                    ),
                     onEditingComplete: () =>
                         _nonEmptyFieldsEditingComplete(variety),
                     validator: (_) => _nonEmptyFieldsErrorText(variety),
