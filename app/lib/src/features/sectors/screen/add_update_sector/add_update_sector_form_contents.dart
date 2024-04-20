@@ -14,6 +14,8 @@ import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_form_validator.dart';
+import 'package:irrigazione_iot/src/features/specie/data/specie_repository.dart';
+import 'package:irrigazione_iot/src/features/variety/data/variety_repository.dart';
 import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
@@ -113,13 +115,12 @@ class _AddUpdateSectorFormContentsState
       final pump = sectorPump == null
           ? null
           : ref.read(pumpStreamProvider(sectorPump.pumpId)).valueOrNull;
+
       _initialSectorPump = sectorPump;
       _initialSector = sector;
-      _nameController.text = _initialSector?.name ?? '';
-      // TODO: specie and variety names should be displayed in the form not their ids
 
-      _selectedSpecieId = _initialSector?.specieId;
-      _selectedVarietyId = _initialSector?.varietyId;
+      // set some form fields initial values
+      _nameController.text = _initialSector?.name ?? '';
       _specieController.text = _initialSector?.specieId ?? '';
       _varietyController.text = _initialSector?.varietyId ?? '';
       _areaController.text = _initialSector?.area.toString() ?? '';
@@ -135,6 +136,26 @@ class _AddUpdateSectorFormContentsState
       _turnOffCommandController.text = _initialSector?.turnOffCommand ?? '';
       _notesController.text = _initialSector?.notes ?? '';
       _selectedPumpController.text = pump?.name ?? '';
+
+      _selectedSpecieId = _initialSector?.specieId;
+      _selectedVarietyId = _initialSector?.varietyId;
+
+      // Get the varieties and pumps from the database
+      if (_selectedSpecieId != null) {
+        _specieController.text = ref
+                .read(specieStreamProvider(_selectedSpecieId!))
+                .valueOrNull
+                ?.name ??
+            '';
+      }
+
+      if (_selectedVarietyId != null) {
+        _varietyController.text = ref
+                .read(varietyStreamProvider(_selectedVarietyId!))
+                .valueOrNull
+                ?.name ??
+            '';
+      }
     }
     super.initState();
   }
