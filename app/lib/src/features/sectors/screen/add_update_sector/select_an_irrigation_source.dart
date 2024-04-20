@@ -15,7 +15,7 @@ class SelectAnIrrigationSource extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             AppSliverBar(
-              title: context.loc.selectAnIrrigationSource,
+              title: context.loc.selectAnOption,
               expandedHeight: 120.0,
             ),
             SliverList(
