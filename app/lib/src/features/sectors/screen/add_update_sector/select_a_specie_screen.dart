@@ -1,59 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/specie/data/specie_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/responsive_select_screens_tile.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
+import 'package:irrigazione_iot/src/shared/widgets/custom_sliver_connect_something_to.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.dart';
+import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indicator.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
-import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
-import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
-class SelectASpecieScreen extends ConsumerWidget {
+class SelectASpecieScreen extends ConsumerStatefulWidget {
   const SelectASpecieScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final species = ref.watch(speciesFutureProvider);
-    return Scaffold(
-      body: PaddedSafeArea(
-        child: CustomScrollView(
-          slivers: [
-            AppSliverBar(
-              title: context.loc.selectASpecie,
-            ),
-            AsyncValueSliverWidget(
-                value: species,
-                loading: () => const SliverFillRemaining(
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
-                data: (species) {
+  ConsumerState<SelectASpecieScreen> createState() =>
+      _SelectASpecieScreenState();
+}
 
-                  // TODO: replace this with more meaningful empty widget
-                  if (species == null || species.isEmpty) {
-                    return const SliverFillRemaining(
-                      child: Center(
-                        child: Text('No species found'),
-                      ),
+class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
+  RadioButtonItem _selectedSpecie = const RadioButtonItem(
+    value: '10',
+    label: 'melograno',
+  );
+  @override
+  Widget build(BuildContext context) {
+    final species = ref.watch(
+      speciesStreamProvider(previouslySelectedSpecieId: '10'),
+    );
+    final loc = context.loc;
+    return CustomSliverConnectSomethingTo(
+      title: loc.selectASpecie,
+      onCTAPressed: () => context.popNavigator(_selectedSpecie),
+      child: AsyncValueSliverWidget(
+        value: species,
+        data: (species) {
+          // TODO: replace this with more meaningful empty widget
+          if (species == null || species.isEmpty) {
+            return const SliverFillRemaining(
+              child: Center(
+                child: Text('No species found'),
+              ),
+            );
+          }
+          return SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                final specie = species[index];
+
+                return ResponsiveRadioListTile(
+                  title: specie.name,
+                  value: RadioButtonItem(
+                    value: specie.id,
+                    label: specie.name,
+                  ),
+                  groupValue: _selectedSpecie,
+                  onChanged: (val) => setState(() {
+                    _selectedSpecie = _selectedSpecie.copyWith(
+                      value: val?.value,
+                      label: val?.label,
                     );
-                  }
-                  return SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        final specie = species[index];
-
-                        return ResponsiveSelectScreensTile(
-                            title: specie.name,
-                            onTap: () {
-                              Navigator.of(context).pop(specie);
-                            });
-                      },
-                      childCount: species.length,
-                    ),
-                  );
-                }),
-          ],
-        ),
+                  }),
+                );
+              },
+              childCount: species.length,
+            ),
+          );
+        },
+        loading: () => const SliverAdaptiveCircularIndicator(),
       ),
     );
   }
