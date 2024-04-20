@@ -22,7 +22,7 @@ class BoardsListScreen extends ConsumerWidget {
     WidgetRef ref,
   ) {
     ref.read(collectorConnectedToBoardProvider.notifier).state = null;
-    ref.read(selectedCollectorIdProvider.notifier).state = null;
+    ref.read(selectedCollectorProvider.notifier).state = null;
     context.pushNamed(
       AppRoute.addBoard.name,
     );

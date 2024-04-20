@@ -20,7 +20,6 @@ import 'package:irrigazione_iot/src/shared/widgets/common_form_suffix_icon.dart'
 import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
 
-
 class AddUpdateBoardFormContent extends ConsumerStatefulWidget {
   const AddUpdateBoardFormContent({
     super.key,
@@ -201,7 +200,7 @@ class _AddUpdateBoardFormContentState
 
   void _popScreen() {
     ref.read(collectorConnectedToBoardProvider.notifier).state = null;
-    ref.read(selectedCollectorIdProvider.notifier).state = null;
+    ref.read(selectedCollectorProvider.notifier).state = null;
     context.popNavigator();
   }
 
@@ -274,7 +273,7 @@ class _AddUpdateBoardFormContentState
                       Consumer(
                         builder: (context, ref, child) {
                           final selectedCollector =
-                              ref.watch(selectedCollectorIdProvider);
+                              ref.watch(selectedCollectorProvider);
                           return FormTitleAndField(
                             fieldKey: _collectorFieldKey,
                             fieldTitle: loc.boardConnectedCollector,
@@ -288,10 +287,10 @@ class _AddUpdateBoardFormContentState
                             onTap: _onTappedConnectedCollector,
                             onEditingComplete: () =>
                                 _collectorSelectionEditingComplete(
-                              value: selectedCollector ?? '',
+                              value: selectedCollector?.value ?? '',
                             ),
                             validator: (_) => _collectorSelectionErrorText(
-                              value: selectedCollector ?? '',
+                              value: selectedCollector?.value ?? '',
                             ),
                           );
                         },

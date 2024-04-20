@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/widgets/empty_collector_widget.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_return_type.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
@@ -24,7 +25,7 @@ class ConnectCollectorToBoardScreen extends ConsumerWidget {
     final loc = context.loc;
     final availableCollectors =
         ref.watch(collectorsNotConnectedToABoardStreamProvider);
-    final selectedCollectorId = ref.watch(selectedCollectorIdProvider);
+    final selectedCollector = ref.watch(selectedCollectorProvider);
     return Scaffold(
       body: PaddedSafeArea(
         child: Column(
@@ -67,11 +68,17 @@ class ConnectCollectorToBoardScreen extends ConsumerWidget {
                             final collector = collectors[index]!;
                             return ResponsiveRadioListTile(
                               title: Text(collector.name),
-                              value: collector.id,
-                              groupValue: selectedCollectorId ?? '',
+                              value: RadioButtonReturnType(
+                                value: collector.id,
+                                label: collector.name,
+                              ),
+                              groupValue: RadioButtonReturnType(
+                                value: selectedCollector?.value ?? '',
+                                label: selectedCollector?.label ?? '', // tod
+                              ),
                               onChanged: (newValue) {
                                 ref
-                                    .read(selectedCollectorIdProvider.notifier)
+                                    .read(selectedCollectorProvider.notifier)
                                     .state = newValue;
                               },
                             );
@@ -92,7 +99,7 @@ class ConnectCollectorToBoardScreen extends ConsumerWidget {
               child: SliverCTAButton(
                 text: loc.genericConfirmButtonLabel,
                 buttonType: ButtonType.primary,
-                onPressed: () => context.popNavigator(selectedCollectorId),
+                onPressed: () => context.popNavigator(selectedCollector),
               ),
             ),
             gapH32,

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/supabase_board_repository.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_return_type.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -116,9 +117,9 @@ final collectorConnectedToBoardProvider = StateProvider<String?>((ref) {
   return null;
 });
 
-/// Keeps track of the id of the collector that user wants to connect
+/// Keeps track of the the collector that user wants to connect
 /// to a [Board]
-final selectedCollectorIdProvider = StateProvider<String?>((ref) {
+final selectedCollectorProvider = StateProvider<RadioButtonReturnType?>((ref) {
   return null;
 });
 

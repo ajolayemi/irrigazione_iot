@@ -37,7 +37,7 @@ class AddUpdateBoardService {
 
     // reference the state provider that tracks what collector user chose
     // to connect to the board
-    final selectedCollector = _ref.read(selectedCollectorIdProvider);
+    final selectedCollector = _ref.read(selectedCollectorProvider);
 
     // just in case non collector was selected, that shouldn't be the case though
     // because the form validation logic already checks for that
@@ -50,7 +50,7 @@ class AddUpdateBoardService {
     final createdBoard = await _ref.read(boardRepositoryProvider).addBoard(
             board: board.copyWith(
           companyId: companyId,
-          collectorId: selectedCollector,
+          collectorId: selectedCollector.value,
         ));
 
     debugPrint('created board: ${createdBoard?.toJson()}');
