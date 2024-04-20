@@ -22,6 +22,7 @@ enum AppRoute {
   addSector,
   updateSector,
   selectASpecie,
+  selectAVariety,
   selectAnIrrigationSystem,
   selectAnIrrigationSource,
   connectPumpToSector,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_a_variety_screen.dart';
 import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -287,6 +288,23 @@ GoRouter goRouter(GoRouterRef ref) {
             child: SelectASpecieScreen(
               selectedSpecieId: queryParams.id,
               selectedSpecieName: queryParams.name,
+            ),
+            fullscreenDialog: true,
+          );
+        },
+      ),
+
+      // Select a variety
+      GoRoute(
+        path: '/select-a-variety',
+        name: AppRoute.selectAVariety.name,
+        pageBuilder: (context, state) {
+          final queryParams =
+              QueryParameters.fromJson(state.uri.queryParameters);
+          return MaterialPage(
+            child: SelectAVarietyScreen(
+              selectedVarietyId: queryParams.id,
+              selectedVarietyName: queryParams.name,
             ),
             fullscreenDialog: true,
           );
