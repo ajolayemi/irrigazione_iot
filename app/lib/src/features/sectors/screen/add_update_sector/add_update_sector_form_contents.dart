@@ -212,10 +212,16 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _onTappedIrrigationSystem() async {
-    final selectedIrrigationSystem =
-        await context.pushNamed(AppRoute.selectAnIrrigationSystem.name);
+    final queryParam = QueryParameters(
+      id: irrigationSystem,
+      name: irrigationSystem,
+    ).toJson();
+    final selectedIrrigationSystem = await context.pushNamed<RadioButtonItem>(
+      AppRoute.selectAnIrrigationSystem.name,
+      queryParameters: queryParam,
+    );
     if (selectedIrrigationSystem != null) {
-      _irrigationSystemController.text = selectedIrrigationSystem.toString();
+      _irrigationSystemController.text = selectedIrrigationSystem.label;
     }
   }
 
