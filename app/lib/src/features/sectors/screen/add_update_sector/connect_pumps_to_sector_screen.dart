@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/empty_pump_widget.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/connect_pumps_to_sector_controller.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_checkbox_tile.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 class ConnectPumpToSector extends ConsumerWidget {
   const ConnectPumpToSector({
@@ -24,17 +24,14 @@ class ConnectPumpToSector extends ConsumerWidget {
     this.pumpIdAlreadyConnected,
   });
 
-  // TODO: accept a string parameter that holds the id of the pump that's
-  // TODO already connected to the sector. pass that over to the provider that
-  // TODO fetches the available pumps so that it can include that pump from the
-  // TODO list of available pumps
-
   final String? pumpIdAlreadyConnected;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final canEdit = ref.watch(companyUserRoleProvider).valueOrNull?.canEdit;
-    final availablePumps = ref.watch(companyPumpsStreamProvider);
-    final selectedPumpId = ref.watch(selectPumpRadioButtonProvider);
+    final availablePumps = ref.watch(availablePumpsFutureProvider(
+      alreadyConnectedPumpId: pumpIdAlreadyConnected,
+    ));
+    final selectedPumpId = ref.watch(selectPumpRadioButtonProvider)?.value;
     final loc = context.loc;
     return Scaffold(
       body: PaddedSafeArea(
@@ -57,7 +54,7 @@ class ConnectPumpToSector extends ConsumerWidget {
                   AsyncValueSliverWidget(
                     value: availablePumps,
                     data: (pumps) {
-                      if (pumps.isEmpty) {
+                      if (pumps == null || pumps.isEmpty) {
                         return const EmptyPumpWidget();
                       }
 
@@ -65,9 +62,8 @@ class ConnectPumpToSector extends ConsumerWidget {
                       return SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
-                            final pump = pumps[index]!;
-                            final pumpIsSelected =
-                                selectedPumpId?.value == pump.id;
+                            final pump = pumps[index];
+                            final pumpIsSelected = selectedPumpId == pump.id;
                             return ResponsiveCheckboxTile(
                               title: pump.name,
                               value: pumpIsSelected,
