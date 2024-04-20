@@ -342,7 +342,7 @@
     }
   },
   "addNewButtonLabel": "Add New",
-  "connectPumpsToSectorPageTile": "Select Pumps",
+  "connectPumpsToSectorPageTile": "Select a pump",
   "noPumpConnectedToSectorErrorText": "You have to connect at least one pump to this sector",
   "pumpLastDispensationForTile": "Was last switched on",
   "pumpLastDispensationEmpty": "Never switched on",
