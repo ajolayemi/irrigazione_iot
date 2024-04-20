@@ -9,7 +9,7 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'variety_repository.g.dart';
 
 abstract class VarietyRepository {
-  Future<List<Variety>?> getVarieties();
+  Stream<List<Variety>?> watchVarieties();
 }
 
 @Riverpod(keepAlive: true)
@@ -19,11 +19,7 @@ VarietyRepository varietyRepository(VarietyRepositoryRef ref) {
 }
 
 @riverpod
-Future<List<Variety>?> varietiesFuture(VarietiesFutureRef ref) {
-  final link = ref.keepAlive();
-  // * keep the previous value in memory for 60 seconds
-  final timer = Timer(const Duration(seconds: 60), link.close);
-  ref.onDispose(() => timer.cancel());
-  final varietyRepository = ref.watch(varietyRepositoryProvider);
-  return varietyRepository.getVarieties();
+Stream<List<Variety>?> varietiesStream(VarietiesStreamRef ref) {
+  final repo = ref.watch(varietyRepositoryProvider);
+  return repo.watchVarieties();
 }
