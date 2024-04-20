@@ -58,15 +58,13 @@ class SupabaseSectorPumpRepository implements SectorPumpRepository {
   }
 
   @override
-  Future<List<Pump>?> getAvailablePumps(
-    String sectorId,
-    String companyId,
+  Future<List<Pump>?> getAvailablePumps({
+    required String companyId,
     String? alreadyConnectedPumpId,
-  ) async {
+  }) async {
     return await _supabaseClient.rpc<List<Map<String, dynamic>>>(
         'get_pumps_not_connected_to_sector',
         params: {
-          'sector_id_input': sectorId,
           'company_id_input': companyId,
           'pump_id_already_connected': int.tryParse(
             alreadyConnectedPumpId ?? '',
