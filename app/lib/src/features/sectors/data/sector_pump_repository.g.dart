@@ -302,7 +302,7 @@ class _SectorPumpFutureProviderElement
 }
 
 String _$availablePumpsFutureHash() =>
-    r'eff951d19bb76794396a19eea8281832db3587e2';
+    r'fdee775516f9a306e09f046d30bf4245115f88af';
 
 /// See also [availablePumpsFuture].
 @ProviderFor(availablePumpsFuture)
@@ -315,11 +315,9 @@ class AvailablePumpsFutureFamily extends Family<AsyncValue<List<Pump>?>> {
 
   /// See also [availablePumpsFuture].
   AvailablePumpsFutureProvider call({
-    required String sectorId,
     String? alreadyConnectedPumpId,
   }) {
     return AvailablePumpsFutureProvider(
-      sectorId: sectorId,
       alreadyConnectedPumpId: alreadyConnectedPumpId,
     );
   }
@@ -329,7 +327,6 @@ class AvailablePumpsFutureFamily extends Family<AsyncValue<List<Pump>?>> {
     covariant AvailablePumpsFutureProvider provider,
   ) {
     return call(
-      sectorId: provider.sectorId,
       alreadyConnectedPumpId: provider.alreadyConnectedPumpId,
     );
   }
@@ -354,12 +351,10 @@ class AvailablePumpsFutureProvider
     extends AutoDisposeFutureProvider<List<Pump>?> {
   /// See also [availablePumpsFuture].
   AvailablePumpsFutureProvider({
-    required String sectorId,
     String? alreadyConnectedPumpId,
   }) : this._internal(
           (ref) => availablePumpsFuture(
             ref as AvailablePumpsFutureRef,
-            sectorId: sectorId,
             alreadyConnectedPumpId: alreadyConnectedPumpId,
           ),
           from: availablePumpsFutureProvider,
@@ -371,7 +366,6 @@ class AvailablePumpsFutureProvider
           dependencies: AvailablePumpsFutureFamily._dependencies,
           allTransitiveDependencies:
               AvailablePumpsFutureFamily._allTransitiveDependencies,
-          sectorId: sectorId,
           alreadyConnectedPumpId: alreadyConnectedPumpId,
         );
 
@@ -382,11 +376,9 @@ class AvailablePumpsFutureProvider
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.sectorId,
     required this.alreadyConnectedPumpId,
   }) : super.internal();
 
-  final String sectorId;
   final String? alreadyConnectedPumpId;
 
   @override
@@ -402,7 +394,6 @@ class AvailablePumpsFutureProvider
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        sectorId: sectorId,
         alreadyConnectedPumpId: alreadyConnectedPumpId,
       ),
     );
@@ -416,14 +407,12 @@ class AvailablePumpsFutureProvider
   @override
   bool operator ==(Object other) {
     return other is AvailablePumpsFutureProvider &&
-        other.sectorId == sectorId &&
         other.alreadyConnectedPumpId == alreadyConnectedPumpId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, sectorId.hashCode);
     hash = _SystemHash.combine(hash, alreadyConnectedPumpId.hashCode);
 
     return _SystemHash.finish(hash);
@@ -431,9 +420,6 @@ class AvailablePumpsFutureProvider
 }
 
 mixin AvailablePumpsFutureRef on AutoDisposeFutureProviderRef<List<Pump>?> {
-  /// The parameter `sectorId` of this provider.
-  String get sectorId;
-
   /// The parameter `alreadyConnectedPumpId` of this provider.
   String? get alreadyConnectedPumpId;
 }
@@ -443,8 +429,6 @@ class _AvailablePumpsFutureProviderElement
     with AvailablePumpsFutureRef {
   _AvailablePumpsFutureProviderElement(super.provider);
 
-  @override
-  String get sectorId => (origin as AvailablePumpsFutureProvider).sectorId;
   @override
   String? get alreadyConnectedPumpId =>
       (origin as AvailablePumpsFutureProvider).alreadyConnectedPumpId;

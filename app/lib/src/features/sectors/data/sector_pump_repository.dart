@@ -24,11 +24,10 @@ abstract class SectorPumpRepository {
   Stream<SectorPump?> watchSectorPump(String sectorId);
 
   /// Gets a list of [Pump]s of the current company that aren't connected yet to a sector
-  Future<List<Pump>?> getAvailablePumps(
-    String sectorId,
-    String companyId,
+  Future<List<Pump>?> getAvailablePumps({
+    required String companyId,
     String? alreadyConnectedPumpId,
-  );
+  });
 }
 
 @Riverpod(keepAlive: true)
@@ -52,7 +51,6 @@ Future<SectorPump?> sectorPumpFuture(SectorPumpFutureRef ref, String sectorId) {
 @riverpod
 Future<List<Pump>?> availablePumpsFuture(
   AvailablePumpsFutureRef ref, {
-  required String sectorId,
   String? alreadyConnectedPumpId,
 }) {
   final currentSelectedCompanyByUser =
@@ -63,9 +61,8 @@ Future<List<Pump>?> availablePumpsFuture(
   }
   final sectorPumpRepo = ref.watch(sectorPumpRepositoryProvider);
   return sectorPumpRepo.getAvailablePumps(
-    sectorId,
-    currentSelectedCompanyByUser.id,
-    alreadyConnectedPumpId,
+    companyId: currentSelectedCompanyByUser.id,
+    alreadyConnectedPumpId: alreadyConnectedPumpId,
   );
 }
 
