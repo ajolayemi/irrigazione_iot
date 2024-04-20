@@ -14,6 +14,7 @@ import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_form_validator.dart';
+import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
@@ -98,6 +99,10 @@ class _AddUpdateSectorFormContentsState
 
   bool get _isUpdating => widget.formType.isUpdating;
 
+  /// Keeps track of various radio buttons items id
+  String? _selectedSpecieId;
+  String? _selectedVarietyId;
+
   @override
   void initState() {
     if (widget.formType.isUpdating && widget.sectorId != null) {
@@ -112,6 +117,9 @@ class _AddUpdateSectorFormContentsState
       _initialSector = sector;
       _nameController.text = _initialSector?.name ?? '';
       // TODO: specie and variety names should be displayed in the form not their ids
+
+      _selectedSpecieId = _initialSector?.specieId;
+      _selectedVarietyId = _initialSector?.varietyId;
       _specieController.text = _initialSector?.specieId ?? '';
       _varietyController.text = _initialSector?.varietyId ?? '';
       _areaController.text = _initialSector?.area.toString() ?? '';
@@ -150,9 +158,17 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _onTappedSpecie() async {
-    final selectedSpecie = await context.pushNamed(AppRoute.selectASpecie.name);
+    final queryParam = QueryParameters(
+      id: _selectedSpecieId,
+      name: specie,
+    ).toJson();
+    final selectedSpecie = await context.pushNamed<RadioButtonItem>(
+      AppRoute.selectASpecie.name,
+      queryParameters: queryParam,
+    );
     if (selectedSpecie != null) {
-      _specieController.text = selectedSpecie.toString();
+      _specieController.text = selectedSpecie.label;
+      _selectedSpecieId = selectedSpecie.value;
     }
   }
 
