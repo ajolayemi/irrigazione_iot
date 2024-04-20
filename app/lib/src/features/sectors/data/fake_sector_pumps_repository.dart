@@ -13,7 +13,6 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
 
   final _sectorPumpsState = InMemoryStore<List<SectorPump>>(kFakeSectorPumps);
 
-
   static SectorPump? _getSectorPump(
       List<SectorPump> sectorPumps, String sectorPumpId) {
     return sectorPumps
@@ -67,8 +66,10 @@ class FakeSectorPumpRepository implements SectorPumpRepository {
   }
 
   @override
-  Future<List<Pump>?> getAvailablePumps(
-      String sectorId, String companyId, String? alreadyConnectedPumpId) {
+  Future<List<Pump>?> getAvailablePumps({
+    required String companyId,
+    String? alreadyConnectedPumpId,
+  }) {
     return Future.value(kFakePumps);
   }
 }
