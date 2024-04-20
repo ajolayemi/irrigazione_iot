@@ -32,9 +32,9 @@ import 'package:irrigazione_iot/src/features/pumps/screen/pump_details/pump_deta
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_list/pumps_list_screen.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_form.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/connect_pumps_to_sector_screen.dart';
-import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_a_specie_screen.dart';
-import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_an_irrigation_source.dart';
-import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_an_irrigation_system.dart';
+import 'package:irrigazione_iot/src/features/sectors/widgets/select_a_specie_screen.dart';
+import 'package:irrigazione_iot/src/features/sectors/widgets/select_an_irrigation_source.dart';
+import 'package:irrigazione_iot/src/features/sectors/widgets/select_an_irrigation_system.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/sector_details.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_screen.dart';
 import 'package:irrigazione_iot/src/features/user_profile/screen/user_profile_screen.dart';

@@ -7,7 +7,7 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/dismiss_sector_controller.dart';
-import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sector_list_tile_subtitle.dart';
+import 'package:irrigazione_iot/src/features/sectors/widgets/sector_list_tile_subtitle.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch_controller.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';

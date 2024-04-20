@@ -7,7 +7,7 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/connect_sectors_to_collector_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/screen/empty_sector_widget.dart';
+import 'package:irrigazione_iot/src/features/sectors/widgets/empty_sector_widget.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
