@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_species.dart';
 import 'package:irrigazione_iot/src/features/specie/data/specie_repository.dart';
 import 'package:irrigazione_iot/src/features/specie/model/specie.dart';
@@ -16,4 +17,8 @@ class FakeSpecieRepository implements SpecieRepository {
     String? previouslySelectedSpecieId,
   }) =>
       _speciesState.stream;
+
+  @override
+  Stream<Specie?> watchSpecie(String specieId) => _speciesState.stream
+      .map((species) => species.firstWhereOrNull((s) => s.id == specieId));
 }
