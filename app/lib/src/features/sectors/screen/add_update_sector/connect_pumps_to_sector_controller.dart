@@ -12,15 +12,7 @@ class ConnectPumpsToSectorController extends _$ConnectPumpsToSectorController {
     // nothing to do here
   }
 
-  void handleSelection(bool value, String pumpId, String pumpName) {
-    if (value) {
-      ref.read(selectPumpRadioButtonProvider.notifier).state =
-          RadioButtonReturnType(
-        value: pumpId,
-        label: pumpName,
-      );
-    } else {
-      ref.read(selectPumpRadioButtonProvider.notifier).state = null;
-    }
+  void handleSelection(RadioButtonReturnType? newValue) {
+    ref.read(selectPumpRadioButtonProvider.notifier).state = newValue;
   }
 }
