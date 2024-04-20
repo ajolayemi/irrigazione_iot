@@ -170,9 +170,9 @@
   "sectorName": "Name",
   "sectorNameHintText": "eg: ME8",
   "sectorSpecie": "Specie",
-  "sectorSpecieHintText": "eg: Arancia",
+  "sectorSpecieHintText": "Select a specie...",
   "sectorVariety": "Variety",
-  "sectorVarietyHintText": "eg: Sanguinello",
+  "sectorVarietyHintText": "Select a variety...",
   "sectorOccupiedArea": "Occupied Area",
   "sectorOccupiedAreaHintText": "eg: 100",
   "sectorNumberOfPlants": "Number of Plants",
@@ -577,5 +577,6 @@
   "mqttMessageNameFormFieldTitle": "Code name in MQTT message",
   "mqttMessageNameFormHint": "eg: p1",
   "itemHasFilter": "Has a filter connected?",
-  "selectAPump": "Select a pump..."
+  "selectAPump": "Select a pump...",
+  "selectAVarietyPageTitle": "Select a variety"
 }
