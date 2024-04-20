@@ -10,12 +10,13 @@ import 'package:irrigazione_iot/src/features/company_users/data/company_users_re
 import 'package:irrigazione_iot/src/features/pumps/screen/empty_pump_widget.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/connect_pumps_to_sector_controller.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_return_type.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
-import 'package:irrigazione_iot/src/shared/widgets/responsive_checkbox_tile.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 class ConnectPumpToSector extends ConsumerWidget {
@@ -31,10 +32,11 @@ class ConnectPumpToSector extends ConsumerWidget {
     final availablePumps = ref.watch(availablePumpsFutureProvider(
       alreadyConnectedPumpId: pumpIdAlreadyConnected,
     ));
-    final selectedPumpId = ref.watch(selectPumpRadioButtonProvider)?.value;
+    final selectedPumpId = ref.watch(selectPumpRadioButtonProvider);
     final loc = context.loc;
     return Scaffold(
       body: PaddedSafeArea(
+        padding: const EdgeInsets.symmetric(horizontal: Sizes.p12),
         child: Column(
           children: [
             Expanded(
@@ -63,15 +65,20 @@ class ConnectPumpToSector extends ConsumerWidget {
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
                             final pump = pumps[index];
-                            final pumpIsSelected = selectedPumpId == pump.id;
-                            return ResponsiveCheckboxTile(
-                              title: pump.name,
-                              value: pumpIsSelected,
+                            return ResponsiveRadioListTile(
+                              title: Text(pump.name),
+                              value: RadioButtonReturnType(
+                                value: pump.id,
+                                label: pump.name,
+                              ),
+                              groupValue: RadioButtonReturnType(
+                                value: selectedPumpId?.value ?? '',
+                                label: selectedPumpId?.label ?? '',
+                              ),
                               onChanged: (val) => ref
                                   .read(connectPumpsToSectorControllerProvider
                                       .notifier)
-                                  .handleSelection(
-                                      val ?? false, pump.id, pump.name),
+                                  .handleSelection(val),
                             );
                           },
                           childCount: pumps.length,
@@ -90,7 +97,7 @@ class ConnectPumpToSector extends ConsumerWidget {
 
             // Confirm button
             SliverCTAButton(
-              text: 'Confirm',
+              text: loc.genericConfirmButtonLabel,
               buttonType: ButtonType.primary,
               onPressed: () => Navigator.of(context).pop(selectedPumpId),
             ),
