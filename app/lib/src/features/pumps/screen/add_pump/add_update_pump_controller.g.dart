@@ -7,7 +7,7 @@ part of 'add_update_pump_controller.dart';
 // **************************************************************************
 
 String _$addUpdatePumpControllerHash() =>
-    r'5f448e929294813e5777a797a81cdedc55543185';
+    r'178cbf6b82fb3d4b05c7cb5f038ad841bce166b4';
 
 /// See also [AddUpdatePumpController].
 @ProviderFor(AddUpdatePumpController)
