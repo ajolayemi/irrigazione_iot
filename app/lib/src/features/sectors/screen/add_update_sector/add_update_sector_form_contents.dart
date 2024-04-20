@@ -441,7 +441,6 @@ class _AddUpdateSectorFormContentsState
                   ),
                   gapH16,
                   // variety field
-                  // TODO: should be dropdown just like specie
                   FormTitleAndField(
                     enabled: !isLoading,
                     fieldKey: _varietyFieldKey,
