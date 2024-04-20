@@ -10,6 +10,7 @@ part 'specie_repository.g.dart';
 
 abstract class SpecieRepository {
   Stream<List<Specie>?> watchSpecies({String? previouslySelectedSpecieId});
+  Stream<Specie?> watchSpecie(String specieId);
 }
 
 @Riverpod(keepAlive: true)
@@ -23,4 +24,10 @@ Stream<List<Specie>?> speciesStream(SpeciesStreamRef ref,
     {String? previouslySelectedSpecieId}) {
   final repo = ref.watch(specieRepositoryProvider);
   return repo.watchSpecies(previouslySelectedSpecieId: previouslySelectedSpecieId);
+}
+
+@riverpod
+Stream<Specie?> specieStream(SpecieStreamRef ref, String specieId) {
+  final repo = ref.watch(specieRepositoryProvider);
+  return repo.watchSpecie(specieId);
 }

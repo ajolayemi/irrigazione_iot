@@ -22,6 +22,8 @@ class SupabaseSpecieRepository implements SpecieRepository {
     return species;
   }
 
+  Specie? _specieSingleFromJsonList(List<Map<String, dynamic>>? json) =>
+      json?.map((e) => Specie.fromJson(e)).first;
   @override
   Stream<List<Specie>?> watchSpecies({
     String? previouslySelectedSpecieId,
@@ -32,4 +34,11 @@ class SupabaseSpecieRepository implements SpecieRepository {
     return stream
         .map((data) => _speciesFromJson(data, previouslySelectedSpecieId));
   }
+
+  @override
+  Stream<Specie?> watchSpecie(String specieId) => _supabaseClient.species
+      .stream(primaryKey: [SpecieDatabaseKeys.id])
+      .eq(SpecieDatabaseKeys.id, specieId)
+      .limit(1)
+      .map(_specieSingleFromJsonList);
 }

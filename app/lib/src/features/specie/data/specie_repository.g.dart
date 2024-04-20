@@ -172,5 +172,133 @@ class _SpeciesStreamProviderElement
   String? get previouslySelectedSpecieId =>
       (origin as SpeciesStreamProvider).previouslySelectedSpecieId;
 }
+
+String _$specieStreamHash() => r'009d1ba3f963c80e4d92bd595e37ace3aa5da2a1';
+
+/// See also [specieStream].
+@ProviderFor(specieStream)
+const specieStreamProvider = SpecieStreamFamily();
+
+/// See also [specieStream].
+class SpecieStreamFamily extends Family<AsyncValue<Specie?>> {
+  /// See also [specieStream].
+  const SpecieStreamFamily();
+
+  /// See also [specieStream].
+  SpecieStreamProvider call(
+    String specieId,
+  ) {
+    return SpecieStreamProvider(
+      specieId,
+    );
+  }
+
+  @override
+  SpecieStreamProvider getProviderOverride(
+    covariant SpecieStreamProvider provider,
+  ) {
+    return call(
+      provider.specieId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'specieStreamProvider';
+}
+
+/// See also [specieStream].
+class SpecieStreamProvider extends AutoDisposeStreamProvider<Specie?> {
+  /// See also [specieStream].
+  SpecieStreamProvider(
+    String specieId,
+  ) : this._internal(
+          (ref) => specieStream(
+            ref as SpecieStreamRef,
+            specieId,
+          ),
+          from: specieStreamProvider,
+          name: r'specieStreamProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$specieStreamHash,
+          dependencies: SpecieStreamFamily._dependencies,
+          allTransitiveDependencies:
+              SpecieStreamFamily._allTransitiveDependencies,
+          specieId: specieId,
+        );
+
+  SpecieStreamProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.specieId,
+  }) : super.internal();
+
+  final String specieId;
+
+  @override
+  Override overrideWith(
+    Stream<Specie?> Function(SpecieStreamRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: SpecieStreamProvider._internal(
+        (ref) => create(ref as SpecieStreamRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        specieId: specieId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<Specie?> createElement() {
+    return _SpecieStreamProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SpecieStreamProvider && other.specieId == specieId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, specieId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin SpecieStreamRef on AutoDisposeStreamProviderRef<Specie?> {
+  /// The parameter `specieId` of this provider.
+  String get specieId;
+}
+
+class _SpecieStreamProviderElement
+    extends AutoDisposeStreamProviderElement<Specie?> with SpecieStreamRef {
+  _SpecieStreamProviderElement(super.provider);
+
+  @override
+  String get specieId => (origin as SpecieStreamProvider).specieId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
