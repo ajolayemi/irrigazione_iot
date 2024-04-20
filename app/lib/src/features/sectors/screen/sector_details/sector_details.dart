@@ -10,7 +10,7 @@ import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/sector_details_screen_content.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_tile_skeleton.dart';
-import 'package:irrigazione_iot/src/shared/models/radio_button_return_type.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';

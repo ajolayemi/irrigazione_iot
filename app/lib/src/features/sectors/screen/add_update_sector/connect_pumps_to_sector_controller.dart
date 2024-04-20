@@ -1,4 +1,4 @@
-import 'package:irrigazione_iot/src/shared/models/radio_button_return_type.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
-import 'package:irrigazione_iot/src/shared/models/radio_button_return_type.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/supabase_sector_pump_repository.dart';

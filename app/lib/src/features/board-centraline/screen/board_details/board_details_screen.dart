@@ -6,7 +6,7 @@ import 'package:irrigazione_iot/src/features/board-centraline/data/board_reposit
 import 'package:irrigazione_iot/src/features/board-centraline/screen/board_details/board_details_screen_contents.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
-import 'package:irrigazione_iot/src/shared/models/radio_button_return_type.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_edit_icon_button.dart';
