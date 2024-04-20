@@ -11,6 +11,7 @@ import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_sliver_connect_something_to.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.dart';
+import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indicator.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 class ConnectPumpToSector extends ConsumerWidget {
@@ -50,7 +51,7 @@ class ConnectPumpToSector extends ConsumerWidget {
               (context, index) {
                 final pump = pumps[index];
                 return ResponsiveRadioListTile(
-                  title: Text(pump.name),
+                  title: pump.name,
                   value: RadioButtonItem(
                     value: pump.id,
                     label: pump.name,
@@ -68,11 +69,7 @@ class ConnectPumpToSector extends ConsumerWidget {
             ),
           );
         },
-        loading: () => const SliverFillRemaining(
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
-        ),
+        loading: () => const SliverAdaptiveCircularIndicator(),
       ),
       onCTAPressed: () => context.popNavigator(selectedPumpId),
     );

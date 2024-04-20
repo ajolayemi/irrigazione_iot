@@ -67,7 +67,7 @@ class ConnectCollectorToBoardScreen extends ConsumerWidget {
                           (context, index) {
                             final collector = collectors[index]!;
                             return ResponsiveRadioListTile(
-                              title: Text(collector.name),
+                              title: collector.name,
                               value: RadioButtonItem(
                                 value: collector.id,
                                 label: collector.name,
