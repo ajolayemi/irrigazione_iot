@@ -315,10 +315,16 @@ GoRouter goRouter(GoRouterRef ref) {
       GoRoute(
         path: '/select-an-irrigation-system',
         name: AppRoute.selectAnIrrigationSystem.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          child: SelectAnIrrigationSystem(),
-          fullscreenDialog: true,
-        ),
+        pageBuilder: (context, state) {
+          final queryParams =
+              QueryParameters.fromJson(state.uri.queryParameters);
+          return MaterialPage(
+            child: SelectAnIrrigationSystem(
+              selectedIrrigationSystem: queryParams.name,
+            ),
+            fullscreenDialog: true,
+          );
+        },
       ),
 
       // Select an irrigation source
