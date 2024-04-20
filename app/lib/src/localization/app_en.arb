@@ -195,8 +195,7 @@
   "addSectorPageTitle": "New Sector",
   "updateSectorPageTitle": "Update Sector",
   "selectASpecie": "Select a specie",
-  "selectAnIrrigationSystem": "Select an irrigation system",
-  "selectAnIrrigationSource": "Select an irrigation source",
+  "selectAnOption": "Select an option",
   "fieldTooLongErrorText": "Field value is too long, it has to be a maximum of {max} characters",
   "@fieldTooLongErrorText": {
     "description": "The error message that is displayed when a form field value is too long",
