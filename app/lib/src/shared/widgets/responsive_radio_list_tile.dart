@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_return_type.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 
@@ -17,13 +18,13 @@ class ResponsiveRadioListTile extends StatelessWidget {
   final Widget title;
 
   /// The value of the radio list tile
-  final String value;
+  final RadioButtonReturnType value;
 
   /// The current selected value among the radio list tiles
-  final String groupValue;
+  final RadioButtonReturnType groupValue;
 
   /// The function to call when the radio list tile is selected
-  final void Function(String?)? onChanged;
+  final void Function(RadioButtonReturnType?)? onChanged;
 
   @override
   Widget build(BuildContext context) {

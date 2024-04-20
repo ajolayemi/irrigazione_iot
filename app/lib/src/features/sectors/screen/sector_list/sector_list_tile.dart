@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/dismiss_sector_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sector_list_tile_subtitle.dart';
@@ -47,6 +49,8 @@ class SectorListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // final ps = ref.watch(availablePumpsFutureProvider(alreadyConnectedPumpId: ''));
+    // print(ps);
     // todo: add sector pressure in the list tile subtitle
     // todo: irrigation state (manual/automatic)
     // todo: since when is this sector being irrigated if on

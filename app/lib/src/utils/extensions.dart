@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_return_type.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.dart';
-
 
 extension BuildContextExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);
@@ -75,8 +75,14 @@ extension BuildContextExtensions on BuildContext {
             children: roles.map((role) {
               return ResponsiveRadioListTile(
                 title: Text(role.name),
-                value: role.name,
-                groupValue: currentAssignedRole,
+                value: RadioButtonReturnType(
+                  value: role.name,
+                  label: role.name,
+                ),
+                groupValue: RadioButtonReturnType(
+                  value: currentAssignedRole,
+                  label: currentAssignedRole,
+                ),
                 onChanged: (value) => popNavigator(value),
               );
             }).toList(),
