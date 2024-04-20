@@ -15,7 +15,7 @@ class ResponsiveRadioListTile extends StatelessWidget {
       this.onChanged});
 
   /// The title of the radio list tile
-  final Widget title;
+  final String title;
 
   /// The value of the radio list tile
   final RadioButtonItem value;
@@ -32,7 +32,7 @@ class ResponsiveRadioListTile extends StatelessWidget {
     return ResponsiveCenter(
       maxContentWidth: Breakpoint.tablet,
       child: RadioListTile.adaptive(
-        title: title,
+        title: Text(title),
         value: value,
         groupValue: groupValue,
         onChanged: onChanged,

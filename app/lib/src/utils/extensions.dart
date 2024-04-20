@@ -74,7 +74,7 @@ extension BuildContextExtensions on BuildContext {
             mainAxisSize: MainAxisSize.min,
             children: roles.map((role) {
               return ResponsiveRadioListTile(
-                title: Text(role.name),
+                title: role.name,
                 value: RadioButtonItem(
                   value: role.name,
                   label: role.name,
