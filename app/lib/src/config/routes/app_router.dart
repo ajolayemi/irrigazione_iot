@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
@@ -279,10 +280,17 @@ GoRouter goRouter(GoRouterRef ref) {
       GoRoute(
         path: '/select-a-specie',
         name: AppRoute.selectASpecie.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          child: SelectASpecieScreen(),
-          fullscreenDialog: true,
-        ),
+        pageBuilder: (context, state) {
+          final queryParams =
+              QueryParameters.fromJson(state.uri.queryParameters);
+          return MaterialPage(
+            child: SelectASpecieScreen(
+              selectedSpecieId: queryParams.id,
+              selectedSpecieName: queryParams.name,
+            ),
+            fullscreenDialog: true,
+          );
+        },
       ),
 
       // Select an irrigation system
