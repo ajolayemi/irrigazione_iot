@@ -9,9 +9,8 @@ class SupabaseVarietyRepository implements VarietyRepository {
   const SupabaseVarietyRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
-  List<Variety> _varietiesFromJson(List<Map<String, dynamic>> json) {
-    return json.map((e) => Variety.fromJson(e)).toList();
-  }
+  List<Variety>? _varietiesFromJson(List<Map<String, dynamic>>? json) =>
+      json?.map((variety) => Variety.fromJson(variety)).toList();
 
   @override
   Stream<List<Variety>?> watchVarieties() => _supabaseClient.varieties
