@@ -68,6 +68,7 @@ class _AddUpdateSectorFormContentsState
   final _turnOffCommandController = TextEditingController();
   final _notesController = TextEditingController();
   final _selectedPumpController = TextEditingController();
+  final _mqttMsgNameController = TextEditingController();
 
   // form field values
   String get name => _nameController.text;
@@ -82,6 +83,7 @@ class _AddUpdateSectorFormContentsState
   String get turnOffCommand => _turnOffCommandController.text;
   String get notes => _notesController.text;
   String get selectedPump => _selectedPumpController.text;
+  String get mqttMsgName => _mqttMsgNameController.text;
 
   // Keys for testing
   static const _nameFieldKey = Key('sectorNameField');
@@ -96,6 +98,7 @@ class _AddUpdateSectorFormContentsState
   static const _turnOffCommandFieldKey = Key('sectorTurnOffCommandField');
   static const _connectedPumpsFieldKey = Key('sectorConnectedPumpsField');
   static const _notesFieldKey = Key('sectorNotesField');
+  static const _mqttMsgNameFieldKey = Key('sectorMqttMsgNameField');
 
   Sector? _initialSector = const Sector.empty();
 
@@ -148,6 +151,8 @@ class _AddUpdateSectorFormContentsState
       _turnOffCommandController.text = _initialSector?.turnOffCommand ?? '';
       _notesController.text = _initialSector?.notes ?? '';
       _selectedPumpController.text = pump?.name ?? '';
+      _thisSectorHasFilter = _initialSector?.hasFilter;
+      _mqttMsgNameController.text = _initialSector?.mqttMsgName ?? '';
 
       _selectedSpecieId = _initialSector?.specieId;
       _selectedVarietyId = _initialSector?.varietyId;
@@ -186,6 +191,7 @@ class _AddUpdateSectorFormContentsState
     _turnOffCommandController.dispose();
     _notesController.dispose();
     _selectedPumpController.dispose();
+    _mqttMsgNameController.dispose();
     _node.dispose();
     super.dispose();
   }
@@ -266,24 +272,34 @@ class _AddUpdateSectorFormContentsState
     _selectedPump = selectedPump;
   }
 
-  void _nameEditingComplete(List<String?> usedSectorNames) {
+  void _nameEditingComplete({
+    required List<String?> existingNames,
+    required int maxLength,
+    required String value,
+    String? initialValue,
+  }) {
     if (canSubmitFormNameFields(
-      value: name,
-      initialValue: _initialSector?.name,
-      namesToCompareAgainst: usedSectorNames,
-      maxLength: AppConstants.maxSectorNameLength,
+      value: value,
+      initialValue: initialValue,
+      namesToCompareAgainst: existingNames,
+      maxLength: maxLength,
     )) {
       _node.nextFocus();
     }
   }
 
-  String? _nameErrorText(List<String?> usedSectorNames) {
+  String? _nameErrorText({
+    required List<String?> existingNames,
+    required int maxLength,
+    required String value,
+    String? initialValue,
+  }) {
     if (!_submitted) return null;
     final errorKey = getFormNameFieldErrorKey(
-      value: name,
-      maxLength: AppConstants.maxSectorNameLength,
-      namesToCompareAgainst: usedSectorNames,
-      initialValue: _initialSector?.name,
+      value: value,
+      maxLength: maxLength,
+      namesToCompareAgainst: existingNames,
+      initialValue: initialValue,
     );
 
     final fieldName = context.loc.nSectors(1);
@@ -437,7 +453,8 @@ class _AddUpdateSectorFormContentsState
         ref.watch(usedSectorOnCommandsStreamProvider).valueOrNull;
     final usedSectorOffCommands =
         ref.watch(usedSectorOffCommandsStreamProvider).valueOrNull;
-
+    final usedMqttNames =
+        ref.watch(sectorUsedMqttMessageNamesStreamProvider).valueOrNull;
     final state = ref.watch(addUpdateSectorControllerProvider);
 
     final isLoading = state.isLoading;
@@ -474,9 +491,40 @@ class _AddUpdateSectorFormContentsState
                     fieldHintText: loc.sectorNameHintText,
                     textInputAction: TextInputAction.next,
                     fieldController: _nameController,
-                    onEditingComplete: () =>
-                        _nameEditingComplete(usedSectorNames ?? []),
-                    validator: (_) => _nameErrorText(usedSectorNames ?? []),
+                    onEditingComplete: () => _nameEditingComplete(
+                      value: name,
+                      maxLength: AppConstants.maxSectorNameLength,
+                      existingNames: usedSectorNames ?? [],
+                      initialValue: _initialSector?.name,
+                    ),
+                    validator: (_) => _nameErrorText(
+                      value: name,
+                      maxLength: AppConstants.maxSectorNameLength,
+                      existingNames: usedSectorNames ?? [],
+                      initialValue: _initialSector?.name,
+                    ),
+                  ),
+                  gapH16,
+                  // mqtt msg name field
+                  FormTitleAndField(
+                    enabled: !isLoading,
+                    fieldKey: _mqttMsgNameFieldKey,
+                    fieldController: _mqttMsgNameController,
+                    fieldTitle: loc.mqttMessageNameFormFieldTitle,
+                    fieldHintText: loc.mqttMessageNameFormHint,
+                    textInputAction: TextInputAction.next,
+                    validator: (_) => _nameErrorText(
+                      existingNames: usedMqttNames ?? [],
+                      maxLength: AppConstants.maxMqttMessageNameLength,
+                      value: mqttMsgName,
+                      initialValue: _initialSector?.mqttMsgName,
+                    ),
+                    onEditingComplete: () => _nameEditingComplete(
+                      existingNames: usedMqttNames ?? [],
+                      maxLength: AppConstants.maxMqttMessageNameLength,
+                      value: mqttMsgName,
+                      initialValue: _initialSector?.mqttMsgName,
+                    ),
                   ),
                   gapH16,
                   // specie field
