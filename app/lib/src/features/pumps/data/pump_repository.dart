@@ -106,8 +106,8 @@ Stream<List<String?>> companyUsedPumpOffCommandsStream(
 
 
 @riverpod
-Stream<List<String?>> usedMqttMessageNamesStream(
-  UsedMqttMessageNamesStreamRef ref,
+Stream<List<String?>> pumpUsedMqttMessageNamesStream(
+  PumpUsedMqttMessageNamesStreamRef ref,
 ) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   return pumpRepository.watchUsedMqttMessageNames();

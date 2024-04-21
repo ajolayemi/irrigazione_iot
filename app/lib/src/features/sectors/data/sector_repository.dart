@@ -95,8 +95,8 @@ Stream<List<String?>> usedSectorOffCommandsStream(
 }
 
 @riverpod
-Stream<List<String?>> usedMqttMessageNamesStream(
-    UsedMqttMessageNamesStreamRef ref) {
+Stream<List<String?>> sectorUsedMqttMessageNamesStream(
+    SectorUsedMqttMessageNamesStreamRef ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
   return sectorsRepository.watchSectorUsedMqttMsgNames();
 }
