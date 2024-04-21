@@ -5,9 +5,10 @@ import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 
 void main() {
   const testSectorId = '1';
-  final expectedSectorPumps = kFakeSectorPumps
+  final expectedSectorPump = kFakeSectorPumps
       .where((sectorPump) => sectorPump.sectorId == testSectorId)
-      .toList();
+      .toList()
+      .first;
   final sectorPumpToAdd = SectorPump(
     pumpId: '90',
     sectorId: '20',
@@ -30,20 +31,20 @@ void main() {
   group('FakeSectorPumpRepository', () {
     test('getSectorPumps(testSectorId) returns the expected result', () async {
       await expectLater(repository.getSectorPump(testSectorId),
-          completion(expectedSectorPumps));
+          completion(expectedSectorPump));
     });
 
-    test('getSectorPumps(9000) returns an empty list', () async {
-      await expectLater(repository.getSectorPump('9000'), completion(isEmpty));
+    test('getSectorPumps(9000) returns an null', () async {
+      await expectLater(repository.getSectorPump('9000'), completion(isNull));
     });
 
     test('watchSectorPumps(testSectorId) emits the expected result', () {
       expect(
-          repository.watchSectorPump(testSectorId), emits(expectedSectorPumps));
+          repository.watchSectorPump(testSectorId), emits(expectedSectorPump));
     });
 
-    test('watchSectorPumps(9000) emits an empty list', () {
-      expect(repository.watchSectorPump('9000'), emits(isEmpty));
+    test('watchSectorPumps(9000) emits null', () {
+      expect(repository.watchSectorPump('9000'), emits(isNull));
     });
 
     test('addSectorPump works as expected', () async {
@@ -52,7 +53,7 @@ void main() {
     });
 
     test('deleteSectorPump with valid data completes with true', () async {
-      final sectorPump = expectedSectorPumps.first;
+      final sectorPump = expectedSectorPump;
       await expectLater(
           repository.deleteSectorPump(sectorPump.id), completion(isTrue));
     });
