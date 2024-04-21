@@ -76,24 +76,6 @@ class FakePumpRepository implements PumpRepository {
   }
 
   @override
-  Stream<List<String?>> watchCompanyUsedPumpOffCommands(String companyId) {
-    return _fakePumps.stream.map(
-      (pumps) => _getCompanyPumps(pumps, companyId)
-          .map((pump) => pump.turnOffCommand)
-          .toList(),
-    );
-  }
-
-  @override
-  Stream<List<String?>> watchCompanyUsedPumpOnCommands(String companyId) {
-    return _fakePumps.stream.map(
-      (pumps) => _getCompanyPumps(pumps, companyId)
-          .map((pump) => pump.turnOnCommand)
-          .toList(),
-    );
-  }
-
-  @override
   Future<bool> deletePump(String pumpId) async {
     await delay(addDelay);
     final currentPumps = [..._fakePumps.value];

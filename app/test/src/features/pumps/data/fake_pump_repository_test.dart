@@ -101,26 +101,17 @@ void main() {
       expect(repo.watchCompanyUsedPumpNames('900'), emits(isEmpty));
     });
 
-    test('watchCompanyUsedPumpOffCommands returns valid list', () {
+    test('watchCompanyUsedPumpCommands returns valid list', () {
       final repo = makePumpRepository();
-      expect(repo.watchCompanyUsedPumpOffCommands(expectedResults[0].companyId),
+      expect(repo.watchCompanyUsedPumpCommands(expectedResults[0].companyId),
           emits(isNotEmpty));
     });
 
-    test('watchCompanyUsedPumpOffCommands returns empty list', () {
+    test('watchCompanyUsedPumpCommands returns empty list', () {
       final repo = makePumpRepository();
-      expect(repo.watchCompanyUsedPumpOffCommands('900'), emits(isEmpty));
+      expect(repo.watchCompanyUsedPumpCommands('900'), emits(isEmpty));
     });
 
-    test('watchCompanyUsedPumpOnCommands returns valid list', () {
-      final repo = makePumpRepository();
-      expect(repo.watchCompanyUsedPumpOnCommands(expectedResults[0].companyId),
-          emits(isNotEmpty));
-    });
 
-    test('watchCompanyUsedPumpOnCommands returns empty list', () {
-      final repo = makePumpRepository();
-      expect(repo.watchCompanyUsedPumpOnCommands('900'), emits(isEmpty));
-    });
   });
 }

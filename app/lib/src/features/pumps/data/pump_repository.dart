@@ -31,13 +31,6 @@ abstract class PumpRepository {
   /// company. This is used in form validation to prevent duplicate pump commands for a company
   Stream<List<String?>> watchCompanyUsedPumpCommands(String companyId);
 
-  /// watches a list of already used pump on commands for a specified company
-  /// this is used in form validation to prevent duplicate pump on commands for a company
-  Stream<List<String?>> watchCompanyUsedPumpOnCommands(String companyId);
-
-  /// watches a list of already used pump off commands for a specified company
-  /// this is used in form validation to prevent duplicate pump off commands for a company
-  Stream<List<String?>> watchCompanyUsedPumpOffCommands(String companyId);
 
   /// emits the list of mqtt messages names already used generally
   Stream<List<String?>> watchUsedMqttMessageNames();
@@ -93,32 +86,6 @@ Stream<List<String?>> companyUsedPumpCommandsStream(
 
   return pumpRepository
       .watchCompanyUsedPumpCommands(currentSelectedCompanyByUser.id);
-}
-
-@riverpod
-Stream<List<String?>> companyUsedPumpOnCommandsStream(
-  CompanyUsedPumpOnCommandsStreamRef ref,
-) {
-  final pumpRepository = ref.watch(pumpRepositoryProvider);
-  final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).value;
-  if (currentSelectedCompanyByUser == null) return const Stream.empty();
-
-  return pumpRepository
-      .watchCompanyUsedPumpOnCommands(currentSelectedCompanyByUser.id);
-}
-
-@riverpod
-Stream<List<String?>> companyUsedPumpOffCommandsStream(
-  CompanyUsedPumpOffCommandsStreamRef ref,
-) {
-  final pumpRepository = ref.watch(pumpRepositoryProvider);
-  final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).value;
-  if (currentSelectedCompanyByUser == null) return const Stream.empty();
-
-  return pumpRepository
-      .watchCompanyUsedPumpOffCommands(currentSelectedCompanyByUser.id);
 }
 
 @riverpod

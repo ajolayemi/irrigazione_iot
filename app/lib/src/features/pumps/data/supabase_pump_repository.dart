@@ -85,19 +85,6 @@ class SupabasePumpRepository implements PumpRepository {
     );
   }
 
-  @override
-  Stream<List<String?>> watchCompanyUsedPumpOffCommands(String companyId) {
-    return watchCompanyPumps(companyId).map(
-      (pumps) => pumps.map((pump) => pump?.turnOffCommand).toList(),
-    );
-  }
-
-  @override
-  Stream<List<String?>> watchCompanyUsedPumpOnCommands(String companyId) {
-    return watchCompanyPumps(companyId).map(
-      (pumps) => pumps.map((pump) => pump?.turnOnCommand).toList(),
-    );
-  }
 
   @override
   Stream<Pump?> watchPump(String pumpId) {
