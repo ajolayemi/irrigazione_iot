@@ -15,7 +15,6 @@ import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/service/add_update_sector_service.dart';
-import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 
 import '../../../mocks.dart';
 
@@ -67,8 +66,7 @@ void main() {
   final MockSelectedCompanyRepository selectedCompanyRepository =
       MockSelectedCompanyRepository();
 
-  AddUpdateSectorService makeServiceWithArgs(
-      {RadioButtonItem? selectedPumpId}) {
+  AddUpdateSectorService makeService() {
     final container = ProviderContainer(
       overrides: [
         authRepositoryProvider.overrideWithValue(authRepository),
@@ -76,7 +74,6 @@ void main() {
         sectorPumpRepositoryProvider.overrideWithValue(sectorPumpRepository),
         selectedCompanyRepositoryProvider
             .overrideWithValue(selectedCompanyRepository),
-        selectPumpRadioButtonProvider.overrideWith((ref) => selectedPumpId),
       ],
     );
     addTearDown(container.dispose);
@@ -96,10 +93,13 @@ void main() {
         // setup
         when(() => authRepository.currentUser).thenReturn(null);
 
-        final service = makeServiceWithArgs();
+        final service = makeService();
 
         // run
-        await service.createSector(nonExistentSectorForTest);
+        await service.createSector(
+          sector: nonExistentSectorForTest,
+          pumpIdToConnectToSector: '1',
+        );
 
         // verify that authRepository getter for currentUser is called
         verify(() => authRepository.currentUser).called(1);
@@ -121,10 +121,13 @@ void main() {
           when(() => sectorRepository.createSector(nonExistentSectorForTest))
               .thenAnswer((_) => Future.value());
 
-          final service = makeServiceWithArgs();
+          final service = makeService();
 
-          // run
-          await service.createSector(nonExistentSectorForTest);
+          // run service passing in an empty pumpId to connect to the sector
+          await service.createSector(
+            sector: nonExistentSectorForTest,
+            pumpIdToConnectToSector: '',
+          );
 
           // verify that the following methods are called
           verify(() => authRepository.currentUser).called(1);
@@ -153,12 +156,13 @@ void main() {
             (_) => Future.value(),
           );
 
-          // A list of pumpIds are provided
-          final service = makeServiceWithArgs(
-              selectedPumpId: RadioButtonItem(value: '1', label: 'Pompa 1'));
+          final service = makeService();
 
-          // run
-          await service.createSector(nonExistentSectorForTest);
+          // run service passing in a valid pumpId to connect to the sector
+          await service.createSector(
+            sector: nonExistentSectorForTest,
+            pumpIdToConnectToSector: '1',
+          );
 
           // verify that the following methods are called
           verify(() => authRepository.currentUser).called(1);
@@ -185,11 +189,13 @@ void main() {
           );
 
           // A list of pumpIds are provided
-          final service = makeServiceWithArgs(
-              selectedPumpId: RadioButtonItem(value: '1', label: 'Pompa 1'));
+          final service = makeService();
 
           // run
-          await service.createSector(nonExistentSectorForTest);
+          await service.createSector(
+            sector: nonExistentSectorForTest,
+            pumpIdToConnectToSector: '1',
+          );
 
           // verify that the following methods are called
           verify(() => authRepository.currentUser).called(1);
@@ -214,10 +220,13 @@ void main() {
           when(() => sectorPumpRepository.createSectorPump(any())).thenAnswer(
             (_) => Future.value(),
           );
-          final service = makeServiceWithArgs();
+          final service = makeService();
 
           // run
-          await service.createSector(nonExistentSectorForTest);
+          await service.createSector(
+            sector: nonExistentSectorForTest,
+            pumpIdToConnectToSector: '',
+          );
 
           // verify that the following methods are called
           verify(() => authRepository.currentUser).called(1);
@@ -237,12 +246,15 @@ void main() {
         // setup
         when(() => authRepository.currentUser).thenReturn(null);
 
-        final service = makeServiceWithArgs();
+        final service = makeService();
 
         // run
         // an empty sector can be passed here because the goal of this test isn't to test
         // the updateSector method from the service
-        await service.updateSector(const Sector.empty());
+        await service.updateSector(
+          sector: const Sector.empty(),
+          updatedConnectedPumpId: '',
+        );
 
         // verify that the following call is made
         verify(() => authRepository.currentUser).called(1);
@@ -268,11 +280,13 @@ void main() {
             () => sectorRepository.updateSector(nonExistentSectorForTest),
           ).thenAnswer((_) => Future.value());
 
-          final service = makeServiceWithArgs(
-              selectedPumpId: RadioButtonItem(value: '9', label: 'Pump 9'));
+          final service = makeService();
 
           // run
-          await service.updateSector(nonExistentSectorForTest);
+          await service.updateSector(
+            sector: nonExistentSectorForTest,
+            updatedConnectedPumpId: '9',
+          );
 
           // verify that the following calls are made
           verify(() => authRepository.currentUser).called(1);
@@ -306,14 +320,13 @@ void main() {
             (_) => Future.value(validSectorPumpForTest),
           );
 
-          final service = makeServiceWithArgs(
-              selectedPumpId: RadioButtonItem(
-            value: validSectorPumpForTest.pumpId,
-            label: 'Pump 9',
-          ));
+          final service = makeService();
 
           // run
-          await service.updateSector(toUpdate);
+          await service.updateSector(
+            sector: toUpdate,
+            updatedConnectedPumpId: validSectorPumpForTest.pumpId,
+          );
 
           // verify that the following methods are called
           verify(() => authRepository.currentUser).called(1);
@@ -369,11 +382,10 @@ void main() {
             (_) => Future.value(newSectorPumps),
           );
 
-          final service = makeServiceWithArgs(
-              selectedPumpId: RadioButtonItem(
-                  value: newSectorPumps.pumpId, label: 'Pump 90'));
+          final service = makeService();
           // run
-          await service.updateSector(toUpdate);
+          await service.updateSector(
+              sector: toUpdate, updatedConnectedPumpId: newSectorPumps.pumpId);
 
           // verify that the following calls were made
           verify(() => authRepository.currentUser).called(1);
