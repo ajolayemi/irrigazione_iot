@@ -137,3 +137,6 @@ untranslated_messages.txt
 
 # node related files
 node_modules/
+
+# dart generated files
+*.g.dart
