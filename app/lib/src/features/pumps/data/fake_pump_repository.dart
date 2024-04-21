@@ -112,4 +112,13 @@ class FakePumpRepository implements PumpRepository {
       (pumps) => pumps.map((pump) => pump.mqttMessageName).toList(),
     );
   }
+
+  @override
+  Stream<List<String?>> watchCompanyUsedPumpCommands(String companyId) {
+    final onAndOffCommands = _getCompanyPumps(_fakePumps.value, companyId)
+        .map((pump) => [pump.turnOnCommand, pump.turnOffCommand])
+        .expand((element) => element)
+        .toList();
+    return Stream.value(onAndOffCommands);
+  }
 }

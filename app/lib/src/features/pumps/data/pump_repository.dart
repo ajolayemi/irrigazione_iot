@@ -27,6 +27,10 @@ abstract class PumpRepository {
   /// this is used in form validation to prevent duplicate pump names for a company
   Stream<List<String?>> watchCompanyUsedPumpNames(String companyId);
 
+  /// emits a list of already used commands (both on and offs) for the pumps in a specified
+  /// company. This is used in form validation to prevent duplicate pump commands for a company
+  Stream<List<String?>> watchCompanyUsedPumpCommands(String companyId);
+
   /// watches a list of already used pump on commands for a specified company
   /// this is used in form validation to prevent duplicate pump on commands for a company
   Stream<List<String?>> watchCompanyUsedPumpOnCommands(String companyId);
@@ -79,6 +83,19 @@ Stream<List<String?>> companyUsedPumpNamesStream(
 }
 
 @riverpod
+Stream<List<String?>> companyUsedPumpCommandsStream(
+  CompanyUsedPumpCommandsStreamRef ref,
+) {
+  final pumpRepository = ref.watch(pumpRepositoryProvider);
+  final currentSelectedCompanyByUser =
+      ref.watch(currentTappedCompanyProvider).value;
+  if (currentSelectedCompanyByUser == null) return const Stream.empty();
+
+  return pumpRepository
+      .watchCompanyUsedPumpCommands(currentSelectedCompanyByUser.id);
+}
+
+@riverpod
 Stream<List<String?>> companyUsedPumpOnCommandsStream(
   CompanyUsedPumpOnCommandsStreamRef ref,
 ) {
@@ -103,7 +120,6 @@ Stream<List<String?>> companyUsedPumpOffCommandsStream(
   return pumpRepository
       .watchCompanyUsedPumpOffCommands(currentSelectedCompanyByUser.id);
 }
-
 
 @riverpod
 Stream<List<String?>> pumpUsedMqttMessageNamesStream(
