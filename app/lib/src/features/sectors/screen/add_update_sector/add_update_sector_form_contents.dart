@@ -442,10 +442,9 @@ class _AddUpdateSectorFormContentsState
   Widget build(BuildContext context) {
     ref.listen(addUpdateSectorControllerProvider,
         (_, state) => state.showAlertDialogOnError(context));
+
     final numberFieldKeyboardType =
         ref.watch(numericFieldsTextInputTypeProvider);
-    final isUpdating = _isUpdating;
-
     final state = ref.watch(addUpdateSectorControllerProvider);
 
     final isLoading = state.isLoading;
@@ -458,7 +457,7 @@ class _AddUpdateSectorFormContentsState
           child: CustomScrollView(
             slivers: [
               AppSliverBar(
-                title: isUpdating
+                title: _isUpdating
                     ? loc.updateSectorPageTitle
                     : loc.addSectorPageTitle,
               ),
@@ -754,7 +753,7 @@ class _AddUpdateSectorFormContentsState
         // button to save or update the sector
         SliverCTAButton(
           isLoading: isLoading,
-          text: isUpdating
+          text: _isUpdating
               ? loc.genericUpdateButtonLabel
               : loc.genericSaveButtonLabel,
           buttonType: ButtonType.primary,
