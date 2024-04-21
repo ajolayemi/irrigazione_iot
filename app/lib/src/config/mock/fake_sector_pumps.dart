@@ -1,26 +1,21 @@
 import 'package:irrigazione_iot/src/config/mock/fake_pumps.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_sectors.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 
 List<SectorPump> generateSectorPumps() {
   List<SectorPump> sectorPumps = [];
 
   for (int i = 0; i < kFakeSectors.length; i++) {
-    Sector sector = kFakeSectors[i];
-    final companyPumps =
-        kFakePumps.where((pump) => pump.companyId == sector.companyId).toList();
-    if (companyPumps.isEmpty) continue;
-    Pump pump = companyPumps[i % companyPumps.length];
+    final sector = kFakeSectors[i];
+    if (i >= kFakePumps.length) break;
+    final pump = kFakePumps[i];
 
-    SectorPump sectorPump = SectorPump(
+    sectorPumps.add(SectorPump(
+      id: '${i + 1}',
       sectorId: sector.id,
       pumpId: pump.id,
-      id: i.toString(),
-      createdAt: DateTime.now(),
-    );
-    sectorPumps.add(sectorPump);
+      createdAt: DateTime.parse('2024-01-01'),
+    ));
   }
 
   return sectorPumps;
