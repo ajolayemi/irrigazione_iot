@@ -629,7 +629,6 @@ class _AddUpdateSectorFormContentsState
                           usedSectorOffCommands ?? [])),
                   gapH16,
 
-                  // TODO display selected pump name
                   // connected pump field
                   FormTitleAndField(
                     enabled: !isLoading,
@@ -639,6 +638,9 @@ class _AddUpdateSectorFormContentsState
                     fieldHintText: loc.selectAPump,
                     canRequestFocus: false,
                     keyboardType: TextInputType.none,
+                    validator: (_) => _nonEmptyFieldsErrorText(selectedPump),
+                    onEditingComplete: () =>
+                        _nonEmptyFieldsEditingComplete(selectedPump),
                     onTap: _onTappedConnectedPumps,
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.arrow_drop_down),
