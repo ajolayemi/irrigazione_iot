@@ -60,7 +60,7 @@ class SupabaseSectorRepository implements SectorRepository {
   @override
   Stream<List<String?>> watchCompanyUsedSectorNames(String companyId) {
     return watchSectors(companyId).map(
-      (sectors) => sectors.map((sector) => sector?.name).toList(),
+      (sectors) => sectors.map((sector) => sector?.name.toLowerCase()).toList(),
     );
   }
 
@@ -106,7 +106,7 @@ class SupabaseSectorRepository implements SectorRepository {
   Stream<List<String?>> watchSectorUsedMqttMsgNames() {
     return _supabaseClient.sectors
         .stream(primaryKey: [SectorDatabaseKeys.id]).map((sectors) => sectors
-            .map((sector) => Sector.fromJson(sector).mqttMsgName)
+            .map((sector) => Sector.fromJson(sector).mqttMsgName.toLowerCase())
             .toList());
   }
 }
