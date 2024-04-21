@@ -656,9 +656,9 @@ class _AddUpdateSectorFormContentsState
                   // mqtt command to turn on sector field
                   Consumer(
                     builder: (context, ref, child) {
-                      final usedSectorOnCommands = ref
-                          .watch(usedSectorOnCommandsStreamProvider)
-                          .valueOrNull;
+                      final usedCommands =
+                          ref.watch(usedSectorCommandsStreamProvider);
+                      final commands = usedCommands.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
                         fieldKey: _turnOnCommandFieldKey,
@@ -671,13 +671,13 @@ class _AddUpdateSectorFormContentsState
                           turnOnCommand,
                           turnOffCommand,
                           _initialSector?.turnOnCommand,
-                          usedSectorOnCommands ?? [],
+                          commands,
                         ),
                         validator: (_) => _commandFieldErrorText(
                           turnOnCommand,
                           turnOffCommand,
                           _initialSector?.turnOnCommand,
-                          usedSectorOnCommands ?? [],
+                          commands,
                         ),
                       );
                     },
@@ -687,9 +687,9 @@ class _AddUpdateSectorFormContentsState
                   // mqtt command to turn off sector field
                   Consumer(
                     builder: (context, ref, child) {
-                      final usedSectorOffCommands = ref
-                          .watch(usedSectorOffCommandsStreamProvider)
-                          .valueOrNull;
+                      final usedCommands =
+                          ref.watch(usedSectorCommandsStreamProvider);
+                      final commands = usedCommands.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
                         fieldKey: _turnOffCommandFieldKey,
@@ -702,13 +702,13 @@ class _AddUpdateSectorFormContentsState
                           turnOffCommand,
                           turnOnCommand,
                           _initialSector?.turnOffCommand,
-                          usedSectorOffCommands ?? [],
+                          commands,
                         ),
                         validator: (_) => _commandFieldErrorText(
                           turnOffCommand,
                           turnOnCommand,
                           _initialSector?.turnOffCommand,
-                          usedSectorOffCommands ?? [],
+                          commands,
                         ),
                       );
                     },

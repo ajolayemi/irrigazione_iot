@@ -82,29 +82,16 @@ void main() {
     });
 
     test(
-        'watchCompanyUsedSectorOnCommands(testCompanyId) emits a non empty list',
+        'watchCompanySectorUsedCommands(testCompanyId) emits a non empty list',
         () {
-      expect(repo.watchCompanyUsedSectorOnCommands(testCompanyId),
+      expect(repo.watchCompanySectorUsedCommands(testCompanyId),
           emits(isNotEmpty));
     });
 
     test(
         'watchCompanyUsedSectorOnCommands with invalid companyId emits an empty list',
         () {
-      expect(repo.watchCompanyUsedSectorOnCommands('90000'), emits(isEmpty));
-    });
-
-    test(
-        'watchCompanyUsedSectorOffCommands(testCompanyId) emits a non empty list',
-        () {
-      expect(repo.watchCompanyUsedSectorOffCommands(testCompanyId),
-          emits(isNotEmpty));
-    });
-
-    test(
-        'watchCompanyUsedSectorOffCommands with invalid companyId emits an empty list',
-        () {
-      expect(repo.watchCompanyUsedSectorOffCommands('90000'), emits(isEmpty));
+      expect(repo.watchCompanySectorUsedCommands('90000'), emits(isEmpty));
     });
 
     test('addSector works as expected', () async {

@@ -75,24 +75,6 @@ class FakeSectorRepository extends SectorRepository {
     );
   }
 
-  @override
-  Stream<List<String?>> watchCompanyUsedSectorOffCommands(String companyId) {
-    return _sectorsState.stream.map(
-      (sectors) => _getSectors(sectors, companyId)
-          .map((sector) => sector?.turnOffCommand)
-          .toList(),
-    );
-  }
-
-  @override
-  Stream<List<String?>> watchCompanyUsedSectorOnCommands(String companyId) {
-    return _sectorsState.stream.map(
-      (sectors) => _getSectors(sectors, companyId)
-          .map((sector) => sector?.turnOnCommand)
-          .toList(),
-    );
-  }
-
   static List<Sector?> _getSectors(List<Sector?> sectors, String companyId) {
     return sectors.where((sector) => sector?.companyId == companyId).toList();
   }
@@ -111,7 +93,7 @@ class FakeSectorRepository extends SectorRepository {
   }
 
   @override
-  Stream<List<String?>> watchCompanyUsedCommands(String companyId) {
+  Stream<List<String?>> watchCompanySectorUsedCommands(String companyId) {
     return _sectorsState.stream.map(
       (sectors) => _getSectors(sectors, companyId)
           .map((sector) => [sector?.turnOnCommand, sector?.turnOffCommand])

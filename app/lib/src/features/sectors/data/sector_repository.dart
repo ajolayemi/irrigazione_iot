@@ -31,15 +31,7 @@ abstract class SectorRepository {
 
   /// emits a list of already used commands (on and off) for a specified company
   /// this is used in form validation to prevent duplicate commands for a company
-  Stream<List<String?>> watchCompanyUsedCommands(String companyId);
-
-  /// emits a list of already used sector on commands for a specified company
-  /// this is used in form validation to prevent duplicate sector on commands for a company
-  Stream<List<String?>> watchCompanyUsedSectorOnCommands(String companyId);
-
-  /// emits a list of already used sector off commands for a specified company
-  /// this is used in form validation to prevent duplicate sector off commands for a company
-  Stream<List<String?>> watchCompanyUsedSectorOffCommands(String companyId);
+  Stream<List<String?>> watchCompanySectorUsedCommands(String companyId);
 
   /// emits a list of general already used mqtt names
   /// this is used in form validation to prevent duplicate mqtt names
@@ -77,35 +69,13 @@ Stream<List<String?>> usedSectorNamesStream(UsedSectorNamesStreamRef ref) {
 }
 
 @riverpod
-Stream<List<String?>> usedCommandsStream(UsedCommandsStreamRef ref) {
+Stream<List<String?>> usedSectorCommandsStream(UsedSectorCommandsStreamRef ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.read(currentTappedCompanyProvider).valueOrNull;
   if (currentSelectedCompanyByUser == null) return const Stream.empty();
   return sectorsRepository
-      .watchCompanyUsedCommands(currentSelectedCompanyByUser.id);
-}
-
-@riverpod
-Stream<List<String?>> usedSectorOnCommandsStream(
-    UsedSectorOnCommandsStreamRef ref) {
-  final sectorsRepository = ref.read(sectorRepositoryProvider);
-  final currentSelectedCompanyByUser =
-      ref.read(currentTappedCompanyProvider).valueOrNull;
-  if (currentSelectedCompanyByUser == null) return const Stream.empty();
-  return sectorsRepository
-      .watchCompanyUsedSectorOnCommands(currentSelectedCompanyByUser.id);
-}
-
-@riverpod
-Stream<List<String?>> usedSectorOffCommandsStream(
-    UsedSectorOffCommandsStreamRef ref) {
-  final sectorsRepository = ref.read(sectorRepositoryProvider);
-  final currentSelectedCompanyByUser =
-      ref.read(currentTappedCompanyProvider).valueOrNull;
-  if (currentSelectedCompanyByUser == null) return const Stream.empty();
-  return sectorsRepository
-      .watchCompanyUsedSectorOffCommands(currentSelectedCompanyByUser.id);
+      .watchCompanySectorUsedCommands(currentSelectedCompanyByUser.id);
 }
 
 @riverpod
