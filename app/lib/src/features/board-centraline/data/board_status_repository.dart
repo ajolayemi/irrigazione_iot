@@ -7,9 +7,6 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'board_status_repository.g.dart';
 
 abstract class BoardStatusRepository {
-  /// Fetches the most recent [BoardStatus] for the provided boardId
-  Future<BoardStatus?> getBoardStatus(String boardID);
-
   /// Emits the most recent [BoardStatus] for the provided boardId
   Stream<BoardStatus?> watchBoardStatus(String boardID);
 }
@@ -27,9 +24,4 @@ Stream<BoardStatus?> boardStatusStream(BoardStatusStreamRef ref,
   return boardStatusRepository.watchBoardStatus(boardID);
 }
 
-@riverpod
-Future<BoardStatus?> boardStatusFuture(BoardStatusFutureRef ref,
-    {required String boardID}) {
-  final boardStatusRepository = ref.read(boardStatusRepositoryProvider);
-  return boardStatusRepository.getBoardStatus(boardID);
-}
+
