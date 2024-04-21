@@ -57,7 +57,7 @@ class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
     final loc = context.loc;
 
     return CustomSliverConnectSomethingTo(
-      title: loc.connectPumpsToSectorPageTile,
+      title: loc.connectPumpToSectorPageTile,
       actions: [
         CommonAddIconButton(
           onPressed: () => context.pushNamed(

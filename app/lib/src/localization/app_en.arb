@@ -170,9 +170,9 @@
   "sectorName": "Name",
   "sectorNameHintText": "eg: ME8",
   "sectorSpecie": "Specie",
-  "sectorSpecieHintText": "Select a specie...",
+  "sectorSpecieHintText": "select a specie...",
   "sectorVariety": "Variety",
-  "sectorVarietyHintText": "Select a variety...",
+  "sectorVarietyHintText": "select a variety...",
   "sectorOccupiedArea": "Occupied Area",
   "sectorOccupiedAreaHintText": "eg: 100",
   "sectorNumberOfPlants": "Number of Plants",
@@ -181,9 +181,7 @@
   "sectorUnitConsumptionPerHourHintText": "eg: 1",
   "sectorTotalConsumption": "Total Consumption (l/h)",
   "sectorIrrigationSystem": "Irrigation System",
-  "sectorIrrigationSystemHintText": "eg: A Goccia",
   "sectorIrrigationSource": "Irrigation Source",
-  "sectorIrrigationSourceHintText": "eg: Pozzo",
   "sectorOnCommand": "On Command",
   "sectorOnCommandHintText": "eg: 1",
   "sectorOffCommand": "Off Command",
@@ -341,7 +339,7 @@
     }
   },
   "addNewButtonLabel": "Add New",
-  "connectPumpsToSectorPageTile": "Select a pump",
+  "connectPumpToSectorPageTile": "Select a pump",
   "noPumpConnectedToSectorErrorText": "You have to connect at least one pump to this sector",
   "pumpLastDispensationForTile": "Was last switched on",
   "pumpLastDispensationEmpty": "Never switched on",
@@ -576,6 +574,7 @@
   "mqttMessageNameFormFieldTitle": "Code name in MQTT message",
   "mqttMessageNameFormHint": "eg: p1",
   "itemHasFilter": "Has a filter connected?",
-  "selectAPump": "Select a pump...",
-  "selectAVarietyPageTitle": "Select a variety"
+  "selectAPumpHintText": "select a pump...",
+  "selectAVarietyPageTitle": "Select a variety",
+  "selectAnOptionHintText": "select an option..."
 }
