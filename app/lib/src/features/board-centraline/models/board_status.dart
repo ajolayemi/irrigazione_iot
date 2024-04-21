@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-import 'package:irrigazione_iot/src/features/board-centraline/models/board_status_database_keys.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/board-centraline/models/board_status_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
 part 'board_status.g.dart';
 
@@ -20,31 +22,22 @@ class BoardStatus extends Equatable {
         createdAt = null,
         boardId = '';
 
-  @JsonKey(name: BoardStatusDatabaseKeys.id)
+  @JsonKey(name: BoardStatusDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
   final String id;
+
   @JsonKey(name: BoardStatusDatabaseKeys.batteryLevel)
   final double batteryLevel;
+  
+  @JsonKey(name: BoardStatusDatabaseKeys.boardId)
+  @IntConverter()
+  final String boardId;
+
   @JsonKey(name: BoardStatusDatabaseKeys.createdAt)
   final DateTime? createdAt;
-  @JsonKey(name: BoardStatusDatabaseKeys.boardId)
-  final String boardId;
 
   @override
   List<Object?> get props => [id, batteryLevel, createdAt, boardId];
-
-  BoardStatus copyWith({
-    String? id,
-    double? batteryLevel,
-    DateTime? createdAt,
-    String? boardId,
-  }) {
-    return BoardStatus(
-      id: id ?? this.id,
-      batteryLevel: batteryLevel ?? this.batteryLevel,
-      createdAt: createdAt ?? this.createdAt,
-      boardId: boardId ?? this.boardId,
-    );
-  }
 
   factory BoardStatus.fromJson(Map<String, dynamic> json) =>
       _$BoardStatusFromJson(json);

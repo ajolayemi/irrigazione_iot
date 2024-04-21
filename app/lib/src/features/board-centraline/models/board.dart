@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:irrigazione_iot/src/features/board-centraline/models/board_database_keys.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/board-centraline/models/board_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
 part 'board.g.dart';
 
@@ -29,22 +31,33 @@ class Board extends Equatable {
         updatedAt = null,
         mqttMsgName = '';
 
-  @JsonKey(name: BoardDatabaseKeys.id)
+  @JsonKey(name: BoardDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
   final String id;
+
   @JsonKey(name: BoardDatabaseKeys.name)
   final String name;
+
   @JsonKey(name: BoardDatabaseKeys.model)
   final String model;
+
   @JsonKey(name: BoardDatabaseKeys.serialNumber)
   final String serialNumber;
+
   @JsonKey(name: BoardDatabaseKeys.collectorId)
+  @IntConverter()
   final String collectorId;
+
   @JsonKey(name: BoardDatabaseKeys.companyId)
+  @IntConverter()
   final String companyId;
+
   @JsonKey(name: BoardDatabaseKeys.createdAt)
   final DateTime? createdAt;
+
   @JsonKey(name: BoardDatabaseKeys.updatedAt)
   final DateTime? updatedAt;
+
   @JsonKey(name: BoardDatabaseKeys.mqttMsgName)
   final String mqttMsgName;
 
