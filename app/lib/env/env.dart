@@ -10,26 +10,47 @@ part 'env.g.dart';
 // * SUPABASE_ANON_KEY=your_anon_key
 // * 3 run the generator: dart run build_runner build -d
 
-@Envied( path: '../.env')
+@Envied(path: '../.env')
 final class Env {
-  @EnviedField(varName: 'SUPABASE_LOCAL_URL', obfuscate: true)
+  @EnviedField(
+      varName: 'SUPABASE_LOCAL_URL',
+      obfuscate: true,
+      defaultValue: 'http://localhost:3000')
   static final String supabaseLocalUrl = _Env.supabaseLocalUrl;
 
-  @EnviedField(varName: 'SUPABASE_PROD_URL', obfuscate: true)
+  @EnviedField(
+      varName: 'SUPABASE_PROD_URL',
+      obfuscate: true,
+      defaultValue: 'https://your_prod_url.com')
   static final String supabaseProdUrl = _Env.supabaseProdUrl;
 
-  @EnviedField(varName: 'SUPABASE_PROD_ANON_KEY', obfuscate: true)
+  @EnviedField(
+      varName: 'SUPABASE_PROD_ANON_KEY',
+      obfuscate: true,
+      defaultValue: 'your_prod_anon_key')
   static final String supabaseProdAnonKey = _Env.supabaseProdAnonKey;
 
-  @EnviedField(varName: 'SUPABASE_LOCAL_ANON_KEY', obfuscate: true)
+  @EnviedField(
+      varName: 'SUPABASE_LOCAL_ANON_KEY',
+      obfuscate: true,
+      defaultValue: 'your_local_anon_key')
   static final String supabaseLocalAnonKey = _Env.supabaseLocalAnonKey;
 
-  @EnviedField(varName: 'IOS_CLIENT_ID', obfuscate: true)
+  @EnviedField(
+      varName: 'IOS_CLIENT_ID',
+      obfuscate: true,
+      defaultValue: 'your_ios_client_id')
   static final String iosClientId = _Env.iosClientId;
 
-  @EnviedField(varName: 'WEB_CLIENT_ID', obfuscate: true)
+  @EnviedField(
+      varName: 'WEB_CLIENT_ID',
+      obfuscate: true,
+      defaultValue: 'your_web_client_id')
   static final String webClientId = _Env.webClientId;
 
-  @EnviedField(varName: 'ANDROID_CLIENT_ID', obfuscate: true)
+  @EnviedField(
+      varName: 'ANDROID_CLIENT_ID',
+      obfuscate: true,
+      defaultValue: 'your_android_client_id')
   static final String androidClientId = _Env.androidClientId;
 }
