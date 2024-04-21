@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
-      working-directory: app
+      - working-directory: app
       - name: Run tests
         run: |
         flutter pub get
