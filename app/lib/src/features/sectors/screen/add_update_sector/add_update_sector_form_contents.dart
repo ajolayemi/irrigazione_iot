@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
@@ -8,26 +9,26 @@ import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_form_validator.dart';
 import 'package:irrigazione_iot/src/features/specie/data/specie_repository.dart';
 import 'package:irrigazione_iot/src/features/variety/data/variety_repository.dart';
 import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
+import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_form_suffix_icon.dart';
+import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/utils/numeric_fields_text_type.dart';
-import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
-import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
-import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
-import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
 
 class AddUpdateSectorFormContents extends ConsumerStatefulWidget {
   const AddUpdateSectorFormContents(
@@ -98,7 +99,7 @@ class _AddUpdateSectorFormContentsState
 
   Sector? _initialSector = const Sector.empty();
 
-  SectorPump? _initialSectorPump = const SectorPump.empty();
+  Pump? _initialSectorPump = const Pump.empty();
 
   bool get _isUpdating => widget.formType.isUpdating;
 
@@ -117,7 +118,7 @@ class _AddUpdateSectorFormContentsState
           ? null
           : ref.read(pumpStreamProvider(sectorPump.pumpId)).valueOrNull;
 
-      _initialSectorPump = sectorPump;
+      _initialSectorPump = pump;
       _initialSector = sector;
 
       // set some form fields initial values
@@ -234,11 +235,14 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _onTappedConnectedPumps() async {
+    final queryParam = QueryParameters(
+      id: _initialSectorPump?.id,
+      name: _initialSectorPump?.name,
+    ).toJson();
     final selectedPump = await context.pushNamed<RadioButtonItem>(
-        AppRoute.connectPumpToSector.name,
-        queryParameters: {
-          'pumpIdAlreadyConnected': _initialSectorPump?.pumpId ?? '',
-        });
+      AppRoute.connectPumpToSector.name,
+      queryParameters: queryParam,
+    );
 
     if (selectedPump == null) return;
     _selectedPumpController.text = selectedPump.label;
