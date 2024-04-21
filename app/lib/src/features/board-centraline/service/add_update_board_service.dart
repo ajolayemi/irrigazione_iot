@@ -47,7 +47,7 @@ class AddUpdateBoardService {
     }
 
     // Reaching here means all necessary checks have been passed
-    final createdBoard = await _ref.read(boardRepositoryProvider).addBoard(
+    final createdBoard = await _ref.read(boardRepositoryProvider).createBoard(
             board: board.copyWith(
           companyId: companyId,
           collectorId: selectedCollector.value,

@@ -8,7 +8,7 @@ class SupabaseBoardRepository implements BoardRepository {
   final SupabaseClient _supabaseClient;
 
   @override
-  Future<Board?> addBoard({required Board board}) {
+  Future<Board?> createBoard({required Board board}) {
     // TODO: implement addBoard
     throw UnimplementedError();
   }
@@ -16,24 +16,6 @@ class SupabaseBoardRepository implements BoardRepository {
   @override
   Future<bool> deleteBoard({required String boardID}) {
     // TODO: implement deleteBoard
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Board?> getBoardByBoardID({required String boardID}) {
-    // TODO: implement getBoardByBoardID
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Board?> getBoardByCollectorID({required String collectorID}) {
-    // TODO: implement getBoardByCollectorID
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<Board?>> getBoardsByCompanyID({required String companyID}) {
-    // TODO: implement getBoardsByCompanyID
     throw UnimplementedError();
   }
 

@@ -15,31 +15,15 @@ part 'board_repository.g.dart';
 /// that are connected to the server (mainly nodered)
 /// This repository is responsible for managing the boards.
 abstract class BoardRepository {
-  /// Fetches a list of boards, if any, pertaining to the company specified with
-  /// [companyID]
-  Future<List<Board?>> getBoardsByCompanyID({
-    required String companyID,
-  });
-
   /// Emits a list of boards, if any, pertaining to the company specified with
   /// [String]
   Stream<List<Board?>> watchBoardsByCompanyID({
     required String companyID,
   });
 
-  /// Fetches the [Board] associated with a collector specified by collectorId
-  Future<Board?> getBoardByCollectorID({
-    required String collectorID,
-  });
-
   /// Emits the [Board] associated with a collector specified by collectorId
   Stream<Board?> watchBoardByCollectorID({
     required String collectorID,
-  });
-
-  /// Fetches the [Board] associated with the provided boardId
-  Future<Board?> getBoardByBoardID({
-    required String boardID,
   });
 
   /// Emits the [Board] associated with the provided boardId
@@ -48,7 +32,7 @@ abstract class BoardRepository {
   });
 
   /// Add a new [Board] to the database and returns the newly added [Board] if successful
-  Future<Board?> addBoard({
+  Future<Board?> createBoard({
     required Board board,
   });
 
@@ -77,13 +61,6 @@ Stream<List<Board?>> boardListStream(BoardListStreamRef ref) {
   return boardRepository.watchBoardsByCompanyID(companyID: companyId);
 }
 
-@riverpod
-Future<List<Board?>> boardListFuture(BoardListFutureRef ref) {
-  final boardRepository = ref.read(boardRepositoryProvider);
-  final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return Future.value([]);
-  return boardRepository.getBoardsByCompanyID(companyID: companyId);
-}
 
 @riverpod
 Stream<Board?> collectorBoardStream(CollectorBoardStreamRef ref,
@@ -92,12 +69,6 @@ Stream<Board?> collectorBoardStream(CollectorBoardStreamRef ref,
   return boardRepository.watchBoardByCollectorID(collectorID: collectorID);
 }
 
-@riverpod
-Future<Board?> collectorBoardFuture(CollectorBoardFutureRef ref,
-    {required String collectorID}) {
-  final boardRepository = ref.read(boardRepositoryProvider);
-  return boardRepository.getBoardByCollectorID(collectorID: collectorID);
-}
 
 @riverpod
 Stream<Board?> boardStream(BoardStreamRef ref, {required String boardID}) {
@@ -105,11 +76,6 @@ Stream<Board?> boardStream(BoardStreamRef ref, {required String boardID}) {
   return boardRepository.watchBoardByBoardID(boardID: boardID);
 }
 
-@riverpod
-Future<Board?> boardFuture(BoardFutureRef ref, {required String boardID}) {
-  final boardRepository = ref.watch(boardRepositoryProvider);
-  return boardRepository.getBoardByBoardID(boardID: boardID);
-}
 
 /// Keeps track of the id of the collector that is connected to
 /// a [Board], it will have a value when user is updating

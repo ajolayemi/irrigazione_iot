@@ -38,21 +38,6 @@ void main() {
   });
 
   group('FakeBoardRepository', () {
-    group(' - getBoardByBoardID', () {
-      test('called with 1 returns the expected value', () async {
-        await expectLater(
-          fakeBoardRepository.getBoardByBoardID(boardID: testBoardId),
-          completion(expectedBoardByBoardId),
-        );
-      });
-
-      test('called with 9000 returns null', () async {
-        await expectLater(
-          fakeBoardRepository.getBoardByBoardID(boardID: '9000'),
-          completion(null),
-        );
-      });
-    });
 
     group('- watchBoardByBoardID', () {
       test('called with 1 emits the expected board', () {
@@ -70,19 +55,7 @@ void main() {
       });
     });
 
-    group('- getBoardsByCompanyID', () {
-      test('called with 1 returns the expect list of boards', () async {
-        await expectLater(
-            fakeBoardRepository.getBoardsByCompanyID(companyID: testCompanyId),
-            completion(expectedBoardByCompanyId));
-      });
 
-      test('called with 9000 returns an empty list', () async {
-        await expectLater(
-            fakeBoardRepository.getBoardsByCompanyID(companyID: '9000'),
-            completion(isEmpty));
-      });
-    });
 
     group('- watchBoardsByCompanyID', () {
       test('called with 1 emits the expected list of boards', () {
@@ -98,20 +71,6 @@ void main() {
       });
     });
 
-    group('- getBoardByCollectorID', () {
-      test('called with 1 returns the expected result', () async {
-        await expectLater(
-            fakeBoardRepository.getBoardByCollectorID(
-                collectorID: testCollectorId),
-            completion(expectedBoardByCollectorId));
-      });
-
-      test('called with 9000 returns null', () async {
-        await expectLater(
-            fakeBoardRepository.getBoardByCollectorID(collectorID: '9000'),
-            completion(null));
-      });
-    });
 
     group('- watchBoardByCollectorID', () {
       test('called with 1 emits the expected result', () {
@@ -130,7 +89,7 @@ void main() {
     group('- addBoard', () {
       test('adds a board to the list of boards', () async {
         final newBoard = kFakeBoards.first.copyWith(name: 'new board for test');
-        final res = await fakeBoardRepository.addBoard(board: newBoard);
+        final res = await fakeBoardRepository.createBoard(board: newBoard);
 
         // After creation is done
         // The returned board should be different

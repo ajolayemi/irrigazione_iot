@@ -5,7 +5,6 @@ import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart'
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
-
 class FakeBoardRepository implements BoardRepository {
   FakeBoardRepository({this.addDelay = true});
   final bool addDelay;
@@ -31,7 +30,7 @@ class FakeBoardRepository implements BoardRepository {
   }
 
   @override
-  Future<Board?> addBoard({required Board board}) async {
+  Future<Board?> createBoard({required Board board}) async {
     await delay(addDelay);
     final lastId = _boards
         .map((e) => int.tryParse(e.id) ?? 0)
@@ -40,7 +39,7 @@ class FakeBoardRepository implements BoardRepository {
     final currentBoards = [..._boards];
     currentBoards.add(newBoard);
     _boardState.value = currentBoards;
-    return getBoardByBoardID(boardID: newBoard.id);
+    return _getBoardsByBoardID(_boards, newBoard.id);
   }
 
   @override
@@ -51,7 +50,7 @@ class FakeBoardRepository implements BoardRepository {
     if (index == -1) return false;
     currentBoards.removeAt(index);
     _boardState.value = currentBoards;
-    return await getBoardByBoardID(boardID: boardID) == null;
+    return _getBoardsByBoardID(_boards, boardID) == null;
   }
 
   @override
@@ -62,20 +61,7 @@ class FakeBoardRepository implements BoardRepository {
     if (index == -1) return null;
     currentBoards[index] = board;
     _boardState.value = currentBoards;
-    return getBoardByBoardID(boardID: board.id);
-  }
-
-  @override
-  Future<List<Board?>> getBoardsByCompanyID({required String companyID}) async {
-    await delay(addDelay);
-    return _getBoardsByCompanyID(_boards, companyID);
-  }
-
-  @override
-  Future<Board?> getBoardByCollectorID(
-      {required String collectorID}) async {
-    await delay(addDelay);
-    return _getBoardsByCollectorID(_boards, collectorID);
+    return _getBoardsByBoardID(_boards, board.id);
   }
 
   @override
@@ -88,12 +74,6 @@ class FakeBoardRepository implements BoardRepository {
   Stream<List<Board?>> watchBoardsByCompanyID({required String companyID}) {
     return _streamBoards
         .map((boards) => _getBoardsByCompanyID(boards, companyID));
-  }
-
-  @override
-  Future<Board?> getBoardByBoardID({required String boardID}) async {
-    await delay(addDelay);
-    return _getBoardsByBoardID(_boards, boardID);
   }
 
   @override
