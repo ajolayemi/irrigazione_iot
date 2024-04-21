@@ -346,7 +346,10 @@ GoRouter goRouter(GoRouterRef ref) {
               QueryParameters.fromJson(state.uri.queryParameters);
           return MaterialPage(
             child: ConnectPumpToSector(
-              pumpIdAlreadyConnected: queryParams.id,
+              selectedPumpId: queryParams.id,
+              selectedPumpName: queryParams.name,
+              pumpIdPreviouslyConnectedToSector:
+                  queryParams.previouslyConnectedId,
             ),
             fullscreenDialog: true,
           );

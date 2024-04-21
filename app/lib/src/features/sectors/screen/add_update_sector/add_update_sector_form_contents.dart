@@ -106,6 +106,8 @@ class _AddUpdateSectorFormContentsState
   /// Keeps track of various radio buttons items id
   String? _selectedSpecieId;
   String? _selectedVarietyId;
+  // Keeps track of the pump that user selected to connect to the sector
+  RadioButtonItem? _selectedPump;
 
   @override
   void initState() {
@@ -120,6 +122,12 @@ class _AddUpdateSectorFormContentsState
 
       _initialSectorPump = pump;
       _initialSector = sector;
+
+      // set the initial values for the selected pump
+      _selectedPump = RadioButtonItem(
+        value: pump?.id ?? '',
+        label: pump?.name ?? '',
+      );
 
       // set some form fields initial values
       _nameController.text = _initialSector?.name ?? '';
@@ -236,8 +244,9 @@ class _AddUpdateSectorFormContentsState
 
   void _onTappedConnectedPumps() async {
     final queryParam = QueryParameters(
-      id: _initialSectorPump?.id,
-      name: _initialSectorPump?.name,
+      id: _selectedPump?.value,
+      name: _selectedPump?.label,
+      previouslyConnectedId: _initialSectorPump?.id,
     ).toJson();
     final selectedPump = await context.pushNamed<RadioButtonItem>(
       AppRoute.connectPumpToSector.name,
@@ -246,6 +255,7 @@ class _AddUpdateSectorFormContentsState
 
     if (selectedPump == null) return;
     _selectedPumpController.text = selectedPump.label;
+    _selectedPump = selectedPump;
   }
 
   void _nameEditingComplete(List<String?> usedSectorNames) {
@@ -364,11 +374,17 @@ class _AddUpdateSectorFormContentsState
       if (_isUpdating) {
         success = await ref
             .read(addUpdateSectorControllerProvider.notifier)
-            .updateSector(toSave);
+            .updateSector(
+              sector: toSave,
+              updatedPumpIdToConnectToSector: _selectedPump?.value,
+            );
       } else {
         success = await ref
             .read(addUpdateSectorControllerProvider.notifier)
-            .createSector(toSave);
+            .createSector(
+              sector: toSave,
+              pumpIdToConnectToSector: _selectedPump?.value,
+            );
       }
 
       if (success) {
@@ -380,7 +396,6 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _popScreen() {
-    ref.read(selectPumpRadioButtonProvider.notifier).state = null;
     Navigator.of(context).pop();
   }
 

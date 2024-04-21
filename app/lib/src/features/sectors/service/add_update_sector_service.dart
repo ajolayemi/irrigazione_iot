@@ -17,14 +17,16 @@ class AddUpdateSectorService {
   );
   final Ref ref;
 
-  Future<void> createSector(Sector sector) async {
+  Future<void> createSector({
+    required Sector sector,
+    required String pumpIdToConnectToSector,
+  }) async {
     final user = ref.read(authRepositoryProvider).currentUser;
     if (user == null) return;
 
     final sectorRepo = ref.read(sectorRepositoryProvider);
     final sectorPumpsRepo = ref.read(sectorPumpRepositoryProvider);
     final selectedCompanyRepo = ref.read(selectedCompanyRepositoryProvider);
-    final pumpIdToConnectToSector = ref.read(selectPumpRadioButtonProvider);
     final companyId = selectedCompanyRepo.loadSelectedCompanyId(user.uid);
 
     //create sector
@@ -32,12 +34,15 @@ class AddUpdateSectorService {
       sector.copyWith(companyId: companyId),
     );
 
-    if (createdSector == null || pumpIdToConnectToSector == null) return;
+    if (createdSector == null || pumpIdToConnectToSector.isEmpty) {
+      debugPrint('Sector creation failed');
+      return;
+    }
 
     final sectorPump = SectorPump(
       id: '',
       sectorId: createdSector.id,
-      pumpId: pumpIdToConnectToSector.value,
+      pumpId: pumpIdToConnectToSector,
     );
     debugPrint(
         'Creating sector pump: ${sectorPump.toJson()} for sector: ${createdSector.name}');
@@ -47,7 +52,10 @@ class AddUpdateSectorService {
     debugPrint('Created sectorPump: ${createdSectorPump?.toJson()}}');
   }
 
-  Future<void> updateSector(Sector sector) async {
+  Future<void> updateSector({
+    required Sector sector,
+    required String updatedConnectedPumpId,
+  }) async {
     final user = ref.read(authRepositoryProvider).currentUser;
     if (user == null) return;
 
@@ -55,7 +63,6 @@ class AddUpdateSectorService {
     final sectorPumpsRepository = ref.read(sectorPumpRepositoryProvider);
     final selectedCompanyRepo = ref.read(selectedCompanyRepositoryProvider);
     final companyId = selectedCompanyRepo.loadSelectedCompanyId(user.uid);
-    final updatedConnectedPumpId = ref.read(selectPumpRadioButtonProvider);
 
     // update sector, the function will return early if the sector is the same as the old one
     final updatedSector =
@@ -68,7 +75,7 @@ class AddUpdateSectorService {
         await sectorPumpsRepository.getSectorPump(updatedSector.id);
 
     // if there were no previously connected pumps to the sector and the user didn't connect any new pump to the sector
-    if (currentSectorPump == null && updatedConnectedPumpId == null) {
+    if (currentSectorPump == null && updatedConnectedPumpId.isEmpty) {
       debugPrint(
           'No new pumps to connect to the sector: ${updatedSector.name}');
       return;
@@ -78,11 +85,11 @@ class AddUpdateSectorService {
     if (currentSectorPump != null) {
       // if the updated connected pump id is different from the previously connected one,
       // meaning that user chose not to connect any pump to the sector or a new pump was selected, remove the old pump
-      if (updatedConnectedPumpId!.value != currentSectorPump.pumpId) {
+      if (updatedConnectedPumpId != currentSectorPump.pumpId) {
         debugPrint(
             'Removing pump: ${currentSectorPump.pumpId} from sector: ${updatedSector.name}');
         await sectorPumpsRepository.deleteSectorPump(currentSectorPump.id);
-      } else if (updatedConnectedPumpId.value == currentSectorPump.pumpId) {
+      } else if (updatedConnectedPumpId == currentSectorPump.pumpId) {
         // if the updated connected pump id is the same as the previously connected one, return early
         debugPrint(
             'No new pumps to connect to the sector: ${updatedSector.name}');
@@ -94,7 +101,7 @@ class AddUpdateSectorService {
     final newSectorPump = SectorPump(
       id: '',
       sectorId: updatedSector.id,
-      pumpId: updatedConnectedPumpId!.value,
+      pumpId: updatedConnectedPumpId,
     );
 
     final a = await sectorPumpsRepository.createSectorPump(newSectorPump);

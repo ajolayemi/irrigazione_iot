@@ -1,9 +1,7 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
-import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/supabase_sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
@@ -66,7 +64,3 @@ Future<List<Pump>?> availablePumpsFuture(
   );
 }
 
-// Keeps track of the id of the pump selected to be connected to the sector
-final selectPumpRadioButtonProvider = StateProvider<RadioButtonItem?>((ref) {
-  return null;
-});

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
-import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/widgets/empty_sector_widget.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/dismiss_sector_controller.dart';
@@ -20,7 +19,7 @@ class SectorsListScreen extends ConsumerWidget {
   const SectorsListScreen({super.key});
 
   void _onAddSectorPressed(WidgetRef ref, BuildContext context) {
-    ref.read(selectPumpRadioButtonProvider.notifier).state = null;
+
     context.pushNamed(AppRoute.addSector.name);
   }
 
