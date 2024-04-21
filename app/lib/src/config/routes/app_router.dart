@@ -331,10 +331,17 @@ GoRouter goRouter(GoRouterRef ref) {
       GoRoute(
         path: '/select-an-irrigation-source',
         name: AppRoute.selectAnIrrigationSource.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          child: SelectAnIrrigationSource(),
-          fullscreenDialog: true,
-        ),
+        pageBuilder: (context, state) {
+          final queryParams = QueryParameters.fromJson(
+            state.uri.queryParameters,
+          );
+          return MaterialPage(
+            child: SelectAnIrrigationSource(
+              selectedIrrigationSource: queryParams.name,
+            ),
+            fullscreenDialog: true,
+          );
+        },
       ),
 
       // Connect pumps to sector
