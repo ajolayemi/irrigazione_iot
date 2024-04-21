@@ -275,6 +275,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     final numericFieldsKeyboardType =
         ref.watch(numericFieldsTextInputTypeProvider);
     final state = ref.watch(addUpdatePumpControllerProvider);
+
     final loc = context.loc;
     return Column(
       children: [
@@ -396,9 +397,9 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                           // on command field
                           Consumer(
                             builder: (context, ref, child) {
-                              final usedOnCommands = ref.watch(
-                                  companyUsedPumpOnCommandsStreamProvider);
-                              final commands = usedOnCommands.valueOrNull ?? [];
+                              final usedCommands = ref
+                                  .watch(companyUsedPumpCommandsStreamProvider);
+                              final commands = usedCommands.valueOrNull ?? [];
                               return FormTitleAndField(
                                 enabled: !state.isLoading,
                                 fieldKey: _onCommandFieldKey,
@@ -428,10 +429,9 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                           // off command field
                           Consumer(
                             builder: (context, ref, child) {
-                              final usedOffCommands = ref.watch(
-                                  companyUsedPumpOffCommandsStreamProvider);
-                              final commands =
-                                  usedOffCommands.valueOrNull ?? [];
+                              final usedCommands = ref
+                                  .watch(companyUsedPumpCommandsStreamProvider);
+                              final commands = usedCommands.valueOrNull ?? [];
                               return FormTitleAndField(
                                 enabled: !state.isLoading,
                                 fieldKey: _offCommandFieldKey,
