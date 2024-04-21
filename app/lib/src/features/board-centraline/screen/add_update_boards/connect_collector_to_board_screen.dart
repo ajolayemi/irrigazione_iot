@@ -23,8 +23,9 @@ class ConnectCollectorToBoardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final availableCollectors =
-        ref.watch(collectorsNotConnectedToABoardStreamProvider);
+    final availableCollectors = ref.watch(
+        collectorsNotConnectedToABoardFutureProvider(
+            alreadyConnectedCollectorId: ''));
     final selectedCollector = ref.watch(selectedCollectorProvider);
     return Scaffold(
       body: PaddedSafeArea(
