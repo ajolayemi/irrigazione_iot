@@ -406,6 +406,7 @@ class _AddUpdateSectorFormContentsState
         turnOffCommand: turnOffCommand,
         notes: notes,
         hasFilter: _thisSectorHasFilter,
+        mqttMsgName: mqttMsgName
       );
 
       bool success = false;
