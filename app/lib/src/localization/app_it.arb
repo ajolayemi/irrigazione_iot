@@ -220,7 +220,7 @@
   "signUpPageIntroductorySubtitleText": "Crea il tuo account",
   "signInPageIntroductorySubtitleText": "Accedi al tuo account per continuare",
   "mqttMessageNameFormFieldTitle": "Nome nei messaggi MQTT",
-  "mqttMessageNameFormHint": "eg: p1",
+  "mqttMessageNameFormHint": "nome nei msg mqtt...",
   "itemHasFilter": "Dispone di un filtro?",
   "selectAPumpHintText": "seleziona una pompa...",
   "selectAVarietyPageTitle": "Seleziona una varietà",
