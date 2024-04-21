@@ -1,7 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_boards.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_collectors.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
@@ -82,4 +84,23 @@ class FakeBoardRepository implements BoardRepository {
   }
 
   void dispose() => _boardState.close();
+
+  @override
+  Future<List<Collector?>> getAvailableCollectors(
+      {required String companyId, String? alreadyConnectedCollectorId}) {
+    return Future.value(kFakeCollectors
+        .where((collector) => collector.companyId == companyId)
+        .where((collector) => collector.id != alreadyConnectedCollectorId)
+        .toList());
+  }
+
+  @override
+  Stream<List<String?>> watchCompanyUsedBoardNames(String companyId) {
+    return _streamBoards.map(
+      (boards) => boards
+          .where((board) => board.companyId == companyId)
+          .map((board) => board.name.toLowerCase())
+          .toList(),
+    );
+  }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/supabase_board_repository.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
@@ -45,6 +47,17 @@ abstract class BoardRepository {
   Future<bool> deleteBoard({
     required String boardID,
   });
+
+  /// Gets a list of all [Collector]s that are not yet connected to a [Board]
+  /// This is used when a user wants to connect a collector to a board
+  Future<List<Collector?>> getAvailableCollectors({
+    required String companyId,
+    String? alreadyConnectedCollectorId,
+  });
+
+  /// Emits a list of already used board names for a specified company
+  /// this is used in form validation to prevent duplicate board names for a company
+  Stream<List<String?>> watchCompanyUsedBoardNames(String companyId);
 }
 
 @Riverpod(keepAlive: true)
@@ -61,7 +74,6 @@ Stream<List<Board?>> boardListStream(BoardListStreamRef ref) {
   return boardRepository.watchBoardsByCompanyID(companyID: companyId);
 }
 
-
 @riverpod
 Stream<Board?> collectorBoardStream(CollectorBoardStreamRef ref,
     {required String collectorID}) {
@@ -69,13 +81,11 @@ Stream<Board?> collectorBoardStream(CollectorBoardStreamRef ref,
   return boardRepository.watchBoardByCollectorID(collectorID: collectorID);
 }
 
-
 @riverpod
 Stream<Board?> boardStream(BoardStreamRef ref, {required String boardID}) {
   final boardRepository = ref.watch(boardRepositoryProvider);
   return boardRepository.watchBoardByBoardID(boardID: boardID);
 }
-
 
 /// Keeps track of the id of the collector that is connected to
 /// a [Board], it will have a value when user is updating
@@ -92,30 +102,38 @@ final selectedCollectorProvider = StateProvider<RadioButtonItem?>((ref) {
 /// gets a list of all collectors that are not yet connected
 /// to a [Board]
 @riverpod
-Stream<List<Collector?>> collectorsNotConnectedToABoardStream(
-    CollectorsNotConnectedToABoardStreamRef ref) {
-  // Get a list of all collectors pertaining to a company
-  final collectorsPertainingToACompany =
-      ref.watch(collectorListStreamProvider).valueOrNull;
+Future<List<Collector?>> collectorsNotConnectedToABoardFuture(
+    CollectorsNotConnectedToABoardFutureRef ref,
+    {String? alreadyConnectedCollectorId}) {
+  final currentSelectedCompany =
+      ref.watch(currentTappedCompanyProvider).valueOrNull;
+  if (currentSelectedCompany == null) return Future.value([]);
+  final boardRepository = ref.watch(boardRepositoryProvider);
+  return boardRepository.getAvailableCollectors(
+      companyId: currentSelectedCompany.id,
+      alreadyConnectedCollectorId: alreadyConnectedCollectorId);
+  // // Get a list of all collectors pertaining to a company
+  // final collectorsPertainingToACompany =
+  //     ref.watch(collectorListStreamProvider).valueOrNull;
 
-  if (collectorsPertainingToACompany == null) return Stream.value([]);
-  final collectorIdToOmit = ref.watch(collectorConnectedToBoardProvider);
+  // if (collectorsPertainingToACompany == null) return Stream.value([]);
+  // final collectorIdToOmit = ref.watch(collectorConnectedToBoardProvider);
 
-  // get a list of all available [Board]s and filter out their connected
-  // collector ids. This is so because we're assuming that each available
-  // [Board] has a collector connected to it.
-  // The collector id of the collector connected to a board is omitted in this phase
-  final connectedCollectorIds = ref
-          .watch(boardListStreamProvider)
-          .valueOrNull
-          ?.where((board) => board?.collectorId != collectorIdToOmit)
-          .map((board) => board?.collectorId)
-          .toList() ??
-      [];
+  // // get a list of all available [Board]s and filter out their connected
+  // // collector ids. This is so because we're assuming that each available
+  // // [Board] has a collector connected to it.
+  // // The collector id of the collector connected to a board is omitted in this phase
+  // final connectedCollectorIds = ref
+  //         .watch(boardListStreamProvider)
+  //         .valueOrNull
+  //         ?.where((board) => board?.collectorId != collectorIdToOmit)
+  //         .map((board) => board?.collectorId)
+  //         .toList() ??
+  //     [];
 
-  final collectorsNotConnectedToABoard = collectorsPertainingToACompany
-      .where((collector) => !connectedCollectorIds.contains(collector?.id))
-      .toList();
+  // final collectorsNotConnectedToABoard = collectorsPertainingToACompany
+  //     .where((collector) => !connectedCollectorIds.contains(collector?.id))
+  //     .toList();
 
-  return Stream.value(collectorsNotConnectedToABoard);
+  // return Stream.value(collectorsNotConnectedToABoard);
 }
