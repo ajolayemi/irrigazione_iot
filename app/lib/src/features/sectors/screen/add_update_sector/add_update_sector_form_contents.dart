@@ -14,7 +14,6 @@ import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_controller.dart';
-import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_form_validator.dart';
 import 'package:irrigazione_iot/src/features/specie/data/specie_repository.dart';
 import 'package:irrigazione_iot/src/features/variety/data/variety_repository.dart';
 import 'package:irrigazione_iot/src/shared/models/query_params.dart';
@@ -26,6 +25,7 @@ import 'package:irrigazione_iot/src/shared/widgets/common_form_suffix_icon.dart'
 import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
+import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/utils/numeric_fields_text_type.dart';
@@ -43,8 +43,7 @@ class AddUpdateSectorFormContents extends ConsumerStatefulWidget {
 }
 
 class _AddUpdateSectorFormContentsState
-    extends ConsumerState<AddUpdateSectorFormContents>
-    with AddUpdateSectorValidators {
+    extends ConsumerState<AddUpdateSectorFormContents> with AppFormValidators {
   // general variables
   final _node = FocusScopeNode();
   final _formKey = GlobalKey<FormState>();
@@ -265,15 +264,25 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _nameEditingComplete(List<String?> usedSectorNames) {
-    if (canSubmitNameField(name, _initialSector?.name, usedSectorNames)) {
+    if (canSubmitFormNameFields(
+      value: name,
+      initialValue: _initialSector?.name,
+      namesToCompareAgainst: usedSectorNames,
+      maxLength: AppConstants.maxSectorNameLength,
+    )) {
       _node.nextFocus();
     }
   }
 
   String? _nameErrorText(List<String?> usedSectorNames) {
     if (!_submitted) return null;
-    final errorKey =
-        sectorNameErrorText(name, _initialSector?.name, usedSectorNames);
+    final errorKey = getFormNameFieldErrorKey(
+      value: name,
+      maxLength: AppConstants.maxSectorNameLength,
+      namesToCompareAgainst: usedSectorNames,
+      initialValue: _initialSector?.name,
+    );
+
     final fieldName = context.loc.nSectors(1);
     return context.getLocalizedErrorText(
       errorKey: errorKey,
@@ -283,26 +292,26 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _nonEmptyFieldsEditingComplete(String value) {
-    if (canSubmitNonEmptyFields(value)) {
+    if (canSubmitNonEmptyFields(value: value)) {
       _node.nextFocus();
     }
   }
 
   String? _nonEmptyFieldsErrorText(String value) {
     if (!_submitted) return null;
-    final errorKey = nonEmptyFieldsErrorText(value);
+    final errorKey = getNonEmptyFieldsErrorKey(value: value);
     return context.getLocalizedErrorText(errorKey: errorKey);
   }
 
   void _numericFieldsEditingComplete(String value) {
-    if (canSubmitNumericFields(value)) {
+    if (canSubmitNumericFields(value: value)) {
       _node.nextFocus();
     }
   }
 
   String? _numericFieldsErrorText(String value) {
     if (!_submitted) return null;
-    final errorKey = numericFieldsErrorText(value);
+    final errorKey = getNumericFieldsErrorKey(value: value);
     return context.getLocalizedErrorText(errorKey: errorKey);
   }
 
@@ -313,7 +322,11 @@ class _AddUpdateSectorFormContentsState
     List<String?> usedCommands,
   ) {
     if (canSubmitCommandFields(
-        value, counterpartValue, initialValue, usedCommands)) {
+      value: value,
+      counterpartValue: counterpartValue,
+      initialValue: initialValue,
+      valuesToCompareAgainst: usedCommands,
+    )) {
       _node.nextFocus();
     }
   }
@@ -328,11 +341,11 @@ class _AddUpdateSectorFormContentsState
     final loc = context.loc;
     final singularFieldName = loc.nSectors(1);
     final pluralFieldName = loc.nSectors(2);
-    final errorKey = commandFieldsErrorText(
-      value,
-      counterpartValue,
-      initialValue,
-      usedCommands,
+    final errorKey = getCommandFieldErrorKey(
+      value: value,
+      counterpartValue: counterpartValue,
+      initialValue: initialValue,
+      valuesToCompareAgainst: usedCommands,
     );
     return context.getLocalizedErrorText(
         errorKey: errorKey,
