@@ -1,0 +1,6 @@
+{
+  "it": [
+    "formGenericSaveDialogContent",
+    "formGenericUpdateDialogContent"
+  ]
+}

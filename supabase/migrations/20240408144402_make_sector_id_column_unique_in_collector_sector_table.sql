@@ -1,0 +1,1 @@
+ALTER TABLE public.collector_sectors ADD CONSTRAINT collector_sectors_sector_id_key UNIQUE (sector_id);

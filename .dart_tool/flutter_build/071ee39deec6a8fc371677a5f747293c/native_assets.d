@@ -1,0 +1,1 @@
+ /Users/jolayemi/flutter_projects/ric/irrigazione_iot/.dart_tool/flutter_build/071ee39deec6a8fc371677a5f747293c/native_assets.yaml: 

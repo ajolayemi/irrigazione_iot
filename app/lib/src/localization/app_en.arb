@@ -1,0 +1,579 @@
+{
+  "@@locale": "en",
+  "appTitle": "irrigazione_iot",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "homePageTitle": "Home",
+  "@homePageTitle": {
+    "description": "The title of the home page"
+  },
+  "emailFormFieldTitle": "Email",
+  "@emailFormFieldTitle": {
+    "description": "The title of the email form field"
+  },
+  "passwordFormFieldTitle": "Password",
+  "@passwordFormFieldTitle": {
+    "description": "The title of the password form field"
+  },
+  "signInButtonTitle": "Sign In",
+  "@signInButtonTitle": {
+    "description": "The title of the sign in button"
+  },
+  "emailFormHint": "example@example.com",
+  "@emailFormHint": {
+    "description": "The hint text for the email form field"
+  },
+  "passwordFormHint": "••••••••",
+  "@passwordFormHint": {
+    "description": "The hint text for the password form field"
+  },
+  "signInWithGoogleButtonTitle": "Google",
+  "@signInWithGoogleButtonTitle": {
+    "description": "The title of the sign in with Google button"
+  },
+  "forgotPasswordButtonTitle": "Forgot Password?",
+  "orText": "or sign in with",
+  "@orText": {
+    "description": "The text that is displayed between the sign in button and the sign in with Google and or other auth button"
+  },
+  "invalidEmailErrorText": "Invalid email",
+  "emptyEmailErrorText": "Email can't be empty",
+  "shortPasswordErrorText": "Password is too short, it has to be a minimum of {minPasswordLength} characters",
+  "@shortPasswordErrorText": {
+    "description": "The error message that is displayed when the password is empty",
+    "placeholders": {
+      "minPasswordLength": {
+        "description": "The minimum length of the password",
+        "example": "8",
+        "type": "int"
+      }
+    }
+  },
+  "emptyPasswordErrorText": "Password can't be empty",
+  "settingsPageTitle": "Settings",
+  "collectorPageTitle": "Collectors",
+  "pumpPageTitle": "Pumps",
+  "meteoPageTitle": "Meteo",
+  "sectorPageTitle": "Sectors",
+  "graphsPageTitle": "Graphs",
+  "morePageTitle": "More",
+  "chooseCompany": "Choose a company",
+  "welcome": "Welcome, {username}!",
+  "@welcome": {
+    "description": "The welcome message that is displayed on the home page",
+    "placeholders": {
+      "username": {
+        "description": "The username of the user",
+        "example": "John Doe"
+      }
+    }
+  },
+  "alertDialogCancel": "Cancel",
+  "alertDialogConfirm": "Confirm",
+  "alertDialogDelete": "Delete",
+  "genericAlertDialogTitle": "Are you sure?",
+  "pumpStatusLastSwitchedOn": "last dispensation: {when}",
+  "@pumpStatusLastSwitchedOn": {
+    "description": "The last time a pump status was switched on",
+    "placeholders": {
+      "when": {
+        "type": "String",
+        "example": "Feb 20, 2020 10:00"
+      }
+    }
+  },
+  "genericSaveButtonLabel": "Save",
+  "genericUpdateButtonLabel": "Update",
+  "onStatusUpdateAlertDialogContent": "You're about to switch on {name}",
+  "@onStatusUpdateAlertDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to switch on things like pumps, sectors",
+    "placeholders": {
+      "name": {
+        "description": "The name of what's about to be switched on",
+        "example": "Pump 1"
+      }
+    }
+  },
+  "offStatusUpdateAlertDialogContent": "You're about to switch off {name}",
+  "@offStatusUpdateAlertDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to switch on things like pumps, sectors",
+    "placeholders": {
+      "name": {
+        "description": "The name of what's about to be switched off",
+        "example": "Pump 1"
+      }
+    }
+  },
+  "onStatusDialogConfirmButtonTitle": "Switch On",
+  "offStatusDialogConfirmButtonTitle": "Switch Off",
+  "statusListTileTitle": "Current Status",
+  "onStatusValue": "On",
+  "offStatusValue": "Off",
+  "noCompanyFoundForUser": "Hello {username}!\nThere is no company associated with your account in our database",
+  "@noCompanyFoundForUser": {
+    "description": "The message that is displayed when the user doesn't have a company associated with their account",
+    "placeholders": {
+      "username": {
+        "description": "The username of the user",
+        "example": "John Doe"
+      }
+    }
+  },
+  "logInWithAnotherAccount": "Change Account",
+  "addNewPumpPageTitle": "New Pump",
+  "updatePumpPageTitle": "Update Pump",
+  "pumpNameFormFieldTitle": "Name",
+  "pumpNameFormHint": "eg: Pompa Giardino",
+  "pumpVolumeCapacityFormFieldTitle": "Volume Capacity",
+  "pumpVolumeCapacityFormHint": "eg: 1000",
+  "pumpKwFormFieldTitle": "Consumption (kW)",
+  "pumpKwFormHint": "eg: 50",
+  "pumpOnCommandFormFieldTitle": "On Command",
+  "pumpOnCommandFormHint": "eg: 1",
+  "pumpOffCommandFormFieldTitle": "Off Command",
+  "pumpOffCommandFormHint": "eg: 2",
+  "formGenericSaveDialogTitle": "Do you want to save the data?",
+  "formGenericSaveDialogContent": "You're about to save the data for {fieldName} in the database",
+  "@formGenericSaveDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to save data",
+    "placeholders": {
+      "fieldName": {
+        "description": "The name of the field",
+        "example": "pump"
+      }
+    }
+  },
+  "formGenericUpdateDialogTitle": "Do you want to update the data?",
+  "formGenericUpdateDialogContent": "You're about to update the data for {fieldName} in the database",
+  "notAvailable": "Not available",
+  "deleteConfirmationDialogTitle": "Clicking on delete will remove all data related to {name} from database",
+  "@deleteConfirmationDialogTitle": {
+    "description": "The title of the delete confirmation dialog",
+    "placeholders": {
+      "name": {
+        "description": "The name of the item that is being deleted",
+        "example": "Pump 1"
+      }
+    }
+  },
+  "sectorLastIrrigation": "Last irrigation: {when}",
+  "@sectorLastIrrigation": {
+    "description": "The last time a sector was irrigated",
+    "placeholders": {
+      "when": {
+        "type": "String",
+        "example": "Feb 20, 2020 10:00"
+      }
+    }
+  },
+  "sectorName": "Name",
+  "sectorNameHintText": "eg: ME8",
+  "sectorSpecie": "Specie",
+  "sectorSpecieHintText": "eg: Arancia",
+  "sectorVariety": "Variety",
+  "sectorVarietyHintText": "eg: Sanguinello",
+  "sectorOccupiedArea": "Occupied Area",
+  "sectorOccupiedAreaHintText": "eg: 100",
+  "sectorNumberOfPlants": "Number of Plants",
+  "sectorNumberOfPlantsHintText": "eg: 100",
+  "sectorUnitConsumptionPerHour": "Consumption per Plant (l/h)",
+  "sectorUnitConsumptionPerHourHintText": "eg: 1",
+  "sectorTotalConsumption": "Total Consumption (l/h)",
+  "sectorIrrigationSystem": "Irrigation System",
+  "sectorIrrigationSystemHintText": "eg: A Goccia",
+  "sectorIrrigationSource": "Irrigation Source",
+  "sectorIrrigationSourceHintText": "eg: Pozzo",
+  "sectorOnCommand": "On Command",
+  "sectorOnCommandHintText": "eg: 1",
+  "sectorOffCommand": "Off Command",
+  "sectorOffCommandHintText": "eg: 2",
+  "sectorNotes": "Notes",
+  "sectorConnectedPumps": "Connected Pumps",
+  "sectorLastIrrigationEmpty": "Never irrigated",
+  "sectorLastIrrigationForTile": "Last irrigated",
+  "addSectorPageTitle": "New Sector",
+  "updateSectorPageTitle": "Update Sector",
+  "selectASpecie": "Select a specie",
+  "selectAnIrrigationSystem": "Select an irrigation system",
+  "selectAnIrrigationSource": "Select an irrigation source",
+  "fieldTooLongErrorText": "Field value is too long, it has to be a maximum of {max} characters",
+  "@fieldTooLongErrorText": {
+    "description": "The error message that is displayed when a form field value is too long",
+    "placeholders": {
+      "max": {
+        "description": "The maximum length for the form field",
+        "example": "3",
+        "type": "int"
+      }
+    }
+  },
+  "emptyFormFieldErrorText": "Field can't be empty",
+  "notANumberErrorText": "Field has to be a number",
+  "notGreaterThanZeroErrorText": "Field has to be greater than 0",
+  "commandAlreadyInUseErrorText": "This command value is already in use for another {fieldName}",
+  "@commandAlreadyInUseErrorText": {
+    "description": "The error message that is displayed when a form field command value is already in use",
+    "placeholders": {
+      "fieldName": {
+        "description": "The name of the field",
+        "example": "pump"
+      }
+    }
+  },
+  "duplicateCommandsInFormErrorText": "You can't use the same command to switch on and switch off {fieldName}",
+  "@duplicateCommandsInFormErrorText": {
+    "description": "The error message that is displayed when the user tries to use the same command to switch on and switch off a pump",
+    "placeholders": {
+      "fieldName": {
+        "description": "The name of the field",
+        "example": "pump",
+        "type": "String"
+      }
+    }
+  },
+  "fieldValueAlreadyInUseErrorText": "This value is already in use for another {fieldName}",
+  "@fieldValueAlreadyInUseErrorText": {
+    "description": "The error message that is displayed when a form field value is already in use",
+    "placeholders": {
+      "fieldName": {
+        "description": "The name of the field",
+        "example": "pump",
+        "type": "String"
+      }
+    }
+  },
+  "nPumps": "{n, plural, =1{pump} =2{pumps} other {pumps}}",
+  "@nPumps": {
+    "description": "The pluralized version of the word 'pump'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nPumpsWithIndefiniteArticle": "{n, plural, =1{a pump} =2{pumps} other {pumps}}",
+  "@nPumpsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'pump' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nPumpsWithDefiniteArticle": "{n, plural, =1{the pump} =2{pumps} other {pumps}}",
+  "@nPumpsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'pump' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nPumpsWithArticulatedPreposition": "{n, plural, =1{the pump} =2{the pumps} other {the pumps}}",
+  "@nPumpsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'pump' with an articulated preposition",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSectors": "{n, plural, =1{sector} =2{sectors} other {sectors}}",
+  "@nSectors": {
+    "description": "The pluralized version of the word 'sector'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSectorsWithIndefiniteArticle": "{n, plural, =1{a sector} =2{sectors} other {sectors}}",
+  "@nSectorsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'sector' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSectorsWithDefiniteArticle": "{n, plural, =1{the sector} =2{sectors} other {sectors}}",
+  "@nSectorsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'sector' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSectorsWithArticulatedPreposition": "{n, plural, =1{the sector} =2{the sectors} other {the sectors}}",
+  "@nSectorsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'sector' with an articulated preposition",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "emptyDataPlaceholder": "No {name} was found in the database",
+  "@emptyDataPlaceholder": {
+    "description": "The placeholder text that is displayed when there is no data in the database",
+    "placeholders": {
+      "name": {
+        "description": "The name of the data",
+        "example": "pumps"
+      }
+    }
+  },
+  "addNewButtonLabel": "Add New",
+  "nSelectedPumps": "{n, plural, =0{0 pumps selected} =1{1 pump selected} other{{n} pumps selected}}",
+  "nConnectedPumps": "{n, plural, =0{0 pumps connected} =1{1 pump connected} other{{n} pumps connected}}",
+  "connectPumpsToSectorPageTile": "Select Pumps",
+  "noPumpConnectedToSectorErrorText": "You have to connect at least one pump to this sector",
+  "pumpLastDispensationForTile": "Was last switched on",
+  "pumpLastDispensationEmpty": "Never switched on",
+  "pumpTotalDispensedLitres": "Total litres dispensed",
+  "nCollectors": "{n, plural, =1{collector} =2{collectors} other{collectors}}",
+  "@nCollectors": {
+    "description": "The pluralized version of the word 'collector'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nCollectorsWithIndefiniteArticle": "{n, plural, =1{a collector} =2{collectors} other{collectors}}",
+  "@nCollectorsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'collector' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nCollectorsWithDefiniteArticle": "{n, plural, =1{the collector} =2{collectors} other{collectors}}",
+  "@nCollectorsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'collector' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nCollectorsWithArticulatedPreposition": "{n, plural, =1{the collector} =2{the collectors} other{the collectors}}",
+  "@nCollectorsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'collector' with an articulated preposition",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "addNewCollectorPageTitle": "New Collector",
+  "updateCollectorPageTitle": "Update Collector",
+  "collectorName": "Collector name",
+  "collectorNameHintText": "eg: Collettore Giardino",
+  "collectorFilterName": "Filter (filtro) Name ",
+  "collectorFilterNameHintText": "eg: Filtro 1",
+  "nSelectedSectors": "{n, plural, =0{0 sectors selected} =1{1 sector selected} other{{n} sectors selected}}",
+  "connectSectorToCollectorPageTitle": "Select Sectors",
+  "collectorConnectedSectors": "Connected Sectors",
+  "noSectorConnectedToCollectorErrorText": "You have to connect at least one sector to this collector",
+  "genericConfirmButtonLabel": "Confirm",
+  "allSectorsAreConnectedToACollector": "All available sectors have already been connected to a collector",
+  "nConnectedSectors": "{n, plural, =0{0 sectors connected} =1{1 sector connected} other{{n} sectors connected}}",
+  "batteryLevel": "Battery:",
+  "filterPressureDifference": "Filter diff:",
+  "iotBoardsMenuTitle": "Boards",
+  "settingsMenuTitle": "Settings",
+  "profilePageTitle": "My Profile",
+  "logOutButtonTitle": "Logout",
+  "logOutAlertDialogTitle": "Are you sure you want to log out?",
+  "logOutAlertDialogContent": "You will be logged out of the application",
+  "logOutAlertDialogConfirm": "Logout",
+  "nBoards": "{n, plural, =1{board} =2{boards} other{boards}}",
+  "@nBoards": {
+    "description": "The pluralized version of the word 'board'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nBoardsWithIndefiniteArticle": "{n, plural, =1{a board} =2{boards} other{boards}}",
+  "@nBoardsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'board' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nBoardsWithDefiniteArticle": "{n, plural, =1{the board} =2{boards} other{boards}}",
+  "@nBoardsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'board' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nBoardsWithArticulatedPreposition": "{n, plural, =1{the board} =2{the boards} other{the boards}}",
+  "@nBoardsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'board' with an articulated preposition",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "addNewBoardPageTitle": "New Board",
+  "updateBoardPageTitle": "Update Board",
+  "boardName": "Board name",
+  "boardNameHintText": "eg: arduino mkr16",
+  "boardModel": "Model",
+  "boardModelHintText": "eg: MKR 1010",
+  "boardSerialNumber": "Serial Number",
+  "boardSerialNumberHintText": "eg: 123456789",
+  "boardConnectedCollector": "Connected Collector",
+  "boardConnectedCollectorHintText": "Select a collector",
+  "allCollectorsAreConnectedToABoard": "All available collectors have already been connected to a board",
+  "connectCollectorToBoardPageTitle": "Select a collector",
+  "nSelectedCollectors": "{n, plural, =0{0 collectors selected} =1{1 collector selected} other{{n} collectors selected}}",
+  "noCollectorConnectedToBoardErrorText": "You have to connect at least one collector to this board",
+  "userProfileDetailsName": "Names",
+  "userProfileDetailsEmail": "Email",
+  "userProfileDetailsCurrentCompany": "Current company profile",
+  "companyProfileMenuTitle": "Company Profile",
+  "companyUsersMenuTitle": "My Company Users",
+  "companyName": "Company Name",
+  "companyNameHintText": "eg: My Company",
+  "companyRegisteredAddress": "Registered office address",
+  "companyRegisteredAddressHintText": "eg: 123 Main Street, 12345, City, Country",
+  "companyVatNumber": "VAT Number",
+  "companyVatNumberHintText": "eg: 123456789",
+  "companyFiscalCode": "Fiscal Code",
+  "companyFiscalCodeHintText": "eg: 123456789",
+  "companyEmail": "Email",
+  "companyEmailHintText": "eg: email@company.com",
+  "companyPhone": "Phone",
+  "companyPhoneHintText": "eg: +123456789",
+  "dependentFieldsEmptyErrorText": "One between {firstFieldName} and {secondFieldName} has to be filled",
+  "@dependentFieldsEmptyErrorText": {
+    "description": "The error message that is displayed when one of two dependent fields is empty",
+    "placeholders": {
+      "firstFieldName": {
+        "description": "The name of the first field",
+        "example": "email"
+      },
+      "secondFieldName": {
+        "description": "The name of the second field",
+        "example": "phone"
+      }
+    }
+  },
+  "addNewCompanyPageTitle": "New Company",
+  "updateCompanyPageTitle": "Update Company",
+  "nCompany": "{n, plural, =1{company} =2{companies} other{companies}}",
+  "@nCompany": {
+    "description": "The pluralized version of the word 'company'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "noUsersConnectedWithCompany": "You have no registered users associated with your company",
+  "companyUserFullName": "Full Name",
+  "companyUserFullNameHintTest": "eg: John Doe",
+  "companyUserEmail": "Email",
+  "companyUserEmailHintText": "eg: example@example.com",
+  "companyUserRole": "Assign a role",
+  "companyUserRoleHintText": "Select a role",
+  "companyUserAssignedRoleForDetails": "Assigned Role",
+  "companyUserAddedOn": "Added on",
+  "companyUserLastUpdated": "Last updated",
+  "addNewCompanyUserPageTitle": "New Company User",
+  "updateCompanyUserPageTitle": "Update Company User",
+  "emailAlreadyInUseErrorText": "This email is already in use",
+  "nCompanyUsers": "{n, plural, =1{company user} =2{company users} other{company users}}",
+  "@nCompanyUsers": {
+    "description": "The pluralized version of the word 'company user'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "assignRoleDialogTitle": "Assign a role",
+  "me": "Me",
+  "companyUserDismissalDialogTitle": "Are you sure you want to delete this user?",
+  "companyUserDismissalDialogContent": "You're about to delete {companyUserName} as a user",
+  "@companyUserDismissalDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to delete a company user",
+    "placeholders": {
+      "companyUserName": {
+        "description": "The name of the user",
+        "example": "John Doe"
+      }
+    }
+  },
+  "cantDeleteYourselfDialogTitle": "You can't delete yourself as a user",
+  "noUppercaseInPasswordErrorText": "Password has to contain at least one uppercase letter",
+  "noLowercaseInPasswordErrorText": "Password has to contain at least one lowercase letter",
+  "noNumberInPasswordErrorText": "Password has to contain at least one number",
+  "noSpecialCharacterInPasswordErrorText": "Password has to contain at least one special character",
+  "passwordsDoNotMatchErrorText": "Passwords do not match",
+  "invalidCredentialsErrorText": "The email or password you entered is incorrect",
+  "introductorySignInText": "Sign in with your registered account details to continue",
+  "noAccountText": "Don't have an account?",
+  "signUpText": "Sign Up",
+  "signUpButtonTitle": "Sign Up",
+  "confirmPasswordFormFieldTitle": "Confirm Password",
+  "confirmPasswordFormHint": "••••••••",
+  "alreadyHaveAnAccountText": "Already have an account?",
+  "nameFormFieldTitle": "Name",
+  "nameFormHint": "John",
+  "surnameFormFieldTitle": "Surname",
+  "surnameFormHint": "Doe",
+  "signInPageIntroductoryTitleText": "Welcome back!",
+  "signUpPageIntroductoryTitleText": "Get started with us!",
+  "signUpPageIntroductorySubtitleText": "Create your account",
+  "signInPageIntroductorySubtitleText": "Sign into your account"
+}

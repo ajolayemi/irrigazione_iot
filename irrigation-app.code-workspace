@@ -1,0 +1,33 @@
+{
+    "folders": [
+      {
+        "name": "project-root",
+        "path": "./"
+      },
+      {
+        "name": "flutter-app",
+        "path": "app"
+      },
+      {
+        "name": "supabase-functions",
+        "path": "supabase/functions"
+      },
+      {
+        "name": "firebase-functions",
+        "path": "functions"
+      },
+      {
+        "name": "supabase-migrations",
+        "path": "supabase/migrations"
+      }
+    ],
+    "settings": {
+      "files.exclude": {
+        "node_modules/": true,
+        "app/": true,
+        "supabase/functions/": true,
+        "firebase/functions/": true
+      },
+      "deno.importMap": "./supabase/functions/import_map.json"
+    }
+  }

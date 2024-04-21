@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run flutter tests
 on: [push, workflow_dispatch]
 jobs:
   Explore-GitHub-Actions:
@@ -6,4 +6,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
-      - run: flutter test
+      - name: Run tests
+        run: flutter test
+        working-directory: app
