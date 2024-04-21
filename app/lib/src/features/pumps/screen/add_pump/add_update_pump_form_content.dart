@@ -282,7 +282,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
         ref.watch(companyUsedPumpOffCommandsStreamProvider).valueOrNull ?? [];
 
     final usedMqttNames =
-        ref.watch(usedMqttMessageNamesStreamProvider).valueOrNull ?? [];
+        ref.watch(pumpUsedMqttMessageNamesStreamProvider).valueOrNull ?? [];
     final state = ref.watch(addUpdatePumpControllerProvider);
 
     final isUpdating = widget.formType.isUpdating;
