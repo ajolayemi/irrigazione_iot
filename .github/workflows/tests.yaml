@@ -9,7 +9,7 @@ jobs:
       - working-directory: app
       - name: Run tests
       - run: |
-        flutter pub get
-        dart run build_runner build -d
-        flutter test
+      flutter pub get
+      dart run build_runner build -d
+      flutter test
         
