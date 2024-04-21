@@ -446,15 +446,6 @@ class _AddUpdateSectorFormContentsState
         ref.watch(numericFieldsTextInputTypeProvider);
     final isUpdating = _isUpdating;
 
-    // already used values for form validation
-    final usedSectorNames =
-        ref.watch(usedSectorNamesStreamProvider).valueOrNull;
-    final usedSectorOnCommands =
-        ref.watch(usedSectorOnCommandsStreamProvider).valueOrNull;
-    final usedSectorOffCommands =
-        ref.watch(usedSectorOffCommandsStreamProvider).valueOrNull;
-    final usedMqttNames =
-        ref.watch(sectorUsedMqttMessageNamesStreamProvider).valueOrNull;
     final state = ref.watch(addUpdateSectorControllerProvider);
 
     final isLoading = state.isLoading;
@@ -484,48 +475,65 @@ class _AddUpdateSectorFormContentsState
                   ),
                   gapH16,
                   // name field
-                  FormTitleAndField(
-                    enabled: !isLoading,
-                    fieldKey: _nameFieldKey,
-                    fieldTitle: loc.sectorName,
-                    fieldHintText: loc.sectorNameHintText,
-                    textInputAction: TextInputAction.next,
-                    fieldController: _nameController,
-                    onEditingComplete: () => _nameEditingComplete(
-                      value: name,
-                      maxLength: AppConstants.maxSectorNameLength,
-                      existingNames: usedSectorNames ?? [],
-                      initialValue: _initialSector?.name,
-                    ),
-                    validator: (_) => _nameErrorText(
-                      value: name,
-                      maxLength: AppConstants.maxSectorNameLength,
-                      existingNames: usedSectorNames ?? [],
-                      initialValue: _initialSector?.name,
-                    ),
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final usedNames =
+                          ref.watch(usedSectorNamesStreamProvider);
+                      final value = usedNames.valueOrNull ?? [];
+                      return FormTitleAndField(
+                        enabled: !isLoading,
+                        fieldKey: _nameFieldKey,
+                        fieldTitle: loc.sectorName,
+                        fieldHintText: loc.sectorNameHintText,
+                        textInputAction: TextInputAction.next,
+                        fieldController: _nameController,
+                        onEditingComplete: () => _nameEditingComplete(
+                          value: name,
+                          maxLength: AppConstants.maxSectorNameLength,
+                          existingNames: value,
+                          initialValue: _initialSector?.name,
+                        ),
+                        validator: (_) => _nameErrorText(
+                          value: name,
+                          maxLength: AppConstants.maxSectorNameLength,
+                          existingNames: value,
+                          initialValue: _initialSector?.name,
+                        ),
+                      );
+                    },
                   ),
+
                   gapH16,
+
                   // mqtt msg name field
-                  FormTitleAndField(
-                    enabled: !isLoading,
-                    fieldKey: _mqttMsgNameFieldKey,
-                    fieldController: _mqttMsgNameController,
-                    fieldTitle: loc.mqttMessageNameFormFieldTitle,
-                    fieldHintText: loc.mqttMessageNameFormHint,
-                    textInputAction: TextInputAction.next,
-                    validator: (_) => _nameErrorText(
-                      existingNames: usedMqttNames ?? [],
-                      maxLength: AppConstants.maxMqttMessageNameLength,
-                      value: mqttMsgName,
-                      initialValue: _initialSector?.mqttMsgName,
-                    ),
-                    onEditingComplete: () => _nameEditingComplete(
-                      existingNames: usedMqttNames ?? [],
-                      maxLength: AppConstants.maxMqttMessageNameLength,
-                      value: mqttMsgName,
-                      initialValue: _initialSector?.mqttMsgName,
-                    ),
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final usedMqttNames =
+                          ref.watch(sectorUsedMqttMessageNamesStreamProvider);
+                      final value = usedMqttNames.valueOrNull ?? [];
+                      return FormTitleAndField(
+                        enabled: !isLoading,
+                        fieldKey: _mqttMsgNameFieldKey,
+                        fieldController: _mqttMsgNameController,
+                        fieldTitle: loc.mqttMessageNameFormFieldTitle,
+                        fieldHintText: loc.mqttMessageNameFormHint,
+                        textInputAction: TextInputAction.next,
+                        validator: (_) => _nameErrorText(
+                          existingNames: value,
+                          maxLength: AppConstants.maxMqttMessageNameLength,
+                          value: mqttMsgName,
+                          initialValue: _initialSector?.mqttMsgName,
+                        ),
+                        onEditingComplete: () => _nameEditingComplete(
+                          existingNames: value,
+                          maxLength: AppConstants.maxMqttMessageNameLength,
+                          value: mqttMsgName,
+                          initialValue: _initialSector?.mqttMsgName,
+                        ),
+                      );
+                    },
                   ),
+
                   gapH16,
                   // specie field
                   FormTitleAndField(
@@ -647,48 +655,66 @@ class _AddUpdateSectorFormContentsState
                   ),
                   gapH16,
                   // mqtt command to turn on sector field
-                  FormTitleAndField(
-                      enabled: !isLoading,
-                      fieldKey: _turnOnCommandFieldKey,
-                      fieldTitle: loc.sectorOnCommand,
-                      fieldHintText: loc.sectorOnCommandHintText,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: numberFieldKeyboardType,
-                      fieldController: _turnOnCommandController,
-                      onEditingComplete: () => _canSubmitCommandFields(
-                            turnOnCommand,
-                            turnOffCommand,
-                            _initialSector?.turnOnCommand,
-                            usedSectorOnCommands ?? [],
-                          ),
-                      validator: (_) => _commandFieldErrorText(
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final usedSectorOnCommands = ref
+                          .watch(usedSectorOnCommandsStreamProvider)
+                          .valueOrNull;
+                      return FormTitleAndField(
+                        enabled: !isLoading,
+                        fieldKey: _turnOnCommandFieldKey,
+                        fieldTitle: loc.sectorOnCommand,
+                        fieldHintText: loc.sectorOnCommandHintText,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: numberFieldKeyboardType,
+                        fieldController: _turnOnCommandController,
+                        onEditingComplete: () => _canSubmitCommandFields(
                           turnOnCommand,
                           turnOffCommand,
                           _initialSector?.turnOnCommand,
-                          usedSectorOnCommands ?? [])),
+                          usedSectorOnCommands ?? [],
+                        ),
+                        validator: (_) => _commandFieldErrorText(
+                          turnOnCommand,
+                          turnOffCommand,
+                          _initialSector?.turnOnCommand,
+                          usedSectorOnCommands ?? [],
+                        ),
+                      );
+                    },
+                  ),
+
                   gapH16,
                   // mqtt command to turn off sector field
-                  FormTitleAndField(
-                      enabled: !isLoading,
-                      fieldKey: _turnOffCommandFieldKey,
-                      fieldTitle: loc.sectorOffCommand,
-                      fieldHintText: loc.sectorOffCommandHintText,
-                      keyboardType: numberFieldKeyboardType,
-                      textInputAction: TextInputAction.next,
-                      fieldController: _turnOffCommandController,
-                      onEditingComplete: () => _canSubmitCommandFields(
-                            turnOffCommand,
-                            turnOnCommand,
-                            _initialSector?.turnOffCommand,
-                            usedSectorOffCommands ?? [],
-                          ),
-                      validator: (_) => _commandFieldErrorText(
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final usedSectorOffCommands = ref
+                          .watch(usedSectorOffCommandsStreamProvider)
+                          .valueOrNull;
+                      return FormTitleAndField(
+                        enabled: !isLoading,
+                        fieldKey: _turnOffCommandFieldKey,
+                        fieldTitle: loc.sectorOffCommand,
+                        fieldHintText: loc.sectorOffCommandHintText,
+                        keyboardType: numberFieldKeyboardType,
+                        textInputAction: TextInputAction.next,
+                        fieldController: _turnOffCommandController,
+                        onEditingComplete: () => _canSubmitCommandFields(
                           turnOffCommand,
                           turnOnCommand,
                           _initialSector?.turnOffCommand,
-                          usedSectorOffCommands ?? [])),
+                          usedSectorOffCommands ?? [],
+                        ),
+                        validator: (_) => _commandFieldErrorText(
+                          turnOffCommand,
+                          turnOnCommand,
+                          _initialSector?.turnOffCommand,
+                          usedSectorOffCommands ?? [],
+                        ),
+                      );
+                    },
+                  ),
                   gapH16,
-
                   // connected pump field
                   FormTitleAndField(
                     enabled: !isLoading,

@@ -121,16 +121,15 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
 
       if (!shouldSave) return;
       final toSave = _initialPump?.copyWith(
-        id: _initialPump?.id,
-        name: name,
-        companyId: _initialPump?.companyId,
-        capacityInVolume: double.tryParse(volumeCapacity) ?? 0.0,
-        consumeRateInKw: double.tryParse(kwCapacity) ?? 0.0,
-        turnOnCommand: onCommand,
-        turnOffCommand: offCommand,
-        mqttMessageName: mqttMessageName,
-        hasFilter: _thisPumpHasFilter
-      );
+          id: _initialPump?.id,
+          name: name,
+          companyId: _initialPump?.companyId,
+          capacityInVolume: double.tryParse(volumeCapacity) ?? 0.0,
+          consumeRateInKw: double.tryParse(kwCapacity) ?? 0.0,
+          turnOnCommand: onCommand,
+          turnOffCommand: offCommand,
+          mqttMessageName: mqttMessageName,
+          hasFilter: _thisPumpHasFilter);
 
       if (toSave == _initialPump && updating) {
         debugPrint(
@@ -274,15 +273,6 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   Widget build(BuildContext context) {
     final numericFieldsKeyboardType =
         ref.watch(numericFieldsTextInputTypeProvider);
-    final usedPumpNames =
-        ref.watch(companyUsedPumpNamesStreamProvider).valueOrNull ?? [];
-    final usedOnCommands =
-        ref.watch(companyUsedPumpOnCommandsStreamProvider).valueOrNull ?? [];
-    final usedOffCommands =
-        ref.watch(companyUsedPumpOffCommandsStreamProvider).valueOrNull ?? [];
-
-    final usedMqttNames =
-        ref.watch(pumpUsedMqttMessageNamesStreamProvider).valueOrNull ?? [];
     final state = ref.watch(addUpdatePumpControllerProvider);
 
     final isUpdating = widget.formType.isUpdating;
@@ -315,48 +305,67 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                             ),
                           ),
                           gapH16,
-                          FormTitleAndField(
-                            enabled: !state.isLoading,
-                            fieldKey: _nameFieldKey,
-                            fieldTitle: loc.pumpNameFormFieldTitle,
-                            fieldHintText: loc.pumpNameFormHint,
-                            fieldController: _nameController,
-                            textInputAction: TextInputAction.next,
-                            validator: (_) => _nameErrorText(
-                              existingNames: usedPumpNames,
-                              value: name,
-                              maxLength: AppConstants.maxPumpNameLength,
-                              initialValue: _initialPump?.name,
-                            ),
-                            onEditingComplete: () => _nameEditingComplete(
-                              existingNames: usedPumpNames,
-                              maxLength: AppConstants.maxPumpNameLength,
-                              initialValue: _initialPump?.name,
-                              value: name,
-                            ),
+                          // name field
+                          Consumer(
+                            builder: (context, ref, child) {
+                              final usedPumpNames =
+                                  ref.watch(companyUsedPumpNamesStreamProvider);
+                              final value = usedPumpNames.valueOrNull ?? [];
+                              return FormTitleAndField(
+                                enabled: !state.isLoading,
+                                fieldKey: _nameFieldKey,
+                                fieldTitle: loc.pumpNameFormFieldTitle,
+                                fieldHintText: loc.pumpNameFormHint,
+                                fieldController: _nameController,
+                                textInputAction: TextInputAction.next,
+                                validator: (_) => _nameErrorText(
+                                  existingNames: value,
+                                  value: name,
+                                  maxLength: AppConstants.maxPumpNameLength,
+                                  initialValue: _initialPump?.name,
+                                ),
+                                onEditingComplete: () => _nameEditingComplete(
+                                  existingNames: value,
+                                  maxLength: AppConstants.maxPumpNameLength,
+                                  initialValue: _initialPump?.name,
+                                  value: name,
+                                ),
+                              );
+                            },
                           ),
                           gapH16,
-                          FormTitleAndField(
-                            enabled: !state.isLoading,
-                            fieldKey: _mqttMessageNameFieldKey,
-                            fieldTitle: loc.mqttMessageNameFormFieldTitle,
-                            fieldHintText: loc.mqttMessageNameFormHint,
-                            fieldController: _mqttMessageNameController,
-                            textInputAction: TextInputAction.next,
-                            validator: (_) => _nameErrorText(
-                              existingNames: usedMqttNames,
-                              value: mqttMessageName,
-                              maxLength: AppConstants.maxMqttMessageNameLength,
-                              initialValue: _initialPump?.mqttMessageName,
-                            ),
-                            onEditingComplete: () => _nameEditingComplete(
-                              existingNames: usedMqttNames,
-                              maxLength: AppConstants.maxMqttMessageNameLength,
-                              initialValue: _initialPump?.mqttMessageName,
-                              value: mqttMessageName,
-                            ),
+                          // mqtt message name field
+                          Consumer(
+                            builder: (context, ref, child) {
+                              final usedMqttNames = ref.watch(
+                                  pumpUsedMqttMessageNamesStreamProvider);
+                              final mqttNames = usedMqttNames.valueOrNull ?? [];
+                              return FormTitleAndField(
+                                enabled: !state.isLoading,
+                                fieldKey: _mqttMessageNameFieldKey,
+                                fieldTitle: loc.mqttMessageNameFormFieldTitle,
+                                fieldHintText: loc.mqttMessageNameFormHint,
+                                fieldController: _mqttMessageNameController,
+                                textInputAction: TextInputAction.next,
+                                validator: (_) => _nameErrorText(
+                                  existingNames: mqttNames,
+                                  value: mqttMessageName,
+                                  maxLength:
+                                      AppConstants.maxMqttMessageNameLength,
+                                  initialValue: _initialPump?.mqttMessageName,
+                                ),
+                                onEditingComplete: () => _nameEditingComplete(
+                                  existingNames: mqttNames,
+                                  maxLength:
+                                      AppConstants.maxMqttMessageNameLength,
+                                  initialValue: _initialPump?.mqttMessageName,
+                                  value: mqttMessageName,
+                                ),
+                              );
+                            },
                           ),
                           gapH16,
+                          // volume capacity field
                           FormTitleAndField(
                             enabled: !state.isLoading,
                             fieldKey: _volumeCapacityFieldKey,
@@ -371,6 +380,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                             keyboardType: numericFieldsKeyboardType,
                           ),
                           gapH16,
+                          // kw capacity field
                           FormTitleAndField(
                             enabled: !state.isLoading,
                             fieldKey: _kwCapacityFieldKey,
@@ -385,54 +395,68 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                             keyboardType: numericFieldsKeyboardType,
                           ),
                           gapH16,
-                          FormTitleAndField(
-                            enabled: !state.isLoading,
-                            fieldKey: _onCommandFieldKey,
-                            fieldTitle: loc.pumpOnCommandFormFieldTitle,
-                            fieldHintText: loc.pumpOnCommandFormHint,
-                            fieldController: _onCommandController,
-                            textInputAction: TextInputAction.next,
-                            validator: (value) => !_submitted
-                                ? null
-                                : _commandFieldsErrorText(
-                                    value ?? '',
-                                    offCommand,
-                                    _initialPump?.turnOnCommand,
-                                    usedOnCommands,
-                                  ),
-                            onEditingComplete: () =>
-                                _commandFieldsEditingComplete(
-                              onCommand,
-                              offCommand,
-                              _initialPump?.turnOnCommand,
-                              usedOnCommands,
-                            ),
-                            keyboardType: numericFieldsKeyboardType,
+                          // on command field
+                          Consumer(
+                            builder: (context, ref, child) {
+                              final usedOnCommands = ref.watch(
+                                  companyUsedPumpOnCommandsStreamProvider);
+                              final commands = usedOnCommands.valueOrNull ?? [];
+                              return FormTitleAndField(
+                                enabled: !state.isLoading,
+                                fieldKey: _onCommandFieldKey,
+                                fieldTitle: loc.pumpOnCommandFormFieldTitle,
+                                fieldHintText: loc.pumpOnCommandFormHint,
+                                fieldController: _onCommandController,
+                                textInputAction: TextInputAction.next,
+                                validator: (value) => _commandFieldsErrorText(
+                                  value ?? '',
+                                  offCommand,
+                                  _initialPump?.turnOnCommand,
+                                  commands,
+                                ),
+                                onEditingComplete: () =>
+                                    _commandFieldsEditingComplete(
+                                  onCommand,
+                                  offCommand,
+                                  _initialPump?.turnOnCommand,
+                                  commands,
+                                ),
+                                keyboardType: numericFieldsKeyboardType,
+                              );
+                            },
                           ),
+
                           gapH16,
-                          FormTitleAndField(
-                            enabled: !state.isLoading,
-                            fieldKey: _offCommandFieldKey,
-                            fieldTitle: loc.pumpOffCommandFormFieldTitle,
-                            fieldHintText: loc.pumpOffCommandFormHint,
-                            fieldController: _offCommandController,
-                            textInputAction: TextInputAction.done,
-                            validator: (value) => !_submitted
-                                ? null
-                                : _commandFieldsErrorText(
-                                    value ?? '',
-                                    onCommand,
-                                    _initialPump?.turnOffCommand,
-                                    usedOffCommands,
-                                  ),
-                            onEditingComplete: () =>
-                                _commandFieldsEditingComplete(
-                              offCommand,
-                              onCommand,
-                              _initialPump?.turnOffCommand,
-                              usedOffCommands,
-                            ),
-                            keyboardType: numericFieldsKeyboardType,
+                          // off command field
+                          Consumer(
+                            builder: (context, ref, child) {
+                              final usedOffCommands = ref.watch(
+                                  companyUsedPumpOffCommandsStreamProvider);
+                              final commands =
+                                  usedOffCommands.valueOrNull ?? [];
+                              return FormTitleAndField(
+                                enabled: !state.isLoading,
+                                fieldKey: _offCommandFieldKey,
+                                fieldTitle: loc.pumpOffCommandFormFieldTitle,
+                                fieldHintText: loc.pumpOffCommandFormHint,
+                                fieldController: _offCommandController,
+                                textInputAction: TextInputAction.done,
+                                validator: (value) => _commandFieldsErrorText(
+                                  value ?? '',
+                                  onCommand,
+                                  _initialPump?.turnOffCommand,
+                                  commands,
+                                ),
+                                onEditingComplete: () =>
+                                    _commandFieldsEditingComplete(
+                                  offCommand,
+                                  onCommand,
+                                  _initialPump?.turnOffCommand,
+                                  commands,
+                                ),
+                                keyboardType: numericFieldsKeyboardType,
+                              );
+                            },
                           ),
                           gapH16,
                         ],
