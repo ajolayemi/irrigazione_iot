@@ -109,4 +109,14 @@ class FakeSectorRepository extends SectorRepository {
       (sectors) => sectors.map((sector) => sector.mqttMsgName).toList(),
     );
   }
+
+  @override
+  Stream<List<String?>> watchCompanyUsedCommands(String companyId) {
+    return _sectorsState.stream.map(
+      (sectors) => _getSectors(sectors, companyId)
+          .map((sector) => [sector?.turnOnCommand, sector?.turnOffCommand])
+          .expand((element) => element)
+          .toList(),
+    );
+  }
 }

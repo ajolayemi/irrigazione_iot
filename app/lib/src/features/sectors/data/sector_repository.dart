@@ -29,6 +29,10 @@ abstract class SectorRepository {
   /// this is used in form validation to prevent duplicate sector names for a company
   Stream<List<String?>> watchCompanyUsedSectorNames(String companyId);
 
+  /// emits a list of already used commands (on and off) for a specified company
+  /// this is used in form validation to prevent duplicate commands for a company
+  Stream<List<String?>> watchCompanyUsedCommands(String companyId);
+
   /// emits a list of already used sector on commands for a specified company
   /// this is used in form validation to prevent duplicate sector on commands for a company
   Stream<List<String?>> watchCompanyUsedSectorOnCommands(String companyId);
@@ -70,6 +74,16 @@ Stream<List<String?>> usedSectorNamesStream(UsedSectorNamesStreamRef ref) {
   if (currentSelectedCompanyByUser == null) return const Stream.empty();
   return sectorsRepository
       .watchCompanyUsedSectorNames(currentSelectedCompanyByUser.id);
+}
+
+@riverpod
+Stream<List<String?>> usedCommandsStream(UsedCommandsStreamRef ref) {
+  final sectorsRepository = ref.read(sectorRepositoryProvider);
+  final currentSelectedCompanyByUser =
+      ref.read(currentTappedCompanyProvider).valueOrNull;
+  if (currentSelectedCompanyByUser == null) return const Stream.empty();
+  return sectorsRepository
+      .watchCompanyUsedCommands(currentSelectedCompanyByUser.id);
 }
 
 @riverpod

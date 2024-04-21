@@ -63,6 +63,15 @@ class SupabaseSectorRepository implements SectorRepository {
       (sectors) => sectors.map((sector) => sector?.name.toLowerCase()).toList(),
     );
   }
+  @override
+  Stream<List<String?>> watchCompanyUsedCommands(String companyId) {
+    return watchSectors(companyId).map(
+      (sectors) => sectors
+          .map((sector) => [sector?.turnOnCommand, sector?.turnOffCommand])
+          .expand((element) => element)
+          .toList(),
+    );
+  }
 
   @override
   Stream<List<String?>> watchCompanyUsedSectorOffCommands(String companyId) {
@@ -109,4 +118,5 @@ class SupabaseSectorRepository implements SectorRepository {
             .map((sector) => Sector.fromJson(sector).mqttMsgName.toLowerCase())
             .toList());
   }
+  
 }
