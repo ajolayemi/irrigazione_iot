@@ -74,9 +74,11 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   static const _offCommandFieldKey = Key('offCommand');
   static const _mqttMessageNameFieldKey = Key('mqttMessageName');
 
+  bool get _isUpdating => widget.formType.isUpdating;
+
   @override
   void initState() {
-    if (widget.formType == GenericFormTypes.update && widget.pumpId != null) {
+    if (_isUpdating && widget.pumpId != null) {
       final pump = ref.read(pumpStreamProvider(widget.pumpId!)).valueOrNull;
       _initialPump = pump;
       _thisPumpHasFilter = pump?.hasFilter ?? false;
@@ -104,7 +106,6 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
   }
 
   Future<void> _submit() async {
-    final updating = widget.formType == GenericFormTypes.update;
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
       // ask if user wants to save the pump
@@ -131,7 +132,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
           mqttMessageName: mqttMessageName,
           hasFilter: _thisPumpHasFilter);
 
-      if (toSave == _initialPump && updating) {
+      if (toSave == _initialPump && _isUpdating) {
         debugPrint(
             'Form is valid, but no changes were made, not submitting...');
         _popScreen();
@@ -147,23 +148,23 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
 
       debugPrint('Form is valid, submitting...');
 
-      if (widget.formType == GenericFormTypes.add) {
-        final success =
-            await ref.read(addUpdatePumpControllerProvider.notifier).createPump(
-                  toSave,
-                );
-        if (success) {
-          _popScreen();
-        }
+      bool success = false;
+
+      if (_isUpdating) {
+        success = await ref
+            .read(addUpdatePumpControllerProvider.notifier)
+            .updatePump(toSave);
       } else {
-        final success =
-            await ref.read(addUpdatePumpControllerProvider.notifier).updatePump(
-                  toSave,
-                );
-        if (success) {
-          _popScreen();
-        }
+        success = await ref
+            .read(addUpdatePumpControllerProvider.notifier)
+            .createPump(toSave);
       }
+
+      if (success) {
+        _popScreen();
+      }
+
+      return;
     }
   }
 
@@ -274,9 +275,6 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     final numericFieldsKeyboardType =
         ref.watch(numericFieldsTextInputTypeProvider);
     final state = ref.watch(addUpdatePumpControllerProvider);
-
-    final isUpdating = widget.formType.isUpdating;
-
     final loc = context.loc;
     return Column(
       children: [
@@ -284,7 +282,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
           child: CustomScrollView(
             slivers: [
               AppSliverBar(
-                title: isUpdating
+                title: _isUpdating
                     ? loc.updatePumpPageTitle
                     : loc.addNewPumpPageTitle,
               ),
@@ -471,7 +469,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
         gapH16,
         SliverCTAButton(
           isLoading: state.isLoading,
-          text: !isUpdating
+          text: !_isUpdating
               ? loc.genericSaveButtonLabel
               : loc.genericUpdateButtonLabel,
           buttonType: ButtonType.primary,
