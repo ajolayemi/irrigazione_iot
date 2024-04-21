@@ -341,13 +341,16 @@ GoRouter goRouter(GoRouterRef ref) {
       GoRoute(
         path: '/connect-pump-to-sector',
         name: AppRoute.connectPumpToSector.name,
-        pageBuilder: (context, state) => MaterialPage(
-          fullscreenDialog: true,
-          child: ConnectPumpToSector(
-            pumpIdAlreadyConnected:
-                state.uri.queryParameters['pumpIdAlreadyConnected'],
-          ),
-        ),
+        pageBuilder: (context, state) {
+          final queryParams =
+              QueryParameters.fromJson(state.uri.queryParameters);
+          return MaterialPage(
+            child: ConnectPumpToSector(
+              pumpIdAlreadyConnected: queryParams.id,
+            ),
+            fullscreenDialog: true,
+          );
+        },
       ),
 
       // Page to display form for adding a new collector
