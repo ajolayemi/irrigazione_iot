@@ -22,6 +22,7 @@ import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_form_suffix_icon.dart';
+import 'package:irrigazione_iot/src/shared/widgets/form_field_checkbox.dart';
 import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
@@ -99,6 +100,8 @@ class _AddUpdateSectorFormContentsState
   Sector? _initialSector = const Sector.empty();
 
   Pump? _initialSectorPump = const Pump.empty();
+
+  bool? _thisSectorHasFilter;
 
   bool get _isUpdating => widget.formType.isUpdating;
 
@@ -386,6 +389,7 @@ class _AddUpdateSectorFormContentsState
         turnOnCommand: turnOnCommand,
         turnOffCommand: turnOffCommand,
         notes: notes,
+        hasFilter: _thisSectorHasFilter,
       );
 
       bool success = false;
@@ -454,6 +458,14 @@ class _AddUpdateSectorFormContentsState
                 node: _node,
                 formKey: _formKey,
                 children: [
+                  FormFieldCheckboxTile(
+                    title: loc.itemHasFilter,
+                    value: _thisSectorHasFilter ?? false,
+                    onChanged: (value) => setState(
+                      () => _thisSectorHasFilter = value,
+                    ),
+                  ),
+                  gapH16,
                   // name field
                   FormTitleAndField(
                     enabled: !isLoading,
