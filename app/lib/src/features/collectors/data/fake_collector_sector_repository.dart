@@ -5,8 +5,6 @@ import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.d
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
-
-
 class FakeCollectorSectorRepository implements CollectorSectorRepository {
   FakeCollectorSectorRepository({this.addDelay = true});
   final bool addDelay;
@@ -33,11 +31,10 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
         .toList();
   }
 
-
   void dispose() => _collectorSectorsState.close();
 
   @override
-  Future<CollectorSector?> addCollectorSector(
+  Future<CollectorSector?> createCollectorSector(
       {required CollectorSector collectorSector}) async {
     await delay(addDelay);
     final currentCollectorSectors = [...value];
@@ -75,6 +72,4 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
       (collectorSectors) => _getCollectorSectors(collectorSectors, collectorId),
     );
   }
-
-
 }

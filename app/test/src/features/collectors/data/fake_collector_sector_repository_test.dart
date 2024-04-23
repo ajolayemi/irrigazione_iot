@@ -62,14 +62,13 @@ void main() {
 
     test('addCollectorSector() adds a new collector sector', () async {
       final toAdd = CollectorSector(
-        id: '9000',
-        collectorId: '9000',
-        sectorId: '9000',
-        createdAt: DateTime.parse('2024-01-01')
-      );
+          id: '9000',
+          collectorId: '9000',
+          sectorId: '9000',
+          createdAt: DateTime.parse('2024-01-01'));
 
       expectLater(
-        fakeCollectorSectorRepository.addCollectorSector(
+        fakeCollectorSectorRepository.createCollectorSector(
             collectorSector: toAdd),
         completion(toAdd),
       );
@@ -79,8 +78,7 @@ void main() {
         () async {
       expectLater(
           fakeCollectorSectorRepository.deleteCollectorSector(
-            collectorSector: collectorToDelete
-          ),
+              collectorSector: collectorToDelete),
           completion(isTrue));
     });
 
@@ -88,8 +86,7 @@ void main() {
         () async {
       expectLater(
           fakeCollectorSectorRepository.deleteCollectorSector(
-      collectorSector: CollectorSector.empty()
-          ),
+              collectorSector: CollectorSector.empty()),
           completion(isFalse));
     });
   });

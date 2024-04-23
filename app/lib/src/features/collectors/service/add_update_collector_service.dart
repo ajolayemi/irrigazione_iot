@@ -38,7 +38,6 @@ class AddUpdateCollectorService {
     // create collector
     final createdCollector = await collectorRepo.createCollector(
       collector.copyWith(companyId: companyId),
-
     );
 
     if (createdCollector == null) {
@@ -57,7 +56,7 @@ class AddUpdateCollectorService {
         debugPrint(
             'Creating collector sector: ${collectorSector.toJson()} for collector: ${createdCollector.name}');
         final createdCollectorSector =
-            await collectorSectorsRepo.addCollectorSector(
+            await collectorSectorsRepo.createCollectorSector(
           collectorSector: collectorSector,
         );
         debugPrint(
@@ -149,7 +148,7 @@ class AddUpdateCollectorService {
       // Reaching here means new sector(s) where selected to connect to the collector
       debugPrint(
           'Creating collector sector: ${collectorSector.toJson()} for collector: ${updatedCollector.name}');
-      await collectorSectorsRepo.addCollectorSector(
+      await collectorSectorsRepo.createCollectorSector(
         collectorSector: collectorSector,
       );
     }

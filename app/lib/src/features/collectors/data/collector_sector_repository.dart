@@ -12,7 +12,7 @@ part 'collector_sector_repository.g.dart';
 
 abstract class CollectorSectorRepository {
   /// Add a new [CollectorSector] to database and return the added [CollectorSector] if the addition was successful
-  Future<CollectorSector?> addCollectorSector(
+  Future<CollectorSector?> createCollectorSector(
       {required CollectorSector collectorSector});
 
   /// Delete a [CollectorSector] from database and return true if the deletion was successful

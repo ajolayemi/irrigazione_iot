@@ -9,7 +9,7 @@ class SupabaseCollectorSectorRepository implements CollectorSectorRepository {
   final SupabaseClient _supabaseClient;
 
   @override
-  Future<CollectorSector?> addCollectorSector(
+  Future<CollectorSector?> createCollectorSector(
       {required CollectorSector collectorSector}) {
     // TODO: implement addCollectorSector
     throw UnimplementedError();
