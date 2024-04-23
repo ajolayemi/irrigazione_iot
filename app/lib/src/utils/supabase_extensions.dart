@@ -51,6 +51,10 @@ extension SupabaseClientExtensions on SupabaseClient {
 
   SupabaseQueryBuilder get boards => from(BoardDatabaseKeys.table);
 
+  SupabaseStreamFilterBuilder get boardStream => boards.stream(
+        primaryKey: [BoardDatabaseKeys.id],
+      );
+
   SupabaseQueryBuilder get boardStatus => from(BoardStatusDatabaseKeys.table);
 
   /// Getter for the current access token
