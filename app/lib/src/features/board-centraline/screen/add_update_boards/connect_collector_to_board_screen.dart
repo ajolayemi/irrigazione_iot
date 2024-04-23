@@ -24,8 +24,7 @@ class ConnectCollectorToBoardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
     final availableCollectors = ref.watch(
-        collectorsNotConnectedToABoardFutureProvider(
-            alreadyConnectedCollectorId: ''));
+        availableCollectorsFutureProvider(alreadyConnectedCollectorId: ''));
     final selectedCollector = ref.watch(selectedCollectorProvider);
     return Scaffold(
       body: PaddedSafeArea(
@@ -47,7 +46,7 @@ class ConnectCollectorToBoardScreen extends ConsumerWidget {
                   AsyncValueSliverWidget(
                     value: availableCollectors,
                     data: (collectors) {
-                      if (collectors.isEmpty) {
+                      if ( collectors == null || collectors.isEmpty) {
                         return Consumer(builder: (context, ref, child) {
                           // check to see if the current company generally has collectors
                           final hasCollectors = ref
@@ -66,7 +65,7 @@ class ConnectCollectorToBoardScreen extends ConsumerWidget {
                       return SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
-                            final collector = collectors[index]!;
+                            final collector = collectors[index];
                             return ResponsiveRadioListTile(
                               title: collector.name,
                               value: RadioButtonItem(
