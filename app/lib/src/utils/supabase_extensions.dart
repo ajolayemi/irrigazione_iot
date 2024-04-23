@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/features/collectors/model/collector_database_keys.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/board-centraline/models/board_database_keys.dart';
@@ -56,6 +57,11 @@ extension SupabaseClientExtensions on SupabaseClient {
       );
 
   SupabaseQueryBuilder get boardStatus => from(BoardStatusDatabaseKeys.table);
+
+  SupabaseQueryBuilder get collectors => from(CollectorDatabaseKeys.table);
+
+  SupabaseStreamFilterBuilder get collectorStream =>
+      collectors.stream(primaryKey: [CollectorDatabaseKeys.id]);
 
   /// Getter for the current access token
   String? get accessToken => auth.currentSession?.accessToken;
