@@ -17,7 +17,6 @@ void main() {
   );
 
   final expectedCollectorAfterAddition = collectorToAdd.copyWith(
-    companyId: testCompanyId,
     id: '27',
   );
 
