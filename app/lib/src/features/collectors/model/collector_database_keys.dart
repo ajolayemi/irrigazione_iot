@@ -1,4 +1,7 @@
 class CollectorDatabaseKeys {
+  const CollectorDatabaseKeys._();
+
+  static const String table = 'collectors';
   static const String id = 'id';
   static const String name = 'name';
   static const String connectedFilterName = 'connected_filter_name';
