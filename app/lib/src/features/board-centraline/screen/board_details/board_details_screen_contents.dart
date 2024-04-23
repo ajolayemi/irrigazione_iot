@@ -31,16 +31,18 @@ class BoardDetailsScreenContents extends ConsumerWidget {
           subtitle: board.serialNumber,
         ),
       ),
-      ResponsiveDetailsCard(child: Consumer(
+      Consumer(
         builder: (context, ref, child) {
           final collector =
               ref.watch(collectorStreamProvider(board.collectorId)).valueOrNull;
-          return DetailTileWidget(
-            title: loc.boardConnectedCollector,
-            subtitle: collector?.name,
+          return ResponsiveDetailsCard(
+            child: DetailTileWidget(
+              title: loc.boardConnectedCollector,
+              subtitle: collector?.name,
+            ),
           );
         },
-      ))
+      )
     ]));
   }
 }
