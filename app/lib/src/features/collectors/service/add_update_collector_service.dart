@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'add_update_collector_service.g.dart';
 
@@ -56,9 +57,7 @@ class AddUpdateCollectorService {
         debugPrint(
             'Creating collector sector: ${collectorSector.toJson()} for collector: ${createdCollector.name}');
         final createdCollectorSector =
-            await collectorSectorsRepo.createCollectorSector(
-          collectorSector: collectorSector,
-        );
+            await collectorSectorsRepo.createCollectorSector(collectorSector);
         debugPrint(
             'Created collectorSector: ${createdCollectorSector?.toJson()}');
       }
@@ -98,9 +97,7 @@ class AddUpdateCollectorService {
 
     // Get the list of current sectors connected to this collector
     final currentCollectorSectors =
-        await collectorSectorsRepo.getCollectorSectorsById(
-      collectorId: updatedCollector.id,
-    );
+        await collectorSectorsRepo.getCollectorSectorsById(updatedCollector.id);
 
     // Get the list of sectors that are not connected to the collector anymore
     // since this is an update event, it's possible that user chose not to connect
@@ -117,7 +114,7 @@ class AddUpdateCollectorService {
             'Deleting collector sector: ${collectorSector?.toJson()} for collector: ${updatedCollector.name}');
 
         await collectorSectorsRepo.deleteCollectorSector(
-          collectorSector: collectorSector!,
+          collectorSector!,
         );
       }
     }
@@ -148,9 +145,7 @@ class AddUpdateCollectorService {
       // Reaching here means new sector(s) where selected to connect to the collector
       debugPrint(
           'Creating collector sector: ${collectorSector.toJson()} for collector: ${updatedCollector.name}');
-      await collectorSectorsRepo.createCollectorSector(
-        collectorSector: collectorSector,
-      );
+      await collectorSectorsRepo.createCollectorSector(collectorSector);
     }
   }
 }

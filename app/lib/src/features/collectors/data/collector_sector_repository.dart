@@ -13,20 +13,18 @@ part 'collector_sector_repository.g.dart';
 abstract class CollectorSectorRepository {
   /// Add a new [CollectorSector] to database and return the added [CollectorSector] if the addition was successful
   Future<CollectorSector?> createCollectorSector(
-      {required CollectorSector collectorSector});
+      CollectorSector collectorSector);
 
   /// Delete a [CollectorSector] from database and return true if the deletion was successful
-  Future<bool> deleteCollectorSector({
-    required CollectorSector collectorSector,
-  });
+  Future<bool> deleteCollectorSector(
+    CollectorSector collectorSector,
+  );
 
   /// Get a list of [CollectorSector] from database if any
-  Future<List<CollectorSector?>> getCollectorSectorsById(
-      {required String collectorId});
+  Future<List<CollectorSector?>> getCollectorSectorsById(String collectorId);
 
   /// Emits a list of [CollectorSector] pertaining to a collector from database if any
-  Stream<List<CollectorSector?>> watchCollectorSectorsById(
-      {required String collectorId});
+  Stream<List<CollectorSector?>> watchCollectorSectorsById(String collectorId);
 }
 
 @Riverpod(keepAlive: true)
@@ -40,15 +38,14 @@ CollectorSectorRepository collectorSectorRepository(
 Stream<List<CollectorSector?>> collectorSectorsStream(
     CollectorSectorsStreamRef ref, String collectorId) {
   final collectorSectorRepo = ref.watch(collectorSectorRepositoryProvider);
-  return collectorSectorRepo.watchCollectorSectorsById(
-      collectorId: collectorId);
+  return collectorSectorRepo.watchCollectorSectorsById(collectorId);
 }
 
 @riverpod
 Future<List<CollectorSector?>> collectorSectorsFuture(
     CollectorSectorsFutureRef ref, String collectorId) {
   final collectorSectorRepo = ref.watch(collectorSectorRepositoryProvider);
-  return collectorSectorRepo.getCollectorSectorsById(collectorId: collectorId);
+  return collectorSectorRepo.getCollectorSectorsById(collectorId);
 }
 
 final sectorIdsOfCollectorBeingEditedProvider =

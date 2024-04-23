@@ -7,32 +7,29 @@ class SupabaseCollectorSectorRepository implements CollectorSectorRepository {
   const SupabaseCollectorSectorRepository(this._supabaseClient);
 
   final SupabaseClient _supabaseClient;
-
+  
   @override
-  Future<CollectorSector?> createCollectorSector(
-      {required CollectorSector collectorSector}) {
-    // TODO: implement addCollectorSector
+  Future<CollectorSector?> createCollectorSector(CollectorSector collectorSector) {
+    // TODO: implement createCollectorSector
     throw UnimplementedError();
   }
-
+  
   @override
-  Future<bool> deleteCollectorSector(
-      {required CollectorSector collectorSector}) {
+  Future<bool> deleteCollectorSector(CollectorSector collectorSector) {
     // TODO: implement deleteCollectorSector
     throw UnimplementedError();
   }
-
+  
   @override
-  Future<List<CollectorSector?>> getCollectorSectorsById(
-      {required String collectorId}) {
+  Future<List<CollectorSector?>> getCollectorSectorsById(String collectorId) {
     // TODO: implement getCollectorSectorsById
     throw UnimplementedError();
   }
-
+  
   @override
-  Stream<List<CollectorSector?>> watchCollectorSectorsById(
-      {required String collectorId}) {
+  Stream<List<CollectorSector?>> watchCollectorSectorsById(String collectorId) {
     // TODO: implement watchCollectorSectorsById
     throw UnimplementedError();
   }
+
 }

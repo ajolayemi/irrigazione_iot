@@ -13,7 +13,7 @@ void main() {
 
   final collectorToDelete = expectedCollectorSectors.isNotEmpty
       ? expectedCollectorSectors.first
-      : CollectorSector.empty();
+      : const CollectorSector.empty();
 
   late FakeCollectorSectorRepository fakeCollectorSectorRepository;
 
@@ -31,16 +31,14 @@ void main() {
   group('FakeCollectorSectorRepository', () {
     test('getCollectorSectors(1) should return the expected value', () async {
       expectLater(
-        fakeCollectorSectorRepository.getCollectorSectorsById(
-            collectorId: testCollectorId),
+        fakeCollectorSectorRepository.getCollectorSectorsById(testCollectorId),
         completion(expectedCollectorSectors),
       );
     });
 
     test('getCollectorSectors(9000) should return an empty list', () async {
       expectLater(
-        fakeCollectorSectorRepository.getCollectorSectorsById(
-            collectorId: '9000'),
+        fakeCollectorSectorRepository.getCollectorSectorsById('9000'),
         completion(isEmpty),
       );
     });
@@ -48,15 +46,13 @@ void main() {
     test('watchCollectorSectors(1) should emit the expected value', () {
       expect(
           fakeCollectorSectorRepository.watchCollectorSectorsById(
-            collectorId: testCollectorId,
+            testCollectorId,
           ),
           emits(expectedCollectorSectors));
     });
 
     test('watchCollectorSectors(9000) should emit an empty list', () {
-      expect(
-          fakeCollectorSectorRepository.watchCollectorSectorsById(
-              collectorId: '9000'),
+      expect(fakeCollectorSectorRepository.watchCollectorSectorsById('9000'),
           emits(isEmpty));
     });
 
@@ -68,8 +64,7 @@ void main() {
           createdAt: DateTime.parse('2024-01-01'));
 
       expectLater(
-        fakeCollectorSectorRepository.createCollectorSector(
-            collectorSector: toAdd),
+        fakeCollectorSectorRepository.createCollectorSector(toAdd),
         completion(toAdd),
       );
     });
@@ -77,16 +72,16 @@ void main() {
     test('deleteCollectorSector() with valid parameters returns true',
         () async {
       expectLater(
-          fakeCollectorSectorRepository.deleteCollectorSector(
-              collectorSector: collectorToDelete),
+          fakeCollectorSectorRepository
+              .deleteCollectorSector(collectorToDelete),
           completion(isTrue));
     });
 
     test('deleteCollectorSector() with invalid parameters returns false',
         () async {
       expectLater(
-          fakeCollectorSectorRepository.deleteCollectorSector(
-              collectorSector: CollectorSector.empty()),
+          fakeCollectorSectorRepository
+              .deleteCollectorSector(const CollectorSector.empty()),
           completion(isFalse));
     });
   });

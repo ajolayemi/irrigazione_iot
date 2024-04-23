@@ -24,9 +24,7 @@ class DismissCollectorService {
       debugPrint('Collector deleted successfully');
       // get a list of all the sectors connected to the collector
       final collectorSectors =
-          await collectorSectorRepo.getCollectorSectorsById(
-        collectorId: collectorId,
-      );
+          await collectorSectorRepo.getCollectorSectorsById(collectorId);
 
       if (collectorSectors.isEmpty) {
         debugPrint('No sectors connected to the collector');
@@ -36,9 +34,7 @@ class DismissCollectorService {
       // delete all the sectors connected to the collector
       for (final collectorSector in collectorSectors) {
         debugPrint('Deleting collector sector: ${collectorSector?.sectorId}');
-        await collectorSectorRepo.deleteCollectorSector(
-          collectorSector: collectorSector!,
-        );
+        await collectorSectorRepo.deleteCollectorSector(collectorSector!);
       }
     }
   }
