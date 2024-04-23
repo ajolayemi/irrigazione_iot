@@ -37,8 +37,8 @@ class AddUpdateCollectorService {
 
     // create collector
     final createdCollector = await collectorRepo.createCollector(
-      collector,
-      companyId,
+      collector.copyWith(companyId: companyId),
+
     );
 
     if (createdCollector == null) {
@@ -89,8 +89,7 @@ class AddUpdateCollectorService {
     // if the collector data has never changed or if the collector that user
     // is trying to update does not exist before this call
     final updatedCollector = await collectorRepo.updateCollector(
-      collector,
-      companyId,
+      collector.copyWith(companyId: companyId),
     );
 
     if (updatedCollector == null) {

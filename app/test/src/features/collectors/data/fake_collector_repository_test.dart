@@ -83,7 +83,7 @@ void main() {
 
     test('addCollector() adds a collector', () async {
       expectLater(
-        fakeCollectorRepository.createCollector(collectorToAdd, testCompanyId),
+        fakeCollectorRepository.createCollector(collectorToAdd),
         completion(expectedCollectorAfterAddition),
       );
     });
@@ -92,7 +92,6 @@ void main() {
       expectLater(
         fakeCollectorRepository.updateCollector(
           expectedResultAfterUpdate,
-          testCompanyId,
         ),
         completion(expectedResultAfterUpdate),
       );
@@ -102,7 +101,7 @@ void main() {
         () async {
       expectLater(
         fakeCollectorRepository.updateCollector(
-            expectedCollector.copyWith(id: '9000'), testCompanyId),
+            expectedCollector.copyWith(id: '9000')),
         completion(null),
       );
     });

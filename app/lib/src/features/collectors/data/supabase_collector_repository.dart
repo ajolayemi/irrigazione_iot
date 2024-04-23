@@ -7,7 +7,7 @@ class SupabaseCollectorRepository implements CollectorRepository {
   final SupabaseClient _supabaseClient;
 
   @override
-  Future<Collector?> createCollector(Collector collector, String companyId) {
+  Future<Collector?> createCollector(Collector collector) {
     // TODO: implement addCollector
     throw UnimplementedError();
   }
@@ -19,10 +19,8 @@ class SupabaseCollectorRepository implements CollectorRepository {
   }
 
 
-
-
   @override
-  Future<Collector?> updateCollector(Collector collector, String companyId) {
+  Future<Collector?> updateCollector(Collector collector) {
     // TODO: implement updateCollector
     throw UnimplementedError();
   }

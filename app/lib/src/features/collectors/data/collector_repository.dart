@@ -17,10 +17,10 @@ abstract class CollectorRepository {
   Stream<Collector?> watchCollector(String collectorID);
 
   /// adds a [Collector]
-  Future<Collector?> createCollector(Collector collector, String companyId);
+  Future<Collector?> createCollector(Collector collector);
 
   /// updates a [Collector]
-  Future<Collector?> updateCollector(Collector collector, String companyId);
+  Future<Collector?> updateCollector(Collector collector);
 
   /// deletes a [Collector]
   Future<bool> deleteCollector(String collectorID);

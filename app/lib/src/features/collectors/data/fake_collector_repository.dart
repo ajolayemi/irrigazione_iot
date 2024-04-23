@@ -24,8 +24,7 @@ class FakeCollectorRepository implements CollectorRepository {
   void dispose() => _collectorState.close();
 
   @override
-  Future<Collector?> createCollector(
-      Collector collector, String companyId) async {
+  Future<Collector?> createCollector(Collector collector) async {
     await delay(addDelay);
 
     // validation logic will be handled directly in the form
@@ -34,7 +33,6 @@ class FakeCollectorRepository implements CollectorRepository {
         .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
     final finalCollector = collector.copyWith(
       id: '${lastUsedCollectorId + 1}',
-      companyId: companyId,
     );
 
     final currentCollectors = [...value];
@@ -46,14 +44,11 @@ class FakeCollectorRepository implements CollectorRepository {
   }
 
   @override
-  Future<Collector?> updateCollector(
-      Collector collector, String companyId) async {
+  Future<Collector?> updateCollector(Collector collector) async {
     await delay(addDelay);
     // validation logic will be handled directly in the form
     final currentCollectors = [...value];
-    final index = currentCollectors.indexWhere(
-      (c) => c.id == collector.id && c.companyId == companyId,
-    );
+    final index = currentCollectors.indexWhere((c) => c.id == collector.id);
     if (index < 0) return Future.value(null);
     // return early if the new provided collector is the same as the old one
     if (currentCollectors[index] == collector) return Future.value(collector);
@@ -104,5 +99,4 @@ class FakeCollectorRepository implements CollectorRepository {
           .toList(),
     );
   }
-
 }
