@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/shared/models/rpc_parameter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
@@ -62,14 +63,19 @@ class SupabaseSectorPumpRepository implements SectorPumpRepository {
     required String companyId,
     String? alreadyConnectedPumpId,
   }) async {
-    return await _supabaseClient.rpc<List<Map<String, dynamic>>>(
-        'get_pumps_not_connected_to_sector',
-        params: {
-          'company_id_input': companyId,
-          'pump_id_already_connected': int.tryParse(
-            alreadyConnectedPumpId ?? '',
-          ),
-        }).withConverter((pumps) {
+    final rpcParam = RpcParameters(
+            companyId: companyId,
+            idAlreadyConnected: alreadyConnectedPumpId?.isEmpty ?? false
+                ? null
+                : alreadyConnectedPumpId)
+        .toJson();
+
+    return await _supabaseClient
+        .rpc<List<Map<String, dynamic>>>(
+      'get_pumps_not_connected_to_sector',
+      params: rpcParam,
+    )
+        .withConverter((pumps) {
       if (pumps.isEmpty) return null;
       return pumps.map((pump) => Pump.fromJson(pump)).toList();
     });
