@@ -21,10 +21,8 @@ class FakeCollectorPressureRepository implements CollectorPressureRepository {
     );
   }
 
-
   @override
-  Stream<CollectorPressure?> watchCollectorPressure(
-      {required String collectorId}) {
+  Stream<CollectorPressure?> watchCollectorPressure(String collectorId) {
     return _collectorPressureState.stream.map(
       (collectorPressures) => _getCollectorPressureById(
         collectorPressures: collectorPressures,

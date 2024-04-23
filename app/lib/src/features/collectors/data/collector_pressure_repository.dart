@@ -7,9 +7,8 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'collector_pressure_repository.g.dart';
 
 abstract class CollectorPressureRepository {
-  /// emits the most recent [CollectorPressure] if any for the collector with collectorId
-  Stream<CollectorPressure?> watchCollectorPressure(
-      {required String collectorId});
+  /// emits the most recent [CollectorPressure] if any for the collector with [collectorId]
+  Stream<CollectorPressure?> watchCollectorPressure(String collectorId);
 }
 
 @Riverpod(keepAlive: true)
@@ -21,10 +20,8 @@ CollectorPressureRepository collectorPressureRepository(
 
 @riverpod
 Stream<CollectorPressure?> collectorPressureStream(
-    CollectorPressureStreamRef ref,
-    {required String collectorId}) {
+    CollectorPressureStreamRef ref, String collectorId) {
   final collectorPressureRepository =
       ref.read(collectorPressureRepositoryProvider);
-  return collectorPressureRepository.watchCollectorPressure(
-      collectorId: collectorId);
+  return collectorPressureRepository.watchCollectorPressure(collectorId);
 }

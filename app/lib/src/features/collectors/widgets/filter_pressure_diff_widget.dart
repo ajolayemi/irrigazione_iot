@@ -25,7 +25,7 @@ class CollectorFilterPressureDifference extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pressures = ref
-        .watch(collectorPressureStreamProvider(collectorId: collectorId))
+        .watch(collectorPressureStreamProvider(collectorId))
         .valueOrNull;
     double pressureDifference =
         pressures == null ? 0.0 : pressures.pressureDifference;
