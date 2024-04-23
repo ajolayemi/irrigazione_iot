@@ -10,20 +10,14 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'collector_repository.g.dart';
 
 abstract class CollectorRepository {
-  /// returns a list of [Collector] pertaining to a company if any
-  Future<List<Collector?>> getCollectors(String companyId);
-
   /// emits a list of [Collector] pertaining to a company if any
   Stream<List<Collector?>> watchCollectors(String companyId);
 
   /// emits a [Collector] with the given collectorID
   Stream<Collector?> watchCollector(String collectorID);
 
-  /// returns a [Collector] with the given collectorID
-  Future<Collector?> getCollector(String collectorID);
-
   /// adds a [Collector]
-  Future<Collector?> addCollector(Collector collector, String companyId);
+  Future<Collector?> createCollector(Collector collector, String companyId);
 
   /// updates a [Collector]
   Future<Collector?> updateCollector(Collector collector, String companyId);
@@ -35,9 +29,6 @@ abstract class CollectorRepository {
   /// this is used in form validation to prevent duplicate collector names for a company
   Stream<List<String?>> watchCompanyUsedCollectorNames(String companyId);
 
-  /// emits the most recent battery level for the collector
-  /// this is used to display the battery level in the UI
-  Stream<double?> watchCollectorBatteryLevel(String collectorID);
 }
 
 @Riverpod(keepAlive: true)
@@ -54,13 +45,7 @@ Stream<List<Collector?>> collectorListStream(CollectorListStreamRef ref) {
   return collectorRepository.watchCollectors(companyId);
 }
 
-@riverpod
-Future<List<Collector?>> collectorListFuture(CollectorListFutureRef ref) {
-  final collectorRepository = ref.read(collectorRepositoryProvider);
-  final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return Future.value([]);
-  return collectorRepository.getCollectors(companyId);
-}
+
 
 @riverpod
 Stream<List<String?>> usedCollectorNamesStream(
@@ -76,18 +61,4 @@ Stream<List<String?>> usedCollectorNamesStream(
 Stream<Collector?> collectorStream(CollectorStreamRef ref, String collectorId) {
   final collectorRepository = ref.watch(collectorRepositoryProvider);
   return collectorRepository.watchCollector(collectorId);
-}
-
-/// Gets a single instance of [Collector] as specified by [String]
-@riverpod
-Future<Collector?> collectorFuture(CollectorFutureRef ref, String collectorId) {
-  final collectorRepository = ref.watch(collectorRepositoryProvider);
-  return collectorRepository.getCollector(collectorId);
-}
-
-@riverpod
-Stream<double?> collectorBatteryLevelStream(CollectorBatteryLevelStreamRef ref,
-    {required String collectorId}) {
-  final collectorRepository = ref.watch(collectorRepositoryProvider);
-  return collectorRepository.watchCollectorBatteryLevel(collectorId);
 }

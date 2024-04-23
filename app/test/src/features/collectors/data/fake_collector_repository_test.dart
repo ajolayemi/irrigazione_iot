@@ -11,7 +11,7 @@ void main() {
       .where((collector) => collector.companyId == testCompanyId)
       .toList();
 
-  final collectorToAdd = Collector.empty().copyWith(
+  final collectorToAdd = const Collector.empty().copyWith(
     name: "testCollector",
     connectedFilterName: "testFilter",
   );
@@ -36,30 +36,6 @@ void main() {
   });
 
   group('FakeCollectorRepository', () {
-    test('getCollector(1) returns first item', () async {
-      expectLater(fakeCollectorRepository.getCollector(testCollectorId),
-          completion(expectedCollector));
-    });
-
-    test('getCollector(9000) returns null', () async {
-      expectLater(
-        fakeCollectorRepository.getCollector('9000'),
-        completion(null),
-      );
-    });
-
-    test('getCollectors(1) returns a list of collectors', () async {
-      expectLater(fakeCollectorRepository.getCollectors(testCompanyId),
-          completion(expectedCompanyCollectors));
-    });
-
-    test('getCollectors(9000) returns an empty list', () async {
-      expectLater(
-        fakeCollectorRepository.getCollectors('9000'),
-        completion(isEmpty),
-      );
-    });
-
     test('watchCollector(1) emits expected collector', () {
       expect(
         fakeCollectorRepository.watchCollector(testCollectorId),
@@ -107,7 +83,7 @@ void main() {
 
     test('addCollector() adds a collector', () async {
       expectLater(
-        fakeCollectorRepository.addCollector(collectorToAdd, testCompanyId),
+        fakeCollectorRepository.createCollector(collectorToAdd, testCompanyId),
         completion(expectedCollectorAfterAddition),
       );
     });

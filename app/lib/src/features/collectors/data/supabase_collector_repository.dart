@@ -7,7 +7,7 @@ class SupabaseCollectorRepository implements CollectorRepository {
   final SupabaseClient _supabaseClient;
 
   @override
-  Future<Collector?> addCollector(Collector collector, String companyId) {
+  Future<Collector?> createCollector(Collector collector, String companyId) {
     // TODO: implement addCollector
     throw UnimplementedError();
   }
@@ -18,17 +18,8 @@ class SupabaseCollectorRepository implements CollectorRepository {
     throw UnimplementedError();
   }
 
-  @override
-  Future<Collector?> getCollector(String collectorID) {
-    // TODO: implement getCollector
-    throw UnimplementedError();
-  }
 
-  @override
-  Future<List<Collector?>> getCollectors(String companyId) {
-    // TODO: implement getCollectors
-    throw UnimplementedError();
-  }
+
 
   @override
   Future<Collector?> updateCollector(Collector collector, String companyId) {
@@ -42,11 +33,6 @@ class SupabaseCollectorRepository implements CollectorRepository {
     throw UnimplementedError();
   }
 
-  @override
-  Stream<double?> watchCollectorBatteryLevel(String collectorID) {
-    // TODO: implement watchCollectorBatteryLevel
-    throw UnimplementedError();
-  }
 
   @override
   Stream<List<Collector?>> watchCollectors(String companyId) {
@@ -59,6 +45,4 @@ class SupabaseCollectorRepository implements CollectorRepository {
     // TODO: implement watchCompanyUsedCollectorNames
     throw UnimplementedError();
   }
-
-  
 }

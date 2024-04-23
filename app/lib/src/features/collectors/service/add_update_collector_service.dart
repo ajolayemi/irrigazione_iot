@@ -36,7 +36,7 @@ class AddUpdateCollectorService {
     final sectorsToConnectToCollector = _ref.read(selectedSectorsIdProvider);
 
     // create collector
-    final createdCollector = await collectorRepo.addCollector(
+    final createdCollector = await collectorRepo.createCollector(
       collector,
       companyId,
     );

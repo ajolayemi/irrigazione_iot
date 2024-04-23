@@ -5,7 +5,6 @@ import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
-
 class FakeCollectorRepository implements CollectorRepository {
   FakeCollectorRepository({this.addDelay = true});
   final bool addDelay;
@@ -16,8 +15,7 @@ class FakeCollectorRepository implements CollectorRepository {
 
   Stream<List<Collector>> get stream => _collectorState.stream;
 
-  static Collector? _getCollectorById(
-      List<Collector> collectors, String id) {
+  static Collector? _getCollectorById(List<Collector> collectors, String id) {
     return collectors.firstWhereOrNull(
       (collector) => collector.id == id,
     );
@@ -26,7 +24,7 @@ class FakeCollectorRepository implements CollectorRepository {
   void dispose() => _collectorState.close();
 
   @override
-  Future<Collector?> addCollector(
+  Future<Collector?> createCollector(
       Collector collector, String companyId) async {
     await delay(addDelay);
 
@@ -80,20 +78,6 @@ class FakeCollectorRepository implements CollectorRepository {
   }
 
   @override
-  Future<Collector?> getCollector(String collectorID) async {
-    await delay(addDelay);
-    return Future.value(_getCollectorById(value, collectorID));
-  }
-
-  @override
-  Future<List<Collector?>> getCollectors(String companyId) async {
-    await delay(addDelay);
-    return Future.value(
-      value.where((c) => c.companyId == companyId).toList(),
-    );
-  }
-
-  @override
   Stream<Collector?> watchCollector(String collectorID) {
     return stream.map(
       (collectors) => _getCollectorById(collectors, collectorID),
@@ -121,12 +105,4 @@ class FakeCollectorRepository implements CollectorRepository {
     );
   }
 
-// todo change how this is implemented
-  @override
-  Stream<double?> watchCollectorBatteryLevel(String collectorID) {
-    return Stream.periodic(const Duration(seconds: 40), (_) {
-    // Simulate battery level changes
-    return (5.0 - 3.0) * (0.5 - 0.5 * (DateTime.now().second % 60) / 30).clamp(0.0, 1.0);
-  });
-  }
 }
