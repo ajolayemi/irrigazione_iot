@@ -49,7 +49,7 @@ abstract class BoardRepository {
 
   /// Gets a list of all [Collector]s that are not yet connected to a [Board]
   /// This is used when a user wants to connect a collector to a board
-  Future<List<Collector?>> getAvailableCollectors({
+  Future<List<Collector>?> getAvailableCollectors({
     required String companyId,
     String? alreadyConnectedCollectorId,
   });
@@ -101,8 +101,8 @@ final selectedCollectorProvider = StateProvider<RadioButtonItem?>((ref) {
 /// gets a list of all collectors that are not yet connected
 /// to a [Board]
 @riverpod
-Future<List<Collector?>> collectorsNotConnectedToABoardFuture(
-    CollectorsNotConnectedToABoardFutureRef ref,
+Future<List<Collector>?> availableCollectorsFuture(
+    AvailableCollectorsFutureRef ref,
     {String? alreadyConnectedCollectorId}) {
   final currentSelectedCompany =
       ref.watch(currentTappedCompanyProvider).valueOrNull;
@@ -135,4 +135,14 @@ Future<List<Collector?>> collectorsNotConnectedToABoardFuture(
   //     .toList();
 
   // return Stream.value(collectorsNotConnectedToABoard);
+}
+
+@riverpod
+Stream<List<String?>> usedBoardNamesStream(UsedBoardNamesStreamRef ref) {
+  final boardRepository = ref.watch(boardRepositoryProvider);
+  final currentSelectedCompanyByUser =
+      ref.watch(currentTappedCompanyProvider).valueOrNull;
+  if (currentSelectedCompanyByUser == null) return const Stream.empty();
+  return boardRepository
+      .watchCompanyUsedBoardNames(currentSelectedCompanyByUser.id);
 }

@@ -86,7 +86,7 @@ class FakeBoardRepository implements BoardRepository {
   void dispose() => _boardState.close();
 
   @override
-  Future<List<Collector?>> getAvailableCollectors(
+  Future<List<Collector>?> getAvailableCollectors(
       {required String companyId, String? alreadyConnectedCollectorId}) {
     return Future.value(kFakeCollectors
         .where((collector) => collector.companyId == companyId)
