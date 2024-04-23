@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_collector_pressures.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_pressure_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector_pressure.dart';
-import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
 class FakeCollectorPressureRepository implements CollectorPressureRepository {
@@ -22,17 +21,6 @@ class FakeCollectorPressureRepository implements CollectorPressureRepository {
     );
   }
 
-  @override
-  Future<CollectorPressure?> getCollectorPressure(
-      {required String collectorId}) async {
-    await delay(addDelay);
-    return Future.value(
-      _getCollectorPressureById(
-        collectorPressures: _collectorPressureState.value,
-        id: collectorId,
-      ),
-    );
-  }
 
   @override
   Stream<CollectorPressure?> watchCollectorPressure(
