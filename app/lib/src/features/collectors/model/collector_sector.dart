@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector_sector_database_keys.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/collectors/model/collector_sector_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
 part 'collector_sector.g.dart';
 
@@ -10,25 +12,32 @@ class CollectorSector extends Equatable {
     required this.id,
     required this.collectorId,
     required this.sectorId,
-    required this.createdAt,
+    this.createdAt,
   });
 
-  CollectorSector.empty()
+  const CollectorSector.empty()
       : id = '',
         collectorId = '',
         sectorId = '',
-        createdAt = DateTime.parse('2024-01-01');
-  @JsonKey(name: CollectorSectorDatabaseKeys.id)
+        createdAt = null;
+
+  @JsonKey(name: CollectorSectorDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
   final String id;
+
   @JsonKey(name: CollectorSectorDatabaseKeys.collectorId)
+  @IntConverter()
   final String collectorId;
+
   @JsonKey(name: CollectorSectorDatabaseKeys.sectorId)
+  @IntConverter()
   final String sectorId;
+
   @JsonKey(name: CollectorSectorDatabaseKeys.createdAt)
-  final DateTime createdAt;
+  final DateTime? createdAt;
 
   @override
-  List<Object> get props => [id, collectorId, sectorId, createdAt];
+  List<Object?> get props => [id, collectorId, sectorId, createdAt];
 
   factory CollectorSector.fromJson(Map<String, dynamic> json) =>
       _$CollectorSectorFromJson(json);
