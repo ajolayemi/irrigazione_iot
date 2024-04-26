@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_status_database_keys.dart';
 
 part 'sector_status.g.dart';
@@ -41,10 +40,4 @@ class SectorStatus extends Equatable {
       _$SectorStatusFromJson(json);
 
   Map<String, dynamic> toJson() => _$SectorStatusToJson(this);
-}
-
-extension SectorStatusX on SectorStatus {
-  bool translateSectorStatusToBoolean(Sector sector) {
-    return status == sector.turnOnCommand;
-  }
 }

@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump_status_database_keys.dart';
 import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 
 part 'pump_status.g.dart';
 
@@ -40,8 +39,4 @@ class PumpStatus extends Equatable {
       _$PumpStatusFromJson(json);
 
   Map<String, dynamic> toJson() => _$PumpStatusToJson(this);
-}
-
-extension PumpStatusX on PumpStatus {
-  bool translatePumpStatusToBoolean(Pump pump) => status == pump.turnOnCommand;
 }
