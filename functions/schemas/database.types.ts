@@ -34,6 +34,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      available_sectors: {
+        Row: {
+          company_id: number
+          id: number
+          sector_id: number
+        }
+        Insert: {
+          company_id: number
+          id?: number
+          sector_id: number
+        }
+        Update: {
+          company_id?: number
+          id?: number
+          sector_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_available_sectors_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_available_sectors_sector_id_fkey"
+            columns: ["sector_id"]
+            isOneToOne: false
+            referencedRelation: "sectors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       board_statuses: {
         Row: {
           battery_level: number
