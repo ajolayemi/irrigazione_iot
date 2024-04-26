@@ -12,20 +12,24 @@ class PumpStatus extends Equatable {
     required this.id,
     required this.pumpId,
     required this.status,
+    required this.statusBoolean,
     this.createdAt,
   });
 
   @JsonKey(name: PumpStatusDatabaseKeys.id, includeToJson: false)
   @IntConverter()
   final String id;
+
   @JsonKey(name: PumpStatusDatabaseKeys.pumpId)
   @IntConverter()
   final String pumpId;
-  // pump status are passed in as a string value because the status will be managed
-  // using MQTT messages that sends and receives a string value
-  // an internal logic will convert the string value to a boolean value when needed
+
   @JsonKey(name: PumpStatusDatabaseKeys.status)
   final String status;
+
+  @JsonKey(name: PumpStatusDatabaseKeys.statusBoolean)
+  final bool statusBoolean;
+
   @JsonKey(name: PumpStatusDatabaseKeys.createdAt)
   final DateTime? createdAt;
 
