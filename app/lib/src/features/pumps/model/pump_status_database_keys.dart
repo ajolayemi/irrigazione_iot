@@ -7,4 +7,5 @@ class PumpStatusDatabaseKeys {
   static const String status = 'status';
   static const String pumpId = 'pump_id';
   static const String createdAt = 'created_at';
+  static const String statusBoolean = 'status_boolean';
 }

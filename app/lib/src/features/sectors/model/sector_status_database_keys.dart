@@ -6,4 +6,5 @@ class SectorStatusDatabaseKeys {
   static const String sectorId = 'sector_id';
   static const String status = 'status';
   static const String createdAt = 'created_at';
+  static const String statusBoolean = 'status_boolean';
 }
