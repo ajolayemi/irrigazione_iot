@@ -1,4 +1,5 @@
 import 'package:irrigazione_iot/src/config/mock/fake_pump_status.dart';
+import 'package:irrigazione_iot/src/config/mock/fake_pumps.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump_status.dart';
@@ -40,6 +41,8 @@ class FakePumpStatusRepository extends PumpStatusRepository {
     // First get the current statuses data for all pumps
     final pumpStatuses = _fakePumpStatus.value;
 
+    final matchingPump = kFakePumps.firstWhere((element) => element.id == pump.id);
+
     final lastSectorId = _fakePumpStatus.value
         .map((sector) => int.tryParse(sector.id) ?? 0)
         .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
@@ -50,6 +53,7 @@ class FakePumpStatusRepository extends PumpStatusRepository {
         status: status,
         createdAt: DateTime.now(),
         pumpId: pump.id,
+        statusBoolean: status == matchingPump.turnOnCommand,
       ),
     );
     _fakePumpStatus.value = pumpStatuses;

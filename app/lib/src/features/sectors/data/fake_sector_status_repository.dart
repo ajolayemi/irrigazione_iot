@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/config/mock/fake_sectors.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_sectors_status.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
@@ -23,9 +24,13 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
         .map((status) => int.tryParse(status.id) ?? 0)
         .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
 
+    final matchingSector =
+        kFakeSectors.firstWhere((element) => element.id == sector.id);
+
     sectorStatuses.add(
       SectorStatus(
         id: (lastId + 1).toString(),
+        statusBoolean: status == matchingSector.turnOnCommand,
         sectorId: sector.id,
         status: status,
         createdAt: DateTime.now(),
