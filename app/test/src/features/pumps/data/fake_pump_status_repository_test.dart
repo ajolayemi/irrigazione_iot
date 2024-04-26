@@ -19,7 +19,7 @@ void main() {
       final pumpStatusRepository = makePumpStatusRepository();
       addTearDown(pumpStatusRepository.dispose);
       expect(
-        pumpStatusRepository.watchPumpStatus(testPump),
+        pumpStatusRepository.watchPumpStatus(testPump.id),
         emits(expectedPumpStatus),
       );
     });
@@ -27,7 +27,7 @@ void main() {
     test('watchPumpStatus(9000) emits null', () {
       final pumpStatusRepository = makePumpStatusRepository();
       addTearDown(pumpStatusRepository.dispose);
-      expect(pumpStatusRepository.watchPumpStatus(const Pump.empty()),
+      expect(pumpStatusRepository.watchPumpStatus(const Pump.empty().id),
           emits(isNull));
     });
   });

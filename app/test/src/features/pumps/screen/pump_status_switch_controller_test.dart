@@ -70,9 +70,14 @@ void main() {
         fireImmediately: true,
       );
 
+      final statusBool = testPump.turnOnCommand == commandToSwitchOn;
+
       when(
         () => pumpStatusRepository.togglePumpStatus(
-            testPump, commandToSwitchOn),
+          pumpId: testPump.id,
+          statusBoolean: statusBool,
+          statusString: commandToSwitchOn,
+        ),
       ).thenAnswer((_) => Future.value());
 
       // run
@@ -128,9 +133,14 @@ void main() {
 
       final exception = Exception('Error occurred when switching on pump');
 
+      final statusBool = testPump.turnOnCommand == commandToSwitchOn;
+
       when(
         () => pumpStatusRepository.togglePumpStatus(
-            testPump, commandToSwitchOn),
+          pumpId: testPump.id,
+          statusBoolean: statusBool,
+          statusString: commandToSwitchOn,
+        ),
       ).thenThrow(exception);
 
       // run

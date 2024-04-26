@@ -53,7 +53,7 @@ class PumpSwitch extends ConsumerWidget {
     final globalLoadingState =
         ref.watch(pumpStatusSwitchControllerProvider).isGlobalLoading;
     final isSwitchedOn =
-        ref.watch(pumpStatusStreamProvider(pump)).valueOrNull ?? false;
+        ref.watch(pumpStatusStreamProvider(pump.id)).valueOrNull ?? false;
 
     return thisPumpStatusIsLoading
         ? const CircularProgressIndicator.adaptive()

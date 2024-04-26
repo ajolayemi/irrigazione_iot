@@ -23,8 +23,12 @@ class PumpStatusSwitchController extends _$PumpStatusSwitchController {
     state = const AsyncLoading<CustomControllerState>().copyWithPrevious(state);
     final statusCommand = pump.getStatusCommand(status);
     final pumpStatusRepository = ref.read(pumpStatusRepositoryProvider);
-    final value = await AsyncValue.guard(
-        () => pumpStatusRepository.togglePumpStatus(pump, statusCommand));
+    final value =
+        await AsyncValue.guard(() => pumpStatusRepository.togglePumpStatus(
+              pumpId: pump.id,
+              statusBoolean: status,
+              statusString: statusCommand,
+            ));
     if (value.hasError) {
       state = AsyncError(value.error!, StackTrace.current);
     } else {
