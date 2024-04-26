@@ -114,7 +114,7 @@ class AddUpdateCollectorService {
             'Deleting collector sector: ${collectorSector?.toJson()} for collector: ${updatedCollector.name}');
 
         await collectorSectorsRepo.deleteCollectorSector(
-          collectorSector!,
+          collectorSector!.id,
         );
       }
     }

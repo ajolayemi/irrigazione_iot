@@ -34,7 +34,7 @@ class DismissCollectorService {
       // delete all the sectors connected to the collector
       for (final collectorSector in collectorSectors) {
         debugPrint('Deleting collector sector: ${collectorSector?.sectorId}');
-        await collectorSectorRepo.deleteCollectorSector(collectorSector!);
+        await collectorSectorRepo.deleteCollectorSector(collectorSector!.id);
       }
     }
   }
