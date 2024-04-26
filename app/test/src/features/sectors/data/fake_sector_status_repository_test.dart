@@ -21,7 +21,7 @@ void main() {
       final repo = makeFakeSectorStatusRepository();
       addTearDown(repo.dispose);
       expect(
-        repo.watchSectorStatus(sectorsForTesting.first),
+        repo.watchSectorStatus(sectorsForTesting.first.id),
         emits(isNotNull),
       );
     });
@@ -29,13 +29,16 @@ void main() {
     test('watchSectorStatus emits null', () {
       final repo = makeFakeSectorStatusRepository();
       addTearDown(repo.dispose);
-      expect(repo.watchSectorStatus(invalidSector), emits(isNull));
+      expect(repo.watchSectorStatus(invalidSector.id), emits(isNull));
     });
 
     test('getSectorStatus after dispose throws exception', () async {
       final repo = makeFakeSectorStatusRepository();
       repo.dispose();
-      expect(repo.toggleSectorStatus(invalidSector, '900'), throwsStateError);
+      expect(
+          repo.toggleSectorStatus(
+              sectorId: '900', statusBoolean: true, statusString: '1'),
+          throwsStateError);
     });
   });
 }

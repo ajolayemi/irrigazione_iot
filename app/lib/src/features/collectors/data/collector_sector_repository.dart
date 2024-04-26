@@ -115,7 +115,7 @@ Stream<int> numberOfSectorsSwitchedOn(NumberOfSectorsSwitchedOnRef ref,
     final sector =
         ref.watch(sectorStreamProvider(collectorSector!.sectorId)).valueOrNull;
     if (sector == null) return Stream.value(0);
-    final status = ref.watch(sectorStatusStreamProvider(sector));
+    final status = ref.watch(sectorStatusStreamProvider(sector.id));
     if (status.valueOrNull == true) {
       sectorsSwitchedOn++;
     } else {

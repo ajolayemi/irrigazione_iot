@@ -1,7 +1,6 @@
 import 'package:irrigazione_iot/src/config/mock/fake_sectors.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_sectors_status.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_status.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
@@ -13,10 +12,15 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
   final _sectorStatusState =
       InMemoryStore<List<SectorStatus>>(kFakeSectorStatus);
   @override
-  Future<void> toggleSectorStatus(Sector sector, String status) async {
+  Future<void> toggleSectorStatus(
+      {required String sectorId,
+      required String statusString,
+      required bool statusBoolean}) async {
     await delay(addDelay);
-    final statusIsValid =
-        status == sector.turnOffCommand || status == sector.turnOnCommand;
+
+    final sector = kFakeSectors.firstWhere((element) => element.id == sectorId);
+    final statusIsValid = statusString == sector.turnOffCommand ||
+        statusString == sector.turnOnCommand;
     if (!statusIsValid) return;
     final sectorStatuses = [..._sectorStatusState.value];
 
@@ -24,27 +28,23 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
         .map((status) => int.tryParse(status.id) ?? 0)
         .reduce((maxId, currentId) => maxId > currentId ? maxId : currentId);
 
-    final matchingSector =
-        kFakeSectors.firstWhere((element) => element.id == sector.id);
-
     sectorStatuses.add(
       SectorStatus(
         id: (lastId + 1).toString(),
-        statusBoolean: status == matchingSector.turnOnCommand,
+        statusBoolean: statusString == sector.turnOnCommand,
         sectorId: sector.id,
-        status: status,
+        status: statusString,
         createdAt: DateTime.now(),
       ),
     );
     _sectorStatusState.value = sectorStatuses;
   }
 
-
   @override
-  Stream<bool?> watchSectorStatus(Sector sector) {
+  Stream<bool?> watchSectorStatus(String sectorId) {
     return _sectorStatusState.stream.map((statuses) {
-      final mostRecentStatus = _getMostRecentStatus(statuses, sector.id);
-      return mostRecentStatus?.translateSectorStatusToBoolean(sector);
+      final mostRecentStatus = _getMostRecentStatus(statuses, sectorId);
+      return mostRecentStatus?.statusBoolean;
     });
   }
 

@@ -23,8 +23,12 @@ class SectorSwitchController extends _$SectorSwitchController {
     state = const AsyncLoading<CustomControllerState>().copyWithPrevious(state);
     final statusCommand = sector.getMqttStatusCommand(status);
     final sectorStatusRepository = ref.read(sectorStatusRepositoryProvider);
-    final value = await AsyncValue.guard(
-        () => sectorStatusRepository.toggleSectorStatus(sector, statusCommand));
+    final value =
+        await AsyncValue.guard(() => sectorStatusRepository.toggleSectorStatus(
+              sectorId: sector.id,
+              statusBoolean: status,
+              statusString: statusCommand,
+            ));
     if (value.hasError) {
       state = AsyncError(value.error!, StackTrace.current);
     } else {
