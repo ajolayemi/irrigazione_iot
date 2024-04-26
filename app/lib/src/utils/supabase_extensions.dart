@@ -76,6 +76,8 @@ extension SupabaseClientExtensions on SupabaseClient {
       collectorSectors.stream(
         primaryKey: [
           CollectorSectorDatabaseKeys.id,
+          CollectorSectorDatabaseKeys.collectorId,
+          CollectorSectorDatabaseKeys.sectorId,
         ],
       );
 
