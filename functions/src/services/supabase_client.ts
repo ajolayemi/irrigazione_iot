@@ -2,6 +2,8 @@ import {Database} from "firebase-admin/database";
 import {getSecretFromCloud} from "./secrets";
 import {SupabaseClient, createClient} from "@supabase/supabase-js";
 
+require('dotenv').config({ path: '../../../.env' });
+
 /**
  * Creates a Supabase client with the provided URL and anon key
  * @return {Promise<SupabaseClient<Database>>} The Supabase client

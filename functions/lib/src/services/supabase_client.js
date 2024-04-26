@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createSupabaseClient = void 0;
 const secrets_1 = require("./secrets");
 const supabase_js_1 = require("@supabase/supabase-js");
+require('dotenv').config({ path: '../../../.env' });
 /**
  * Creates a Supabase client with the provided URL and anon key
  * @return {Promise<SupabaseClient<Database>>} The Supabase client
