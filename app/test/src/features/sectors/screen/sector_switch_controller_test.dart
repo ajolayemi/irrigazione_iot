@@ -50,7 +50,8 @@ void main() {
 
       verifyNoMoreInteractions(listener);
       verifyNever(
-        () => sectorStatusRepository.toggleSectorStatus(any(), any()),
+        () => sectorStatusRepository.toggleSectorStatus(
+            sectorId: any(named: "sectorId"), statusBoolean: any(named: "statusBoolean"), statusString: any(named: "statusString")),
       );
     });
 
@@ -77,8 +78,14 @@ void main() {
         fireImmediately: true,
       );
 
+      final statusBool =
+          testSector.turnOnCommand == testSectorCommandForSwitchOn;
+
       when(() => sectorStatusRepository.toggleSectorStatus(
-          testSector, testSectorCommandForSwitchOn)).thenAnswer(
+            sectorId: testSector.id,
+            statusString: testSectorCommandForSwitchOn,
+            statusBoolean: statusBool,
+          )).thenAnswer(
         (_) => Future.value(),
       );
 
@@ -117,8 +124,9 @@ void main() {
 
       verifyNoMoreInteractions(listener);
       verify(() => sectorStatusRepository.toggleSectorStatus(
-            testSector,
-            testSectorCommandForSwitchOn,
+            sectorId: testSector.id,
+            statusString: testSectorCommandForSwitchOn,
+            statusBoolean: statusBool,
           )).called(1);
     });
 
@@ -146,8 +154,14 @@ void main() {
         fireImmediately: true,
       );
 
+      final statusBool =
+          testSector.turnOnCommand == testSectorCommandForSwitchOn;
+
       when(() => sectorStatusRepository.toggleSectorStatus(
-          testSector, testSectorCommandForSwitchOn)).thenThrow(exception);
+            sectorId: testSector.id,
+            statusBoolean: statusBool,
+            statusString: testSectorCommandForSwitchOn,
+          )).thenThrow(exception);
 
       // run
       const initialState = AsyncData<CustomControllerState>(
@@ -176,16 +190,16 @@ void main() {
 
         // then state is reset to initial state
         () => listener(
-              const AsyncLoading<CustomControllerState>()
-                  .copyWithPrevious(customStateWhenSwitchingOn),
-              any(that: isA<AsyncError>())
-            )
+            const AsyncLoading<CustomControllerState>()
+                .copyWithPrevious(customStateWhenSwitchingOn),
+            any(that: isA<AsyncError>()))
       ]);
 
       verifyNoMoreInteractions(listener);
       verify(() => sectorStatusRepository.toggleSectorStatus(
-            testSector,
-            testSectorCommandForSwitchOn,
+            sectorId: testSector.id,
+            statusBoolean: statusBool,
+            statusString: testSectorCommandForSwitchOn,
           )).called(1);
     });
   });
