@@ -45,18 +45,18 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
 
   @override
   Future<bool> deleteCollectorSector(
-    CollectorSector collectorSector,
+    String collectorSectorId,
   ) async {
     await delay(addDelay);
     final currentCollectorSectors = [...value];
     final collectorSectorIndex =
-        currentCollectorSectors.indexWhere((cs) => cs == collectorSector);
+        currentCollectorSectors.indexWhere((cs) => cs.id == collectorSectorId);
     if (collectorSectorIndex == -1) {
       return false;
     }
     currentCollectorSectors.removeAt(collectorSectorIndex);
     _collectorSectorsState.value = currentCollectorSectors;
-    return _getCollectorSectorById(value, collectorSector.collectorId) == null;
+    return _getCollectorSectorById(value, collectorSectorId) == null;
   }
 
   @override
