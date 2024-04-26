@@ -17,7 +17,7 @@ abstract class CollectorSectorRepository {
 
   /// Delete a [CollectorSector] from database and return true if the deletion was successful
   Future<bool> deleteCollectorSector(
-    CollectorSector collectorSector,
+   String collectorSectorId,
   );
 
   /// Get a list of [CollectorSector] from database if any
