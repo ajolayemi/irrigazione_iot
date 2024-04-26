@@ -25,8 +25,14 @@ const processPumpStatusMessage = async (message) => {
         if (!pump) {
             throw new Error(`No pump matching the provided ${pumpName} was found in database`);
         }
+        // A check to ensure that the provided status matches either the pump's turn_on_command
+        // or turn_off_command
+        if (status !== pump.turn_on_command && status !== pump.turn_off_command) {
+            throw new Error(`The provided status ${status} does not match the pump's turn_on_command or turn_off_command`);
+        }
         // insert the pump status into the database
         const pumpStatus = {
+            status_boolean: pump.turn_on_command === status,
             created_at: new Date().toISOString(),
             pump_id: pump.id,
             status,

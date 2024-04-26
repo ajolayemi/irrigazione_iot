@@ -33,9 +33,22 @@ export const processSectorStatusMessage = async (
       );
     }
 
+    // A check to ensure that the provided status matches either the sector's turn_on_command
+    // or turn_off_command
+
+    if (
+      status !== sector.turn_on_command &&
+      status !== sector.turn_off_command
+    ) {
+      throw new Error(
+        `The provided status ${status} does not match the sector's turn_on_command or turn_off_command`
+      );
+    }
+
     // insert the sector status into the database
     // this is the status of the sector's pump
     const sectorStatus: TablesInsert<"sector_statuses"> = {
+      status_boolean: sector.turn_on_command === status,
       created_at: new Date().toISOString(),
       sector_id: sector.id,
       status,
