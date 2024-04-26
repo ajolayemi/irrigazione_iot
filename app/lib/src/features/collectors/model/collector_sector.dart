@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -43,4 +44,18 @@ class CollectorSector extends Equatable {
       _$CollectorSectorFromJson(json);
 
   Map<String, dynamic> toJson() => _$CollectorSectorToJson(this);
+
+  CollectorSector copyWith({
+    String? id,
+    String? collectorId,
+    String? sectorId,
+    DateTime? createdAt,
+  }) {
+    return CollectorSector(
+      id: id ?? this.id,
+      collectorId: collectorId ?? this.collectorId,
+      sectorId: sectorId ?? this.sectorId,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
 }
