@@ -1,9 +1,10 @@
-import 'package:irrigazione_iot/src/features/collectors/model/collector_database_keys.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector_pressure_database_keys.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/board-centraline/models/board_database_keys.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board_status_database_keys.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_database_keys.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_pressure_database_keys.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_sector_database_keys.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_database_keys.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user_database_keys.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump_database_keys.dart';
@@ -64,7 +65,19 @@ extension SupabaseClientExtensions on SupabaseClient {
   SupabaseStreamFilterBuilder get collectorStream =>
       collectors.stream(primaryKey: [CollectorDatabaseKeys.id]);
 
-  SupabaseQueryBuilder get collectorPressures => from(CollectorPressureDatabaseKeys.table);
+  SupabaseQueryBuilder get collectorPressures =>
+      from(CollectorPressureDatabaseKeys.table);
+
+  SupabaseQueryBuilder get collectorSectors => from(
+        CollectorSectorDatabaseKeys.table,
+      );
+
+  SupabaseStreamFilterBuilder get collectorSectorsStream =>
+      collectorSectors.stream(
+        primaryKey: [
+          CollectorSectorDatabaseKeys.id,
+        ],
+      );
 
   /// Getter for the current access token
   String? get accessToken => auth.currentSession?.accessToken;
