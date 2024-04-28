@@ -1,13 +1,11 @@
 import 'dart:async';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/board-centraline/data/supabase_board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
-import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'board_repository.g.dart';
@@ -91,17 +89,6 @@ Stream<Board?> boardStream(BoardStreamRef ref, {required String boardID}) {
   return boardRepository.watchBoardByBoardID(boardID: boardID);
 }
 
-/// Keeps track of the id of the collector that is connected to
-/// a [Board], it will have a value when user is updating
-final collectorConnectedToBoardProvider = StateProvider<String?>((ref) {
-  return null;
-});
-
-/// Keeps track of the the collector that user wants to connect
-/// to a [Board]
-final selectedCollectorProvider = StateProvider<RadioButtonItem?>((ref) {
-  return null;
-});
 
 /// gets a list of all collectors that are not yet connected
 /// to a [Board]
