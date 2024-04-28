@@ -224,5 +224,7 @@
   "itemHasFilter": "Dispone di un filtro?",
   "selectAPumpHintText": "seleziona una pompa...",
   "selectAVarietyPageTitle": "Seleziona una varietà",
-  "selectAnOptionHintText": "seleziona un'opzione..."
+  "selectAnOptionHintText": "seleziona un'opzione...",
+  "formGenericUpdateDialogContent": "Questa operazione sovrascriverà i dati esistenti per {fieldName} nel database",
+  "formGenericSaveDialogContent": "Stai per salvare i dati per {fieldName} nel database"
 }
