@@ -11,17 +11,17 @@ class Collector extends Equatable {
   const Collector({
     required this.id,
     required this.name,
-    required this.connectedFilterName,
     required this.companyId,
     required this.mqttMsgName,
     this.createdAt,
     this.updatedAt,
+    this.connectedFilterName,
   });
 
   const Collector.empty()
       : id = '',
         name = '',
-        connectedFilterName = '',
+        connectedFilterName = null,
         createdAt = null,
         updatedAt = null,
         companyId = '',
@@ -35,7 +35,7 @@ class Collector extends Equatable {
   final String name;
 
   @JsonKey(name: CollectorDatabaseKeys.connectedFilterName)
-  final String connectedFilterName;
+  final String? connectedFilterName;
 
   @JsonKey(name: CollectorDatabaseKeys.createdAt)
   final DateTime? createdAt;
