@@ -5,7 +5,6 @@ import 'package:irrigazione_iot/src/utils/string_validators.dart';
 /// To avoid mixin class dependency on BuildContext, the methods that retrieves error
 /// messages return the keys to access the said messages
 /// An extension on BuildContext is used to get the localized error messages
-// TODO: this validator should replace all other validators in the app
 mixin AppFormValidators {
   // A general non empty field validator
   final StringValidator nonEmptyValidator = NonEmptyStringValidator();
