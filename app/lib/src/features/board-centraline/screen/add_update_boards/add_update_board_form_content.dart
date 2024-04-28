@@ -51,14 +51,14 @@ class _AddUpdateBoardFormContentState
   final _modelController = TextEditingController();
   final _serialNumberController = TextEditingController();
   final _mqttMessageNameController = TextEditingController();
-  final _selectedCollectorController = TextEditingController();
+  final _connectedCollectorController = TextEditingController();
 
   // fields values
   String get _name => _nameController.text;
   String get _model => _modelController.text;
   String get _serialNumber => _serialNumberController.text;
   String get _mqttMsgName => _mqttMessageNameController.text;
-  String get _selectedCollector => _selectedCollectorController.text;
+  String get _connectedCollector => _connectedCollectorController.text;
 
   // Keys for testing
   static const _nameFieldKey = Key('boardNameField');
@@ -69,7 +69,11 @@ class _AddUpdateBoardFormContentState
 
   Board? _initialBoard = const Board.empty();
 
+  /// The id of the collector that is connected to the board
+  /// that is being updated.
   String? _connectedCollectorId;
+
+  RadioButtonItem? _selectedCollector;
 
   bool get _isUpdating => widget.formType.isUpdating;
 
@@ -90,7 +94,11 @@ class _AddUpdateBoardFormContentState
               board.collectorId,
             ))
             .valueOrNull;
-        _selectedCollectorController.text = selectedCollector?.name ?? '';
+        _selectedCollector = RadioButtonItem(
+          label: selectedCollector?.name ?? '',
+          value: selectedCollector?.id ?? '',
+        );
+        _connectedCollectorController.text = selectedCollector?.name ?? '';
         _connectedCollectorId = selectedCollector?.id;
       }
     }
@@ -103,7 +111,7 @@ class _AddUpdateBoardFormContentState
     _modelController.dispose();
     _serialNumberController.dispose();
     _mqttMessageNameController.dispose();
-    _selectedCollectorController.dispose();
+    _connectedCollectorController.dispose();
     _node.dispose();
     super.dispose();
   }
@@ -171,9 +179,10 @@ class _AddUpdateBoardFormContentState
 
   Future<void> _onTappedConnectedCollector() async {
     final queryParam = QueryParameters(
-      id: _connectedCollectorId,
-      name: _selectedCollector,
-    ).toJson();
+            id: _selectedCollector?.value,
+            name: _selectedCollector?.label,
+            previouslyConnectedId: _connectedCollectorId)
+        .toJson();
 
     final selectedCollector = await context.pushNamed<RadioButtonItem>(
       AppRoute.connectCollectorToBoard.name,
@@ -181,8 +190,8 @@ class _AddUpdateBoardFormContentState
     );
 
     if (selectedCollector != null) {
-      _selectedCollectorController.text = selectedCollector.label;
-      _connectedCollectorId = selectedCollector.value;
+      _connectedCollectorController.text = selectedCollector.label;
+      _selectedCollector = selectedCollector;
     }
   }
 
@@ -337,16 +346,16 @@ class _AddUpdateBoardFormContentState
                         fieldKey: _selectedCollectorFieldKey,
                         fieldTitle: loc.boardConnectedCollector,
                         fieldHintText: loc.selectAnOptionHintText,
-                        fieldController: _selectedCollectorController,
+                        fieldController: _connectedCollectorController,
                         canRequestFocus: false,
                         suffixIcon: CommonFormSuffixIcon(
                           onPressed: _onTappedConnectedCollector,
                         ),
                         onTap: _onTappedConnectedCollector,
-                        onEditingComplete: () =>
-                            _nonEmptyFieldsErrorText(value: _selectedCollector),
+                        onEditingComplete: () => _nonEmptyFieldsErrorText(
+                            value: _connectedCollector),
                         validator: (_) => _nonEmptyFieldsErrorText(
-                          value: _selectedCollector,
+                          value: _connectedCollector,
                         ),
                       ),
                     ],
