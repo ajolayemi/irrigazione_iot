@@ -103,4 +103,11 @@ class FakeBoardRepository implements BoardRepository {
           .toList(),
     );
   }
+  
+  @override
+  Stream<List<String>?> watchBoardsUsedMqttNames() {
+    return _streamBoards.map(
+      (boards) => boards.map((board) => board.mqttMsgName.toLowerCase()).toList(),
+    );
+  }
 }
