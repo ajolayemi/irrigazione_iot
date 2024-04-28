@@ -129,7 +129,7 @@ Stream<List<String?>> usedBoardNamesStream(UsedBoardNamesStreamRef ref) {
 }
 
 @riverpod
-Stream<List<String?>> usedMqttNamesStream(UsedMqttNamesStreamRef ref) {
+Stream<List<String?>> boardsUsedMqttNamesStream(BoardsUsedMqttNamesStreamRef ref) {
   final boardRepository = ref.watch(boardRepositoryProvider);
   return boardRepository.watchBoardsUsedMqttNames();
 }
