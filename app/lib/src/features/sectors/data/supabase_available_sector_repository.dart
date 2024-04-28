@@ -8,7 +8,10 @@ class SupabaseAvailableSectorRepository implements AvailableSectorRepository {
   final SupabaseClient _supabaseClient;
 
   @override
-  Stream<List<AvailableSector>?> watchAvailableSectors(String companyId) {
+  Stream<List<AvailableSector>?> watchAvailableSectors(
+    String companyId, {
+    List<AvailableSector>? sectorsAlreadyConnectedToCollector,
+  }) {
     final stream =
         _supabaseClient.from(AvailableSectorDatabaseKeys.table).stream(
       primaryKey: [AvailableSectorDatabaseKeys.id],
@@ -19,7 +22,9 @@ class SupabaseAvailableSectorRepository implements AvailableSectorRepository {
 
     return stream.map((data) {
       if (data.isEmpty) return null;
-      return data.map((e) => AvailableSector.fromJson(e)).toList();
+      final mappedData = data.map((e) => AvailableSector.fromJson(e)).toList();
+      if (sectorsAlreadyConnectedToCollector == null) return mappedData;
+      return [...mappedData, ...sectorsAlreadyConnectedToCollector];
     });
   }
 }
