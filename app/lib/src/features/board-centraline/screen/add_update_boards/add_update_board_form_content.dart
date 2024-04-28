@@ -91,23 +91,35 @@ class _AddUpdateBoardFormContentState
     super.dispose();
   }
 
-  void _nameEditingComplete() {
+  void _nameEditingComplete({
+    required List<String?> existingNames,
+    required String value,
+    required int maxLength,
+    String? initialValue,
+  }) {
     if (canSubmitFormNameFields(
-      value: _name,
-      maxLength: AppConstants.maxBoardNameLength,
-      initialValue: _initialBoard?.name,
+      value: value,
+      maxLength: maxLength,
+      initialValue: initialValue,
+      namesToCompareAgainst: existingNames,
     )) {
       _node.nextFocus();
     }
   }
 
-  String? _nameErrorText() {
+  String? _nameErrorText({
+    required List<String?> existingNames,
+    required String value,
+    required int maxLength,
+    String? initialValue,
+  }) {
     if (!_submitted) return null;
 
     final errorKey = getFormNameFieldErrorKey(
-      value: _name,
-      maxLength: AppConstants.maxBoardNameLength,
-      initialValue: _initialBoard?.name,
+      value: value,
+      maxLength: maxLength,
+      initialValue: initialValue,
+      namesToCompareAgainst: existingNames,
     );
 
     if (errorKey == null) return null;
@@ -245,13 +257,31 @@ class _AddUpdateBoardFormContentState
                     node: _node,
                     formKey: _formKey,
                     children: [
-                      FormTitleAndField(
-                        fieldKey: _nameFieldKey,
-                        fieldTitle: loc.boardName,
-                        fieldHintText: loc.boardNameHintText,
-                        fieldController: _nameController,
-                        onEditingComplete: _nameEditingComplete,
-                        validator: (_) => _nameErrorText(),
+                      Consumer(
+                        builder: (context, ref, child) {
+                          final boardUsedNames = ref
+                                  .watch(usedBoardNamesStreamProvider)
+                                  .valueOrNull ??
+                              [];
+                          return FormTitleAndField(
+                            fieldKey: _nameFieldKey,
+                            fieldTitle: loc.boardName,
+                            fieldHintText: loc.boardNameHintText,
+                            fieldController: _nameController,
+                            onEditingComplete: () => _nameEditingComplete(
+                              value: _name,
+                              existingNames: boardUsedNames,
+                              maxLength: AppConstants.maxBoardNameLength,
+                              initialValue: _initialBoard?.name,
+                            ),
+                            validator: (_) => _nameErrorText(
+                              value: _name,
+                              existingNames: boardUsedNames,
+                              maxLength: AppConstants.maxBoardNameLength,
+                              initialValue: _initialBoard?.name,
+                            ),
+                          );
+                        },
                       ),
                       gapH16,
                       FormTitleAndField(
