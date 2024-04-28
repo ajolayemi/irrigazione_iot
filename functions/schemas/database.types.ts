@@ -221,8 +221,8 @@ export type Database = {
       collectors: {
         Row: {
           company_id: number
-          connected_filter_name: string | null
           created_at: string
+          has_filter: boolean
           id: number
           mqtt_msg_name: string
           name: string
@@ -230,8 +230,8 @@ export type Database = {
         }
         Insert: {
           company_id: number
-          connected_filter_name?: string | null
           created_at?: string
+          has_filter: boolean
           id?: number
           mqtt_msg_name: string
           name: string
@@ -239,8 +239,8 @@ export type Database = {
         }
         Update: {
           company_id?: number
-          connected_filter_name?: string | null
           created_at?: string
+          has_filter?: boolean
           id?: number
           mqtt_msg_name?: string
           name?: string
@@ -789,8 +789,8 @@ export type Database = {
         }
         Returns: {
           company_id: number
-          connected_filter_name: string | null
           created_at: string
+          has_filter: boolean
           id: number
           mqtt_msg_name: string
           name: string
