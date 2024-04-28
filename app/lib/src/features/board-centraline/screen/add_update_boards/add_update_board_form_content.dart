@@ -159,39 +159,21 @@ class _AddUpdateBoardFormContentState
     );
   }
 
-  Future<bool> _checkUserIntention() async {
-    final loc = context.loc;
-    return await showAlertDialog(
-          context: context,
-          title: _isUpdating
-              ? loc.formGenericUpdateDialogTitle
-              : loc.formGenericSaveDialogTitle,
-          content: loc.formGenericSaveDialogContent(
-            loc.nBoards(1),
-          ),
-          defaultActionText: _isUpdating
-              ? loc.genericUpdateButtonLabel
-              : loc.genericSaveButtonLabel,
-          cancelActionText: loc.alertDialogCancel,
-        ) ??
-        false;
-  }
-
   Future<void> _submit() async {
     _node.unfocus();
     setState(() => _submitted = true);
 
     if (_formKey.currentState!.validate()) {
-      if (await _checkUserIntention()) {
+      if (await context.showSaveUpdateDialog(
+        isUpdating: _isUpdating,
+        what: context.loc.nBoards(1),
+      )) {
         final board = _initialBoard?.copyWith(
           name: _name,
           id: _initialBoard?.id,
           model: _model,
           serialNumber: _serialNumber,
-          companyId: _initialBoard
-              ?.companyId, // auto filled by service layer during creation
-          collectorId: _initialBoard
-              ?.collectorId, // auto filled by service layer during creation
+          mqttMsgName: _mqttMsgName,
         );
 
         bool success = false;
