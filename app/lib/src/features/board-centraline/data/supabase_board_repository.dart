@@ -121,7 +121,7 @@ class SupabaseBoardRepository implements BoardRepository {
   }
 
   @override
-  Stream<List<String>?> watchBoardsUsedMqttNames() {
+  Stream<List<String?>> watchBoardsUsedMqttNames() {
     return _supabaseClient.boards
         .stream(primaryKey: [BoardDatabaseKeys.id]).map(
       (boards) => boards
