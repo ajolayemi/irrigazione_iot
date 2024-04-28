@@ -111,30 +111,6 @@ Future<List<Collector>?> availableCollectorsFuture(
   return boardRepository.getAvailableCollectors(
       companyId: currentSelectedCompany.id,
       alreadyConnectedCollectorId: alreadyConnectedCollectorId);
-  // // Get a list of all collectors pertaining to a company
-  // final collectorsPertainingToACompany =
-  //     ref.watch(collectorListStreamProvider).valueOrNull;
-
-  // if (collectorsPertainingToACompany == null) return Stream.value([]);
-  // final collectorIdToOmit = ref.watch(collectorConnectedToBoardProvider);
-
-  // // get a list of all available [Board]s and filter out their connected
-  // // collector ids. This is so because we're assuming that each available
-  // // [Board] has a collector connected to it.
-  // // The collector id of the collector connected to a board is omitted in this phase
-  // final connectedCollectorIds = ref
-  //         .watch(boardListStreamProvider)
-  //         .valueOrNull
-  //         ?.where((board) => board?.collectorId != collectorIdToOmit)
-  //         .map((board) => board?.collectorId)
-  //         .toList() ??
-  //     [];
-
-  // final collectorsNotConnectedToABoard = collectorsPertainingToACompany
-  //     .where((collector) => !connectedCollectorIds.contains(collector?.id))
-  //     .toList();
-
-  // return Stream.value(collectorsNotConnectedToABoard);
 }
 
 @riverpod
