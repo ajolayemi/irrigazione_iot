@@ -20,7 +20,6 @@ import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
-import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 class AddUpdateBoardFormContent extends ConsumerStatefulWidget {
@@ -171,11 +170,7 @@ class _AddUpdateBoardFormContentState
     );
   }
 
-  void _popScreen() {
-    ref.read(collectorConnectedToBoardProvider.notifier).state = null;
-    ref.read(selectedCollectorProvider.notifier).state = null;
-    context.popNavigator();
-  }
+  void _popScreen() => context.popNavigator();
 
   Future<void> _onTappedConnectedCollector() async {
     final queryParam = QueryParameters(
@@ -216,11 +211,17 @@ class _AddUpdateBoardFormContentState
         if (_isUpdating) {
           success = await ref
               .read(addUpdateBoardControllerProvider.notifier)
-              .updateBoard(boardToUpdate: board!);
+              .updateBoard(
+                boardToUpdate: board,
+                collectorIdToConnect: _selectedCollector?.value,
+              );
         } else {
           success = await ref
               .read(addUpdateBoardControllerProvider.notifier)
-              .createBoard(boardToCreate: board!);
+              .createBoard(
+                boardToCreate: board,
+                collectorIdToConnect: _selectedCollector?.value,
+              );
         }
 
         if (success) {
@@ -236,12 +237,7 @@ class _AddUpdateBoardFormContentState
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(
-      addUpdateBoardControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
     final loc = context.loc;
-
     final state = ref.watch(addUpdateBoardControllerProvider);
     final isLoading = state.isLoading;
     return GestureDetector(
