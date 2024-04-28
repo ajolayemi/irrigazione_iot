@@ -437,12 +437,21 @@ GoRouter goRouter(GoRouterRef ref) {
             ),
           ),
           GoRoute(
-            path: 'connect-collector',
+            path: 'connect-collector-to-board',
             name: AppRoute.connectCollectorToBoard.name,
-            pageBuilder: (context, state) => const MaterialPage(
-              fullscreenDialog: true,
-              child: ConnectCollectorToBoardScreen(),
-            ),
+            pageBuilder: (context, state) {
+              final queryParams =
+                  QueryParameters.fromJson(state.uri.queryParameters);
+              return MaterialPage(
+                child: ConnectCollectorToBoardScreen(
+                  previouslyConnectedCollectorId:
+                      queryParams.previouslyConnectedId,
+                  selectedCollectorId: queryParams.id,
+                  selectedCollectorName: queryParams.name,
+                ),
+                fullscreenDialog: true,
+              );
+            },
           ),
         ],
       ),
