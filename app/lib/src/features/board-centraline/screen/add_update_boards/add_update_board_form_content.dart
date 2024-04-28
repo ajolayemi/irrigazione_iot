@@ -257,10 +257,9 @@ class _AddUpdateBoardFormContentState
                       // Board name field
                       Consumer(
                         builder: (context, ref, child) {
-                          final boardUsedNames = ref
-                                  .watch(usedBoardNamesStreamProvider)
-                                  .valueOrNull ??
-                              [];
+                          final boardUsedNames =
+                              ref.watch(usedBoardNamesStreamProvider);
+                          final value = boardUsedNames.valueOrNull ?? [];
                           return FormTitleAndField(
                             fieldKey: _nameFieldKey,
                             fieldTitle: loc.boardName,
@@ -268,13 +267,13 @@ class _AddUpdateBoardFormContentState
                             fieldController: _nameController,
                             onEditingComplete: () => _nameEditingComplete(
                               value: _name,
-                              existingNames: boardUsedNames,
+                              existingNames: value,
                               maxLength: AppConstants.maxBoardNameLength,
                               initialValue: _initialBoard?.name,
                             ),
                             validator: (_) => _nameErrorText(
                               value: _name,
-                              existingNames: boardUsedNames,
+                              existingNames: value,
                               maxLength: AppConstants.maxBoardNameLength,
                               initialValue: _initialBoard?.name,
                             ),
