@@ -91,7 +91,7 @@ class _AddUpdateBoardFormContentState
     super.dispose();
   }
 
-  void _boardNameEditingComplete() {
+  void _nameEditingComplete() {
     if (canSubmitFormNameFields(
       value: _name,
       maxLength: AppConstants.maxBoardNameLength,
@@ -101,7 +101,7 @@ class _AddUpdateBoardFormContentState
     }
   }
 
-  String? _boardNameFieldErrorText() {
+  String? _nameErrorText() {
     if (!_submitted) return null;
 
     final errorKey = getFormNameFieldErrorKey(
@@ -250,8 +250,8 @@ class _AddUpdateBoardFormContentState
                         fieldTitle: loc.boardName,
                         fieldHintText: loc.boardNameHintText,
                         fieldController: _nameController,
-                        onEditingComplete: _boardNameEditingComplete,
-                        validator: (_) => _boardNameFieldErrorText(),
+                        onEditingComplete: _nameEditingComplete,
+                        validator: (_) => _nameErrorText(),
                       ),
                       gapH16,
                       FormTitleAndField(
