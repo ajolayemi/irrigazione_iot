@@ -74,11 +74,7 @@ extension SupabaseClientExtensions on SupabaseClient {
 
   SupabaseStreamFilterBuilder get collectorSectorsStream =>
       collectorSectors.stream(
-        primaryKey: [
-          CollectorSectorDatabaseKeys.id,
-          CollectorSectorDatabaseKeys.collectorId,
-          CollectorSectorDatabaseKeys.sectorId,
-        ],
+        primaryKey: [CollectorSectorDatabaseKeys.id],
       );
 
   /// Getter for the current access token
