@@ -48,19 +48,22 @@ class _AddUpdateBoardFormContentState
   final _nameController = TextEditingController();
   final _modelController = TextEditingController();
   final _serialNumberController = TextEditingController();
+  final _mqttMessageNameController = TextEditingController();
 
   // fields values
   String get _name => _nameController.text;
   String get _model => _modelController.text;
   String get _serialNumber => _serialNumberController.text;
+  String get _mqttMsgName => _mqttMessageNameController.text;
 
   // Keys for testing
   static const _nameFieldKey = Key('boardNameField');
   static const _modelFieldKey = Key('boardModelField');
   static const _serialNumberFieldKey = Key('boardSerialNumberField');
   static const _collectorFieldKey = Key('boardCollectorField');
+  static const _mqttMsgNameFieldKey = Key('mqttMessageNameField');
 
-  Board? _initialBoard = Board.empty();
+  Board? _initialBoard = const Board.empty();
 
   bool get _isUpdating => widget.formType.isUpdating;
 
@@ -73,6 +76,7 @@ class _AddUpdateBoardFormContentState
       _nameController.text = _initialBoard?.name ?? '';
       _modelController.text = _initialBoard?.model ?? '';
       _serialNumberController.text = _initialBoard?.serialNumber ?? '';
+      _mqttMessageNameController.text = _initialBoard?.mqttMsgName ?? '';
     }
     super.initState();
   }
@@ -82,6 +86,7 @@ class _AddUpdateBoardFormContentState
     _nameController.dispose();
     _modelController.dispose();
     _serialNumberController.dispose();
+    _mqttMessageNameController.dispose();
     _node.dispose();
     super.dispose();
   }
