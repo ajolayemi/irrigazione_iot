@@ -20,12 +20,12 @@ class Sector extends Equatable {
     required this.irrigationSource,
     required this.turnOnCommand,
     required this.turnOffCommand,
-    required this.notes,
     required this.specieId,
     required this.varietyId,
     required this.companyId,
     required this.mqttMsgName,
     required this.hasFilter,
+    this.notes,
     this.createdAt,
     this.updatedAt,
   }) : totalConsumption = waterConsumptionPerHour * numOfPlants;
@@ -40,7 +40,7 @@ class Sector extends Equatable {
         irrigationSource = IrrigationSource.other,
         turnOnCommand = '',
         turnOffCommand = '',
-        notes = '',
+        notes = null,
         totalConsumption = 0,
         specieId = '',
         varietyId = '',
@@ -79,7 +79,7 @@ class Sector extends Equatable {
   final String turnOffCommand;
 
   @JsonKey(name: SectorDatabaseKeys.notes)
-  final String notes;
+  final String? notes;
 
   @JsonKey(name: SectorDatabaseKeys.totalConsumption)
   final double totalConsumption;
