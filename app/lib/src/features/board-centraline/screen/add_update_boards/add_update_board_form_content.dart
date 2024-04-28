@@ -10,7 +10,6 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_board_controller.dart';
-import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_form_suffix_icon.dart';
@@ -239,6 +238,7 @@ class _AddUpdateBoardFormContentState
                     node: _node,
                     formKey: _formKey,
                     children: [
+                      // Board name field
                       Consumer(
                         builder: (context, ref, child) {
                           final boardUsedNames = ref
@@ -266,6 +266,35 @@ class _AddUpdateBoardFormContentState
                         },
                       ),
                       gapH16,
+                      // Board mqtt message name field
+                      Consumer(
+                        builder: (context, ref, child) {
+                          final mqttMsgNames =
+                              ref.watch(boardsUsedMqttNamesStreamProvider);
+                          final value = mqttMsgNames.valueOrNull ?? [];
+
+                          return FormTitleAndField(
+                            fieldKey: _mqttMsgNameFieldKey,
+                            fieldTitle: loc.mqttMessageNameFormFieldTitle,
+                            fieldHintText: loc.mqttMessageNameFormHint,
+                            fieldController: _mqttMessageNameController,
+                            onEditingComplete: () => _nameEditingComplete(
+                              value: _mqttMsgName,
+                              existingNames: value,
+                              maxLength: AppConstants.maxMqttMessageNameLength,
+                              initialValue: _initialBoard?.mqttMsgName,
+                            ),
+                            validator: (_) => _nameErrorText(
+                              value: _mqttMsgName,
+                              existingNames: value,
+                              maxLength: AppConstants.maxMqttMessageNameLength,
+                              initialValue: _initialBoard?.mqttMsgName,
+                            ),
+                          );
+                        },
+                      ),
+                      gapH16,
+                      // Board model field
                       FormTitleAndField(
                         fieldKey: _modelFieldKey,
                         fieldTitle: loc.boardModel,
@@ -277,6 +306,7 @@ class _AddUpdateBoardFormContentState
                             _nonEmptyFieldsErrorText(value: _model),
                       ),
                       gapH16,
+                      // Board serial number field
                       FormTitleAndField(
                         fieldKey: _serialNumberFieldKey,
                         fieldTitle: loc.boardSerialNumber,
