@@ -9,7 +9,10 @@ class AddUpdateBoardController extends _$AddUpdateBoardController {
   @override
   FutureOr<void> build() {}
 
-  Future<bool> createBoard({required Board? boardToCreate}) async {
+  Future<bool> createBoard({
+    Board? boardToCreate,
+    String? collectorIdToConnect,
+  }) async {
     final boardService = ref.read(addUpdateBoardServiceProvider);
     state = const AsyncLoading();
     if (boardToCreate == null) {
@@ -19,12 +22,28 @@ class AddUpdateBoardController extends _$AddUpdateBoardController {
       );
       return Future.value(false);
     }
-    state =
-        await AsyncValue.guard(() => boardService.createBoard(boardToCreate));
+
+    if (collectorIdToConnect == null) {
+      state = AsyncError(
+        'no collector id provided for connection',
+        StackTrace.current,
+      );
+      return Future.value(false);
+    }
+
+    state = await AsyncValue.guard(
+      () => boardService.createBoard(
+        board: boardToCreate,
+        collectorIdToConnect: collectorIdToConnect,
+      ),
+    );
     return !state.hasError;
   }
 
-  Future<bool> updateBoard({required Board? boardToUpdate}) async {
+  Future<bool> updateBoard({
+   Board? boardToUpdate,
+    String? collectorIdToConnect,
+  }) async {
     final boardService = ref.read(addUpdateBoardServiceProvider);
     state = const AsyncLoading();
     if (boardToUpdate == null) {
@@ -35,8 +54,20 @@ class AddUpdateBoardController extends _$AddUpdateBoardController {
       return false;
     }
 
-    state =
-        await AsyncValue.guard(() => boardService.updateBoard(boardToUpdate));
+    if (collectorIdToConnect == null) {
+      state = AsyncError(
+        'no collector id provided for connection',
+        StackTrace.current,
+      );
+      return false;
+    }
+
+    state = await AsyncValue.guard(
+      () => boardService.updateBoard(
+        board: boardToUpdate,
+        collectorIdToConnect: collectorIdToConnect,
+      ),
+    );
     return !state.hasError;
   }
 }

@@ -14,7 +14,10 @@ class AddUpdateBoardService {
   );
   final Ref _ref;
 
-  Future<void> createBoard(Board board) async {
+  Future<void> createBoard({
+    required Board board,
+    required String collectorIdToConnect,
+  }) async {
     // the board argument that is provided as argument has no company
     // id, so we need to get it from somewhere else
 
@@ -35,28 +38,21 @@ class AddUpdateBoardService {
       return;
     }
 
-    // reference the state provider that tracks what collector user chose
-    // to connect to the board
-    final selectedCollector = _ref.read(selectedCollectorProvider);
-
-    // just in case non collector was selected, that shouldn't be the case though
-    // because the form validation logic already checks for that
-    if (selectedCollector == null) {
-      debugPrint('Exiting createBoard, selectedCollector is null');
-      return;
-    }
-
     // Reaching here means all necessary checks have been passed
     final createdBoard = await _ref.read(boardRepositoryProvider).createBoard(
-            board: board.copyWith(
-          companyId: companyId,
-          collectorId: selectedCollector.value,
-        ));
+          board: board.copyWith(
+            companyId: companyId,
+            collectorId: collectorIdToConnect,
+          ),
+        );
 
     debugPrint('created board: ${createdBoard?.toJson()}');
   }
 
-  Future<void> updateBoard(Board board) async {
+  Future<void> updateBoard({
+    required Board board,
+    required String collectorIdToConnect,
+  }) async {
     // The only check to perform here is to make sure that who reaches
     // here is a logged in user, that is so because an updated board
     // should have all the necessary information attached already from the form
@@ -66,7 +62,9 @@ class AddUpdateBoardService {
       return;
     }
     final updatedBoard = await _ref.read(boardRepositoryProvider).updateBoard(
-          board: board,
+          board: board.copyWith(
+            collectorId: collectorIdToConnect,
+          ),
         );
 
     debugPrint('updated board: ${updatedBoard?.toJson()}');
