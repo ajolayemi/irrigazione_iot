@@ -29,6 +29,9 @@ abstract class CollectorRepository {
   /// this is used in form validation to prevent duplicate collector names for a company
   Stream<List<String?>> watchCompanyUsedCollectorNames(String companyId);
 
+  /// emits list of already used mqtt message names
+  /// this is used in form validation to prevent duplicate mqtt message names for collectors
+  Stream<List<String?>> watchCollectorUsedMqttMessageNames();
 }
 
 @Riverpod(keepAlive: true)
@@ -45,8 +48,6 @@ Stream<List<Collector?>> collectorListStream(CollectorListStreamRef ref) {
   return collectorRepository.watchCollectors(companyId);
 }
 
-
-
 @riverpod
 Stream<List<String?>> usedCollectorNamesStream(
     UsedCollectorNamesStreamRef ref) {
@@ -61,4 +62,11 @@ Stream<List<String?>> usedCollectorNamesStream(
 Stream<Collector?> collectorStream(CollectorStreamRef ref, String collectorId) {
   final collectorRepository = ref.watch(collectorRepositoryProvider);
   return collectorRepository.watchCollector(collectorId);
+}
+
+@riverpod
+Stream<List<String?>> collectorUsedMqttMessageNamesStream(
+    CollectorUsedMqttMessageNamesStreamRef ref) {
+  final collectorRepository = ref.read(collectorRepositoryProvider);
+  return collectorRepository.watchCollectorUsedMqttMessageNames();
 }

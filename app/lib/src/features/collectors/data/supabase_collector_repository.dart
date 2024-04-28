@@ -84,4 +84,14 @@ class SupabaseCollectorRepository implements CollectorRepository {
         .eq(CollectorDatabaseKeys.companyId, companyId);
     return stream.map(_collectorFromJsonList);
   }
+
+  @override
+  Stream<List<String?>> watchCollectorUsedMqttMessageNames() {
+    return _supabaseClient.collectorStream.map((collectors) => collectors
+        .map(
+          (collector) =>
+              Collector.fromJson(collector).mqttMsgName.toLowerCase(),
+        )
+        .toList());
+  }
 }

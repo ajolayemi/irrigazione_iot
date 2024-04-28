@@ -24,8 +24,6 @@ class CollectorDetailsScreen extends ConsumerWidget {
       required BuildContext context,
       required List<CollectorSector?> connectedSectors}) {
     final sectorIds = connectedSectors.map((e) => e?.sectorId).toList();
-    ref.read(sectorIdsOfCollectorBeingEditedProvider.notifier).state =
-        sectorIds;
     ref.read(selectedSectorsIdProvider.notifier).state = sectorIds;
     context.pushNamed(
       AppRoute.updateCollector.name,

@@ -21,12 +21,12 @@ class CollectorDetailsScreenContents extends ConsumerWidget {
     return SliverList(
         delegate: SliverChildListDelegate.fixed(
       [
-        ResponsiveDetailsCard(
-          child: DetailTileWidget(
-            title: loc.collectorFilterName,
-            subtitle: collector.connectedFilterName,
-          ),
-        ),
+        // ResponsiveDetailsCard(
+        //   child: DetailTileWidget(
+        //     title: loc.collectorFilterName,
+        //     subtitle: collector.connectedFilterName,
+        //   ),
+        // ),
         ResponsiveDetailsCard(child: Consumer(
           builder: (context, ref, child) {
             final connectedSectors = ref

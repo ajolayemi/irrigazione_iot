@@ -6,7 +6,9 @@ import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/connect_sectors_to_collector_controller.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/available_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/available_sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/widgets/empty_sector_widget.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
@@ -18,26 +20,17 @@ import 'package:irrigazione_iot/src/shared/widgets/responsive_checkbox_tile.dart
 import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indicator.dart';
 
 class ConnectSectorsToCollector extends ConsumerWidget {
-  const ConnectSectorsToCollector({
-    super.key,
-  });
+  const ConnectSectorsToCollector({super.key, this.idOfCollectorBeingEdited});
 
-  void _onSelectionChanged({
-    required bool value,
-    required String sectorId,
-    required WidgetRef ref,
-  }) {
-    ref
-        .read(connectSectorsToCollectorControllerProvider.notifier)
-        .handleSelection(value: value, sectorId: sectorId);
-  }
+  final String? idOfCollectorBeingEdited;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final availableSectors =
-        ref.watch(sectorsNotConnectedToACollectorStreamProvider);
-    final selectedSectorsId = ref.watch(selectedSectorsIdProvider);
+    final availableSectors = ref.watch(availableSectorsStreamProvider(
+      collectorId: idOfCollectorBeingEdited,
+    ));
+    print(availableSectors);
     return Scaffold(
       body: PaddedSafeArea(
           child: Column(
@@ -56,17 +49,17 @@ class ConnectSectorsToCollector extends ConsumerWidget {
                 ),
                 AsyncValueSliverWidget(
                   value: availableSectors,
-                  data: (sectors) {
-                    if (sectors.isEmpty) {
+                  data: (data) {
+                    if (data == null) {
                       return Consumer(
                         builder: (context, ref, child) {
-                          final companyGenerallyHasSectors = ref
-                                  .watch(sectorListStreamProvider)
-                                  .valueOrNull
-                                  ?.isNotEmpty ??
+                          final companyGenerallyHasSectors =
+                              ref.watch(sectorListStreamProvider);
+                          final itDoes = companyGenerallyHasSectors
+                                  .valueOrNull?.isNotEmpty ??
                               false;
                           return EmptySectorWidget(
-                            alternativeMessage: companyGenerallyHasSectors
+                            alternativeMessage: itDoes
                                 ? loc.allSectorsAreConnectedToACollector
                                 : null,
                           );
@@ -78,20 +71,12 @@ class ConnectSectorsToCollector extends ConsumerWidget {
                     return SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
-                          final sector = sectors[index]!;
-                          final sectorIsSelected =
-                              selectedSectorsId.contains(sector.id);
-                          return ResponsiveCheckboxTile(
-                            title: sector.name,
-                            value: sectorIsSelected,
-                            onChanged: (value) => _onSelectionChanged(
-                              value: value ?? false,
-                              sectorId: sector.id,
-                              ref: ref,
-                            ),
+                          final availableSector = data[index];
+                          return ConnectSectorsToCollectorCheckboxItem(
+                            availableSector: availableSector,
                           );
                         },
-                        childCount: sectors.length,
+                        childCount: data.length,
                       ),
                     );
                   },
@@ -112,6 +97,46 @@ class ConnectSectorsToCollector extends ConsumerWidget {
           gapH32,
         ],
       )),
+    );
+  }
+}
+
+class ConnectSectorsToCollectorCheckboxItem extends ConsumerWidget {
+  const ConnectSectorsToCollectorCheckboxItem({
+    super.key,
+    required this.availableSector,
+  });
+
+  final AvailableSector availableSector;
+
+  void _onSelectionChanged({
+    required bool value,
+    required String sectorId,
+    required WidgetRef ref,
+  }) {
+    ref
+        .read(connectSectorsToCollectorControllerProvider.notifier)
+        .handleSelection(value: value, sectorId: sectorId);
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final sector =
+        ref.watch(sectorStreamProvider(availableSector.sectorId)).valueOrNull;
+    final selectedSectorsId = ref.watch(selectedSectorsIdProvider);
+    final sectorIsSelected = selectedSectorsId.contains(sector?.id);
+
+    if (sector == null) {
+      return const SizedBox();
+    }
+    return ResponsiveCheckboxTile(
+      title: sector.name,
+      value: sectorIsSelected,
+      onChanged: (value) => _onSelectionChanged(
+        value: value ?? false,
+        sectorId: sector.id,
+        ref: ref,
+      ),
     );
   }
 }

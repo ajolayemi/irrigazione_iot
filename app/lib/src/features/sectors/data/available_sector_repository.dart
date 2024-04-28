@@ -42,7 +42,6 @@ Stream<List<AvailableSector>?> availableSectorsStream(
         collectorSectorsStreamProvider(collectorId),
       )
       .valueOrNull;
-
   List<AvailableSector>? toAvailableSectors = sectorsAlreadyConnectedToCollector
       ?.map((e) => AvailableSector(
             sectorId: e!.sectorId,

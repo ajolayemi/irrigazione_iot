@@ -21,7 +21,7 @@ class SupabaseAvailableSectorRepository implements AvailableSectorRepository {
     );
 
     return stream.map((data) {
-      if (data.isEmpty) return null;
+      if (data.isEmpty) return sectorsAlreadyConnectedToCollector;
       final mappedData = data.map((e) => AvailableSector.fromJson(e)).toList();
       if (sectorsAlreadyConnectedToCollector == null) return mappedData;
       return [...mappedData, ...sectorsAlreadyConnectedToCollector];

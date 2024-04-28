@@ -20,7 +20,6 @@ class EmptyCollectorWidget extends ConsumerWidget {
     required BuildContext context,
     required WidgetRef ref,
   }) {
-    ref.read(sectorIdsOfCollectorBeingEditedProvider.notifier).state = [];
     ref.read(selectedSectorsIdProvider.notifier).state = [];
     context.pushNamed(
       AppRoute.addCollector.name,

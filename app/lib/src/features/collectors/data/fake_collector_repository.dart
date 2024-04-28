@@ -99,4 +99,13 @@ class FakeCollectorRepository implements CollectorRepository {
           .toList(),
     );
   }
+  
+  @override
+  Stream<List<String?>> watchCollectorUsedMqttMessageNames() {
+    return stream.map(
+      (collectors) => collectors
+          .map((collector) => collector.mqttMsgName.toLowerCase())
+          .toList(),
+    );
+  }
 }

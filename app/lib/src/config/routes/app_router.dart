@@ -392,10 +392,17 @@ GoRouter goRouter(GoRouterRef ref) {
       GoRoute(
         path: '/connect-sectors-to-collector',
         name: AppRoute.connectSectorToCollector.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: ConnectSectorsToCollector(),
-        ),
+        pageBuilder: (context, state) {
+          final queryParams = QueryParameters.fromJson(
+            state.uri.queryParameters,
+          );
+          return MaterialPage(
+            fullscreenDialog: true,
+            child: ConnectSectorsToCollector(
+              idOfCollectorBeingEdited: queryParams.id,
+            ),
+          );
+        },
       ),
 
       /// Board (centraline) routes and it's sub-routes

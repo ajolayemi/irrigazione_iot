@@ -4,6 +4,7 @@ import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_controller.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_form_contents.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 
 class AddUpdateCollectorForm extends ConsumerWidget {
   const AddUpdateCollectorForm({
@@ -16,6 +17,12 @@ class AddUpdateCollectorForm extends ConsumerWidget {
   final String? collectorId;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // listen to controller state and show alert dialog should any error
+    // occur
+    ref.listen(
+      addUpdateCollectorControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
     final isLoading = ref.watch(addUpdateCollectorControllerProvider).isLoading;
     return PopScope(
       canPop: !isLoading,

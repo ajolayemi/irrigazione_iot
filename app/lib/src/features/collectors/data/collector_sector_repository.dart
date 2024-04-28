@@ -5,7 +5,6 @@ import 'package:irrigazione_iot/src/features/collectors/data/supabase_collector_
 import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'collector_sector_repository.g.dart';
@@ -48,50 +47,6 @@ Future<List<CollectorSector?>> collectorSectorsFuture(
   return collectorSectorRepo.getCollectorSectorsById(collectorId);
 }
 
-final sectorIdsOfCollectorBeingEditedProvider =
-    StateProvider<List<String?>>((ref) {
-  return [];
-});
-
-// TODO this should be completely refactored
-// TODO: the logic to get the sectors that aren't connected to a collector
-// TODO: should either be moved to a different repositoryt that can access the list of available
-// TODO: sectors and collectors for a company and then return the sectors that aren't connected to a collector
-/// A provider to keep track of all sectors that aren't connected to a collector
-@riverpod
-Stream<List<Sector?>> sectorsNotConnectedToACollectorStream(
-  SectorsNotConnectedToACollectorStreamRef ref,
-) {
-  // get a list of all sectors that a company has
-  final sectorsPertainingToCompany =
-      ref.watch(sectorListStreamProvider).valueOrNull;
-
-  if (sectorsPertainingToCompany == null) return Stream.value([]);
-
-  // // get a list of all sectors that are connected to a collector and
-  // // belongs to a certain company
-  // final collectorSectorsPertainingToCompany =
-  //     ref.watch(collectorSectorsByCompanyStreamProvider).valueOrNull;
-  // if (collectorSectorsPertainingToCompany == null) return Stream.value([]);
-
-  // final sectorIdsToOmit = ref.watch(sectorIdsOfCollectorBeingEditedProvider);
-  // // when user is updating a collector, this check shouldn't be done on the sectors connected to the
-  // // collector being updated, this is to make sure that the sectors can still be selected or deselected
-  // final collectorSectorsToProcess = collectorSectorsPertainingToCompany
-  //     .where((collectorSector) =>        !sectorIdsToOmit.contains(collectorSector?.sectorId))
-  //     .toList();
-
-  // // get the ids of the sectors that are connected to a collector
-  // final connectedSectorIds = collectorSectorsToProcess
-  //     .map((collectorSector) => collectorSector!.sectorId)
-  //     .toList();
-
-  // // get the sectors that aren't connected to a collector
-  // final sectorsNotConnectedToACollector = sectorsPertainingToCompany
-  //     .where((sector) => !connectedSectorIds.contains(sector!.id))
-  //     .toList();
-  return Stream.value(sectorsPertainingToCompany);
-}
 
 // Keeps track of the ids of the [Sector]s selected to be connected to the [Collector]
 final selectedSectorsIdProvider = StateProvider<List<String?>>((ref) {
