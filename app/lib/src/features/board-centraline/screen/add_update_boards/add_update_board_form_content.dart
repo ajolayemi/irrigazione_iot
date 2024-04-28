@@ -10,6 +10,9 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_board_controller.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
+import 'package:irrigazione_iot/src/shared/models/query_params.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_form_suffix_icon.dart';
@@ -48,21 +51,25 @@ class _AddUpdateBoardFormContentState
   final _modelController = TextEditingController();
   final _serialNumberController = TextEditingController();
   final _mqttMessageNameController = TextEditingController();
+  final _selectedCollectorController = TextEditingController();
 
   // fields values
   String get _name => _nameController.text;
   String get _model => _modelController.text;
   String get _serialNumber => _serialNumberController.text;
   String get _mqttMsgName => _mqttMessageNameController.text;
+  String get _selectedCollector => _selectedCollectorController.text;
 
   // Keys for testing
   static const _nameFieldKey = Key('boardNameField');
   static const _modelFieldKey = Key('boardModelField');
   static const _serialNumberFieldKey = Key('boardSerialNumberField');
-  static const _collectorFieldKey = Key('boardCollectorField');
   static const _mqttMsgNameFieldKey = Key('mqttMessageNameField');
+  static const _selectedCollectorFieldKey = Key('boardSelectedCollectorField');
 
   Board? _initialBoard = const Board.empty();
+
+  String? _connectedCollectorId;
 
   bool get _isUpdating => widget.formType.isUpdating;
 
@@ -76,6 +83,16 @@ class _AddUpdateBoardFormContentState
       _modelController.text = _initialBoard?.model ?? '';
       _serialNumberController.text = _initialBoard?.serialNumber ?? '';
       _mqttMessageNameController.text = _initialBoard?.mqttMsgName ?? '';
+
+      if (board != null) {
+        final selectedCollector = ref
+            .read(collectorStreamProvider(
+              board.collectorId,
+            ))
+            .valueOrNull;
+        _selectedCollectorController.text = selectedCollector?.name ?? '';
+        _connectedCollectorId = selectedCollector?.id;
+      }
     }
     super.initState();
   }
@@ -86,6 +103,7 @@ class _AddUpdateBoardFormContentState
     _modelController.dispose();
     _serialNumberController.dispose();
     _mqttMessageNameController.dispose();
+    _selectedCollectorController.dispose();
     _node.dispose();
     super.dispose();
   }
@@ -145,29 +163,27 @@ class _AddUpdateBoardFormContentState
     );
   }
 
-  void _collectorSelectionEditingComplete({required String value}) {
-    if (canSubmitCollectorField(value: value)) {
-      _node.nextFocus();
-    }
-  }
-
-  String? _collectorSelectionErrorText({required String value}) {
-    if (!_submitted) return null;
-    return context.getLocalizedErrorText(
-      errorKey: getCollectorFieldErrorKey(value: value),
-    );
-  }
-  
   void _popScreen() {
     ref.read(collectorConnectedToBoardProvider.notifier).state = null;
     ref.read(selectedCollectorProvider.notifier).state = null;
     context.popNavigator();
   }
 
-  void _onTappedConnectedCollector() {
-    context.pushNamed<String>(
+  Future<void> _onTappedConnectedCollector() async {
+    final queryParam = QueryParameters(
+      id: _connectedCollectorId,
+      name: _selectedCollector,
+    ).toJson();
+
+    final selectedCollector = await context.pushNamed<RadioButtonItem>(
       AppRoute.connectCollectorToBoard.name,
+      queryParameters: queryParam,
     );
+
+    if (selectedCollector != null) {
+      _selectedCollectorController.text = selectedCollector.label;
+      _connectedCollectorId = selectedCollector.value;
+    }
   }
 
   Future<void> _submit() async {
@@ -208,7 +224,6 @@ class _AddUpdateBoardFormContentState
       }
     } else {}
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -319,30 +334,21 @@ class _AddUpdateBoardFormContentState
                             _nonEmptyFieldsErrorText(value: _serialNumber),
                       ),
                       gapH16,
-                      Consumer(
-                        builder: (context, ref, child) {
-                          final selectedCollector =
-                              ref.watch(selectedCollectorProvider);
-                          return FormTitleAndField(
-                            fieldKey: _collectorFieldKey,
-                            fieldTitle: loc.boardConnectedCollector,
-                            fieldHintText: selectedCollector == null
-                                ? loc.boardConnectedCollectorHintText
-                                : loc.nSelectedCollectors(1),
-                            canRequestFocus: false,
-                            suffixIcon: CommonFormSuffixIcon(
-                              onPressed: _onTappedConnectedCollector,
-                            ),
-                            onTap: _onTappedConnectedCollector,
-                            onEditingComplete: () =>
-                                _collectorSelectionEditingComplete(
-                              value: selectedCollector?.value ?? '',
-                            ),
-                            validator: (_) => _collectorSelectionErrorText(
-                              value: selectedCollector?.value ?? '',
-                            ),
-                          );
-                        },
+                      FormTitleAndField(
+                        fieldKey: _selectedCollectorFieldKey,
+                        fieldTitle: loc.boardConnectedCollector,
+                        fieldHintText: loc.selectAnOptionHintText,
+                        fieldController: _selectedCollectorController,
+                        canRequestFocus: false,
+                        suffixIcon: CommonFormSuffixIcon(
+                          onPressed: _onTappedConnectedCollector,
+                        ),
+                        onTap: _onTappedConnectedCollector,
+                        onEditingComplete: () =>
+                            _nonEmptyFieldsErrorText(value: _selectedCollector),
+                        validator: (_) => _nonEmptyFieldsErrorText(
+                          value: _selectedCollector,
+                        ),
                       ),
                     ],
                   ),
