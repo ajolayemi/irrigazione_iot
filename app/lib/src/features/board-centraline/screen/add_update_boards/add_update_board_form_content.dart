@@ -157,6 +157,18 @@ class _AddUpdateBoardFormContentState
       errorKey: getCollectorFieldErrorKey(value: value),
     );
   }
+  
+  void _popScreen() {
+    ref.read(collectorConnectedToBoardProvider.notifier).state = null;
+    ref.read(selectedCollectorProvider.notifier).state = null;
+    context.popNavigator();
+  }
+
+  void _onTappedConnectedCollector() {
+    context.pushNamed<String>(
+      AppRoute.connectCollectorToBoard.name,
+    );
+  }
 
   Future<void> _submit() async {
     _node.unfocus();
@@ -197,17 +209,6 @@ class _AddUpdateBoardFormContentState
     } else {}
   }
 
-  void _popScreen() {
-    ref.read(collectorConnectedToBoardProvider.notifier).state = null;
-    ref.read(selectedCollectorProvider.notifier).state = null;
-    context.popNavigator();
-  }
-
-  void _onTappedConnectedCollector() {
-    context.pushNamed<String>(
-      AppRoute.connectCollectorToBoard.name,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
