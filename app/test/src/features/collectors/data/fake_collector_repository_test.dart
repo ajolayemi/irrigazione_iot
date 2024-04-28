@@ -13,7 +13,7 @@ void main() {
 
   final collectorToAdd = const Collector.empty().copyWith(
     name: "testCollector",
-    connectedFilterName: "testFilter",
+   
   );
 
   final expectedCollectorAfterAddition = collectorToAdd.copyWith(
@@ -21,7 +21,7 @@ void main() {
   );
 
   final expectedResultAfterUpdate = expectedCollector.copyWith(
-    connectedFilterName: "testFilterUpdated",
+    name: 'updatedName',
   );
 
   late FakeCollectorRepository fakeCollectorRepository;
