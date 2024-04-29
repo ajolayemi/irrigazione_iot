@@ -62,10 +62,13 @@ extension BuildContextExtensions on BuildContext {
   }
 
   // Dialog to show with options to assign roles to user
-  Future<String?> showAssignRoleDialog(String currentAssignedRole) async {
+  Future<RadioButtonItem?> showAssignRoleDialog(String currentAssignedRole) async {
     final roles = [...CompanyUserRoles.values];
-    roles.removeWhere((role) => role == CompanyUserRoles.owner);
-    return await showAdaptiveDialog<String>(
+    roles.removeWhere(
+      (role) =>
+          role == CompanyUserRoles.owner || role == CompanyUserRoles.superuser,
+    );
+    return await showAdaptiveDialog<RadioButtonItem>(
       context: this,
       builder: (context) {
         return AlertDialog(
@@ -83,7 +86,7 @@ extension BuildContextExtensions on BuildContext {
                   value: currentAssignedRole,
                   label: currentAssignedRole,
                 ),
-                onChanged: (value) => popNavigator(value),
+                onChanged: (value) => popNavigator<RadioButtonItem>(value),
               );
             }).toList(),
           ),

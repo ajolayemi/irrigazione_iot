@@ -179,7 +179,7 @@ class _AddUpdateCompanyUserFormContentsState
   void _onTapAssignRole() async {
     final role = await context.showAssignRoleDialog(_role);
     if (role != null) {
-      _roleController.text = role;
+      _roleController.text = role.label;
     }
   }
 
