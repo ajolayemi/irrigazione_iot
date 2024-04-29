@@ -30,7 +30,6 @@ class ConnectSectorsToCollector extends ConsumerWidget {
     final availableSectors = ref.watch(availableSectorsStreamProvider(
       collectorId: idOfCollectorBeingEdited,
     ));
-    print(availableSectors);
     return Scaffold(
       body: PaddedSafeArea(
           child: Column(
