@@ -522,8 +522,8 @@
   "companyUserAssignedRoleForDetails": "Assigned Role",
   "companyUserAddedOn": "Added on",
   "companyUserLastUpdated": "Last updated",
-  "addNewCompanyUserPageTitle": "New Company User",
-  "updateCompanyUserPageTitle": "Update Company User",
+  "addNewCompanyUserPageTitle": "New User",
+  "updateCompanyUserPageTitle": "Update User",
   "emailAlreadyInUseErrorText": "This email is already in use",
   "nCompanyUsers": "{n, plural, =1{company user} =2{company users} other{company users}}",
   "@nCompanyUsers": {
