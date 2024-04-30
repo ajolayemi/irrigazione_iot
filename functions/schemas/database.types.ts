@@ -263,6 +263,7 @@ export type Database = {
           email: string
           id: number
           image_url: string | null
+          mqtt_topic_name: string
           name: string
           phone_number: string
           piva: string | null
@@ -275,6 +276,7 @@ export type Database = {
           email: string
           id?: number
           image_url?: string | null
+          mqtt_topic_name: string
           name: string
           phone_number: string
           piva?: string | null
@@ -287,6 +289,7 @@ export type Database = {
           email?: string
           id?: number
           image_url?: string | null
+          mqtt_topic_name?: string
           name?: string
           phone_number?: string
           piva?: string | null
