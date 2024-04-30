@@ -18,6 +18,7 @@ class Company extends Equatable {
     required this.phoneNumber,
     required this.email,
     required this.imageUrl,
+    required this.mqttTopicName,
     this.createdAt,
     this.updatedAt,
     this.vatNumber = '',
@@ -25,30 +26,39 @@ class Company extends Equatable {
   });
 
   // Unique identifier for the company from the database
-  @JsonKey(
-    name: CompanyDatabaseKeys.id,
-    includeToJson: false,
-  )
+  @JsonKey(name: CompanyDatabaseKeys.id, includeToJson: false)
   @IntConverter()
   final String id;
+
   @JsonKey(name: CompanyDatabaseKeys.name)
   final String name;
+
   @JsonKey(name: CompanyDatabaseKeys.registeredOfficeAddress)
   final String registeredOfficeAddress;
+
   @JsonKey(name: CompanyDatabaseKeys.phoneNumber)
   final String phoneNumber;
+
   @JsonKey(name: CompanyDatabaseKeys.email)
   final String email;
+
   @JsonKey(name: CompanyDatabaseKeys.imageUrl)
   final String imageUrl;
+
   @JsonKey(name: CompanyDatabaseKeys.createdAt)
   final DateTime? createdAt;
+
   @JsonKey(name: CompanyDatabaseKeys.updatedAt)
   final DateTime? updatedAt;
+
   @JsonKey(name: CompanyDatabaseKeys.piva)
   final String? vatNumber;
+
   @JsonKey(name: CompanyDatabaseKeys.cf)
   final String? fiscalCode;
+
+  @JsonKey(name: CompanyDatabaseKeys.mqttTopicName)
+  final String mqttTopicName;
 
   @override
   List<Object?> get props {
@@ -63,6 +73,7 @@ class Company extends Equatable {
       fiscalCode,
       createdAt,
       updatedAt,
+      mqttTopicName
     ];
   }
 
@@ -77,10 +88,12 @@ class Company extends Equatable {
     String? fiscalCode,
     DateTime? createdAt,
     DateTime? updatedAt,
+    String? mqttTopicName,
   }) {
     return Company(
       id: id ?? this.id,
       name: name ?? this.name,
+      mqttTopicName: mqttTopicName ?? this.mqttTopicName,
       registeredOfficeAddress:
           registeredOfficeAddress ?? this.registeredOfficeAddress,
       phoneNumber: phoneNumber ?? this.phoneNumber,
