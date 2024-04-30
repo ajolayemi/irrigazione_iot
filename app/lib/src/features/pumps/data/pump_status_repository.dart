@@ -12,11 +12,9 @@ abstract class PumpStatusRepository {
   /// The real pump status is a string value that will be converted to a boolean value
   Stream<bool?> watchPumpStatus(String pumpId);
 
-  /// Toggles the status of the pump with the provided [pumpId]
+  /// Toggles the status of a pump
   Future<void> togglePumpStatus({
-    required String pumpId,
-   required FirebaseCallableFunctionBody statusBody,
-    required bool statusBoolean,
+    required FirebaseCallableFunctionBody statusBody,
   });
 }
 

@@ -35,13 +35,11 @@ class FakePumpStatusRepository extends PumpStatusRepository {
 
   @override
   Future<void> togglePumpStatus({
-    required String pumpId,
     required FirebaseCallableFunctionBody statusBody,
-    required bool statusBoolean,
   }) async {
     await delay(addDelay);
 
-    final pump = kFakePumps.firstWhere((element) => element.id == pumpId);
+    final pump = kFakePumps.firstWhere((element) => element.id == "1");
     // First get the current statuses data for all pumps
     final pumpStatuses = _fakePumpStatus.value;
 
@@ -55,7 +53,7 @@ class FakePumpStatusRepository extends PumpStatusRepository {
         status: statusBody.message,
         createdAt: DateTime.now(),
         pumpId: pump.id,
-        statusBoolean: statusBoolean,
+        statusBoolean: false,
       ),
     );
     _fakePumpStatus.value = pumpStatuses;

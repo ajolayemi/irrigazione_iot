@@ -18,8 +18,6 @@ class SupabasePumpStatusRepository implements PumpStatusRepository {
 
   @override
   Future<void> togglePumpStatus({
-    required String pumpId,
-    required bool statusBoolean,
     required FirebaseCallableFunctionBody statusBody,
   }) =>
       _firebaseFunctions

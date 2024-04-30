@@ -48,8 +48,6 @@ class PumpStatusService {
       message: statusCommand,
     );
     await pumpStatusRepo.togglePumpStatus(
-        pumpId: pump.id,
-        statusBoolean: status,
         statusBody: body
       );
   }
