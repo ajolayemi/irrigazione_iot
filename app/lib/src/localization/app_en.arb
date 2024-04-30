@@ -576,5 +576,7 @@
   "itemHasFilter": "Has a filter connected?",
   "selectAPumpHintText": "select a pump...",
   "selectAVarietyPageTitle": "Select a variety",
-  "selectAnOptionHintText": "select an option..."
+  "selectAnOptionHintText": "select an option...",
+  "mqttTopicNameFormFieldTitle": "Name in MQTT topic",
+  "mqttTopicNameFormHint": "alias name in mqtt topic..."
 }
