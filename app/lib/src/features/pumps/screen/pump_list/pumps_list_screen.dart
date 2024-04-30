@@ -9,7 +9,7 @@ import 'package:irrigazione_iot/src/features/pumps/screen/dismiss_pump_controlle
 import 'package:irrigazione_iot/src/features/pumps/screen/empty_pump_widget.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_list_tile.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_list_tile_skeleton.dart';
-import 'package:irrigazione_iot/src/features/pumps/screen/pump_status_switch_controller.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_status_controller.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_bar_icon_buttons.dart';
@@ -27,7 +27,7 @@ class PumpListScreen extends ConsumerWidget {
       (_, state) => state.showAlertDialogOnError(context),
     );
     ref.listen(
-      pumpStatusSwitchControllerProvider,
+      pumpStatusControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
     final canEdit = ref.watch(companyUserRoleProvider).valueOrNull?.canEdit;

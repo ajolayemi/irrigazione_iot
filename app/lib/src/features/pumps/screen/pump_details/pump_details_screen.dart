@@ -7,7 +7,7 @@ import 'package:irrigazione_iot/src/features/company_users/data/company_users_re
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_details/pump_details_list.dart';
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_details/pump_details_list_skeleton.dart';
-import 'package:irrigazione_iot/src/features/pumps/screen/pump_status_switch_controller.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_status_controller.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
@@ -30,7 +30,7 @@ class PumpDetailsScreen extends ConsumerWidget {
     // TODO: section 2 - dati statistici ()
     // TODO: last erogation stays as a single card
     ref.listen(
-      pumpStatusSwitchControllerProvider,
+      pumpStatusControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
     );
 
@@ -39,7 +39,7 @@ class PumpDetailsScreen extends ConsumerWidget {
     // This is used to prevent user from exiting the screen while the pump is
     // being switched on or off (i.e in loading state)
     final aPumpIsCurrentlyLoading = ref.watch(
-        pumpStatusSwitchControllerProvider.select(
+        pumpStatusControllerProvider.select(
             (state) => (state.value?.isLoading ?? false) && !state.hasError));
     final pump = ref.watch(pumpStreamProvider(pumpId));
     return PopScope(
