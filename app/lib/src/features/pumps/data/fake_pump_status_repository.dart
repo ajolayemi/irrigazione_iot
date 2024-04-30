@@ -37,6 +37,7 @@ class FakePumpStatusRepository extends PumpStatusRepository {
     required String pumpId,
     required String statusString,
     required bool statusBoolean,
+    required String companyMqttTopicName
   }) async {
     await delay(addDelay);
 

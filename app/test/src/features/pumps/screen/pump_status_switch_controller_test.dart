@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_pumps.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
-import 'package:irrigazione_iot/src/features/pumps/screen/pump_status_switch_controller.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_status_controller.dart';
 import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -11,6 +11,8 @@ import '../../../mocks.dart';
 
 void main() {
   final testPump = kFakePumps[0];
+
+  const companyMqttTopicName = 'valenziani';
 
   final commandToSwitchOn = testPump.getStatusCommand(true);
 
@@ -36,7 +38,7 @@ void main() {
       final listener = Listener<AsyncValue<CustomControllerState>>();
 
       container.listen(
-        pumpStatusSwitchControllerProvider,
+        pumpStatusControllerProvider,
         listener.call,
         fireImmediately: true,
       );
@@ -60,12 +62,12 @@ void main() {
       final container = makeProviderContainer();
 
       final controller =
-          container.read(pumpStatusSwitchControllerProvider.notifier);
+          container.read(pumpStatusControllerProvider.notifier);
 
       final listener = Listener<AsyncValue<CustomControllerState>>();
 
       container.listen(
-        pumpStatusSwitchControllerProvider,
+        pumpStatusControllerProvider,
         listener.call,
         fireImmediately: true,
       );
@@ -77,6 +79,7 @@ void main() {
           pumpId: testPump.id,
           statusBoolean: statusBool,
           statusString: commandToSwitchOn,
+          companyMqttTopicName: companyMqttTopicName,
         ),
       ).thenAnswer((_) => Future.value());
 
@@ -88,7 +91,7 @@ void main() {
       verify(() => listener(null, initialData));
 
       // toggle status
-      await controller.toggleStatus(testPump, true);
+      await controller.toggleStatus(testPump, true, companyMqttTopicName);
       // verify
       verifyInOrder([
         // state value is immediately updated
@@ -121,12 +124,12 @@ void main() {
       final container = makeProviderContainer();
 
       final controller =
-          container.read(pumpStatusSwitchControllerProvider.notifier);
+          container.read(pumpStatusControllerProvider.notifier);
 
       final listener = Listener<AsyncValue<CustomControllerState>>();
 
       container.listen(
-        pumpStatusSwitchControllerProvider,
+        pumpStatusControllerProvider,
         listener.call,
         fireImmediately: true,
       );
@@ -140,6 +143,7 @@ void main() {
           pumpId: testPump.id,
           statusBoolean: statusBool,
           statusString: commandToSwitchOn,
+          companyMqttTopicName: companyMqttTopicName,
         ),
       ).thenThrow(exception);
 
@@ -151,7 +155,7 @@ void main() {
       verify(() => listener(null, initialData));
 
       // toggle status
-      await controller.toggleStatus(testPump, true);
+      await controller.toggleStatus(testPump, true, companyMqttTopicName);
       // verify
       verifyInOrder([
         // state value is immediately updated
