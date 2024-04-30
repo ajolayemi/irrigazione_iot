@@ -14,7 +14,6 @@ import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
 
-
 class AddUpdateCompanyFormContent extends ConsumerStatefulWidget {
   const AddUpdateCompanyFormContent({
     super.key,
@@ -41,6 +40,7 @@ class _AddUpdateCompanyFormContentsState
   final _vatNumberController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
+  final _mqttTopicNameController = TextEditingController();
 
   // form values
   String get _name => _nameController.text;
@@ -49,6 +49,7 @@ class _AddUpdateCompanyFormContentsState
   String get _vatNumber => _vatNumberController.text;
   String get _email => _emailController.text;
   String get _phone => _phoneController.text;
+  String get _mqttTopicName => _mqttTopicNameController.text;
 
   // field keys
   static const _nameFieldKey = Key('companyNameFieldKey');
@@ -57,6 +58,7 @@ class _AddUpdateCompanyFormContentsState
   static const _vatNumberFieldKey = Key('companyVatNumberFieldKey');
   static const _emailFieldKey = Key('companyEmailFieldKey');
   static const _phoneFieldKey = Key('companyPhoneFieldKey');
+  static const _mqttTopicNameFieldKey = Key('companyMqttTopicNameFieldKey');
 
   // variable to track if user is updating
   bool get _isUpdating => widget.formType == GenericFormTypes.update;
@@ -80,6 +82,7 @@ class _AddUpdateCompanyFormContentsState
         _vatNumberController.text = company.vatNumber ?? '';
         _emailController.text = company.email;
         _phoneController.text = company.phoneNumber;
+        _mqttTopicNameController.text = company.mqttTopicName;
       }
     }
     super.initState();
@@ -93,6 +96,7 @@ class _AddUpdateCompanyFormContentsState
     _vatNumberController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
+    _mqttTopicNameController.dispose();
     _node.dispose();
     super.dispose();
   }
@@ -181,7 +185,7 @@ class _AddUpdateCompanyFormContentsState
           vatNumber: _vatNumber,
           email: _email,
           phoneNumber: _phone,
-          id: _initialCompany?.id,
+          mqttTopicName: _mqttTopicName,
         );
 
         bool success = false;
@@ -213,9 +217,6 @@ class _AddUpdateCompanyFormContentsState
     final loc = context.loc;
     final isLoading = ref.watch(addUpdateCompanyControllerProvider).isLoading;
 
-    // TODO add company id field to form, it should not be modifiable
-    // TODO and should be filled progressively when user is adding a new company
-
     return GestureDetector(
       onTap: _node.unfocus,
       child: Column(
@@ -233,7 +234,9 @@ class _AddUpdateCompanyFormContentsState
                   node: _node,
                   formKey: _formKey,
                   children: [
+                    // company name field
                     FormTitleAndField(
+                      enabled: !isLoading,
                       fieldKey: _nameFieldKey,
                       fieldTitle: loc.companyName,
                       fieldController: _nameController,
@@ -243,7 +246,24 @@ class _AddUpdateCompanyFormContentsState
                       validator: (_) => _nonEmptyFieldsErrorText(_name),
                     ),
                     gapH16,
+
+                    // mqtt topic name field
                     FormTitleAndField(
+                      enabled: !isLoading,
+                      fieldKey: _mqttTopicNameFieldKey,
+                      fieldTitle: loc.mqttTopicNameFormFieldTitle,
+                      fieldController: _mqttTopicNameController,
+                      fieldHintText: loc.mqttMessageNameFormHint,
+                      onEditingComplete: () =>
+                          _nonEmptyFieldsEditingComplete(_mqttTopicName),
+                      validator: (_) =>
+                          _nonEmptyFieldsErrorText(_mqttTopicName),
+                    ),
+                    gapH16,
+
+                    // address field
+                    FormTitleAndField(
+                      enabled: !isLoading,
                       fieldKey: _addressFieldKey,
                       fieldTitle: loc.companyRegisteredAddress,
                       fieldController: _addressController,
@@ -253,7 +273,10 @@ class _AddUpdateCompanyFormContentsState
                       validator: (_) => _nonEmptyFieldsErrorText(_address),
                     ),
                     gapH16,
+
+                    // fiscal code field
                     FormTitleAndField(
+                      enabled: !isLoading,
                       fieldKey: _fiscalCodeFieldKey,
                       fieldTitle: loc.companyFiscalCode,
                       fieldController: _fiscalCodeController,
@@ -263,7 +286,10 @@ class _AddUpdateCompanyFormContentsState
                       validator: (_) => _dependentFieldsErrorText(),
                     ),
                     gapH16,
+
+                    // vat number field
                     FormTitleAndField(
+                      enabled: !isLoading,
                       fieldKey: _vatNumberFieldKey,
                       fieldTitle: loc.companyVatNumber,
                       fieldController: _vatNumberController,
@@ -273,7 +299,10 @@ class _AddUpdateCompanyFormContentsState
                       validator: (_) => _dependentFieldsErrorText(),
                     ),
                     gapH16,
+
+                    // email address field
                     FormTitleAndField(
+                      enabled: !isLoading,
                       fieldKey: _emailFieldKey,
                       fieldTitle: loc.companyEmail,
                       fieldController: _emailController,
@@ -282,7 +311,10 @@ class _AddUpdateCompanyFormContentsState
                       validator: (_) => _emailErrorText(_email),
                     ),
                     gapH16,
+
+                    // phone number field
                     FormTitleAndField(
+                      enabled: !isLoading,
                       fieldKey: _phoneFieldKey,
                       fieldTitle: loc.companyPhone,
                       fieldController: _phoneController,
