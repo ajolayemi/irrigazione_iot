@@ -1,7 +1,8 @@
-import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
-import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
+import 'package:irrigazione_iot/src/features/pumps/service/pump_status_service.dart';
+import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 
 part 'pump_status_controller.g.dart';
 
@@ -21,19 +22,12 @@ class PumpStatusController extends _$PumpStatusController {
   Future<void> toggleStatus(
     Pump pump,
     bool status,
-    String companyMqttTopicName,
   ) async {
     setLoading(pump.id, true);
     state = const AsyncLoading<CustomControllerState>().copyWithPrevious(state);
-    final statusCommand = pump.getStatusCommand(status);
-    final pumpStatusRepository = ref.read(pumpStatusRepositoryProvider);
-    final value =
-        await AsyncValue.guard(() => pumpStatusRepository.togglePumpStatus(
-              pumpId: pump.id,
-              statusBoolean: status,
-              statusString: statusCommand,
-              companyMqttTopicName: companyMqttTopicName,
-            ));
+    final pumpStatusService = ref.read(pumpStatusServiceProvider);
+    final value = await AsyncValue.guard(
+        () => pumpStatusService.toggleStatus(pump: pump, status: status));
     if (value.hasError) {
       state = AsyncError(value.error!, StackTrace.current);
     } else {
