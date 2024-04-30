@@ -1,4 +1,6 @@
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:irrigazione_iot/src/constants/firebase_funcs_constants.dart';
+import 'package:irrigazione_iot/src/shared/models/firebase_callable_function_body.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
@@ -17,17 +19,12 @@ class SupabasePumpStatusRepository implements PumpStatusRepository {
   @override
   Future<void> togglePumpStatus({
     required String pumpId,
-    required String statusString,
     required bool statusBoolean,
-    required String companyMqttTopicName
-  }) async {
-    print('togglePumpStatus');
-    final callable = _firebaseFunctions.httpsCallable('toggleItemStatus');
-    await callable.call({
-      'topic': 'valenziani/cm',
-      'message': statusString,
-    });
-  }
+    required FirebaseCallableFunctionBody statusBody,
+  }) =>
+      _firebaseFunctions
+          .httpsCallable(FirebaseFunctionsConstants.toggleItemStatusFuncName)
+          .call(statusBody.toJson());
 
   @override
   Stream<bool?> watchPumpStatus(String pumpId) {
