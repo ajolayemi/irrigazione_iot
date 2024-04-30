@@ -11,6 +11,7 @@ import 'package:irrigazione_iot/src/features/collectors/widgets/collector_tile_s
 import 'package:irrigazione_iot/src/features/collectors/widgets/collector_tile_title.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/widgets/sector_list_tile.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_info_icon_button.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
@@ -81,8 +82,7 @@ class _CollectorExpansionListTileState
             onExpansionChanged: (value) => setState(() => _isExpanded = value),
             leading: _isExpanded
                 ? null
-                : IconButton(
-                    icon: const Icon(Icons.info_outline),
+                : CommonInfoIconButton(
                     onPressed: () => context.pushNamed(
                       AppRoute.collectorDetails.name,
                       pathParameters: {
