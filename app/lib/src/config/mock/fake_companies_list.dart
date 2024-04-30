@@ -11,6 +11,7 @@ final kFakeCompanies = [
     imageUrl: staticImageUrl,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
+    mqttTopicName: 'garrasi'
   ),
   Company(
     id: '2',
@@ -21,6 +22,7 @@ final kFakeCompanies = [
     imageUrl: staticImageUrl,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
+    mqttTopicName: 'sanlio'
   ),
   Company(
     id: '7',
@@ -31,6 +33,7 @@ final kFakeCompanies = [
     imageUrl: staticImageUrl,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
+    mqttTopicName: 'valenziani'
   ),
   Company(
     id: '3',
@@ -41,6 +44,7 @@ final kFakeCompanies = [
     imageUrl: staticImageUrl,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
+    mqttTopicName: 'terreecielo'
   ),
   Company(
     id: '4',
@@ -51,6 +55,7 @@ final kFakeCompanies = [
     imageUrl: staticImageUrl,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
+    mqttTopicName: 'terranova'
   ),
   Company(
     id: '5',
@@ -61,6 +66,7 @@ final kFakeCompanies = [
     imageUrl: staticImageUrl,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
+    mqttTopicName: 'mandarini'
   ),
   Company(
     id: '6',
@@ -71,5 +77,6 @@ final kFakeCompanies = [
     imageUrl: staticImageUrl,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
+    mqttTopicName: 'vinieolio'
   ),
 ];
