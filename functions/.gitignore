@@ -68,3 +68,7 @@ node_modules/
 # Firebase configuration file
 firebase.json
 .firebaserc
+
+
+# Js generated files
+lib/
