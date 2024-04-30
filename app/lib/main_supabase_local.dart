@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:irrigazione_iot/env/env.dart';
 import 'package:irrigazione_iot/firebase_options.dart';
 import 'package:irrigazione_iot/src/app_bootstrap.dart';
@@ -7,7 +9,6 @@ import 'package:irrigazione_iot/src/app_bootstrap_supabase.dart';
 
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +17,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // use local firebase functions emulator
+  FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5001);
 
   // initialize Supabase with the local environment variables
   await Supabase.initialize(
