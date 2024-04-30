@@ -578,5 +578,7 @@
   "selectAVarietyPageTitle": "Select a variety",
   "selectAnOptionHintText": "select an option...",
   "mqttTopicNameFormFieldTitle": "Name in MQTT topic",
-  "mqttTopicNameFormHint": "alias name in mqtt topic..."
+  "mqttTopicNameFormHint": "alias name in mqtt topic...",
+  "switchOn": "Switch On",
+  "switchOff": "Switch Off"
 }

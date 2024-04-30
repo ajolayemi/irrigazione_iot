@@ -228,5 +228,7 @@
   "formGenericUpdateDialogContent": "Questa operazione sovrascriverà i dati esistenti per {fieldName} nel database",
   "formGenericSaveDialogContent": "Stai per salvare i dati per {fieldName} nel database",
   "mqttTopicNameFormFieldTitle": "Nome nei topic MQTT",
-  "mqttTopicNameFormHint": "nome nei topic mqtt..."
+  "mqttTopicNameFormHint": "nome nei topic mqtt...",
+  "switchOn": "Accendi",
+  "switchOff": "Spegni"
 }
