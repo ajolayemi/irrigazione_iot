@@ -1,3 +1,5 @@
+import 'package:irrigazione_iot/src/shared/models/firebase_callable_function_body.dart';
+import 'package:irrigazione_iot/src/shared/providers/firebase_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/supabase_sector_status_repository.dart';
@@ -10,16 +12,16 @@ abstract class SectorStatusRepository {
   Stream<bool?> watchSectorStatus(String sectorId);
 
   /// Toggles the status of the sector
-  Future<void> toggleSectorStatus(
-      {required String sectorId,
-      required String statusString,
-      required bool statusBoolean});
+  Future<void> toggleSectorStatus({
+    required FirebaseCallableFunctionBody statusBody,
+  });
 }
 
 @Riverpod(keepAlive: true)
 SectorStatusRepository sectorStatusRepository(SectorStatusRepositoryRef ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
-  return SupabaseSectorStatusRepository(supabaseClient);
+  final firebaseFunc = ref.read(firebaseFunctionsProvider);
+  return SupabaseSectorStatusRepository(supabaseClient, firebaseFunc);
 }
 
 @riverpod

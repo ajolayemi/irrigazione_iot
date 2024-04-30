@@ -2,6 +2,7 @@ import 'package:irrigazione_iot/src/config/mock/fake_sectors.dart';
 import 'package:irrigazione_iot/src/config/mock/fake_sectors_status.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_status.dart';
+import 'package:irrigazione_iot/src/shared/models/firebase_callable_function_body.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:irrigazione_iot/src/utils/in_memory_store.dart';
 
@@ -12,16 +13,12 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
   final _sectorStatusState =
       InMemoryStore<List<SectorStatus>>(kFakeSectorStatus);
   @override
-  Future<void> toggleSectorStatus(
-      {required String sectorId,
-      required String statusString,
-      required bool statusBoolean}) async {
+  Future<void> toggleSectorStatus({
+    required FirebaseCallableFunctionBody statusBody,
+  }) async {
     await delay(addDelay);
 
-    final sector = kFakeSectors.firstWhere((element) => element.id == sectorId);
-    final statusIsValid = statusString == sector.turnOffCommand ||
-        statusString == sector.turnOnCommand;
-    if (!statusIsValid) return;
+    final sector = kFakeSectors.firstWhere((element) => element.id == "1");
     final sectorStatuses = [..._sectorStatusState.value];
 
     final lastId = _sectorStatusState.value
@@ -31,9 +28,9 @@ class FakeSectorStatusRepository implements SectorStatusRepository {
     sectorStatuses.add(
       SectorStatus(
         id: (lastId + 1).toString(),
-        statusBoolean: statusString == sector.turnOnCommand,
+        statusBoolean: false,
         sectorId: sector.id,
-        status: statusString,
+        status: statusBody.message,
         createdAt: DateTime.now(),
       ),
     );

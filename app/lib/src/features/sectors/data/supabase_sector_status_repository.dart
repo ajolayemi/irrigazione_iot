@@ -1,3 +1,6 @@
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:irrigazione_iot/src/constants/firebase_funcs_constants.dart';
+import 'package:irrigazione_iot/src/shared/models/firebase_callable_function_body.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
@@ -6,17 +9,17 @@ import 'package:irrigazione_iot/src/features/sectors/model/sector_status_databas
 import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
 
 class SupabaseSectorStatusRepository implements SectorStatusRepository {
-  const SupabaseSectorStatusRepository(this._supabaseClient);
+  const SupabaseSectorStatusRepository(this._supabaseClient, this._firebaseFunctions,);
   final SupabaseClient _supabaseClient;
+  final FirebaseFunctions _firebaseFunctions;
 
   @override
   Future<void> toggleSectorStatus(
-      {required String sectorId,
-      required String statusString,
-      required bool statusBoolean}) {
-    // TODO: implement toggleSectorStatus
-    throw UnimplementedError();
-  }
+     {
+    required FirebaseCallableFunctionBody statusBody,
+  }) =>  _firebaseFunctions
+      .httpsCallable(FirebaseFunctionsConstants.toggleItemStatusFuncName)
+      .call(statusBody.toJson());
 
   @override
   Stream<bool?> watchSectorStatus(String sectorId) {
