@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/app_bootstrap.dart';
+import 'package:irrigazione_iot/src/config/data/local_mqtt_topics_suffix.dart';
+import 'package:irrigazione_iot/src/config/data/mqtt_topics_suffix.dart';
 import 'package:irrigazione_iot/src/exceptions/async_error_logger.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
 
@@ -26,10 +28,10 @@ extension AppBootstrapSupabase on AppBootstrap {
   Future<ProviderContainer> createSupabaseProviderContainer(
       {bool addDelay = true}) async {
     final settingsController = await bootSettingsController();
+    final localMqttSuffix = LocalMqttTopicsSuffix();
     return ProviderContainer(
       overrides: [
-        // repositories
-
+        mqttTopicsSuffixProvider.overrideWithValue(localMqttSuffix),
         // services
         settingsControllerProvider.overrideWithValue(settingsController),
       ],

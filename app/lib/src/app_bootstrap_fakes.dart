@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/app_bootstrap.dart';
+import 'package:irrigazione_iot/src/config/data/local_mqtt_topics_suffix.dart';
+import 'package:irrigazione_iot/src/config/data/mqtt_topics_suffix.dart';
 import 'package:irrigazione_iot/src/exceptions/async_error_logger.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/fake_auth_repository.dart';
@@ -79,6 +81,7 @@ extension AppBootstrapFakes on AppBootstrap {
     final varietyRepository = FakeVarietyRepository(addDelay: addDelay);
     final pumpFlowRepo = FakePumpFlowRepository(addDelay: addDelay);
     final sectorPressureRepo = FakeSectorPressureRepository();
+    final localMqttTopics = LocalMqttTopicsSuffix();
     return ProviderContainer(
       overrides: [
         // repositories
@@ -102,8 +105,10 @@ extension AppBootstrapFakes on AppBootstrap {
         varietyRepositoryProvider.overrideWithValue(varietyRepository),
         pumpFlowRepositoryProvider.overrideWithValue(pumpFlowRepo),
         sectorPressureRepositoryProvider.overrideWithValue(sectorPressureRepo),
+        mqttTopicsSuffixProvider.overrideWithValue(localMqttTopics),
         // services
         settingsControllerProvider.overrideWithValue(settingsController),
+
       ],
       observers: [
         AsyncErrorLogger(),
