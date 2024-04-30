@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/shared/models/firebase_callable_function_body.dart';
 import 'package:irrigazione_iot/src/shared/providers/firebase_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -14,9 +15,8 @@ abstract class PumpStatusRepository {
   /// Toggles the status of the pump with the provided [pumpId]
   Future<void> togglePumpStatus({
     required String pumpId,
-    required String statusString,
+   required FirebaseCallableFunctionBody statusBody,
     required bool statusBoolean,
-    required String companyMqttTopicName
   });
 }
 
