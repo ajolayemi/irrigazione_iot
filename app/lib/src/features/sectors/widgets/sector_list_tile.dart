@@ -10,6 +10,7 @@ import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/dismiss_
 import 'package:irrigazione_iot/src/features/sectors/widgets/sector_list_tile_subtitle.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch_controller.dart';
+import 'package:irrigazione_iot/src/features/sectors/widgets/sector_tile_title.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
@@ -91,10 +92,7 @@ class SectorListTileItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        title: Text(sector.name),
-        subtitleTextStyle: context.textTheme.titleSmall?.copyWith(
-          color: Colors.grey,
-        ),
+        title: SectorTileTitle(sector: sector),
         isThreeLine: true,
         subtitle: SectorListTileSubtitle(sector: sector),
         trailing: SectorSwitch(

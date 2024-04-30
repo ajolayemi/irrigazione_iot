@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pressure_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/specie/data/specie_repository.dart';
+import 'package:irrigazione_iot/src/features/variety/data/variety_repository.dart';
 import 'package:irrigazione_iot/src/utils/date_formatter.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 
@@ -12,6 +14,13 @@ class SectorListTileSubtitle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final sectorVariety =
+        ref.watch(varietyStreamProvider(sector.varietyId)).valueOrNull;
+    final sectorSpecie =
+        ref.watch(specieStreamProvider(sector.specieId)).valueOrNull;
+    final varietySpecie = sectorVariety != null && sectorSpecie != null
+        ? '${sectorSpecie.name} ${sectorVariety.name}'
+        : context.loc.notAvailable;
     // TODO: add after sector name an indicator to show whether a sector is on
     // TODO: sector list tile should become ExpansionTile
     // TODO: when expanded, user should see
@@ -34,9 +43,12 @@ class SectorListTileSubtitle extends ConsumerWidget {
         ? dateFormatter.format(lastIrrigatedDate)
         : context.loc.notAvailable;
     return Text(
-      '${sector.name}\n${context.loc.sectorLastIrrigation(
+      '$varietySpecie\n${context.loc.sectorLastIrrigation(
         lastIrrigatedString,
       )}',
+      style: context.textTheme.titleSmall?.copyWith(
+        color: Colors.grey,
+      ),
     );
   }
 }
