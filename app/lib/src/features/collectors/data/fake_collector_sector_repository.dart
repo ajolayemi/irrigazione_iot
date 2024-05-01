@@ -73,8 +73,6 @@ class FakeCollectorSectorRepository implements CollectorSectorRepository {
   }
 
   @override
-  Future<Collector?> getCollectorBySectorId(String sectorId) {
-    // TODO: implement getCollectorSectorBySectorId
-    throw UnimplementedError();
-  }
+  Future<Collector?> getCollectorBySectorId(String sectorId) =>
+      Future.value(null);
 }
