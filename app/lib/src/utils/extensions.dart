@@ -25,7 +25,8 @@ extension BuildContextExtensions on BuildContext {
       Navigator.of(this).pop(result);
 
   /// Helps in formatting a [DateTime] object to a string using timeago
-  String timeAgo(DateTime dateTime) {
+  String timeAgo(DateTime? dateTime, {String fallbackValue = ''}) {
+    if (dateTime == null) return fallbackValue;
     return timeago.format(dateTime, locale: locale);
   }
 
