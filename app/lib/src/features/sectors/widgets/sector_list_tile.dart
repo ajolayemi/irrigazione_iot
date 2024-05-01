@@ -7,10 +7,8 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/dismiss_sector_controller.dart';
-import 'package:irrigazione_iot/src/features/sectors/widgets/sector_list_tile_subtitle.dart';
-import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch_controller.dart';
-import 'package:irrigazione_iot/src/features/sectors/widgets/sector_tile_title.dart';
+import 'package:irrigazione_iot/src/features/sectors/widgets/sector_list_tile_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
@@ -49,8 +47,6 @@ class SectorListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final ps = ref.watch(availablePumpsFutureProvider(alreadyConnectedPumpId: ''));
-    // print(ps);
     // todo: add sector pressure in the list tile subtitle
     // todo: irrigation state (manual/automatic)
     // todo: since when is this sector being irrigated if on
@@ -78,25 +74,5 @@ class SectorListTile extends ConsumerWidget {
         ),
       ),
     );
-  }
-}
-
-class SectorListTileItem extends StatelessWidget {
-  const SectorListTileItem({
-    super.key,
-    required this.sector,
-  });
-
-  final Sector sector;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-        title: SectorTileTitle(sector: sector),
-        isThreeLine: true,
-        subtitle: SectorListTileSubtitle(sector: sector),
-        trailing: SectorSwitch(
-          sector: sector,
-        ));
   }
 }
