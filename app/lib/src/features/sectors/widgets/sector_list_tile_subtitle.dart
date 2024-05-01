@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pressure_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
@@ -28,12 +27,10 @@ class SectorListTileSubtitle extends ConsumerWidget {
 
     final lastIrrigatedDate =
         ref.watch(sectorLastPressureStreamProvider(sector.id)).valueOrNull;
-    final lastIrrigatedString = lastIrrigatedDate != null
-        ? timeago.format(
-            lastIrrigatedDate,
-            locale: context.locale,
-          )
-        : context.loc.notAvailable;
+    final lastIrrigatedString = context.timeAgo(
+      lastIrrigatedDate,
+      fallbackValue: context.loc.notAvailable,
+    );
     return Text(
       '$varietySpecie\n${context.loc.sectorLastIrrigation(
         lastIrrigatedString,

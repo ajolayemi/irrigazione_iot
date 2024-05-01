@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 import 'package:irrigazione_iot/src/features/pumps/data/pump_flow_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
@@ -21,12 +20,10 @@ class PumpListTileSubtitle extends ConsumerWidget {
         ref.watch(lastDispensationStreamProvider(pump.id)).valueOrNull;
     return Text(
       loc.pumpStatusLastSwitchedOn(
-        lastDispensationDate == null
-            ? loc.notAvailable
-            : timeago.format(
-                lastDispensationDate,
-                locale: context.locale,
-              ),
+        context.timeAgo(
+          lastDispensationDate,
+          fallbackValue: loc.notAvailable,
+        ),
       ),
       style: context.textTheme.titleSmall?.copyWith(
         color: Colors.grey,
