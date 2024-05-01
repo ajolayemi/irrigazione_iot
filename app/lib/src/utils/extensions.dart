@@ -61,6 +61,25 @@ extension BuildContextExtensions on BuildContext {
         false;
   }
 
+  Future<bool> showStatusToggleDialog({
+    required bool status,
+    required String what,
+  }) async {
+    final loc = this.loc;
+    return await showAlertDialog(
+          context: this,
+          title: loc.genericAlertDialogTitle,
+          content: status
+              ? loc.onStatusUpdateAlertDialogContent(what)
+              : loc.offStatusUpdateAlertDialogContent(what),
+          defaultActionText: status
+              ? loc.onStatusDialogConfirmButtonTitle
+              : loc.offStatusDialogConfirmButtonTitle,
+          cancelActionText: loc.alertDialogCancel,
+        ) ??
+        false;
+  }
+
   // Dialog to show with options to assign roles to user
   Future<RadioButtonItem?> showAssignRoleDialog(String currentAssignedRole) async {
     final roles = [...CompanyUserRoles.values];
