@@ -35,7 +35,7 @@
   "alertDialogConfirm": "Conferma",
   "alertDialogDelete": "Elimina",
   "logInWithAnotherAccount": "Cambia account",
-  "pumpStatusLastSwitchedOn": "ultima erogazione: {when}",
+  "pumpStatusLastSwitchedOn": "Ultima erogazione: {when}",
   "onStatusUpdateAlertDialogContent": "Stai per accendere {name}",
   "offStatusUpdateAlertDialogContent": "Stai per spegnere {name}",
   "onStatusDialogConfirmButtonTitle": "Accendi",

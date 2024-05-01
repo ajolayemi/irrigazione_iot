@@ -73,7 +73,7 @@
   "alertDialogConfirm": "Confirm",
   "alertDialogDelete": "Delete",
   "genericAlertDialogTitle": "Are you sure?",
-  "pumpStatusLastSwitchedOn": "last dispensation: {when}",
+  "pumpStatusLastSwitchedOn": "Last dispensation: {when}",
   "@pumpStatusLastSwitchedOn": {
     "description": "The last time a pump status was switched on",
     "placeholders": {
