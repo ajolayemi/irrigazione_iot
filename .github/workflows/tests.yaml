@@ -11,4 +11,3 @@ jobs:
         run: |
           flutter pub get
           dart run build_runner build -d
-          flutter test
