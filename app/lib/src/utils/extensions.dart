@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
@@ -22,6 +23,22 @@ extension BuildContextExtensions on BuildContext {
 
   void popNavigator<T extends Object?>([T? result]) =>
       Navigator.of(this).pop(result);
+
+  /// Helps in formatting a [DateTime] object to a string using timeago
+  String timeAgo(DateTime dateTime) {
+    return timeago.format(dateTime, locale: locale);
+  }
+
+  /// Helps in formatting a [DateTime] object to a string using built in date formatter
+  String formatDate(DateTime dateTime) {
+    return MaterialLocalizations.of(this).formatShortDate(dateTime);
+  }
+
+  /// Combines [formatDate] and [timeAgo] to format a [DateTime] object to a string
+  String customFormatDateTime(DateTime? dateTime, String fallbackValue) {
+    if (dateTime == null) return fallbackValue;
+    return '${formatDate(dateTime)} (${timeAgo(dateTime)})';
+  }
 
   /// An alert dialog to display when user is trying to delete an item
   /// such as board, collector, pump and so on.
@@ -132,4 +149,6 @@ extension StringExtensions on String {
   bool valueIsGreaterThanZero() {
     return double.tryParse(this) != null && double.parse(this) > 0;
   }
+
+  ///
 }
