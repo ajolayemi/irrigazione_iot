@@ -1,7 +1,8 @@
 import {connect, MqttClient} from "mqtt";
 import {getSecretFromCloud} from "./secrets";
 
-require("dotenv").config({path: "../../../.env"});
+import dotenv = require("dotenv");
+dotenv.config({path: "../../../.env"});
 
 /**
  * Create a new MQTT client
