@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:irrigazione_iot/src/app.dart';
 import 'package:irrigazione_iot/src/exceptions/error_logger.dart';
 import 'package:irrigazione_iot/src/shared/providers/shared_prefs_provider.dart';
@@ -12,6 +13,9 @@ class AppBootstrap {
   /// Create the root widget that should be passed to [runApp]
   Future<Widget> createRootWidget(
       {required ProviderContainer container}) async {
+    // Register the timeago messages
+    registerTimeagoMessages();
+
     // * Register error handlers. For more info, see:
     // * https://docs.flutter.dev/testing/errors
     final errorLogger = container.read(errorLoggerProvider);
@@ -24,6 +28,12 @@ class AppBootstrap {
       container: container,
       child: const IotIrrigationApp(),
     );
+  }
+
+  void registerTimeagoMessages() {
+    // Register italian timeago messages
+    timeago.setLocaleMessages('it', timeago.ItMessages());
+    timeago.setLocaleMessages('it_short', timeago.ItShortMessages());
   }
 
   Future<SettingsController> bootSettingsController() async {
