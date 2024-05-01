@@ -28,7 +28,6 @@ dependencies:
   intl: ^0.18.1
   json_annotation: ^4.8.1
   riverpod_annotation: ^2.3.4
-  rxdart: ^0.27.7
   shared_preferences: ^2.2.2
   skeletonizer: ^1.0.1
   supabase_flutter: ^2.5.1
@@ -42,7 +41,6 @@ dev_dependencies:
   custom_lint: ^0.5.11
   riverpod_lint: ^2.3.7
   riverpod_generator: ^2.3.9
-  mocktail: ^1.0.3
   json_serializable: ^6.7.1
   envied_generator: ^0.5.4+1
 
