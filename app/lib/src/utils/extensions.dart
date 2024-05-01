@@ -16,6 +16,10 @@ extension BuildContextExtensions on BuildContext {
 
   AppLocalizations get loc => AppLocalizations.of(this);
 
+  String get locale => Localizations.localeOf(this).languageCode;
+
+  String get localeShort => '${locale}_short';
+
   void popNavigator<T extends Object?>([T? result]) =>
       Navigator.of(this).pop(result);
 
@@ -81,7 +85,8 @@ extension BuildContextExtensions on BuildContext {
   }
 
   // Dialog to show with options to assign roles to user
-  Future<RadioButtonItem?> showAssignRoleDialog(String currentAssignedRole) async {
+  Future<RadioButtonItem?> showAssignRoleDialog(
+      String currentAssignedRole) async {
     final roles = [...CompanyUserRoles.values];
     roles.removeWhere(
       (role) =>
