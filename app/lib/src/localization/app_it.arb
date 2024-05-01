@@ -230,5 +230,11 @@
   "mqttTopicNameFormFieldTitle": "Nome nei topic MQTT",
   "mqttTopicNameFormHint": "nome nei topic mqtt...",
   "switchOn": "Accendi",
-  "switchOff": "Spegni"
+  "switchOff": "Spegni",
+  "entityCharacteristics": "Caratteristiche",
+  "entityStatistics": "Statistiche",
+  "yes": "Sì",
+  "no": "No",
+  "mqttOnCommand": "Commando di accensione (MQTT)",
+  "mqttOffCommand": "Commando di spegnimento (MQTT)"
 }

@@ -580,5 +580,11 @@
   "mqttTopicNameFormFieldTitle": "Name in MQTT topic",
   "mqttTopicNameFormHint": "alias name in mqtt topic...",
   "switchOn": "Switch On",
-  "switchOff": "Switch Off"
+  "switchOff": "Switch Off",
+  "entityCharacteristics": "Characteristics",
+  "entityStatistics": "Statistics",
+  "yes": "Yes",
+  "no": "No",
+  "mqttOnCommand": "On Command (MQTT)",
+  "mqttOffCommand": "Off Command (MQTT)"
 }
