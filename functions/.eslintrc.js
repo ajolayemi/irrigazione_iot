@@ -29,7 +29,7 @@ module.exports = {
     "max-len": [
       "error",
       {
-        code: 100,
+        code: 110,
         comments: 120,
         ignorePattern: "^\\s*import|^\\s*export|^\\s*return|^\\s*logger",
       },
