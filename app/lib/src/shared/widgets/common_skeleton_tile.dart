@@ -18,7 +18,7 @@ class CommonSkeletonTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Skeletonizer.bones(
+    return Skeletonizer.zone(
       child: ListTile(
         leading: hasLeading ? const Bone.circle(size: 48) : null,
         title: hasTitle ? const Bone.text(words: 2) : null,

@@ -100,7 +100,7 @@ class FakeCompanyUsersRepository implements CompanyUsersRepository {
     if (index == -1) return false;
     currentUsers.removeAt(index);
     _userCompanies.value = currentUsers;
-    return await _getCompanyUser(companyUserId: companyUserId) == null;
+    return _getCompanyUser(companyUserId: companyUserId) == null;
   }
 
   @override

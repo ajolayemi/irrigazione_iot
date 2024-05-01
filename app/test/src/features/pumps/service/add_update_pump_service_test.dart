@@ -37,7 +37,7 @@ void main() {
     authRepository = MockAuthRepository();
     pumpRepository = MockPumpRepository();
     selectedCompanyRepository = MockSelectedCompanyRepository();
-    registerFallbackValue(Pump.empty());
+    registerFallbackValue(const Pump.empty());
   });
 
   AddUpdatePumpService makeAddUpdateService() {

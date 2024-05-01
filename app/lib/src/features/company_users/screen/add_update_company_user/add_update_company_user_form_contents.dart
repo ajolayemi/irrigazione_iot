@@ -55,7 +55,7 @@ class _AddUpdateCompanyUserFormContentsState
 
   bool get _isUpdating => widget.formType == GenericFormTypes.update;
 
-  CompanyUser? _initialCompanyUser = CompanyUser.empty();
+  CompanyUser? _initialCompanyUser = const CompanyUser.empty();
 
   @override
   void initState() {
