@@ -1,68 +1,90 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-import 'collector_sector.dart';
-import '../../company_users/model/company.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
-typedef CollectorID = String;
+part 'collector.g.dart';
 
-/// A collector, by definition in this project, is made up of one or more sectors as represented by the
-/// [CollectorSector] class. Each collector is assigned a "filtro" name, which serves as a global filtro for all sectors pertaining to this collector
+@JsonSerializable()
 class Collector extends Equatable {
   const Collector({
     required this.id,
     required this.name,
     required this.companyId,
-    required this.filterName,
+    required this.mqttMsgName,
+    required this.hasFilter,
+    this.createdAt,
+    this.updatedAt,
   });
 
   const Collector.empty()
       : id = '',
         name = '',
+        hasFilter = false,
+        createdAt = null,
+        updatedAt = null,
         companyId = '',
-        filterName = '';
+        mqttMsgName = '';
 
-  // A unique identifier for this collector
-  final CollectorID id;
-  //
+  @JsonKey(name: CollectorDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
+  final String id;
+
+  @JsonKey(name: CollectorDatabaseKeys.name)
   final String name;
-  final CompanyID companyId;
 
-  // A global "filtro" name for all sectors pertaining to this collector
-  final String filterName;
+  @JsonKey(name: CollectorDatabaseKeys.createdAt)
+  final DateTime? createdAt;
+
+  @JsonKey(name: CollectorDatabaseKeys.updatedAt)
+  final DateTime? updatedAt;
+
+  @JsonKey(name: CollectorDatabaseKeys.companyId)
+  @IntConverter()
+  final String companyId;
+
+  @JsonKey(name: CollectorDatabaseKeys.mqttMsgName)
+  final String mqttMsgName;
+
+  @JsonKey(name: CollectorDatabaseKeys.hasFilter)
+  final bool hasFilter;
 
   @override
-  List<Object> get props => [id, name, companyId, filterName];
+  List<Object?> get props {
+    return [
+      id,
+      name,
+      createdAt,
+      updatedAt,
+      companyId,
+      mqttMsgName,
+    ];
+  }
+
+  factory Collector.fromJson(Map<String, dynamic> json) =>
+      _$CollectorFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CollectorToJson(this);
 
   Collector copyWith({
-    CollectorID? id,
+    String? id,
     String? name,
-    CompanyID? companyId,
-    String? filterName,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? companyId,
+    String? mqttMsgName,
+    bool? hasFilter,
   }) {
     return Collector(
       id: id ?? this.id,
       name: name ?? this.name,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
       companyId: companyId ?? this.companyId,
-      filterName: filterName ?? this.filterName,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'companyId': companyId,
-      'filterName': filterName,
-    };
-  }
-
-  factory Collector.fromJson(Map<String, dynamic> map) {
-    return Collector(
-      id: map['id'] as CollectorID,
-      name: map['name'] as String,
-      companyId: map['companyId'] as CompanyID,
-      filterName: map['filterName'] as String,
+      mqttMsgName: mqttMsgName ?? this.mqttMsgName,
+      hasFilter: hasFilter ?? this.hasFilter,
     );
   }
 }

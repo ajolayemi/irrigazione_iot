@@ -19,18 +19,19 @@ export const commonUpdate = async (
     const supabaseClient = createEdgeSupabaseClient(req);
 
     // Get the data to update
-    const {data} = await req.json();
+    const {data: toUpdate, id} = await req.json();
 
     // Update the record
-    const {data: result, error} = await supabaseClient
+    const {data, error} = await supabaseClient
       .from(tableName)
-      .update(data)
-      .eq("id", data.id)
-      .select();
+      .update(toUpdate)
+      .eq("id", id)
+      .select()
+      .maybeSingle();
 
     if (error) throw error;
 
-    return new Response(JSON.stringify({result}), {
+    return new Response(JSON.stringify({data}), {
       headers: {"Content-Type": "application/json"},
       status: 200,
     });
@@ -61,12 +62,16 @@ export const commonInsert = async (
   try {
     const supabaseClient = createEdgeSupabaseClient(req);
 
-    const {data} = await req.json();
+    const {data: toInsert} = await req.json();
     // Insert the new record
-    const {error} = await supabaseClient.from(tableName).insert(data);
+    const {data, error} = await supabaseClient
+      .from(tableName)
+      .insert(toInsert)
+      .select()
+      .maybeSingle();
     if (error) throw error;
     return new Response(
-      JSON.stringify({message: `Data inserted in ${tableName} successfully!`}),
+      JSON.stringify({data, message: `Record inserted into ${tableName}!`}),
       {
         headers: {"Content-Type": "application/json"},
         status: 200,
@@ -102,15 +107,19 @@ export const commonDelete = async (
     const {ids} = await req.json();
 
     // Delete the record
-    const {error} = await supabaseClient.from(tableName).delete().in("id", ids);
+    const {
+      status: stat,
+      statusText,
+      error,
+    } = await supabaseClient.from(tableName).delete().in("id", ids);
     if (error) throw error;
     return new Response(
       JSON.stringify({
-        message: `Records deleted from ${tableName} successfully!`,
+        status: stat,
+        statusText,
       }),
       {
         headers: {"Content-Type": "application/json"},
-        status: 200,
       }
     );
   } catch (error) {

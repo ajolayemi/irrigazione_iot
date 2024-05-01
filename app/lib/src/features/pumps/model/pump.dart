@@ -1,23 +1,28 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-
-import '../../company_users/model/company.dart';
-
-typedef PumpID = String;
+import 'package:irrigazione_iot/src/features/pumps/model/pump_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 // TODO: add pump company
 // TODO: prevalenza, portata,
 
+part 'pump.g.dart';
 
+@JsonSerializable()
 class Pump extends Equatable {
   const Pump({
     required this.id,
     required this.name,
     required this.capacityInVolume,
     required this.consumeRateInKw,
-    required this.commandForOn,
-    required this.commandForOff,
+    required this.turnOnCommand,
+    required this.turnOffCommand,
+    required this.mqttMessageName,
+    required this.hasFilter,
     required this.companyId,
+    this.createdAt,
+    this.updatedAt
   });
 
   const Pump.empty()
@@ -25,94 +30,91 @@ class Pump extends Equatable {
         name = '',
         capacityInVolume = 0,
         consumeRateInKw = 0,
-        commandForOn = '',
-        commandForOff = '',
-        companyId = '';
+        companyId = '',
+        createdAt = null,
+        updatedAt = null,
+        turnOnCommand = '',
+        turnOffCommand = '',
+        mqttMessageName = '',
+        hasFilter = false;
 
-  /// A unique identifier for the pump
-  final PumpID id;
-
-  /// The name of the pump
+  @JsonKey(name: PumpDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
+  final String id;
+  @JsonKey(name: PumpDatabaseKeys.name)
   final String name;
-
-  /// The capacity of the pump in volume
+  @JsonKey(name: PumpDatabaseKeys.capacityInVolume)
   final double capacityInVolume;
-
-  /// The consume rate of the pump in kilowatts
+  @JsonKey(name: PumpDatabaseKeys.consumeRateInKw)
   final double consumeRateInKw;
-
-  /// The command to turn on the pump, i.e the one sent to and from MQTT
-  final String commandForOn;
-
-  /// The command to turn off the pump, i.e the one sent to and from MQTT
-  final String commandForOff;
-
-  /// An id to identify the company the pump belongs to
-  final CompanyID companyId;
+  @JsonKey(name: PumpDatabaseKeys.companyId)
+  @IntConverter()
+  final String companyId;
+  @JsonKey(name: PumpDatabaseKeys.createdAt)
+  final DateTime? createdAt;
+  @JsonKey(name: PumpDatabaseKeys.updatedAt)
+  final DateTime? updatedAt;
+  @JsonKey(name: PumpDatabaseKeys.turnOnCommand)
+  final String turnOnCommand;
+  @JsonKey(name: PumpDatabaseKeys.turnOffCommand)
+  final String turnOffCommand;
+  @JsonKey(name: PumpDatabaseKeys.mqttMessageName)
+  final String mqttMessageName;
+  @JsonKey(name: PumpDatabaseKeys.hasFilter)
+  final bool hasFilter;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       name,
       capacityInVolume,
       consumeRateInKw,
-      commandForOn,
-      commandForOff,
       companyId,
+      createdAt,
+      updatedAt,
+      turnOnCommand,
+      turnOffCommand,
+      mqttMessageName,
+      hasFilter,
     ];
   }
 
   Pump copyWith({
-    PumpID? id,
+    String? id,
     String? name,
     double? capacityInVolume,
     double? consumeRateInKw,
-    String? commandForOn,
-    String? commandForOff,
-    CompanyID? companyId,
+    String? companyId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? turnOnCommand,
+    String? turnOffCommand,
+    String? mqttMessageName,
+    bool? hasFilter,
   }) {
     return Pump(
       id: id ?? this.id,
       name: name ?? this.name,
       capacityInVolume: capacityInVolume ?? this.capacityInVolume,
       consumeRateInKw: consumeRateInKw ?? this.consumeRateInKw,
-      commandForOn: commandForOn ?? this.commandForOn,
-      commandForOff: commandForOff ?? this.commandForOff,
       companyId: companyId ?? this.companyId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      turnOnCommand: turnOnCommand ?? this.turnOnCommand,
+      turnOffCommand: turnOffCommand ?? this.turnOffCommand,
+      mqttMessageName: mqttMessageName ?? this.mqttMessageName,
+      hasFilter: hasFilter ?? this.hasFilter,
     );
   }
 
-  @override
-  bool get stringify => true;
+  factory Pump.fromJson(Map<String, dynamic> json) => _$PumpFromJson(json);
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'capacityInVolume': capacityInVolume,
-      'consumeRateInKw': consumeRateInKw,
-      'commandForOn': commandForOn,
-      'commandForOff': commandForOff,
-      'companyId': companyId
-    };
-  }
-
-  factory Pump.fromMap(Map<String, dynamic> map) {
-    return Pump(
-      id: map['id'] as PumpID,
-      name: map['name'] as String,
-      capacityInVolume: map['capacityInVolume'] as double,
-      consumeRateInKw: map['consumeRateInKw'] as double,
-      commandForOn: map['commandForOn'] as String,
-      commandForOff: map['commandForOff'] as String,
-      companyId: map['companyId'] as CompanyID,
-    );
-  }
+  Map<String, dynamic> toJson() => _$PumpToJson(this);
 }
 
 extension PumpX on Pump {
   String getStatusCommand(bool status) {
-    return status ? commandForOn : commandForOff;
+    return status ? turnOnCommand : turnOffCommand;
   }
 }

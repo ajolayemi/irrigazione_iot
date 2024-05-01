@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../data/sector_status_repository.dart';
-import '../model/sector.dart';
-import 'sector_switch_controller.dart';
-import '../../../utils/custom_controller_state.dart';
-import '../../../utils/extensions.dart';
-import '../../../widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch_controller.dart';
+import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 class SectorSwitch extends ConsumerWidget {
   const SectorSwitch({
@@ -25,19 +23,12 @@ class SectorSwitch extends ConsumerWidget {
     WidgetRef ref,
     bool status,
   ) async {
-    final canContinue = await showAlertDialog(
-      context: context,
-      title: context.loc.genericAlertDialogTitle,
-      content: status
-          ? context.loc.onStatusUpdateAlertDialogContent(sector.name)
-          : context.loc.offStatusUpdateAlertDialogContent(sector.name),
-      defaultActionText: status
-          ? context.loc.onStatusDialogConfirmButtonTitle
-          : context.loc.offStatusDialogConfirmButtonTitle,
-      cancelActionText: context.loc.alertDialogCancel,
+    final canContinue = await context.showStatusToggleDialog(
+      status: status,
+      what: sector.name,
     );
 
-    if (canContinue == null || !canContinue) return;
+    if (!canContinue) return;
 
     ref
         .read(sectorSwitchControllerProvider.notifier)
@@ -54,16 +45,18 @@ class SectorSwitch extends ConsumerWidget {
         ref.watch(sectorSwitchControllerProvider).isGlobalLoading;
 
     final isSwitchedOn =
-        ref.watch(sectorStatusStreamProvider(sector)).valueOrNull ?? false;
+        ref.watch(sectorStatusStreamProvider(sector.id)).valueOrNull ?? false;
 
     return thisSectorStatusIsLoading
         ? const CircularProgressIndicator.adaptive()
-        : Switch.adaptive(
-            key: sectorStatusSwitchKey(sector),
-            value: isSwitchedOn,
-            onChanged: globalLoadingState
-                ? null
-                : (status) => _toggleSwitch(context, ref, status),
+        : IgnorePointer(
+            ignoring: globalLoadingState,
+            child: Switch.adaptive(
+              key: sectorStatusSwitchKey(sector),
+              value: isSwitchedOn,
+              onChanged: (status) async =>
+                  await _toggleSwitch(context, ref, status),
+            ),
           );
   }
 }

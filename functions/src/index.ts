@@ -1,5 +1,5 @@
 import admin from "firebase-admin";
-import {pubsub} from "firebase-functions/v2";
+import {https, pubsub} from "firebase-functions/v2";
 import "dotenv/config";
 import {processPressureMessageFromPubSub} from "./utils/process_pressure_message";
 import {processSectorStatusMessage} from "./utils/process_sector_status_message";
@@ -7,6 +7,8 @@ import {processPumpStatusMessage} from "./utils/process_pump_status_message";
 import {processPumpFlowMessage} from "./utils/process_pump_flow_message";
 import {processPumpPressureMessage} from "./utils/process_pump_pressure_message";
 import {processBoardStatusMessage} from "./utils/process_board_status_message";
+import {CallableRequest} from "firebase-functions/v2/https";
+import {createMqttClient} from "./services/mqtt";
 
 admin.initializeApp();
 
@@ -75,3 +77,24 @@ exports.processBoardStatusMessages = pubsub.onMessagePublished(
     return Promise.resolve(successInProcessingMessage);
   }
 );
+
+/**
+ * A callable function that handles toggling the status of an item
+ * Item can be a pump, sector, board, etc.
+ *
+ */
+exports.toggleItemStatus = https.onCall(async (req: CallableRequest) => {
+  try {
+    const {topic, message} = req.data;
+    console.log(`Publishing message ${message} to ${topic}`);
+    const client = await createMqttClient();
+    if (client.disconnected) {
+      throw new https.HttpsError("internal", "MQTT client is disconnected");
+    }
+    client.publish(topic, message);
+
+    return {success: true};
+  } catch (error) {
+    throw new https.HttpsError("internal", error as string);
+  }
+});

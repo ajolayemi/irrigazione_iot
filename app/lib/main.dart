@@ -1,38 +1,39 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'src/providers/shared_prefs_provider.dart';
-import 'src/settings/settings_controller.dart';
-import 'src/settings/settings_service.dart';
+import 'package:irrigazione_iot/env/env.dart';
+import 'package:irrigazione_iot/firebase_options.dart';
+import 'package:irrigazione_iot/src/app_bootstrap.dart';
+import 'package:irrigazione_iot/src/app_bootstrap_supabase.dart';
 
-import 'src/app.dart';
+// ignore:depend_on_referenced_packages
+import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-  // Set up the SettingsController, which will glue user settings to multiple
-  // Flutter Widgets.
-  final settingsController = SettingsController(SettingsService());
 
-  // Load the user's preferred theme while the splash screen is displayed.
-  // This prevents a sudden theme change when the app is first displayed.
-  await settingsController.loadSettings();
-
-  // Move elsewhere later
-  final providerContainer = ProviderContainer(
-    overrides: [
-      settingsControllerProvider.overrideWithValue(settingsController),
-    ],
+  // initialize firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Load the SharedPreferences instance during initialization
-  await providerContainer.read(sharedPreferencesProvider.future);
-  // Run the app and pass in the SettingsController. The app listens to the
-  // SettingsController for changes, then passes it further down to the
-  // SettingsView.
-  runApp(
-    UncontrolledProviderScope(
-      container: providerContainer,
-      child: const MyApp(),
-    ),
+  // initialize Supabase with the production environment variables
+  await Supabase.initialize(
+    anonKey: Env.supabaseProdAnonKey,
+    url: Env.supabaseProdUrl,
   );
+
+  // turn off the # in the URLs on the web
+  usePathUrlStrategy();
+
+  // create an app bootstrap instance
+  final appBootstrap = AppBootstrap();
+
+  // create a container configured with all the Supabase repositories
+  final container = await appBootstrap.createSupabaseProviderContainer();
+  // use the container above to create the root widget
+  final root = await appBootstrap.createRootWidget(container: container);
+
+  // start the app
+  runApp(root);
 }

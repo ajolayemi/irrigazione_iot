@@ -1,68 +1,63 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_pressure_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-import 'collector.dart';
+part 'collector_pressure.g.dart';
 
+@JsonSerializable()
 class CollectorPressure extends Equatable {
-  const CollectorPressure({
-    required this.collectorId,
-    required this.filterInPressure,
-    required this.filterOutPressure,
-    required this.timestamp,
-  }) : pressureDifference = filterInPressure - filterOutPressure;
+  const CollectorPressure(
+      {required this.id,
+      required this.filterInPressure,
+      required this.filterOutPressure,
+      required this.collectorId,
+      this.createdAt})
+      : pressureDifference = filterInPressure - filterOutPressure;
 
-  CollectorPressure.empty()
-      : collectorId = '',
-        filterInPressure = 0.0,
-        filterOutPressure = 0.0,
-        timestamp = DateTime.fromMillisecondsSinceEpoch(0),
-        pressureDifference = 0.0;
+  const CollectorPressure.empty()
+      : id = '',
+        filterInPressure = 0,
+        filterOutPressure = 0,
+        createdAt = null,
+        collectorId = '',
+        pressureDifference = 0;
 
-  final CollectorID collectorId;
+  @JsonKey(name: CollectorPressureDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
+  final String id;
+
+  @JsonKey(name: CollectorPressureDatabaseKeys.filterInPressure)
   final double filterInPressure;
+
+  @JsonKey(name: CollectorPressureDatabaseKeys.filterOutPressure)
   final double filterOutPressure;
+
+  @JsonKey(name: CollectorPressureDatabaseKeys.createdAt)
+  final DateTime? createdAt;
+
+  @JsonKey(name: CollectorPressureDatabaseKeys.collectorId)
+  @IntConverter()
+  final String collectorId;
+
+  @JsonKey(name: CollectorPressureDatabaseKeys.pressureDifference)
   final double pressureDifference;
-  final DateTime timestamp;
 
   @override
-  List<Object> get props => [
-        collectorId,
-        filterInPressure,
-        filterOutPressure,
-        timestamp,
-        pressureDifference,
-      ];
-
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'collectorId': collectorId,
-      'filterInPressure': filterInPressure,
-      'filterOutPressure': filterOutPressure,
-      'timestamp': timestamp.millisecondsSinceEpoch,
-      'pressureDifference': pressureDifference
-    };
+  List<Object?> get props {
+    return [
+      id,
+      filterInPressure,
+      filterOutPressure,
+      createdAt,
+      collectorId,
+      pressureDifference,
+    ];
   }
 
-  factory CollectorPressure.fromJson(Map<String, dynamic> map) {
-    return CollectorPressure(
-      collectorId: map['collectorId'] as CollectorID,
-      filterInPressure: map['filterInPressure'] as double,
-      filterOutPressure: map['filterOutPressure'] as double,
-      timestamp: DateTime.fromMillisecondsSinceEpoch(map['timestamp'] as int),
-    );
-  }
+  factory CollectorPressure.fromJson(Map<String, dynamic> json) =>
+      _$CollectorPressureFromJson(json);
 
-  CollectorPressure copyWith({
-    CollectorID? collectorId,
-    double? filterInPressure,
-    double? filterOutPressure,
-    DateTime? timestamp,
-  }) {
-    return CollectorPressure(
-      collectorId: collectorId ?? this.collectorId,
-      filterInPressure: filterInPressure ?? this.filterInPressure,
-      filterOutPressure: filterOutPressure ?? this.filterOutPressure,
-      timestamp: timestamp ?? this.timestamp,
-    );
-  }
+  Map<String, dynamic> toJson() => _$CollectorPressureToJson(this);
 }

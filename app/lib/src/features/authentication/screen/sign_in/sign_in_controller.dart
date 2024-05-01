@@ -1,7 +1,6 @@
-import '../../../../utils/custom_controller_state.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../data/auth_repository.dart';
 
 part 'sign_in_controller.g.dart';
 

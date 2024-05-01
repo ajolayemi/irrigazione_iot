@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../exceptions/app_exception.dart';
-import 'sign_up_controller.dart';
-import 'sign_up_screen_contents.dart';
-import '../../../../utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_up/sign_up_controller.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_up/sign_up_screen_contents.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 
 class SignUpScreen extends ConsumerWidget {
   const SignUpScreen({super.key});
@@ -14,7 +14,7 @@ class SignUpScreen extends ConsumerWidget {
     ref.listen(signUpControllerProvider, (_, state) {
       if (state.error is! EmailAlreadyInUseException) {
         return state.showAlertDialogOnError(context);
-      } 
+      }
       debugPrint('Email already in use error occurred in sign up screen');
     });
     return const Scaffold(

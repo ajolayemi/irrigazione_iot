@@ -1,7 +1,8 @@
-import '../data/sector_status_repository.dart';
-import '../model/sector.dart';
-import '../../../utils/custom_controller_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/service/sector_status_service.dart';
+import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 
 part 'sector_switch_controller.g.dart';
 
@@ -14,17 +15,16 @@ class SectorSwitchController extends _$SectorSwitchController {
     return initState;
   }
 
-  void setLoading(SectorID sectorId, bool isLoading) {
+  void setLoading(String sectorId, bool isLoading) {
     state = AsyncData(state.value!.setLoading(sectorId, isLoading));
   }
 
   Future<void> toggleStatus(Sector sector, bool status) async {
     setLoading(sector.id, true);
     state = const AsyncLoading<CustomControllerState>().copyWithPrevious(state);
-    final statusCommand = sector.getMqttStatusCommand(status);
-    final sectorStatusRepository = ref.read(sectorStatusRepositoryProvider);
-    final value = await AsyncValue.guard(
-        () => sectorStatusRepository.toggleSectorStatus(sector, statusCommand));
+    final service = ref.read(sectorStatusServiceProvider);
+    final value =
+        await AsyncValue.guard(() => service.toggleStatus(sector: sector, status: status));
     if (value.hasError) {
       state = AsyncError(value.error!, StackTrace.current);
     } else {

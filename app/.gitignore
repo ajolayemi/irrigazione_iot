@@ -114,7 +114,8 @@ app.*.map.json
 firebase-exports
 
 # Environment variables
-.env.**
+.env**
+env.g.dart
 
 # Ignore test coverage data
 coverage/
@@ -123,6 +124,7 @@ coverage/
 .firebaserc
 
 # Firebase
+firebase.json
 lib/firebase_options.dart
 ios/Runner/GoogleService-Info.plist
 ios/firebase_app_id_file.json
@@ -135,3 +137,6 @@ untranslated_messages.txt
 
 # node related files
 node_modules/
+
+# dart generated files
+*.g.dart

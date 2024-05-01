@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../board-centraline/data/board_status_repository.dart';
-import '../../board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/data/board_status_repository.dart';
+
 
 class BatteryIndicator extends ConsumerWidget {
   const BatteryIndicator({super.key, required this.boardId});
 
-  final BoardID boardId;
+  final String boardId;
   // Determine battery color based on level
   Color _getBatteryColor(double level) {
     if (level >= 0.75) {

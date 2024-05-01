@@ -5,7 +5,6 @@ enum CompanyUserRoles {
   user,
 }
 
-
 // TODO for the first version
 // TODO superuser should be the only one who can perform CUD operations
 
@@ -30,4 +29,11 @@ extension CompanyUserRolesExtension on CompanyUserRoles {
         this == CompanyUserRoles.owner ||
         this == CompanyUserRoles.superuser;
   }
+}
+
+extension CompanyUserRolesStringExtension on String {
+  CompanyUserRoles toCompanyUserRoles() => CompanyUserRoles.values.firstWhere(
+        (role) => role.name == this,
+        orElse: () => CompanyUserRoles.user,
+      );
 }

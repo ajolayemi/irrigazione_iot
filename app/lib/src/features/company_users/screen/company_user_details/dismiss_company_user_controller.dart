@@ -1,4 +1,4 @@
-import '../../data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dismiss_company_user_controller.g.dart';

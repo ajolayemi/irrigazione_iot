@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../config/routes/routes_enums.dart';
-import '../../../constants/app_sizes.dart';
-import '../../authentication/data/auth_repository.dart';
-import '../widgets/company_users_item.dart';
-import '../widgets/more_page_item_list_tile.dart';
-import '../../company_users/data/selected_company_repository.dart';
-import '../../../utils/extensions.dart';
-import '../../../widgets/alert_dialogs.dart';
-import '../../../widgets/app_sliver_bar.dart';
-import '../../../widgets/sliver_logout_button.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/more/widgets/company_users_item.dart';
+import 'package:irrigazione_iot/src/features/more/widgets/more_page_item_list_tile.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/sliver_logout_button.dart';
 
 class MoreOptionsScreenContent extends ConsumerWidget {
   const MoreOptionsScreenContent({super.key});

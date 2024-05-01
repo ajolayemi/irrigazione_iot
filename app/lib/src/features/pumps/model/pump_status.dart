@@ -1,64 +1,42 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-// A representation of the status of a pump.
-
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump_status_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-import 'pump.dart';
+part 'pump_status.g.dart';
 
+@JsonSerializable()
 class PumpStatus extends Equatable {
   const PumpStatus({
-    required this.status,
-    required this.lastUpdated,
+    required this.id,
     required this.pumpId,
+    required this.status,
+    required this.statusBoolean,
+    this.createdAt,
   });
-  final PumpID pumpId;
-  // pump status are passed in as a string value because the status will be managed
-  // using MQTT messages that sends and receives a string value
-  // an internal logic will convert the string value to a boolean value when needed
+
+  @JsonKey(name: PumpStatusDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
+  final String id;
+
+  @JsonKey(name: PumpStatusDatabaseKeys.pumpId)
+  @IntConverter()
+  final String pumpId;
+
+  @JsonKey(name: PumpStatusDatabaseKeys.status)
   final String status;
-  final DateTime lastUpdated;
+
+  @JsonKey(name: PumpStatusDatabaseKeys.statusBoolean)
+  final bool statusBoolean;
+
+  @JsonKey(name: PumpStatusDatabaseKeys.createdAt)
+  final DateTime? createdAt;
 
   @override
-  List<Object> get props => [pumpId, status, lastUpdated];
+  List<Object?> get props => [id, pumpId, status, createdAt];
 
-  @override
-  bool get stringify => true;
+  factory PumpStatus.fromJson(Map<String, dynamic> json) =>
+      _$PumpStatusFromJson(json);
 
-  @override
-  String toString() {
-    return 'PumpStatus{pumpId: $pumpId, status: $status, lastUpdated: $lastUpdated}';
-  }
-
-  PumpStatus copyWith({
-    PumpID? pumpId,
-    String? status,
-    DateTime? lastUpdated,
-  }) {
-    return PumpStatus(
-      pumpId: pumpId ?? this.pumpId,
-      status: status ?? this.status,
-      lastUpdated: lastUpdated ?? this.lastUpdated,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'pumpId': pumpId,
-      'status': status,
-      'lastUpdate': lastUpdated.millisecondsSinceEpoch,
-    };
-  }
-
-  factory PumpStatus.fromJson(Map<String, dynamic> map) {
-    return PumpStatus(
-      pumpId: map['pumpId'] as PumpID,
-      status: map['status'] as String,
-      lastUpdated:
-          DateTime.fromMillisecondsSinceEpoch(map['lastUpdate'] as int),
-    );
-  }
-}
-
-extension PumpStatusX on PumpStatus {
-  bool translatePumpStatusToBoolean(Pump pump) => status == pump.commandForOn;
+  Map<String, dynamic> toJson() => _$PumpStatusToJson(this);
 }

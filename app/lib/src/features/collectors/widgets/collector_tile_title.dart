@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../constants/app_sizes.dart';
-import '../data/collector_sector_repository.dart';
-import '../model/collector.dart';
-import 'sectors_switched_on_badge.dart';
-
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/widgets/sectors_switched_on_badge.dart';
 
 /// A row widget that displays the collector name and the number of sectors switched on
 class CollectorTileRowWidget extends ConsumerWidget {
@@ -34,5 +33,3 @@ class CollectorTileRowWidget extends ConsumerWidget {
     );
   }
 }
-
-

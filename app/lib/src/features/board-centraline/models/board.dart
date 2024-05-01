@@ -1,13 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-import '../../collectors/model/collector.dart';
-import '../../company_users/model/company.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
-typedef BoardID = String;
+part 'board.g.dart';
 
-/// A representation of a board. (centraline)
+@JsonSerializable()
 class Board extends Equatable {
   const Board({
     required this.id,
@@ -16,6 +15,9 @@ class Board extends Equatable {
     required this.serialNumber,
     required this.collectorId,
     required this.companyId,
+    required this.mqttMsgName,
+    this.createdAt,
+    this.updatedAt,
   });
 
   const Board.empty()
@@ -24,19 +26,43 @@ class Board extends Equatable {
         model = '',
         serialNumber = '',
         collectorId = '',
-        companyId = '';
+        companyId = '',
+        createdAt = null,
+        updatedAt = null,
+        mqttMsgName = '';
 
-  final BoardID id;
+  @JsonKey(name: BoardDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
+  final String id;
+
+  @JsonKey(name: BoardDatabaseKeys.name)
   final String name;
+
+  @JsonKey(name: BoardDatabaseKeys.model)
   final String model;
+
+  @JsonKey(name: BoardDatabaseKeys.serialNumber)
   final String serialNumber;
 
-  /// Each board is associated with a collector.
-  final CollectorID collectorId;
-  final CompanyID companyId;
+  @JsonKey(name: BoardDatabaseKeys.collectorId)
+  @IntConverter()
+  final String collectorId;
+
+  @JsonKey(name: BoardDatabaseKeys.companyId)
+  @IntConverter()
+  final String companyId;
+
+  @JsonKey(name: BoardDatabaseKeys.createdAt)
+  final DateTime? createdAt;
+
+  @JsonKey(name: BoardDatabaseKeys.updatedAt)
+  final DateTime? updatedAt;
+
+  @JsonKey(name: BoardDatabaseKeys.mqttMsgName)
+  final String mqttMsgName;
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       name,
@@ -44,16 +70,22 @@ class Board extends Equatable {
       serialNumber,
       collectorId,
       companyId,
+      createdAt,
+      updatedAt,
+      mqttMsgName,
     ];
   }
 
   Board copyWith({
-    BoardID? id,
+    String? id,
     String? name,
     String? model,
     String? serialNumber,
-    CollectorID? collectorId,
-    CompanyID? companyId,
+    String? collectorId,
+    String? companyId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? mqttMsgName,
   }) {
     return Board(
       id: id ?? this.id,
@@ -62,31 +94,13 @@ class Board extends Equatable {
       serialNumber: serialNumber ?? this.serialNumber,
       collectorId: collectorId ?? this.collectorId,
       companyId: companyId ?? this.companyId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      mqttMsgName: mqttMsgName ?? this.mqttMsgName,
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'model': model,
-      'serialNumber': serialNumber,
-      'collectorId': collectorId,
-      'companyId': companyId,
-    };
-  }
+  factory Board.fromJson(Map<String, dynamic> json) => _$BoardFromJson(json);
 
-  factory Board.fromJson(Map<String, dynamic> map) {
-    return Board(
-      id: map['id'] as BoardID,
-      name: map['name'] as String,
-      model: map['model'] as String,
-      serialNumber: map['serialNumber'] as String,
-      collectorId: map['collectorId'] as CollectorID,
-      companyId: map['companyId'] as CompanyID,
-    );
-  }
-
-
-  
+  Map<String, dynamic> toJson() => _$BoardToJson(this);
 }

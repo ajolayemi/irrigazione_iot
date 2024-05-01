@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../config/enums/form_types.dart';
-import '../../models/board.dart';
-import 'add_update_board_controller.dart';
-import 'add_update_board_form_content.dart';
-import '../../../../utils/async_value_ui.dart';
-import '../../../../widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/config/enums/form_types.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_board_controller.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_board_form_content.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
+
 
 class AddUpdateBoardsForm extends ConsumerWidget {
   const AddUpdateBoardsForm({
@@ -14,7 +14,7 @@ class AddUpdateBoardsForm extends ConsumerWidget {
     this.boardID,
   });
 
-  final BoardID? boardID;
+  final String? boardID;
   final GenericFormTypes formType;
   @override
   Widget build(BuildContext context, WidgetRef ref) {

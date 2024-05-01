@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../config/enums/form_types.dart';
-import '../../model/sector.dart';
-import 'add_update_sector_controller.dart';
-import 'add_update_sector_form_contents.dart';
-import '../../../../utils/async_value_ui.dart';
-import '../../../../widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/config/enums/form_types.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_controller.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_form_contents.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
 class AddUpdateSectorForm extends ConsumerWidget {
   const AddUpdateSectorForm({
@@ -15,7 +14,7 @@ class AddUpdateSectorForm extends ConsumerWidget {
   });
 
   final GenericFormTypes formType;
-  final SectorID? sectorId;
+  final String? sectorId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,13 +34,12 @@ class AddUpdateSectorForm extends ConsumerWidget {
         }
       },
       child: Scaffold(
-        body: PaddedSafeArea(
-          child: AddUpdateSectorFormContents(
-            formType: formType,
-            sectorId: sectorId,
-          ),
-        )
-      ),
+          body: PaddedSafeArea(
+        child: AddUpdateSectorFormContents(
+          formType: formType,
+          sectorId: sectorId,
+        ),
+      )),
     );
   }
 }

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../data/collector_repository.dart';
-import '../data/collector_sector_repository.dart';
-import '../model/collector.dart';
 
 part 'dismiss_collector_service.g.dart';
 
@@ -16,7 +14,7 @@ class DismissCollectorService {
 
   /// Handles the deletion of all data related to a collector
   /// i.e the standard collector data and its connected sectors
-  Future<void> dismissCollector(CollectorID collectorId) async {
+  Future<void> dismissCollector(String collectorId) async {
     final collectorRepo = _ref.read(collectorRepositoryProvider);
     final collectorSectorRepo = _ref.read(collectorSectorRepositoryProvider);
     final collectorWasDeleted =
@@ -26,9 +24,7 @@ class DismissCollectorService {
       debugPrint('Collector deleted successfully');
       // get a list of all the sectors connected to the collector
       final collectorSectors =
-          await collectorSectorRepo.getCollectorSectorsById(
-        collectorId: collectorId,
-      );
+          await collectorSectorRepo.getCollectorSectorsById(collectorId);
 
       if (collectorSectors.isEmpty) {
         debugPrint('No sectors connected to the collector');
@@ -38,9 +34,7 @@ class DismissCollectorService {
       // delete all the sectors connected to the collector
       for (final collectorSector in collectorSectors) {
         debugPrint('Deleting collector sector: ${collectorSector?.sectorId}');
-        await collectorSectorRepo.deleteCollectorSector(
-          collectorSector: collectorSector!,
-        );
+        await collectorSectorRepo.deleteCollectorSector(collectorSector!.id);
       }
     }
   }

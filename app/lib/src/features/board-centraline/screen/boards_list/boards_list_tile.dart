@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../config/routes/routes_enums.dart';
-import '../../../../constants/app_sizes.dart';
-import '../../../../constants/breakpoints.dart';
-import '../../models/board.dart';
-import 'dismiss_board_controller.dart';
-import '../../../collectors/widgets/battery_level_indicator.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/custom_dismissible.dart';
-import '../../../../widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/boards_list/dismiss_board_controller.dart';
+import 'package:irrigazione_iot/src/features/collectors/widgets/battery_level_indicator.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 
 class BoardListTile extends ConsumerWidget {
   const BoardListTile({

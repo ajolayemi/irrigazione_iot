@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../config/enums/roles.dart';
-import '../../../config/routes/routes_enums.dart';
-import 'company_profile_screen_contents.dart';
-import '../../company_users/data/company_users_repository.dart';
-import '../../company_users/model/company.dart';
-import '../../../utils/extensions.dart';
-import '../../../widgets/app_sliver_bar.dart';
-import '../../../widgets/common_edit_icon_button.dart';
-import '../../../widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/features/company_profile/screen/company_profile_screen_contents.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_edit_icon_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
+
+
 
 class CompanyProfileScreen extends ConsumerWidget {
   const CompanyProfileScreen({
@@ -17,7 +18,7 @@ class CompanyProfileScreen extends ConsumerWidget {
     required this.companyID,
   });
 
-  final CompanyID companyID;
+  final String companyID;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -1,42 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../enums/form_types.dart';
-import 'go_router_refresh_stream.dart';
-import 'routes_enums.dart';
-import '../../features/authentication/data/auth_repository.dart';
-import '../../features/authentication/screen/sign_in/sign_in_screen.dart';
-import '../../features/authentication/screen/sign_up/sign_up_screen.dart';
-import '../../features/board-centraline/screen/add_update_boards/add_update_boards_form.dart';
-import '../../features/board-centraline/screen/add_update_boards/connect_collector_to_board_screen.dart';
-import '../../features/board-centraline/screen/board_details/board_details_screen.dart';
-import '../../features/board-centraline/screen/boards_list/boards_list_screen.dart';
-import '../../features/collectors/screen/add_update_collector/add_update_collector_form.dart';
-import '../../features/collectors/screen/add_update_collector/connect_sectors_to_collector_screen.dart';
-import '../../features/collectors/screen/collector_details/collector_details.dart';
-import '../../features/collectors/screen/collector_list_screen.dart';
-import '../../features/company_profile/screen/add_update_company_form.dart';
-import '../../features/company_profile/screen/company_profile_screen.dart';
-import '../../features/company_users/screen/add_update_company_user/add_update_company_user_form.dart';
-import '../../features/company_users/screen/company_user_details/company_user_details_screen.dart';
-import '../../features/company_users/screen/company_users_list/company_users_list_screen.dart';
-import '../../features/dashboard/screen/dashboard_screen.dart';
-import '../../features/home/screen/home_nested_navigator.dart';
-import '../../features/more/screen/more_options_screen.dart';
-import '../../features/pumps/screen/add_pump/add_update_pump_form.dart';
-import '../../features/pumps/screen/pump_details/pump_details_screen.dart';
-import '../../features/pumps/screen/pump_list/pumps_list_screen.dart';
-import '../../features/sectors/screen/add_update_sector/add_update_sector_form.dart';
-import '../../features/sectors/screen/add_update_sector/connect_pumps_to_sector_screen.dart';
-import '../../features/sectors/screen/add_update_sector/select_a_specie_screen.dart';
-import '../../features/sectors/screen/add_update_sector/select_an_irrigation_source.dart';
-import '../../features/sectors/screen/add_update_sector/select_an_irrigation_system.dart';
-import '../../features/sectors/screen/sector_details/connected_pumps_list_screen.dart';
-import '../../features/sectors/screen/sector_details/sector_details.dart';
-import '../../features/sectors/screen/sector_list/sectors_list_screen.dart';
-import '../../features/company_users/data/selected_company_repository.dart';
-import '../../features/company_users/screen/user_company_list/user_companies_list_screen.dart';
-import '../../features/user_profile/screen/user_profile_screen.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_a_variety_screen.dart';
+import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/config/enums/form_types.dart';
+import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_screen.dart';
+import 'package:irrigazione_iot/src/features/authentication/screen/sign_up/sign_up_screen.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/add_update_boards_form.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/add_update_boards/connect_collector_to_board_screen.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/board_details/board_details_screen.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/boards_list/boards_list_screen.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/add_update_collector_form.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/add_update_collector/connect_sectors_to_collector_screen.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/collector_details/collector_details.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/collector_list_screen.dart';
+import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_form.dart';
+import 'package:irrigazione_iot/src/features/company_profile/screen/company_profile_screen.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/add_update_company_user/add_update_company_user_form.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/company_user_details/company_user_details_screen.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/company_users_list/company_users_list_screen.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/user_company_list/user_companies_list_screen.dart';
+import 'package:irrigazione_iot/src/features/dashboard/screen/dashboard_screen.dart';
+import 'package:irrigazione_iot/src/features/home/screen/home_nested_navigator.dart';
+import 'package:irrigazione_iot/src/features/more/screen/more_options_screen.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/add_pump/add_update_pump_form.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_details/pump_details_screen.dart';
+import 'package:irrigazione_iot/src/features/pumps/screen/pump_list/pumps_list_screen.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_form.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/connect_pumps_to_sector_screen.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_a_specie_screen.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_an_irrigation_source.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_an_irrigation_system.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/sector_details.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_screen.dart';
+import 'package:irrigazione_iot/src/features/user_profile/screen/user_profile_screen.dart';
 
 part 'app_router.g.dart';
 
@@ -279,51 +281,86 @@ GoRouter goRouter(GoRouterRef ref) {
       GoRoute(
         path: '/select-a-specie',
         name: AppRoute.selectASpecie.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          child: SelectASpecieScreen(),
-          fullscreenDialog: true,
-        ),
+        pageBuilder: (context, state) {
+          final queryParams =
+              QueryParameters.fromJson(state.uri.queryParameters);
+          return MaterialPage(
+            child: SelectASpecieScreen(
+              selectedSpecieId: queryParams.id,
+              selectedSpecieName: queryParams.name,
+            ),
+            fullscreenDialog: true,
+          );
+        },
+      ),
+
+      // Select a variety
+      GoRoute(
+        path: '/select-a-variety',
+        name: AppRoute.selectAVariety.name,
+        pageBuilder: (context, state) {
+          final queryParams =
+              QueryParameters.fromJson(state.uri.queryParameters);
+          return MaterialPage(
+            child: SelectAVarietyScreen(
+              selectedVarietyId: queryParams.id,
+              selectedVarietyName: queryParams.name,
+            ),
+            fullscreenDialog: true,
+          );
+        },
       ),
 
       // Select an irrigation system
       GoRoute(
         path: '/select-an-irrigation-system',
         name: AppRoute.selectAnIrrigationSystem.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          child: SelectAnIrrigationSystem(),
-          fullscreenDialog: true,
-        ),
+        pageBuilder: (context, state) {
+          final queryParams =
+              QueryParameters.fromJson(state.uri.queryParameters);
+          return MaterialPage(
+            child: SelectAnIrrigationSystem(
+              selectedIrrigationSystem: queryParams.name,
+            ),
+            fullscreenDialog: true,
+          );
+        },
       ),
 
       // Select an irrigation source
       GoRoute(
         path: '/select-an-irrigation-source',
         name: AppRoute.selectAnIrrigationSource.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          child: SelectAnIrrigationSource(),
-          fullscreenDialog: true,
-        ),
+        pageBuilder: (context, state) {
+          final queryParams = QueryParameters.fromJson(
+            state.uri.queryParameters,
+          );
+          return MaterialPage(
+            child: SelectAnIrrigationSource(
+              selectedIrrigationSource: queryParams.name,
+            ),
+            fullscreenDialog: true,
+          );
+        },
       ),
 
       // Connect pumps to sector
       GoRoute(
-        path: '/connect-pumps-to-sector',
-        name: AppRoute.connectPumpsToSector.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: ConnectPumpsToSector(),
-        ),
-      ),
-
-      // Sector connected pumps
-      GoRoute(
-        path: '/sector-connected-pumps/:sectorId',
-        name: AppRoute.sectorConnectedPumps.name,
-        pageBuilder: (context, state) => MaterialPage(
-          fullscreenDialog: true,
-          child: SectorConnectedPumpsList(
-              sectorId: state.pathParameters['sectorId'] ?? ''),
-        ),
+        path: '/connect-pump-to-sector',
+        name: AppRoute.connectPumpToSector.name,
+        pageBuilder: (context, state) {
+          final queryParams =
+              QueryParameters.fromJson(state.uri.queryParameters);
+          return MaterialPage(
+            child: ConnectPumpToSector(
+              selectedPumpId: queryParams.id,
+              selectedPumpName: queryParams.name,
+              pumpIdPreviouslyConnectedToSector:
+                  queryParams.previouslyConnectedId,
+            ),
+            fullscreenDialog: true,
+          );
+        },
       ),
 
       // Page to display form for adding a new collector
@@ -355,10 +392,17 @@ GoRouter goRouter(GoRouterRef ref) {
       GoRoute(
         path: '/connect-sectors-to-collector',
         name: AppRoute.connectSectorToCollector.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: ConnectSectorsToCollector(),
-        ),
+        pageBuilder: (context, state) {
+          final queryParams = QueryParameters.fromJson(
+            state.uri.queryParameters,
+          );
+          return MaterialPage(
+            fullscreenDialog: true,
+            child: ConnectSectorsToCollector(
+              idOfCollectorBeingEdited: queryParams.id,
+            ),
+          );
+        },
       ),
 
       /// Board (centraline) routes and it's sub-routes
@@ -400,12 +444,21 @@ GoRouter goRouter(GoRouterRef ref) {
             ),
           ),
           GoRoute(
-            path: 'connect-collector',
+            path: 'connect-collector-to-board',
             name: AppRoute.connectCollectorToBoard.name,
-            pageBuilder: (context, state) => const MaterialPage(
-              fullscreenDialog: true,
-              child: ConnectCollectorToBoardScreen(),
-            ),
+            pageBuilder: (context, state) {
+              final queryParams =
+                  QueryParameters.fromJson(state.uri.queryParameters);
+              return MaterialPage(
+                child: ConnectCollectorToBoardScreen(
+                  previouslyConnectedCollectorId:
+                      queryParams.previouslyConnectedId,
+                  selectedCollectorId: queryParams.id,
+                  selectedCollectorName: queryParams.name,
+                ),
+                fullscreenDialog: true,
+              );
+            },
           ),
         ],
       ),

@@ -1,5 +1,5 @@
-import '../../data/auth_repository.dart';
-import '../../model/app_user.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sign_up_controller.g.dart';

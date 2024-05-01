@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../config/routes/routes_enums.dart';
-import '../data/collector_repository.dart';
-import '../data/collector_sector_repository.dart';
-import 'collector_expansion_list_tile.dart';
-import 'collector_list/dismiss_collector_controller.dart';
-import '../widgets/empty_collector_widget.dart';
-import '../../sectors/screen/sector_switch_controller.dart';
-import '../../../utils/async_value_ui.dart';
-import '../../../utils/extensions.dart';
-import '../../../widgets/app_sliver_bar.dart';
-import '../../../widgets/async_value_widget.dart';
-import '../../../widgets/common_add_icon_button.dart';
-import '../../../widgets/common_sliver_list_skeleton.dart';
-import '../../../widgets/padded_safe_area.dart';
+
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/collector_expansion_list_tile.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/collector_list/dismiss_collector_controller.dart';
+import 'package:irrigazione_iot/src/features/collectors/widgets/empty_collector_widget.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch_controller.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_sliver_list_skeleton.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 class CollectorListScreen extends ConsumerWidget {
   const CollectorListScreen({super.key});
@@ -23,7 +24,6 @@ class CollectorListScreen extends ConsumerWidget {
     required BuildContext context,
     required WidgetRef ref,
   }) {
-    ref.read(sectorIdsOfCollectorBeingEditedProvider.notifier).state = [];
     ref.read(selectedSectorsIdProvider.notifier).state = [];
     context.pushNamed(
       AppRoute.addCollector.name,

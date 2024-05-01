@@ -32,4 +32,6 @@ export class ColumnNames {
   static readonly collector_id_as_fkey = "collector_id";
   static readonly board_id_as_fkey = "board_id";
   static readonly company_id_as_fkey = "company_id";
+
+  static readonly columns_to_get_for_mqtt = 'id, company_id, turn_on_command, turn_off_command'
 }

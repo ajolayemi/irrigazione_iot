@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import '../model/app_user.dart';
+
+import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
 
 /// Fake user class used to simulate a user account on the backend
 /// * This class is implementation-specific and should only be used by the
@@ -10,11 +11,11 @@ class FakeAppUser extends AppUser {
     required super.email,
     required super.name,
     required super.surname,
-    required this.password, 
-  }); 
+    required this.password,
+  });
   final String password;
 
-  @override
+
   FakeAppUser copyWith({
     String? uid,
     String? email,
@@ -35,9 +36,8 @@ class FakeAppUser extends AppUser {
   @override
   bool operator ==(covariant FakeAppUser other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.password == password;
+
+    return other.password == password;
   }
 
   @override

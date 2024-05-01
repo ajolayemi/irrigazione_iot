@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../utils/extensions.dart';
-
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 // Widget to show the home navigation bar for mobile screens
 class HomeNavigationBar extends StatelessWidget {

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../config/routes/routes_enums.dart';
-import '../../data/board_repository.dart';
-import 'boards_list_tile.dart';
-import 'dismiss_board_controller.dart';
-import '../../widgets/empty_board_widget.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/app_sliver_bar.dart';
-import '../../../../widgets/async_value_widget.dart';
-import '../../../../widgets/common_add_icon_button.dart';
-import '../../../../widgets/common_sliver_list_skeleton.dart';
-import '../../../../widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/boards_list/boards_list_tile.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/screen/boards_list/dismiss_board_controller.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/widgets/empty_board_widget.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_sliver_list_skeleton.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
 /// Displays a list of boards, i.e centraline in italian.
 class BoardsListScreen extends ConsumerWidget {
@@ -21,8 +21,6 @@ class BoardsListScreen extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
-    ref.read(collectorConnectedToBoardProvider.notifier).state = null;
-    ref.read(selectedCollectorIdProvider.notifier).state = null;
     context.pushNamed(
       AppRoute.addBoard.name,
     );
@@ -53,7 +51,7 @@ class BoardsListScreen extends ConsumerWidget {
                   if (boards.isEmpty) {
                     return const EmptyBoardWidget();
                   }
-      
+
                   return SliverList(
                       delegate: SliverChildBuilderDelegate(
                     (context, index) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../utils/extensions.dart';
-import '../../../widgets/alert_dialogs.dart';
-import '../../../widgets/empty_data_widget.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/shared/widgets/empty_data_widget.dart';
 
 class EmptyBoardWidget extends StatelessWidget {
   const EmptyBoardWidget({

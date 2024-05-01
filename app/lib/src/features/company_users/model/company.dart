@@ -1,10 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-typedef CompanyID = String;
+import 'package:irrigazione_iot/src/features/company_users/model/company_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
-// TODO check if this should be moved elsewhere
+part 'company.g.dart';
+
 // A representation of companies, i.e the companies who uses the app
+@JsonSerializable()
 class Company extends Equatable {
   const Company({
     required this.id,
@@ -13,18 +18,47 @@ class Company extends Equatable {
     required this.phoneNumber,
     required this.email,
     required this.imageUrl,
+    required this.mqttTopicName,
+    this.createdAt,
+    this.updatedAt,
     this.vatNumber = '',
     this.fiscalCode = '',
   });
+
   // Unique identifier for the company from the database
-  final CompanyID id;
+  @JsonKey(name: CompanyDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
+  final String id;
+
+  @JsonKey(name: CompanyDatabaseKeys.name)
   final String name;
+
+  @JsonKey(name: CompanyDatabaseKeys.registeredOfficeAddress)
   final String registeredOfficeAddress;
+
+  @JsonKey(name: CompanyDatabaseKeys.phoneNumber)
   final String phoneNumber;
+
+  @JsonKey(name: CompanyDatabaseKeys.email)
   final String email;
+
+  @JsonKey(name: CompanyDatabaseKeys.imageUrl)
   final String imageUrl;
+
+  @JsonKey(name: CompanyDatabaseKeys.createdAt)
+  final DateTime? createdAt;
+
+  @JsonKey(name: CompanyDatabaseKeys.updatedAt)
+  final DateTime? updatedAt;
+
+  @JsonKey(name: CompanyDatabaseKeys.piva)
   final String? vatNumber;
+
+  @JsonKey(name: CompanyDatabaseKeys.cf)
   final String? fiscalCode;
+
+  @JsonKey(name: CompanyDatabaseKeys.mqttTopicName)
+  final String mqttTopicName;
 
   @override
   List<Object?> get props {
@@ -37,41 +71,14 @@ class Company extends Equatable {
       imageUrl,
       vatNumber,
       fiscalCode,
+      createdAt,
+      updatedAt,
+      mqttTopicName
     ];
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'registeredOfficeAddress': registeredOfficeAddress,
-      'phoneNumber': phoneNumber,
-      'email': email,
-      'imageUrl': imageUrl,
-      'vatNumber': vatNumber,
-      'fiscalCode': fiscalCode,
-    };
-  }
-
-  factory Company.fromMap(Map<String, dynamic> map) {
-    return Company(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      registeredOfficeAddress: map['registeredOfficeAddress'] as String,
-      phoneNumber: map['phoneNumber'] as String,
-      email: map['email'] as String,
-      imageUrl: map['imageUrl'] as String,
-      vatNumber: map['vatNumber'] != null ? map['vatNumber'] as String : null,
-      fiscalCode:
-          map['fiscalCode'] != null ? map['fiscalCode'] as String : null,
-    );
-  }
-
-  @override
-  bool get stringify => true;
-
   Company copyWith({
-    CompanyID? id,
+    String? id,
     String? name,
     String? registeredOfficeAddress,
     String? phoneNumber,
@@ -79,10 +86,14 @@ class Company extends Equatable {
     String? imageUrl,
     String? vatNumber,
     String? fiscalCode,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? mqttTopicName,
   }) {
     return Company(
       id: id ?? this.id,
       name: name ?? this.name,
+      mqttTopicName: mqttTopicName ?? this.mqttTopicName,
       registeredOfficeAddress:
           registeredOfficeAddress ?? this.registeredOfficeAddress,
       phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -90,6 +101,13 @@ class Company extends Equatable {
       imageUrl: imageUrl ?? this.imageUrl,
       vatNumber: vatNumber ?? this.vatNumber,
       fiscalCode: fiscalCode ?? this.fiscalCode,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
+
+  factory Company.fromJson(Map<String, dynamic> json) =>
+      _$CompanyFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CompanyToJson(this);
 }

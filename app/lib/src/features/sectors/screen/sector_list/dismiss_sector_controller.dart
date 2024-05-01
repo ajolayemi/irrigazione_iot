@@ -1,7 +1,7 @@
+import 'package:irrigazione_iot/src/features/sectors/service/dismiss_sector_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../model/sector.dart';
-import '../../service/dismiss_sector_service.dart';
+
 
 part 'dismiss_sector_controller.g.dart';
 
@@ -12,7 +12,7 @@ class DismissSectorController extends _$DismissSectorController {
     // nothing to do
   }
 
-  Future<bool> confirmDismiss(SectorID sectorId) async {
+  Future<bool> confirmDismiss(String sectorId) async {
     final sectorDismissalService = ref.read(dismissSectorServiceProvider);
     state = const AsyncLoading<void>();
     final res = await AsyncValue.guard(

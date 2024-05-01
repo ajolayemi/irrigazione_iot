@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../data/pump_details_repository.dart';
-import '../../data/pump_status_repository.dart';
-import '../../model/pump.dart';
-import '../pump_status_switch.dart';
-import '../../../../utils/date_formatter.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/details_tile_widget.dart';
-import '../../../../widgets/responsive_details_card.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_flow_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
+import 'package:irrigazione_iot/src/utils/date_formatter.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/shared/widgets/details_tile_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart';
 
 class PumpDetailsList extends ConsumerWidget {
   const PumpDetailsList({super.key, required this.pump});
@@ -19,20 +17,6 @@ class PumpDetailsList extends ConsumerWidget {
     final loc = context.loc;
     return SliverList(
       delegate: SliverChildListDelegate.fixed([
-        // ResponsiveDetailsCard(
-        //   child: Consumer(
-        //     builder: (context, ref, child) {
-        //       final status =
-        //           ref.watch(pumpStatusStreamProvider(pump)).valueOrNull ??
-        //               false;
-        //       return DetailTileWidget(
-        //         title: loc.statusListTileTitle,
-        //         subtitle: status ? loc.onStatusValue : loc.offStatusValue,
-        //         trailing: PumpSwitch(pump: pump),
-        //       );
-        //     },
-        //   ),
-        // ),
         ResponsiveDetailsCard(child: Consumer(builder: (context, ref, child) {
           final lastDispensation =
               ref.watch(lastDispensationStreamProvider(pump.id)).valueOrNull;

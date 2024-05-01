@@ -1,18 +1,18 @@
+import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/service/add_update_board_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../models/board.dart';
-import '../../service/add_update_board_service.dart';
 
 part 'add_update_board_controller.g.dart';
 
 @riverpod
 class AddUpdateBoardController extends _$AddUpdateBoardController {
   @override
-  FutureOr<void> build() {
+  FutureOr<void> build() {}
 
-  }
-
-  Future<bool> createBoard({required Board? boardToCreate}) async {
+  Future<bool> createBoard({
+    Board? boardToCreate,
+    String? collectorIdToConnect,
+  }) async {
     final boardService = ref.read(addUpdateBoardServiceProvider);
     state = const AsyncLoading();
     if (boardToCreate == null) {
@@ -22,12 +22,28 @@ class AddUpdateBoardController extends _$AddUpdateBoardController {
       );
       return Future.value(false);
     }
+
+    if (collectorIdToConnect == null) {
+      state = AsyncError(
+        'no collector id provided for connection',
+        StackTrace.current,
+      );
+      return Future.value(false);
+    }
+
     state = await AsyncValue.guard(
-        () => boardService.createBoard(boardToCreate));
+      () => boardService.createBoard(
+        board: boardToCreate,
+        collectorIdToConnect: collectorIdToConnect,
+      ),
+    );
     return !state.hasError;
   }
 
-  Future<bool> updateBoard({required Board? boardToUpdate}) async {
+  Future<bool> updateBoard({
+   Board? boardToUpdate,
+    String? collectorIdToConnect,
+  }) async {
     final boardService = ref.read(addUpdateBoardServiceProvider);
     state = const AsyncLoading();
     if (boardToUpdate == null) {
@@ -38,8 +54,20 @@ class AddUpdateBoardController extends _$AddUpdateBoardController {
       return false;
     }
 
+    if (collectorIdToConnect == null) {
+      state = AsyncError(
+        'no collector id provided for connection',
+        StackTrace.current,
+      );
+      return false;
+    }
+
     state = await AsyncValue.guard(
-        () => boardService.updateBoard(boardToUpdate));
+      () => boardService.updateBoard(
+        board: boardToUpdate,
+        collectorIdToConnect: collectorIdToConnect,
+      ),
+    );
     return !state.hasError;
   }
 }

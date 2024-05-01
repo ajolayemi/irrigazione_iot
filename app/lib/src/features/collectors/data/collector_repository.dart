@@ -1,48 +1,43 @@
 import 'dart:async';
 
-import 'fake_collector_repository.dart';
-import '../model/collector.dart';
-import '../../company_users/data/selected_company_repository.dart';
-import '../../company_users/model/company.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/collectors/data/supabase_collector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'collector_repository.g.dart';
 
 abstract class CollectorRepository {
-  /// returns a list of [Collector] pertaining to a company if any
-  Future<List<Collector?>> getCollectors(CompanyID companyId);
-
   /// emits a list of [Collector] pertaining to a company if any
-  Stream<List<Collector?>> watchCollectors(CompanyID companyId);
+  Stream<List<Collector?>> watchCollectors(String companyId);
 
   /// emits a [Collector] with the given collectorID
-  Stream<Collector?> watchCollector(CollectorID collectorID);
-
-  /// returns a [Collector] with the given collectorID
-  Future<Collector?> getCollector(CollectorID collectorID);
+  Stream<Collector?> watchCollector(String collectorID);
 
   /// adds a [Collector]
-  Future<Collector?> addCollector(Collector collector, CompanyID companyId);
+  Future<Collector?> createCollector(Collector collector);
 
   /// updates a [Collector]
-  Future<Collector?> updateCollector(Collector collector, CompanyID companyId);
+  Future<Collector?> updateCollector(Collector collector);
 
   /// deletes a [Collector]
-  Future<bool> deleteCollector(CollectorID collectorID);
+  Future<bool> deleteCollector(String collectorID);
 
   /// emits a list of already used collector names for a specified company
   /// this is used in form validation to prevent duplicate collector names for a company
-  Stream<List<String?>> watchCompanyUsedCollectorNames(CompanyID companyId);
+  Stream<List<String?>> watchCompanyUsedCollectorNames(String companyId);
 
-  /// emits the most recent battery level for the collector
-  /// this is used to display the battery level in the UI
-  Stream<double?> watchCollectorBatteryLevel(CollectorID collectorID);
+  /// emits list of already used mqtt message names
+  /// this is used in form validation to prevent duplicate mqtt message names for collectors
+  Stream<List<String?>> watchCollectorUsedMqttMessageNames();
 }
 
 @Riverpod(keepAlive: true)
 CollectorRepository collectorRepository(CollectorRepositoryRef ref) {
-  // todo return remote repository as default
-  return FakeCollectorRepository();
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  return SupabaseCollectorRepository(supabaseClient);
 }
 
 @riverpod
@@ -54,14 +49,6 @@ Stream<List<Collector?>> collectorListStream(CollectorListStreamRef ref) {
 }
 
 @riverpod
-Future<List<Collector?>> collectorListFuture(CollectorListFutureRef ref) {
-  final collectorRepository = ref.read(collectorRepositoryProvider);
-  final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return Future.value([]);
-  return collectorRepository.getCollectors(companyId);
-}
-
-@riverpod
 Stream<List<String?>> usedCollectorNamesStream(
     UsedCollectorNamesStreamRef ref) {
   final collectorRepository = ref.read(collectorRepositoryProvider);
@@ -70,25 +57,16 @@ Stream<List<String?>> usedCollectorNamesStream(
   return collectorRepository.watchCompanyUsedCollectorNames(companyId);
 }
 
-/// Watches a single instance of [Collector] as specified by [CollectorID]
+/// Watches a single instance of [Collector] as specified by [String]
 @riverpod
-Stream<Collector?> collectorStream(
-    CollectorStreamRef ref, CollectorID collectorId) {
+Stream<Collector?> collectorStream(CollectorStreamRef ref, String collectorId) {
   final collectorRepository = ref.watch(collectorRepositoryProvider);
   return collectorRepository.watchCollector(collectorId);
 }
 
-/// Gets a single instance of [Collector] as specified by [CollectorID]
 @riverpod
-Future<Collector?> collectorFuture(
-    CollectorFutureRef ref, CollectorID collectorId) {
-  final collectorRepository = ref.watch(collectorRepositoryProvider);
-  return collectorRepository.getCollector(collectorId);
-}
-
-@riverpod
-Stream<double?> collectorBatteryLevelStream(CollectorBatteryLevelStreamRef ref,
-    {required CollectorID collectorId}) {
-  final collectorRepository = ref.watch(collectorRepositoryProvider);
-  return collectorRepository.watchCollectorBatteryLevel(collectorId);
+Stream<List<String?>> collectorUsedMqttMessageNamesStream(
+    CollectorUsedMqttMessageNamesStreamRef ref) {
+  final collectorRepository = ref.read(collectorRepositoryProvider);
+  return collectorRepository.watchCollectorUsedMqttMessageNames();
 }

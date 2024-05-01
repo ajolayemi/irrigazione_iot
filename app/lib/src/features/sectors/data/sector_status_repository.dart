@@ -1,57 +1,31 @@
-import 'fake_sector_status_repository.dart';
-import '../model/sector.dart';
-
+import 'package:irrigazione_iot/src/shared/models/firebase_callable_function_body.dart';
+import 'package:irrigazione_iot/src/shared/providers/firebase_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/sectors/data/supabase_sector_status_repository.dart';
+import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'sector_status_repository.g.dart';
 
 abstract class SectorStatusRepository {
-  ///  Returns the most recent status for the sector
-  Future<bool?> getSectorStatus(Sector sector);
-
   /// Emits a stream of the most recent status for the sector
-  Stream<bool?> watchSectorStatus(Sector sector);
+  Stream<bool?> watchSectorStatus(String sectorId);
 
   /// Toggles the status of the sector
-  Future<void> toggleSectorStatus(Sector sector, String status);
-
-  /// Emits the most recent irrigation date for the sector
-  Stream<DateTime?> watchSectorLastIrrigation(Sector sector);
-
-  /// Returns the most recent irrigation date for the sector
-  Future<DateTime?> getSectorLastIrrigation(Sector sector);
+  Future<void> toggleSectorStatus({
+    required FirebaseCallableFunctionBody statusBody,
+  });
 }
 
 @Riverpod(keepAlive: true)
 SectorStatusRepository sectorStatusRepository(SectorStatusRepositoryRef ref) {
-  return FakeSectorStatusRepository();
-  // todo replace with real implementation
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  final firebaseFunc = ref.read(firebaseFunctionsProvider);
+  return SupabaseSectorStatusRepository(supabaseClient, firebaseFunc);
 }
 
 @riverpod
-Stream<bool?> sectorStatusStream(
-    SectorStatusStreamRef ref, Sector sector) {
+Stream<bool?> sectorStatusStream(SectorStatusStreamRef ref, String sectorId) {
   final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);
-  return sectorStatusRepository.watchSectorStatus(sector);
-}
-
-@riverpod
-Future<bool?> sectorStatusFuture(
-    SectorStatusFutureRef ref, Sector sector) {
-  final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);
-  return sectorStatusRepository.getSectorStatus(sector);
-}
-
-@riverpod
-Stream<DateTime?> sectorLastIrrigatedStream(
-    SectorLastIrrigatedStreamRef ref, Sector sector) {
-  final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);
-  return sectorStatusRepository.watchSectorLastIrrigation(sector);
-}
-
-@riverpod
-Future<DateTime?> sectorLastIrrigatedFuture(
-    SectorLastIrrigatedFutureRef ref, Sector sector) {
-  final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);
-  return sectorStatusRepository.getSectorLastIrrigation(sector);
+  return sectorStatusRepository.watchSectorStatus(sectorId);
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../model/company_user.dart';
-import '../../../../utils/date_formatter.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/details_tile_widget.dart';
-import '../../../../widgets/responsive_details_card.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
+import 'package:irrigazione_iot/src/utils/date_formatter.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/shared/widgets/details_tile_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart';
 
 class CompanyUserDetailsScreenContents extends ConsumerWidget {
   const CompanyUserDetailsScreenContents({
@@ -36,13 +36,17 @@ class CompanyUserDetailsScreenContents extends ConsumerWidget {
           ResponsiveDetailsCard(
             child: DetailTileWidget(
               title: loc.companyUserAddedOn,
-              subtitle: dateFormatter.format(user.createdAt),
+              subtitle: user.createdAt == null
+                  ? 'N/A'
+                  : dateFormatter.format(user.createdAt!),
             ),
           ),
           ResponsiveDetailsCard(
             child: DetailTileWidget(
               title: loc.companyUserLastUpdated,
-              subtitle: dateFormatter.format(user.updatedAt),
+              subtitle: user.updatedAt == null
+                  ? "N/A"
+                  : dateFormatter.format(user.updatedAt!),
             ),
           ),
         ],

@@ -1,90 +1,92 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import '../../../../config/routes/routes_enums.dart';
-import '../../data/sector_pump_repository.dart';
-import '../../data/sector_status_repository.dart';
-import '../../model/sector.dart';
-import '../../model/sector_status.dart';
-import '../../../../utils/date_formatter.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/details_tile_widget.dart';
-import '../../../../widgets/responsive_details_card.dart';
+
+import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pressure_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector_status.dart';
+import 'package:irrigazione_iot/src/features/specie/data/specie_repository.dart';
+import 'package:irrigazione_iot/src/features/variety/data/variety_repository.dart';
+import 'package:irrigazione_iot/src/shared/widgets/details_tile_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart';
+import 'package:irrigazione_iot/src/utils/date_formatter.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 class SectorDetailsScreenContents extends ConsumerWidget {
-  const SectorDetailsScreenContents(
-      {super.key, required this.sector, this.sectorStatus});
+  const SectorDetailsScreenContents({
+    super.key,
+    required this.sector,
+    this.sectorStatus,
+  });
 
   final Sector sector;
   final SectorStatus? sectorStatus;
 
-  void _onTapConnectedPumpsTile(BuildContext context, SectorID sectorId) {
-    context.pushNamed(
-      AppRoute.sectorConnectedPumps.name,
-      pathParameters: {'sectorId': sectorId},
-    );
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final loc = context.loc;
     return SliverList(
       delegate: SliverChildListDelegate.fixed(
         [
-          ResponsiveDetailsCard(child: Consumer(builder: (context, ref, child) {
-            final lastIrrigated = ref
-                .watch(sectorLastIrrigatedStreamProvider(sector))
-                .valueOrNull;
-            final dateFormatter = ref.watch(dateFormatWithTimeProvider);
-            return DetailTileWidget(
-              title: context.loc.sectorLastIrrigationForTile,
-              subtitle: lastIrrigated == null
-                  ? context.loc.sectorLastIrrigationEmpty
-                  : dateFormatter.format(lastIrrigated),
-            );
-          })),
           ResponsiveDetailsCard(
             child: Consumer(
               builder: (context, ref, child) {
-                final connectedPumps = ref
-                        .watch(sectorPumpsStreamProvider(sector.id))
-                        .valueOrNull
-                        ?.length ??
-                    0;
-
+                final lastIrrigated = ref
+                    .watch(sectorLastPressureStreamProvider(sector.id))
+                    .valueOrNull;
+                final dateFormatter = ref.watch(dateFormatWithTimeProvider);
                 return DetailTileWidget(
-                    onTap: () => _onTapConnectedPumpsTile(
-                          context,
-                          sector.id,
-                        ),
-                    title: context.loc.sectorConnectedPumps,
-                    subtitle: context.loc.nConnectedPumps(
-                      connectedPumps,
-                    ),
-                    trailing: connectedPumps <= 0
-                        ? null
-                        : IconButton(
-                            onPressed: () => _onTapConnectedPumpsTile(
-                              context,
-                              sector.id,
-                            ),
-                            icon: const Icon(
-                              Icons.visibility,
-                            ),
-                          ));
+                  title: context.loc.sectorLastIrrigationForTile,
+                  subtitle: lastIrrigated == null
+                      ? context.loc.sectorLastIrrigationEmpty
+                      : dateFormatter.format(lastIrrigated),
+                );
               },
             ),
           ),
-          ResponsiveDetailsCard(
-            child: DetailTileWidget(
-              title: context.loc.sectorSpecie,
-              subtitle: sector.availableSpecie,
-            ),
+          Consumer(
+            builder: (context, ref, child) {
+              final sectorPump =
+                  ref.watch(sectorPumpStreamProvider(sector.id)).valueOrNull;
+              final pump = ref
+                  .watch(pumpStreamProvider(sectorPump?.pumpId ?? '0'))
+                  .valueOrNull;
+              return ResponsiveDetailsCard(
+                child: DetailTileWidget(
+                  title: context.loc.sectorConnectedPumps,
+                  subtitle: pump?.name ?? loc.notAvailable,
+                ),
+              );
+            },
           ),
-          ResponsiveDetailsCard(
-            child: DetailTileWidget(
-              title: context.loc.sectorVariety,
-              subtitle: sector.specieVariety,
-            ),
+          Consumer(
+            builder: (context, ref, child) {
+              final specieName = ref
+                  .watch(specieStreamProvider(sector.specieId))
+                  .valueOrNull
+                  ?.name;
+              return ResponsiveDetailsCard(
+                child: DetailTileWidget(
+                  title: context.loc.sectorSpecie,
+                  subtitle: specieName ?? loc.notAvailable,
+                ),
+              );
+            },
+          ),
+          Consumer(
+            builder: (context, ref, child) {
+              final varietyName = ref
+                  .watch(varietyStreamProvider(sector.varietyId))
+                  .valueOrNull
+                  ?.name;
+              return ResponsiveDetailsCard(
+                child: DetailTileWidget(
+                  title: context.loc.sectorVariety,
+                  subtitle: varietyName ?? loc.notAvailable,
+                ),
+              );
+            },
           ),
           ResponsiveDetailsCard(
             child: DetailTileWidget(
@@ -95,13 +97,13 @@ class SectorDetailsScreenContents extends ConsumerWidget {
           ResponsiveDetailsCard(
             child: DetailTileWidget(
               title: context.loc.sectorUnitConsumptionPerHour,
-              subtitle: sector.waterConsumptionPerHourByPlant.toString(),
+              subtitle: sector.waterConsumptionPerHour.toString(),
             ),
           ),
           ResponsiveDetailsCard(
             child: DetailTileWidget(
               title: context.loc.sectorTotalConsumption,
-              subtitle: sector.totalWaterConsumption.toString(),
+              subtitle: sector.totalConsumption.toString(),
             ),
           ),
           ResponsiveDetailsCard(

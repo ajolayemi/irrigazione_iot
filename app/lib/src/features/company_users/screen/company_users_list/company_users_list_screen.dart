@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../config/routes/routes_enums.dart';
-import 'company_users_list_screen_contents.dart';
-import '../../../../utils/extensions.dart';
-import '../../../../widgets/app_sliver_bar.dart';
-import '../../../../widgets/common_add_icon_button.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/features/company_users/screen/company_users_list/company_users_list_screen_contents.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
 
 class CompanyUsersListScreen extends StatelessWidget {
   const CompanyUsersListScreen({super.key});

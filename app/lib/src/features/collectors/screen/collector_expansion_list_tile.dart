@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../config/routes/routes_enums.dart';
 
-import '../../../constants/app_sizes.dart';
-import '../../../constants/breakpoints.dart';
-import '../data/collector_sector_repository.dart';
-import '../model/collector.dart';
-import 'collector_list/dismiss_collector_controller.dart';
-import '../widgets/collector_tile_subtitle.dart';
-import '../widgets/collector_tile_title.dart';
-import '../../sectors/data/sector_repository.dart';
-import '../../sectors/model/sector.dart';
-import '../../sectors/screen/sector_list/sector_list_tile.dart';
-import '../../../utils/extensions.dart';
-import '../../../widgets/alert_dialogs.dart';
-import '../../../widgets/custom_dismissible.dart';
-import '../../../widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
+import 'package:irrigazione_iot/src/constants/breakpoints.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/screen/collector_list/dismiss_collector_controller.dart';
+import 'package:irrigazione_iot/src/features/collectors/widgets/collector_tile_subtitle.dart';
+import 'package:irrigazione_iot/src/features/collectors/widgets/collector_tile_title.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/widgets/sector_list_tile_item.dart';
+import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_info_icon_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 class CollectorExpansionListTile extends ConsumerStatefulWidget {
   const CollectorExpansionListTile({
@@ -83,8 +83,7 @@ class _CollectorExpansionListTileState
             onExpansionChanged: (value) => setState(() => _isExpanded = value),
             leading: _isExpanded
                 ? null
-                : IconButton(
-                    icon: const Icon(Icons.info_outline),
+                : CommonInfoIconButton(
                     onPressed: () => context.pushNamed(
                       AppRoute.collectorDetails.name,
                       pathParameters: {
@@ -116,7 +115,7 @@ class CollectorExpansionTileChildItem extends ConsumerWidget {
     required this.sectorID,
   });
 
-  final SectorID sectorID;
+  final String sectorID;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

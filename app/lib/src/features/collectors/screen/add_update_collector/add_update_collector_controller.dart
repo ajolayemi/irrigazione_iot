@@ -1,7 +1,6 @@
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/service/add_update_collector_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../model/collector.dart';
-import '../../service/add_update_collector_service.dart';
 
 part 'add_update_collector_controller.g.dart';
 

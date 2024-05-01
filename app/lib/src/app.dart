@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'config/routes/app_router.dart';
-import 'config/theme/app_theme.dart';
-import 'settings/settings_controller.dart';
-import 'utils/extensions.dart';
+import 'package:irrigazione_iot/src/config/routes/app_router.dart';
+import 'package:irrigazione_iot/src/config/theme/app_theme.dart';
+import 'package:irrigazione_iot/src/settings/settings_controller.dart';
+import 'package:irrigazione_iot/src/utils/extensions.dart';
 
 /// The Widget that configures your application.
-class MyApp extends ConsumerWidget {
-  const MyApp({
-    super.key,
-  });
+class IotIrrigationApp extends ConsumerWidget {
+  const IotIrrigationApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

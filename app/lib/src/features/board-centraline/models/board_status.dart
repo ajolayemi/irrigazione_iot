@@ -1,52 +1,46 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-import 'board.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board_status_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
+part 'board_status.g.dart';
+
+@JsonSerializable()
 class BoardStatus extends Equatable {
   const BoardStatus({
-    required this.boardID,
+    required this.id,
     required this.batteryLevel,
-    required this.lastUpdated,
+    this.createdAt,
+    required this.boardId,
   });
 
-  BoardStatus.empty()
-      : boardID = '',
+  const BoardStatus.empty()
+      : id = '',
         batteryLevel = 0,
-        lastUpdated = DateTime.fromMillisecondsSinceEpoch(0);
+        createdAt = null,
+        boardId = '';
 
-  final BoardID boardID;
+  @JsonKey(name: BoardStatusDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
+  final String id;
+
+  @JsonKey(name: BoardStatusDatabaseKeys.batteryLevel)
   final double batteryLevel;
-  final DateTime lastUpdated;
+  
+  @JsonKey(name: BoardStatusDatabaseKeys.boardId)
+  @IntConverter()
+  final String boardId;
+
+  @JsonKey(name: BoardStatusDatabaseKeys.createdAt)
+  final DateTime? createdAt;
 
   @override
-  List<Object> get props => [boardID, batteryLevel, lastUpdated];
+  List<Object?> get props => [id, batteryLevel, createdAt, boardId];
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'boardID': boardID,
-      'batteryLevel': batteryLevel,
-      'lastUpdated': lastUpdated.millisecondsSinceEpoch,
-    };
-  }
+  factory BoardStatus.fromJson(Map<String, dynamic> json) =>
+      _$BoardStatusFromJson(json);
 
-  factory BoardStatus.fromMap(Map<String, dynamic> map) {
-    return BoardStatus(
-      boardID: map['boardID'] as BoardID,
-      batteryLevel: map['batteryLevel'] as double,
-      lastUpdated: DateTime.fromMillisecondsSinceEpoch(map['lastUpdated'] as int),
-    );
-  }
-
-  BoardStatus copyWith({
-    BoardID? boardID,
-    double? batteryLevel,
-    DateTime? lastUpdated,
-  }) {
-    return BoardStatus(
-      boardID: boardID ?? this.boardID,
-      batteryLevel: batteryLevel ?? this.batteryLevel,
-      lastUpdated: lastUpdated ?? this.lastUpdated,
-    );
-  }
+  Map<String, dynamic> toJson() => _$BoardStatusToJson(this);
 }

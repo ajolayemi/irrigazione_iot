@@ -1,40 +1,49 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-import '../../../config/enums/roles.dart';
-import 'company.dart';
-import '../../../utils/extensions.dart';
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/features/company_users/model/company_user_database_keys.dart';
 
-typedef CompanyUserID = int;
+part 'company_user.g.dart';
 
-// A representation of the relationship between a user and a company
+@JsonSerializable()
 class CompanyUser extends Equatable {
   const CompanyUser({
     required this.id,
     required this.email,
     required this.fullName,
-    required this.companyId,
     required this.role,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.companyId,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  CompanyUser.empty()
-      : id = 0,
+  const CompanyUser.empty()
+      : id = '',
         email = '',
         fullName = '',
-        companyId = '',
         role = CompanyUserRoles.user,
-        createdAt = DateTime.now(),
-        updatedAt = DateTime.now();
+        companyId = '',
+        createdAt = null,
+        updatedAt = null;
 
-  final CompanyUserID id;
+  @JsonKey(name: CompanyUserDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
+  final String id;
+  @JsonKey(name: CompanyUserDatabaseKeys.email)
   final String email;
+  @JsonKey(name: CompanyUserDatabaseKeys.fullName)
   final String fullName;
-  final CompanyID companyId;
+  @JsonKey(name: CompanyUserDatabaseKeys.role)
   final CompanyUserRoles role;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  @JsonKey(name: CompanyUserDatabaseKeys.companyId)
+  @IntConverter()
+  final String companyId;
+  @JsonKey(name: CompanyUserDatabaseKeys.createdAt)
+  final DateTime? createdAt;
+  @JsonKey(name: CompanyUserDatabaseKeys.updatedAt)
+  final DateTime? updatedAt;
 
   @override
   List<Object?> get props {
@@ -42,19 +51,19 @@ class CompanyUser extends Equatable {
       id,
       email,
       fullName,
-      companyId,
       role,
+      companyId,
       createdAt,
       updatedAt,
     ];
   }
 
   CompanyUser copyWith({
-    CompanyUserID? id,
+    String? id,
     String? email,
     String? fullName,
-    CompanyID? companyId,
     CompanyUserRoles? role,
+    String? companyId,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -62,34 +71,15 @@ class CompanyUser extends Equatable {
       id: id ?? this.id,
       email: email ?? this.email,
       fullName: fullName ?? this.fullName,
-      companyId: companyId ?? this.companyId,
       role: role ?? this.role,
+      companyId: companyId ?? this.companyId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'id': id,
-      'email': email,
-      'fullName': fullName,
-      'companyId': companyId,
-      'role': role.name,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
-    };
-  }
+  factory CompanyUser.fromJson(Map<String, dynamic> json) =>
+      _$CompanyUserFromJson(json);
 
-  factory CompanyUser.fromJson(Map<String, dynamic> map) {
-    return CompanyUser(
-      id: map['id'] as CompanyUserID,
-      email: map['email'] as String,
-      fullName: map['fullName'] as String,
-      companyId: map['companyId'] as CompanyID,
-      role: (map['role'] as String).toCompanyUserRoles,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),
-    );
-  }
+  Map<String, dynamic> toJson() => _$CompanyUserToJson(this);
 }
