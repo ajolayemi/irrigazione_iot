@@ -1,4 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/collectors/data/supabase_collector_sector_repository.dart';
@@ -16,7 +18,7 @@ abstract class CollectorSectorRepository {
 
   /// Delete a [CollectorSector] from database and return true if the deletion was successful
   Future<bool> deleteCollectorSector(
-   String collectorSectorId,
+    String collectorSectorId,
   );
 
   /// Get a list of [CollectorSector] from database if any
@@ -24,6 +26,9 @@ abstract class CollectorSectorRepository {
 
   /// Emits a list of [CollectorSector] pertaining to a collector from database if any
   Stream<List<CollectorSector?>> watchCollectorSectorsById(String collectorId);
+
+  /// Get the [Collector] that is connected to the [Sector] with the provided [sectorId]
+  Future<Collector?> getCollectorBySectorId(String sectorId);
 }
 
 @Riverpod(keepAlive: true)
@@ -46,7 +51,6 @@ Future<List<CollectorSector?>> collectorSectorsFuture(
   final collectorSectorRepo = ref.watch(collectorSectorRepositoryProvider);
   return collectorSectorRepo.getCollectorSectorsById(collectorId);
 }
-
 
 // Keeps track of the ids of the [Sector]s selected to be connected to the [Collector]
 final selectedSectorsIdProvider = StateProvider<List<String?>>((ref) {
@@ -79,4 +83,11 @@ Stream<int> numberOfSectorsSwitchedOn(NumberOfSectorsSwitchedOnRef ref,
   }
 
   return Stream.value(sectorsSwitchedOn);
+}
+
+@riverpod
+Future<Collector?> collectorBySectorId(
+    CollectorBySectorIdRef ref, String sectorId) {
+  final collectorSectorRepo = ref.watch(collectorSectorRepositoryProvider);
+  return collectorSectorRepo.getCollectorBySectorId(sectorId);
 }

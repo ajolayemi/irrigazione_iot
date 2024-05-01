@@ -1,9 +1,11 @@
-import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/model/collector_database_keys.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector_sector_database_keys.dart';
+import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
 import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
 
 class SupabaseCollectorSectorRepository implements CollectorSectorRepository {
@@ -51,6 +53,24 @@ class SupabaseCollectorSectorRepository implements CollectorSectorRepository {
           .select()
           .eq(CollectorSectorDatabaseKeys.collectorId, collectorId)
           .withConverter(_collectorSectorFromList);
+
+  @override
+  Future<Collector?> getCollectorBySectorId(String sectorId) async {
+    final data = await _supabaseClient.collectorSectors
+        .select(
+          '''${CollectorDatabaseKeys.table}: ${CollectorSectorDatabaseKeys.collectorId} (*)''',
+        )
+        .eq(
+          CollectorSectorDatabaseKeys.sectorId,
+          sectorId,
+        )
+        .maybeSingle();
+
+    if (data == null || data.isEmpty || !data.keys.contains('collectors')) {
+      return null;
+    }
+    return Collector.fromJson(data['collectors']);
+  }
 
   @override
   Stream<List<CollectorSector?>> watchCollectorSectorsById(String collectorId) {
