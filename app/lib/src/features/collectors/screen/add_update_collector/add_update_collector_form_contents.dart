@@ -130,19 +130,6 @@ class _AddUpdateCollectorFormContentsState
     );
   }
 
-  void _nonEmptyFieldsEditingComplete({required String value}) {
-    if (canSubmitNonEmptyFields(value: value)) {
-      _node.nextFocus();
-    }
-  }
-
-  String? _nonEmptyFieldsErrorText({required String value}) {
-    if (!_submitted) return null;
-    return context.getLocalizedErrorText(
-      errorKey: getNonEmptyFieldsErrorKey(value: value),
-    );
-  }
-
   Future<bool> _checkUserIntention() async {
     final loc = context.loc;
     return await showAlertDialog(
