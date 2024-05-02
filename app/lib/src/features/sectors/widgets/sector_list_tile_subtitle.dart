@@ -22,13 +22,10 @@ class SectorListTileSubtitle extends ConsumerWidget {
         ? '${sectorSpecie.name} ${sectorVariety.name}'
         : context.loc.notAvailable;
 
-    // TODO: the details screen should follow the same structure as that of pumps
-    // TODO: add Connected Sensors to the sector details screen
-
-    final lastIrrigatedDate =
+    final lastPressureReading =
         ref.watch(sectorLastPressureStreamProvider(sector.id)).valueOrNull;
     final lastIrrigatedString = context.timeAgo(
-      lastIrrigatedDate,
+      lastPressureReading?.createdAt,
       fallbackValue: context.loc.notAvailable,
     );
     return Text(
