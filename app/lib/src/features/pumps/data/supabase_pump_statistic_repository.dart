@@ -15,7 +15,6 @@ class SupabasePumpStatisticRepository implements PumpStatisticRepository {
         .limit(1);
 
     return stream.map((pressures) {
-      print(pressures);
       if (pressures.isEmpty) return null;
       final pumpPressure = PumpPressure.fromJson(
         pressures.first,
