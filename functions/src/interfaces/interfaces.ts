@@ -57,3 +57,12 @@ export interface BoardStatusMessage {
   vbat: number;
   name: string;
 }
+
+export interface httpCallableReqBody {
+  topic: string;
+  message: string;
+  mqttMsgName: string;
+  msgBoolVersion: boolean;
+  isSector?: boolean;
+  isPump?: boolean;
+}
