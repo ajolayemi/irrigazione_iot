@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/features/sectors/model/sector_pressure.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/supabase_sector_pressure_repository.dart';
@@ -8,7 +9,9 @@ part 'sector_pressure_repository.g.dart';
 abstract class SectorPressureRepository {
   /// Emits the last time the sector with the provided [sectorId] had a pressure reading
   /// Which is also the last time the sector was irrigated
-  Stream<DateTime?> watchLastPressureReading(String sectorId);
+  Stream<SectorPressure?> watchLastSectorPressureReading(String sectorId);
+
+  /// Emits the last pressure re
 }
 
 @Riverpod(keepAlive: true)
@@ -19,8 +22,8 @@ SectorPressureRepository sectorPressureRepository(
 }
 
 @riverpod
-Stream<DateTime?> sectorLastPressureStream(
+Stream<SectorPressure?> sectorLastPressureStream(
     SectorLastPressureStreamRef ref, String sectorId) {
   final sectorPressureRepository = ref.watch(sectorPressureRepositoryProvider);
-  return sectorPressureRepository.watchLastPressureReading(sectorId);
+  return sectorPressureRepository.watchLastSectorPressureReading(sectorId);
 }

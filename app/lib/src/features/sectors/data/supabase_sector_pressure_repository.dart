@@ -9,7 +9,7 @@ class SupabaseSectorPressureRepository implements SectorPressureRepository {
   const SupabaseSectorPressureRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
   @override
-  Stream<DateTime?> watchLastPressureReading(String sectorId) {
+  Stream<SectorPressure?> watchLastSectorPressureReading(String sectorId) {
     final stream = _supabaseClient.sectorPressure
         .stream(primaryKey: [SectorPressureDatabaseKeys.id])
         .eq(SectorPressureDatabaseKeys.sectorId, sectorId)
@@ -18,8 +18,7 @@ class SupabaseSectorPressureRepository implements SectorPressureRepository {
 
     return stream.map((pressures) {
       if (pressures.isEmpty) return null;
-      final sectorPressure = SectorPressure.fromJson(pressures.first);
-      return sectorPressure.createdAt;
+      return SectorPressure.fromJson(pressures.first);
     });
   }
 }
