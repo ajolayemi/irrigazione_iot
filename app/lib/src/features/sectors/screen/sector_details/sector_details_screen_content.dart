@@ -21,6 +21,7 @@ class SectorDetailsScreenContents extends ConsumerWidget {
           SectorDetailsLastPressureCard(sectorId: sector.id),
           gapH8,
           SectorDetailsCharacteristics(sector: sector),
+          gapH48,
         ],
       ),
     );
