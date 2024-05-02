@@ -48,7 +48,7 @@ class PumpDetailsStatistics extends ConsumerWidget {
           child: DetailTileWidget(
             title: loc.lastFilterInPressure,
             subtitle:
-                '${lastPressure?.filterInPressure ?? '-'} bar ($lastPressureDate)',
+                '${lastPressure?.filterInPressure.toStringAsFixed(1) ?? '-'} bar ($lastPressureDate)',
           ),
         ),
 
@@ -57,7 +57,7 @@ class PumpDetailsStatistics extends ConsumerWidget {
           child: DetailTileWidget(
             title: loc.lastFilterOutPressure,
             subtitle:
-                '${lastPressure?.filterOutPressure ?? '-'} bar ($lastPressureDate)',
+                '${lastPressure?.filterOutPressure.toStringAsFixed(1) ?? '-'} bar ($lastPressureDate)',
           ),
         ),
 
@@ -66,7 +66,7 @@ class PumpDetailsStatistics extends ConsumerWidget {
           child: DetailTileWidget(
             title: loc.lastFilterPressureDifference,
             subtitle:
-                '${lastPressure?.pressureDifference ?? '-'} bar ($lastPressureDate)',
+                '${lastPressure?.pressureDifference.toStringAsFixed(1) ?? '-'} bar ($lastPressureDate)',
           ),
         ),
 
