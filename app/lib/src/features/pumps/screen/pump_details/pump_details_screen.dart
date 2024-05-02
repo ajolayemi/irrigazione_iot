@@ -20,11 +20,6 @@ class PumpDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: divide in two sections of ExpansionTile
-    // TODO: section 1 - pump charasterics
-    // TODO: section 2 - dati statistici ()
-    // TODO: last erogation stays as a single card
-
     final pump = ref.watch(pumpStreamProvider(pumpId));
     return Scaffold(
       body: CustomScrollView(
