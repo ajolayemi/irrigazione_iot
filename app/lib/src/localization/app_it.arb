@@ -239,5 +239,6 @@
   "mqttOffCommand": "Commando di spegnimento (MQTT)",
   "lastFilterInPressure": "Ultima pressione in ingresso",
   "lastFilterOutPressure": "Ultima pressione in uscita",
-  "lastFilterPressureDifference": "Differenza pressione filtri"
+  "lastFilterPressureDifference": "Differenza pressione filtri",
+  "pressure": "Pressione"
 }
