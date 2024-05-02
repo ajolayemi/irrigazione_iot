@@ -403,8 +403,8 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                               return FormTitleAndField(
                                 enabled: !state.isLoading,
                                 fieldKey: _onCommandFieldKey,
-                                fieldTitle: loc.pumpOnCommandFormFieldTitle,
-                                fieldHintText: loc.pumpOnCommandFormHint,
+                                fieldTitle: loc.onCommandFormFieldTitle,
+                                fieldHintText: loc.onCommandFormHint,
                                 fieldController: _onCommandController,
                                 textInputAction: TextInputAction.next,
                                 validator: (value) => _commandFieldsErrorText(
@@ -435,8 +435,8 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                               return FormTitleAndField(
                                 enabled: !state.isLoading,
                                 fieldKey: _offCommandFieldKey,
-                                fieldTitle: loc.pumpOffCommandFormFieldTitle,
-                                fieldHintText: loc.pumpOffCommandFormHint,
+                                fieldTitle: loc.offCommandFormFieldTitle,
+                                fieldHintText: loc.offCommandFormHint,
                                 fieldController: _offCommandController,
                                 textInputAction: TextInputAction.done,
                                 validator: (value) => _commandFieldsErrorText(

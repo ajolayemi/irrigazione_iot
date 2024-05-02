@@ -663,8 +663,8 @@ class _AddUpdateSectorFormContentsState
                       return FormTitleAndField(
                         enabled: !isLoading,
                         fieldKey: _turnOnCommandFieldKey,
-                        fieldTitle: loc.sectorOnCommand,
-                        fieldHintText: loc.sectorOnCommandHintText,
+                        fieldTitle: loc.onCommandFormFieldTitle,
+                        fieldHintText: loc.onCommandFormHint,
                         textInputAction: TextInputAction.next,
                         keyboardType: numberFieldKeyboardType,
                         fieldController: _turnOnCommandController,
@@ -694,8 +694,8 @@ class _AddUpdateSectorFormContentsState
                       return FormTitleAndField(
                         enabled: !isLoading,
                         fieldKey: _turnOffCommandFieldKey,
-                        fieldTitle: loc.sectorOffCommand,
-                        fieldHintText: loc.sectorOffCommandHintText,
+                        fieldTitle: loc.offCommandFormFieldTitle,
+                        fieldHintText: loc.offCommandFormHint,
                         keyboardType: numberFieldKeyboardType,
                         textInputAction: TextInputAction.next,
                         fieldController: _turnOffCommandController,
