@@ -9,6 +9,7 @@ import 'package:irrigazione_iot/src/features/company_users/model/company_databas
 import 'package:irrigazione_iot/src/features/company_users/model/company_user_database_keys.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump_database_keys.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump_flow_database_keys.dart';
+import 'package:irrigazione_iot/src/features/pumps/model/pump_pressure_database_keys.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump_status_database_keys.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_database_keys.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_pressure_database_keys.dart';
@@ -75,6 +76,14 @@ extension SupabaseClientExtensions on SupabaseClient {
   SupabaseStreamFilterBuilder get collectorSectorsStream =>
       collectorSectors.stream(
         primaryKey: [CollectorSectorDatabaseKeys.id],
+      );
+
+  SupabaseQueryBuilder get pumpPressures => from(
+        PumpPressureDatabaseKeys.table,
+      );
+
+  SupabaseStreamFilterBuilder get pumpPressuresStream => pumpPressures.stream(
+        primaryKey: [PumpPressureDatabaseKeys.id],
       );
 
   /// Getter for the current access token
