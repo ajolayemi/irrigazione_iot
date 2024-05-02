@@ -47,6 +47,8 @@ class PumpStatusService {
       topic: '$companyMqttTopicName/${mqttSuffix.pumpStatusToggle}',
       message: statusCommand,
       mqttMsgName: pump.mqttMessageName,
+      msgBoolVersion: status,
+      isPump: true
     );
     await pumpStatusRepo.togglePumpStatus(
         statusBody: body

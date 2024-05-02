@@ -35,7 +35,8 @@ class SectorStatusService {
 
     final collectorSectorRepo = _ref.read(collectorSectorRepositoryProvider);
     // Get the collector that the current sector is connected to
-    final collector = await collectorSectorRepo.getCollectorBySectorId(sector.id);
+    final collector =
+        await collectorSectorRepo.getCollectorBySectorId(sector.id);
 
     if (collector == null) return;
 
@@ -47,9 +48,12 @@ class SectorStatusService {
     final mqttSuffix = _ref.read(mqttTopicsSuffixProvider);
 
     final body = FirebaseCallableFunctionBody(
-      topic: '$companyMqttTopicName/collettore${collector.mqttMsgName}/${mqttSuffix.sectorStatusToggle}',
+      topic:
+          '$companyMqttTopicName/collettore${collector.mqttMsgName}/${mqttSuffix.sectorStatusToggle}',
       message: statusCommand,
       mqttMsgName: sector.mqttMsgName,
+      msgBoolVersion: status,
+      isSector: true,
     );
 
     await sectorStatusRepo.toggleSectorStatus(statusBody: body);
