@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/pumps/model/pump_pressure_database_keys.dart';
@@ -16,16 +17,23 @@ class PumpPressure extends Equatable {
   this.createdAt,
   }) : pressureDifference = filterInPressure - filterOutPressure;
 
-  @JsonKey(name: PumpPressureDatabaseKeys.id)
+  @JsonKey(name: PumpPressureDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
   final String id;
+
   @JsonKey(name: PumpPressureDatabaseKeys.pumpId)
+  @IntConverter()
   final String pumpId;
+
   @JsonKey(name: PumpPressureDatabaseKeys.filterInPressure)
   final double filterInPressure;
+
   @JsonKey(name: PumpPressureDatabaseKeys.filterOutPressure)
   final double filterOutPressure;
+
   @JsonKey(name: PumpPressureDatabaseKeys.pressureDifference)
   final double pressureDifference;
+  
   @JsonKey(name: PumpPressureDatabaseKeys.createdAt)
   final DateTime? createdAt;
 

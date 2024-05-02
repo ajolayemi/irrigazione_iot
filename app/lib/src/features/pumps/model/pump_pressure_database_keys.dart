@@ -1,6 +1,7 @@
 class PumpPressureDatabaseKeys {
   const PumpPressureDatabaseKeys._();
 
+  static const String table = 'pump_pressures';
   static const String id = 'id';
   static const String pumpId = 'pump_id';
   static const String filterInPressure = 'filter_in_pressure';
