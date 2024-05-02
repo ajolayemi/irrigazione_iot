@@ -102,7 +102,25 @@ class SectorDetailsCharacteristics extends ConsumerWidget {
             title: context.loc.sectorNotes,
             subtitle: sector.notes,
           ),
-        )
+        ),
+        ResponsiveDetailsCard(
+          child: DetailTileWidget(
+            title: loc.mqttMessageNameFormFieldTitle,
+            subtitle: sector.mqttMsgName,
+          ),
+        ),
+        ResponsiveDetailsCard(
+          child: DetailTileWidget(
+            title: loc.mqttOnCommand,
+            subtitle: sector.turnOnCommand,
+          ),
+        ),
+        ResponsiveDetailsCard(
+          child: DetailTileWidget(
+            title: loc.mqttOffCommand,
+            subtitle: sector.turnOffCommand,
+          ),
+        ),
       ],
     );
   }
