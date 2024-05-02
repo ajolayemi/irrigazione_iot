@@ -1,5 +1,5 @@
 import admin from "firebase-admin";
-import {https, pubsub} from "firebase-functions/v2";
+import {https, logger, pubsub} from "firebase-functions/v2";
 import "dotenv/config";
 import {processPressureMessageFromPubSub} from "./utils/process_pressure_message";
 import {processSectorStatusMessage} from "./utils/process_sector_status_message";
@@ -9,6 +9,8 @@ import {processPumpPressureMessage} from "./utils/process_pump_pressure_message"
 import {processBoardStatusMessage} from "./utils/process_board_status_message";
 import {CallableRequest} from "firebase-functions/v2/https";
 import {createMqttClient} from "./services/mqtt";
+import {httpCallableReqBody} from "./interfaces/interfaces";
+import {saveDataWhenDev} from "./utils/save_dev_data";
 
 admin.initializeApp();
 
@@ -85,13 +87,20 @@ exports.processBoardStatusMessages = pubsub.onMessagePublished(
  */
 exports.toggleItemStatus = https.onCall(async (req: CallableRequest) => {
   try {
-    const {topic, message} = req.data;
-    console.log(`Publishing message ${message} to ${topic}`);
+    const body: httpCallableReqBody = req.data;
+    logger.info(
+      `Toggling status of ${body.mqttMsgName} to ${body.message} with topic ${body.topic}`
+    );
     const client = await createMqttClient();
     if (client.disconnected) {
       throw new https.HttpsError("internal", "MQTT client is disconnected");
     }
-    client.publish(topic, message);
+    client.publish(body.topic, body.message);
+
+    // When dev environment is dev, insert manual data to local db
+    if (process.env.NODE_ENV === "dev") {
+      await saveDataWhenDev(body);
+    }
 
     return {success: true};
   } catch (error) {
