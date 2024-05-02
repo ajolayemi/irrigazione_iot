@@ -236,5 +236,8 @@
   "yes": "Sì",
   "no": "No",
   "mqttOnCommand": "Commando di accensione (MQTT)",
-  "mqttOffCommand": "Commando di spegnimento (MQTT)"
+  "mqttOffCommand": "Commando di spegnimento (MQTT)",
+  "lastFilterInPressure": "Ultima pressione in ingresso",
+  "lastFilterOutPressure": "Ultima pressione in uscita",
+  "lastFilterPressureDifference": "Differenza pressione filtri"
 }
