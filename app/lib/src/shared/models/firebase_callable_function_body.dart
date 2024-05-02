@@ -7,10 +7,12 @@ class FirebaseCallableFunctionBody {
   const FirebaseCallableFunctionBody({
     required this.topic,
     required this.message,
+    required this.mqttMsgName,
   });
 
   final String topic;
   final String message;
+  final String mqttMsgName;
 
   factory FirebaseCallableFunctionBody.fromJson(Map<String, dynamic> json) =>
       _$FirebaseCallableFunctionBodyFromJson(json);

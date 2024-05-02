@@ -49,6 +49,7 @@ class SectorStatusService {
     final body = FirebaseCallableFunctionBody(
       topic: '$companyMqttTopicName/collettore${collector.mqttMsgName}/${mqttSuffix.sectorStatusToggle}',
       message: statusCommand,
+      mqttMsgName: sector.mqttMsgName,
     );
 
     await sectorStatusRepo.toggleSectorStatus(statusBody: body);
