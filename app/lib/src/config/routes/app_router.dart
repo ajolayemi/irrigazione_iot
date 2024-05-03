@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_a_variety_screen.dart';
+import 'package:irrigazione_iot/src/features/sensors/screen/sensor_list/sensors_list_screen.dart';
 import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -544,6 +545,49 @@ GoRouter goRouter(GoRouterRef ref) {
               ),
             ],
           ),
+        ],
+      ),
+
+      // Sensors and its sub-routes
+      GoRoute(
+        path: '/sensors',
+        name: AppRoute.sensors.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: SensorsListScreen(),
+        ),
+        routes: [
+          // GoRoute(
+          //   path: 'add',
+          //   name: AppRoute.addSensor.name,
+          //   pageBuilder: (context, state) => const MaterialPage(
+          //     fullscreenDialog: true,
+          //     child: AddUpdateSensorForm(
+          //       formType: GenericFormTypes.add,
+          //     ),
+          //   ),
+          // ),
+          // GoRoute(
+          //   path: 'details/:sensorId',
+          //   name: AppRoute.sensorDetails.name,
+          //   pageBuilder: (context, state) => MaterialPage(
+          //     fullscreenDialog: true,
+          //     child: SensorDetailsScreen(
+          //       sensorId: state.pathParameters['sensorId'] ?? '',
+          //     ),
+          //   ),
+          // ),
+          // GoRoute(
+          //   path: 'edit/:sensorId',
+          //   name: AppRoute.updateSensor.name,
+          //   pageBuilder: (context, state) => MaterialPage(
+          //     fullscreenDialog: true,
+          //     child: AddUpdateSensorForm(
+          //       formType: GenericFormTypes.update,
+          //       sensorId: state.pathParameters['sensorId'] ?? '',
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     ],
