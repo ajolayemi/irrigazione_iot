@@ -17,7 +17,7 @@ class SensorBattery extends Equatable {
 
   const SensorBattery.empty()
       : id = '',
-        batteryLevel = '',
+        batteryLevel = 0,
         sensorId = '',
         createdAt = null;
 
@@ -26,7 +26,7 @@ class SensorBattery extends Equatable {
   final String id;
 
   @JsonKey(name: SensorBatteryDatabaseKeys.batteryLevel)
-  final String batteryLevel;
+  final num batteryLevel;
 
   @JsonKey(name: SensorBatteryDatabaseKeys.sensorId)
   @IntConverter()
@@ -44,4 +44,9 @@ class SensorBattery extends Equatable {
       createdAt,
     ];
   }
+
+  factory SensorBattery.fromJson(Map<String, dynamic> json) =>
+      _$SensorBatteryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SensorBatteryToJson(this);
 }
