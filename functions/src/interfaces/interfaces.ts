@@ -66,4 +66,19 @@ export interface HttpCallableReqBody {
   isSector?: boolean;
   isPump?: boolean;
 }
- 
+
+export interface SensorMeasurementData {
+  measurementId: string;
+  measurementValue: number;
+  type: string;
+}
+
+export interface SensorBatteryData {
+  "Battery(%)": number;
+}
+export interface SenseCapSensorData {
+  valid: boolean;
+  deviceEui: string;
+  measurements: SensorMeasurementData[];
+  battery?: SensorBatteryData;
+}
