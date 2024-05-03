@@ -58,7 +58,7 @@ export interface BoardStatusMessage {
   name: string;
 }
 
-export interface httpCallableReqBody {
+export interface HttpCallableReqBody {
   topic: string;
   message: string;
   mqttMsgName: string;
@@ -66,3 +66,4 @@ export interface httpCallableReqBody {
   isSector?: boolean;
   isPump?: boolean;
 }
+ 

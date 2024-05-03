@@ -1,4 +1,4 @@
-import {httpCallableReqBody} from "../interfaces/interfaces";
+import {HttpCallableReqBody} from "../interfaces/interfaces";
 import {processSectorPressure} from "./process_pressure_message";
 import {processPumpFlowMessage} from "./process_pump_flow_message";
 import {processPumpPressureMessage} from "./process_pump_pressure_message";
@@ -7,9 +7,9 @@ import {processSectorStatusMessage} from "./process_sector_status_message";
 
 /**
  * When in development mode, this function is called to save some random data to the database
- * @param {httpCallableReqBody} body The body of the request
+ * @param {HttpCallableReqBody} body The body of the request
  */
-export const saveDataWhenDev = async (body: httpCallableReqBody) => {
+export const saveDataWhenDev = async (body: HttpCallableReqBody) => {
   if (body.isSector) {
     await processSectorStatusMessage({
       name: body.mqttMsgName,
