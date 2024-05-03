@@ -11,6 +11,7 @@ import {CallableRequest} from "firebase-functions/v2/https";
 import {createMqttClient} from "./services/mqtt";
 import {HttpCallableReqBody} from "./interfaces/interfaces";
 import {saveDataWhenDev} from "./utils/save_dev_data";
+import {processSenseCapData} from "./utils/process_sense_cap_data";
 
 admin.initializeApp();
 
@@ -67,6 +68,15 @@ exports.processPumpPumpPressureMessages = pubsub.onMessagePublished(
     const successInProcessingMessage = await processPumpPressureMessage(
       message
     );
+    return Promise.resolve(successInProcessingMessage);
+  }
+);
+
+exports.processSenseCapSensorData = pubsub.onMessagePublished(
+  "sensor",
+  async (event) => {
+    const message = event.data.message.json;
+    const successInProcessingMessage = await processSenseCapData(message);
     return Promise.resolve(successInProcessingMessage);
   }
 );
