@@ -15,7 +15,8 @@ create table
     constraint public_sensor_measurements_sensor_id_fkey foreign key (sensor_id) references sensors (id) on update restrict on delete cascade
   ) tablespace pg_default;
 
-
+-- enable rls
+alter table "public"."sensor_measurements" enable row level security;
 
   -- create function to get_sensor_company_id
 create

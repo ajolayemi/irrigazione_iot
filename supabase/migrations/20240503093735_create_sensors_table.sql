@@ -19,6 +19,9 @@ create table
             constraint public_sensors_sector_id_fkey foreign key (sector_id) references sectors (id) on update restrict on delete cascade
     ) tablespace pg_default;
 
+-- enable rls
+alter table "public"."sensors" enable row level security;
+
 --- drop policy if it already exists
 drop policy if exists "Superusers and company members can select" on public.sensors;
 

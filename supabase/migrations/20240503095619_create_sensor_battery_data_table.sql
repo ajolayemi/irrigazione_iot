@@ -10,6 +10,9 @@ create table
   ) tablespace pg_default;
 
 
+-- enable rls
+alter table "public"."sensor_battery_data" enable row level security;
+
   -- drop existing select policy if it already exists
 drop policy if exists "Superusers and company members can select" on public.sensor_battery_data;
 
