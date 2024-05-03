@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/more/widgets/company_users_item.dart';
 import 'package:irrigazione_iot/src/features/more/widgets/more_page_item_list_tile.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_responsive_divider.dart';
 import 'package:irrigazione_iot/src/utils/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
@@ -39,12 +40,21 @@ class MoreOptionsScreenContent extends ConsumerWidget {
                       leadingIcon: Icons.device_hub,
                     ),
                     MorePageItemListTile(
+                      title: loc.sensorsMenuTitle,
+                      onTap: () => context.pushNamed(
+                        AppRoute.sensors.name,
+                      ),
+                      leadingIcon: Icons.sensors,
+                    ),
+                    const CommonResponsiveDivider(),
+                    MorePageItemListTile(
                       title: loc.profilePageTitle,
                       onTap: () => context.pushNamed(
                         AppRoute.profile.name,
                       ),
                       leadingIcon: Icons.person,
                     ),
+
                     // Page to view the details of the company profile the user is currently
                     // working with
                     Consumer(
