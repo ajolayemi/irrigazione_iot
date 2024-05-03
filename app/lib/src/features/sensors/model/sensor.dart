@@ -68,4 +68,24 @@ class Sensor extends Equatable {
   factory Sensor.fromJson(Map<String, dynamic> json) => _$SensorFromJson(json);
 
   Map<String, dynamic> toJson() => _$SensorToJson(this);
+
+  Sensor copyWith({
+    String? id,
+    String? name,
+    String? eui,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? companyId,
+    String? sectorId,
+  }) {
+    return Sensor(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      eui: eui ?? this.eui,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      companyId: companyId ?? this.companyId,
+      sectorId: sectorId ?? this.sectorId,
+    );
+  }
 }
