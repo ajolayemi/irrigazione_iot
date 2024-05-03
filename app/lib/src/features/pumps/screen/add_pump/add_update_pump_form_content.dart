@@ -313,7 +313,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                               return FormTitleAndField(
                                 enabled: !state.isLoading,
                                 fieldKey: _nameFieldKey,
-                                fieldTitle: loc.pumpNameFormFieldTitle,
+                                fieldTitle: loc.nameFormFieldTitle,
                                 fieldHintText: loc.pumpNameFormHint,
                                 fieldController: _nameController,
                                 textInputAction: TextInputAction.next,

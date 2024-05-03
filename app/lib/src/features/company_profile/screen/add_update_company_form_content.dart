@@ -238,7 +238,7 @@ class _AddUpdateCompanyFormContentsState
                     FormTitleAndField(
                       enabled: !isLoading,
                       fieldKey: _nameFieldKey,
-                      fieldTitle: loc.companyName,
+                      fieldTitle: loc.nameFormFieldTitle,
                       fieldController: _nameController,
                       fieldHintText: loc.companyNameHintText,
                       onEditingComplete: () =>

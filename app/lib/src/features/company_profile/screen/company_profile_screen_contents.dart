@@ -31,7 +31,7 @@ class CompanyProfileScreenContents extends ConsumerWidget {
               [
                 ResponsiveDetailsCard(
                   child: DetailTileWidget(
-                    title: loc.companyName,
+                    title: loc.nameFormFieldTitle,
                     subtitle: company.name,
                   ),
                 ),

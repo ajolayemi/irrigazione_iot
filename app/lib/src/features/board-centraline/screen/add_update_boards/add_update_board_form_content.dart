@@ -267,7 +267,7 @@ class _AddUpdateBoardFormContentState
                           final value = boardUsedNames.valueOrNull ?? [];
                           return FormTitleAndField(
                             fieldKey: _nameFieldKey,
-                            fieldTitle: loc.boardName,
+                            fieldTitle: loc.nameFormFieldTitle,
                             fieldHintText: loc.boardNameHintText,
                             fieldController: _nameController,
                             onEditingComplete: () => _nameEditingComplete(

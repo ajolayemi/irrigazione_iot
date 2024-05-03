@@ -123,7 +123,6 @@
   "logInWithAnotherAccount": "Change Account",
   "addNewPumpPageTitle": "New Pump",
   "updatePumpPageTitle": "Update Pump",
-  "pumpNameFormFieldTitle": "Name",
   "pumpNameFormHint": "eg: Pompa Giardino",
   "pumpVolumeCapacityFormFieldTitle": "Volume capacity",
   "pumpVolumeCapacityFormHint": "eg: 1000",
@@ -167,7 +166,6 @@
       }
     }
   },
-  "sectorName": "Name",
   "sectorNameHintText": "eg: ME8",
   "sectorSpecie": "Specie",
   "sectorSpecieHintText": "select a specie...",
@@ -452,7 +450,6 @@
   },
   "addNewBoardPageTitle": "New Board",
   "updateBoardPageTitle": "Update Board",
-  "boardName": "Board name",
   "boardNameHintText": "eg: arduino mkr16",
   "boardModel": "Model",
   "boardModelHintText": "eg: MKR 1010",
@@ -469,7 +466,6 @@
   "userProfileDetailsCurrentCompany": "Current company profile",
   "companyProfileMenuTitle": "Company Profile",
   "companyUsersMenuTitle": "My Company Users",
-  "companyName": "Company name",
   "companyNameHintText": "eg: My Company",
   "companyRegisteredAddress": "Registered office address",
   "companyRegisteredAddressHintText": "eg: 123 Main Street, 12345, City, Country",
@@ -586,5 +582,61 @@
   "lastFilterInPressure": "Last filter in pressure",
   "lastFilterOutPressure": "Last filter out pressure",
   "lastFilterPressureDifference": "Last filter pressure difference",
-  "pressure": "Pressure"
+  "pressure": "Pressure",
+  "sensorPageTitle": "Sensors",
+  "nSensors": "{n, plural, =1{sensor} =2{sensors} other{sensors}}",
+  "@nSensors": {
+    "description": "The pluralized version of the word 'sensor'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSensorsWithIndefiniteArticle": "{n, plural, =1{a sensor} =2{sensors} other{sensors}}",
+  "@nSensorsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'sensor' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSensorsWithDefiniteArticle": "{n, plural, =1{the sensor} =2{sensors} other{sensors}}",
+  "@nSensorsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'sensor' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSensorsWithArticulatedPreposition": "{n, plural, =1{the sensor} =2{the sensors} other{the sensors}}",
+  "@nSensorsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'sensor' with an articulated preposition",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "addNewSensorPageTitle": "New Sensor",
+  "updateSensorPageTitle": "Update Sensor",
+  "airTemperature": "Air Temperature",
+  "airHumidity": "Air Humidity",
+  "lightIntensity": "Light Intensity",
+  "barometricPressure": "Barometric Pressure",
+  "windDirection": "Wind Direction",
+  "windSpeed": "Wind Speed",
+  "rainfallHourly": "Rainfall Hourly",
+  "uvIndex": "UV Index",
+  "deviceEui": "Device EUI"
 }

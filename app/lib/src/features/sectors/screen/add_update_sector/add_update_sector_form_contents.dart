@@ -483,7 +483,7 @@ class _AddUpdateSectorFormContentsState
                       return FormTitleAndField(
                         enabled: !isLoading,
                         fieldKey: _nameFieldKey,
-                        fieldTitle: loc.sectorName,
+                        fieldTitle: loc.nameFormFieldTitle,
                         fieldHintText: loc.sectorNameHintText,
                         textInputAction: TextInputAction.next,
                         fieldController: _nameController,
