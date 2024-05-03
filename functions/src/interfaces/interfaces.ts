@@ -77,6 +77,7 @@ export interface SensorBatteryData {
   "Battery(%)": number;
 }
 export interface SenseCapSensorData {
+  receivedAt: string;
   valid: boolean;
   deviceEui: string;
   measurements: SensorMeasurementData[];
