@@ -247,5 +247,6 @@
   "windSpeed": "Velocità del Vento",
   "rainfallHourly": "Pioggia oraria",
   "uvIndex": "Indice UV",
-  "deviceEui": "EUI del dispositivo"
+  "deviceEui": "EUI del dispositivo",
+  "sensorsMenuTitle": "Sensori"
 }
