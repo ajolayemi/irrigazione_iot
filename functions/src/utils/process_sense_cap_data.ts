@@ -18,10 +18,10 @@ import {
 export const processSenseCapData = async (data: any): Promise<void> => {
   console.log("Processing SenseCAP data...");
   // Get the result from the data
-  const result = data.result;
+  const result = data.result || data.data;
 
   if (!result) {
-    logger.error("Aborting, no result key found in the data");
+    logger.error("Aborting, no result or data key found in the data");
     throw new Error("No result key found in the data");
   }
 
@@ -55,7 +55,7 @@ export const processSenseCapData = async (data: any): Promise<void> => {
 
   // insert measurement data to database
   const sensorMeasurement: TablesInsert<"sensor_measurements"> =
-    buildSensorMeasurementData(sensorData.measurements, sensor.id);
+    buildSensorMeasurementData(sensorData, sensor.id);
   logger.info("Saving sensor measurement data to the database");
   await insertSensorMeasurementData(sensorMeasurement);
   logger.info("Sensor measurement data saved successfully");
@@ -67,11 +67,12 @@ export const processSenseCapData = async (data: any): Promise<void> => {
  * @return {TablesInsert<"sensor_measurements">} The sensor measurement data
  */
 const buildSensorMeasurementData = (
-  measurements: SensorMeasurementData[],
+  data: SenseCapSensorData,
   sensorId: number
 ): TablesInsert<"sensor_measurements"> => {
+  const measurements: SensorMeasurementData[] = data.measurements;
   return {
-    created_at: new Date().toISOString(),
+    created_at: data.receivedAt,
     sensor_id: sensorId,
     air_temperature: filterSensorMeasurements(measurements, "air_temperature"),
     air_humidity: filterSensorMeasurements(measurements, "air_humidity"),
@@ -115,6 +116,12 @@ const filterSensorMeasurements = (
  * @return {SenseCapSensorData} The measurements and battery data
  */
 const getMeasurementsAndBatteryData = (result: any): SenseCapSensorData => {
+  const receivedAt = result.received_at;
+  if (!receivedAt) {
+    logger.error("Aborting, no received_at key found in the result");
+    throw new Error("No received_at key found in the result");
+  }
+
   const decodedPayload = getDecodedPayloadMsg(result);
   const deviceEui = getDeviceEui(result);
 
@@ -145,6 +152,7 @@ const getMeasurementsAndBatteryData = (result: any): SenseCapSensorData => {
     deviceEui,
     measurements,
     battery,
+    receivedAt,
   };
 };
 
