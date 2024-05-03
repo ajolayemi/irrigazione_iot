@@ -1,6 +1,11 @@
 import "dotenv/config";
 
+
 (async () => {
+
+  // const json = await readJsonFile("/Users/jolayemi/flutter_projects/ric/irrigazione_iot/functions/src/example_ttn.json");
+  // processSenseCapData(json);
+
   // await processSectorStatusMessage({
   //   name: "me7",
   //   status: "2",
