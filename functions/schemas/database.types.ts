@@ -704,7 +704,7 @@ export type Database = {
           rain_gauge: number
           sensor_id: number
           uv_index: number
-          wind_direction: number
+          wind_direction_sensor: number
           wind_speed: number
         }
         Insert: {
@@ -717,7 +717,7 @@ export type Database = {
           rain_gauge: number
           sensor_id: number
           uv_index: number
-          wind_direction: number
+          wind_direction_sensor: number
           wind_speed: number
         }
         Update: {
@@ -730,7 +730,7 @@ export type Database = {
           rain_gauge?: number
           sensor_id?: number
           uv_index?: number
-          wind_direction?: number
+          wind_direction_sensor?: number
           wind_speed?: number
         }
         Relationships: [
