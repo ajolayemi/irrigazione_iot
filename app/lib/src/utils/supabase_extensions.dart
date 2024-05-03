@@ -1,3 +1,6 @@
+import 'package:irrigazione_iot/src/features/sensors/model/sensor_battery_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sensors/model/sensor_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sensors/model/sensor_measurements_database_keys.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/board-centraline/models/board_database_keys.dart';
@@ -85,6 +88,17 @@ extension SupabaseClientExtensions on SupabaseClient {
   SupabaseStreamFilterBuilder get pumpPressuresStream => pumpPressures.stream(
         primaryKey: [PumpPressureDatabaseKeys.id],
       );
+
+  SupabaseQueryBuilder get sensors => from(SensorDatabaseKeys.table);
+
+  SupabaseStreamFilterBuilder get sensorStream =>
+      sensors.stream(primaryKey: [SensorDatabaseKeys.id]);
+
+  SupabaseQueryBuilder get sensorMeasurements =>
+      from(SensorMeasurementsDatabaseKeys.table);
+
+  SupabaseQueryBuilder get sensorBatteryData =>
+      from(SensorBatteryDatabaseKeys.table);
 
   /// Getter for the current access token
   String? get accessToken => auth.currentSession?.accessToken;
