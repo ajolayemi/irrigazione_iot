@@ -8,8 +8,8 @@ import 'package:irrigazione_iot/src/utils/int_converter.dart';
 part 'sensor_measurements.g.dart';
 
 @JsonSerializable()
-class SensorMeasurements extends Equatable {
-  const SensorMeasurements({
+class SensorMeasurement extends Equatable {
+  const SensorMeasurement({
     required this.id,
     required this.airTemperature,
     required this.airHumidity,
@@ -23,16 +23,16 @@ class SensorMeasurements extends Equatable {
     required this.sensorId,
   });
 
-  const SensorMeasurements.empty()
+  const SensorMeasurement.empty()
       : id = '',
-        airTemperature = '',
-        airHumidity = '',
-        lightIntensity = '',
-        uvIndex = '',
-        windSpeed = '',
-        windDirection = '',
-        rainGauge = '',
-        barometricPressure = '',
+        airTemperature = 0,
+        airHumidity = 0,
+        lightIntensity = 0,
+        uvIndex = 0,
+        windSpeed = 0,
+        windDirection = 0,
+        rainGauge = 0,
+        barometricPressure = 0,
         createdAt = null,
         sensorId = '';
 
@@ -41,33 +41,34 @@ class SensorMeasurements extends Equatable {
   final String id;
 
   @JsonKey(name: SensorMeasurementsDatabaseKeys.airTemperature)
-  final String airTemperature;
+  final num airTemperature;
 
   @JsonKey(name: SensorMeasurementsDatabaseKeys.airHumidity)
-  final String airHumidity;
+  final num airHumidity;
 
   @JsonKey(name: SensorMeasurementsDatabaseKeys.lightIntensity)
-  final String lightIntensity;
+  final num lightIntensity;
 
   @JsonKey(name: SensorMeasurementsDatabaseKeys.uvIndex)
-  final String uvIndex;
+  final num uvIndex;
 
   @JsonKey(name: SensorMeasurementsDatabaseKeys.windSpeed)
-  final String windSpeed;
+  final num windSpeed;
 
   @JsonKey(name: SensorMeasurementsDatabaseKeys.windDirection)
-  final String windDirection;
+  final num windDirection;
 
   @JsonKey(name: SensorMeasurementsDatabaseKeys.rainGauge)
-  final String rainGauge;
+  final num rainGauge;
 
   @JsonKey(name: SensorMeasurementsDatabaseKeys.barometricPressure)
-  final String barometricPressure;
+  final num barometricPressure;
 
   @JsonKey(name: SensorMeasurementsDatabaseKeys.createdAt)
   final DateTime? createdAt;
 
   @JsonKey(name: SensorMeasurementsDatabaseKeys.sensorId)
+  @IntConverter()
   final String sensorId;
 
   @override
@@ -87,8 +88,8 @@ class SensorMeasurements extends Equatable {
     ];
   }
 
-  factory SensorMeasurements.fromJson(Map<String, dynamic> json) =>
-      _$SensorMeasurementsFromJson(json);
+  factory SensorMeasurement.fromJson(Map<String, dynamic> json) =>
+      _$SensorMeasurementFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SensorMeasurementsToJson(this);
+  Map<String, dynamic> toJson() => _$SensorMeasurementToJson(this);
 }
