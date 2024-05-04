@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_a_variety_screen.dart';
+import 'package:irrigazione_iot/src/features/sensors/screen/sensor_details/sensor_details_screen.dart';
 import 'package:irrigazione_iot/src/features/sensors/screen/sensor_list/sensors_list_screen.dart';
+import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -567,16 +569,19 @@ GoRouter goRouter(GoRouterRef ref) {
           //     ),
           //   ),
           // ),
-          // GoRoute(
-          //   path: 'details/:sensorId',
-          //   name: AppRoute.sensorDetails.name,
-          //   pageBuilder: (context, state) => MaterialPage(
-          //     fullscreenDialog: true,
-          //     child: SensorDetailsScreen(
-          //       sensorId: state.pathParameters['sensorId'] ?? '',
-          //     ),
-          //   ),
-          // ),
+          GoRoute(
+            path: 'details/:id',
+            name: AppRoute.sensorDetails.name,
+            pageBuilder: (context, state) {
+              final pathParam = PathParameters.fromJson(state.pathParameters);
+              return MaterialPage(
+                fullscreenDialog: true,
+                child: SensorDetailsScreen(
+                  sensorId: pathParam.id,
+                ),
+              );
+            },
+          ),
           // GoRoute(
           //   path: 'edit/:sensorId',
           //   name: AppRoute.updateSensor.name,
