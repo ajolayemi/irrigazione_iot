@@ -15,7 +15,7 @@ abstract class SensorRepository {
   Future<Sensor?> updateSensor(Sensor sensor);
 
   /// Deletes an existing [Sensor].
-  Future<bool> deleteSensor(Sensor sensor);
+  Future<bool> deleteSensor(String sensorId);
 
   /// Emits all available [Sensor]s for the given [companyId].
   Stream<List<Sensor>?> watchSensors(String companyId);

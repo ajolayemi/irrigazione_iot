@@ -42,10 +42,10 @@ class SupabaseSensorRepository implements SensorRepository {
   }
 
   @override
-  Future<bool> deleteSensor(Sensor sensor) async {
+  Future<bool> deleteSensor(String sensorId) async {
     final res = await _supabaseClient.invokeFunction(
       functionName: 'delete-sensor',
-      body: DeleteBody(ids: [sensor.id]).toJson(),
+      body: DeleteBody(ids: [sensorId]).toJson(),
     );
     return res.onDelete;
   }
