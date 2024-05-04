@@ -640,5 +640,6 @@
   "uvIndex": "UV Index",
   "deviceEui": "Device EUI",
   "sensorsMenuTitle": "Sensors",
-  "lastUpdated": "Last updated"
+  "lastUpdated": "Last updated",
+  "connectedSector": "Connected sector"
 }

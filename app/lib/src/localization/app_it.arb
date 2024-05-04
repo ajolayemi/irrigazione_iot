@@ -242,12 +242,13 @@
   "airTemperature": "Temperatura dell'aria",
   "airHumidity": "Umidità dell'aria",
   "lightIntensity": "Intensità luminosa",
-  "barometricPressure": "Pressione Barometrica",
-  "windDirection": "Direzione del Vento",
-  "windSpeed": "Velocità del Vento",
+  "barometricPressure": "Pressione barometrica",
+  "windDirection": "Direzione del vento",
+  "windSpeed": "Velocità del vento",
   "rainfallHourly": "Pioggia oraria",
   "uvIndex": "Indice UV",
   "deviceEui": "EUI del dispositivo",
   "sensorsMenuTitle": "Sensori",
-  "lastUpdated": "Ultimo aggiornamento"
+  "lastUpdated": "Ultimo aggiornamento",
+  "connectedSector": "Settore collegato"
 }
