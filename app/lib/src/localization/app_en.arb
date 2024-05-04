@@ -639,5 +639,6 @@
   "rainfallHourly": "Rainfall Hourly",
   "uvIndex": "UV Index",
   "deviceEui": "Device EUI",
-  "sensorsMenuTitle": "Sensors"
+  "sensorsMenuTitle": "Sensors",
+  "lastUpdate": "Last updated"
 }
