@@ -89,8 +89,6 @@ class BoardBatteryLevelIndicator extends ConsumerWidget {
         ref.watch(boardStatusStreamProvider(boardID: boardId)).valueOrNull;
 
     final batteryLevel = (boardStatus?.batteryLevel ?? 0.0) * 100;
-
-    print(boardStatus?.batteryLevel );
     return BatteryLevelIndicator(batteryLevel: batteryLevel);
   }
 }
