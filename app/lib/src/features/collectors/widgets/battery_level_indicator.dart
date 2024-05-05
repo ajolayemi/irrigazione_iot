@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 
-
 /// A widget that displays the battery level of entities like sensors or boards.
 class BatteryLevelIndicator extends ConsumerWidget {
   const BatteryLevelIndicator({super.key, required this.batteryLevel});
@@ -21,13 +20,14 @@ class BatteryLevelIndicator extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final color = _getBatteryColor(batteryLevel);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           '${batteryLevel.toStringAsFixed(0)}%',
           style: TextStyle(
-            color: _getBatteryColor(batteryLevel),
+            color: color,
           ),
         ),
         gapW8,
@@ -35,7 +35,10 @@ class BatteryLevelIndicator extends ConsumerWidget {
           width: 30, // Set the width of the battery icon
           height: 15, // Set the height of the battery icon
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.black, width: 2),
+            border: Border.all(
+              color: color,
+              width: 2,
+            ),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Stack(
@@ -43,8 +46,8 @@ class BatteryLevelIndicator extends ConsumerWidget {
               Positioned.fill(
                 child: FractionallySizedBox(
                   alignment: Alignment.centerLeft,
-                  widthFactor: batteryLevel  /
-                      100, // Size factor based on battery level
+                  widthFactor:
+                      batteryLevel / 100, // Size factor based on battery level
                   child: Container(
                     decoration: BoxDecoration(
                       color: _getBatteryColor(batteryLevel),
