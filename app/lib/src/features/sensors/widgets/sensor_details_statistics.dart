@@ -28,7 +28,7 @@ class SensorDetailsStatistics extends ConsumerWidget {
       children: [
         SensorDetailsStatisticTile(
           title: loc.airTemperature,
-          subtitle: '${lastSensorMeasurements?.airTemperature} °C',
+          subtitle: '${lastSensorMeasurements?.airTemperature ?? 0} °C',
           onTap: () => _onTap(
             context,
             SensorMeasurementsDatabaseKeys.airTemperature,
@@ -36,7 +36,7 @@ class SensorDetailsStatistics extends ConsumerWidget {
         ),
         SensorDetailsStatisticTile(
           title: loc.airHumidity,
-          subtitle: '${lastSensorMeasurements?.airHumidity} % RH',
+          subtitle: '${lastSensorMeasurements?.airHumidity ?? 0} % RH',
           onTap: () => _onTap(
             context,
             SensorMeasurementsDatabaseKeys.airHumidity,
@@ -44,7 +44,7 @@ class SensorDetailsStatistics extends ConsumerWidget {
         ),
         SensorDetailsStatisticTile(
           title: loc.lightIntensity,
-          subtitle: '${lastSensorMeasurements?.lightIntensity} Lux',
+          subtitle: '${lastSensorMeasurements?.lightIntensity ?? 0} Lux',
           onTap: () => _onTap(
             context,
             SensorMeasurementsDatabaseKeys.lightIntensity,
@@ -52,7 +52,7 @@ class SensorDetailsStatistics extends ConsumerWidget {
         ),
         SensorDetailsStatisticTile(
           title: loc.barometricPressure,
-          subtitle: '${lastSensorMeasurements?.barometricPressure} Pa',
+          subtitle: '${lastSensorMeasurements?.barometricPressure ?? 0} Pa',
           onTap: () => _onTap(
             context,
             SensorMeasurementsDatabaseKeys.barometricPressure,
@@ -60,7 +60,7 @@ class SensorDetailsStatistics extends ConsumerWidget {
         ),
         SensorDetailsStatisticTile(
           title: loc.windDirection,
-          subtitle: '${lastSensorMeasurements?.windDirection} °',
+          subtitle: '${lastSensorMeasurements?.windDirection ?? 0} °',
           onTap: () => _onTap(
             context,
             SensorMeasurementsDatabaseKeys.windDirection,
@@ -68,7 +68,7 @@ class SensorDetailsStatistics extends ConsumerWidget {
         ),
         SensorDetailsStatisticTile(
           title: loc.windSpeed,
-          subtitle: '${lastSensorMeasurements?.windSpeed} m/s',
+          subtitle: '${lastSensorMeasurements?.windSpeed ?? 0} m/s',
           onTap: () => _onTap(
             context,
             SensorMeasurementsDatabaseKeys.windSpeed,
@@ -76,7 +76,7 @@ class SensorDetailsStatistics extends ConsumerWidget {
         ),
         SensorDetailsStatisticTile(
           title: loc.rainfallHourly,
-          subtitle: '${lastSensorMeasurements?.rainGauge} mm/h',
+          subtitle: '${lastSensorMeasurements?.rainGauge ?? 0} mm/h',
           onTap: () => _onTap(
             context,
             SensorMeasurementsDatabaseKeys.rainGauge,
@@ -84,7 +84,7 @@ class SensorDetailsStatistics extends ConsumerWidget {
         ),
         SensorDetailsStatisticTile(
           title: loc.uvIndex,
-          subtitle: '${lastSensorMeasurements?.uvIndex}',
+          subtitle: '${lastSensorMeasurements?.uvIndex ?? 0}',
           onTap: () => _onTap(
             context,
             SensorMeasurementsDatabaseKeys.uvIndex,
