@@ -74,4 +74,14 @@ class SupabaseSensorRepository implements SensorRepository {
           .toList();
     });
   }
+
+  @override
+  Stream<List<String?>> watchUsedSensorEUIs() {
+    return _supabaseClient.sensorStream.map((data) {
+      return data
+          .map((sensor) =>
+              sensor[SensorDatabaseKeys.eui].toString().toLowerCase())
+          .toList();
+    });
+  }
 }
