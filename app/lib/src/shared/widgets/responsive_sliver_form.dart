@@ -4,9 +4,9 @@ import 'package:irrigazione_iot/src/shared/widgets/responsive_scrollable.dart';
 class ResponsiveSliverForm extends StatelessWidget {
   const ResponsiveSliverForm({
     super.key,
-    required this.children,
     required this.node,
     required this.formKey,
+    required this.children,
   });
 
   final List<Widget> children;
