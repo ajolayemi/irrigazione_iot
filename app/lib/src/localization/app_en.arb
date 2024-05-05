@@ -628,7 +628,7 @@
       }
     }
   },
-  "addNewSensorPageTitle": "New Sensor",
+  "addSensorPageTitle": "New Sensor",
   "updateSensorPageTitle": "Update Sensor",
   "airTemperature": "Air Temperature",
   "airHumidity": "Air Humidity",
@@ -641,5 +641,9 @@
   "deviceEui": "Device EUI",
   "sensorsMenuTitle": "Sensors",
   "lastUpdated": "Last updated",
-  "connectedSector": "Connected sector"
+  "connectedSector": "Connected sector",
+  "sensorNameHintText": "eg: Sensor 1",
+  "sensorEuiHintText": "device unique identifier...",
+  "sensorConnectSectorPageTitle": "Select a sector"
+  
 }

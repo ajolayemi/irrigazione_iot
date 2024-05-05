@@ -237,7 +237,7 @@
   "nSensorsWithIndefiniteArticle": "{n, plural, =1{un sensore} =2{dei sensori} other{dei sensori}}",
   "nSensorsWithDefiniteArticle": "{n, plural, =1{il sensore} =2{i sensori} other{i sensori}}",
   "nSensorsWithArticulatedPreposition": "{n, plural, =1{al sensore} =2{ai sensori} other {ai sensori}}",
-  "addNewSensorPageTitle": "Nuovo Sensore",
+  "addSensorPageTitle": "Nuovo Sensore",
   "updateSensorPageTitle": "Aggiorna Sensore",
   "airTemperature": "Temperatura dell'aria",
   "airHumidity": "Umidità dell'aria",
@@ -250,5 +250,8 @@
   "deviceEui": "EUI del dispositivo",
   "sensorsMenuTitle": "Sensori",
   "lastUpdated": "Ultimo aggiornamento",
-  "connectedSector": "Settore collegato"
+  "connectedSector": "Settore collegato",
+  "sensorNameHintText": "eg: Sensore Giardino",
+  "sensorEuiHintText": "numero identificativo...",
+  "sensorConnectSectorPageTitle": "Seleziona un settore"
 }
