@@ -306,7 +306,7 @@ class _AddUpdateSectorFormContentsState
     return context.getLocalizedErrorText(
       errorKey: errorKey,
       fieldName: fieldName,
-      maxFieldLength: AppConstants.maxSectorNameLength,
+      maxFieldLength: maxLength,
     );
   }
 
