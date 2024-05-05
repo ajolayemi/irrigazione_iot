@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_a_variety_screen.dart';
+import 'package:irrigazione_iot/src/features/sensors/screen/add_update_sensor/add_udpdate_sensor_form.dart';
+import 'package:irrigazione_iot/src/features/sensors/screen/add_update_sensor/connect_sector_to_sensor_screen.dart';
 import 'package:irrigazione_iot/src/features/sensors/screen/sensor_details/sensor_details_screen.dart';
 import 'package:irrigazione_iot/src/features/sensors/screen/sensor_list/sensors_list_screen.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/models/query_params.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
@@ -559,16 +562,16 @@ GoRouter goRouter(GoRouterRef ref) {
           child: SensorsListScreen(),
         ),
         routes: [
-          // GoRoute(
-          //   path: 'add',
-          //   name: AppRoute.addSensor.name,
-          //   pageBuilder: (context, state) => const MaterialPage(
-          //     fullscreenDialog: true,
-          //     child: AddUpdateSensorForm(
-          //       formType: GenericFormTypes.add,
-          //     ),
-          //   ),
-          // ),
+          GoRoute(
+            path: 'add',
+            name: AppRoute.addSensor.name,
+            pageBuilder: (context, state) => const MaterialPage(
+              fullscreenDialog: true,
+              child: AddUpdateSensorForm(
+                formType: GenericFormTypes.add,
+              ),
+            ),
+          ),
           GoRoute(
             path: 'details/:id',
             name: AppRoute.sensorDetails.name,
@@ -582,17 +585,37 @@ GoRouter goRouter(GoRouterRef ref) {
               );
             },
           ),
-          // GoRoute(
-          //   path: 'edit/:sensorId',
-          //   name: AppRoute.updateSensor.name,
-          //   pageBuilder: (context, state) => MaterialPage(
-          //     fullscreenDialog: true,
-          //     child: AddUpdateSensorForm(
-          //       formType: GenericFormTypes.update,
-          //       sensorId: state.pathParameters['sensorId'] ?? '',
-          //     ),
-          //   ),
-          // ),
+          GoRoute(
+            path: 'edit/:id',
+            name: AppRoute.updateSensor.name,
+            pageBuilder: (context, state) {
+              final pathParam = PathParameters.fromJson(state.pathParameters);
+              return MaterialPage(
+                fullscreenDialog: true,
+                child: AddUpdateSensorForm(
+                  formType: GenericFormTypes.update,
+                  sensorId: pathParam.id,
+                ),
+              );
+            },
+          ),
+          GoRoute(
+            path: 'connect-sector-to-sensor',
+            name: AppRoute.connectSectorToSensor.name,
+            pageBuilder: (context, state) {
+              final queryParams = QueryParameters.fromJson(
+                state.uri.queryParameters,
+              );
+              final selectedSector = RadioButtonItem(
+                  value: queryParams.id ?? '', label: queryParams.name ?? '');
+              return MaterialPage(
+                child: ConnectSectorToSensorScreen(
+                  selectedSector: selectedSector,
+                ),
+                fullscreenDialog: true,
+              );
+            },
+          ),
         ],
       ),
     ],
