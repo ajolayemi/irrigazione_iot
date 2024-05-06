@@ -17,16 +17,16 @@ import {
  */
 export const processSenseCapData = async (data: any): Promise<void> => {
   console.log("Processing SenseCAP data...");
-  // Get the result from the data
-  const result = data.result || data.data;
+  // // Get the result from the data
+  // const result = data.result || data.data;
 
-  if (!result) {
-    logger.error("Aborting, no result or data key found in the data");
-    throw new Error("No result key found in the data");
-  }
+  // if (!result) {
+  //   logger.error("Aborting, no result or data key found in the data");
+  //   throw new Error("No result key found in the data");
+  // }
 
   // Get the necessary data from the result
-  const sensorData = getMeasurementsAndBatteryData(result);
+  const sensorData = getMeasurementsAndBatteryData(data);
 
   if (!sensorData.valid) {
     logger.error("Aborting, the sensor data is not valid");
