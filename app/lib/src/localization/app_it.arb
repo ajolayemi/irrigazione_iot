@@ -253,5 +253,7 @@
   "connectedSector": "Settore collegato",
   "sensorNameHintText": "eg: Sensore Giardino",
   "sensorEuiHintText": "numero identificativo...",
-  "sensorConnectSectorPageTitle": "Seleziona un settore"
+  "sensorConnectSectorPageTitle": "Seleziona un settore",
+  "historyPageTitle": "Storico",
+  "noHistory": "Nessun dato disponibile"
 }

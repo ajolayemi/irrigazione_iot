@@ -644,6 +644,7 @@
   "connectedSector": "Connected sector",
   "sensorNameHintText": "eg: Sensor 1",
   "sensorEuiHintText": "device unique identifier...",
-  "sensorConnectSectorPageTitle": "Select a sector"
-  
+  "sensorConnectSectorPageTitle": "Select a sector",
+  "historyPageTitle": "History",
+  "noHistory": "No history"
 }
