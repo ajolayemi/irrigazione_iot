@@ -112,7 +112,7 @@ class EmptyUserCompanyWidget extends ConsumerWidget {
               buttonType: ButtonType.secondary,
               onPressed: () => ref.read(authRepositoryProvider).signOut(),
               text: context.loc.logInWithAnotherAccount,
-            ), // todo replace the onPressed func with the right controller
+            ),
           ],
         ),
       ),
