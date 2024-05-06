@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:irrigazione_iot/src/features/sensors/model/sensor_measurements_database_keys.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
@@ -31,7 +32,8 @@ extension BuildContextExtensions on BuildContext {
   }
 
   /// Helps in formatting a [DateTime] object to a string using built in date formatter
-  String formatDate(DateTime dateTime) {
+  String formatDate(DateTime? dateTime) {
+    if (dateTime == null) return loc.notAvailable;
     return MaterialLocalizations.of(this).formatShortDate(dateTime);
   }
 
@@ -149,6 +151,29 @@ extension StringExtensions on String {
   /// Mostly used for validating form fields
   bool valueIsGreaterThanZero() {
     return double.tryParse(this) != null && double.parse(this) > 0;
+  }
+
+  String getUmX(String key) {
+    switch (key) {
+      case SensorMeasurementsDatabaseKeys.airTemperature:
+        return '°C';
+      case SensorMeasurementsDatabaseKeys.airHumidity:
+        return '% RH';
+      case SensorMeasurementsDatabaseKeys.lightIntensity:
+        return 'Lux';
+      case SensorMeasurementsDatabaseKeys.uvIndex:
+        return '';
+      case SensorMeasurementsDatabaseKeys.windSpeed:
+        return 'm/s';
+      case SensorMeasurementsDatabaseKeys.windDirection:
+        return '°';
+      case SensorMeasurementsDatabaseKeys.rainGauge:
+        return 'mm';
+      case SensorMeasurementsDatabaseKeys.barometricPressure:
+        return 'Pa';
+      default:
+        return '';
+    }
   }
 
   ///
