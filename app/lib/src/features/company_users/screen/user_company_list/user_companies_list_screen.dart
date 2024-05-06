@@ -104,7 +104,7 @@ class EmptyUserCompanyWidget extends ConsumerWidget {
           children: [
             Text(
               context.loc.noCompanyFoundForUser(user?.name ?? 'N/A'),
-              style: context.textTheme.headlineMedium,
+              style: context.textTheme.titleLarge,
               //textAlign: TextAlign.center,
             ),
             gapH48,
