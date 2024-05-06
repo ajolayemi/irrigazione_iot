@@ -9,9 +9,10 @@ import {processPumpPressureMessage} from "./utils/process_pump_pressure_message"
 import {processBoardStatusMessage} from "./utils/process_board_status_message";
 import {CallableRequest} from "firebase-functions/v2/https";
 import {createMqttClient} from "./services/mqtt";
-import {HttpCallableReqBody} from "./interfaces/interfaces";
-import {saveDataWhenDev} from "./utils/save_dev_data";
+import {HttpCallableReqBody, StatusMessage} from "./interfaces/interfaces";
+// import {saveDataWhenDev} from "./utils/save_dev_data";
 import {processSenseCapData} from "./utils/process_sense_cap_data";
+import {saveDataWhenDev} from "./utils/save_dev_data";
 
 admin.initializeApp();
 
@@ -98,14 +99,22 @@ exports.processBoardStatusMessages = pubsub.onMessagePublished(
 exports.toggleItemStatus = https.onCall(async (req: CallableRequest) => {
   try {
     const body: HttpCallableReqBody = req.data;
+
     logger.info(
-      `Toggling status of ${body.mqttMsgName} to ${body.message} with topic ${body.topic}`
+      `Toggling status of ${body.message} to ${body.message} with topic ${body.topic}`
     );
     const client = await createMqttClient();
     if (client.disconnected) {
       throw new https.HttpsError("internal", "MQTT client is disconnected");
     }
-    client.publish(body.topic, body.message);
+
+    /// Msgs sent to mqtt aren't raw strings, they are objects
+    const messageForMqtt: StatusMessage = {
+      name: body.mqttMsgName,
+      status: body.message,
+    };
+    const messageBuffer = Buffer.from(JSON.stringify(messageForMqtt));
+    client.publish(body.topic, messageBuffer);
 
     // When dev environment is dev, insert manual data to local db
     if (process.env.NODE_ENV === "dev") {
