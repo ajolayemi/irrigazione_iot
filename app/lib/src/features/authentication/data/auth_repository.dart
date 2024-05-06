@@ -34,8 +34,13 @@ abstract class AuthRepository {
   /// Emits the current user
   Stream<AuthState?> authStateChanges();
 
-  /// Get the current user
+  /// Gets the current logged in user
   AppUser? get currentUser;
+  
+  /// Gets the current active session
+  /// As for Supabase, since confirm email address is enabled
+  /// A session is available only when user's email address has been confirmed
+  Session? get currentSession;
 }
 
 @Riverpod(keepAlive: true)

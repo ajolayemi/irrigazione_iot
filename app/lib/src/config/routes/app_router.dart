@@ -74,12 +74,12 @@ GoRouter goRouter(GoRouterRef ref) {
     // * redirect logic based on the authentication state
     redirect: (context, state) {
       final user = authRepository.currentUser;
-      final isLoggedIn = user != null;
+      final isLoggedIn = authRepository.currentSession != null;
       final path = state.uri.path;
       //final isLoginOrSign
       if (isLoggedIn && path == '/sign-in') {
         final userHasAlreadySelectedACompany =
-            initialTappedCompanyRepo.loadSelectedCompanyId(user.uid) != null;
+            initialTappedCompanyRepo.loadSelectedCompanyId(user!.uid) != null;
 
         if (userHasAlreadySelectedACompany) {
           return '/';

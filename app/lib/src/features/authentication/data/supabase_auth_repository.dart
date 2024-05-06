@@ -15,8 +15,11 @@ class SupabaseAuthRepository implements AuthRepository {
 
   @override
   AppUser? get currentUser => _convertUser(
-        _authClient.currentSession?.user,
+        _authClient.currentUser,
       );
+
+  @override
+  Session? get currentSession => _authClient.currentSession;
 
   @override
   Future<void> resetPassword(String email, String newPassword) {
@@ -84,16 +87,15 @@ class SupabaseAuthRepository implements AuthRepository {
   }) async {
     try {
       final signUpResponse = await _authClient.signUp(
-        email: appUser.email,
-        password: password,
-        data: {
-          'name': appUser.name,
-          'surname': appUser.surname,
-        },
-      );
+          email: appUser.email,
+          password: password,
+          data: {
+            'name': appUser.name,
+            'surname': appUser.surname,
+          },
+          emailRedirectTo: 'io.supabase.irrigationiot://login');
       return _convertUser(signUpResponse.session?.user);
     } catch (error) {
-      
       if (error is AuthException) {
         final errorMessage = error.message.toLowerCase();
         if (errorMessage.contains('user already registered')) {
@@ -103,7 +105,6 @@ class SupabaseAuthRepository implements AuthRepository {
       }
       rethrow;
     }
-
   }
 
   /// Helper method to convert a [User] to an [AppUser]
