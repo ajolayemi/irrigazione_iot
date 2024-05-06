@@ -39,6 +39,7 @@ enum AppRoute {
   sensorDetails,
   updateSensor,
   connectSectorToSensor,
+  sensorStatisticHistory,
   profile,
   connectCollectorToBoard,
   companyProfile,

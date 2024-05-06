@@ -5,6 +5,8 @@ import 'package:irrigazione_iot/src/features/sensors/screen/add_update_sensor/ad
 import 'package:irrigazione_iot/src/features/sensors/screen/add_update_sensor/connect_sector_to_sensor_screen.dart';
 import 'package:irrigazione_iot/src/features/sensors/screen/sensor_details/sensor_details_screen.dart';
 import 'package:irrigazione_iot/src/features/sensors/screen/sensor_list/sensors_list_screen.dart';
+import 'package:irrigazione_iot/src/features/sensors/screen/sensor_stat_history/sensor_statistic_history_screen.dart';
+import 'package:irrigazione_iot/src/shared/models/history_query_params.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
@@ -573,18 +575,40 @@ GoRouter goRouter(GoRouterRef ref) {
             ),
           ),
           GoRoute(
-            path: 'details/:id',
-            name: AppRoute.sensorDetails.name,
-            pageBuilder: (context, state) {
-              final pathParam = PathParameters.fromJson(state.pathParameters);
-              return MaterialPage(
-                fullscreenDialog: true,
-                child: SensorDetailsScreen(
-                  sensorId: pathParam.id,
-                ),
-              );
-            },
-          ),
+              path: 'details/:id',
+              name: AppRoute.sensorDetails.name,
+              pageBuilder: (context, state) {
+                final pathParam = PathParameters.fromJson(state.pathParameters);
+                return MaterialPage(
+                  fullscreenDialog: true,
+                  child: SensorDetailsScreen(
+                    sensorId: pathParam.id,
+                  ),
+                );
+              },
+              routes: [
+                GoRoute(
+                    path: 'sensor-stat-history',
+                    name: AppRoute.sensorStatisticHistory.name,
+                    pageBuilder: (context, state) {
+                      final pathParam = PathParameters.fromJson(
+                        state.pathParameters,
+                      );
+
+                      final queryParams = HistoryQueryParameters.fromJson(
+                        state.uri.queryParameters,
+                      );
+
+                      return MaterialPage(
+                        fullscreenDialog: true,
+                        child: SensorStatisticHistoryScreen(
+                          columnName: queryParams.columnName,
+                          statisticName: queryParams.statisticName,
+                          sensorId: pathParam.id,
+                        ),
+                      );
+                    })
+              ]),
           GoRoute(
             path: 'edit/:id',
             name: AppRoute.updateSensor.name,
