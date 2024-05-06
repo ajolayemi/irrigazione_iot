@@ -2,8 +2,8 @@ import * as fs from "fs";
 
 /**
  * Reads local JSON file content and returns the parsed JSON object
- * @param filePath The path to the JSON file to read
- * @return The parsed JSON object
+ * @param {string} filePath The path to the JSON file to read
+ * @return {Promise<any>} The parsed JSON object
  */
 export const readJsonFile = (filePath: string): Promise<any> => {
   return new Promise((resolve, reject) => {

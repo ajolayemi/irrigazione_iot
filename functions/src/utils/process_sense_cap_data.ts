@@ -13,7 +13,7 @@ import {
 
 /**
  * Processes the data received from the SenseCAP device
- * @param data The data to process, typically a JSON object
+ * @param {any} data The data to process, typically a JSON object
  */
 export const processSenseCapData = async (data: any): Promise<void> => {
   console.log("Processing SenseCAP data...");
@@ -63,8 +63,9 @@ export const processSenseCapData = async (data: any): Promise<void> => {
 
 /**
  * Builds the sensor measurement data to insert into the database
- * @param sensorData The sensor data to build the sensor measurement data from
- * @return {TablesInsert<"sensor_measurements">} The sensor measurement data
+ * @param {SenseCapSensorData} data The sensor data to build the sensor measurement data from
+ * @param {number} sensorId The sensor id to associate the sensor measurement data with
+ * @return {TablesInsert<"sensor_measurements">}  The sensor measurement data
  */
 const buildSensorMeasurementData = (
   data: SenseCapSensorData,
@@ -93,8 +94,8 @@ const buildSensorMeasurementData = (
 
 /**
  * Filters the sensor measurements based on the key provided
- * @param measurements The measurements to filter
- * @param keyToFilter The key to filter the measurements by
+ * @param {SensorMeasurementData[]} measurements The measurements to filter
+ * @param {string} keyToFilter The key to filter the measurements by
  * @return {number} The filtered sensor measurements
  */
 const filterSensorMeasurements = (
@@ -112,7 +113,7 @@ const filterSensorMeasurements = (
 
 /**
  * Gets the measurements and battery data from the data provided
- * @param result The raw result data to get measurements and battery data from
+ * @param {any} result The raw result data to get measurements and battery data from
  * @return {SenseCapSensorData} The measurements and battery data
  */
 const getMeasurementsAndBatteryData = (result: any): SenseCapSensorData => {
@@ -125,7 +126,7 @@ const getMeasurementsAndBatteryData = (result: any): SenseCapSensorData => {
   const decodedPayload = getDecodedPayloadMsg(result);
   const deviceEui = getDeviceEui(result);
 
-  let measurements: SensorMeasurementData[] = [];
+  const measurements: SensorMeasurementData[] = [];
   let battery: SensorBatteryData | undefined;
 
   // Loop through the decoded payload
@@ -158,7 +159,7 @@ const getMeasurementsAndBatteryData = (result: any): SenseCapSensorData => {
 
 /**
  * Gets the device eui from the provided data
- * @param data The data to get device eui from, typically a JSON object
+ * @param {any} data The data to get device eui from, typically a JSON object
  * @return {string} The device eui
  */
 const getDeviceEui = (data: any): string => {
@@ -181,7 +182,7 @@ const getDeviceEui = (data: any): string => {
 
 /**
  * Gets the decoded payload message from the provided data
- * @param data The data to get decoded payload from, typically a JSON object
+ * @param {any} data The data to get decoded payload from, typically a JSON object
  * @return {any} The decoded payload
  */
 const getDecodedPayloadMsg = (data: any): any => {

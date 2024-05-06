@@ -61,7 +61,7 @@ exports.processPumpFlowMessages = pubsub.onMessagePublished(
   }
 );
 
-exports.processPumpPumpPressureMessages = pubsub.onMessagePublished(
+exports.processPumpPressureMessages = pubsub.onMessagePublished(
   "pump-pressure",
   async (event) => {
     const message = event.data.message.json;
