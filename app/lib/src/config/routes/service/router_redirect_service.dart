@@ -19,6 +19,7 @@ class RouterRedirectService {
   static get homeRoute => AppRoute.home.path;
   static get companiesListGridRoute => AppRoute.companiesListGrid.path;
   static get signUpRoute => AppRoute.signUp.path;
+  static get welcomeRoute => AppRoute.welcome.path;
 
   FutureOr<String?> redirect(
     BuildContext context,
@@ -35,7 +36,6 @@ class RouterRedirectService {
     final sessionIsValid = authRepo.currentSession.isValid;
 
     final currentPath = routerState.uri.path;
-
 
     // If session is valid in and the current path is the sign in page
     if (sessionIsValid && currentPath == signInRoute) {
@@ -58,7 +58,7 @@ class RouterRedirectService {
         return null;
       }
       // Redirect to sign in page in every other case
-      return signInRoute;
+      return welcomeRoute;
     }
 
     return null;
