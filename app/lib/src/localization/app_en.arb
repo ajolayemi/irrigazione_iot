@@ -646,5 +646,8 @@
   "sensorEuiHintText": "device unique identifier...",
   "sensorConnectSectorPageTitle": "Select a sector",
   "historyPageTitle": "History",
-  "noHistory": "No history"
+  "noHistory": "No history",
+  "registerYourCompany": "Register your company",
+  "loginToYourAccount": "Login to your account",
+  "welcomePageIntro": "We're glad to have you here! Please select an option to continue"
 }

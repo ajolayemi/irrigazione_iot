@@ -255,5 +255,8 @@
   "sensorEuiHintText": "numero identificativo...",
   "sensorConnectSectorPageTitle": "Seleziona un settore",
   "historyPageTitle": "Storico",
-  "noHistory": "Nessun dato disponibile"
+  "noHistory": "Nessun dato disponibile",
+  "registerYourCompany": "Registra la tua azienda",
+  "loginToYourAccount": "Accedi al tuo account",
+  "welcomePageIntro": "Siamo lieti di darti il benvenuto! Per continuare, seleziona un'opzione"
 }
