@@ -4,7 +4,7 @@ import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/model/sector_database_keys.dart';
 import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
-import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabaseSectorRepository implements SectorRepository {
   const SupabaseSectorRepository(this._supabaseClient);

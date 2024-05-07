@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 /// A shared custom expansion tile that can be used in different screens
 /// Mostly used in the details screen of a specific entity

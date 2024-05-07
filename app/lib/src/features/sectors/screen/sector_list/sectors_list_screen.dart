@@ -13,7 +13,7 @@ import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 class SectorsListScreen extends ConsumerWidget {
   const SectorsListScreen({super.key});

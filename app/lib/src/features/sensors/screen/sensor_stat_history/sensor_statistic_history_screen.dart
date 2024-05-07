@@ -6,7 +6,7 @@ import 'package:irrigazione_iot/src/features/sensors/screen/sensor_stat_history/
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/empty_data_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 /// Displays the history of a sensor's statistics.
 /// For example, air temperature, air humidity, light intensity, barometric pressure, etc

@@ -5,7 +5,7 @@ import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_text_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 

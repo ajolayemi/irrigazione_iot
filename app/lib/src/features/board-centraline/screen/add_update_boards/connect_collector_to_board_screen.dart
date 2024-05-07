@@ -10,7 +10,7 @@ import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_sliver_connect_something_to.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.dart';
 import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indicator.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 class ConnectCollectorToBoardScreen extends ConsumerStatefulWidget {
   const ConnectCollectorToBoardScreen({

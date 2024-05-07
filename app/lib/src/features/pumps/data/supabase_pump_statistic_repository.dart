@@ -1,7 +1,7 @@
 import 'package:irrigazione_iot/src/features/pumps/data/pump_statistic_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump_pressure.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump_pressure_database_keys.dart';
-import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabasePumpStatisticRepository implements PumpStatisticRepository {

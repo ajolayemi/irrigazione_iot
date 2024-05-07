@@ -16,7 +16,7 @@ import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_sliver_list_skeleton.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 class UserCompaniesListScreen extends ConsumerStatefulWidget {
   const UserCompaniesListScreen({super.key});

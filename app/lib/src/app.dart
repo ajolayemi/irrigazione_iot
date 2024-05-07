@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/config/theme/app_theme.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 /// The Widget that configures your application.
 class IotIrrigationApp extends ConsumerWidget {

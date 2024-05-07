@@ -6,7 +6,7 @@ import 'package:irrigazione_iot/src/features/sensors/model/sensor.dart';
 import 'package:irrigazione_iot/src/features/sensors/screen/sensor_list/dismiss_sensor_controller.dart';
 import 'package:irrigazione_iot/src/features/sensors/widgets/sensor_list_tile_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 /// A list tile that displays sensor's basic information.
 class SensorListTile extends ConsumerWidget {

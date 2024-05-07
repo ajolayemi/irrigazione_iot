@@ -16,7 +16,7 @@ import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_info_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 class CollectorExpansionListTile extends ConsumerStatefulWidget {
   const CollectorExpansionListTile({

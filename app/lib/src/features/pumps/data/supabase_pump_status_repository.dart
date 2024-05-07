@@ -6,7 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump_status.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump_status_database_keys.dart';
-import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabasePumpStatusRepository implements PumpStatusRepository {
   const SupabasePumpStatusRepository(

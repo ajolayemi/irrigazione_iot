@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:irrigazione_iot/src/features/sensors/model/sensor_statistic_history.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 class SensorStatisticHistoryScreenContents extends ConsumerWidget {
   const SensorStatisticHistoryScreenContents({

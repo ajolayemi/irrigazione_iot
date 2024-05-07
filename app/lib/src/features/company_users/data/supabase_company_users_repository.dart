@@ -8,7 +8,7 @@ import 'package:irrigazione_iot/src/features/company_users/model/company_databas
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user_database_keys.dart';
 import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
-import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   SupabaseCompanyUsersRepository(this._supabaseClient);

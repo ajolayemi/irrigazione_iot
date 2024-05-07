@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'user_profile_screen_content.dart';
 

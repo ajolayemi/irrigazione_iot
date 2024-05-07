@@ -13,7 +13,7 @@ import 'package:irrigazione_iot/src/features/authentication/widgets/sliver_sign_
 import 'package:irrigazione_iot/src/shared/providers/auth_providers.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';

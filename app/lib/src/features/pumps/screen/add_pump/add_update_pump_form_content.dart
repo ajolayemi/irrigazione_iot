@@ -17,7 +17,7 @@ import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_scrollable.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 import 'package:irrigazione_iot/src/utils/numeric_fields_text_type.dart';
 
 class AddUpdatePumpContents extends ConsumerStatefulWidget {

@@ -4,7 +4,7 @@ import 'package:irrigazione_iot/src/features/sensors/data/sensor_repository.dart
 import 'package:irrigazione_iot/src/features/sensors/screen/sensor_details/sensor_details_screen_contents.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/empty_placeholder_widget.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 class SensorDetailsScreen extends ConsumerWidget {
   const SensorDetailsScreen({super.key, required this.sensorId});

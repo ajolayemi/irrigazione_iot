@@ -1,7 +1,7 @@
 import 'package:irrigazione_iot/src/features/sensors/model/sensor_measurements_database_keys.dart';
 import 'package:irrigazione_iot/src/features/sensors/model/sensor_statistic_history.dart';
 import 'package:irrigazione_iot/src/features/sensors/model/sensor_statistic_history_repository.dart';
-import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 

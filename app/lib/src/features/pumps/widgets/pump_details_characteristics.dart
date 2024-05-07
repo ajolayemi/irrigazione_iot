@@ -6,7 +6,7 @@ import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_expansion_tile.dart';
 import 'package:irrigazione_iot/src/shared/widgets/details_tile_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 /// The expansion tile section of pump details screen to display pump characteristics
 class PumpDetailsCharacteristics extends ConsumerWidget {

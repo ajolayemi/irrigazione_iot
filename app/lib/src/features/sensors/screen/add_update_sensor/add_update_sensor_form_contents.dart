@@ -20,7 +20,7 @@ import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 class AddUpdateSensorFormContents extends ConsumerStatefulWidget {
   const AddUpdateSensorFormContents({

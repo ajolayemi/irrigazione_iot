@@ -15,7 +15,7 @@ import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_sliver_list_skeleton.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 class CollectorListScreen extends ConsumerWidget {
   const CollectorListScreen({super.key});

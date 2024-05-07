@@ -11,7 +11,7 @@ import 'package:irrigazione_iot/src/shared/widgets/custom_sliver_connect_somethi
 import 'package:irrigazione_iot/src/shared/widgets/empty_data_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.dart';
 import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indicator.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 class ConnectSectorToSensorScreen extends ConsumerStatefulWidget {
   const ConnectSectorToSensorScreen({

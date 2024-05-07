@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/details_tile_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart';
 

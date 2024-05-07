@@ -5,7 +5,7 @@ import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump_database_keys.dart';
 import 'package:irrigazione_iot/src/features/pumps/model/pump_status_database_keys.dart';
 import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
-import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabasePumpRepository implements PumpRepository {
   const SupabasePumpRepository(this._supabaseClient);

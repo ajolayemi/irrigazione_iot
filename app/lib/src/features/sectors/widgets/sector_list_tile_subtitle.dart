@@ -5,7 +5,7 @@ import 'package:irrigazione_iot/src/features/sectors/data/sector_pressure_reposi
 import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/specie/data/specie_repository.dart';
 import 'package:irrigazione_iot/src/features/variety/data/variety_repository.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 class SectorListTileSubtitle extends ConsumerWidget {
   const SectorListTileSubtitle({super.key, required this.sector});

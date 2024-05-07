@@ -4,7 +4,7 @@ import 'package:irrigazione_iot/src/features/sensors/data/sensor_repository.dart
 import 'package:irrigazione_iot/src/features/sensors/model/sensor.dart';
 import 'package:irrigazione_iot/src/features/sensors/model/sensor_database_keys.dart';
 import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
-import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabaseSensorRepository implements SensorRepository {
   const SupabaseSensorRepository(this._supabaseClient);

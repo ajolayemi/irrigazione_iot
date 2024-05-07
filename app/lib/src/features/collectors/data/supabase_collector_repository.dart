@@ -4,7 +4,7 @@ import 'package:irrigazione_iot/src/features/collectors/data/collector_repositor
 import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector_database_keys.dart';
 import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
-import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabaseCollectorRepository implements CollectorRepository {
   const SupabaseCollectorRepository(this._supabaseClient);
