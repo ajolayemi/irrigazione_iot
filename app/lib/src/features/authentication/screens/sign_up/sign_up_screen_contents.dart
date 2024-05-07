@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
 import 'package:irrigazione_iot/src/features/authentication/models/app_user.dart';
 import 'package:irrigazione_iot/src/features/authentication/screens/sign_up/sign_up_controller.dart';
-import 'package:irrigazione_iot/src/features/authentication/widgets/already_have_an_account.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/password_visibility_icon_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/sliver_sign_up_cta.dart';
 import 'package:irrigazione_iot/src/shared/providers/auth_providers.dart';
-import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
-import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
-import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
+import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
+import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
+import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 
 class SignUpScreenContents extends ConsumerStatefulWidget {
   const SignUpScreenContents({super.key});
@@ -275,7 +275,6 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
                           onPressed: _onTapViewConfirmPassword,
                         ),
                       ),
-
                       gapH32,
                       // sign up button
                       SignUpSliverCtaButton(
@@ -287,8 +286,6 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
                 ],
               ),
             ),
-            // Already have an account? Sign in
-            const AlreadyHaveAnAccount(),
           ],
         ),
       ),

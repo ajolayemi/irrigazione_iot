@@ -20,8 +20,9 @@ class SignInScreen extends ConsumerWidget {
         debugPrint('User not found error occurred in sign in screen');
       },
     );
-    return const Scaffold(
-      body: SignInScreenContents(),
+    return Scaffold(
+      appBar: AppBar(),
+      body: const SignInScreenContents(),
     );
   }
 }
