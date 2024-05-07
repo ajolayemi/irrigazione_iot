@@ -15,7 +15,7 @@
   "passwordFormHint": "••••••••",
   "signInWithGoogleButtonTitle": "Google",
   "forgotPasswordButtonTitle": "Password dimenticata?",
-  "orText": "oppure accedi con",
+  "orSignWithText": "oppure accedi con",
   "invalidEmailErrorText": "Indirizzo email non valido",
   "emptyEmailErrorText": "Il campo email non può essere vuoto",
   "shortPasswordErrorText": "La password inserita è troppo corta, deve essere minimo {minPasswordLength} caratteri",
@@ -258,5 +258,6 @@
   "noHistory": "Nessun dato disponibile",
   "registerYourCompany": "Registra la tua azienda",
   "loginToYourAccount": "Accedi al tuo account",
-  "welcomePageIntro": "Siamo lieti di darti il benvenuto! Per continuare, seleziona un'opzione"
+  "welcomePageIntro": "Siamo lieti di darti il benvenuto! Per continuare, seleziona un'opzione",
+  "or": "oppure"
 }

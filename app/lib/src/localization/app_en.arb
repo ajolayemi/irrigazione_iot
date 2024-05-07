@@ -33,10 +33,7 @@
     "description": "The title of the sign in with Google button"
   },
   "forgotPasswordButtonTitle": "Forgot Password?",
-  "orText": "or sign in with",
-  "@orText": {
-    "description": "The text that is displayed between the sign in button and the sign in with Google and or other auth button"
-  },
+  "orSignWithText": "or sign in with",
   "invalidEmailErrorText": "Invalid email",
   "emptyEmailErrorText": "Email can't be empty",
   "shortPasswordErrorText": "Password is too short, it has to be a minimum of {minPasswordLength} characters",
@@ -649,5 +646,6 @@
   "noHistory": "No history",
   "registerYourCompany": "Register your company",
   "loginToYourAccount": "Login to your account",
-  "welcomePageIntro": "We're glad to have you here! Please select an option to continue"
+  "welcomePageIntro": "We're glad to have you here! Please select an option to continue",
+  "or": "or"
 }
