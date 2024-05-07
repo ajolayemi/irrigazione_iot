@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/features/welcome/screens/welcome_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
@@ -66,7 +67,7 @@ GoRouter goRouter(GoRouterRef ref) {
   final routerService = ref.read(routerRedirectServiceProvider);
   final authRepository = ref.watch(authRepositoryProvider);
   return GoRouter(
-    initialLocation: AppRoute.signIn.path,
+    initialLocation: AppRoute.welcome.path,
     debugLogDiagnostics: true,
     navigatorKey: _rootNavigatorKey,
 
@@ -77,18 +78,29 @@ GoRouter goRouter(GoRouterRef ref) {
     ),
     routes: [
       GoRoute(
+        path: AppRoute.welcome.path,
+        name: AppRoute.welcome.name,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: WelcomeScreen(),
+        ),
+      ),
+      GoRoute(
         path: AppRoute.signIn.path,
         name: AppRoute.signIn.name,
-        pageBuilder: (context, state) =>
-            const NoTransitionPage(child: SignInScreen()),
+        pageBuilder: (context, state) => const MaterialPage(
+          child: SignInScreen(),
+          fullscreenDialog: true,
+        ),
       ),
-
       GoRoute(
         path: AppRoute.signUp.path,
         name: AppRoute.signUp.name,
-        pageBuilder: (context, state) =>
-            const NoTransitionPage(child: SignUpScreen()),
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: SignUpScreen(),
+        ),
       ),
+
       GoRoute(
         path: AppRoute.companiesListGrid.path,
         name: AppRoute.companiesListGrid.name,
