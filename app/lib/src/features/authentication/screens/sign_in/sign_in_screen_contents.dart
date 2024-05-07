@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
 import 'package:irrigazione_iot/src/features/authentication/screens/sign_in/sign_in_controller.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/dont_have_an_account.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/forgot_password.dart';
-import 'package:irrigazione_iot/src/features/authentication/widgets/or_sign_with_widget.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/password_visibility_icon_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/providers_sign_in_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/sliver_sign_in_cta.dart';
 import 'package:irrigazione_iot/src/shared/providers/auth_providers.dart';
+import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
+import 'package:irrigazione_iot/src/shared/widgets/or_with_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 import 'package:irrigazione_iot/src/utils/string_validators.dart';
-import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
-import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
-import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
-
-
 
 // Widget to show the sign in form
 class SignInScreenContents extends ConsumerStatefulWidget {
@@ -160,7 +159,6 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
           children: [
             Expanded(
               child: CustomScrollView(
-                
                 slivers: [
                   ResponsiveSliverForm(
                     node: _node,
@@ -217,8 +215,7 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
                       // sign in button
                       SignInSliverCtaButton(onPressed: _submit),
                       gapH24,
-                      const OrSignWithWidget(),
-
+                      OrWithWidget(orText: loc.orSignWithText),
                       // Sign in with Google Button
                       SliverAuthProviderSignInButton(
                         text: loc.signInWithGoogleButtonTitle,
