@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:irrigazione_iot/src/utils/extensions/go_router_extension.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
@@ -44,10 +43,9 @@ import 'package:irrigazione_iot/src/features/sensors/screen/sensor_details/senso
 import 'package:irrigazione_iot/src/features/sensors/screen/sensor_list/sensors_list_screen.dart';
 import 'package:irrigazione_iot/src/features/sensors/screen/sensor_stat_history/sensor_statistic_history_screen.dart';
 import 'package:irrigazione_iot/src/features/user_profile/screen/user_profile_screen.dart';
-import 'package:irrigazione_iot/src/shared/models/history_query_params.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
-import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
+import 'package:irrigazione_iot/src/utils/extensions/go_router_extension.dart';
 
 part 'app_router.g.dart';
 
@@ -276,12 +274,10 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoute.selectASpecie.path,
         name: AppRoute.selectASpecie.name,
         pageBuilder: (context, state) {
-          final queryParams =
-              QueryParameters.fromJson(state.uri.queryParameters);
           return MaterialPage(
             child: SelectASpecieScreen(
-              selectedSpecieId: queryParams.id,
-              selectedSpecieName: queryParams.name,
+              selectedSpecieId: state.queryId,
+              selectedSpecieName: state.queryName,
             ),
             fullscreenDialog: true,
           );
@@ -293,12 +289,10 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoute.selectAVariety.path,
         name: AppRoute.selectAVariety.name,
         pageBuilder: (context, state) {
-          final queryParams =
-              QueryParameters.fromJson(state.uri.queryParameters);
           return MaterialPage(
             child: SelectAVarietyScreen(
-              selectedVarietyId: queryParams.id,
-              selectedVarietyName: queryParams.name,
+              selectedVarietyId: state.queryId,
+              selectedVarietyName: state.queryName,
             ),
             fullscreenDialog: true,
           );
@@ -310,11 +304,9 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoute.selectAnIrrigationSystem.path,
         name: AppRoute.selectAnIrrigationSystem.name,
         pageBuilder: (context, state) {
-          final queryParams =
-              QueryParameters.fromJson(state.uri.queryParameters);
           return MaterialPage(
             child: SelectAnIrrigationSystem(
-              selectedIrrigationSystem: queryParams.name,
+              selectedIrrigationSystem: state.queryName,
             ),
             fullscreenDialog: true,
           );
@@ -326,12 +318,9 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoute.selectAnIrrigationSource.path,
         name: AppRoute.selectAnIrrigationSource.name,
         pageBuilder: (context, state) {
-          final queryParams = QueryParameters.fromJson(
-            state.uri.queryParameters,
-          );
           return MaterialPage(
             child: SelectAnIrrigationSource(
-              selectedIrrigationSource: queryParams.name,
+              selectedIrrigationSource: state.queryName,
             ),
             fullscreenDialog: true,
           );
@@ -343,14 +332,12 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoute.connectPumpToSector.path,
         name: AppRoute.connectPumpToSector.name,
         pageBuilder: (context, state) {
-          final queryParams =
-              QueryParameters.fromJson(state.uri.queryParameters);
           return MaterialPage(
             child: ConnectPumpToSector(
-              selectedPumpId: queryParams.id,
-              selectedPumpName: queryParams.name,
+              selectedPumpId: state.queryId,
+              selectedPumpName: state.queryName,
               pumpIdPreviouslyConnectedToSector:
-                  queryParams.previouslyConnectedId,
+                  state.queryPreviouslyConnectedId,
             ),
             fullscreenDialog: true,
           );
@@ -388,13 +375,10 @@ GoRouter goRouter(GoRouterRef ref) {
         path: AppRoute.connectSectorToCollector.path,
         name: AppRoute.connectSectorToCollector.name,
         pageBuilder: (context, state) {
-          final queryParams = QueryParameters.fromJson(
-            state.uri.queryParameters,
-          );
           return MaterialPage(
             fullscreenDialog: true,
             child: ConnectSectorsToCollector(
-              idOfCollectorBeingEdited: queryParams.id,
+              idOfCollectorBeingEdited: state.queryId,
             ),
           );
         },
@@ -444,14 +428,12 @@ GoRouter goRouter(GoRouterRef ref) {
             path: AppRoute.connectCollectorToBoard.path,
             name: AppRoute.connectCollectorToBoard.name,
             pageBuilder: (context, state) {
-              final queryParams =
-                  QueryParameters.fromJson(state.uri.queryParameters);
               return MaterialPage(
                 child: ConnectCollectorToBoardScreen(
                   previouslyConnectedCollectorId:
-                      queryParams.previouslyConnectedId,
-                  selectedCollectorId: queryParams.id,
-                  selectedCollectorName: queryParams.name,
+                      state.queryPreviouslyConnectedId,
+                  selectedCollectorId: state.queryId,
+                  selectedCollectorName: state.queryName,
                 ),
                 fullscreenDialog: true,
               );
@@ -586,15 +568,11 @@ GoRouter goRouter(GoRouterRef ref) {
                     path: AppRoute.sensorStatisticHistory.path,
                     name: AppRoute.sensorStatisticHistory.name,
                     pageBuilder: (context, state) {
-                      final queryParams = HistoryQueryParameters.fromJson(
-                        state.uri.queryParameters,
-                      );
-
                       return MaterialPage(
                         fullscreenDialog: true,
                         child: SensorStatisticHistoryScreen(
-                          columnName: queryParams.columnName,
-                          statisticName: queryParams.statisticName,
+                          columnName: state.historyQueryColName,
+                          statisticName: state.historyQueryStatisticName,
                           sensorId: state.pathId,
                         ),
                       );
@@ -617,11 +595,10 @@ GoRouter goRouter(GoRouterRef ref) {
             path: AppRoute.connectSectorToSensor.path,
             name: AppRoute.connectSectorToSensor.name,
             pageBuilder: (context, state) {
-              final queryParams = QueryParameters.fromJson(
-                state.uri.queryParameters,
-              );
               final selectedSector = RadioButtonItem(
-                  value: queryParams.id ?? '', label: queryParams.name ?? '');
+                value: state.queryId ?? '',
+                label: state.queryName ?? '',
+              );
               return MaterialPage(
                 child: ConnectSectorToSensorScreen(
                   selectedSector: selectedSector,
