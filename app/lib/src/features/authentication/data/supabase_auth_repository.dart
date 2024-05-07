@@ -3,7 +3,7 @@ import 'package:irrigazione_iot/env/env.dart';
 import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/supabase_app_user.dart';
-import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
+import 'package:irrigazione_iot/src/features/authentication/models/app_user.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseAuthRepository implements AuthRepository {

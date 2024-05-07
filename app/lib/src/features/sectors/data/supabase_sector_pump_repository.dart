@@ -1,10 +1,10 @@
 import 'package:irrigazione_iot/src/shared/models/rpc_parameter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector_pump.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector_pump_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_pump.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_pump_database_keys.dart';
 import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 

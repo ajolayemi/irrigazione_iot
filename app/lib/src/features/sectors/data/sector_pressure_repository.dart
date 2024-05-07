@@ -1,4 +1,4 @@
-import 'package:irrigazione_iot/src/features/sectors/model/sector_pressure.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_pressure.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/supabase_sector_pressure_repository.dart';

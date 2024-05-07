@@ -1,8 +1,8 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/variety/data/variety_repository.dart';
-import 'package:irrigazione_iot/src/features/variety/model/variety.dart';
-import 'package:irrigazione_iot/src/features/variety/model/variety_database_keys.dart';
+import 'package:irrigazione_iot/src/features/variety/models/variety.dart';
+import 'package:irrigazione_iot/src/features/variety/models/variety_database_keys.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabaseVarietyRepository implements VarietyRepository {

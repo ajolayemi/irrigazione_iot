@@ -4,10 +4,10 @@ import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
-import 'package:irrigazione_iot/src/features/pumps/screen/pump_list/dismiss_pump_controller.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
+import 'package:irrigazione_iot/src/features/pumps/screens/pump_list/dismiss_pump_controller.dart';
 import 'package:irrigazione_iot/src/features/pumps/widgets/pump_list_tile_subtitle.dart';
-import 'package:irrigazione_iot/src/features/pumps/screen/pump_list/pump_status_controller.dart';
+import 'package:irrigazione_iot/src/features/pumps/screens/pump_list/pump_status_controller.dart';
 import 'package:irrigazione_iot/src/features/pumps/widgets/pump_tile_title.dart';
 import 'package:irrigazione_iot/src/features/pumps/widgets/pump_tile_trailing_button.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';

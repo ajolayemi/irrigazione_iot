@@ -3,10 +3,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
-import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
-import 'package:irrigazione_iot/src/features/company_users/model/company_database_keys.dart';
-import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
-import 'package:irrigazione_iot/src/features/company_users/model/company_user_database_keys.dart';
+import 'package:irrigazione_iot/src/features/company_users/models/company.dart';
+import 'package:irrigazione_iot/src/features/company_users/models/company_database_keys.dart';
+import 'package:irrigazione_iot/src/features/company_users/models/company_user.dart';
+import 'package:irrigazione_iot/src/features/company_users/models/company_user_database_keys.dart';
 import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 

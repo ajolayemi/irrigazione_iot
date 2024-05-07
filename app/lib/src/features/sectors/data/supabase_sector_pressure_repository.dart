@@ -1,8 +1,8 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pressure_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector_pressure.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector_pressure_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_pressure.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_pressure_database_keys.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabaseSectorPressureRepository implements SectorPressureRepository {

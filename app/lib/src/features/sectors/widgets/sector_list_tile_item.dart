@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
-import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/screens/sector_switch.dart';
 import 'package:irrigazione_iot/src/features/sectors/widgets/sector_list_tile_subtitle.dart';
 import 'package:irrigazione_iot/src/features/sectors/widgets/sector_tile_title.dart';
 

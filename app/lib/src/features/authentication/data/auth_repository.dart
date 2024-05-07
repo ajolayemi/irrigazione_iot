@@ -2,7 +2,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/supabase_auth_r
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
+import 'package:irrigazione_iot/src/features/authentication/models/app_user.dart';
 
 part 'auth_repository.g.dart';
 

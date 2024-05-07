@@ -1,6 +1,6 @@
 import 'package:irrigazione_iot/src/features/collectors/data/collector_pressure_repository.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector_pressure.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector_pressure_database_keys.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector_pressure.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector_pressure_database_keys.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

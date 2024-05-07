@@ -1,25 +1,25 @@
-import 'package:irrigazione_iot/src/features/sensors/model/sensor_battery_database_keys.dart';
-import 'package:irrigazione_iot/src/features/sensors/model/sensor_database_keys.dart';
-import 'package:irrigazione_iot/src/features/sensors/model/sensor_measurements_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sensors/models/sensor_battery_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sensors/models/sensor_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sensors/models/sensor_measurements_database_keys.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/board-centraline/models/board_database_keys.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board_status_database_keys.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector_database_keys.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector_pressure_database_keys.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector_sector_database_keys.dart';
-import 'package:irrigazione_iot/src/features/company_users/model/company_database_keys.dart';
-import 'package:irrigazione_iot/src/features/company_users/model/company_user_database_keys.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump_database_keys.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump_flow_database_keys.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump_pressure_database_keys.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump_status_database_keys.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector_database_keys.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector_pressure_database_keys.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector_pump_database_keys.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector_status_database_keys.dart';
-import 'package:irrigazione_iot/src/features/specie/model/specie_database_keys.dart';
-import 'package:irrigazione_iot/src/features/variety/model/variety_database_keys.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector_database_keys.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector_pressure_database_keys.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector_sector_database_keys.dart';
+import 'package:irrigazione_iot/src/features/company_users/models/company_database_keys.dart';
+import 'package:irrigazione_iot/src/features/company_users/models/company_user_database_keys.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump_database_keys.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump_flow_database_keys.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump_pressure_database_keys.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump_status_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_pressure_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_pump_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_status_database_keys.dart';
+import 'package:irrigazione_iot/src/features/specie/models/specie_database_keys.dart';
+import 'package:irrigazione_iot/src/features/variety/models/variety_database_keys.dart';
 
 extension SupabaseClientExtensions on SupabaseClient {
   SupabaseQueryBuilder get companies => from(CompanyDatabaseKeys.table);

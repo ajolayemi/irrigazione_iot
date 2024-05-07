@@ -4,8 +4,8 @@ import 'package:irrigazione_iot/src/shared/models/firebase_callable_function_bod
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector_status.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector_status_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_status.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_status_database_keys.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabaseSectorStatusRepository implements SectorStatusRepository {

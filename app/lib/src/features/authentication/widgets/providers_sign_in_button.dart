@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/constants/breakpoints.dart';
-import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_controller.dart';
+import 'package:irrigazione_iot/src/features/authentication/screens/sign_in/sign_in_controller.dart';
 import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';

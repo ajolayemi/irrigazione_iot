@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/collectors/data/supabase_collector_sector_repository.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector_sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';

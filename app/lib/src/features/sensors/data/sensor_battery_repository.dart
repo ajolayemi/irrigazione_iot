@@ -1,5 +1,5 @@
 import 'package:irrigazione_iot/src/features/sensors/data/supabase_sensor_battery_repository.dart';
-import 'package:irrigazione_iot/src/features/sensors/model/sensor_battery.dart';
+import 'package:irrigazione_iot/src/features/sensors/models/sensor_battery.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

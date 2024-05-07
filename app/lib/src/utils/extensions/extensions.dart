@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:irrigazione_iot/src/features/sensors/model/sensor_measurements_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sensors/models/sensor_measurements_database_keys.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';

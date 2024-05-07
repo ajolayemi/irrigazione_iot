@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/config/styles/app_styles.dart';
-import 'package:irrigazione_iot/src/features/sensors/model/sensor.dart';
+import 'package:irrigazione_iot/src/features/sensors/models/sensor.dart';
 import 'package:irrigazione_iot/src/features/sensors/widgets/sensor_battery_level_indicator.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_info_icon_button.dart';
