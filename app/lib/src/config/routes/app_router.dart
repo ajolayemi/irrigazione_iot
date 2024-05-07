@@ -37,7 +37,7 @@ import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/se
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_an_irrigation_system.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/sector_details.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_screen.dart';
-import 'package:irrigazione_iot/src/features/sensors/screen/add_update_sensor/add_udpdate_sensor_form.dart';
+import 'package:irrigazione_iot/src/features/sensors/screen/add_update_sensor/add_update_sensor_form.dart';
 import 'package:irrigazione_iot/src/features/sensors/screen/add_update_sensor/connect_sector_to_sensor_screen.dart';
 import 'package:irrigazione_iot/src/features/sensors/screen/sensor_details/sensor_details_screen.dart';
 import 'package:irrigazione_iot/src/features/sensors/screen/sensor_list/sensors_list_screen.dart';
