@@ -1,20 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_a_variety_screen.dart';
-import 'package:irrigazione_iot/src/features/sensors/screen/add_update_sensor/add_udpdate_sensor_form.dart';
-import 'package:irrigazione_iot/src/features/sensors/screen/add_update_sensor/connect_sector_to_sensor_screen.dart';
-import 'package:irrigazione_iot/src/features/sensors/screen/sensor_details/sensor_details_screen.dart';
-import 'package:irrigazione_iot/src/features/sensors/screen/sensor_list/sensors_list_screen.dart';
-import 'package:irrigazione_iot/src/features/sensors/screen/sensor_stat_history/sensor_statistic_history_screen.dart';
-import 'package:irrigazione_iot/src/shared/models/history_query_params.dart';
-import 'package:irrigazione_iot/src/shared/models/path_params.dart';
-import 'package:irrigazione_iot/src/shared/models/query_params.dart';
-import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/config/routes/go_router_refresh_stream.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/config/routes/service/router_redirect_service.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_in/sign_in_screen.dart';
 import 'package:irrigazione_iot/src/features/authentication/screen/sign_up/sign_up_screen.dart';
@@ -28,7 +19,6 @@ import 'package:irrigazione_iot/src/features/collectors/screen/collector_details
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_list_screen.dart';
 import 'package:irrigazione_iot/src/features/company_profile/screen/add_update_company_form.dart';
 import 'package:irrigazione_iot/src/features/company_profile/screen/company_profile_screen.dart';
-import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/screen/add_update_company_user/add_update_company_user_form.dart';
 import 'package:irrigazione_iot/src/features/company_users/screen/company_user_details/company_user_details_screen.dart';
 import 'package:irrigazione_iot/src/features/company_users/screen/company_users_list/company_users_list_screen.dart';
@@ -42,11 +32,21 @@ import 'package:irrigazione_iot/src/features/pumps/screen/pump_list/pumps_list_s
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/add_update_sector_form.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/connect_pumps_to_sector_screen.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_a_specie_screen.dart';
+import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_a_variety_screen.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_an_irrigation_source.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/add_update_sector/select_an_irrigation_system.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/sector_details.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/sectors_list_screen.dart';
+import 'package:irrigazione_iot/src/features/sensors/screen/add_update_sensor/add_udpdate_sensor_form.dart';
+import 'package:irrigazione_iot/src/features/sensors/screen/add_update_sensor/connect_sector_to_sensor_screen.dart';
+import 'package:irrigazione_iot/src/features/sensors/screen/sensor_details/sensor_details_screen.dart';
+import 'package:irrigazione_iot/src/features/sensors/screen/sensor_list/sensors_list_screen.dart';
+import 'package:irrigazione_iot/src/features/sensors/screen/sensor_stat_history/sensor_statistic_history_screen.dart';
 import 'package:irrigazione_iot/src/features/user_profile/screen/user_profile_screen.dart';
+import 'package:irrigazione_iot/src/shared/models/history_query_params.dart';
+import 'package:irrigazione_iot/src/shared/models/path_params.dart';
+import 'package:irrigazione_iot/src/shared/models/query_params.dart';
+import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 
 part 'app_router.g.dart';
 
@@ -64,37 +64,15 @@ final _moreShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'More');
 
 @Riverpod(keepAlive: true)
 GoRouter goRouter(GoRouterRef ref) {
+  final routerService = ref.read(routerRedirectServiceProvider);
   final authRepository = ref.watch(authRepositoryProvider);
-  final initialTappedCompanyRepo = ref.watch(selectedCompanyRepositoryProvider);
   return GoRouter(
     initialLocation: '/sign-in',
     debugLogDiagnostics: true,
     navigatorKey: _rootNavigatorKey,
 
     // * redirect logic based on the authentication state
-    redirect: (context, state) {
-      final user = authRepository.currentUser;
-      final isLoggedIn = authRepository.currentSession != null;
-      final path = state.uri.path;
-      //final isLoginOrSign
-      if (isLoggedIn && path == '/sign-in') {
-        final userHasAlreadySelectedACompany =
-            initialTappedCompanyRepo.loadSelectedCompanyId(user!.uid) != null;
-
-        if (userHasAlreadySelectedACompany) {
-          return '/';
-        }
-        return '/companies-list-grid';
-      }
-      if (!isLoggedIn && path != '/sign-in') {
-        // if user is trying to access sign-up page, let them
-        if (path == '/sign-up') {
-          return null;
-        }
-        return '/sign-in'; // redirect to sign in page if user is not logged in
-      }
-      return null;
-    },
+    redirect: routerService.redirect,
     refreshListenable: GoRouterRefreshStream(
       authRepository.authStateChanges(),
     ),
