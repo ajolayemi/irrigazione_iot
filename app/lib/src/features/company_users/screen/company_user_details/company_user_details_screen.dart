@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/screen/company_user_details/company_user_details_screen_contents.dart';
+import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
@@ -17,6 +18,14 @@ class CompanyUserDetailsScreen extends ConsumerWidget {
   });
 
   final String companyUserId;
+
+  void _onTap(BuildContext context) {
+    final params = PathParameters(id: companyUserId).toJson();
+    context.pushNamed(
+      AppRoute.updateCompanyUser.name,
+      pathParameters: params,
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,12 +45,7 @@ class CompanyUserDetailsScreen extends ConsumerWidget {
               title: isMe ? loc.me : companyUser.valueOrNull?.fullName ?? '',
               actions: [
                 CommonEditIconButton(
-                  onPressed: () => context.pushNamed(
-                    AppRoute.updateCompanyUser.name,
-                    pathParameters: {
-                      'companyUserId': companyUserId,
-                    },
-                  ),
+                  onPressed: () => _onTap(context),
                   alternateIsVisible:
                       !isMe, // Hide the edit button if the user is viewing their own profile
                 ),

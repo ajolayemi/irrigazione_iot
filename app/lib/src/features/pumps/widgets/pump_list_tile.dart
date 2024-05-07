@@ -10,6 +10,7 @@ import 'package:irrigazione_iot/src/features/pumps/widgets/pump_list_tile_subtit
 import 'package:irrigazione_iot/src/features/pumps/screen/pump_list/pump_status_controller.dart';
 import 'package:irrigazione_iot/src/features/pumps/widgets/pump_tile_title.dart';
 import 'package:irrigazione_iot/src/features/pumps/widgets/pump_tile_trailing_button.dart';
+import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
@@ -47,11 +48,12 @@ class PumpListTile extends ConsumerWidget {
   }
 
   void _onTap(BuildContext context) {
+    final pathParams = PathParameters(
+      id: pump.id,
+    ).toJson();
     context.goNamed(
       AppRoute.pumpDetails.name,
-      pathParameters: {
-        'pumpId': pump.id,
-      },
+      pathParameters: pathParams,
     );
   }
 

@@ -9,6 +9,7 @@ import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/dismiss_sector_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/widgets/sector_list_tile_item.dart';
+import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
@@ -45,6 +46,16 @@ class SectorListTile extends ConsumerWidget {
         .confirmDismiss(sector.id);
   }
 
+  void _onTap(BuildContext context) {
+    final params = PathParameters(
+      id: sector.id,
+    ).toJson();
+    context.goNamed(
+      AppRoute.sectorDetails.name,
+      pathParameters: params,
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // todo: add sector pressure in the list tile subtitle
@@ -58,14 +69,7 @@ class SectorListTile extends ConsumerWidget {
       padding: const EdgeInsets.only(left: Sizes.p8),
       maxContentWidth: Breakpoint.tablet,
       child: InkWell(
-        onTap: globalLoadingState
-            ? null
-            : () => context.goNamed(
-                  AppRoute.sectorDetails.name,
-                  pathParameters: {
-                    'sectorId': sector.id,
-                  },
-                ),
+        onTap: globalLoadingState ? null : () => _onTap(context),
         child: CustomDismissibleWidget(
           dismissibleKey: sectorListTileKey(sector),
           isDeleting: isDeleting,

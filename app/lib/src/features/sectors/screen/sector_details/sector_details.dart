@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/features/company_users/data/company_users_re
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/screen/sector_details/sector_details_screen_content.dart';
 import 'package:irrigazione_iot/src/features/sectors/widgets/sectors_list_tile_skeleton.dart';
+import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_bar_icon_buttons.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
@@ -20,16 +21,9 @@ class SectorDetailsScreen extends ConsumerWidget {
 
   final String sectorID;
 
-  void _onEditSector(
-    WidgetRef ref,
-    BuildContext context,
-  ) {
-    context.pushNamed(
-      AppRoute.updateSector.name,
-      pathParameters: {
-        'sectorId': sectorID,
-      },
-    );
+  void _onEditSector(BuildContext context) {
+    final params = PathParameters(id: sectorID).toJson();
+    context.pushNamed(AppRoute.updateSector.name, pathParameters: params);
   }
 
   @override
@@ -53,8 +47,7 @@ class SectorDetailsScreen extends ConsumerWidget {
                   title: sector.name,
                   actions: [
                     AppBarIconButton(
-                      onPressed: () =>
-                          _onEditSector(ref, context,),
+                      onPressed: () => _onEditSector(context),
                       icon: Icons.edit,
                       isVisibile: canEdit,
                     )

@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/company_profile/screen/company_profile_screen_contents.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_edit_icon_button.dart';
@@ -19,6 +20,14 @@ class CompanyProfileScreen extends ConsumerWidget {
   });
 
   final String companyID;
+
+  void _onTap(BuildContext context) {
+    final params = PathParameters(id: companyID).toJson();
+    context.pushNamed(
+      AppRoute.updateCompany.name,
+      pathParameters: params,
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,12 +48,7 @@ class CompanyProfileScreen extends ConsumerWidget {
                   title: loc.companyProfileMenuTitle,
                   actions: [
                     CommonEditIconButton(
-                      onPressed: () => context.pushNamed(
-                        AppRoute.updateCompany.name,
-                        pathParameters: {
-                          'companyID': companyID,
-                        },
-                      ),
+                      onPressed: () => _onTap(context),
                       alternateIsVisible: userCanEditCompanyProfile,
                     )
                   ],

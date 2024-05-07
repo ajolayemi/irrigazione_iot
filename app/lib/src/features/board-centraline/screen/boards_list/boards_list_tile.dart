@@ -8,6 +8,7 @@ import 'package:irrigazione_iot/src/features/board-centraline/data/board_status_
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screen/boards_list/dismiss_board_controller.dart';
 import 'package:irrigazione_iot/src/features/collectors/widgets/battery_level_indicator.dart';
+import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
@@ -34,6 +35,11 @@ class BoardListTile extends ConsumerWidget {
     return false;
   }
 
+  void _onTap(BuildContext context) {
+    final params = PathParameters(id: board.id).toJson();
+    context.pushNamed(AppRoute.boardDetails.name, pathParameters: params);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDeleting = ref.watch(dismissBoardControllerProvider).isLoading;
@@ -47,10 +53,7 @@ class BoardListTile extends ConsumerWidget {
             padding: const EdgeInsets.only(left: Sizes.p8),
             maxContentWidth: Breakpoint.tablet,
             child: InkWell(
-              onTap: () => context
-                  .pushNamed(AppRoute.boardDetails.name, pathParameters: {
-                'boardId': board.id.toString(),
-              }),
+              onTap: () => _onTap(context),
               child: BoardListTileItem(board: board),
             ),
           )),

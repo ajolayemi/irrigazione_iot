@@ -6,6 +6,7 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/model/company_user.dart';
 import 'package:irrigazione_iot/src/features/company_users/screen/company_user_details/dismiss_company_user_controller.dart';
+import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
@@ -49,6 +50,11 @@ class CompanyUserListTile extends ConsumerWidget {
     return false;
   }
 
+  void _onTap(BuildContext context) {
+    final params = PathParameters(id: user.id).toJson();
+    context.pushNamed(AppRoute.companyUserDetails.name, pathParameters: params);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = context.textTheme;
@@ -74,12 +80,7 @@ class CompanyUserListTile extends ConsumerWidget {
             left: Sizes.p8,
           ),
           child: InkWell(
-            onTap: () => context.pushNamed(
-              AppRoute.companyUserDetails.name,
-              pathParameters: {
-                'companyUserId': user.id.toString(),
-              },
-            ),
+            onTap: () => _onTap(context),
             child: ListTile(
               title: Text(isMe ? loc.me : user.fullName),
               subtitle: Text(

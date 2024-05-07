@@ -12,6 +12,7 @@ import 'package:irrigazione_iot/src/features/collectors/widgets/collector_tile_s
 import 'package:irrigazione_iot/src/features/collectors/widgets/collector_tile_title.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/widgets/sector_list_tile_item.dart';
+import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_info_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
@@ -58,6 +59,14 @@ class _CollectorExpansionListTileState
         .confirmDismiss(widget.collector.id);
   }
 
+  void _navigateToCollectorDetails() {
+    final pathParam = PathParameters(id: widget.collector.id).toJson();
+    context.pushNamed(
+      AppRoute.collectorDetails.name,
+      pathParameters: pathParam,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final collectorSectors = ref
@@ -83,14 +92,7 @@ class _CollectorExpansionListTileState
             onExpansionChanged: (value) => setState(() => _isExpanded = value),
             leading: _isExpanded
                 ? null
-                : CommonInfoIconButton(
-                    onPressed: () => context.pushNamed(
-                      AppRoute.collectorDetails.name,
-                      pathParameters: {
-                        'collectorId': widget.collector.id,
-                      },
-                    ),
-                  ),
+                : CommonInfoIconButton(onPressed: _navigateToCollectorDetails),
             title: CollectorTileRowWidget(collector: widget.collector),
             subtitle: CollectorTileSubtitle(collectorId: widget.collector.id),
             children: collectorSectors == null || collectorSectors.isEmpty

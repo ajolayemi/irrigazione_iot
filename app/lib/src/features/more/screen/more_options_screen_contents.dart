@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/more/widgets/company_users_item.dart';
 import 'package:irrigazione_iot/src/features/more/widgets/more_page_item_list_tile.dart';
+import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_responsive_divider.dart';
 import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
@@ -66,11 +67,14 @@ class MoreOptionsScreenContent extends ConsumerWidget {
                             .loadSelectedCompanyId(uid!);
                         return MorePageItemListTile(
                           title: loc.companyProfileMenuTitle,
-                          onTap: () => context.pushNamed(
+                          onTap: () {
+                            final params =
+                                PathParameters(id: companyId ?? '').toJson();
+                            context.pushNamed(
                               AppRoute.companyProfile.name,
-                              pathParameters: {
-                                'companyID': companyId ?? '',
-                              }),
+                              pathParameters: params,
+                            );
+                          },
                           leadingIcon: Icons.business,
                         );
                       },

@@ -6,6 +6,7 @@ import 'package:irrigazione_iot/src/features/collectors/data/collector_repositor
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
 import 'package:irrigazione_iot/src/features/collectors/screen/collector_details/collector_details_screen_content.dart';
+import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_edit_icon_button.dart';
@@ -25,12 +26,8 @@ class CollectorDetailsScreen extends ConsumerWidget {
       required List<CollectorSector?> connectedSectors}) {
     final sectorIds = connectedSectors.map((e) => e?.sectorId).toList();
     ref.read(selectedSectorsIdProvider.notifier).state = sectorIds;
-    context.pushNamed(
-      AppRoute.updateCollector.name,
-      pathParameters: {
-        'collectorId': collectorId,
-      },
-    );
+    final params = PathParameters(id: collectorId).toJson();
+    context.pushNamed(AppRoute.updateCollector.name, pathParameters: params);
   }
 
   @override
