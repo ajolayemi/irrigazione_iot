@@ -36,20 +36,12 @@ class RouterRedirectService {
 
     final currentPath = routerState.uri.path;
 
-    if (user == null) {
-      // If user is not logged in and the current path is not the sign in page
-      if (currentPath != signInRoute) {
-        // Redirect to sign in page
-        return signInRoute;
-      }
-      return null;
-    }
 
     // If session is valid in and the current path is the sign in page
     if (sessionIsValid && currentPath == signInRoute) {
       // Check if user has selected a company
       final selectedCompany = selectedCompanyRepo.loadSelectedCompanyId(
-        user.uid,
+        user!.uid,
       );
 
       if (selectedCompany != null) {
