@@ -67,7 +67,7 @@ GoRouter goRouter(GoRouterRef ref) {
   final routerService = ref.read(routerRedirectServiceProvider);
   final authRepository = ref.watch(authRepositoryProvider);
   return GoRouter(
-    initialLocation: '/sign-in',
+    initialLocation: AppRoute.signIn.path,
     debugLogDiagnostics: true,
     navigatorKey: _rootNavigatorKey,
 
@@ -78,20 +78,20 @@ GoRouter goRouter(GoRouterRef ref) {
     ),
     routes: [
       GoRoute(
-        path: '/sign-in',
+        path: AppRoute.signIn.path,
         name: AppRoute.signIn.name,
         pageBuilder: (context, state) =>
             const NoTransitionPage(child: SignInScreen()),
       ),
 
       GoRoute(
-        path: '/sign-up',
+        path: AppRoute.signUp.path,
         name: AppRoute.signUp.name,
         pageBuilder: (context, state) =>
             const NoTransitionPage(child: SignUpScreen()),
       ),
       GoRoute(
-        path: '/companies-list-grid',
+        path: AppRoute.companiesListGrid.path,
         name: AppRoute.companiesListGrid.name,
         pageBuilder: (context, state) => const MaterialPage(
           child: UserCompaniesListScreen(),
@@ -110,7 +110,7 @@ GoRouter goRouter(GoRouterRef ref) {
             navigatorKey: _dashboardShellNavigatorKey,
             routes: [
               GoRoute(
-                path: '/',
+                path: AppRoute.home.path,
                 name: AppRoute.home.name,
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: DashboardScreen(),
@@ -124,14 +124,14 @@ GoRouter goRouter(GoRouterRef ref) {
             navigatorKey: _collectorShellNavigatorKey,
             routes: [
               GoRoute(
-                path: '/collector',
+                path: AppRoute.collector.path,
                 name: AppRoute.collector.name,
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: CollectorListScreen(),
                 ),
                 routes: [
                   GoRoute(
-                    path: 'details/:collectorId',
+                    path: AppRoute.collectorDetails.path,
                     name: AppRoute.collectorDetails.name,
                     pageBuilder: (context, state) => MaterialPage(
                       fullscreenDialog: true,
@@ -150,13 +150,13 @@ GoRouter goRouter(GoRouterRef ref) {
             navigatorKey: _pumpShellNavigatorKey,
             routes: [
               GoRoute(
-                path: '/pump',
+                path: AppRoute.pump.path,
                 name: AppRoute.pump.name,
                 pageBuilder: (context, state) =>
                     const NoTransitionPage(child: PumpListScreen()),
                 routes: [
                   GoRoute(
-                    path: 'details/:pumpId',
+                    path: AppRoute.pumpDetails.path,
                     name: AppRoute.pumpDetails.name,
                     pageBuilder: (context, state) => MaterialPage(
                       fullscreenDialog: true,
@@ -175,7 +175,7 @@ GoRouter goRouter(GoRouterRef ref) {
             navigatorKey: _sectorShellNavigatorKey,
             routes: [
               GoRoute(
-                path: '/sector',
+                path: AppRoute.sector.path,
                 name: AppRoute.sector.name,
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: SectorsListScreen(),
@@ -183,7 +183,7 @@ GoRouter goRouter(GoRouterRef ref) {
                 routes: [
                   // Sector details
                   GoRoute(
-                    path: 'details/:sectorId',
+                    path: AppRoute.sectorDetails.path,
                     name: AppRoute.sectorDetails.name,
                     pageBuilder: (context, state) => MaterialPage(
                       fullscreenDialog: true,
@@ -202,7 +202,7 @@ GoRouter goRouter(GoRouterRef ref) {
             navigatorKey: _moreShellNavigatorKey,
             routes: [
               GoRoute(
-                path: '/more',
+                path: AppRoute.more.path,
                 name: AppRoute.more.name,
                 pageBuilder: (context, state) => const MaterialPage(
                   fullscreenDialog: true,
@@ -216,7 +216,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Add new pump
       GoRoute(
-        path: '/add-pump',
+        path: AppRoute.addPump.path,
         name: AppRoute.addPump.name,
         pageBuilder: (context, state) => const MaterialPage(
           fullscreenDialog: true,
@@ -227,7 +227,7 @@ GoRouter goRouter(GoRouterRef ref) {
       ),
 
       GoRoute(
-        path: '/pump/edit/:pumpId',
+        path: AppRoute.updatePump.path,
         name: AppRoute.updatePump.name,
         pageBuilder: (context, state) => MaterialPage(
           fullscreenDialog: true,
@@ -240,7 +240,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Add sector
       GoRoute(
-        path: '/add-sector',
+        path: AppRoute.addSector.path,
         name: AppRoute.addSector.name,
         pageBuilder: (context, state) => const MaterialPage(
           fullscreenDialog: true,
@@ -252,7 +252,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Update sector
       GoRoute(
-        path: '/sector/edit/:sectorId',
+        path: AppRoute.updateSector.path,
         name: AppRoute.updateSector.name,
         pageBuilder: (context, state) => MaterialPage(
           fullscreenDialog: true,
@@ -265,7 +265,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Select a specie
       GoRoute(
-        path: '/select-a-specie',
+        path: AppRoute.selectASpecie.path,
         name: AppRoute.selectASpecie.name,
         pageBuilder: (context, state) {
           final queryParams =
@@ -282,7 +282,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Select a variety
       GoRoute(
-        path: '/select-a-variety',
+        path: AppRoute.selectAVariety.path,
         name: AppRoute.selectAVariety.name,
         pageBuilder: (context, state) {
           final queryParams =
@@ -299,7 +299,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Select an irrigation system
       GoRoute(
-        path: '/select-an-irrigation-system',
+        path: AppRoute.selectAnIrrigationSystem.path,
         name: AppRoute.selectAnIrrigationSystem.name,
         pageBuilder: (context, state) {
           final queryParams =
@@ -315,7 +315,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Select an irrigation source
       GoRoute(
-        path: '/select-an-irrigation-source',
+        path: AppRoute.selectAnIrrigationSource.path,
         name: AppRoute.selectAnIrrigationSource.name,
         pageBuilder: (context, state) {
           final queryParams = QueryParameters.fromJson(
@@ -332,7 +332,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Connect pumps to sector
       GoRoute(
-        path: '/connect-pump-to-sector',
+        path: AppRoute.connectPumpToSector.path,
         name: AppRoute.connectPumpToSector.name,
         pageBuilder: (context, state) {
           final queryParams =
@@ -351,7 +351,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Page to display form for adding a new collector
       GoRoute(
-        path: '/add-collector',
+        path: AppRoute.addCollector.path,
         name: AppRoute.addCollector.name,
         pageBuilder: (context, state) => const MaterialPage(
           fullscreenDialog: true,
@@ -363,7 +363,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Page to display form for updating a collector
       GoRoute(
-        path: '/collector/edit/:collectorId',
+        path: AppRoute.updateCollector.path,
         name: AppRoute.updateCollector.name,
         pageBuilder: (context, state) => MaterialPage(
           fullscreenDialog: true,
@@ -376,7 +376,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Page to display when user wants to connect sectors to a collector
       GoRoute(
-        path: '/connect-sectors-to-collector',
+        path: AppRoute.connectSectorToCollector.path,
         name: AppRoute.connectSectorToCollector.name,
         pageBuilder: (context, state) {
           final queryParams = QueryParameters.fromJson(
@@ -393,7 +393,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       /// Board (centraline) routes and it's sub-routes
       GoRoute(
-        path: '/boards',
+        path: AppRoute.boards.path,
         name: AppRoute.boards.name,
         pageBuilder: (context, state) => const MaterialPage(
           fullscreenDialog: true,
@@ -401,7 +401,7 @@ GoRouter goRouter(GoRouterRef ref) {
         ),
         routes: [
           GoRoute(
-            path: 'details/:boardId',
+            path: AppRoute.boardDetails.path,
             name: AppRoute.boardDetails.name,
             pageBuilder: (context, state) => MaterialPage(
               fullscreenDialog: true,
@@ -411,7 +411,7 @@ GoRouter goRouter(GoRouterRef ref) {
             ),
           ),
           GoRoute(
-            path: 'add',
+            path: AppRoute.addBoard.path,
             name: AppRoute.addBoard.name,
             pageBuilder: (context, state) => const MaterialPage(
               fullscreenDialog: true,
@@ -419,7 +419,7 @@ GoRouter goRouter(GoRouterRef ref) {
             ),
           ),
           GoRoute(
-            path: 'edit/:boardId',
+            path: AppRoute.updateBoard.path,
             name: AppRoute.updateBoard.name,
             pageBuilder: (context, state) => MaterialPage(
               fullscreenDialog: true,
@@ -430,7 +430,7 @@ GoRouter goRouter(GoRouterRef ref) {
             ),
           ),
           GoRoute(
-            path: 'connect-collector-to-board',
+            path: AppRoute.connectCollectorToBoard.path,
             name: AppRoute.connectCollectorToBoard.name,
             pageBuilder: (context, state) {
               final queryParams =
@@ -451,7 +451,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // My profile route
       GoRoute(
-        path: '/profile',
+        path: AppRoute.profile.path,
         name: AppRoute.profile.name,
         pageBuilder: (context, state) => const MaterialPage(
           fullscreenDialog: true,
@@ -461,7 +461,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Company profile route and sub-route to edit the company profile
       GoRoute(
-        path: '/company-profile/:companyID',
+        path: AppRoute.companyProfile.path,
         name: AppRoute.companyProfile.name,
         pageBuilder: (context, state) => MaterialPage(
           fullscreenDialog: true,
@@ -471,7 +471,7 @@ GoRouter goRouter(GoRouterRef ref) {
         ),
         routes: [
           GoRoute(
-            path: 'edit',
+            path: AppRoute.updateCompany.path,
             name: AppRoute.updateCompany.name,
             pageBuilder: (context, state) {
               return MaterialPage(
@@ -489,7 +489,7 @@ GoRouter goRouter(GoRouterRef ref) {
       // Route to view the list of users for the company and
       // sub-route to edit and add new users
       GoRoute(
-        path: '/company-users',
+        path: AppRoute.companyUsers.path,
         name: AppRoute.companyUsers.name,
         pageBuilder: (context, state) => const MaterialPage(
           fullscreenDialog: true,
@@ -497,7 +497,7 @@ GoRouter goRouter(GoRouterRef ref) {
         ),
         routes: [
           GoRoute(
-            path: 'add',
+            path: AppRoute.addCompanyUser.path,
             name: AppRoute.addCompanyUser.name,
             pageBuilder: (context, state) => const MaterialPage(
               fullscreenDialog: true,
@@ -508,7 +508,7 @@ GoRouter goRouter(GoRouterRef ref) {
             ),
           ),
           GoRoute(
-            path: 'details/:companyUserId',
+            path: AppRoute.companyUserDetails.path,
             name: AppRoute.companyUserDetails.name,
             pageBuilder: (context, state) => MaterialPage(
               fullscreenDialog: true,
@@ -518,7 +518,7 @@ GoRouter goRouter(GoRouterRef ref) {
             ),
             routes: [
               GoRoute(
-                path: 'edit',
+                path: AppRoute.updateCompanyUser.path,
                 name: AppRoute.updateCompanyUser.name,
                 pageBuilder: (context, state) => MaterialPage(
                   fullscreenDialog: true,
@@ -535,7 +535,7 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Sensors and its sub-routes
       GoRoute(
-        path: '/sensors',
+        path: AppRoute.sensors.path,
         name: AppRoute.sensors.name,
         pageBuilder: (context, state) => const MaterialPage(
           fullscreenDialog: true,
@@ -543,7 +543,7 @@ GoRouter goRouter(GoRouterRef ref) {
         ),
         routes: [
           GoRoute(
-            path: 'add',
+            path: AppRoute.addSensor.path,
             name: AppRoute.addSensor.name,
             pageBuilder: (context, state) => const MaterialPage(
               fullscreenDialog: true,
@@ -553,7 +553,7 @@ GoRouter goRouter(GoRouterRef ref) {
             ),
           ),
           GoRoute(
-              path: 'details/:id',
+              path: AppRoute.sensorDetails.path,
               name: AppRoute.sensorDetails.name,
               pageBuilder: (context, state) {
                 final pathParam = PathParameters.fromJson(state.pathParameters);
@@ -566,7 +566,7 @@ GoRouter goRouter(GoRouterRef ref) {
               },
               routes: [
                 GoRoute(
-                    path: 'sensor-stat-history',
+                    path: AppRoute.sensorStatisticHistory.path,
                     name: AppRoute.sensorStatisticHistory.name,
                     pageBuilder: (context, state) {
                       final pathParam = PathParameters.fromJson(
@@ -588,7 +588,7 @@ GoRouter goRouter(GoRouterRef ref) {
                     })
               ]),
           GoRoute(
-            path: 'edit/:id',
+            path: AppRoute.updateSensor.path,
             name: AppRoute.updateSensor.name,
             pageBuilder: (context, state) {
               final pathParam = PathParameters.fromJson(state.pathParameters);
@@ -602,7 +602,7 @@ GoRouter goRouter(GoRouterRef ref) {
             },
           ),
           GoRoute(
-            path: 'connect-sector-to-sensor',
+            path: AppRoute.connectSectorToSensor.path,
             name: AppRoute.connectSectorToSensor.name,
             pageBuilder: (context, state) {
               final queryParams = QueryParameters.fromJson(

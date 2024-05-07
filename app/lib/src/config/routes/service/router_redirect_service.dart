@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
@@ -14,10 +15,10 @@ class RouterRedirectService {
   const RouterRedirectService(this._ref);
   final Ref _ref;
 
-  static get signInRoute => '/sign-in';
-  static get homeRoute => '/';
-  static get companiesListGridRoute => '/companies-list-grid';
-  static get signUpRoute => '/sign-up';
+  static get signInRoute => AppRoute.signIn.path;
+  static get homeRoute => AppRoute.home.path;
+  static get companiesListGridRoute => AppRoute.companiesListGrid.path;
+  static get signUpRoute => AppRoute.signUp.path;
 
   FutureOr<String?> redirect(
     BuildContext context,
