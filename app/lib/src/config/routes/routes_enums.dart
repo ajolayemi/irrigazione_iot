@@ -5,6 +5,8 @@
 /// context.goNamed(AppRoute.sampleRoute.name)
 /// ```
 enum AppRoute {
+  welcome('/welcome'),
+  registerCompany('/register-company'),
   home('/'),
   signIn('/sign-in'),
   signUp('/sign-up'),
