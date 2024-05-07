@@ -23,13 +23,16 @@ extension GoRouterStateX on GoRouterState {
   /// Gets the "name" parameter from the query parameters.
   String? get queryName => toQueryParams.name;
 
+  /// Gets the "previouslyConnectedId" parameter from the query parameters.
+  String? get queryPreviouslyConnectedId => toQueryParams.previouslyConnectedId;
+
   /// Gets the history query parameters as a [HistoryQueryParameters] object.
   HistoryQueryParameters get toHistoryQueryParams =>
       HistoryQueryParameters.fromJson(uri.queryParameters);
 
   /// Gets the "columnName" parameter from the history query parameters.
-  String? get historyQueryId => toHistoryQueryParams.columnName;
+  String get historyQueryColName => toHistoryQueryParams.columnName;
 
   /// Gets the "statisticName" parameter from the history query parameters.
-  String? get historyQueryName => toHistoryQueryParams.statisticName;
+  String get historyQueryStatisticName => toHistoryQueryParams.statisticName;
 }
