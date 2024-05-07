@@ -37,31 +37,34 @@ class RouterRedirectService {
 
     final currentPath = routerState.uri.path;
 
-    // If session is valid in and the current path is the sign in page
-    if (sessionIsValid && currentPath == signInRoute) {
-      // Check if user has selected a company
-      final selectedCompany = selectedCompanyRepo.loadSelectedCompanyId(
-        user!.uid,
-      );
+    // Navigation rules are as follows:
+    // 1. Base route is the welcome route
+    // 2. If the user has a valid session,
+    // if the're coming from the sign in, sign up route, redirect them to the home route
+    // if they're coming from other routes, return null
+    // if they haven't selected a company, they should be redirected to the companies list grid route
+    // 3. If the user doesn't have a valid session
+    // and they're trying to access sign up or sign in routes, they should be allowed to access them
+    if (sessionIsValid) {
+      final hasSelectedACompany =
+          selectedCompanyRepo.loadSelectedCompanyId(user!.uid) != null;
+      if (hasSelectedACompany) {
+        if (currentPath == signInRoute ||
+            currentPath == signUpRoute ||
+            currentPath == welcomeRoute) {
+          return homeRoute;
+        }
 
-      if (selectedCompany != null) {
-        // Redirect to home page
-        return homeRoute;
+        return null;
       }
       return companiesListGridRoute;
     }
 
-    // If session is not valid and the current path is not the sign in page
-    if (!sessionIsValid && currentPath != signInRoute) {
-      // if user is trying to sign up, let them
-      if (currentPath == signUpRoute) {
-        return null;
-      }
-      // Redirect to sign in page in every other case
-      return welcomeRoute;
+    if (currentPath == signInRoute || currentPath == signUpRoute) {
+      return null;
     }
 
-    return null;
+    return welcomeRoute;
   }
 }
 

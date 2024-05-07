@@ -177,7 +177,7 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
     }
   }
 
-  void _popScreen() => context.goNamed(AppRoute.signIn.name);
+  void _popScreen() => context.pushNamed(AppRoute.signIn.name);
 
   @override
   Widget build(BuildContext context) {
