@@ -120,8 +120,9 @@ extension FunctionResponseExtensions on FunctionResponse {
   /// This is useful when the response data is a single object
   T? toObject<T>(T Function(Map<String, dynamic>) fromJson) {
     final data = this.data as Map<String, dynamic>?;
-    if (data != null) {
-      return fromJson(data['data']);
+    final toTransform = data?['data'];
+    if (toTransform != null) {
+      return fromJson(toTransform);
     }
 
     return null;
