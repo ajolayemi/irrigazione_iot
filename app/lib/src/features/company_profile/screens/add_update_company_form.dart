@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/features/company_profile/screens/add_update_
 import 'package:irrigazione_iot/src/features/company_profile/screens/add_update_company_form_content.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class AddUpdateCompanyForm extends ConsumerWidget {
   const AddUpdateCompanyForm({
@@ -18,6 +19,7 @@ class AddUpdateCompanyForm extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final loc = context.loc;
     ref.listen(
       addUpdateCompanyControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
@@ -39,6 +41,11 @@ class AddUpdateCompanyForm extends ConsumerWidget {
             child: AddUpdateCompanyFormContent(
               companyID: companyID,
               formType: formType,
+              onCompanyAdded: formType.isAdding
+                  ? () => context.showSnackBar(
+                        message: loc.companyCreatedSuccessfully,
+                      )
+                  : () {},
             ),
           ),
         ),

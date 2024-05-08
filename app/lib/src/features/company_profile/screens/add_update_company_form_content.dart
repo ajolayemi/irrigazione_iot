@@ -19,10 +19,12 @@ class AddUpdateCompanyFormContent extends ConsumerStatefulWidget {
     super.key,
     this.companyID,
     required this.formType,
+    required this.onCompanyAdded,
   });
 
   final String? companyID;
   final GenericFormTypes formType;
+  final VoidCallback onCompanyAdded;
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _AddUpdateCompanyFormContentsState();
@@ -200,6 +202,8 @@ class _AddUpdateCompanyFormContentsState
         }
 
         if (success) {
+          // Execute the provided callback for when company has been added
+          widget.onCompanyAdded.call();
           _popScreen();
           return;
         }
