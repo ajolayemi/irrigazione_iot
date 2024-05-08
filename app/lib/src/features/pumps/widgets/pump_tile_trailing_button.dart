@@ -4,7 +4,7 @@ import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.d
 import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/screens/pump_list/pump_status_controller.dart';
 import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
-import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class PumpTileTrailingButton extends ConsumerWidget {
   const PumpTileTrailingButton({

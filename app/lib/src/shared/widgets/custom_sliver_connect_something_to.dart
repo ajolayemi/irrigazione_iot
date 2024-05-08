@@ -4,7 +4,7 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
-import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 /// A base sliver scaffold to be used in pages where user makes a connection between two entities.
 /// For example, connecting a pump to a sector, a board to a collector, selecting a variety for a sector and so on

@@ -4,7 +4,7 @@ import 'package:irrigazione_iot/src/features/sectors/data/sector_status_reposito
 import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/screens/sector_switch_controller.dart';
 import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
-import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class SectorSwitch extends ConsumerWidget {
   const SectorSwitch({

@@ -7,7 +7,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/company_users/models/company_user.dart';
 import 'package:irrigazione_iot/src/features/company_users/screens/company_user_details/dismiss_company_user_controller.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
-import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';

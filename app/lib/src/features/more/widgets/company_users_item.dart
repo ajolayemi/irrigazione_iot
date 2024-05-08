@@ -5,7 +5,7 @@ import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/more/widgets/more_page_item_list_tile.dart';
-import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class CompanyUsersMoreOptionItem extends ConsumerWidget {
   const CompanyUsersMoreOptionItem({super.key});

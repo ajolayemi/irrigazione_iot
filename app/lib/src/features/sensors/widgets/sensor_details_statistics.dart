@@ -8,7 +8,7 @@ import 'package:irrigazione_iot/src/features/sensors/widgets/sensor_details_stat
 import 'package:irrigazione_iot/src/shared/models/history_query_params.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_expansion_tile.dart';
-import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class SensorDetailsStatistics extends ConsumerWidget {
   const SensorDetailsStatistics({super.key, required this.sensorId});

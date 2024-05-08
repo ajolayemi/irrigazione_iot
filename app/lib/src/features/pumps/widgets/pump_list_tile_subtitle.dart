@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:irrigazione_iot/src/features/pumps/data/pump_flow_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
-import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class PumpListTileSubtitle extends ConsumerWidget {
   const PumpListTileSubtitle({

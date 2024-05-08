@@ -8,7 +8,7 @@ import 'package:irrigazione_iot/src/features/variety/data/variety_repository.dar
 import 'package:irrigazione_iot/src/shared/widgets/common_expansion_tile.dart';
 import 'package:irrigazione_iot/src/shared/widgets/details_tile_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart';
-import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class SectorDetailsCharacteristics extends ConsumerWidget {
   const SectorDetailsCharacteristics({
