@@ -25,6 +25,20 @@ class Company extends Equatable {
     this.fiscalCode = '',
   });
 
+
+  const Company.empty()
+      : id = '',
+        name = '',
+        registeredOfficeAddress = '',
+        phoneNumber = '',
+        email = '',
+        imageUrl = '',
+        mqttTopicName = '',
+        createdAt = null,
+        updatedAt = null,
+        vatNumber = '',
+        fiscalCode = '';
+
   // Unique identifier for the company from the database
   @JsonKey(name: CompanyDatabaseKeys.id, includeToJson: false)
   @IntConverter()
