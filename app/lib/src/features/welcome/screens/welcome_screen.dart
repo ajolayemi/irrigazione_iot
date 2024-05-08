@@ -51,7 +51,7 @@ class WelcomeScreen extends StatelessWidget {
             child: CTAButton(
               text: loc.registerYourCompany,
               buttonType: ButtonType.secondary,
-              onPressed: () {},
+              onPressed: () => context.pushNamed(AppRoute.registerCompany.name),
             ),
           ),
           gapH64,
