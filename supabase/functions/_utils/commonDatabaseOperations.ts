@@ -53,7 +53,8 @@ export const commonUpdate = async (
  */
 export const commonInsert = async (
   req: Request,
-  tableName: string
+  tableName: string,
+  shouldReturnData = true
 ): Promise<Response> => {
   // This is needed if you're planning to invoke your function from a browser.
   if (req.method === "OPTIONS") {
@@ -63,12 +64,12 @@ export const commonInsert = async (
     const supabaseClient = createEdgeSupabaseClient(req);
 
     const {data: toInsert} = await req.json();
+
+    const baseQuery = supabaseClient.from(tableName).insert(toInsert);
     // Insert the new record
-    const {data, error} = await supabaseClient
-      .from(tableName)
-      .insert(toInsert)
-      .select()
-      .maybeSingle();
+    const {data, error} = shouldReturnData
+      ? await baseQuery.select().maybeSingle()
+      : await baseQuery;
     if (error) throw error;
     return new Response(
       JSON.stringify({data, message: `Record inserted into ${tableName}!`}),
