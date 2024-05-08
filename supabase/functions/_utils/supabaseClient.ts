@@ -10,13 +10,10 @@ export const createEdgeSupabaseClient = (req: Request) => {
   const supabaseUrl = Deno.env.get("SUPABASE_URL");
   const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY");
   const authHeaders = req.headers;
-  const bearerToken = authHeaders.get("Authorization")?.endsWith("null")
-    ? ""
-    : authHeaders.get("Authorization") ?? "";
   return createClient(supabaseUrl ?? "", supabaseAnonKey ?? "", {
     global: {
       headers: {
-        Authorization: bearerToken,
+        Authorization: authHeaders.get("Authorization") ?? "",
       },
     },
   });

@@ -111,7 +111,9 @@ extension SupabaseClientExtensions on SupabaseClient {
       functions.invoke(
         functionName,
         body: body,
-        headers: {'Authorization': 'Bearer $accessToken'},
+        headers: accessToken != null
+            ? {'Authorization': 'Bearer $accessToken'}
+            : null,
       );
 }
 
