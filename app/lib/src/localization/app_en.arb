@@ -647,5 +647,6 @@
   "registerYourCompany": "Register your company",
   "loginToYourAccount": "Login to your account",
   "welcomePageIntro": "We're glad to have you here! Please select an option to continue",
-  "or": "or"
+  "or": "or",
+  "companyCreatedSuccessfully": "Your company has been created successfully!"
 }

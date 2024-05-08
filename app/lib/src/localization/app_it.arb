@@ -259,5 +259,6 @@
   "registerYourCompany": "Registra la tua azienda",
   "loginToYourAccount": "Accedi al tuo account",
   "welcomePageIntro": "Siamo lieti di darti il benvenuto! Per continuare, seleziona un'opzione",
-  "or": "oppure"
+  "or": "oppure",
+  "companyCreatedSuccessfully": "Azienda creata con successo!"
 }
