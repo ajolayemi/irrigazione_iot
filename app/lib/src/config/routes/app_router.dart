@@ -85,6 +85,16 @@ GoRouter goRouter(GoRouterRef ref) {
         ),
       ),
       GoRoute(
+        path: AppRoute.registerCompany.path,
+        name: AppRoute.registerCompany.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: AddUpdateCompanyForm(
+            formType: GenericFormTypes.add,
+          ),
+        ),
+      ),
+      GoRoute(
         path: AppRoute.signIn.path,
         name: AppRoute.signIn.name,
         pageBuilder: (context, state) => const MaterialPage(
