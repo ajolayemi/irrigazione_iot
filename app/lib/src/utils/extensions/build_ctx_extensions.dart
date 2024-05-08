@@ -137,5 +137,16 @@ extension BuildContextExtensions on BuildContext {
       },
     );
   }
-}
 
+  void showSnackBar({
+    required String message,
+    Duration duration = const Duration(seconds: 5),
+  }) {
+    ScaffoldMessenger.of(this).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: duration,
+      ),
+    );
+  }
+}
