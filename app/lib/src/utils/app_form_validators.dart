@@ -1,4 +1,4 @@
-import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/string_extensions.dart';
 import 'package:irrigazione_iot/src/utils/string_validators.dart';
 
 /// A mixin that holds all validation logic for the various forms in the app

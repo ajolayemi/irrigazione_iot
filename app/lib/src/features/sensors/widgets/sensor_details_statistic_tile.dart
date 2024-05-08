@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/shared/widgets/details_tile_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart';
 import 'package:irrigazione_iot/src/utils/extensions/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/string_extensions.dart';
 
 class SensorDetailsStatisticTile extends StatelessWidget {
   const SensorDetailsStatisticTile({
