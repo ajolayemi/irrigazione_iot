@@ -67,7 +67,7 @@ class _AddUpdateCompanyFormContentsState
   var _submitted = false;
 
   // initial company data (will have value when user is updating)
-  Company? _initialCompany;
+  Company? _initialCompany = const Company.empty();
 
   @override
   void initState() {

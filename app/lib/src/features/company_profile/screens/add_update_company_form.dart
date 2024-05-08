@@ -6,15 +6,14 @@ import 'package:irrigazione_iot/src/features/company_profile/screens/add_update_
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
-
 class AddUpdateCompanyForm extends ConsumerWidget {
   const AddUpdateCompanyForm({
     super.key,
-    required this.companyID,
     required this.formType,
+    this.companyID,
   });
 
-  final String companyID;
+  final String? companyID;
   final GenericFormTypes formType;
 
   @override
