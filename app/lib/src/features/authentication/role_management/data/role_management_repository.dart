@@ -26,8 +26,7 @@ abstract class RoleManagementRepository {
   /// Emits the [SuperUser] for the given [email]
   Stream<SuperUser?> watchSuperuser(String email);
 
-  Stream<CompanyUserRoles?> watchUserCompanyRole(
-      String email, String companyId);
+  Stream<CompanyUserRole?> watchUserCompanyRole(String email, String companyId);
 }
 
 @Riverpod(keepAlive: true)
@@ -80,4 +79,25 @@ Stream<bool> userIsBasicStream(UserIsBasicStreamRef ref) {
   if (currentSelectedCompanyByUser == null) return Stream.value(false);
   final roleRepo = ref.watch(roleManagementRepositoryProvider);
   return roleRepo.isBasicUser(email, currentSelectedCompanyByUser.id);
+}
+
+/// As at now, only superusers are allowed to create items
+@riverpod
+Stream<bool> userCanCreateStream(UserCanCreateStreamRef ref) {
+  final isSuperUser = ref.watch(userIsSuperuserStreamProvider).valueOrNull;
+  return Stream.value(isSuperUser ?? false);
+}
+
+/// As at now, only superusers are allowed to update
+@riverpod
+Stream<bool> userCanEditStream(UserCanEditStreamRef ref) {
+  final isSuperUser = ref.watch(userIsSuperuserStreamProvider).valueOrNull;
+  return Stream.value(isSuperUser ?? false);
+}
+
+/// As at now, only superusers are allowed to delete items
+@riverpod
+Stream<bool> userCanDeleteStream(UserCanDeleteStreamRef ref) {
+  final isSuperUser = ref.watch(userIsSuperuserStreamProvider).valueOrNull;
+  return Stream.value(isSuperUser ?? false);
 }
