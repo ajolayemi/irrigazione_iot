@@ -49,7 +49,7 @@ Stream<List<Pump?>> companyPumpsStream(
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.watch(currentTappedCompanyProvider).value;
-  if (currentSelectedCompanyByUser == null) return const Stream.empty();
+  if (currentSelectedCompanyByUser == null) return Stream.value([]);
   return pumpRepository.watchCompanyPumps(currentSelectedCompanyByUser.id);
 }
 
@@ -69,7 +69,7 @@ Stream<List<String?>> companyUsedPumpNamesStream(
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.watch(currentTappedCompanyProvider).value;
-  if (currentSelectedCompanyByUser == null) return const Stream.empty();
+  if (currentSelectedCompanyByUser == null) return Stream.value([]);
 
   return pumpRepository
       .watchCompanyUsedPumpNames(currentSelectedCompanyByUser.id);
@@ -82,7 +82,7 @@ Stream<List<String?>> companyUsedPumpCommandsStream(
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.watch(currentTappedCompanyProvider).value;
-  if (currentSelectedCompanyByUser == null) return const Stream.empty();
+  if (currentSelectedCompanyByUser == null) return Stream.value([]);
 
   return pumpRepository
       .watchCompanyUsedPumpCommands(currentSelectedCompanyByUser.id);

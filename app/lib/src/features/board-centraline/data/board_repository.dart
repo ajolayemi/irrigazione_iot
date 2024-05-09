@@ -72,7 +72,7 @@ BoardRepository boardRepository(BoardRepositoryRef ref) {
 Stream<List<Board?>> boardListStream(BoardListStreamRef ref) {
   final boardRepository = ref.read(boardRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return const Stream.empty();
+  if (companyId == null) return Stream.value([]);
   return boardRepository.watchBoardsByCompanyID(companyID: companyId);
 }
 
@@ -88,7 +88,6 @@ Stream<Board?> boardStream(BoardStreamRef ref, {required String boardID}) {
   final boardRepository = ref.watch(boardRepositoryProvider);
   return boardRepository.watchBoardByBoardID(boardID: boardID);
 }
-
 
 /// gets a list of all collectors that are not yet connected
 /// to a [Board]
@@ -110,13 +109,14 @@ Stream<List<String?>> usedBoardNamesStream(UsedBoardNamesStreamRef ref) {
   final boardRepository = ref.watch(boardRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.watch(currentTappedCompanyProvider).valueOrNull;
-  if (currentSelectedCompanyByUser == null) return const Stream.empty();
+  if (currentSelectedCompanyByUser == null) return Stream.value([]);
   return boardRepository
       .watchCompanyUsedBoardNames(currentSelectedCompanyByUser.id);
 }
 
 @riverpod
-Stream<List<String?>> boardsUsedMqttNamesStream(BoardsUsedMqttNamesStreamRef ref) {
+Stream<List<String?>> boardsUsedMqttNamesStream(
+    BoardsUsedMqttNamesStreamRef ref) {
   final boardRepository = ref.watch(boardRepositoryProvider);
   return boardRepository.watchBoardsUsedMqttNames();
 }

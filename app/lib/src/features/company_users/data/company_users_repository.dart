@@ -79,7 +79,7 @@ Stream<CompanyUserRoles?> companyUserRole(CompanyUserRoleRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   final user = authRepository.currentUser;
   if (user == null || currentSelectedCompany == null) {
-    return const Stream.empty();
+    return Stream.value(null);
   }
   return userCompaniesRepository.watchCompanyUserRole(
     email: user.email,

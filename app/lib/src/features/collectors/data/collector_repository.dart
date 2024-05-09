@@ -44,7 +44,7 @@ CollectorRepository collectorRepository(CollectorRepositoryRef ref) {
 Stream<List<Collector?>> collectorListStream(CollectorListStreamRef ref) {
   final collectorRepository = ref.read(collectorRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return const Stream.empty();
+  if (companyId == null) return Stream.value([]);
   return collectorRepository.watchCollectors(companyId);
 }
 
@@ -53,7 +53,7 @@ Stream<List<String?>> usedCollectorNamesStream(
     UsedCollectorNamesStreamRef ref) {
   final collectorRepository = ref.read(collectorRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return const Stream.empty();
+  if (companyId == null) return Stream.value([]);
   return collectorRepository.watchCompanyUsedCollectorNames(companyId);
 }
 
