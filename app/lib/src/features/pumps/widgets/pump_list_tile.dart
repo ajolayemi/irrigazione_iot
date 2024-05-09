@@ -4,11 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/authentication/role_management/data/role_management_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/screens/pump_list/dismiss_pump_controller.dart';
-import 'package:irrigazione_iot/src/features/pumps/screens/pump_list/pump_status_controller.dart';
 import 'package:irrigazione_iot/src/features/pumps/widgets/pump_list_tile_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
-import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class PumpListTile extends ConsumerWidget {
@@ -45,8 +43,6 @@ class PumpListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final globalLoadingState =
-        ref.watch(pumpStatusControllerProvider).isGlobalLoading;
     final isDeleting = ref.watch(dismissPumpControllerProvider).isLoading;
     final canDelete =
         ref.watch(userCanDeleteStreamProvider).valueOrNull ?? false;
@@ -58,8 +54,7 @@ class PumpListTile extends ConsumerWidget {
       isDeleting: isDeleting,
       child: PumpListTileItem(
         pump: pump,
-        isDeleting: isDeleting,
-        stateIsLoading: globalLoadingState,
+
       ),
     );
   }
