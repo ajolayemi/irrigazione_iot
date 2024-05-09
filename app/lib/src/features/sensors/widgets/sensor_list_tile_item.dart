@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/config/styles/app_styles.dart';
@@ -9,7 +8,7 @@ import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_info_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_tablet_responsive_center.dart';
 
-class SensorListTileItem extends ConsumerWidget {
+class SensorListTileItem extends StatelessWidget {
   const SensorListTileItem({
     super.key,
     required this.sensor,
@@ -25,7 +24,7 @@ class SensorListTileItem extends ConsumerWidget {
       );
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return CommonTabletResponsiveCenter(
       child: IgnorePointer(
         ignoring: isDeleting,
