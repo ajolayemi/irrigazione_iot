@@ -6,8 +6,8 @@ extension StringExtensions on String {
   /// Mostly used for validating form fields
   bool get isGreaterThanZero =>
       double.tryParse(this) != null && double.parse(this) > 0;
-      
-  CompanyUserRole toCompanyUserRoles() => CompanyUserRole.values.firstWhere(
+
+  CompanyUserRole get toCompanyUserRoles => CompanyUserRole.values.firstWhere(
         (role) => role.name == this,
         orElse: () => CompanyUserRole.user,
       );

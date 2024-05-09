@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
-import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/models/company_user.dart';
@@ -15,6 +14,7 @@ import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_form_suffix_icon.dart';
 import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
+import 'package:irrigazione_iot/src/utils/extensions/string_extensions.dart';
 
 
 class AddUpdateCompanyUserFormContents extends ConsumerStatefulWidget {
@@ -142,7 +142,7 @@ class _AddUpdateCompanyUserFormContentsState
         final companyUser = _initialCompanyUser?.copyWith(
           fullName: _fullName,
           email: _email,
-          role: _role.toCompanyUserRoles(),
+          role: _role.toCompanyUserRoles,
           companyId:
               _initialCompanyUser?.companyId, // auto filled by service layer
           createdAt: _initialCompanyUser?.createdAt ?? DateTime.now(),
