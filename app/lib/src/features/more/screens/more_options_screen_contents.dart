@@ -80,11 +80,11 @@ class MoreOptionsScreenContent extends ConsumerWidget {
                       },
                     ),
                     const CompanyUsersMoreOptionItem(),
-                    MorePageItemListTile(
-                      title: loc.settingsMenuTitle,
-                      onTap: () => _showNotImplemented(context),
-                      leadingIcon: Icons.settings,
-                    )
+                    // MorePageItemListTile(
+                    //   title: loc.settingsMenuTitle,
+                    //   onTap: () => _showNotImplemented(context),
+                    //   leadingIcon: Icons.settings,
+                    // )
                   ],
                 ),
               ),
