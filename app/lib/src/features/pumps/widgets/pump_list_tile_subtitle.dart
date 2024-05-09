@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/config/styles/app_styles.dart';
 
 import 'package:irrigazione_iot/src/features/pumps/data/pump_flow_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
@@ -25,9 +26,7 @@ class PumpListTileSubtitle extends ConsumerWidget {
           fallbackValue: loc.notAvailable,
         ),
       ),
-      style: context.textTheme.titleSmall?.copyWith(
-        color: Colors.grey,
-      ),
+      style: context.commonSubtitleStyle,
     );
   }
 }

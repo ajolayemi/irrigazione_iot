@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/config/styles/app_styles.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pressure_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
@@ -32,9 +33,7 @@ class SectorListTileSubtitle extends ConsumerWidget {
       '$varietySpecie\n${context.loc.sectorLastIrrigation(
         lastIrrigatedString,
       )}',
-      style: context.textTheme.titleSmall?.copyWith(
-        color: Colors.grey,
-      ),
+      style: context.commonSubtitleStyle,
     );
   }
 }
