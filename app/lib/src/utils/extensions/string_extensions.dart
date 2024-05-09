@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/sensors/models/sensor_measurements_database_keys.dart';
 
 extension StringExtensions on String {
@@ -5,7 +6,11 @@ extension StringExtensions on String {
   /// Mostly used for validating form fields
   bool get isGreaterThanZero =>
       double.tryParse(this) != null && double.parse(this) > 0;
-
+      
+  CompanyUserRole toCompanyUserRoles() => CompanyUserRole.values.firstWhere(
+        (role) => role.name == this,
+        orElse: () => CompanyUserRole.user,
+      );
 
   String getUmX(String key) {
     switch (key) {
