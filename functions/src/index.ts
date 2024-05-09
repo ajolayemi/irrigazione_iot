@@ -1,5 +1,5 @@
 import admin from "firebase-admin";
-import {https, pubsub} from "firebase-functions/v2";
+import {https, logger, pubsub} from "firebase-functions/v2";
 import "dotenv/config";
 import {processPressureMessageFromPubSub} from "./utils/process_pressure_message";
 import {processSectorStatusMessage} from "./utils/process_sector_status_message";
@@ -9,6 +9,10 @@ import {processPumpPressureMessage} from "./utils/process_pump_pressure_message"
 import {processBoardStatusMessage} from "./utils/process_board_status_message";
 import {CallableRequest} from "firebase-functions/v2/https";
 import {createMqttClient} from "./services/mqtt";
+import {HttpCallableReqBody, StatusMessage} from "./interfaces/interfaces";
+// import {saveDataWhenDev} from "./utils/save_dev_data";
+import {processSenseCapData} from "./utils/process_sense_cap_data";
+import {saveDataWhenDev} from "./utils/save_dev_data";
 
 admin.initializeApp();
 
@@ -58,13 +62,22 @@ exports.processPumpFlowMessages = pubsub.onMessagePublished(
   }
 );
 
-exports.processPumpPumpPressureMessages = pubsub.onMessagePublished(
+exports.processPumpPressureMessages = pubsub.onMessagePublished(
   "pump-pressure",
   async (event) => {
     const message = event.data.message.json;
     const successInProcessingMessage = await processPumpPressureMessage(
       message
     );
+    return Promise.resolve(successInProcessingMessage);
+  }
+);
+
+exports.processSenseCapSensorData = pubsub.onMessagePublished(
+  "sensor",
+  async (event) => {
+    const message = event.data.message.json;
+    const successInProcessingMessage = await processSenseCapData(message);
     return Promise.resolve(successInProcessingMessage);
   }
 );
@@ -85,13 +98,28 @@ exports.processBoardStatusMessages = pubsub.onMessagePublished(
  */
 exports.toggleItemStatus = https.onCall(async (req: CallableRequest) => {
   try {
-    const {topic, message} = req.data;
-    console.log(`Publishing message ${message} to ${topic}`);
+    const body: HttpCallableReqBody = req.data;
+
+    logger.info(
+      `Toggling status of ${body.message} to ${body.message} with topic ${body.topic}`
+    );
     const client = await createMqttClient();
     if (client.disconnected) {
       throw new https.HttpsError("internal", "MQTT client is disconnected");
     }
-    client.publish(topic, message);
+
+    /// Msgs sent to mqtt aren't raw strings, they are objects
+    const messageForMqtt: StatusMessage = {
+      name: body.mqttMsgName,
+      status: body.message,
+    };
+    const messageBuffer = Buffer.from(JSON.stringify(messageForMqtt));
+    client.publish(body.topic, messageBuffer);
+
+    // When dev environment is dev, insert manual data to local db
+    if (process.env.NODE_ENV === "dev") {
+      await saveDataWhenDev(body);
+    }
 
     return {success: true};
   } catch (error) {

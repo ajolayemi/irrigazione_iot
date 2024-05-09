@@ -1,12 +1,12 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector_database_keys.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector_sector.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector_sector_database_keys.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector_database_keys.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector_sector.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector_sector_database_keys.dart';
 import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
-import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabaseCollectorSectorRepository implements CollectorSectorRepository {
   const SupabaseCollectorSectorRepository(this._supabaseClient);

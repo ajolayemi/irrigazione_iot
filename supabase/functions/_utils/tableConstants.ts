@@ -20,8 +20,10 @@ export class TableNames {
   static readonly sector_pumps = "sector_pumps";
   static readonly pump_flows = "pump_flows";
   static readonly terminal_pressures = "terminal_pressures";
+  static readonly sensors = "sensors";
+  static readonly sensor_measurements = "sensor_measurements";
+  static readonly sensor_battery_data = "sensor_battery_data";
 }
-
 
 /**
  * A class to store the names of the columns in the tables (not all columns are included)
@@ -32,6 +34,8 @@ export class ColumnNames {
   static readonly collector_id_as_fkey = "collector_id";
   static readonly board_id_as_fkey = "board_id";
   static readonly company_id_as_fkey = "company_id";
+  static readonly sensor_id_as_fkey = "sensor_id";
 
-  static readonly columns_to_get_for_mqtt = 'id, company_id, turn_on_command, turn_off_command'
+  static readonly columns_to_get_for_mqtt =
+    "id, company_id, turn_on_command, turn_off_command";
 }

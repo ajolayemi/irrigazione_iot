@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_text_button.dart';
 
 class AlreadyHaveAnAccount extends StatelessWidget {
@@ -18,7 +18,7 @@ class AlreadyHaveAnAccount extends StatelessWidget {
         Text(loc.alreadyHaveAnAccountText),
         gapW4,
         CustomTextButton(
-          onPressed: () => context.goNamed(
+          onPressed: () => context.pushNamed(
             AppRoute.signIn.name,
           ),
           text: loc.signInButtonTitle,

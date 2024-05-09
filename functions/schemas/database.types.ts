@@ -664,6 +664,130 @@ export type Database = {
           },
         ]
       }
+      sensor_battery_data: {
+        Row: {
+          battery_level: number
+          created_at: string
+          id: number
+          sensor_id: number
+        }
+        Insert: {
+          battery_level: number
+          created_at?: string
+          id?: number
+          sensor_id: number
+        }
+        Update: {
+          battery_level?: number
+          created_at?: string
+          id?: number
+          sensor_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_sensor_battery_data_sensor_id_fkey"
+            columns: ["sensor_id"]
+            isOneToOne: false
+            referencedRelation: "sensors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sensor_measurements: {
+        Row: {
+          air_humidity: number
+          air_temperature: number
+          barometric_pressure: number
+          created_at: string
+          id: number
+          light_intensity: number
+          rain_gauge: number
+          sensor_id: number
+          uv_index: number
+          wind_direction_sensor: number
+          wind_speed: number
+        }
+        Insert: {
+          air_humidity: number
+          air_temperature: number
+          barometric_pressure: number
+          created_at?: string
+          id?: number
+          light_intensity: number
+          rain_gauge: number
+          sensor_id: number
+          uv_index: number
+          wind_direction_sensor: number
+          wind_speed: number
+        }
+        Update: {
+          air_humidity?: number
+          air_temperature?: number
+          barometric_pressure?: number
+          created_at?: string
+          id?: number
+          light_intensity?: number
+          rain_gauge?: number
+          sensor_id?: number
+          uv_index?: number
+          wind_direction_sensor?: number
+          wind_speed?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_sensor_measurements_sensor_id_fkey"
+            columns: ["sensor_id"]
+            isOneToOne: false
+            referencedRelation: "sensors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sensors: {
+        Row: {
+          company_id: number
+          created_at: string
+          eui: string
+          id: number
+          name: string
+          sector_id: number
+          updated_at: string
+        }
+        Insert: {
+          company_id: number
+          created_at?: string
+          eui: string
+          id?: number
+          name: string
+          sector_id: number
+          updated_at: string
+        }
+        Update: {
+          company_id?: number
+          created_at?: string
+          eui?: string
+          id?: number
+          name?: string
+          sector_id?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_sensors_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_sensors_sector_id_fkey"
+            columns: ["sector_id"]
+            isOneToOne: false
+            referencedRelation: "sectors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       species: {
         Row: {
           created_at: string
@@ -837,10 +961,14 @@ export type Database = {
         }
         Returns: number
       }
-      get_user_email: {
+      get_sensor_company_id: {
         Args: {
-          user_id: string
+          sensor_id_input: number
         }
+        Returns: number
+      }
+      get_user_email_v2: {
+        Args: Record<PropertyKey, never>
         Returns: string
       }
     }

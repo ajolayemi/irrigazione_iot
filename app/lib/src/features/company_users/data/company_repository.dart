@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/company_users/data/supabase_company_repository.dart';
-import 'package:irrigazione_iot/src/features/company_users/model/company.dart';
+import 'package:irrigazione_iot/src/features/company_users/models/company.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'company_repository.g.dart';

@@ -1,0 +1,85 @@
+import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/features/company_users/models/company_user_database_keys.dart';
+
+part 'company_user.g.dart';
+
+@JsonSerializable()
+class CompanyUser extends Equatable {
+  const CompanyUser({
+    required this.id,
+    required this.email,
+    required this.fullName,
+    required this.role,
+    required this.companyId,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  const CompanyUser.empty()
+      : id = '',
+        email = '',
+        fullName = '',
+        role = CompanyUserRole.user,
+        companyId = '',
+        createdAt = null,
+        updatedAt = null;
+
+  @JsonKey(name: CompanyUserDatabaseKeys.id, includeToJson: false)
+  @IntConverter()
+  final String id;
+  @JsonKey(name: CompanyUserDatabaseKeys.email)
+  final String email;
+  @JsonKey(name: CompanyUserDatabaseKeys.fullName)
+  final String fullName;
+  @JsonKey(name: CompanyUserDatabaseKeys.role)
+  final CompanyUserRole role;
+  @JsonKey(name: CompanyUserDatabaseKeys.companyId)
+  @IntConverter()
+  final String companyId;
+  @JsonKey(name: CompanyUserDatabaseKeys.createdAt)
+  final DateTime? createdAt;
+  @JsonKey(name: CompanyUserDatabaseKeys.updatedAt)
+  final DateTime? updatedAt;
+
+  @override
+  List<Object?> get props {
+    return [
+      id,
+      email,
+      fullName,
+      role,
+      companyId,
+      createdAt,
+      updatedAt,
+    ];
+  }
+
+  CompanyUser copyWith({
+    String? id,
+    String? email,
+    String? fullName,
+    CompanyUserRole? role,
+    String? companyId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return CompanyUser(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      fullName: fullName ?? this.fullName,
+      role: role ?? this.role,
+      companyId: companyId ?? this.companyId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  factory CompanyUser.fromJson(Map<String, dynamic> json) =>
+      _$CompanyUserFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CompanyUserToJson(this);
+}

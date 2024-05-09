@@ -53,7 +53,8 @@ export const commonUpdate = async (
  */
 export const commonInsert = async (
   req: Request,
-  tableName: string
+  tableName: string,
+  shouldReturnData = true
 ): Promise<Response> => {
   // This is needed if you're planning to invoke your function from a browser.
   if (req.method === "OPTIONS") {
@@ -63,12 +64,12 @@ export const commonInsert = async (
     const supabaseClient = createEdgeSupabaseClient(req);
 
     const {data: toInsert} = await req.json();
+
+    const baseQuery = supabaseClient.from(tableName).insert(toInsert);
     // Insert the new record
-    const {data, error} = await supabaseClient
-      .from(tableName)
-      .insert(toInsert)
-      .select()
-      .maybeSingle();
+    const {data, error} = shouldReturnData
+      ? await baseQuery.select().maybeSingle()
+      : await baseQuery;
     if (error) throw error;
     return new Response(
       JSON.stringify({data, message: `Record inserted into ${tableName}!`}),
@@ -263,6 +264,53 @@ export const commonGetLastRecordById = async (
     console.error(
       `An error occurred in commonGetLastRecordById: ${error.message}`
     );
+    return new Response(JSON.stringify({error: error.message}), {
+      status: 400,
+      headers: {"Content-Type": "application/json"},
+    });
+  }
+};
+
+/***
+ * There are some tables with "eui" column which holds the unique identifier
+ * provided for items like sensors in MQTT messages received from the
+ * sensecap devices. This function is used to get records from such tables
+ * by their "eui" column.
+ * @param req A request object
+ * @param tableName The name of the table to get the record from
+ * @param columnNames (optional) The column names to get from the record separated by commas
+ * @returns A response object
+ */
+export const commonGetByEui = async (
+  req: Request,
+  tableName: string,
+  columnNames?: string
+): Promise<Response> => {
+  // This is needed if you're planning to invoke your function from a browser.
+  if (req.method === "OPTIONS") {
+    return new Response("ok", {headers: corsHeaders});
+  }
+  try {
+    const supabaseClient = createEdgeSupabaseClient(req);
+
+    // Get the eui provided in the request body
+    const {eui} = await req.json();
+
+    // Get the record
+    const {data: result, error} = await supabaseClient
+      .from(tableName)
+      .select(columnNames ?? "*")
+      .eq("eui", eui)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    return new Response(JSON.stringify({result}), {
+      headers: {"Content-Type": "application/json"},
+      status: 200,
+    });
+  } catch (error) {
+    console.error(`An error occurred in commonGetByEui: ${error.message}`);
     return new Response(JSON.stringify({error: error.message}), {
       status: 400,
       headers: {"Content-Type": "application/json"},

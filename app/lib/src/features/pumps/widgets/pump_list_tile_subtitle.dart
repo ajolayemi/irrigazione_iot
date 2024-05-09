@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/config/styles/app_styles.dart';
+
 import 'package:irrigazione_iot/src/features/pumps/data/pump_flow_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/model/pump.dart';
-import 'package:irrigazione_iot/src/utils/date_formatter.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class PumpListTileSubtitle extends ConsumerWidget {
   const PumpListTileSubtitle({
@@ -15,19 +16,17 @@ class PumpListTileSubtitle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dateFormatter = ref.watch(dateFormatWithTimeProvider);
     final loc = context.loc;
     final lastDispensationDate =
         ref.watch(lastDispensationStreamProvider(pump.id)).valueOrNull;
     return Text(
       loc.pumpStatusLastSwitchedOn(
-        lastDispensationDate == null
-            ? loc.notAvailable
-            : dateFormatter.format(lastDispensationDate),
+        context.timeAgo(
+          lastDispensationDate,
+          fallbackValue: loc.notAvailable,
+        ),
       ),
-      style: context.textTheme.titleSmall?.copyWith(
-        color: Colors.grey,
-      ),
+      style: context.commonSubtitleStyle,
     );
   }
 }

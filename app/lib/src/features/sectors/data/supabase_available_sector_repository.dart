@@ -1,6 +1,6 @@
 import 'package:irrigazione_iot/src/features/sectors/data/available_sector_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/available_sector.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/available_sector_database_keys.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/available_sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/available_sector_database_keys.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseAvailableSectorRepository implements AvailableSectorRepository {

@@ -55,10 +55,10 @@
 				<array>
 					<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
 					<string>com.googleusercontent.apps.968266736819-q8mjnjuvmdeelvo8mh4vlu1oh1iqo4eo</string>
+					<string>io.supabase.irrigationiot</string>
 				</array>
 			</dict>
 		</array>
 		<!-- End of the Google Sign-in Section -->
-
 	</dict>
 </plist>

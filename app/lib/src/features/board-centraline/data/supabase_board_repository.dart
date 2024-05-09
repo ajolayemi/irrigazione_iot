@@ -1,8 +1,8 @@
 import 'package:irrigazione_iot/src/features/board-centraline/models/board_database_keys.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector.dart';
 import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
 import 'package:irrigazione_iot/src/shared/models/rpc_parameter.dart';
-import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';

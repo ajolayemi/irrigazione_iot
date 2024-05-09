@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'package:irrigazione_iot/src/features/authentication/model/app_user.dart';
+import 'package:irrigazione_iot/src/features/authentication/models/app_user.dart';
 
 /// Fake user class used to simulate a user account on the backend
 /// * This class is implementation-specific and should only be used by the

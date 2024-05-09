@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/supabase_available_sector_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/available_sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/available_sector.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'available_sector_repository.g.dart';

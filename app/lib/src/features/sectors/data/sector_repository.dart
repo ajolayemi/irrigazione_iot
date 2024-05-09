@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/supabase_sector_repository.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'sector_repository.g.dart';
@@ -48,7 +48,7 @@ SectorRepository sectorRepository(SectorRepositoryRef ref) {
 Stream<List<Sector?>> sectorListStream(SectorListStreamRef ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return const Stream.empty();
+  if (companyId == null) return Stream.value([]);
   return sectorsRepository.watchSectors(companyId);
 }
 
@@ -63,7 +63,7 @@ Stream<List<String?>> usedSectorNamesStream(UsedSectorNamesStreamRef ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.read(currentTappedCompanyProvider).valueOrNull;
-  if (currentSelectedCompanyByUser == null) return const Stream.empty();
+  if (currentSelectedCompanyByUser == null) return Stream.value([]);
   return sectorsRepository
       .watchCompanyUsedSectorNames(currentSelectedCompanyByUser.id);
 }
@@ -73,7 +73,7 @@ Stream<List<String?>> usedSectorCommandsStream(UsedSectorCommandsStreamRef ref) 
   final sectorsRepository = ref.read(sectorRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.read(currentTappedCompanyProvider).valueOrNull;
-  if (currentSelectedCompanyByUser == null) return const Stream.empty();
+  if (currentSelectedCompanyByUser == null) return Stream.value([]);
   return sectorsRepository
       .watchCompanySectorUsedCommands(currentSelectedCompanyByUser.id);
 }

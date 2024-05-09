@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/features/board-centraline/data/board_status_repository.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 
+/// A widget that displays the battery level of entities like sensors or boards.
+class BatteryLevelIndicator extends ConsumerWidget {
+  const BatteryLevelIndicator({super.key, required this.batteryLevel});
 
-class BatteryIndicator extends ConsumerWidget {
-  const BatteryIndicator({super.key, required this.boardId});
-
-  final String boardId;
+  final double batteryLevel;
   // Determine battery color based on level
   Color _getBatteryColor(double level) {
-    if (level >= 0.75) {
+    if (level >= 75) {
       return Colors.green;
-    } else if (level >= 0.4) {
+    } else if (level >= 40) {
       return Colors.orange;
     } else {
       return Colors.red;
@@ -20,18 +20,43 @@ class BatteryIndicator extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final boardStatus =
-        ref.watch(boardStatusStreamProvider(boardID: boardId)).valueOrNull;
-    final batteryLevel = boardStatus?.batteryLevel ?? 0.0;
-
+    final color = _getBatteryColor(batteryLevel);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Icon(Icons.battery_charging_full),
         Text(
-          '${(batteryLevel * 100).toStringAsFixed(0)}%',
+          '${batteryLevel.toStringAsFixed(0)}%',
           style: TextStyle(
-            color: _getBatteryColor(batteryLevel),
+            color: color,
+          ),
+        ),
+        gapW8,
+        Container(
+          width: 30, // Set the width of the battery icon
+          height: 15, // Set the height of the battery icon
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: color,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: FractionallySizedBox(
+                  alignment: Alignment.centerLeft,
+                  widthFactor:
+                      batteryLevel / 100, // Size factor based on battery level
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: _getBatteryColor(batteryLevel),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],

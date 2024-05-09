@@ -1,9 +1,9 @@
-import 'package:irrigazione_iot/src/features/specie/model/specie_database_keys.dart';
-import 'package:irrigazione_iot/src/utils/supabase_extensions.dart';
+import 'package:irrigazione_iot/src/features/specie/models/specie_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/specie/data/specie_repository.dart';
-import 'package:irrigazione_iot/src/features/specie/model/specie.dart';
+import 'package:irrigazione_iot/src/features/specie/models/specie.dart';
 
 class SupabaseSpecieRepository implements SpecieRepository {
   const SupabaseSpecieRepository(this._supabaseClient);

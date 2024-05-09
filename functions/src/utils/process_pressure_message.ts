@@ -80,7 +80,7 @@ export const processPressureMessageFromPubSub = async (
  * @param {string} message The message to process sector pressure from
  * @return {Promise<boolean>} True if the sector pressure was successfully processed, false otherwise
  */
-const processSectorPressure = async (
+export const processSectorPressure = async (
   sectorKeys: string[],
   message: CustomJSON
 ): Promise<boolean> => {
@@ -126,7 +126,7 @@ const processSectorPressure = async (
  * @param {number} collectorId The id of the collector that holds the sectors in the message
  * @return {Promise<boolean>} True if the collector pressure was successfully processed, false otherwise
  */
-const processCollectorPressure = async (
+export const processCollectorPressure = async (
   collectorPressureKeys: string[],
   message: CustomJSON,
   collectorId: number
@@ -163,7 +163,7 @@ const processCollectorPressure = async (
  * @param {number} collectorId The id of the collector that holds the sectors in the message
  * @return {Promise<boolean>} True if the terminal pressure was successfully processed, false otherwise
  */
-const processTerminalPressure = async (
+export const processTerminalPressure = async (
   terminalPressureKey: string,
   message: CustomJSON,
   collectorId: number

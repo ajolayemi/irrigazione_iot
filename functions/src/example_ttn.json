@@ -1,0 +1,110 @@
+{
+  "end_device_ids": {
+    "device_id": "eui-2cf7f1c044300275",
+    "application_ids": {
+      "application_id": "grimaldi-arduino"
+    },
+    "dev_eui": "2CF7F1C044300275",
+    "dev_addr": "27FD6088"
+  },
+  "received_at": "2024-04-26T06:46:44.132906611Z",
+  "uplink_message": {
+    "f_port": 3,
+    "f_cnt": 896,
+    "frm_payload": "AQB+RgAAjcEWAAoCATkAAAAAJx4DZA==",
+    "decoded_payload": {
+      "err": 0,
+      "messages": [
+        {
+          "measurementId": "4097",
+          "measurementValue": 12.6,
+          "type": "Air Temperature"
+        },
+        {
+          "measurementId": "4098",
+          "measurementValue": 70,
+          "type": "Air Humidity"
+        },
+        {
+          "measurementId": "4099",
+          "measurementValue": 36289,
+          "type": "Light Intensity"
+        },
+        {
+          "measurementId": "4190",
+          "measurementValue": 2.2,
+          "type": "UV Index"
+        },
+        {
+          "measurementId": "4105",
+          "measurementValue": 1,
+          "type": "Wind Speed"
+        },
+        {
+          "measurementId": "4104",
+          "measurementValue": 313,
+          "type": "Wind Direction Sensor"
+        },
+        {
+          "measurementId": "4113",
+          "measurementValue": 0,
+          "type": "Rain Gauge"
+        },
+        {
+          "measurementId": "4101",
+          "measurementValue": 100140,
+          "type": "Barometric Pressure"
+        },
+        {
+          "Battery(%)": 100
+        }
+      ],
+      "payload": "01007E4600008DC116000A02013900000000271E0364",
+      "valid": true
+    },
+    "rx_metadata": [
+      {
+        "gateway_ids": {
+          "gateway_id": "madonnina-2cf7f11053100172",
+          "eui": "2CF7F11053100172"
+        },
+        "timestamp": 1675053084,
+        "rssi": -103,
+        "channel_rssi": -103,
+        "snr": 11,
+        "frequency_offset": "259",
+        "channel_index": 2,
+        "received_at": "2024-04-26T06:46:43.880357585Z"
+      }
+    ],
+    "settings": {
+      "data_rate": {
+        "lora": {
+          "bandwidth": 125000,
+          "spreading_factor": 7,
+          "coding_rate": "4/5"
+        }
+      },
+      "frequency": "868500000",
+      "timestamp": 1675053084
+    },
+    "received_at": "2024-04-26T06:46:43.927285042Z",
+    "confirmed": true,
+    "consumed_airtime": "0.077056s",
+    "version_ids": {
+      "brand_id": "sensecap",
+      "model_id": "sensecaps2120-8-in-1",
+      "hardware_version": "1.0",
+      "firmware_version": "1.0",
+      "band_id": "EU_863_870"
+    },
+    "network_ids": {
+      "net_id": "000013",
+      "ns_id": "EC656E0000102DE1",
+      "tenant_id": "madonninalora",
+      "cluster_id": "eu1",
+      "cluster_address": "eu1.cloud.thethings.industries",
+      "tenant_address": "madonninalora.eu1.cloud.thethings.industries"
+    }
+  }
+}

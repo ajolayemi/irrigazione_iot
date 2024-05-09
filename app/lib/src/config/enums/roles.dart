@@ -1,39 +1,18 @@
-enum CompanyUserRoles {
+enum CompanyUserRole {
   superuser,
   owner,
   admin,
   user,
 }
 
-// TODO for the first version
-// TODO superuser should be the only one who can perform CUD operations
+extension CompanyUserRolesExtension on CompanyUserRole {
+  bool get isSuperuser => this == CompanyUserRole.superuser;
 
-extension CompanyUserRolesExtension on CompanyUserRoles {
-  bool get canEdit {
-    return this == CompanyUserRoles.admin || this == CompanyUserRoles.owner;
-  }
+  bool get isOwner => this == CompanyUserRole.owner;
 
-  // Check if the user can add new user for a specified company
-  // This can be done by admin, superuser, and owner
-  bool get canAddNewUser {
-    return this == CompanyUserRoles.admin ||
-        this == CompanyUserRoles.owner ||
-        this == CompanyUserRoles.superuser;
-  }
+  bool get isAdmin => this == CompanyUserRole.admin;
 
-  /// Check if the current user has the privilege to edit the details
-  /// of the company profile
-  /// This can be done by admin, superuser, and owner
-  bool get canEditCompanyProfile {
-    return this == CompanyUserRoles.admin ||
-        this == CompanyUserRoles.owner ||
-        this == CompanyUserRoles.superuser;
-  }
+  bool get isUser => this == CompanyUserRole.user;
+
 }
 
-extension CompanyUserRolesStringExtension on String {
-  CompanyUserRoles toCompanyUserRoles() => CompanyUserRoles.values.firstWhere(
-        (role) => role.name == this,
-        orElse: () => CompanyUserRoles.user,
-      );
-}

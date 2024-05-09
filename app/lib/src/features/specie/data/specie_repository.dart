@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/specie/data/supabase_specie_repository.dart';
-import 'package:irrigazione_iot/src/features/specie/model/specie.dart';
+import 'package:irrigazione_iot/src/features/specie/models/specie.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'specie_repository.g.dart';

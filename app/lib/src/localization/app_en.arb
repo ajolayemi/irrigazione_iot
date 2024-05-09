@@ -33,10 +33,7 @@
     "description": "The title of the sign in with Google button"
   },
   "forgotPasswordButtonTitle": "Forgot Password?",
-  "orText": "or sign in with",
-  "@orText": {
-    "description": "The text that is displayed between the sign in button and the sign in with Google and or other auth button"
-  },
+  "orSignWithText": "or sign in with",
   "invalidEmailErrorText": "Invalid email",
   "emptyEmailErrorText": "Email can't be empty",
   "shortPasswordErrorText": "Password is too short, it has to be a minimum of {minPasswordLength} characters",
@@ -73,7 +70,7 @@
   "alertDialogConfirm": "Confirm",
   "alertDialogDelete": "Delete",
   "genericAlertDialogTitle": "Are you sure?",
-  "pumpStatusLastSwitchedOn": "last dispensation: {when}",
+  "pumpStatusLastSwitchedOn": "last dispensation {when}",
   "@pumpStatusLastSwitchedOn": {
     "description": "The last time a pump status was switched on",
     "placeholders": {
@@ -123,16 +120,15 @@
   "logInWithAnotherAccount": "Change Account",
   "addNewPumpPageTitle": "New Pump",
   "updatePumpPageTitle": "Update Pump",
-  "pumpNameFormFieldTitle": "Name",
   "pumpNameFormHint": "eg: Pompa Giardino",
-  "pumpVolumeCapacityFormFieldTitle": "Volume Capacity",
+  "pumpVolumeCapacityFormFieldTitle": "Volume capacity",
   "pumpVolumeCapacityFormHint": "eg: 1000",
   "pumpKwFormFieldTitle": "Consumption (kW)",
   "pumpKwFormHint": "eg: 50",
-  "pumpOnCommandFormFieldTitle": "On Command",
-  "pumpOnCommandFormHint": "eg: 1",
-  "pumpOffCommandFormFieldTitle": "Off Command",
-  "pumpOffCommandFormHint": "eg: 2",
+  "onCommandFormFieldTitle": "On command",
+  "onCommandFormHint": "eg: 1",
+  "offCommandFormFieldTitle": "Off command",
+  "offCommandFormHint": "eg: 2",
   "formGenericSaveDialogTitle": "Do you want to save the data?",
   "formGenericSaveDialogContent": "You're about to save the data for {fieldName} in the database",
   "@formGenericSaveDialogContent": {
@@ -157,7 +153,7 @@
       }
     }
   },
-  "sectorLastIrrigation": "Last irrigation: {when}",
+  "sectorLastIrrigation": "last irrigation {when}",
   "@sectorLastIrrigation": {
     "description": "The last time a sector was irrigated",
     "placeholders": {
@@ -167,27 +163,22 @@
       }
     }
   },
-  "sectorName": "Name",
   "sectorNameHintText": "eg: ME8",
   "sectorSpecie": "Specie",
   "sectorSpecieHintText": "select a specie...",
   "sectorVariety": "Variety",
   "sectorVarietyHintText": "select a variety...",
-  "sectorOccupiedArea": "Occupied Area",
+  "sectorOccupiedArea": "Occupied area",
   "sectorOccupiedAreaHintText": "eg: 100",
-  "sectorNumberOfPlants": "Number of Plants",
+  "sectorNumberOfPlants": "Number of plants",
   "sectorNumberOfPlantsHintText": "eg: 100",
-  "sectorUnitConsumptionPerHour": "Consumption per Plant (l/h)",
+  "sectorUnitConsumptionPerHour": "Consumption per plant (l/h)",
   "sectorUnitConsumptionPerHourHintText": "eg: 1",
-  "sectorTotalConsumption": "Total Consumption (l/h)",
-  "sectorIrrigationSystem": "Irrigation System",
-  "sectorIrrigationSource": "Irrigation Source",
-  "sectorOnCommand": "On Command",
-  "sectorOnCommandHintText": "eg: 1",
-  "sectorOffCommand": "Off Command",
-  "sectorOffCommandHintText": "eg: 2",
+  "sectorTotalConsumption": "Total consumption (l/h)",
+  "sectorIrrigationSystem": "Irrigation system",
+  "sectorIrrigationSource": "Irrigation source",
   "sectorNotes": "Notes",
-  "sectorConnectedPumps": "Connected Pump",
+  "sectorConnectedPumps": "Connected pump",
   "sectorLastIrrigationEmpty": "Never irrigated",
   "sectorLastIrrigationForTile": "Last irrigated",
   "addSectorPageTitle": "New Sector",
@@ -392,11 +383,11 @@
   "updateCollectorPageTitle": "Update Collector",
   "collectorName": "Collector name",
   "collectorNameHintText": "eg: Collettore Giardino",
-  "collectorFilterName": "Filter (filtro) Name ",
+  "collectorFilterName": "Filter (filtro) name ",
   "collectorFilterNameHintText": "eg: Filtro 1",
   "nSelectedSectors": "{n, plural, =0{0 sectors selected} =1{1 sector selected} other{{n} sectors selected}}",
   "connectSectorToCollectorPageTitle": "Select Sectors",
-  "collectorConnectedSectors": "Connected Sectors",
+  "collectorConnectedSectors": "Connected sectors",
   "noSectorConnectedToCollectorErrorText": "You have to connect at least one sector to this collector",
   "genericConfirmButtonLabel": "Confirm",
   "allSectorsAreConnectedToACollector": "All available sectors have already been connected to a collector",
@@ -456,11 +447,10 @@
   },
   "addNewBoardPageTitle": "New Board",
   "updateBoardPageTitle": "Update Board",
-  "boardName": "Board name",
   "boardNameHintText": "eg: arduino mkr16",
   "boardModel": "Model",
   "boardModelHintText": "eg: MKR 1010",
-  "boardSerialNumber": "Serial Number",
+  "boardSerialNumber": "Serial number",
   "boardSerialNumberHintText": "eg: 123456789",
   "boardConnectedCollector": "Connected Collector",
   "boardConnectedCollectorHintText": "Select a collector",
@@ -473,13 +463,12 @@
   "userProfileDetailsCurrentCompany": "Current company profile",
   "companyProfileMenuTitle": "Company Profile",
   "companyUsersMenuTitle": "My Company Users",
-  "companyName": "Company Name",
   "companyNameHintText": "eg: My Company",
   "companyRegisteredAddress": "Registered office address",
   "companyRegisteredAddressHintText": "eg: 123 Main Street, 12345, City, Country",
-  "companyVatNumber": "VAT Number",
+  "companyVatNumber": "VAT number",
   "companyVatNumberHintText": "eg: 123456789",
-  "companyFiscalCode": "Fiscal Code",
+  "companyFiscalCode": "Fiscal code",
   "companyFiscalCodeHintText": "eg: 123456789",
   "companyEmail": "Email",
   "companyEmailHintText": "eg: email@company.com",
@@ -513,13 +502,13 @@
     }
   },
   "noUsersConnectedWithCompany": "You have no registered users associated with your company",
-  "companyUserFullName": "Full Name",
+  "companyUserFullName": "Full name",
   "companyUserFullNameHintTest": "eg: John Doe",
   "companyUserEmail": "Email",
   "companyUserEmailHintText": "eg: example@example.com",
   "companyUserRole": "Assign a role",
   "companyUserRoleHintText": "Select a role",
-  "companyUserAssignedRoleForDetails": "Assigned Role",
+  "companyUserAssignedRoleForDetails": "Assigned role",
   "companyUserAddedOn": "Added on",
   "companyUserLastUpdated": "Last updated",
   "addNewCompanyUserPageTitle": "New User",
@@ -560,7 +549,7 @@
   "noAccountText": "Don't have an account?",
   "signUpText": "Sign Up",
   "signUpButtonTitle": "Sign Up",
-  "confirmPasswordFormFieldTitle": "Confirm Password",
+  "confirmPasswordFormFieldTitle": "Confirm password",
   "confirmPasswordFormHint": "••••••••",
   "alreadyHaveAnAccountText": "Already have an account?",
   "nameFormFieldTitle": "Name",
@@ -580,5 +569,84 @@
   "mqttTopicNameFormFieldTitle": "Name in MQTT topic",
   "mqttTopicNameFormHint": "alias name in mqtt topic...",
   "switchOn": "Switch On",
-  "switchOff": "Switch Off"
+  "switchOff": "Switch Off",
+  "entityCharacteristics": "Characteristics",
+  "entityStatistics": "Statistics",
+  "yes": "Yes",
+  "no": "No",
+  "mqttOnCommand": "On Command (MQTT)",
+  "mqttOffCommand": "Off Command (MQTT)",
+  "lastFilterInPressure": "Last filter in pressure",
+  "lastFilterOutPressure": "Last filter out pressure",
+  "lastFilterPressureDifference": "Last filter pressure difference",
+  "pressure": "Pressure",
+  "sensorPageTitle": "Sensors",
+  "nSensors": "{n, plural, =1{sensor} =2{sensors} other{sensors}}",
+  "@nSensors": {
+    "description": "The pluralized version of the word 'sensor'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSensorsWithIndefiniteArticle": "{n, plural, =1{a sensor} =2{sensors} other{sensors}}",
+  "@nSensorsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'sensor' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSensorsWithDefiniteArticle": "{n, plural, =1{the sensor} =2{sensors} other{sensors}}",
+  "@nSensorsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'sensor' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nSensorsWithArticulatedPreposition": "{n, plural, =1{the sensor} =2{the sensors} other{the sensors}}",
+  "@nSensorsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'sensor' with an articulated preposition",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "addSensorPageTitle": "New Sensor",
+  "updateSensorPageTitle": "Update Sensor",
+  "airTemperature": "Air Temperature",
+  "airHumidity": "Air Humidity",
+  "lightIntensity": "Light Intensity",
+  "barometricPressure": "Barometric Pressure",
+  "windDirection": "Wind Direction",
+  "windSpeed": "Wind Speed",
+  "rainfallHourly": "Rainfall Hourly",
+  "uvIndex": "UV Index",
+  "deviceEui": "Device EUI",
+  "sensorsMenuTitle": "Sensors",
+  "lastUpdated": "Last updated",
+  "connectedSector": "Connected sector",
+  "sensorNameHintText": "eg: Sensor 1",
+  "sensorEuiHintText": "device unique identifier...",
+  "sensorConnectSectorPageTitle": "Select a sector",
+  "historyPageTitle": "History",
+  "noHistory": "No history",
+  "registerYourCompany": "Register your company",
+  "loginToYourAccount": "Login to your account",
+  "welcomePageIntro": "We're glad to have you here! Please select an option to continue",
+  "or": "or",
+  "companyCreatedSuccessfully": "Your company has been created successfully!"
 }

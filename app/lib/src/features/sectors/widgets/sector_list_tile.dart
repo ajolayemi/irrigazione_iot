@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:irrigazione_iot/src/features/authentication/role_management/data/role_management_repository.dart';
 
-import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
-import 'package:irrigazione_iot/src/constants/app_sizes.dart';
-import 'package:irrigazione_iot/src/constants/breakpoints.dart';
-import 'package:irrigazione_iot/src/features/sectors/model/sector.dart';
-import 'package:irrigazione_iot/src/features/sectors/screen/sector_list/dismiss_sector_controller.dart';
-import 'package:irrigazione_iot/src/features/sectors/screen/sector_switch_controller.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/screens/sector_list/dismiss_sector_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/widgets/sector_list_tile_item.dart';
-import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
-import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
-import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class SectorListTile extends ConsumerWidget {
   const SectorListTile({
@@ -29,16 +22,9 @@ class SectorListTile extends ConsumerWidget {
 
   Future<bool> _dismissSector(BuildContext context, WidgetRef ref) async {
     final loc = context.loc;
-    final askUser = await showAlertDialog(
-          context: context,
-          title: loc.genericAlertDialogTitle,
-          content: loc.deleteConfirmationDialogTitle(
-            loc.nSectorsWithArticulatedPreposition(1),
-          ),
-          defaultActionText: loc.alertDialogDelete,
-          cancelActionText: loc.alertDialogCancel,
-        ) ??
-        false;
+    final askUser = await context.showDismissalDialog(
+      where: loc.nSectorsWithArticulatedPreposition(1),
+    );
     if (!askUser) return false;
     return ref
         .read(dismissSectorControllerProvider.notifier)
@@ -47,32 +33,15 @@ class SectorListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // todo: add sector pressure in the list tile subtitle
-    // todo: irrigation state (manual/automatic)
-    // todo: since when is this sector being irrigated if on
-    // todo: for when program will be available, show countdown for remaining time
-    final globalLoadingState =
-        ref.watch(sectorSwitchControllerProvider).isGlobalLoading;
     final isDeleting = ref.watch(dismissSectorControllerProvider).isLoading;
-    return ResponsiveCenter(
-      padding: const EdgeInsets.only(left: Sizes.p8),
-      maxContentWidth: Breakpoint.tablet,
-      child: InkWell(
-        onTap: globalLoadingState
-            ? null
-            : () => context.goNamed(
-                  AppRoute.sectorDetails.name,
-                  pathParameters: {
-                    'sectorId': sector.id,
-                  },
-                ),
-        child: CustomDismissibleWidget(
-          dismissibleKey: sectorListTileKey(sector),
-          isDeleting: isDeleting,
-          confirmDismiss: (_) async => await _dismissSector(context, ref),
-          child: SectorListTileItem(sector: sector),
-        ),
-      ),
+    final canDelete =
+        ref.watch(userCanDeleteStreamProvider).valueOrNull ?? false;
+    return CustomDismissibleWidget(
+      canDelete: canDelete,
+      dismissibleKey: sectorListTileKey(sector),
+      isDeleting: isDeleting,
+      confirmDismiss: (_) async => await _dismissSector(context, ref),
+      child: SectorListTileItem(sector: sector),
     );
   }
 }

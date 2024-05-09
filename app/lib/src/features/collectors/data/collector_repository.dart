@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/collectors/data/supabase_collector_repository.dart';
-import 'package:irrigazione_iot/src/features/collectors/model/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
@@ -44,7 +44,7 @@ CollectorRepository collectorRepository(CollectorRepositoryRef ref) {
 Stream<List<Collector?>> collectorListStream(CollectorListStreamRef ref) {
   final collectorRepository = ref.read(collectorRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return const Stream.empty();
+  if (companyId == null) return Stream.value([]);
   return collectorRepository.watchCollectors(companyId);
 }
 
@@ -53,7 +53,7 @@ Stream<List<String?>> usedCollectorNamesStream(
     UsedCollectorNamesStreamRef ref) {
   final collectorRepository = ref.read(collectorRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return const Stream.empty();
+  if (companyId == null) return Stream.value([]);
   return collectorRepository.watchCompanyUsedCollectorNames(companyId);
 }
 

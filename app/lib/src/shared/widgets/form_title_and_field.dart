@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
-import 'package:irrigazione_iot/src/utils/extensions.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class FormTitleAndField extends StatelessWidget {
-  const FormTitleAndField(
-      {super.key,
-      required this.fieldKey,
-      required this.fieldTitle,
-      this.fieldController,
-      this.fieldHintText,
-      this.autovalidateMode = AutovalidateMode.onUserInteraction,
-      this.autoCorrect = false,
-      this.keyboardType,
-      this.keyboardAppearance = Brightness.light,
-      this.onEditingComplete,
-      this.inputFormatters,
-      this.validator,
-      this.textInputAction = TextInputAction.next,
-      this.obscureText = false,
-      this.enabled = true,
-      this.maxLines,
-      this.suffixIcon,
-      this.onTap,
-      this.canRequestFocus = true,
-      this.errorText});
+  const FormTitleAndField({
+    super.key,
+    required this.fieldKey,
+    required this.fieldTitle,
+    this.fieldController,
+    this.fieldHintText,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.autoCorrect = false,
+    this.keyboardType,
+    this.keyboardAppearance = Brightness.light,
+    this.onEditingComplete,
+    this.inputFormatters,
+    this.validator,
+    this.textInputAction = TextInputAction.next,
+    this.obscureText = false,
+    this.enabled = true,
+    this.maxLines,
+    this.suffixIcon,
+    this.onTap,
+    this.canRequestFocus = true,
+    this.errorText,
+    this.maxLength,
+  });
 
   final Key fieldKey;
   final String fieldTitle;
@@ -45,6 +47,7 @@ class FormTitleAndField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool canRequestFocus;
   final String? errorText;
+  final int? maxLength;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -78,6 +81,7 @@ class FormTitleAndField extends StatelessWidget {
             onEditingComplete: onEditingComplete,
             inputFormatters: inputFormatters,
             obscureText: obscureText,
+            maxLength: maxLength,
           ),
         ),
       ],
