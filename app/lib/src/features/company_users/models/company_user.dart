@@ -23,7 +23,7 @@ class CompanyUser extends Equatable {
       : id = '',
         email = '',
         fullName = '',
-        role = CompanyUserRoles.user,
+        role = CompanyUserRole.user,
         companyId = '',
         createdAt = null,
         updatedAt = null;
@@ -36,7 +36,7 @@ class CompanyUser extends Equatable {
   @JsonKey(name: CompanyUserDatabaseKeys.fullName)
   final String fullName;
   @JsonKey(name: CompanyUserDatabaseKeys.role)
-  final CompanyUserRoles role;
+  final CompanyUserRole role;
   @JsonKey(name: CompanyUserDatabaseKeys.companyId)
   @IntConverter()
   final String companyId;
@@ -62,7 +62,7 @@ class CompanyUser extends Equatable {
     String? id,
     String? email,
     String? fullName,
-    CompanyUserRoles? role,
+    CompanyUserRole? role,
     String? companyId,
     DateTime? createdAt,
     DateTime? updatedAt,

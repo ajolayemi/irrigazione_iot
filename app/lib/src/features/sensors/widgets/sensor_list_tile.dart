@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/config/enums/roles.dart';
-import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/features/authentication/role_management/data/role_management_repository.dart';
 import 'package:irrigazione_iot/src/features/sensors/models/sensor.dart';
 import 'package:irrigazione_iot/src/features/sensors/screens/sensor_list/dismiss_sensor_controller.dart';
 import 'package:irrigazione_iot/src/features/sensors/widgets/sensor_list_tile_item.dart';
@@ -33,13 +32,10 @@ class SensorListTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDeleting = ref.watch(dismissSensorControllerProvider).isLoading;
-    // TODO: whether user can delete or not should be based (in the first version)
-    // TODO on whether they're superuser or not. This will be changed in the future.
-    // TODO: replace the line below to reflect that
-    final userCanDelete =
-        ref.watch(companyUserRoleProvider).valueOrNull?.canEdit ?? false;
+    final canDelete =
+        ref.watch(userCanDeleteStreamProvider).valueOrNull ?? false;
 
-    if (userCanDelete) {
+    if (canDelete) {
       return CustomDismissibleWidget(
         dismissibleKey: sensorListTileKey(sensor),
         isDeleting: isDeleting,

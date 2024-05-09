@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:irrigazione_iot/src/config/enums/roles.dart';
+
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/features/authentication/role_management/data/role_management_repository.dart';
 import 'package:irrigazione_iot/src/features/company_profile/screens/company_profile_screen_contents.dart';
-import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
-import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_edit_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
-
-
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class CompanyProfileScreen extends ConsumerWidget {
   const CompanyProfileScreen({
@@ -38,18 +36,14 @@ class CompanyProfileScreen extends ConsumerWidget {
           slivers: [
             Consumer(
               builder: (context, ref, child) {
-                final userCanEditCompanyProfile = ref
-                        .watch(companyUserRoleProvider)
-                        .valueOrNull
-                        ?.canEditCompanyProfile ??
-                    false;
+                final canEdit = ref.watch(userCanEditStreamProvider).valueOrNull;
 
                 return AppSliverBar(
                   title: loc.companyProfileMenuTitle,
                   actions: [
                     CommonEditIconButton(
                       onPressed: () => _onTap(context),
-                      alternateIsVisible: userCanEditCompanyProfile,
+                      alternateIsVisible: canEdit,
                     )
                   ],
                 );

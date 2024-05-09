@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/config/enums/roles.dart';
-import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
+import 'package:irrigazione_iot/src/features/authentication/role_management/data/role_management_repository.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_bar_icon_buttons.dart';
 
 class CommonEditIconButton extends ConsumerWidget {
@@ -19,7 +18,7 @@ class CommonEditIconButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final canEdit = ref.watch(companyUserRoleProvider).valueOrNull?.canEdit;
+    final canEdit = ref.watch(userCanEditStreamProvider).valueOrNull ?? false;
     return AppBarIconButton(
       onPressed: onPressed,
       icon: Icons.edit,

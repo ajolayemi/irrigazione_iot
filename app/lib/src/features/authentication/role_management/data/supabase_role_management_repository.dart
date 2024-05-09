@@ -19,7 +19,7 @@ class SupabaseRoleManagementRepository implements RoleManagementRepository {
   String get _superuserTable => SuperuserDatabaseKeys.table;
 
   @override
-  Stream<CompanyUserRoles?> watchUserCompanyRole(
+  Stream<CompanyUserRole?> watchUserCompanyRole(
       String email, String companyId) {
     final usersPertainingToCompany = _supabaseClient.companyUsers.stream(
       primaryKey: [_companyUsersTablePk],

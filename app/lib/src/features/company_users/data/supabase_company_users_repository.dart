@@ -78,7 +78,7 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   }
 
   @override
-  Stream<CompanyUserRoles?> watchCompanyUserRole({
+  Stream<CompanyUserRole?> watchCompanyUserRole({
     required String email,
     required String companyId,
   }) {
