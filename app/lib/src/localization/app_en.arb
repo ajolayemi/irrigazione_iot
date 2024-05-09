@@ -70,7 +70,7 @@
   "alertDialogConfirm": "Confirm",
   "alertDialogDelete": "Delete",
   "genericAlertDialogTitle": "Are you sure?",
-  "pumpStatusLastSwitchedOn": "Last dispensation: {when}",
+  "pumpStatusLastSwitchedOn": "last dispensation {when}",
   "@pumpStatusLastSwitchedOn": {
     "description": "The last time a pump status was switched on",
     "placeholders": {
@@ -153,7 +153,7 @@
       }
     }
   },
-  "sectorLastIrrigation": "Last irrigation: {when}",
+  "sectorLastIrrigation": "last irrigation {when}",
   "@sectorLastIrrigation": {
     "description": "The last time a sector was irrigated",
     "placeholders": {
