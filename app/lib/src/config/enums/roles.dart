@@ -2,10 +2,8 @@ enum CompanyUserRole {
   superuser,
   owner,
   admin,
-  user,
-}
+  user;
 
-extension CompanyUserRolesExtension on CompanyUserRole {
   bool get isSuperuser => this == CompanyUserRole.superuser;
 
   bool get isOwner => this == CompanyUserRole.owner;
@@ -13,6 +11,4 @@ extension CompanyUserRolesExtension on CompanyUserRole {
   bool get isAdmin => this == CompanyUserRole.admin;
 
   bool get isUser => this == CompanyUserRole.user;
-
 }
-
