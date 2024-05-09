@@ -6,12 +6,6 @@ extension StringExtensions on String {
   bool get isGreaterThanZero =>
       double.tryParse(this) != null && double.parse(this) > 0;
 
-  // todo: remove this
-  /// Returns true if the string is a number and is greater than 0
-  /// Mostly used for validating form fields
-  bool valueIsGreaterThanZero() {
-    return double.tryParse(this) != null && double.parse(this) > 0;
-  }
 
   String getUmX(String key) {
     switch (key) {
