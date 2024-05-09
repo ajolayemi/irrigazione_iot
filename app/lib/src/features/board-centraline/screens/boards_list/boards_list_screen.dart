@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
-import 'package:irrigazione_iot/src/features/board-centraline/screens/boards_list/boards_list_tile.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/widgets/boards_list_tile.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screens/boards_list/dismiss_board_controller.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/widgets/empty_board_widget.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
