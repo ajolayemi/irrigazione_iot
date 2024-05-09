@@ -108,7 +108,7 @@ exports.toggleItemStatus = https.onCall(async (req: CallableRequest) => {
       throw new https.HttpsError("internal", "MQTT client is disconnected");
     }
 
-    /// Msgs sent to mqtt aren't raw strings, they are objects
+    // Msgs sent to mqtt aren't raw strings, they are objects
     const messageForMqtt: StatusMessage = {
       name: body.mqttMsgName,
       status: body.message,
