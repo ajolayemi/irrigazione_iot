@@ -35,20 +35,15 @@ class SensorListTile extends ConsumerWidget {
     final canDelete =
         ref.watch(userCanDeleteStreamProvider).valueOrNull ?? false;
 
-    if (canDelete) {
-      return CustomDismissibleWidget(
-        dismissibleKey: sensorListTileKey(sensor),
-        isDeleting: isDeleting,
-        confirmDismiss: (_) async => await _dismissSensor(context, ref),
-        child: SensorListTileItem(
-          sensor: sensor,
-          isDeleting: isDeleting,
-        ),
-      );
-    }
-    return SensorListTileItem(
-      sensor: sensor,
+    return CustomDismissibleWidget(
+      dismissibleKey: sensorListTileKey(sensor),
+      canDelete: canDelete,
       isDeleting: isDeleting,
+      confirmDismiss: (_) async => await _dismissSensor(context, ref),
+      child: SensorListTileItem(
+        sensor: sensor,
+        isDeleting: isDeleting,
+      ),
     );
   }
 }
