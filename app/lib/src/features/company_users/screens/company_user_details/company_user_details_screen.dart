@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/authentication/role_management/data/role_management_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_users_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/screens/company_user_details/company_user_details_screen_contents.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
@@ -35,6 +36,8 @@ class CompanyUserDetailsScreen extends ConsumerWidget {
     final loggedInUser = ref.watch(authRepositoryProvider).currentUser;
     final isMe = loggedInUser != null &&
         loggedInUser.email == companyUser.valueOrNull?.email;
+    final userCanEdit =
+        ref.watch(userCanEditStreamProvider).valueOrNull ?? false;
     final loc = context.loc;
 
     return Scaffold(
@@ -46,8 +49,7 @@ class CompanyUserDetailsScreen extends ConsumerWidget {
               actions: [
                 CommonEditIconButton(
                   onPressed: () => _onTap(context),
-                  alternateIsVisible:
-                      !isMe, // Hide the edit button if the user is viewing their own profile
+                  alternateIsVisible: userCanEdit && !isMe,
                 ),
               ],
             ),
