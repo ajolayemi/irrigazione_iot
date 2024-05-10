@@ -37,7 +37,9 @@ export const processSenseCapData = async (data: any): Promise<void> => {
   const sensor = await getSensorByEui(sensorData.deviceEui);
 
   if (!sensor) {
-    logger.error("Aborting, no sensor found with the provided device eui");
+    logger.error(
+      `Aborting, no sensor found with the provided device eui: ${sensorData.deviceEui}`
+    );
     throw new Error("No sensor found with the provided device eui");
   }
 
@@ -48,7 +50,9 @@ export const processSenseCapData = async (data: any): Promise<void> => {
       sensor_id: sensor.id,
       battery_level: sensorData.battery["Battery(%)"],
     };
-    logger.info("Saving sensor battery data to the database");
+    logger.info(
+      `Saving battery data for sensor named: ${sensor.name} to the database`
+    );
     await insertSensorBatteryData(sensorBattery);
     logger.info("Sensor battery data saved successfully");
   }
@@ -56,7 +60,7 @@ export const processSenseCapData = async (data: any): Promise<void> => {
   // insert measurement data to database
   const sensorMeasurement: TablesInsert<"sensor_measurements"> =
     buildSensorMeasurementData(sensorData, sensor.id);
-  logger.info("Saving sensor measurement data to the database");
+  logger.info(`Saving measurement data for sensor named: ${sensor.name} to the database`);
   await insertSensorMeasurementData(sensorMeasurement);
   logger.info("Sensor measurement data saved successfully");
 };
