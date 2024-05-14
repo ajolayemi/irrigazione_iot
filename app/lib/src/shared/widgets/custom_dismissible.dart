@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// A custom dismissible widget that wraps a child widget with a dismissible widget.
+/// 
 /// If [canDelete] is false, the child widget is returned as is.
 class CustomDismissibleWidget extends StatelessWidget {
   const CustomDismissibleWidget({
