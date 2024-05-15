@@ -17,15 +17,14 @@ class AppSliverBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      centerTitle: true,
       floating: true,
       pinned: true,
       snap: true,
       expandedHeight: expandedHeight ?? 100.0,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.symmetric(
-          vertical: Sizes.p8,
-          horizontal: Sizes.p16,
+          vertical: Sizes.p16,
+          // horizontal: Sizes.p16,
         ),
         title: Text(
           title,
