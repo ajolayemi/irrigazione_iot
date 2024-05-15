@@ -13,7 +13,7 @@ class SectorConnectedSensors extends ConsumerWidget {
         ref.watch(sensorsCountStreamProvider(sectorId)).valueOrNull ?? 0;
     return Badge(
       label: Text(sensorsConnectedToSector.toString()),
-      backgroundColor: Colors.brown,
+      backgroundColor: Colors.blue,
       child: const Icon(Icons.sensors),
     );
   }
