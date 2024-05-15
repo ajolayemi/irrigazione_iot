@@ -4,6 +4,7 @@ import 'package:irrigazione_iot/src/features/sensors/data/sensor_measurement_rep
 import 'package:irrigazione_iot/src/shared/widgets/details_tile_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
+import 'package:timeago_flutter/timeago_flutter.dart';
 
 class SensorDetailsLastUpdateCard extends ConsumerWidget {
   const SensorDetailsLastUpdateCard({super.key, required this.sensorId});
@@ -16,14 +17,29 @@ class SensorDetailsLastUpdateCard extends ConsumerWidget {
     final lastSensorMeasurement = ref.watch(
       lastSensorMeasurementStreamProvider(sensorId),
     );
-    final value = lastSensorMeasurement.valueOrNull;
-    final lastUpdated = context.customFormatDateTime(
-      value?.createdAt,
-      loc.notAvailable,
+    final lastUpdated = lastSensorMeasurement.valueOrNull?.createdAt;
+
+    if (lastUpdated == null) {
+      return ResponsiveDetailsCard(
+        child: DetailTileWidget(
+          title: loc.lastUpdated,
+          subtitle: loc.notAvailable,
+        ),
+      );
+    }
+
+    return Timeago(
+      builder: (_, value) => ResponsiveDetailsCard(
+        child: DetailTileWidget(
+          title: loc.lastUpdated,
+          subtitle: context.customFormatDateTime(
+            timeAgoDateString: value,
+            dateTime: lastUpdated,
+          ),
+        ),
+      ),
+      date: lastUpdated,
+      locale: context.locale,
     );
-    return ResponsiveDetailsCard(child: DetailTileWidget(
-      title: loc.lastUpdated,
-      subtitle: lastUpdated,
-    ));
   }
 }
