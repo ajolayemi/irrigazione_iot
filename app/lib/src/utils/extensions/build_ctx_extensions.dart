@@ -37,10 +37,11 @@ extension BuildContextExtensions on BuildContext {
   }
 
   /// Combines [formatDate] and [timeAgo] to format a [DateTime] object to a string
-  String customFormatDateTime(DateTime? dateTime, String fallbackValue) {
-    if (dateTime == null) return fallbackValue;
-    return '${formatDate(dateTime)} (${timeAgo(dateTime)})';
-  }
+  String customFormatDateTime({
+    required String timeAgoDateString,
+    required DateTime dateTime,
+  }) =>
+      '${formatDate(dateTime)} ($timeAgoDateString)';
 
   /// An alert dialog to display when user is trying to delete an item
   /// such as board, collector, pump and so on.
