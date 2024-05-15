@@ -24,7 +24,7 @@ void main() async {
   // initialize Supabase with the local environment variables
   await Supabase.initialize(
     anonKey: Env.supabaseLocalAnonKey,
-    url: Env.supabaseLocalUrl,
+    url: Env.supabaseLocalUrlForEmulators,
     debug: true,
   );
 
