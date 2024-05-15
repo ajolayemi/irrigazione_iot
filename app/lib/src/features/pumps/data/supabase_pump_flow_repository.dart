@@ -28,7 +28,8 @@ class SupabasePumpFlowRepository implements PumpFlowRepository {
     final stream = _supabaseClient.pumpFlow
         .stream(primaryKey: [PumpFlowDatabaseKeys.id])
         .eq(PumpFlowDatabaseKeys.pumpId, pumpId)
-        .order(PumpFlowDatabaseKeys.createdAt, ascending: false).limit(1);
+        .order(PumpFlowDatabaseKeys.createdAt, ascending: false)
+        .limit(1);
 
     return stream.map((flows) {
       if (flows.isEmpty) return null;
