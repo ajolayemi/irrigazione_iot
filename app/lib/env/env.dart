@@ -12,6 +12,40 @@ part 'env.g.dart';
 
 @Envied(path: '../.env')
 final class Env {
+
+  /// When developing and testing locally using emulators
+  /// the supabase url used has the default localhost and
+  /// port provided by supabase in its documentation
+  static get supabaseLocalUrlForEmulators =>
+      'http://$supabaseDefaultLocalHost:$supabaseLocalDevPort';
+
+  /// When developing and testing locally using a real device
+  /// the localhost for the supabase url is different because
+  /// supabase services such as authentication won't work with
+  /// the default localhost (127.0.0.1) provided by supabase
+  /// in its documentation
+  static get supabaseLocalUrlForRealDevice =>
+      'http://$localhost:$supabaseLocalDevPort';
+
+
+  @EnviedField(
+    varName: 'LOCALHOST',
+    obfuscate: true,
+  )
+  static final String localhost = _Env.localhost;
+
+  @EnviedField(
+    varName: 'SUPABASE_DEFAULT_LOCALHOST',
+    obfuscate: true,
+  )
+  static final String supabaseDefaultLocalHost = _Env.supabaseDefaultLocalHost;
+
+  @EnviedField(
+    varName: 'SUPABASE_LOCAL_DEV_PORT',
+    obfuscate: true,
+  )
+  static final String supabaseLocalDevPort = _Env.supabaseLocalDevPort;
+
   @EnviedField(
       varName: 'SUPABASE_LOCAL_URL',
       obfuscate: true,
