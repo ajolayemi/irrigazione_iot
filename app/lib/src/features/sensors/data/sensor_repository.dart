@@ -30,6 +30,9 @@ abstract class SensorRepository {
   /// Emits the list of already registered sensor EUIs.
   /// This is used in form validation to prevent duplicate sensor EUIs.
   Stream<List<String?>> watchUsedSensorEUIs();
+
+  /// Emits the number of sensors connected to the provided [sectorId]
+  Stream<int> watchSensorsCount(String sectorId);
 }
 
 @Riverpod(keepAlive: true)
@@ -62,4 +65,10 @@ Stream<List<String?>> usedSensorNamesStream(UsedSensorNamesStreamRef ref) {
 Stream<List<String?>> usedSensorEUIsStream(UsedSensorEUIsStreamRef ref) {
   final sensorRepo = ref.watch(sensorRepositoryProvider);
   return sensorRepo.watchUsedSensorEUIs();
+}
+
+@riverpod
+Stream<int> sensorsCountStream(SensorsCountStreamRef ref, String sectorId) {
+  final sensorRepo = ref.watch(sensorRepositoryProvider);
+  return sensorRepo.watchSensorsCount(sectorId);
 }

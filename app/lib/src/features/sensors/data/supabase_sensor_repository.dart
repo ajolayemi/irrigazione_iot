@@ -84,4 +84,12 @@ class SupabaseSensorRepository implements SensorRepository {
           .toList();
     });
   }
+
+  @override
+  Stream<int> watchSensorsCount(String sectorId) {
+    final stream =
+        _supabaseClient.sensorStream.eq(SensorDatabaseKeys.sectorId, sectorId);
+
+    return stream.map((data) => data.length);
+  }
 }
