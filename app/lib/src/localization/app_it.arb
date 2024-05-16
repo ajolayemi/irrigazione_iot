@@ -260,5 +260,14 @@
   "loginToYourAccount": "Accedi al tuo account",
   "welcomePageIntro": "Siamo lieti di darti il benvenuto! Per continuare, seleziona un'opzione",
   "or": "oppure",
-  "companyCreatedSuccessfully": "Azienda creata con successo!"
+  "companyCreatedSuccessfully": "Azienda creata con successo!",
+  "weatherStationPageTitle": "Stazioni Meteo",
+  "nWeatherStations": "{n, plural, =1{stazione meteo} =2{stazioni meteo} other{stazioni meteo}}",
+  "nWeatherStationsWithIndefiniteArticle": "{n, plural, =1{una stazione meteo} =2{delle stazioni meteo} other{delle stazioni meteo}}",
+  "nWeatherStationsWithDefiniteArticle": "{n, plural, =1{la stazione meteo} =2{le stazioni meteo} other{le stazioni meteo}}",
+  "nWeatherStationsWithArticulatedPreposition": "{n, plural, =1{alla stazione meteo} =2{alle stazioni meteo} other {alle stazioni meteo}}",
+  "addWeatherStationPageTitle": "Nuova Stazione Meteo",
+  "updateWeatherStationPageTitle": "Aggiorna Stazione Meteo"
+
+
 }

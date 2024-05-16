@@ -648,5 +648,53 @@
   "loginToYourAccount": "Login to your account",
   "welcomePageIntro": "We're glad to have you here! Please select an option to continue",
   "or": "or",
-  "companyCreatedSuccessfully": "Your company has been created successfully!"
+  "companyCreatedSuccessfully": "Your company has been created successfully!",
+  "weatherStationPageTitle": "Weather Stations",
+  "nWeatherStations": "{n, plural, =1{weather station} =2{weather stations} other{weather stations}}",
+  "@nWeatherStations": {
+    "description": "The pluralized version of the word 'weather station'",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nWeatherStationsWithIndefiniteArticle": "{n, plural, =1{a weather station} =2{weather stations} other{weather stations}}",
+  "@nWeatherStationsWithIndefiniteArticle": {
+    "description": "The pluralized version of the word 'weather station' with an indefinite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nWeatherStationsWithDefiniteArticle": "{n, plural, =1{the weather station} =2{weather stations} other{weather stations}}",
+  "@nWeatherStationsWithDefiniteArticle": {
+    "description": "The pluralized version of the word 'weather station' with a definite article",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "nWeatherStationsWithArticulatedPreposition": "{n, plural, =1{the weather station} =2{the weather stations} other{the weather stations}}",
+  "@nWeatherStationsWithArticulatedPreposition": {
+    "description": "The pluralized version of the word 'weather station' with an articulated preposition",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "addWeatherStationPageTitle": "New Weather Station",
+  "updateWeatherStationPageTitle": "Update Weather Station"
+
 }
