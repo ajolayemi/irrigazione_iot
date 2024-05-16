@@ -43,13 +43,16 @@ class WeatherStationDetailsScreenContents extends StatelessWidget {
           delegate: SliverChildListDelegate.fixed(
             [
               WeatherStationDetailsLastUpdateCard(
-                  weatherStationId: weatherStation.id),
+                weatherStationId: weatherStation.id,
+              ),
               gapH8,
               WeatherStationDetailsCharacteristics(
-                  weatherStation: weatherStation),
+                weatherStation: weatherStation,
+              ),
               gapH8,
               WeatherStationDetailsStatistics(
-                  weatherStationId: weatherStation.id),
+                weatherStationId: weatherStation.id,
+              ),
               gapH48,
             ],
           ),
