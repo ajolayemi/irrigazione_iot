@@ -19,6 +19,10 @@ class PumpDetailsStatistics extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    // TODO: add litres per second, it should replace litres dispensed overtime
+    // TODO: rename Statitics to Status
+
     final loc = context.loc;
     final lastPressure =
         ref.watch(pumpLastPressureStreamProvider(pumpId)).valueOrNull;

@@ -123,7 +123,7 @@
   "pumpNameFormHint": "eg: Pompa Giardino",
   "pumpVolumeCapacityFormFieldTitle": "Volume capacity",
   "pumpVolumeCapacityFormHint": "eg: 1000",
-  "pumpKwFormFieldTitle": "Consumption (kW)",
+  "pumpKwFormFieldTitle": "Power (kW)",
   "pumpKwFormHint": "eg: 50",
   "onCommandFormFieldTitle": "On command",
   "onCommandFormHint": "eg: 1",

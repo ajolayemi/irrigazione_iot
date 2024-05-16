@@ -18,6 +18,7 @@ class SectorTileTitle extends ConsumerWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+        // TODO: this should be fitted to the available space
         Text(sector.name),
         gapW8,
         CommonStatusIndicator(status: isSwitchedOn),

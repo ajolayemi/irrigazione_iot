@@ -7,6 +7,10 @@ import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
 part 'sensor.g.dart';
 
+
+// TODO: tipologia (pressione, )
+
+// TODO: rename to StazioneMeteo (SenseCap data)
 @JsonSerializable()
 class Sensor extends Equatable {
   const Sensor({

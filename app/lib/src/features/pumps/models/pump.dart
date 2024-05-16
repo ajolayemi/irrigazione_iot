@@ -5,7 +5,9 @@ import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // TODO: add pump company
-// TODO: prevalenza, portata,
+// TODO: prevalenza minima e massima (mt), horse power (HP)
+// TODO: serial number
+// TODO: labelImage (store the url for supabase storage) - for the future
 
 part 'pump.g.dart';
 

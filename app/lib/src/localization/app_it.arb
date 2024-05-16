@@ -50,7 +50,7 @@
   "pumpNameFormHint": "es: Pompa Giardino",
   "pumpVolumeCapacityFormFieldTitle": "Portata volumetrica",
   "pumpVolumeCapacityFormHint": "es: 1000",
-  "pumpKwFormFieldTitle": "Consumo energetico (kW)",
+  "pumpKwFormFieldTitle": "Potenza (kW)",
   "pumpKwFormHint": "es: 50",
   "onCommandFormFieldTitle": "Comando di accensione",
   "onCommandFormHint": "es: 1",

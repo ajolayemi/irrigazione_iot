@@ -20,6 +20,14 @@ class SensorStatisticHistoryScreenContents extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // TODO: add notification for max and min values
+    // TODO: the max and min values should be placed at the beginning
+    // TODO: of the list and highlighted in a different color
+    // TODO: they should also be placed in their normal spaces and highlighted as well
+    // TODO: max and min (for temperatura, umidità dell'aria, barometrica)
+    // TODO: max (vento)
+    // TODO: they should be clickable to be able to compare the said value in the 
+    // TODO: same time frame
     final loc = context.loc;
     return CustomScrollView(
       slivers: [

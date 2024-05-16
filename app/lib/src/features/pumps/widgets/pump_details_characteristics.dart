@@ -26,7 +26,7 @@ class PumpDetailsCharacteristics extends ConsumerWidget {
         ResponsiveDetailsCard(
           child: DetailTileWidget(
             title: loc.pumpVolumeCapacityFormFieldTitle,
-            subtitle: '${pump.capacityInVolume.toString()} m³',
+            subtitle: '${pump.capacityInVolume.toString()} l/s',
           ),
         ),
         ResponsiveDetailsCard(

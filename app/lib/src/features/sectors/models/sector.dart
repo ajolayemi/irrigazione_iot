@@ -8,6 +8,13 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'sector.g.dart';
 
+// TODO: Add the following fields
+// TODO: argilla, limo e sabbia (indicated in percentage)
+// TODO: which are terreno types
+// TODO: add checkbox to indicate if a sector can be controlled
+// TODO: if not checked, the sector doesn't have switch
+
+
 @JsonSerializable()
 class Sector extends Equatable {
   const Sector({

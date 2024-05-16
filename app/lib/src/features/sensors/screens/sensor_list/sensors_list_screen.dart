@@ -14,6 +14,9 @@ import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
+// TODO: rename to StazioneMeteo (SenseCap data)
+// TODO: create a separate page for Sensors (sensori di pressione e via dicendo)
+
 // Displays a list of sensors.
 class SensorsListScreen extends ConsumerWidget {
   const SensorsListScreen({super.key});
@@ -23,6 +26,8 @@ class SensorsListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    
     ref.listen(
       dismissSensorControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),

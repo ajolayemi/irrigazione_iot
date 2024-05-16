@@ -34,9 +34,10 @@ class DashboardScreen extends ConsumerWidget {
     final nums = List.from(Iterable.generate(50, (i) => i));
     final user = ref.watch(authRepositoryProvider).currentUser;
 
-    // todo: dashboard screen should keep track of statuses
-    // todo: for example, track if Sector pressure is okay, if collector battery is low, etc
-    // todo: show "filtro" statuses as well
+    // TODO: show terminal pressure as first item
+    // TODO: pumps switched on should be shown in the dashboard
+    // TODO: same goes for sectors with their pressures 
+    
 
     return Scaffold(
       body: CustomScrollView(
