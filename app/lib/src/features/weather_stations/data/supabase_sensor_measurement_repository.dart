@@ -10,7 +10,7 @@ class SupabaseSensorMeasurementRepository
   final SupabaseClient _supabaseClient;
   @override
   Stream<WeatherStationMeasurement?> sensorMeasurementStream(String sensorId) {
-    return _supabaseClient.sensorMeasurements
+    return _supabaseClient.weatherStationMeasurements
         .stream(primaryKey: [WeatherStationMeasurementsDatabaseKeys.id])
         .eq(WeatherStationMeasurementsDatabaseKeys.weatherStationId, sensorId)
         .order(WeatherStationMeasurementsDatabaseKeys.createdAt,

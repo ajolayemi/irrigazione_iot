@@ -10,7 +10,7 @@ class SupabaseSensorBatteryRepository implements SensorBatteryRepository {
 
   @override
   Stream<WeatherStationBattery?> lastSensorBatteryStream(String sensorId) {
-    return _supabaseClient.sensorBatteryData
+    return _supabaseClient.weatherStationBatteryData
         .stream(primaryKey: [WeatherStationBatteryDatabaseKeys.id])
         .eq(WeatherStationBatteryDatabaseKeys.weatherStationId, sensorId)
         .order(WeatherStationBatteryDatabaseKeys.createdAt, ascending: false)

@@ -32,7 +32,7 @@ class SupabaseWeatherStationStatisticHistoryRepository
     String colName, {
     int limit = 30,
   }) {
-    return _supabaseClient.sensorMeasurements
+    return _supabaseClient.weatherStationMeasurements
         .select('$colName, $_createdAt')
         .eq(_sensorId, sensorId)
         .order(_createdAt, ascending: false)

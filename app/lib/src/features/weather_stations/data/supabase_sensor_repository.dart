@@ -52,15 +52,15 @@ class SupabaseSensorRepository implements SensorRepository {
 
   @override
   Stream<WeatherStation?> watchSensor(String id) {
-    final stream =
-        _supabaseClient.sensorStream.eq(WeatherStationDatabaseKeys.id, id);
+    final stream = _supabaseClient.weatherStationStream
+        .eq(WeatherStationDatabaseKeys.id, id);
 
     return stream.map(_sensorFromJsonSingle);
   }
 
   @override
   Stream<List<WeatherStation>?> watchSensors(String companyId) {
-    final stream = _supabaseClient.sensorStream
+    final stream = _supabaseClient.weatherStationStream
         .eq(WeatherStationDatabaseKeys.companyId, companyId);
 
     return stream.map(_sensorsFromJsonList);
@@ -68,7 +68,7 @@ class SupabaseSensorRepository implements SensorRepository {
 
   @override
   Stream<List<String?>> watchUsedSensorNames() {
-    return _supabaseClient.sensorStream.map((data) {
+    return _supabaseClient.weatherStationStream.map((data) {
       return data
           .map((sensor) =>
               sensor[WeatherStationDatabaseKeys.name].toString().toLowerCase())
@@ -78,7 +78,7 @@ class SupabaseSensorRepository implements SensorRepository {
 
   @override
   Stream<List<String?>> watchUsedSensorEUIs() {
-    return _supabaseClient.sensorStream.map((data) {
+    return _supabaseClient.weatherStationStream.map((data) {
       return data
           .map((sensor) =>
               sensor[WeatherStationDatabaseKeys.eui].toString().toLowerCase())
@@ -88,7 +88,7 @@ class SupabaseSensorRepository implements SensorRepository {
 
   @override
   Stream<int> watchSensorsCount(String sectorId) {
-    final stream = _supabaseClient.sensorStream
+    final stream = _supabaseClient.weatherStationStream
         .eq(WeatherStationDatabaseKeys.sectorId, sectorId);
 
     return stream.map((data) => data.length);

@@ -89,15 +89,16 @@ extension SupabaseClientExtensions on SupabaseClient {
         primaryKey: [PumpPressureDatabaseKeys.id],
       );
 
-  SupabaseQueryBuilder get sensors => from(WeatherStationDatabaseKeys.table);
+  SupabaseQueryBuilder get weatherStations =>
+      from(WeatherStationDatabaseKeys.table);
 
-  SupabaseStreamFilterBuilder get sensorStream =>
-      sensors.stream(primaryKey: [WeatherStationDatabaseKeys.id]);
+  SupabaseStreamFilterBuilder get weatherStationStream =>
+      weatherStations.stream(primaryKey: [WeatherStationDatabaseKeys.id]);
 
-  SupabaseQueryBuilder get sensorMeasurements =>
+  SupabaseQueryBuilder get weatherStationMeasurements =>
       from(WeatherStationMeasurementsDatabaseKeys.table);
 
-  SupabaseQueryBuilder get sensorBatteryData =>
+  SupabaseQueryBuilder get weatherStationBatteryData =>
       from(WeatherStationBatteryDatabaseKeys.table);
 
   /// Getter for the current access token
