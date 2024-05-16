@@ -21,7 +21,7 @@ class SensorDetailsStatistics extends ConsumerWidget {
       statisticName: element,
     ).toJson();
     context.pushNamed(
-      AppRoute.sensorStatisticHistory.name,
+      AppRoute.weatherStationStatisticHistory.name,
       queryParameters: queryParams,
       pathParameters: PathParameters(id: sensorId).toJson(),
     );

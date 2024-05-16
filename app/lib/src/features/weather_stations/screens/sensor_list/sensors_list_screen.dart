@@ -22,12 +22,10 @@ class SensorsListScreen extends ConsumerWidget {
   const SensorsListScreen({super.key});
 
   void _onTapAdd(BuildContext context) =>
-      context.pushNamed(AppRoute.addSensor.name);
+      context.pushNamed(AppRoute.addWeatherStation.name);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
-    
     ref.listen(
       dismissSensorControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),

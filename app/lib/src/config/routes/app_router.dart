@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:irrigazione_iot/src/features/welcome/screens/welcome_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
@@ -38,12 +37,13 @@ import 'package:irrigazione_iot/src/features/sectors/screens/add_update_sector/s
 import 'package:irrigazione_iot/src/features/sectors/screens/add_update_sector/select_an_irrigation_system.dart';
 import 'package:irrigazione_iot/src/features/sectors/screens/sector_details/sector_details.dart';
 import 'package:irrigazione_iot/src/features/sectors/screens/sector_list/sectors_list_screen.dart';
+import 'package:irrigazione_iot/src/features/user_profile/screens/user_profile_screen.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/add_update_sensor/add_update_sensor_form.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/add_update_sensor/connect_sector_to_sensor_screen.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/sensor_details/sensor_details_screen.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/sensor_list/sensors_list_screen.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/sensor_stat_history/sensor_statistic_history_screen.dart';
-import 'package:irrigazione_iot/src/features/user_profile/screens/user_profile_screen.dart';
+import 'package:irrigazione_iot/src/features/welcome/screens/welcome_screen.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/utils/extensions/go_router_extension.dart';
@@ -556,16 +556,16 @@ GoRouter goRouter(GoRouterRef ref) {
 
       // Sensors and its sub-routes
       GoRoute(
-        path: AppRoute.sensors.path,
-        name: AppRoute.sensors.name,
+        path: AppRoute.weatherStations.path,
+        name: AppRoute.weatherStations.name,
         pageBuilder: (context, state) => const MaterialPage(
           fullscreenDialog: true,
           child: SensorsListScreen(),
         ),
         routes: [
           GoRoute(
-            path: AppRoute.addSensor.path,
-            name: AppRoute.addSensor.name,
+            path: AppRoute.addWeatherStation.path,
+            name: AppRoute.addWeatherStation.name,
             pageBuilder: (context, state) => const MaterialPage(
               fullscreenDialog: true,
               child: AddUpdateSensorForm(
@@ -574,8 +574,8 @@ GoRouter goRouter(GoRouterRef ref) {
             ),
           ),
           GoRoute(
-              path: AppRoute.sensorDetails.path,
-              name: AppRoute.sensorDetails.name,
+              path: AppRoute.weatherStationDetails.path,
+              name: AppRoute.weatherStationDetails.name,
               pageBuilder: (context, state) {
                 final pathParam = PathParameters.fromJson(state.pathParameters);
                 return MaterialPage(
@@ -587,8 +587,8 @@ GoRouter goRouter(GoRouterRef ref) {
               },
               routes: [
                 GoRoute(
-                    path: AppRoute.sensorStatisticHistory.path,
-                    name: AppRoute.sensorStatisticHistory.name,
+                    path: AppRoute.weatherStationStatisticHistory.path,
+                    name: AppRoute.weatherStationStatisticHistory.name,
                     pageBuilder: (context, state) {
                       return MaterialPage(
                         fullscreenDialog: true,
@@ -601,8 +601,8 @@ GoRouter goRouter(GoRouterRef ref) {
                     })
               ]),
           GoRoute(
-            path: AppRoute.updateSensor.path,
-            name: AppRoute.updateSensor.name,
+            path: AppRoute.updateWeatherStation.path,
+            name: AppRoute.updateWeatherStation.name,
             pageBuilder: (context, state) {
               return MaterialPage(
                 fullscreenDialog: true,
@@ -614,8 +614,8 @@ GoRouter goRouter(GoRouterRef ref) {
             },
           ),
           GoRoute(
-            path: AppRoute.connectSectorToSensor.path,
-            name: AppRoute.connectSectorToSensor.name,
+            path: AppRoute.connectSectorToWeatherStation.path,
+            name: AppRoute.connectSectorToWeatherStation.name,
             pageBuilder: (context, state) {
               final selectedSector = RadioButtonItem(
                 value: state.queryId ?? '',

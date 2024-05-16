@@ -20,7 +20,7 @@ class SensorDetailsScreenContents extends ConsumerWidget {
     final param = PathParameters(id: sensor.id).toJson();
 
     context.pushNamed(
-      AppRoute.updateSensor.name,
+      AppRoute.updateWeatherStation.name,
       pathParameters: param,
     );
   }

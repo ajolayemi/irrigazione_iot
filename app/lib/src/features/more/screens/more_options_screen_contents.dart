@@ -43,7 +43,7 @@ class MoreOptionsScreenContent extends ConsumerWidget {
                     MorePageItemListTile(
                       title: loc.sensorsMenuTitle,
                       onTap: () => context.pushNamed(
-                        AppRoute.sensors.name,
+                        AppRoute.weatherStations.name,
                       ),
                       leadingIcon: Icons.sensors,
                     ),

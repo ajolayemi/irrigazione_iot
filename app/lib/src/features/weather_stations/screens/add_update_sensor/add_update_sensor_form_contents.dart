@@ -103,7 +103,7 @@ class _AddUpdateSensorFormContentsState
       name: _sector,
     ).toJson();
     final selectedSector = await context.pushNamed<RadioButtonItem>(
-      AppRoute.connectSectorToSensor.name,
+      AppRoute.connectSectorToWeatherStation.name,
       queryParameters: queryParam,
     );
 
@@ -260,7 +260,8 @@ class _AddUpdateSensorFormContentsState
                   // device EUI field
                   Consumer(
                     builder: (context, ref, child) {
-                      final usedEuis = ref.watch(usedWeatherStationEUIsStreamProvider);
+                      final usedEuis =
+                          ref.watch(usedWeatherStationEUIsStreamProvider);
                       final values = usedEuis.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
