@@ -1,5 +1,5 @@
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
-import 'package:irrigazione_iot/src/features/sensors/models/sensor_measurements_database_keys.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/sensor_measurements_database_keys.dart';
 
 extension StringExtensions on String {
   /// Returns true if the string is a number and is greater than 0

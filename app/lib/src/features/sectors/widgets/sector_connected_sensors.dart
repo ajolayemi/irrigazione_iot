@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/features/sensors/data/sensor_repository.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/data/sensor_repository.dart';
 
 class SectorConnectedSensors extends ConsumerWidget {
   const SectorConnectedSensors({super.key, required this.sectorId});
