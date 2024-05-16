@@ -36,7 +36,7 @@ class WeatherStationListScreen extends ConsumerWidget {
         child: CustomScrollView(
           slivers: [
             AppSliverBar(
-              title: loc.sensorPageTitle,
+              title: loc.weatherStationPageTitle,
               actions: [
                 CommonAddIconButton(
                   onPressed: () => _onTapAdd(context),
@@ -49,7 +49,7 @@ class WeatherStationListScreen extends ConsumerWidget {
                 if (data == null || data.isEmpty) {
                   return SliverFillRemaining(
                     child: EmptyDataWidget(
-                      message: loc.emptyDataPlaceholder(loc.nSensors(1)),
+                      message: loc.emptyDataPlaceholder(loc.nWeatherStations(1)),
                       buttonText: loc.addNewButtonLabel,
                       onPressed: () => _onTapAdd(context),
                     ),
