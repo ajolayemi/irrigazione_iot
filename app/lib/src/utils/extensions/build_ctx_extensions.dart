@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
@@ -33,7 +34,7 @@ extension BuildContextExtensions on BuildContext {
   /// Helps in formatting a [DateTime] object to a string using built in date formatter
   String formatDate(DateTime? dateTime) {
     if (dateTime == null) return loc.notAvailable;
-    return MaterialLocalizations.of(this).formatShortDate(dateTime);
+    return DateFormat.yMMMd(locale).add_Hm().format(dateTime.toLocal());
   }
 
   /// Combines [formatDate] and [timeAgo] to format a [DateTime] object to a string
