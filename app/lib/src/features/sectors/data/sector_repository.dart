@@ -16,6 +16,9 @@ abstract class SectorRepository {
   /// emits a sector with the given sectorID
   Stream<Sector?> watchSector(String sectorID);
 
+  /// fetches the sector with the given [sectorId]
+  Future<Sector?> getSector(String sectorId);
+
   /// adds a sector
   Future<Sector?> createSector(Sector sector);
 
@@ -56,6 +59,12 @@ Stream<List<Sector?>> sectorListStream(SectorListStreamRef ref) {
 Stream<Sector?> sectorStream(SectorStreamRef ref, String sectorID) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
   return sectorsRepository.watchSector(sectorID);
+}
+
+@riverpod
+Future<Sector?> sectorFuture(SectorFutureRef ref, String sectorID) {
+  final sectorsRepository = ref.read(sectorRepositoryProvider);
+  return sectorsRepository.getSector(sectorID);
 }
 
 @riverpod
