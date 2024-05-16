@@ -1,9 +1,9 @@
 import {commonGetByEui} from "../_utils/commonDatabaseOperations.ts";
 import {TableNames} from "../_utils/tableConstants.ts";
 
-console.log(`Function "get-sensor-by-eui" up and running!`);
+console.log(`Function "get-weather-station-by-eui" up and running!`);
 
-Deno.serve(async (req) => await commonGetByEui(req, TableNames.sensors));
+Deno.serve(async (req) => await commonGetByEui(req, TableNames.weatherStations));
 
 /* To invoke locally:
 
