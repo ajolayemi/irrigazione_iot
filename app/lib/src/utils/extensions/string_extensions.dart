@@ -1,5 +1,5 @@
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor_measurements_database_keys.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_measurements_database_keys.dart';
 
 extension StringExtensions on String {
   /// Returns true if the string is a number and is greater than 0
@@ -14,21 +14,21 @@ extension StringExtensions on String {
 
   String getUmX(String key) {
     switch (key) {
-      case SensorMeasurementsDatabaseKeys.airTemperature:
+      case WeatherStationMeasurementsDatabaseKeys.airTemperature:
         return '°C';
-      case SensorMeasurementsDatabaseKeys.airHumidity:
+      case WeatherStationMeasurementsDatabaseKeys.airHumidity:
         return '% RH';
-      case SensorMeasurementsDatabaseKeys.lightIntensity:
+      case WeatherStationMeasurementsDatabaseKeys.lightIntensity:
         return 'Lux';
-      case SensorMeasurementsDatabaseKeys.uvIndex:
+      case WeatherStationMeasurementsDatabaseKeys.uvIndex:
         return '';
-      case SensorMeasurementsDatabaseKeys.windSpeed:
+      case WeatherStationMeasurementsDatabaseKeys.windSpeed:
         return 'm/s';
-      case SensorMeasurementsDatabaseKeys.windDirection:
+      case WeatherStationMeasurementsDatabaseKeys.windDirection:
         return '°';
-      case SensorMeasurementsDatabaseKeys.rainGauge:
+      case WeatherStationMeasurementsDatabaseKeys.rainGauge:
         return 'mm';
-      case SensorMeasurementsDatabaseKeys.barometricPressure:
+      case WeatherStationMeasurementsDatabaseKeys.barometricPressure:
         return 'Pa';
       default:
         return '';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/authentication/role_management/data/role_management_repository.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/sensor_list/dismiss_sensor_controller.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/widgets/sensor_list_tile_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';

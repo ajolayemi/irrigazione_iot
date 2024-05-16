@@ -1,8 +1,8 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/weather_stations/data/sensor_repository.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor_database_keys.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_database_keys.dart';
 import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
@@ -52,7 +52,8 @@ class SupabaseSensorRepository implements SensorRepository {
 
   @override
   Stream<WeatherStation?> watchSensor(String id) {
-    final stream = _supabaseClient.sensorStream.eq(SensorDatabaseKeys.id, id);
+    final stream =
+        _supabaseClient.sensorStream.eq(WeatherStationDatabaseKeys.id, id);
 
     return stream.map(_sensorFromJsonSingle);
   }
@@ -60,7 +61,7 @@ class SupabaseSensorRepository implements SensorRepository {
   @override
   Stream<List<WeatherStation>?> watchSensors(String companyId) {
     final stream = _supabaseClient.sensorStream
-        .eq(SensorDatabaseKeys.companyId, companyId);
+        .eq(WeatherStationDatabaseKeys.companyId, companyId);
 
     return stream.map(_sensorsFromJsonList);
   }
@@ -70,7 +71,7 @@ class SupabaseSensorRepository implements SensorRepository {
     return _supabaseClient.sensorStream.map((data) {
       return data
           .map((sensor) =>
-              sensor[SensorDatabaseKeys.name].toString().toLowerCase())
+              sensor[WeatherStationDatabaseKeys.name].toString().toLowerCase())
           .toList();
     });
   }
@@ -80,15 +81,15 @@ class SupabaseSensorRepository implements SensorRepository {
     return _supabaseClient.sensorStream.map((data) {
       return data
           .map((sensor) =>
-              sensor[SensorDatabaseKeys.eui].toString().toLowerCase())
+              sensor[WeatherStationDatabaseKeys.eui].toString().toLowerCase())
           .toList();
     });
   }
 
   @override
   Stream<int> watchSensorsCount(String sectorId) {
-    final stream =
-        _supabaseClient.sensorStream.eq(SensorDatabaseKeys.sectorId, sectorId);
+    final stream = _supabaseClient.sensorStream
+        .eq(WeatherStationDatabaseKeys.sectorId, sectorId);
 
     return stream.map((data) => data.length);
   }

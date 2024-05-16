@@ -1,7 +1,7 @@
-class SensorMeasurementsDatabaseKeys {
-  const SensorMeasurementsDatabaseKeys._();
+class WeatherStationMeasurementsDatabaseKeys {
+  const WeatherStationMeasurementsDatabaseKeys._();
 
-  static const String table = 'sensor_measurements';
+  static const String table = 'weather_station_measurements';
   static const String id = 'id';
 
   static const String airTemperature = 'air_temperature';
@@ -13,5 +13,5 @@ class SensorMeasurementsDatabaseKeys {
   static const String rainGauge = 'rain_gauge';
   static const String barometricPressure = 'barometric_pressure';
   static const String createdAt = 'created_at';
-  static const String sensorId = 'sensor_id';
+  static const String weatherStationId = 'weather_station_id';
 }

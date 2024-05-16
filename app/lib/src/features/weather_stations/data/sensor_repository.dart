@@ -2,7 +2,7 @@ import 'package:irrigazione_iot/src/features/company_users/data/selected_company
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/weather_stations/data/supabase_sensor_repository.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'sensor_repository.g.dart';

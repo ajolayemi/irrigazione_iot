@@ -1,6 +1,3 @@
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor_battery_database_keys.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor_database_keys.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor_measurements_database_keys.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/board-centraline/models/board_database_keys.dart';
@@ -20,6 +17,9 @@ import 'package:irrigazione_iot/src/features/sectors/models/sector_pump_database
 import 'package:irrigazione_iot/src/features/sectors/models/sector_status_database_keys.dart';
 import 'package:irrigazione_iot/src/features/specie/models/specie_database_keys.dart';
 import 'package:irrigazione_iot/src/features/variety/models/variety_database_keys.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_battery_database_keys.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_database_keys.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_measurements_database_keys.dart';
 
 extension SupabaseClientExtensions on SupabaseClient {
   SupabaseQueryBuilder get companies => from(CompanyDatabaseKeys.table);
@@ -89,16 +89,16 @@ extension SupabaseClientExtensions on SupabaseClient {
         primaryKey: [PumpPressureDatabaseKeys.id],
       );
 
-  SupabaseQueryBuilder get sensors => from(SensorDatabaseKeys.table);
+  SupabaseQueryBuilder get sensors => from(WeatherStationDatabaseKeys.table);
 
   SupabaseStreamFilterBuilder get sensorStream =>
-      sensors.stream(primaryKey: [SensorDatabaseKeys.id]);
+      sensors.stream(primaryKey: [WeatherStationDatabaseKeys.id]);
 
   SupabaseQueryBuilder get sensorMeasurements =>
-      from(SensorMeasurementsDatabaseKeys.table);
+      from(WeatherStationMeasurementsDatabaseKeys.table);
 
   SupabaseQueryBuilder get sensorBatteryData =>
-      from(SensorBatteryDatabaseKeys.table);
+      from(WeatherStationBatteryDatabaseKeys.table);
 
   /// Getter for the current access token
   String? get accessToken => auth.currentSession?.accessToken;

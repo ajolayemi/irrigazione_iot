@@ -2,14 +2,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor_database_keys.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_database_keys.dart';
 import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
-part 'sensor.g.dart';
+part 'weather_station.g.dart';
 
-// TODO: tipologia (pressione, )
-
-// TODO: rename to StazioneMeteo (SenseCap data)
 @JsonSerializable()
 class WeatherStation extends Equatable {
   const WeatherStation({
@@ -31,27 +28,27 @@ class WeatherStation extends Equatable {
         companyId = '',
         sectorId = '';
 
-  @JsonKey(name: SensorDatabaseKeys.id, includeToJson: false)
+  @JsonKey(name: WeatherStationDatabaseKeys.id, includeToJson: false)
   @IntConverter()
   final String id;
 
-  @JsonKey(name: SensorDatabaseKeys.name)
+  @JsonKey(name: WeatherStationDatabaseKeys.name)
   final String name;
 
-  @JsonKey(name: SensorDatabaseKeys.eui)
+  @JsonKey(name: WeatherStationDatabaseKeys.eui)
   final String eui;
 
-  @JsonKey(name: SensorDatabaseKeys.createdAt)
+  @JsonKey(name: WeatherStationDatabaseKeys.createdAt)
   final DateTime? createdAt;
 
-  @JsonKey(name: SensorDatabaseKeys.updatedAt)
+  @JsonKey(name: WeatherStationDatabaseKeys.updatedAt)
   final DateTime? updatedAt;
 
-  @JsonKey(name: SensorDatabaseKeys.companyId)
+  @JsonKey(name: WeatherStationDatabaseKeys.companyId)
   @IntConverter()
   final String companyId;
 
-  @JsonKey(name: SensorDatabaseKeys.sectorId)
+  @JsonKey(name: WeatherStationDatabaseKeys.sectorId)
   @IntConverter()
   final String sectorId;
 

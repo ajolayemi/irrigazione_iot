@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/widgets/sensor_details_characteristics.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/widgets/sensor_details_last_update_card.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/widgets/sensor_details_statistics.dart';

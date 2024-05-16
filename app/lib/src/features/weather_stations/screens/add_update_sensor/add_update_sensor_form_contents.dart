@@ -8,7 +8,7 @@ import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/data/sensor_repository.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/add_update_sensor/add_update_sensor_controller.dart';
 import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';

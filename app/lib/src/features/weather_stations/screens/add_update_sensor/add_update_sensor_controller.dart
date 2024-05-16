@@ -1,4 +1,4 @@
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/services/add_update_sensor_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

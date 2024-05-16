@@ -1,7 +1,7 @@
-class SensorDatabaseKeys {
-  const SensorDatabaseKeys._();
+class WeatherStationDatabaseKeys {
+  const WeatherStationDatabaseKeys._();
 
-  static const String table = 'sensors';
+  static const String table = 'weather_stations';
   static const String id = 'id';
   static const String name = 'name';
   static const String eui = 'eui';

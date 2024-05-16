@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor_statistic_history.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_statistic_history.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/utils/extensions/string_extensions.dart';
@@ -14,7 +14,7 @@ class SensorStatisticHistoryScreenContents extends ConsumerWidget {
     required this.keyForUm,
   });
 
-  final List<SensorStatisticHistory> histories;
+  final List<WeatherStationStatisticHistory> histories;
   final String keyForUm;
   final String locStatisticName;
 
@@ -26,7 +26,7 @@ class SensorStatisticHistoryScreenContents extends ConsumerWidget {
     // TODO: they should also be placed in their normal spaces and highlighted as well
     // TODO: max and min (for temperatura, umidità dell'aria, barometrica)
     // TODO: max (vento)
-    // TODO: they should be clickable to be able to compare the said value in the 
+    // TODO: they should be clickable to be able to compare the said value in the
     // TODO: same time frame
     final loc = context.loc;
     return CustomScrollView(
@@ -73,7 +73,7 @@ class SensorStatisticHistoryScreenContents extends ConsumerWidget {
                       ),
                       DataCell(
                         Text(
-                         '${e.value} ${keyForUm.getUmX(keyForUm)}',
+                          '${e.value} ${keyForUm.getUmX(keyForUm)}',
                         ),
                       ),
                     ],

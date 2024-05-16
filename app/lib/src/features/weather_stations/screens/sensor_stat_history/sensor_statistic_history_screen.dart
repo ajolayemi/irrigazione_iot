@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor_statistic_history.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor_statistic_history_repository.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_statistic_history.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_statistic_history_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/sensor_stat_history/sensor_statistic_history_screen_contents.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/empty_data_widget.dart';
@@ -37,7 +37,7 @@ class SensorStatisticHistoryScreen extends ConsumerWidget {
         ref.watch(sensorStatisticsFutureProvider(sensorId, columnName));
     return Scaffold(
       body: PaddedSafeArea(
-        child: AsyncValueSliverWidget<List<SensorStatisticHistory>?>(
+        child: AsyncValueSliverWidget<List<WeatherStationStatisticHistory>?>(
           value: statData,
           data: (data) {
             if (data == null || data.isEmpty) {
@@ -47,7 +47,7 @@ class SensorStatisticHistoryScreen extends ConsumerWidget {
                 onPressed: () {},
               );
             }
-        
+
             return SensorStatisticHistoryScreenContents(
               histories: data,
               locStatisticName: statisticName,

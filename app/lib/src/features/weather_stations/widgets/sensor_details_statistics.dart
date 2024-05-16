@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/data/sensor_measurement_repository.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/sensor_measurements_database_keys.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_measurements_database_keys.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/widgets/sensor_details_statistic_tile.dart';
 import 'package:irrigazione_iot/src/shared/models/history_query_params.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
@@ -15,11 +15,7 @@ class SensorDetailsStatistics extends ConsumerWidget {
 
   final String sensorId;
 
-  void _onTap(
-    BuildContext context,
-    String valueToLoad,
-    String element
-  ) {
+  void _onTap(BuildContext context, String valueToLoad, String element) {
     final queryParams = HistoryQueryParameters(
       columnName: valueToLoad,
       statisticName: element,
@@ -44,81 +40,81 @@ class SensorDetailsStatistics extends ConsumerWidget {
       children: [
         SensorDetailsStatisticTile(
           title: loc.airTemperature,
-          subtitle: lastSensorMeasurements?.airTemperature.toString() ,
-          keyForUm: SensorMeasurementsDatabaseKeys.airTemperature ,
+          subtitle: lastSensorMeasurements?.airTemperature.toString(),
+          keyForUm: WeatherStationMeasurementsDatabaseKeys.airTemperature,
           onTap: () => _onTap(
             context,
-            SensorMeasurementsDatabaseKeys.airTemperature,
+            WeatherStationMeasurementsDatabaseKeys.airTemperature,
             loc.airTemperature,
           ),
         ),
         SensorDetailsStatisticTile(
           title: loc.airHumidity,
-          subtitle:lastSensorMeasurements?.airHumidity.toString(),
-          keyForUm: SensorMeasurementsDatabaseKeys.airHumidity,
+          subtitle: lastSensorMeasurements?.airHumidity.toString(),
+          keyForUm: WeatherStationMeasurementsDatabaseKeys.airHumidity,
           onTap: () => _onTap(
             context,
-            SensorMeasurementsDatabaseKeys.airHumidity,
+            WeatherStationMeasurementsDatabaseKeys.airHumidity,
             loc.airHumidity,
           ),
         ),
         SensorDetailsStatisticTile(
           title: loc.lightIntensity,
           subtitle: lastSensorMeasurements?.lightIntensity.toString(),
-          keyForUm: SensorMeasurementsDatabaseKeys.lightIntensity,
+          keyForUm: WeatherStationMeasurementsDatabaseKeys.lightIntensity,
           onTap: () => _onTap(
             context,
-            SensorMeasurementsDatabaseKeys.lightIntensity,
+            WeatherStationMeasurementsDatabaseKeys.lightIntensity,
             loc.lightIntensity,
           ),
         ),
         SensorDetailsStatisticTile(
           title: loc.barometricPressure,
           subtitle: lastSensorMeasurements?.barometricPressure.toString(),
-          keyForUm: SensorMeasurementsDatabaseKeys.barometricPressure,
+          keyForUm: WeatherStationMeasurementsDatabaseKeys.barometricPressure,
           onTap: () => _onTap(
             context,
-            SensorMeasurementsDatabaseKeys.barometricPressure,
+            WeatherStationMeasurementsDatabaseKeys.barometricPressure,
             loc.barometricPressure,
           ),
         ),
         SensorDetailsStatisticTile(
           title: loc.windDirection,
           subtitle: lastSensorMeasurements?.windDirection.toString(),
-          keyForUm: SensorMeasurementsDatabaseKeys.windDirection,
+          keyForUm: WeatherStationMeasurementsDatabaseKeys.windDirection,
           onTap: () => _onTap(
             context,
-            SensorMeasurementsDatabaseKeys.windDirection,
+            WeatherStationMeasurementsDatabaseKeys.windDirection,
             loc.windDirection,
           ),
         ),
         SensorDetailsStatisticTile(
           title: loc.windSpeed,
           subtitle: lastSensorMeasurements?.windSpeed.toString(),
-          keyForUm: SensorMeasurementsDatabaseKeys.windSpeed,
+          keyForUm: WeatherStationMeasurementsDatabaseKeys.windSpeed,
           onTap: () => _onTap(
             context,
-            SensorMeasurementsDatabaseKeys.windSpeed,
+            WeatherStationMeasurementsDatabaseKeys.windSpeed,
             loc.windSpeed,
           ),
         ),
         SensorDetailsStatisticTile(
           title: loc.rainfallHourly,
           subtitle: lastSensorMeasurements?.rainGauge.toString(),
-          keyForUm: SensorMeasurementsDatabaseKeys.rainGauge,
+          keyForUm: WeatherStationMeasurementsDatabaseKeys.rainGauge,
           onTap: () => _onTap(
             context,
-            SensorMeasurementsDatabaseKeys.rainGauge,
+            WeatherStationMeasurementsDatabaseKeys.rainGauge,
             loc.rainfallHourly,
           ),
         ),
         SensorDetailsStatisticTile(
           title: loc.uvIndex,
           subtitle: lastSensorMeasurements?.uvIndex.toString(),
-          keyForUm: SensorMeasurementsDatabaseKeys.uvIndex,
+          keyForUm: WeatherStationMeasurementsDatabaseKeys.uvIndex,
           onTap: () => _onTap(
             context,
-            SensorMeasurementsDatabaseKeys.uvIndex,
+            WeatherStationMeasurementsDatabaseKeys.uvIndex,
             loc.uvIndex,
           ),
         )
