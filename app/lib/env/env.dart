@@ -33,6 +33,7 @@ final class Env {
     obfuscate: true,
   )
   static final String localhost = _Env.localhost;
+  
 
   @EnviedField(
     varName: 'SUPABASE_DEFAULT_LOCALHOST',
