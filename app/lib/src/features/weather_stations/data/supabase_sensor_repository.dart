@@ -10,16 +10,16 @@ class SupabaseSensorRepository implements SensorRepository {
   const SupabaseSensorRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
-  List<Sensor>? _sensorsFromJsonList(List<Map<String, dynamic>> data) {
-    return data.map((sensor) => Sensor.fromJson(sensor)).toList();
+  List<WeatherStation>? _sensorsFromJsonList(List<Map<String, dynamic>> data) {
+    return data.map((sensor) => WeatherStation.fromJson(sensor)).toList();
   }
 
-  Sensor? _sensorFromJsonSingle(List<Map<String, dynamic>> data) {
-    return data.isEmpty ? null : Sensor.fromJson(data.first);
+  WeatherStation? _sensorFromJsonSingle(List<Map<String, dynamic>> data) {
+    return data.isEmpty ? null : WeatherStation.fromJson(data.first);
   }
 
   @override
-  Future<Sensor?> createSensor(Sensor sensor) async {
+  Future<WeatherStation?> createSensor(WeatherStation sensor) async {
     final data = sensor
         .copyWith(
           createdAt: DateTime.now(),
@@ -28,17 +28,17 @@ class SupabaseSensorRepository implements SensorRepository {
         .toJson();
     final res = await _supabaseClient.invokeFunction(
         functionName: 'insert-sensor', body: InsertBody(data: data).toJson());
-    return res.toObject<Sensor>(Sensor.fromJson);
+    return res.toObject<WeatherStation>(WeatherStation.fromJson);
   }
 
   @override
-  Future<Sensor?> updateSensor(Sensor sensor) async {
+  Future<WeatherStation?> updateSensor(WeatherStation sensor) async {
     final data = sensor.copyWith(updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'update-sensor',
       body: UpdateBody(id: sensor.id, data: data).toJson(),
     );
-    return res.toObject<Sensor>(Sensor.fromJson);
+    return res.toObject<WeatherStation>(WeatherStation.fromJson);
   }
 
   @override
@@ -51,14 +51,14 @@ class SupabaseSensorRepository implements SensorRepository {
   }
 
   @override
-  Stream<Sensor?> watchSensor(String id) {
+  Stream<WeatherStation?> watchSensor(String id) {
     final stream = _supabaseClient.sensorStream.eq(SensorDatabaseKeys.id, id);
 
     return stream.map(_sensorFromJsonSingle);
   }
 
   @override
-  Stream<List<Sensor>?> watchSensors(String companyId) {
+  Stream<List<WeatherStation>?> watchSensors(String companyId) {
     final stream = _supabaseClient.sensorStream
         .eq(SensorDatabaseKeys.companyId, companyId);
 

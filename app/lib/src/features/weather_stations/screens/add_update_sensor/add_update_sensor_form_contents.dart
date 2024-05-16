@@ -58,7 +58,7 @@ class _AddUpdateSensorFormContentsState
   static const _euiKey = Key('sensorEUIField');
   static const _sensorSectorKey = Key('sensorSelectedSensorField');
 
-  Sensor? _initialSensor = const Sensor.empty();
+  WeatherStation? _initialSensor = const WeatherStation.empty();
 
   RadioButtonItem? _radioButtonSelectedSector;
 

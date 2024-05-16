@@ -7,13 +7,12 @@ import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
 part 'sensor.g.dart';
 
-
 // TODO: tipologia (pressione, )
 
 // TODO: rename to StazioneMeteo (SenseCap data)
 @JsonSerializable()
-class Sensor extends Equatable {
-  const Sensor({
+class WeatherStation extends Equatable {
+  const WeatherStation({
     required this.id,
     required this.name,
     required this.eui,
@@ -23,7 +22,7 @@ class Sensor extends Equatable {
     required this.sectorId,
   });
 
-  const Sensor.empty()
+  const WeatherStation.empty()
       : id = '',
         name = '',
         eui = '',
@@ -69,11 +68,12 @@ class Sensor extends Equatable {
     ];
   }
 
-  factory Sensor.fromJson(Map<String, dynamic> json) => _$SensorFromJson(json);
+  factory WeatherStation.fromJson(Map<String, dynamic> json) =>
+      _$WeatherStationFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SensorToJson(this);
+  Map<String, dynamic> toJson() => _$WeatherStationToJson(this);
 
-  Sensor copyWith({
+  WeatherStation copyWith({
     String? id,
     String? name,
     String? eui,
@@ -82,7 +82,7 @@ class Sensor extends Equatable {
     String? companyId,
     String? sectorId,
   }) {
-    return Sensor(
+    return WeatherStation(
       id: id ?? this.id,
       name: name ?? this.name,
       eui: eui ?? this.eui,

@@ -14,9 +14,9 @@ class SensorListTile extends ConsumerWidget {
     required this.sensor,
   });
 
-  final Sensor sensor;
+  final WeatherStation sensor;
 
-  static Key sensorListTileKey(Sensor sensor) =>
+  static Key sensorListTileKey(WeatherStation sensor) =>
       Key('sensorListTileKey_${sensor.id}');
 
   Future<bool> _dismissSensor(BuildContext context, WidgetRef ref) async {

@@ -15,13 +15,12 @@ class SensorListTileItem extends StatelessWidget {
     required this.isDeleting,
   });
 
-  final Sensor sensor;
+  final WeatherStation sensor;
   final bool isDeleting;
 
-  void _onTap(BuildContext context) => context.pushNamed(
-        AppRoute.sensorDetails.name,
-        pathParameters: PathParameters(id: sensor.id).toJson()
-      );
+  void _onTap(BuildContext context) =>
+      context.pushNamed(AppRoute.sensorDetails.name,
+          pathParameters: PathParameters(id: sensor.id).toJson());
 
   @override
   Widget build(BuildContext context) {

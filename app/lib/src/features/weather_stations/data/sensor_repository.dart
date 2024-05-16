@@ -8,25 +8,25 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'sensor_repository.g.dart';
 
 abstract class SensorRepository {
-  /// Creates a new [Sensor].
-  Future<Sensor?> createSensor(Sensor sensor);
+  /// Creates a new [WeatherStation].
+  Future<WeatherStation?> createSensor(WeatherStation sensor);
 
-  /// Updates an existing [Sensor].
-  Future<Sensor?> updateSensor(Sensor sensor);
+  /// Updates an existing [WeatherStation].
+  Future<WeatherStation?> updateSensor(WeatherStation sensor);
 
-  /// Deletes an existing [Sensor].
+  /// Deletes an existing [WeatherStation].
   Future<bool> deleteSensor(String sensorId);
 
-  /// Emits all available [Sensor]s for the given [companyId].
-  Stream<List<Sensor>?> watchSensors(String companyId);
+  /// Emits all available [WeatherStation]s for the given [companyId].
+  Stream<List<WeatherStation>?> watchSensors(String companyId);
 
-  /// Emits the [Sensor] with the given [id].
-  Stream<Sensor?> watchSensor(String id);
+  /// Emits the [WeatherStation] with the given [id].
+  Stream<WeatherStation?> watchSensor(String id);
 
   /// Emits a list of already used sensor names.
   /// This is used in form validation to prevent duplicate sensor names.
   Stream<List<String?>> watchUsedSensorNames();
-  
+
   /// Emits the list of already registered sensor EUIs.
   /// This is used in form validation to prevent duplicate sensor EUIs.
   Stream<List<String?>> watchUsedSensorEUIs();
@@ -42,13 +42,13 @@ SensorRepository sensorRepository(SensorRepositoryRef ref) {
 }
 
 @riverpod
-Stream<Sensor?> sensorStream(SensorStreamRef ref, String id) {
+Stream<WeatherStation?> sensorStream(SensorStreamRef ref, String id) {
   final sensorRepo = ref.watch(sensorRepositoryProvider);
   return sensorRepo.watchSensor(id);
 }
 
 @riverpod
-Stream<List<Sensor>?> sensorsStream(SensorsStreamRef ref) {
+Stream<List<WeatherStation>?> sensorsStream(SensorsStreamRef ref) {
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return Stream.value([]);
   final sensorRepo = ref.watch(sensorRepositoryProvider);

@@ -14,7 +14,7 @@ import 'package:irrigazione_iot/src/shared/widgets/common_edit_icon_button.dart'
 class SensorDetailsScreenContents extends ConsumerWidget {
   const SensorDetailsScreenContents({super.key, required this.sensor});
 
-  final Sensor sensor;
+  final WeatherStation sensor;
 
   void _onTapEdit(BuildContext context) {
     final param = PathParameters(id: sensor.id).toJson();

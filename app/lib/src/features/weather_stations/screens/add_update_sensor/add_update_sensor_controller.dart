@@ -9,7 +9,7 @@ class AddUpdateSensorController extends _$AddUpdateSensorController {
   @override
   FutureOr<void> build() {}
 
-  Future<bool> createSensor(Sensor? sensor) async {
+  Future<bool> createSensor(WeatherStation? sensor) async {
     final service = ref.read(addUpdateSensorServiceProvider);
     state = const AsyncLoading();
     if (sensor == null) {
@@ -21,7 +21,7 @@ class AddUpdateSensorController extends _$AddUpdateSensorController {
     return !state.hasError;
   }
 
-  Future<bool> updateSensor(Sensor? sensor) async {
+  Future<bool> updateSensor(WeatherStation? sensor) async {
     final service = ref.read(addUpdateSensorServiceProvider);
     state = const AsyncLoading();
     if (sensor == null) {

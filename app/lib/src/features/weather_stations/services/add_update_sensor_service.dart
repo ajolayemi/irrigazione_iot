@@ -12,7 +12,7 @@ class AddUpdateSensorService {
   const AddUpdateSensorService(this._ref);
   final Ref _ref;
 
-  Future<void> createSensor(Sensor sensor) async {
+  Future<void> createSensor(WeatherStation sensor) async {
     final user = _ref.read(authRepositoryProvider).currentUser;
 
     if (user == null) {
@@ -42,7 +42,7 @@ class AddUpdateSensorService {
     debugPrint('Created sensor: ${createdSensor?.toJson()}');
   }
 
-  Future<void> updateSensor(Sensor sensor) async {
+  Future<void> updateSensor(WeatherStation sensor) async {
     final user = _ref.read(authRepositoryProvider).currentUser;
 
     if (user == null) {

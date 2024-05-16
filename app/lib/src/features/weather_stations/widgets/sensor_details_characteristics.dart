@@ -10,7 +10,7 @@ import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 class SensorDetailsCharacteristics extends ConsumerWidget {
   const SensorDetailsCharacteristics({super.key, required this.sensor});
 
-  final Sensor sensor;
+  final WeatherStation sensor;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,7 +30,8 @@ class SensorDetailsCharacteristics extends ConsumerWidget {
             final sectorConnected =
                 ref.watch(sectorStreamProvider(sensor.sectorId));
             final value = sectorConnected.valueOrNull;
-            return ResponsiveDetailsCard(child: DetailTileWidget(
+            return ResponsiveDetailsCard(
+                child: DetailTileWidget(
               title: loc.connectedSector,
               subtitle: value?.name ?? loc.notAvailable,
             ));
