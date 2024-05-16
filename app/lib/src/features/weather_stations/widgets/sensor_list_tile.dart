@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/authentication/role_management/data/role_management_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/screens/sensor_list/dismiss_sensor_controller.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/screens/weather_station_list/dismiss_weather_station_controller.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/widgets/sensor_list_tile_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
@@ -23,7 +23,7 @@ class SensorListTile extends ConsumerWidget {
     final where = context.loc.nSensorsWithArticulatedPreposition(1);
     if (await context.showDismissalDialog(where: where)) {
       return await ref
-          .read(dismissSensorControllerProvider.notifier)
+          .read(dismissWeatherStationControllerProvider.notifier)
           .confirmDismiss(sensor.id);
     }
     return false;
@@ -31,7 +31,7 @@ class SensorListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDeleting = ref.watch(dismissSensorControllerProvider).isLoading;
+    final isDeleting = ref.watch(dismissWeatherStationControllerProvider).isLoading;
     final canDelete =
         ref.watch(userCanDeleteStreamProvider).valueOrNull ?? false;
 

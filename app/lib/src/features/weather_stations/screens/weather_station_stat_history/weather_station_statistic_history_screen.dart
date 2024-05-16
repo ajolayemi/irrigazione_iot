@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_statistic_history.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_statistic_history_repository.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/screens/sensor_stat_history/sensor_statistic_history_screen_contents.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/screens/weather_station_stat_history/weather_station_statistic_history_screen_contents.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/empty_data_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
-/// Displays the history of a sensor's statistics.
+/// Displays the history of a weather station's statistics.
 /// For example, air temperature, air humidity, light intensity, barometric pressure, etc
-class SensorStatisticHistoryScreen extends ConsumerWidget {
-  const SensorStatisticHistoryScreen({
+class WeatherStationStatisticHistoryScreen extends ConsumerWidget {
+  const WeatherStationStatisticHistoryScreen({
     super.key,
     required this.columnName,
     required this.statisticName,
-    required this.sensorId,
+    required this.weatherStationId,
   });
 
   /// The column name of the statistic to display, i.e the name
@@ -27,14 +27,14 @@ class SensorStatisticHistoryScreen extends ConsumerWidget {
   /// viewing
   final String statisticName;
 
-  /// The name of the sensor whose statistic history is currently being displayed
-  final String sensorId;
+  /// The id of the weather station whose statistic history is currently being displayed
+  final String weatherStationId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final statData =
-        ref.watch(weatherStationStatisticsFutureProvider(sensorId, columnName));
+    final statData = ref.watch(
+        weatherStationStatisticsFutureProvider(weatherStationId, columnName));
     return Scaffold(
       body: PaddedSafeArea(
         child: AsyncValueSliverWidget<List<WeatherStationStatisticHistory>?>(
@@ -48,7 +48,7 @@ class SensorStatisticHistoryScreen extends ConsumerWidget {
               );
             }
 
-            return SensorStatisticHistoryScreenContents(
+            return WeatherStationStatisticHistoryScreenContents(
               histories: data,
               locStatisticName: statisticName,
               keyForUm: columnName,

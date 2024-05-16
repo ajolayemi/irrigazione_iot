@@ -40,9 +40,9 @@ import 'package:irrigazione_iot/src/features/sectors/screens/sector_list/sectors
 import 'package:irrigazione_iot/src/features/user_profile/screens/user_profile_screen.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/add_update_weather_station/add_update_weather_station_form.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/add_update_weather_station/connect_sector_to_weather_station_screen.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/screens/sensor_details/sensor_details_screen.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/screens/sensor_list/sensors_list_screen.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/screens/sensor_stat_history/sensor_statistic_history_screen.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/screens/weather_station_details/weatther_station_details_screen.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/screens/weather_station_list/sensors_list_screen.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/screens/weather_station_stat_history/weather_station_statistic_history_screen.dart';
 import 'package:irrigazione_iot/src/features/welcome/screens/welcome_screen.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
@@ -580,8 +580,8 @@ GoRouter goRouter(GoRouterRef ref) {
                 final pathParam = PathParameters.fromJson(state.pathParameters);
                 return MaterialPage(
                   fullscreenDialog: true,
-                  child: SensorDetailsScreen(
-                    sensorId: pathParam.id,
+                  child: WeatherStationDetailsScreen(
+                    weatherStationId: pathParam.id,
                   ),
                 );
               },
@@ -592,10 +592,10 @@ GoRouter goRouter(GoRouterRef ref) {
                     pageBuilder: (context, state) {
                       return MaterialPage(
                         fullscreenDialog: true,
-                        child: SensorStatisticHistoryScreen(
+                        child: WeatherStationStatisticHistoryScreen(
                           columnName: state.historyQueryColName,
                           statisticName: state.historyQueryStatisticName,
-                          sensorId: state.pathId,
+                          weatherStationId: state.pathId,
                         ),
                       );
                     })

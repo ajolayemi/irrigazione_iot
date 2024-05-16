@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
@@ -11,13 +10,16 @@ import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_edit_icon_button.dart';
 
-class SensorDetailsScreenContents extends ConsumerWidget {
-  const SensorDetailsScreenContents({super.key, required this.sensor});
+class WeatherStationDetailsScreenContents extends StatelessWidget {
+  const WeatherStationDetailsScreenContents({
+    super.key,
+    required this.weatherStation,
+  });
 
-  final WeatherStation sensor;
+  final WeatherStation weatherStation;
 
   void _onTapEdit(BuildContext context) {
-    final param = PathParameters(id: sensor.id).toJson();
+    final param = PathParameters(id: weatherStation.id).toJson();
 
     context.pushNamed(
       AppRoute.updateWeatherStation.name,
@@ -26,11 +28,11 @@ class SensorDetailsScreenContents extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
         AppSliverBar(
-          title: sensor.name,
+          title: weatherStation.name,
           actions: [
             CommonEditIconButton(
               onPressed: () => _onTapEdit(context),
@@ -40,11 +42,11 @@ class SensorDetailsScreenContents extends ConsumerWidget {
         SliverList(
           delegate: SliverChildListDelegate.fixed(
             [
-              SensorDetailsLastUpdateCard(sensorId: sensor.id),
+              SensorDetailsLastUpdateCard(sensorId: weatherStation.id),
               gapH8,
-              SensorDetailsCharacteristics(sensor: sensor),
+              SensorDetailsCharacteristics(sensor: weatherStation),
               gapH8,
-              SensorDetailsStatistics(sensorId: sensor.id),
+              SensorDetailsStatistics(sensorId: weatherStation.id),
               gapH48,
             ],
           ),

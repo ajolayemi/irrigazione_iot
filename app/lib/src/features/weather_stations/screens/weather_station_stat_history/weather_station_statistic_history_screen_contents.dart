@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_statistic_history.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/utils/extensions/string_extensions.dart';
 
-class SensorStatisticHistoryScreenContents extends ConsumerWidget {
-  const SensorStatisticHistoryScreenContents({
+class WeatherStationStatisticHistoryScreenContents extends StatelessWidget {
+  const WeatherStationStatisticHistoryScreenContents({
     super.key,
     required this.histories,
     required this.locStatisticName,
@@ -19,7 +18,7 @@ class SensorStatisticHistoryScreenContents extends ConsumerWidget {
   final String locStatisticName;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     // TODO: add notification for max and min values
     // TODO: the max and min values should be placed at the beginning
     // TODO: of the list and highlighted in a different color
