@@ -67,19 +67,19 @@ export interface HttpCallableReqBody {
   isPump?: boolean;
 }
 
-export interface SensorMeasurementData {
+export interface WeatherStationMeasurementData {
   measurementId: string;
   measurementValue: number;
   type: string;
 }
 
-export interface SensorBatteryData {
+export interface WeatherStationBatteryData {
   "Battery(%)": number;
 }
 export interface SenseCapSensorData {
   receivedAt: string;
   valid: boolean;
   deviceEui: string;
-  measurements: SensorMeasurementData[];
-  battery?: SensorBatteryData;
+  measurements: WeatherStationMeasurementData[];
+  battery?: WeatherStationBatteryData;
 }

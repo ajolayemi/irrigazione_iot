@@ -1,14 +1,14 @@
 import {logger} from "firebase-functions/v2";
 import {TablesInsert} from "../../schemas/database.types";
 import {
-  insertSensorBatteryData,
-  insertSensorMeasurementData,
-} from "../database/sensors/insert_sensor_data";
-import {getSensorByEui} from "../database/sensors/read_sensor_data";
+  insertWeatherStationBatteryData,
+  insertWeatherStationMeasurementData,
+} from "../database/weather_station/insert_weather_station_data";
+import {getWeatherStationByEui} from "../database/weather_station/read_weather_station_data";
 import {
   SenseCapSensorData,
-  SensorBatteryData,
-  SensorMeasurementData,
+  WeatherStationBatteryData,
+  WeatherStationMeasurementData,
 } from "../interfaces/interfaces";
 
 /**
@@ -26,84 +26,84 @@ export const processSenseCapData = async (data: any): Promise<void> => {
   // }
 
   // Get the necessary data from the result
-  const sensorData = getMeasurementsAndBatteryData(data);
+  const stationData = getMeasurementsAndBatteryData(data);
 
-  if (!sensorData.valid) {
-    logger.error("Aborting, the sensor data is not valid");
-    throw new Error("The sensor data is not valid");
+  if (!stationData.valid) {
+    logger.error("Aborting, the provided data is not valid");
+    throw new Error("The provided data is not valid");
   }
 
-  // Get the sensor with the provided device eui
-  const sensor = await getSensorByEui(sensorData.deviceEui);
+  // Get the station with the provided device eui
+  const station = await getWeatherStationByEui(stationData.deviceEui);
 
-  if (!sensor) {
+  if (!station) {
     logger.error(
-      `Aborting, no sensor found with the provided device eui: ${sensorData.deviceEui}`
+      `Aborting, no station found with the provided device eui: ${stationData.deviceEui}`
     );
-    throw new Error("No sensor found with the provided device eui");
+    throw new Error("No station found with the provided device eui");
   }
 
   // if battery data is available, insert battery data to database
-  if (sensorData.battery) {
-    const sensorBattery: TablesInsert<"sensor_battery_data"> = {
+  if (stationData.battery) {
+    const sensorBattery: TablesInsert<"weather_station_battery_data"> = {
       created_at: new Date().toISOString(),
-      sensor_id: sensor.id,
-      battery_level: sensorData.battery["Battery(%)"],
+      weather_station_id: station.id,
+      battery_level: stationData.battery["Battery(%)"],
     };
     logger.info(
-      `Saving battery data for sensor named: ${sensor.name} to the database`
+      `Saving battery data for station named: ${station.name} to the database`
     );
-    await insertSensorBatteryData(sensorBattery);
-    logger.info("Sensor battery data saved successfully");
+    await insertWeatherStationBatteryData(sensorBattery);
+    logger.info("Station battery data saved successfully");
   }
 
   // insert measurement data to database
-  const sensorMeasurement: TablesInsert<"sensor_measurements"> =
-    buildSensorMeasurementData(sensorData, sensor.id);
-  logger.info(`Saving measurement data for sensor named: ${sensor.name} to the database`);
-  await insertSensorMeasurementData(sensorMeasurement);
-  logger.info("Sensor measurement data saved successfully");
+  const weatherStationMeasurement: TablesInsert<"weather_station_measurements"> =
+    buildWeatherStationMeasurementData(stationData, station.id);
+  logger.info(`Saving measurement data for station named: ${station.name} to the database`);
+  await insertWeatherStationMeasurementData(weatherStationMeasurement);
+  logger.info("Station measurement data saved successfully");
 };
 
 /**
- * Builds the sensor measurement data to insert into the database
- * @param {SenseCapSensorData} data The sensor data to build the sensor measurement data from
- * @param {number} sensorId The sensor id to associate the sensor measurement data with
- * @return {TablesInsert<"sensor_measurements">}  The sensor measurement data
+ * Builds the weather station measurement data to insert into the database
+ * @param {SenseCapSensorData} data The weather station data to build from
+ * @param {number} weatherStationId The weather station id to associate the data with
+ * @return {TablesInsert<"sensor_measurements">}  The weather station measurement data
  */
-const buildSensorMeasurementData = (
+const buildWeatherStationMeasurementData = (
   data: SenseCapSensorData,
-  sensorId: number
-): TablesInsert<"sensor_measurements"> => {
-  const measurements: SensorMeasurementData[] = data.measurements;
+  weatherStationId: number
+): TablesInsert<"weather_station_measurements"> => {
+  const measurements: WeatherStationMeasurementData[] = data.measurements;
   return {
     created_at: data.receivedAt,
-    sensor_id: sensorId,
-    air_temperature: filterSensorMeasurements(measurements, "air_temperature"),
-    air_humidity: filterSensorMeasurements(measurements, "air_humidity"),
-    light_intensity: filterSensorMeasurements(measurements, "light_intensity"),
-    uv_index: filterSensorMeasurements(measurements, "uv_index"),
-    wind_direction_sensor: filterSensorMeasurements(
+    weather_station_id: weatherStationId,
+    air_temperature: filterWeatherStationMeasurements(measurements, "air_temperature"),
+    air_humidity: filterWeatherStationMeasurements(measurements, "air_humidity"),
+    light_intensity: filterWeatherStationMeasurements(measurements, "light_intensity"),
+    uv_index: filterWeatherStationMeasurements(measurements, "uv_index"),
+    wind_direction_sensor: filterWeatherStationMeasurements(
       measurements,
       "wind_direction_sensor"
     ),
-    wind_speed: filterSensorMeasurements(measurements, "wind_speed"),
-    barometric_pressure: filterSensorMeasurements(
+    wind_speed: filterWeatherStationMeasurements(measurements, "wind_speed"),
+    barometric_pressure: filterWeatherStationMeasurements(
       measurements,
       "barometric_pressure"
     ),
-    rain_gauge: filterSensorMeasurements(measurements, "rain_gauge"),
+    rain_gauge: filterWeatherStationMeasurements(measurements, "rain_gauge"),
   };
 };
 
 /**
- * Filters the sensor measurements based on the key provided
- * @param {SensorMeasurementData[]} measurements The measurements to filter
+ * Filters the weather station measurements based on the key provided
+ * @param {WeatherStationMeasurementData[]} measurements The measurements to filter
  * @param {string} keyToFilter The key to filter the measurements by
- * @return {number} The filtered sensor measurements
+ * @return {number} The filtered weather station measurements
  */
-const filterSensorMeasurements = (
-  measurements: SensorMeasurementData[],
+const filterWeatherStationMeasurements = (
+  measurements: WeatherStationMeasurementData[],
   keyToFilter: string
 ): number => {
   const filtered = measurements.filter((measurement) =>
@@ -130,13 +130,13 @@ const getMeasurementsAndBatteryData = (result: any): SenseCapSensorData => {
   const decodedPayload = getDecodedPayloadMsg(result);
   const deviceEui = getDeviceEui(result);
 
-  const measurements: SensorMeasurementData[] = [];
-  let battery: SensorBatteryData | undefined;
+  const measurements: WeatherStationMeasurementData[] = [];
+  let battery: WeatherStationBatteryData | undefined;
 
   // Loop through the decoded payload
   for (let i = 0; i < decodedPayload.length; i++) {
     const item = decodedPayload[i];
-    const toMeasurement: SensorMeasurementData = item;
+    const toMeasurement: WeatherStationMeasurementData = item;
     if (toMeasurement.measurementId === undefined) {
       battery = item;
       continue;
