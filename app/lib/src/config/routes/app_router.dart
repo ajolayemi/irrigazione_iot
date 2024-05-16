@@ -560,7 +560,7 @@ GoRouter goRouter(GoRouterRef ref) {
         name: AppRoute.weatherStations.name,
         pageBuilder: (context, state) => const MaterialPage(
           fullscreenDialog: true,
-          child: SensorsListScreen(),
+          child: WeatherStationListScreen(),
         ),
         routes: [
           GoRoute(

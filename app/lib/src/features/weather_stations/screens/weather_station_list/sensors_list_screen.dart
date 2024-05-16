@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_repository.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/weather_station_list/dismiss_weather_station_controller.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/widgets/weather_station_list_tile.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
@@ -14,12 +15,9 @@ import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
-// TODO: rename to StazioneMeteo (SenseCap data)
-// TODO: create a separate page for Sensors (sensori di pressione e via dicendo)
-
-// Displays a list of sensors.
-class SensorsListScreen extends ConsumerWidget {
-  const SensorsListScreen({super.key});
+// Displays a list of weather stations
+class WeatherStationListScreen extends ConsumerWidget {
+  const WeatherStationListScreen({super.key});
 
   void _onTapAdd(BuildContext context) =>
       context.pushNamed(AppRoute.addWeatherStation.name);
@@ -31,7 +29,7 @@ class SensorsListScreen extends ConsumerWidget {
       (_, state) => state.showAlertDialogOnError(context),
     );
     final loc = context.loc;
-    final sensors = ref.watch(weatherStationsStreamProvider);
+    final weatherStations = ref.watch(weatherStationsStreamProvider);
 
     return Scaffold(
       body: PaddedSafeArea(
@@ -45,8 +43,8 @@ class SensorsListScreen extends ConsumerWidget {
                 )
               ],
             ),
-            AsyncValueSliverWidget(
-              value: sensors,
+            AsyncValueSliverWidget<List<WeatherStation>?>(
+              value: weatherStations,
               data: (data) {
                 if (data == null || data.isEmpty) {
                   return SliverFillRemaining(
@@ -61,8 +59,8 @@ class SensorsListScreen extends ConsumerWidget {
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
-                      final sensor = data[index];
-                      return WeatherStationListTile(weatherStation: sensor);
+                      final weatherStation = data[index];
+                      return WeatherStationListTile(weatherStation: weatherStation);
                     },
                     childCount: data.length,
                   ),
