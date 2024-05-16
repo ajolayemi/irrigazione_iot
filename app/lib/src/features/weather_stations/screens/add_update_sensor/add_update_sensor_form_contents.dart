@@ -7,7 +7,7 @@ import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/data/sensor_repository.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/add_update_sensor/add_update_sensor_controller.dart';
 import 'package:irrigazione_iot/src/shared/models/query_params.dart';
@@ -65,7 +65,7 @@ class _AddUpdateSensorFormContentsState
   @override
   void initState() {
     if (_isUpdating) {
-      final sensor = ref.read(sensorStreamProvider(widget.sensorId!));
+      final sensor = ref.read(weatherStationStreamProvider(widget.sensorId!));
       final sensorValue = sensor.valueOrNull;
 
       _initialSensor = sensorValue;
@@ -229,7 +229,7 @@ class _AddUpdateSensorFormContentsState
                   Consumer(
                     builder: (context, ref, child) {
                       final usedNames = ref.watch(
-                        usedSensorNamesStreamProvider,
+                        usedWeatherStationNamesStreamProvider,
                       );
                       final values = usedNames.valueOrNull ?? [];
                       return FormTitleAndField(
@@ -260,7 +260,7 @@ class _AddUpdateSensorFormContentsState
                   // device EUI field
                   Consumer(
                     builder: (context, ref, child) {
-                      final usedEuis = ref.watch(usedSensorEUIsStreamProvider);
+                      final usedEuis = ref.watch(usedWeatherStationEUIsStreamProvider);
                       final values = usedEuis.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,

@@ -34,7 +34,7 @@ class SensorStatisticHistoryScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
     final statData =
-        ref.watch(sensorStatisticsFutureProvider(sensorId, columnName));
+        ref.watch(weatherStationStatisticsFutureProvider(sensorId, columnName));
     return Scaffold(
       body: PaddedSafeArea(
         child: AsyncValueSliverWidget<List<WeatherStationStatisticHistory>?>(

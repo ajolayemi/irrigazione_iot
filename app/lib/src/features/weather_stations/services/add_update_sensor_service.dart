@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/data/sensor_repository.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -27,9 +27,9 @@ class AddUpdateSensorService {
       debugPrint('No company selected, cannot create sensor');
     }
 
-    final sensorRepo = _ref.read(sensorRepositoryProvider);
+    final sensorRepo = _ref.read(weatherStationRepositoryProvider);
 
-    final createdSensor = await sensorRepo.createSensor(
+    final createdSensor = await sensorRepo.createWeatherStation(
       sensor.copyWith(
         companyId: companyId,
       ),
@@ -57,9 +57,9 @@ class AddUpdateSensorService {
       debugPrint('No company selected, cannot update sensor');
     }
 
-    final sensorRepo = _ref.read(sensorRepositoryProvider);
+    final sensorRepo = _ref.read(weatherStationRepositoryProvider);
 
-    final updatedSensor = await sensorRepo.updateSensor(
+    final updatedSensor = await sensorRepo.updateWeatherStation(
       sensor.copyWith(
         companyId: companyId,
       ),

@@ -6,30 +6,31 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'weather_station_statistic_history_repository.g.dart';
 
 abstract class WeatherStationStatisticHistoryRepository {
-  /// Emits a list of [WeatherStationStatisticHistory] for the given [sensorId].
+  /// Emits a list of [WeatherStationStatisticHistory] for the given [weatherStationId].
   /// The list is sorted in descending order of [WeatherStationStatisticHistory.createdAt].
   /// The list is limited to [limit] elements.
-  Future<List<WeatherStationStatisticHistory>?> sensorStatisticsStream(
-    String sensorId,
+  Future<List<WeatherStationStatisticHistory>?> weatherStationStatisticsStream(
+    String weatherStationId,
     String colName, {
     int limit = 30,
   });
 }
 
 @Riverpod(keepAlive: true)
-WeatherStationStatisticHistoryRepository sensorStatisticHistoryRepository(
-    SensorStatisticHistoryRepositoryRef ref) {
+WeatherStationStatisticHistoryRepository
+    weatherStationStatisticHistoryRepository(
+        WeatherStationStatisticHistoryRepositoryRef ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseWeatherStationStatisticHistoryRepository(supabaseClient);
 }
 
 @riverpod
-Future<List<WeatherStationStatisticHistory>?> sensorStatisticsFuture(
-  SensorStatisticsFutureRef ref,
-  String sensorId,
+Future<List<WeatherStationStatisticHistory>?> weatherStationStatisticsFuture(
+  WeatherStationStatisticsFutureRef ref,
+  String weatherStationId,
   String colName, {
   int limit = 30,
 }) {
-  final repo = ref.watch(sensorStatisticHistoryRepositoryProvider);
-  return repo.sensorStatisticsStream(sensorId, colName, limit: limit);
+  final repo = ref.watch(weatherStationStatisticHistoryRepositoryProvider);
+  return repo.weatherStationStatisticsStream(weatherStationId, colName, limit: limit);
 }

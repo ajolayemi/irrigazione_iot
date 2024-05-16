@@ -1,9 +1,9 @@
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_statistic_history_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_measurements_database_keys.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_statistic_history.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_statistic_history_repository.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
-
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseWeatherStationStatisticHistoryRepository
     implements WeatherStationStatisticHistoryRepository {
@@ -11,7 +11,7 @@ class SupabaseWeatherStationStatisticHistoryRepository
   final SupabaseClient _supabaseClient;
 
   String get _createdAt => WeatherStationMeasurementsDatabaseKeys.createdAt;
-  String get _sensorId =>
+  String get _weatherStationId =>
       WeatherStationMeasurementsDatabaseKeys.weatherStationId;
 
   List<WeatherStationStatisticHistory> _convert(
@@ -27,14 +27,14 @@ class SupabaseWeatherStationStatisticHistoryRepository
   }
 
   @override
-  Future<List<WeatherStationStatisticHistory>?> sensorStatisticsStream(
-    String sensorId,
+  Future<List<WeatherStationStatisticHistory>?> weatherStationStatisticsStream(
+    String weatherStationId,
     String colName, {
     int limit = 30,
   }) {
     return _supabaseClient.weatherStationMeasurements
         .select('$colName, $_createdAt')
-        .eq(_sensorId, sensorId)
+        .eq(_weatherStationId, weatherStationId)
         .order(_createdAt, ascending: false)
         .limit(limit)
         .withConverter((data) => _convert(data, colName));

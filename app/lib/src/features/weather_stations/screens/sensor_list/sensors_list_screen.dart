@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/data/sensor_repository.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/sensor_list/dismiss_sensor_controller.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/widgets/sensor_list_tile.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
@@ -33,7 +33,7 @@ class SensorsListScreen extends ConsumerWidget {
       (_, state) => state.showAlertDialogOnError(context),
     );
     final loc = context.loc;
-    final sensors = ref.watch(sensorsStreamProvider);
+    final sensors = ref.watch(weatherStationsStreamProvider);
 
     return Scaffold(
       body: PaddedSafeArea(

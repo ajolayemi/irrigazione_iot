@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/data/sensor_measurement_repository.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_measurement_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_measurements_database_keys.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/widgets/sensor_details_statistic_tile.dart';
 import 'package:irrigazione_iot/src/shared/models/history_query_params.dart';
@@ -31,9 +31,7 @@ class SensorDetailsStatistics extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
     final lastSensorMeasurements = ref
-        .watch(
-          lastSensorMeasurementStreamProvider(sensorId),
-        )
+        .watch(lastWeatherStationMeasurementStreamProvider(sensorId))
         .valueOrNull;
     return CommonExpansionTile(
       title: loc.entityStatistics,
