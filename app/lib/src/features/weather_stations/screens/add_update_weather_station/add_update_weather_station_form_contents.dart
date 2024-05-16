@@ -65,6 +65,11 @@ class _AddUpdateWeatherStationFormContentsState
 
   @override
   void initState() {
+    _initForm();
+    super.initState();
+  }
+
+  Future<void> _initForm() async {
     if (_isUpdating) {
       final weatherStation =
           ref.read(weatherStationStreamProvider(widget.weatherStationId!));
@@ -76,18 +81,17 @@ class _AddUpdateWeatherStationFormContentsState
       _euiController.text = value?.eui ?? '';
 
       if (value != null) {
-        // Get the sector that this weather station is connected to
-        final sector = ref.read(sectorStreamProvider(value.sectorId));
-        final sectorValue = sector.valueOrNull;
+        final sector =
+            await ref.read(sectorFutureProvider(value.sectorId).future);
+
         _radioButtonSelectedSector = RadioButtonItem(
-          value: sectorValue?.id ?? '',
-          label: sectorValue?.name ?? '',
+          value: sector?.id ?? '',
+          label: sector?.name ?? '',
         );
 
-        _selectedSectorController.text = sectorValue?.name ?? '';
+        _selectedSectorController.text = sector?.name ?? '';
       }
     }
-    super.initState();
   }
 
   @override
