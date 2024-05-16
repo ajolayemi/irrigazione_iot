@@ -4,16 +4,19 @@ import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_measurement_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_measurements_database_keys.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/widgets/sensor_details_statistic_tile.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/widgets/weather_station_details_statistic_tile.dart';
 import 'package:irrigazione_iot/src/shared/models/history_query_params.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_expansion_tile.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
-class SensorDetailsStatistics extends ConsumerWidget {
-  const SensorDetailsStatistics({super.key, required this.sensorId});
+class WeatherStationDetailsStatistics extends ConsumerWidget {
+  const WeatherStationDetailsStatistics({
+    super.key,
+    required this.weatherStationId,
+  });
 
-  final String sensorId;
+  final String weatherStationId;
 
   void _onTap(BuildContext context, String valueToLoad, String element) {
     final queryParams = HistoryQueryParameters(
@@ -23,22 +26,22 @@ class SensorDetailsStatistics extends ConsumerWidget {
     context.pushNamed(
       AppRoute.weatherStationStatisticHistory.name,
       queryParameters: queryParams,
-      pathParameters: PathParameters(id: sensorId).toJson(),
+      pathParameters: PathParameters(id: weatherStationId).toJson(),
     );
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final lastSensorMeasurements = ref
-        .watch(lastWeatherStationMeasurementStreamProvider(sensorId))
+    final lastMeasurements = ref
+        .watch(lastWeatherStationMeasurementStreamProvider(weatherStationId))
         .valueOrNull;
     return CommonExpansionTile(
       title: loc.entityStatistics,
       children: [
-        SensorDetailsStatisticTile(
+        WeatherStationDetailsStatisticTile(
           title: loc.airTemperature,
-          subtitle: lastSensorMeasurements?.airTemperature.toString(),
+          subtitle: lastMeasurements?.airTemperature.toString(),
           keyForUm: WeatherStationMeasurementsDatabaseKeys.airTemperature,
           onTap: () => _onTap(
             context,
@@ -46,9 +49,9 @@ class SensorDetailsStatistics extends ConsumerWidget {
             loc.airTemperature,
           ),
         ),
-        SensorDetailsStatisticTile(
+        WeatherStationDetailsStatisticTile(
           title: loc.airHumidity,
-          subtitle: lastSensorMeasurements?.airHumidity.toString(),
+          subtitle: lastMeasurements?.airHumidity.toString(),
           keyForUm: WeatherStationMeasurementsDatabaseKeys.airHumidity,
           onTap: () => _onTap(
             context,
@@ -56,9 +59,9 @@ class SensorDetailsStatistics extends ConsumerWidget {
             loc.airHumidity,
           ),
         ),
-        SensorDetailsStatisticTile(
+        WeatherStationDetailsStatisticTile(
           title: loc.lightIntensity,
-          subtitle: lastSensorMeasurements?.lightIntensity.toString(),
+          subtitle: lastMeasurements?.lightIntensity.toString(),
           keyForUm: WeatherStationMeasurementsDatabaseKeys.lightIntensity,
           onTap: () => _onTap(
             context,
@@ -66,9 +69,9 @@ class SensorDetailsStatistics extends ConsumerWidget {
             loc.lightIntensity,
           ),
         ),
-        SensorDetailsStatisticTile(
+        WeatherStationDetailsStatisticTile(
           title: loc.barometricPressure,
-          subtitle: lastSensorMeasurements?.barometricPressure.toString(),
+          subtitle: lastMeasurements?.barometricPressure.toString(),
           keyForUm: WeatherStationMeasurementsDatabaseKeys.barometricPressure,
           onTap: () => _onTap(
             context,
@@ -76,9 +79,9 @@ class SensorDetailsStatistics extends ConsumerWidget {
             loc.barometricPressure,
           ),
         ),
-        SensorDetailsStatisticTile(
+        WeatherStationDetailsStatisticTile(
           title: loc.windDirection,
-          subtitle: lastSensorMeasurements?.windDirection.toString(),
+          subtitle: lastMeasurements?.windDirection.toString(),
           keyForUm: WeatherStationMeasurementsDatabaseKeys.windDirection,
           onTap: () => _onTap(
             context,
@@ -86,9 +89,9 @@ class SensorDetailsStatistics extends ConsumerWidget {
             loc.windDirection,
           ),
         ),
-        SensorDetailsStatisticTile(
+        WeatherStationDetailsStatisticTile(
           title: loc.windSpeed,
-          subtitle: lastSensorMeasurements?.windSpeed.toString(),
+          subtitle: lastMeasurements?.windSpeed.toString(),
           keyForUm: WeatherStationMeasurementsDatabaseKeys.windSpeed,
           onTap: () => _onTap(
             context,
@@ -96,9 +99,9 @@ class SensorDetailsStatistics extends ConsumerWidget {
             loc.windSpeed,
           ),
         ),
-        SensorDetailsStatisticTile(
+        WeatherStationDetailsStatisticTile(
           title: loc.rainfallHourly,
-          subtitle: lastSensorMeasurements?.rainGauge.toString(),
+          subtitle: lastMeasurements?.rainGauge.toString(),
           keyForUm: WeatherStationMeasurementsDatabaseKeys.rainGauge,
           onTap: () => _onTap(
             context,
@@ -106,9 +109,9 @@ class SensorDetailsStatistics extends ConsumerWidget {
             loc.rainfallHourly,
           ),
         ),
-        SensorDetailsStatisticTile(
+        WeatherStationDetailsStatisticTile(
           title: loc.uvIndex,
-          subtitle: lastSensorMeasurements?.uvIndex.toString(),
+          subtitle: lastMeasurements?.uvIndex.toString(),
           keyForUm: WeatherStationMeasurementsDatabaseKeys.uvIndex,
           onTap: () => _onTap(
             context,

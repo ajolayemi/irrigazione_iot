@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/weather_station_list/dismiss_weather_station_controller.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/widgets/sensor_list_tile.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/widgets/weather_station_list_tile.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
@@ -62,7 +62,7 @@ class SensorsListScreen extends ConsumerWidget {
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
                       final sensor = data[index];
-                      return SensorListTile(sensor: sensor);
+                      return WeatherStationListTile(weatherStation: sensor);
                     },
                     childCount: data.length,
                   ),

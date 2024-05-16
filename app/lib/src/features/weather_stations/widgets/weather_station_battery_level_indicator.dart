@@ -3,19 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/collectors/widgets/battery_level_indicator.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_battery_repository.dart';
 
-class SensorBatteryLevelIndicator extends ConsumerWidget {
-  const SensorBatteryLevelIndicator({
+class WeatherStationBatteryLevelIndicator extends ConsumerWidget {
+  const WeatherStationBatteryLevelIndicator({
     super.key,
-    required this.sensorId,
+    required this.weatherStationId,
   });
 
-  final String sensorId;
+  final String weatherStationId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sensorBatteryLevel =
-        ref.watch(lastWeatherStationBatteryStreamProvider(sensorId)).valueOrNull;
-    final batteryLevel = (sensorBatteryLevel?.batteryLevel ?? 0.0);
+    final weatherStationBatteryLevel = ref
+        .watch(lastWeatherStationBatteryStreamProvider(weatherStationId))
+        .valueOrNull;
+    final batteryLevel = (weatherStationBatteryLevel?.batteryLevel ?? 0.0);
     return BatteryLevelIndicator(
       batteryLevel: batteryLevel.toDouble(),
     );

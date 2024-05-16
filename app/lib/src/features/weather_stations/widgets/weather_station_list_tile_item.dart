@@ -3,24 +3,24 @@ import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/config/styles/app_styles.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/widgets/sensor_battery_level_indicator.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/widgets/weather_station_battery_level_indicator.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_info_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_tablet_responsive_center.dart';
 
-class SensorListTileItem extends StatelessWidget {
-  const SensorListTileItem({
+class WeatherStationListTileItem extends StatelessWidget {
+  const WeatherStationListTileItem({
     super.key,
-    required this.sensor,
+    required this.weatherStation,
     required this.isDeleting,
   });
 
-  final WeatherStation sensor;
+  final WeatherStation weatherStation;
   final bool isDeleting;
 
   void _onTap(BuildContext context) =>
       context.pushNamed(AppRoute.weatherStationDetails.name,
-          pathParameters: PathParameters(id: sensor.id).toJson());
+          pathParameters: PathParameters(id: weatherStation.id).toJson());
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +33,12 @@ class SensorListTileItem extends StatelessWidget {
             leading: CommonInfoIconButton(
               onPressed: () => _onTap(context),
             ),
-            title: Text(sensor.name),
-            trailing: SensorBatteryLevelIndicator(sensorId: sensor.id),
+            title: Text(weatherStation.name),
+            trailing: WeatherStationBatteryLevelIndicator(
+              weatherStationId: weatherStation.id,
+            ),
             subtitle: Text(
-              sensor.eui,
+              weatherStation.eui,
               style: context.commonSubtitleStyle,
             ),
           ),

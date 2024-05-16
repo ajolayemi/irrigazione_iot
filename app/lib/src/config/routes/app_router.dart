@@ -40,7 +40,7 @@ import 'package:irrigazione_iot/src/features/sectors/screens/sector_list/sectors
 import 'package:irrigazione_iot/src/features/user_profile/screens/user_profile_screen.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/add_update_weather_station/add_update_weather_station_form.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/add_update_weather_station/connect_sector_to_weather_station_screen.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/screens/weather_station_details/weatther_station_details_screen.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/screens/weather_station_details/weather_station_details_screen.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/weather_station_list/sensors_list_screen.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/weather_station_stat_history/weather_station_statistic_history_screen.dart';
 import 'package:irrigazione_iot/src/features/welcome/screens/welcome_screen.dart';

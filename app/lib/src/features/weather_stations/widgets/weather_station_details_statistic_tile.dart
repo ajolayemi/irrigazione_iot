@@ -4,12 +4,12 @@ import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart'
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/utils/extensions/string_extensions.dart';
 
-class SensorDetailsStatisticTile extends StatelessWidget {
-  const SensorDetailsStatisticTile({
+class WeatherStationDetailsStatisticTile extends StatelessWidget {
+  const WeatherStationDetailsStatisticTile({
     super.key,
     required this.title,
-    this.subtitle,
     required this.keyForUm,
+    this.subtitle,
     this.onTap,
   });
 

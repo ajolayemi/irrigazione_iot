@@ -7,10 +7,13 @@ import 'package:irrigazione_iot/src/shared/widgets/details_tile_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
-class SensorDetailsCharacteristics extends ConsumerWidget {
-  const SensorDetailsCharacteristics({super.key, required this.sensor});
+class WeatherStationDetailsCharacteristics extends ConsumerWidget {
+  const WeatherStationDetailsCharacteristics({
+    super.key,
+    required this.weatherStation,
+  });
 
-  final WeatherStation sensor;
+  final WeatherStation weatherStation;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,13 +25,13 @@ class SensorDetailsCharacteristics extends ConsumerWidget {
         ResponsiveDetailsCard(
           child: DetailTileWidget(
             title: loc.deviceEui,
-            subtitle: sensor.eui,
+            subtitle: weatherStation.eui,
           ),
         ),
         Consumer(
           builder: (context, ref, child) {
             final sectorConnected =
-                ref.watch(sectorStreamProvider(sensor.sectorId));
+                ref.watch(sectorStreamProvider(weatherStation.sectorId));
             final value = sectorConnected.valueOrNull;
             return ResponsiveDetailsCard(
                 child: DetailTileWidget(
