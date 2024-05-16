@@ -1,11 +1,12 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'fake_board_repository.dart';
-import '../models/board.dart';
-import '../../collectors/data/collector_repository.dart';
-import '../../collectors/model/collector.dart';
-import '../../company_users/data/selected_company_repository.dart';
-import '../../company_users/model/company.dart';
+import 'dart:async';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/features/board-centraline/data/supabase_board_repository.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'board_repository.g.dart';
 
@@ -13,40 +14,24 @@ part 'board_repository.g.dart';
 /// that are connected to the server (mainly nodered)
 /// This repository is responsible for managing the boards.
 abstract class BoardRepository {
-  /// Fetches a list of boards, if any, pertaining to the company specified with
-  /// [CompanyID]
-  Future<List<Board?>> getBoardsByCompanyID({
-    required CompanyID companyID,
-  });
-
   /// Emits a list of boards, if any, pertaining to the company specified with
-  /// [CompanyID]
+  /// [String]
   Stream<List<Board?>> watchBoardsByCompanyID({
-    required CompanyID companyID,
+    required String companyID,
   });
 
-  /// Fetches the [Board] associated with a collector specified by [CollectorID]
-  Future<Board?> getBoardByCollectorID({
-    required CollectorID collectorID,
-  });
-
-  /// Emits the [Board] associated with a collector specified by [CollectorID]
+  /// Emits the [Board] associated with a collector specified by collectorId
   Stream<Board?> watchBoardByCollectorID({
-    required CollectorID collectorID,
+    required String collectorID,
   });
 
-  /// Fetches the [Board] associated with [BoardId]
-  Future<Board?> getBoardByBoardID({
-    required BoardID boardID,
-  });
-
-  /// Emits the [Board] associated with [BoardId]
+  /// Emits the [Board] associated with the provided boardId
   Stream<Board?> watchBoardByBoardID({
-    required BoardID boardID,
+    required String boardID,
   });
 
   /// Add a new [Board] to the database and returns the newly added [Board] if successful
-  Future<Board?> addBoard({
+  Future<Board?> createBoard({
     required Board board,
   });
 
@@ -57,96 +42,81 @@ abstract class BoardRepository {
 
   /// Delete a [Board] from the database and returns true if successful
   Future<bool> deleteBoard({
-    required BoardID boardID,
+    required String boardID,
   });
+
+  /// Gets a list of all [Collector]s that are not yet connected to a [Board]
+  /// This is used when a user wants to connect a collector to a board
+  Future<List<Collector>?> getAvailableCollectors({
+    required String companyId,
+    String? alreadyConnectedCollectorId,
+  });
+
+  /// Emits a list of already used board names for a specified company
+  /// this is used in form validation to prevent duplicate board names for a company
+  Stream<List<String?>> watchCompanyUsedBoardNames(String companyId);
+
+  /// Emits a list of already used mqtt names in general
+  /// this is used in form validation to prevent duplicate mqtt names
+  /// for boards
+  Stream<List<String?>> watchBoardsUsedMqttNames();
 }
 
 @Riverpod(keepAlive: true)
 BoardRepository boardRepository(BoardRepositoryRef ref) {
-  // TODO return remote repository as default
-  return FakeBoardRepository();
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  return SupabaseBoardRepository(supabaseClient);
 }
 
 @riverpod
 Stream<List<Board?>> boardListStream(BoardListStreamRef ref) {
   final boardRepository = ref.read(boardRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return const Stream.empty();
+  if (companyId == null) return Stream.value([]);
   return boardRepository.watchBoardsByCompanyID(companyID: companyId);
 }
 
 @riverpod
-Future<List<Board?>> boardListFuture(BoardListFutureRef ref) {
-  final boardRepository = ref.read(boardRepositoryProvider);
-  final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return Future.value([]);
-  return boardRepository.getBoardsByCompanyID(companyID: companyId);
-}
-
-@riverpod
 Stream<Board?> collectorBoardStream(CollectorBoardStreamRef ref,
-    {required CollectorID collectorID}) {
+    {required String collectorID}) {
   final boardRepository = ref.read(boardRepositoryProvider);
   return boardRepository.watchBoardByCollectorID(collectorID: collectorID);
 }
 
 @riverpod
-Future<Board?> collectorBoardFuture(CollectorBoardFutureRef ref,
-    {required CollectorID collectorID}) {
-  final boardRepository = ref.read(boardRepositoryProvider);
-  return boardRepository.getBoardByCollectorID(collectorID: collectorID);
-}
-
-@riverpod
-Stream<Board?> boardStream(BoardStreamRef ref, {required BoardID boardID}) {
+Stream<Board?> boardStream(BoardStreamRef ref, {required String boardID}) {
   final boardRepository = ref.watch(boardRepositoryProvider);
   return boardRepository.watchBoardByBoardID(boardID: boardID);
 }
 
-@riverpod
-Future<Board?> boardFuture(BoardFutureRef ref, {required BoardID boardID}) {
-  final boardRepository = ref.watch(boardRepositoryProvider);
-  return boardRepository.getBoardByBoardID(boardID: boardID);
-}
-
-/// Keeps track of the id of the collector that is connected to
-/// a [Board], it will have a value when user is updating
-final collectorConnectedToBoardProvider = StateProvider<String?>((ref) {
-  return null;
-});
-
-/// Keeps track of the id of the collector that user wants to connect
-/// to a [Board]
-final selectedCollectorIdProvider = StateProvider<String?>((ref) {
-  return null;
-});
-
 /// gets a list of all collectors that are not yet connected
 /// to a [Board]
 @riverpod
-Stream<List<Collector?>> collectorsNotConnectedToABoardStream(
-    CollectorsNotConnectedToABoardStreamRef ref) {
-  // Get a list of all collectors pertaining to a company
-  final collectorsPertainingToACompany =
-      ref.watch(collectorListStreamProvider).valueOrNull;
+Future<List<Collector>?> availableCollectorsFuture(
+    AvailableCollectorsFutureRef ref,
+    {String? alreadyConnectedCollectorId}) {
+  final currentSelectedCompany =
+      ref.watch(currentTappedCompanyProvider).valueOrNull;
+  if (currentSelectedCompany == null) return Future.value([]);
+  final boardRepository = ref.watch(boardRepositoryProvider);
+  return boardRepository.getAvailableCollectors(
+      companyId: currentSelectedCompany.id,
+      alreadyConnectedCollectorId: alreadyConnectedCollectorId);
+}
 
-  if (collectorsPertainingToACompany == null) return Stream.value([]);
-  final collectorIdToOmit = ref.watch(collectorConnectedToBoardProvider);
+@riverpod
+Stream<List<String?>> usedBoardNamesStream(UsedBoardNamesStreamRef ref) {
+  final boardRepository = ref.watch(boardRepositoryProvider);
+  final currentSelectedCompanyByUser =
+      ref.watch(currentTappedCompanyProvider).valueOrNull;
+  if (currentSelectedCompanyByUser == null) return Stream.value([]);
+  return boardRepository
+      .watchCompanyUsedBoardNames(currentSelectedCompanyByUser.id);
+}
 
-  // get a list of all available [Board]s and filter out their connected
-  // collector ids. This is so because we're assuming that each available
-  // [Board] has a collector connected to it.
-  // The collector id of the collector connected to a board is omitted in this phase
-  final connectedCollectorIds = ref
-      .watch(boardListStreamProvider)
-      .valueOrNull
-      ?.where((board) => board?.collectorId != collectorIdToOmit)
-      .map((board) => board?.collectorId)
-      .toList() ?? [];
-
-final collectorsNotConnectedToABoard = collectorsPertainingToACompany
-      .where((collector) => !connectedCollectorIds.contains(collector?.id))
-      .toList();
-
-  return Stream.value(collectorsNotConnectedToABoard);
+@riverpod
+Stream<List<String?>> boardsUsedMqttNamesStream(
+    BoardsUsedMqttNamesStreamRef ref) {
+  final boardRepository = ref.watch(boardRepositoryProvider);
+  return boardRepository.watchBoardsUsedMqttNames();
 }

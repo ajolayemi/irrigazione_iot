@@ -1,11 +1,10 @@
-import 'extensions.dart';
-import 'string_validators.dart';
+import 'package:irrigazione_iot/src/utils/extensions/string_extensions.dart';
+import 'package:irrigazione_iot/src/utils/string_validators.dart';
 
 /// A mixin that holds all validation logic for the various forms in the app
 /// To avoid mixin class dependency on BuildContext, the methods that retrieves error
 /// messages return the keys to access the said messages
 /// An extension on BuildContext is used to get the localized error messages
-// TODO: this validator should replace all other validators in the app
 mixin AppFormValidators {
   // A general non empty field validator
   final StringValidator nonEmptyValidator = NonEmptyStringValidator();
@@ -234,7 +233,6 @@ mixin AppFormValidators {
     }
     return null;
   }
-
 
   /// Validates whether the confirm password field matches the password field
   /// The constraints are:

@@ -1,33 +1,14 @@
-enum CompanyUserRoles {
+enum CompanyUserRole {
   superuser,
   owner,
   admin,
-  user,
-}
+  user;
 
+  bool get isSuperuser => this == CompanyUserRole.superuser;
 
-// TODO for the first version
-// TODO superuser should be the only one who can perform CUD operations
+  bool get isOwner => this == CompanyUserRole.owner;
 
-extension CompanyUserRolesExtension on CompanyUserRoles {
-  bool get canEdit {
-    return this == CompanyUserRoles.admin || this == CompanyUserRoles.owner;
-  }
+  bool get isAdmin => this == CompanyUserRole.admin;
 
-  // Check if the user can add new user for a specified company
-  // This can be done by admin, superuser, and owner
-  bool get canAddNewUser {
-    return this == CompanyUserRoles.admin ||
-        this == CompanyUserRoles.owner ||
-        this == CompanyUserRoles.superuser;
-  }
-
-  /// Check if the current user has the privilege to edit the details
-  /// of the company profile
-  /// This can be done by admin, superuser, and owner
-  bool get canEditCompanyProfile {
-    return this == CompanyUserRoles.admin ||
-        this == CompanyUserRoles.owner ||
-        this == CompanyUserRoles.superuser;
-  }
+  bool get isUser => this == CompanyUserRole.user;
 }

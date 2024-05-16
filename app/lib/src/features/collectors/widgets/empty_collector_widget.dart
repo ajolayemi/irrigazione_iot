@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../config/routes/routes_enums.dart';
-import '../data/collector_sector_repository.dart';
-import '../../../utils/extensions.dart';
-import '../../../widgets/empty_data_widget.dart';
+import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
+import 'package:irrigazione_iot/src/shared/widgets/empty_data_widget.dart';
 
 class EmptyCollectorWidget extends ConsumerWidget {
   const EmptyCollectorWidget({
@@ -20,7 +20,6 @@ class EmptyCollectorWidget extends ConsumerWidget {
     required BuildContext context,
     required WidgetRef ref,
   }) {
-    ref.read(sectorIdsOfCollectorBeingEditedProvider.notifier).state = [];
     ref.read(selectedSectorsIdProvider.notifier).state = [];
     context.pushNamed(
       AppRoute.addCollector.name,
@@ -32,7 +31,8 @@ class EmptyCollectorWidget extends ConsumerWidget {
     final loc = context.loc;
     return SliverFillRemaining(
       child: EmptyDataWidget(
-          message: alternativeMessage ?? loc.emptyDataPlaceholder(loc.nCollectors(1)),
+          message: alternativeMessage ??
+              loc.emptyDataPlaceholder(loc.nCollectors(1)),
           buttonText: loc.addNewButtonLabel,
           onPressed: onPressed ?? () => _onPressed(context: context, ref: ref)),
     );

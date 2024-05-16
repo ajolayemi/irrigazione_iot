@@ -8,7 +8,8 @@ insert into
         cf,
         piva,
         image_url,
-        updated_at
+        updated_at,
+        mqtt_topic_name
     )
 values
     (
@@ -19,7 +20,8 @@ values
         '12345678901',
         '12345678901',
         'https://example.com/image.jpg',
-        now ()
+        now (),
+        'garrasi'
     ),
     (
         'Azienda agricola San Lio',
@@ -29,7 +31,8 @@ values
         '12345678901',
         '12345678901',
         '',
-        now ()
+        now (),
+        'sanlio'
     ),
     (
         'Azienda agricola F.lli Valenziani',
@@ -39,7 +42,8 @@ values
         '12345678901',
         '12345678901',
         '',
-        now ()
+        now (),
+        'valenziani'
     );
 
 -- Seed data for company_users table
@@ -427,18 +431,18 @@ values
 insert into
     public.collectors (
         name,
-        connected_filter_name,
+        has_filter,
         updated_at,
         company_id,
         mqtt_msg_name
     )
 values
-    ('S1 (cisterne)', 'filtro s1', now (), 1, 's1'),
-    ('S2 (pozzo)', 'filtro s2', now (), 1, 's2'),
-    ('S3 (lago)', 'filtro s3', now (), 2, 's3'),
-    ('S4 (cisterne)', 'filtro s4', now (), 2, 's4'),
-    ('S5 (pozzo)', 'filtro s5', now (), 3, 's5'),
-    ('S6 (lago)', 'filtro s6', now (), 3, 's6');
+    ('S1 (cisterne)', false, now (), 1, 's1'),
+    ('S2 (pozzo)', true, now (), 1, 's2'),
+    ('S3 (lago)', true, now (), 2, 's3'),
+    ('S4 (cisterne)', true, now (), 2, 's4'),
+    ('S5 (pozzo)', true, now (), 3, 's5'),
+    ('S6 (lago)', true, now (), 3, 's6');
 
 -- Seed data for collector_sectors table
 insert into
@@ -602,7 +606,6 @@ values
     (1.8, 6),
     (1.9, 6),
     (1.2, 6);
-
 
 -- seed data for superusers
 insert into

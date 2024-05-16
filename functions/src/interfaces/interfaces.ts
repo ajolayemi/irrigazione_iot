@@ -57,3 +57,29 @@ export interface BoardStatusMessage {
   vbat: number;
   name: string;
 }
+
+export interface HttpCallableReqBody {
+  topic: string;
+  message: string;
+  mqttMsgName: string;
+  msgBoolVersion: boolean;
+  isSector?: boolean;
+  isPump?: boolean;
+}
+
+export interface WeatherStationMeasurementData {
+  measurementId: string;
+  measurementValue: number;
+  type: string;
+}
+
+export interface WeatherStationBatteryData {
+  "Battery(%)": number;
+}
+export interface SenseCapSensorData {
+  receivedAt: string;
+  valid: boolean;
+  deviceEui: string;
+  measurements: WeatherStationMeasurementData[];
+  battery?: WeatherStationBatteryData;
+}

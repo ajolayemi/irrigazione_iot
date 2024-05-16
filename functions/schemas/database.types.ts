@@ -34,6 +34,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      available_sectors: {
+        Row: {
+          company_id: number
+          id: number
+          sector_id: number
+        }
+        Insert: {
+          company_id: number
+          id?: number
+          sector_id: number
+        }
+        Update: {
+          company_id?: number
+          id?: number
+          sector_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_available_sectors_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_available_sectors_sector_id_fkey"
+            columns: ["sector_id"]
+            isOneToOne: false
+            referencedRelation: "sectors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       board_statuses: {
         Row: {
           battery_level: number
@@ -188,8 +221,8 @@ export type Database = {
       collectors: {
         Row: {
           company_id: number
-          connected_filter_name: string | null
           created_at: string
+          has_filter: boolean
           id: number
           mqtt_msg_name: string
           name: string
@@ -197,8 +230,8 @@ export type Database = {
         }
         Insert: {
           company_id: number
-          connected_filter_name?: string | null
           created_at?: string
+          has_filter: boolean
           id?: number
           mqtt_msg_name: string
           name: string
@@ -206,8 +239,8 @@ export type Database = {
         }
         Update: {
           company_id?: number
-          connected_filter_name?: string | null
           created_at?: string
+          has_filter?: boolean
           id?: number
           mqtt_msg_name?: string
           name?: string
@@ -230,6 +263,7 @@ export type Database = {
           email: string
           id: number
           image_url: string | null
+          mqtt_topic_name: string
           name: string
           phone_number: string
           piva: string | null
@@ -242,6 +276,7 @@ export type Database = {
           email: string
           id?: number
           image_url?: string | null
+          mqtt_topic_name: string
           name: string
           phone_number: string
           piva?: string | null
@@ -254,6 +289,7 @@ export type Database = {
           email?: string
           id?: number
           image_url?: string | null
+          mqtt_topic_name?: string
           name?: string
           phone_number?: string
           piva?: string | null
@@ -370,18 +406,21 @@ export type Database = {
           id: number
           pump_id: number
           status: string
+          status_boolean: boolean
         }
         Insert: {
           created_at?: string
           id?: number
           pump_id: number
           status: string
+          status_boolean?: boolean
         }
         Update: {
           created_at?: string
           id?: number
           pump_id?: number
           status?: string
+          status_boolean?: boolean
         }
         Relationships: [
           {
@@ -514,18 +553,21 @@ export type Database = {
           id: number
           sector_id: number
           status: string
+          status_boolean: boolean
         }
         Insert: {
           created_at?: string
           id?: number
           sector_id: number
           status: string
+          status_boolean?: boolean
         }
         Update: {
           created_at?: string
           id?: number
           sector_id?: number
           status?: string
+          status_boolean?: boolean
         }
         Relationships: [
           {
@@ -705,6 +747,130 @@ export type Database = {
         }
         Relationships: []
       }
+      weather_station_battery_data: {
+        Row: {
+          battery_level: number
+          created_at: string
+          id: number
+          weather_station_id: number
+        }
+        Insert: {
+          battery_level: number
+          created_at?: string
+          id?: number
+          weather_station_id: number
+        }
+        Update: {
+          battery_level?: number
+          created_at?: string
+          id?: number
+          weather_station_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_weather_station_battery_data_weather_station_id_fkey"
+            columns: ["weather_station_id"]
+            isOneToOne: false
+            referencedRelation: "weather_stations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      weather_station_measurements: {
+        Row: {
+          air_humidity: number
+          air_temperature: number
+          barometric_pressure: number
+          created_at: string
+          id: number
+          light_intensity: number
+          rain_gauge: number
+          uv_index: number
+          weather_station_id: number
+          wind_direction_sensor: number
+          wind_speed: number
+        }
+        Insert: {
+          air_humidity: number
+          air_temperature: number
+          barometric_pressure: number
+          created_at?: string
+          id?: number
+          light_intensity: number
+          rain_gauge: number
+          uv_index: number
+          weather_station_id: number
+          wind_direction_sensor: number
+          wind_speed: number
+        }
+        Update: {
+          air_humidity?: number
+          air_temperature?: number
+          barometric_pressure?: number
+          created_at?: string
+          id?: number
+          light_intensity?: number
+          rain_gauge?: number
+          uv_index?: number
+          weather_station_id?: number
+          wind_direction_sensor?: number
+          wind_speed?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_weather_station_measurements_weather_station_id_fkey"
+            columns: ["weather_station_id"]
+            isOneToOne: false
+            referencedRelation: "weather_stations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      weather_stations: {
+        Row: {
+          company_id: number
+          created_at: string
+          eui: string
+          id: number
+          name: string
+          sector_id: number
+          updated_at: string
+        }
+        Insert: {
+          company_id: number
+          created_at?: string
+          eui: string
+          id?: number
+          name: string
+          sector_id: number
+          updated_at: string
+        }
+        Update: {
+          company_id?: number
+          created_at?: string
+          eui?: string
+          id?: number
+          name?: string
+          sector_id?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_sensors_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_sensors_sector_id_fkey"
+            columns: ["sector_id"]
+            isOneToOne: false
+            referencedRelation: "sectors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -743,6 +909,21 @@ export type Database = {
         }
         Returns: number
       }
+      get_collectors_not_connected_to_a_board: {
+        Args: {
+          company_id_input: number
+          id_already_connected?: number
+        }
+        Returns: {
+          company_id: number
+          created_at: string
+          has_filter: boolean
+          id: number
+          mqtt_msg_name: string
+          name: string
+          updated_at: string
+        }[]
+      }
       get_companies_ids_for_user: {
         Args: {
           user_email: string
@@ -755,16 +936,39 @@ export type Database = {
         }
         Returns: number
       }
+      get_pumps_not_connected_to_sector: {
+        Args: {
+          company_id_input: number
+          id_already_connected?: number
+        }
+        Returns: {
+          capacity_in_volume: number
+          company_id: number
+          consume_rate_in_kw: number
+          created_at: string
+          has_filter: boolean
+          id: number
+          mqtt_msg_name: string
+          name: string
+          turn_off_command: string
+          turn_on_command: string
+          updated_at: string
+        }[]
+      }
       get_sector_company_id: {
         Args: {
           sector_id_input: number
         }
         Returns: number
       }
-      get_user_email: {
+      get_sensor_company_id: {
         Args: {
-          user_id: string
+          sensor_id_input: number
         }
+        Returns: number
+      }
+      get_user_email_v2: {
+        Args: Record<PropertyKey, never>
         Returns: string
       }
     }
@@ -903,6 +1107,101 @@ export type Database = {
           },
         ]
       }
+      s3_multipart_uploads: {
+        Row: {
+          bucket_id: string
+          created_at: string
+          id: string
+          in_progress_size: number
+          key: string
+          owner_id: string | null
+          upload_signature: string
+          version: string
+        }
+        Insert: {
+          bucket_id: string
+          created_at?: string
+          id: string
+          in_progress_size?: number
+          key: string
+          owner_id?: string | null
+          upload_signature: string
+          version: string
+        }
+        Update: {
+          bucket_id?: string
+          created_at?: string
+          id?: string
+          in_progress_size?: number
+          key?: string
+          owner_id?: string | null
+          upload_signature?: string
+          version?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "s3_multipart_uploads_bucket_id_fkey"
+            columns: ["bucket_id"]
+            isOneToOne: false
+            referencedRelation: "buckets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      s3_multipart_uploads_parts: {
+        Row: {
+          bucket_id: string
+          created_at: string
+          etag: string
+          id: string
+          key: string
+          owner_id: string | null
+          part_number: number
+          size: number
+          upload_id: string
+          version: string
+        }
+        Insert: {
+          bucket_id: string
+          created_at?: string
+          etag: string
+          id?: string
+          key: string
+          owner_id?: string | null
+          part_number: number
+          size?: number
+          upload_id: string
+          version: string
+        }
+        Update: {
+          bucket_id?: string
+          created_at?: string
+          etag?: string
+          id?: string
+          key?: string
+          owner_id?: string | null
+          part_number?: number
+          size?: number
+          upload_id?: string
+          version?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "s3_multipart_uploads_parts_bucket_id_fkey"
+            columns: ["bucket_id"]
+            isOneToOne: false
+            referencedRelation: "buckets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "s3_multipart_uploads_parts_upload_id_fkey"
+            columns: ["upload_id"]
+            isOneToOne: false
+            referencedRelation: "s3_multipart_uploads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -940,6 +1239,37 @@ export type Database = {
         Returns: {
           size: number
           bucket_id: string
+        }[]
+      }
+      list_multipart_uploads_with_delimiter: {
+        Args: {
+          bucket_id: string
+          prefix_param: string
+          delimiter_param: string
+          max_keys?: number
+          next_key_token?: string
+          next_upload_token?: string
+        }
+        Returns: {
+          key: string
+          id: string
+          created_at: string
+        }[]
+      }
+      list_objects_with_delimiter: {
+        Args: {
+          bucket_id: string
+          prefix_param: string
+          delimiter_param: string
+          max_keys?: number
+          start_after?: string
+          next_token?: string
+        }
+        Returns: {
+          name: string
+          id: string
+          metadata: Json
+          updated_at: string
         }[]
       }
       search: {

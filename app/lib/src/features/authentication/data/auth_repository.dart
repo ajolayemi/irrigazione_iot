@@ -1,6 +1,8 @@
-import 'fake_auth_repository.dart';
-import '../model/app_user.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/supabase_auth_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'package:irrigazione_iot/src/features/authentication/models/app_user.dart';
 
 part 'auth_repository.g.dart';
 
@@ -21,7 +23,7 @@ abstract class AuthRepository {
   Future<void> resetPassword(
     String email,
     String newPassword,
-  );
+  ) async {}
 
   // Sign up an AppUser and returns the user if successful
   Future<AppUser?> signUp({
@@ -30,22 +32,25 @@ abstract class AuthRepository {
   });
 
   /// Emits the current user
-  Stream<AppUser?> authStateChanges();
+  Stream<AuthState?> authStateChanges();
 
-  /// Get the current user
+  /// Gets the current logged in user
   AppUser? get currentUser;
+  
+  /// Gets the current active session
+  /// As for Supabase, since confirm email address is enabled
+  /// A session is available only when user's email address has been confirmed
+  Session? get currentSession;
 }
 
-/// General auth repository provider
-// TODO replace with a real implementation of either Firebase or Supabase
 @Riverpod(keepAlive: true)
 AuthRepository authRepository(AuthRepositoryRef ref) {
-  return FakeAuthRepository();
+  return SupabaseAuthRepository(Supabase.instance.client.auth);
 }
 
 // * Using keepAlive since other providers need to listen to this provider
 @Riverpod(keepAlive: true)
-Stream<AppUser?> authStateChanges(AuthStateChangesRef ref) {
+Stream<AuthState?> authStateChanges(AuthStateChangesRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.authStateChanges();
 }

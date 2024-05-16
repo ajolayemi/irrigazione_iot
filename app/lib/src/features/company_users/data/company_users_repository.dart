@@ -1,12 +1,12 @@
-import '../../../config/enums/roles.dart';
-import '../../authentication/data/auth_repository.dart';
-import 'company_repository.dart';
-import 'selected_company_repository.dart';
-import '../model/company.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'fake_company_users_repository.dart';
-import '../model/company_user.dart';
+import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/supabase_company_users_repository.dart';
+import 'package:irrigazione_iot/src/features/company_users/models/company.dart';
+import 'package:irrigazione_iot/src/features/company_users/models/company_user.dart';
+import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 
 part 'company_users_repository.g.dart';
 
@@ -14,27 +14,13 @@ part 'company_users_repository.g.dart';
 // When either Supabase or Firebase is implemented, the repository that will be connected
 // to this class will access the table where the users associated with the companies are stored
 abstract class CompanyUsersRepository {
-  /// Emits a list of [CompanyUser] linked with the provided user email
-  Stream<List<CompanyUser>> watchCompaniesAssociatedWithUser(
+  /// Emits a list of [Company] linked with the provided user email
+  Stream<List<Company>> watchCompaniesAssociatedWithUser(
       {required String email});
 
-  /// Fetches a list of [CompanyUser] linked with the provided user email
-  Future<List<CompanyUser>> fetchCompaniesAssociatedWithUser({
+  /// Emits the [CompanyUserRole] linked with the provided user email and company id
+  Stream<CompanyUserRole?> watchCompanyUserRole({
     required String email,
-  });
-
-  /// Emits the [CompanyUserRoles] linked with the provided user email and company id
-  Stream<CompanyUserRoles?> watchCompanyUserRole({
-    required String email,
-    required String companyId,
-  });
-
-  /// Fetches the [CompanyUserRoles] linked with the provided user email and company id
-  Future<CompanyUserRoles?> fetchCompanyUserRole(
-      {required String email, required String companyId});
-
-  /// Fetches a list of user email addresses linked with the provided company id
-  Future<List<CompanyUser?>> fetchUsersAssociatedWithCompany({
     required String companyId,
   });
 
@@ -45,9 +31,6 @@ abstract class CompanyUsersRepository {
 
   /// Emits a [CompanyUser] linked with the provided user companyUserId
   Stream<CompanyUser?> watchCompanyUser({required String companyUserId});
-
-  /// Fetches a [CompanyUser] linked with the provided user companyUserId
-  Future<CompanyUser?> fetchCompanyUser({required String companyUserId});
 
   /// Emits a list of email addresses already associated with the provided company id
   Stream<List<String>> watchEmailsAssociatedWithCompany({
@@ -61,37 +44,16 @@ abstract class CompanyUsersRepository {
   Future<CompanyUser?> updateCompanyUser({required CompanyUser companyUser});
 
   /// Deletes a [CompanyUser] from the database and returns true if successful
-  Future<bool> deleteCompanyUser(
-      {required String companyUserId});
+  Future<bool> deleteCompanyUser({required String companyUserId});
 }
 
-// TODO replace this with a real implementation of either Firebase or Supabase
 @Riverpod(keepAlive: true)
 CompanyUsersRepository companyUsersRepository(CompanyUsersRepositoryRef ref) {
-  return FakeUserCompaniesRepository();
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  return SupabaseCompanyUsersRepository(supabaseClient);
 }
 
-@riverpod
-Future<List<Company>> userCompaniesFuture(UserCompaniesFutureRef ref) async {
-  final authRepository = ref.watch(authRepositoryProvider);
-  final user = authRepository.currentUser;
-  if (user == null) {
-    return Future.value([]);
-  }
-  final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
-  final companyRepository = ref.watch(companyRepositoryProvider);
-  final userCompanies = await userCompaniesRepository
-      .fetchCompaniesAssociatedWithUser(email: user.email);
-  final companies = <Company>[];
-  for (final userCompany in userCompanies) {
-    final company = await companyRepository.fetchCompany(userCompany.companyId);
-    if (company != null) {
-      companies.add(company);
-    }
-  }
-  return companies;
-}
-
+/// A stream that emits a list of companies associated with the current user
 @riverpod
 Stream<List<Company>> userCompaniesStream(UserCompaniesStreamRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
@@ -100,30 +62,20 @@ Stream<List<Company>> userCompaniesStream(UserCompaniesStreamRef ref) {
     return Stream.value([]);
   }
   final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
-  final companyRepository = ref.watch(companyRepositoryProvider);
-  return userCompaniesRepository
-      .watchCompaniesAssociatedWithUser(email: user.email)
-      .asyncMap((userCompanies) async {
-    final companies = <Company>[];
-    for (final userCompany in userCompanies) {
-      final company =
-          await companyRepository.fetchCompany(userCompany.companyId);
-      if (company != null) {
-        companies.add(company);
-      }
-    }
-    return companies;
-  });
+  return userCompaniesRepository.watchCompaniesAssociatedWithUser(
+    email: user.email,
+  );
 }
 
+/// Emits the [CompanyUserRole] of the current user in the current company
 @Riverpod(keepAlive: true)
-Stream<CompanyUserRoles?> companyUserRole(CompanyUserRoleRef ref) {
+Stream<CompanyUserRole?> companyUserRole(CompanyUserRoleRef ref) {
   final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
   final currentSelectedCompany = ref.watch(currentTappedCompanyProvider).value;
   final authRepository = ref.watch(authRepositoryProvider);
   final user = authRepository.currentUser;
   if (user == null || currentSelectedCompany == null) {
-    return const Stream.empty();
+    return Stream.value(null);
   }
   return userCompaniesRepository.watchCompanyUserRole(
     email: user.email,
@@ -131,6 +83,7 @@ Stream<CompanyUserRoles?> companyUserRole(CompanyUserRoleRef ref) {
   );
 }
 
+/// Emits a list of [CompanyUser]s associated with the current company
 @riverpod
 Stream<List<CompanyUser?>> usersAssociatedWithCompanyStream(
     UsersAssociatedWithCompanyStreamRef ref) {
@@ -144,6 +97,7 @@ Stream<List<CompanyUser?>> usersAssociatedWithCompanyStream(
   );
 }
 
+/// Emits the [CompanyUser] linked with the provided companyUserId
 @riverpod
 Stream<CompanyUser?> companyUserStream(CompanyUserStreamRef ref,
     {required String companyUserId}) {
@@ -152,7 +106,7 @@ Stream<CompanyUser?> companyUserStream(CompanyUserStreamRef ref,
   return userCompaniesRepository.watchCompanyUser(companyUserId: companyUserId);
 }
 
-
+/// Emits a list of email addresses already associated with the current company
 @riverpod
 Stream<List<String>> emailsAssociatedWithCompanyStream(
     EmailsAssociatedWithCompanyStreamRef ref) {
