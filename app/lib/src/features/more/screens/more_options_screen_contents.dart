@@ -41,11 +41,11 @@ class MoreOptionsScreenContent extends ConsumerWidget {
                       leadingIcon: Icons.device_hub,
                     ),
                     MorePageItemListTile(
-                      title: loc.sensorsMenuTitle,
+                      title: loc.weatherStationPageTitle,
                       onTap: () => context.pushNamed(
                         AppRoute.weatherStations.name,
                       ),
-                      leadingIcon: Icons.sensors,
+                      leadingIcon: Icons.wb_sunny,
                     ),
                     const CommonResponsiveDivider(),
                     MorePageItemListTile(
