@@ -71,7 +71,7 @@ class AddUpdateWeatherStationService {
 }
 
 @Riverpod(keepAlive: true)
-AddUpdateWeatherStationService addUpdateSensorService(
-    AddUpdateSensorServiceRef ref) {
+AddUpdateWeatherStationService addUpdateWeatherStationService(
+    AddUpdateWeatherStationServiceRef ref) {
   return AddUpdateWeatherStationService(ref);
 }

@@ -7,6 +7,6 @@ class AppConstants {
   static const int maxCollectorNameLength = 20;
   static const int maxBoardNameLength = 25;
   static const int maxMqttMessageNameLength = 10;
-  static const int maxSensorNameLength = 20;
-  static const int maxSensorEuiLength = 16;
+  static const int maxWeatherStationNameLength = 20;
+  static const int maxWeatherStationEuiLength = 16;
 }

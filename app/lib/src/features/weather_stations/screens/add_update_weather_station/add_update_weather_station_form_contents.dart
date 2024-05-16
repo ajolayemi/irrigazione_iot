@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:irrigazione_iot/src/config/enums/button_types.dart';
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
@@ -9,7 +10,7 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/screens/add_update_sensor/add_update_sensor_controller.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/screens/add_update_weather_station/add_update_weather_station_controller.dart';
 import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
@@ -19,26 +20,26 @@ import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
 import 'package:irrigazione_iot/src/utils/app_form_error_texts_extension.dart';
 import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
-import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
-class AddUpdateSensorFormContents extends ConsumerStatefulWidget {
-  const AddUpdateSensorFormContents({
+class AddUpdateWeatherStationFormContents extends ConsumerStatefulWidget {
+  const AddUpdateWeatherStationFormContents({
     super.key,
-    this.sensorId,
+    this.weatherStationId,
     required this.formType,
   });
 
-  final String? sensorId;
+  final String? weatherStationId;
   final GenericFormTypes formType;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _AddUpdateSensorFormContentsState();
+      _AddUpdateWeatherStationFormContentsState();
 }
 
-class _AddUpdateSensorFormContentsState
-    extends ConsumerState<AddUpdateSensorFormContents> with AppFormValidators {
+class _AddUpdateWeatherStationFormContentsState
+    extends ConsumerState<AddUpdateWeatherStationFormContents>
+    with AppFormValidators {
   bool get _isUpdating => widget.formType.isUpdating;
 
   final _node = FocusScopeNode();
@@ -54,28 +55,29 @@ class _AddUpdateSensorFormContentsState
   String get _eui => _euiController.text;
   String get _sector => _selectedSectorController.text;
 
-  static const _nameKey = Key('sensorNameField');
-  static const _euiKey = Key('sensorEUIField');
-  static const _sensorSectorKey = Key('sensorSelectedSensorField');
+  static const _nameKey = Key('weatherStationNameField');
+  static const _euiKey = Key('weatherStationEUIField');
+  static const _weatherStationSectorKey = Key('weatherStationSectorField');
 
-  WeatherStation? _initialSensor = const WeatherStation.empty();
+  WeatherStation? _initialWeatherStation = const WeatherStation.empty();
 
   RadioButtonItem? _radioButtonSelectedSector;
 
   @override
   void initState() {
     if (_isUpdating) {
-      final sensor = ref.read(weatherStationStreamProvider(widget.sensorId!));
-      final sensorValue = sensor.valueOrNull;
+      final weatherStation =
+          ref.read(weatherStationStreamProvider(widget.weatherStationId!));
+      final value = weatherStation.valueOrNull;
 
-      _initialSensor = sensorValue;
+      _initialWeatherStation = value;
 
-      _nameController.text = sensorValue?.name ?? '';
-      _euiController.text = sensorValue?.eui ?? '';
+      _nameController.text = value?.name ?? '';
+      _euiController.text = value?.eui ?? '';
 
-      if (sensorValue != null) {
-        // Get the sector that this sensor is connected to
-        final sector = ref.read(sectorStreamProvider(sensorValue.sectorId));
+      if (value != null) {
+        // Get the sector that this weather station is connected to
+        final sector = ref.read(sectorStreamProvider(value.sectorId));
         final sectorValue = sector.valueOrNull;
         _radioButtonSelectedSector = RadioButtonItem(
           value: sectorValue?.id ?? '',
@@ -170,12 +172,12 @@ class _AddUpdateSensorFormContentsState
     if (_formKey.currentState!.validate()) {
       final canContinue = await context.showSaveUpdateDialog(
         isUpdating: _isUpdating,
-        what: context.loc.nSensors(1),
+        what: context.loc.nWeatherStations(1),
       );
 
       if (!canContinue) return;
 
-      final data = _initialSensor?.copyWith(
+      final data = _initialWeatherStation?.copyWith(
         name: _name,
         eui: _eui,
         sectorId: _radioButtonSelectedSector?.value,
@@ -185,12 +187,12 @@ class _AddUpdateSensorFormContentsState
 
       if (_isUpdating) {
         success = await ref
-            .read(addUpdateSensorControllerProvider.notifier)
-            .updateSensor(data);
+            .read(addUpdateWeatherStationControllerProvider.notifier)
+            .updateWeatherStation(data);
       } else {
         success = await ref
-            .read(addUpdateSensorControllerProvider.notifier)
-            .createSensor(data);
+            .read(addUpdateWeatherStationControllerProvider.notifier)
+            .createWeatherStation(data);
       }
 
       if (success) {
@@ -203,12 +205,8 @@ class _AddUpdateSensorFormContentsState
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(
-      addUpdateSensorControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
-
-    final isLoading = ref.watch(addUpdateSensorControllerProvider).isLoading;
+    final controller = ref.watch(addUpdateWeatherStationControllerProvider);
+    final isLoading = controller.isLoading;
     final loc = context.loc;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -218,8 +216,8 @@ class _AddUpdateSensorFormContentsState
             slivers: [
               AppSliverBar(
                 title: _isUpdating
-                    ? loc.updateSensorPageTitle
-                    : loc.addSensorPageTitle,
+                    ? loc.updateWeatherStationPageTitle
+                    : loc.addWeatherStationPageTitle,
               ),
               ResponsiveSliverForm(
                 node: _node,
@@ -234,22 +232,22 @@ class _AddUpdateSensorFormContentsState
                       final values = usedNames.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
-                        maxLength: AppConstants.maxSensorNameLength,
+                        maxLength: AppConstants.maxWeatherStationNameLength,
                         fieldKey: _nameKey,
                         fieldTitle: loc.nameFormFieldTitle,
-                        fieldHintText: loc.sensorNameHintText,
+                        fieldHintText: loc.weatherStationNameHintText,
                         fieldController: _nameController,
                         onEditingComplete: () => _uniqueFieldsEditingComplete(
                           existingValues: values,
-                          maxLength: AppConstants.maxSensorNameLength,
+                          maxLength: AppConstants.maxWeatherStationNameLength,
                           value: _name,
-                          initialValue: _initialSensor?.name,
+                          initialValue: _initialWeatherStation?.name,
                         ),
                         validator: (_) => _uniqueFieldsErrorText(
                           existingValues: values,
-                          maxLength: AppConstants.maxSensorNameLength,
+                          maxLength: AppConstants.maxWeatherStationNameLength,
                           value: _name,
-                          initialValue: _initialSensor?.name,
+                          initialValue: _initialWeatherStation?.name,
                         ),
                       );
                     },
@@ -266,21 +264,21 @@ class _AddUpdateSensorFormContentsState
                       return FormTitleAndField(
                         enabled: !isLoading,
                         fieldKey: _euiKey,
-                        maxLength: AppConstants.maxSensorEuiLength,
+                        maxLength: AppConstants.maxWeatherStationEuiLength,
                         fieldTitle: loc.deviceEui,
                         fieldController: _euiController,
-                        fieldHintText: loc.sensorEuiHintText,
+                        fieldHintText: loc.weatherStationEuiHintText,
                         onEditingComplete: () => _uniqueFieldsEditingComplete(
                           existingValues: values,
-                          maxLength: AppConstants.maxSensorEuiLength,
+                          maxLength: AppConstants.maxWeatherStationEuiLength,
                           value: _eui,
-                          initialValue: _initialSensor?.eui,
+                          initialValue: _initialWeatherStation?.eui,
                         ),
                         validator: (_) => _uniqueFieldsErrorText(
                           existingValues: values,
-                          maxLength: AppConstants.maxSensorEuiLength,
+                          maxLength: AppConstants.maxWeatherStationEuiLength,
                           value: _eui,
-                          initialValue: _initialSensor?.eui,
+                          initialValue: _initialWeatherStation?.eui,
                         ),
                       );
                     },
@@ -290,7 +288,7 @@ class _AddUpdateSensorFormContentsState
                   // sector field
                   FormTitleAndField(
                     enabled: !isLoading,
-                    fieldKey: _sensorSectorKey,
+                    fieldKey: _weatherStationSectorKey,
                     fieldController: _selectedSectorController,
                     canRequestFocus: false,
                     keyboardType: TextInputType.none,

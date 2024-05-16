@@ -13,23 +13,23 @@ import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.da
 import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indicator.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
-class ConnectSectorToSensorScreen extends ConsumerStatefulWidget {
-  const ConnectSectorToSensorScreen({
+class ConnectSectorToWeatherStationScreen extends ConsumerStatefulWidget {
+  const ConnectSectorToWeatherStationScreen({
     super.key,
     required this.selectedSector,
   });
 
   /// The previous value that was selected during the previous navigation
-  /// to the sensor form screen.
+  /// to the weather station form screen.
   final RadioButtonItem selectedSector;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _ConnectSectorToSensorScreenState();
+      _ConnectSectorToWeatherStationScreenState();
 }
 
-class _ConnectSectorToSensorScreenState
-    extends ConsumerState<ConnectSectorToSensorScreen> {
+class _ConnectSectorToWeatherStationScreenState
+    extends ConsumerState<ConnectSectorToWeatherStationScreen> {
   late RadioButtonItem _selectedValue;
 
   @override
@@ -47,7 +47,7 @@ class _ConnectSectorToSensorScreenState
 
     final sectors = ref.watch(sectorListStreamProvider);
     return CustomSliverConnectSomethingTo(
-      title: loc.sensorConnectSectorPageTitle,
+      title: loc.selectASectorPageTitle,
       actions: [
         CommonAddIconButton(
           onPressed: () => _onTapAdd(context),

@@ -38,8 +38,8 @@ import 'package:irrigazione_iot/src/features/sectors/screens/add_update_sector/s
 import 'package:irrigazione_iot/src/features/sectors/screens/sector_details/sector_details.dart';
 import 'package:irrigazione_iot/src/features/sectors/screens/sector_list/sectors_list_screen.dart';
 import 'package:irrigazione_iot/src/features/user_profile/screens/user_profile_screen.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/screens/add_update_sensor/add_update_sensor_form.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/screens/add_update_sensor/connect_sector_to_sensor_screen.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/screens/add_update_weather_station/add_update_weather_station_form.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/screens/add_update_weather_station/connect_sector_to_weather_station_screen.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/sensor_details/sensor_details_screen.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/sensor_list/sensors_list_screen.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/sensor_stat_history/sensor_statistic_history_screen.dart';
@@ -568,7 +568,7 @@ GoRouter goRouter(GoRouterRef ref) {
             name: AppRoute.addWeatherStation.name,
             pageBuilder: (context, state) => const MaterialPage(
               fullscreenDialog: true,
-              child: AddUpdateSensorForm(
+              child: AddUpdateWeatherStationForm(
                 formType: GenericFormTypes.add,
               ),
             ),
@@ -606,9 +606,9 @@ GoRouter goRouter(GoRouterRef ref) {
             pageBuilder: (context, state) {
               return MaterialPage(
                 fullscreenDialog: true,
-                child: AddUpdateSensorForm(
+                child: AddUpdateWeatherStationForm(
                   formType: GenericFormTypes.update,
-                  sensorId: state.pathId,
+                  weatherStationId: state.pathId,
                 ),
               );
             },
@@ -622,7 +622,7 @@ GoRouter goRouter(GoRouterRef ref) {
                 label: state.queryName ?? '',
               );
               return MaterialPage(
-                child: ConnectSectorToSensorScreen(
+                child: ConnectSectorToWeatherStationScreen(
                   selectedSector: selectedSector,
                 ),
                 fullscreenDialog: true,
