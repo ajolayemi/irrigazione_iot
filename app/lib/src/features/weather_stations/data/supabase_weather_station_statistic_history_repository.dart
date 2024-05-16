@@ -1,6 +1,6 @@
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_measurements_database_keys.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_statistic_history.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_statistic_history_repository.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_statistic_history_repository.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';

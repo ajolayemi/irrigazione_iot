@@ -1,5 +1,5 @@
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_statistic_history.dart';
-import 'package:irrigazione_iot/src/features/weather_stations/models/supabase_weather_station_statistic_history_repository.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/data/supabase_weather_station_statistic_history_repository.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
