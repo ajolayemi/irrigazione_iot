@@ -20,9 +20,9 @@ export class TableNames {
   static readonly sector_pumps = "sector_pumps";
   static readonly pump_flows = "pump_flows";
   static readonly terminal_pressures = "terminal_pressures";
-  static readonly sensors = "sensors";
-  static readonly sensor_measurements = "sensor_measurements";
-  static readonly sensor_battery_data = "sensor_battery_data";
+  static readonly weatherStations = "weather_stations";
+  static readonly weather_station_measurements = "weather_station_measurements";
+  static readonly weather_station_battery_data = "weather_station_battery_data";
 }
 
 /**
