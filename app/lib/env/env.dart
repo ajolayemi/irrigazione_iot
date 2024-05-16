@@ -12,7 +12,6 @@ part 'env.g.dart';
 
 @Envied(path: '../.env')
 final class Env {
-
   /// When developing and testing locally using emulators
   /// the supabase url used has the default localhost and
   /// port provided by supabase in its documentation
@@ -27,65 +26,69 @@ final class Env {
   static get supabaseLocalUrlForRealDevice =>
       'http://$localhost:$supabaseLocalDevPort';
 
-
-  @EnviedField(
-    varName: 'LOCALHOST',
-    obfuscate: true,
-  )
+  @EnviedField(varName: 'LOCALHOST', obfuscate: true, defaultValue: 'localhost')
   static final String localhost = _Env.localhost;
-  
 
   @EnviedField(
     varName: 'SUPABASE_DEFAULT_LOCALHOST',
     obfuscate: true,
+    defaultValue: 'localhost',
   )
   static final String supabaseDefaultLocalHost = _Env.supabaseDefaultLocalHost;
 
   @EnviedField(
     varName: 'SUPABASE_LOCAL_DEV_PORT',
     obfuscate: true,
+    defaultValue: '3000',
   )
   static final String supabaseLocalDevPort = _Env.supabaseLocalDevPort;
 
   @EnviedField(
-      varName: 'SUPABASE_LOCAL_URL',
-      obfuscate: true,
-      defaultValue: 'http://localhost:3000')
+    varName: 'SUPABASE_LOCAL_URL',
+    obfuscate: true,
+    defaultValue: 'http://localhost:3000',
+  )
   static final String supabaseLocalUrl = _Env.supabaseLocalUrl;
 
   @EnviedField(
-      varName: 'SUPABASE_PROD_URL',
-      obfuscate: true,
-      defaultValue: 'https://your_prod_url.com')
+    varName: 'SUPABASE_PROD_URL',
+    obfuscate: true,
+    defaultValue: 'https://your_prod_url.com',
+  )
   static final String supabaseProdUrl = _Env.supabaseProdUrl;
 
   @EnviedField(
-      varName: 'SUPABASE_PROD_ANON_KEY',
-      obfuscate: true,
-      defaultValue: 'your_prod_anon_key')
+    varName: 'SUPABASE_PROD_ANON_KEY',
+    obfuscate: true,
+    defaultValue: 'your_prod_anon_key',
+  )
   static final String supabaseProdAnonKey = _Env.supabaseProdAnonKey;
 
   @EnviedField(
-      varName: 'SUPABASE_LOCAL_ANON_KEY',
-      obfuscate: true,
-      defaultValue: 'your_local_anon_key')
+    varName: 'SUPABASE_LOCAL_ANON_KEY',
+    obfuscate: true,
+    defaultValue: 'your_local_anon_key',
+  )
   static final String supabaseLocalAnonKey = _Env.supabaseLocalAnonKey;
 
   @EnviedField(
-      varName: 'IOS_CLIENT_ID',
-      obfuscate: true,
-      defaultValue: 'your_ios_client_id')
+    varName: 'IOS_CLIENT_ID',
+    obfuscate: true,
+    defaultValue: 'your_ios_client_id',
+  )
   static final String iosClientId = _Env.iosClientId;
 
   @EnviedField(
-      varName: 'WEB_CLIENT_ID',
-      obfuscate: true,
-      defaultValue: 'your_web_client_id')
+    varName: 'WEB_CLIENT_ID',
+    obfuscate: true,
+    defaultValue: 'your_web_client_id',
+  )
   static final String webClientId = _Env.webClientId;
 
   @EnviedField(
-      varName: 'ANDROID_CLIENT_ID',
-      obfuscate: true,
-      defaultValue: 'your_android_client_id')
+    varName: 'ANDROID_CLIENT_ID',
+    obfuscate: true,
+    defaultValue: 'your_android_client_id',
+  )
   static final String androidClientId = _Env.androidClientId;
 }
