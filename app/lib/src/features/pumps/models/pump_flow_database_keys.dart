@@ -7,4 +7,5 @@ class PumpFlowDatabaseKeys {
   static const String flow = 'flow';
   static const String pumpId = 'pump_id';
   static const String createdAt = 'created_at';
+  static const String litresPerSecond = 'litres_per_second';
 }

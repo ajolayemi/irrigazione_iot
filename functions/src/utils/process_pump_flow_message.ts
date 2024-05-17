@@ -34,6 +34,7 @@ export const processPumpFlowMessage = async (
       created_at: new Date().toISOString(),
       pump_id: pump.id,
       flow: count * 100,
+      litres_per_second: message.litresPerSecond,
     };
 
     await insertPumpFlow(flowRate);

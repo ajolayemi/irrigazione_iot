@@ -1,11 +1,15 @@
 import {TableNames} from "../_utils/tableConstants.ts";
-import {commonGetByMqttMsgName} from "../_utils/commonDatabaseOperations.ts";
+import {commonGetByEui} from "../_utils/commonDatabaseOperations.ts";
 
 console.log(`Function 'get-board-by-mqtt-msg-name' invoked`);
 
 Deno.serve(
   async (req) =>
-    await commonGetByMqttMsgName(req, TableNames.boards, "id, company_id, collector_id")
+    await commonGetByEui(
+      req,
+      TableNames.boards,
+      "id, company_id, collector_id, name"
+    )
 );
 
 /* To invoke locally:

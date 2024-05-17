@@ -2,19 +2,19 @@ import {Tables} from "../../../schemas/database.types";
 import {createSupabaseClient} from "../../services/supabase_client";
 
 /**
- * References the get-board-by-mqtt-msg-name Supabase
+ * References the get-board-by-eui Supabase
  * Edge function to get a board by MQTT message name
- * @param {string} name The MQTT message name of the board to get
+ * @param {string} eui The EUI of the board to get
  * @return {Promise<Tables<"board">>} The board with the given MQTT message name if it exists
  */
-export const getBoardByMqttMsgName = async (
-  name: string
+export const getBoardByEui = async (
+  eui: string
 ): Promise<Tables<"boards">> => {
   const supabase = await createSupabaseClient();
   const {data, error} = await supabase.functions.invoke(
-    "get-board-by-mqtt-msg-name",
+    "get-board-by-eui",
     {
-      body: {name},
+      body: {eui},
     }
   );
   if (error) throw error;

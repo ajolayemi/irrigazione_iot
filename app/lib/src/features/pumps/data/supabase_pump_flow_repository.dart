@@ -9,6 +9,11 @@ class SupabasePumpFlowRepository implements PumpFlowRepository {
   const SupabasePumpFlowRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
+  PumpFlow? _fromList(List<Map<String, dynamic>>? data) {
+    if (data == null) return null;
+    return PumpFlow.fromJson(data.first);
+  }
+
   @override
   Stream<int> watchTotalLitresDispensed(String pumpId) {
     final stream = _supabaseClient.pumpFlow
@@ -24,17 +29,19 @@ class SupabasePumpFlowRepository implements PumpFlowRepository {
   }
 
   @override
-  Stream<DateTime?> watchLastDispensation(String pumpId) {
+  Stream<PumpFlow?> watchPumpLastFlow(String pumpId) {
     final stream = _supabaseClient.pumpFlow
         .stream(primaryKey: [PumpFlowDatabaseKeys.id])
         .eq(PumpFlowDatabaseKeys.pumpId, pumpId)
         .order(PumpFlowDatabaseKeys.createdAt, ascending: false)
         .limit(1);
 
-    return stream.map((flows) {
-      if (flows.isEmpty) return null;
-      final pumpFlow = PumpFlow.fromJson(flows.first);
-      return pumpFlow.createdAt;
-    });
+    return stream.map(_fromList);
   }
+
+  @override
+  Stream<DateTime?> watchLastDispensation(String pumpId) =>
+      watchPumpLastFlow(pumpId).map(
+        (flow) => flow?.createdAt,
+      );
 }

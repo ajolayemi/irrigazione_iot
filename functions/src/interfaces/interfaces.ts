@@ -36,6 +36,7 @@ export interface CustomJSON {
 export interface StatusMessage {
   status: string;
   name: string;
+  type: string;
 }
 
 /**
@@ -44,7 +45,7 @@ export interface StatusMessage {
 export interface PumpFlowRateMessage {
   count: number;
   name: string;
-  litresPerSeconds: number;
+  litresPerSecond: number;
 }
 
 export interface PumpPressureKeys {
@@ -55,7 +56,7 @@ export interface PumpPressureKeys {
 
 export interface BoardStatusMessage {
   vbat: number;
-  name: string;
+  eui: string;
 }
 
 export interface HttpCallableReqBody {

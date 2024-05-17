@@ -3,7 +3,6 @@ import {getSecretFromCloud} from "./secrets";
 import {SupabaseClient, createClient} from "@supabase/supabase-js";
 
 import dotenv = require("dotenv");
-import {logger} from "firebase-functions/v2";
 dotenv.config({path: "../../../.env"});
 
 /**
@@ -17,8 +16,6 @@ export const createSupabaseClient = async (): Promise<
   const urlSecretKey = `supabase-url-${env}`;
   const supabaseKeySecretKey = `supabase-key-${env}`;
   const url = await getSecretFromCloud(urlSecretKey);
-  logger.info(`Supabase URL: ${url}`);
   const anon = await getSecretFromCloud(supabaseKeySecretKey);
-  logger.info(`Supabase anon key: ${anon}`);
   return createClient<Database>(url, anon);
 };

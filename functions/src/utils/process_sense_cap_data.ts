@@ -14,8 +14,9 @@ import {
 /**
  * Processes the data received from the SenseCAP device
  * @param {any} data The data to process, typically a JSON object
+ * @return {Promise<boolean>} True if the data was successfully processed
  */
-export const processSenseCapData = async (data: any): Promise<void> => {
+export const processSenseCapData = async (data: any): Promise<boolean> => {
   console.log("Processing SenseCAP data...");
   // // Get the result from the data
   // const result = data.result || data.data;
@@ -60,9 +61,13 @@ export const processSenseCapData = async (data: any): Promise<void> => {
   // insert measurement data to database
   const weatherStationMeasurement: TablesInsert<"weather_station_measurements"> =
     buildWeatherStationMeasurementData(stationData, station.id);
-  logger.info(`Saving measurement data for station named: ${station.name} to the database`);
+  logger.info(
+    `Saving measurement data for station named: ${station.name} to the database`
+  );
   await insertWeatherStationMeasurementData(weatherStationMeasurement);
   logger.info("Station measurement data saved successfully");
+
+  return Promise.resolve(true);
 };
 
 /**
@@ -79,9 +84,18 @@ const buildWeatherStationMeasurementData = (
   return {
     created_at: data.receivedAt,
     weather_station_id: weatherStationId,
-    air_temperature: filterWeatherStationMeasurements(measurements, "air_temperature"),
-    air_humidity: filterWeatherStationMeasurements(measurements, "air_humidity"),
-    light_intensity: filterWeatherStationMeasurements(measurements, "light_intensity"),
+    air_temperature: filterWeatherStationMeasurements(
+      measurements,
+      "air_temperature"
+    ),
+    air_humidity: filterWeatherStationMeasurements(
+      measurements,
+      "air_humidity"
+    ),
+    light_intensity: filterWeatherStationMeasurements(
+      measurements,
+      "light_intensity"
+    ),
     uv_index: filterWeatherStationMeasurements(measurements, "uv_index"),
     wind_direction_sensor: filterWeatherStationMeasurements(
       measurements,
