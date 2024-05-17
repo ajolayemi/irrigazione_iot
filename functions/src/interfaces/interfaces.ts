@@ -36,6 +36,7 @@ export interface CustomJSON {
 export interface StatusMessage {
   status: string;
   name: string;
+  type: string;
 }
 
 /**

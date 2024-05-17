@@ -1,93 +1,80 @@
 import admin from "firebase-admin";
 import {https, logger, pubsub} from "firebase-functions/v2";
 import "dotenv/config";
+// import {processPressureMessageFromPubSub} from "./utils/process_pressure_message";
+// import {processSectorStatusMessage} from "./utils/process_sector_status_message";
+// import {processPumpStatusMessage} from "./utils/process_pump_status_message";
+// import {processPumpFlowMessage} from "./utils/process_pump_flow_message";
+// import {processPumpPressureMessage} from "./utils/process_pump_pressure_message";
+// import {processBoardStatusMessage} from "./utils/process_board_status_message";
+import {CallableRequest} from "firebase-functions/v2/https";
+import {createMqttClient} from "./services/mqtt";
+import {HttpCallableReqBody, StatusMessage} from "./interfaces/interfaces";
+// import {processSenseCapData} from "./utils/process_sense_cap_data";
+import {saveDataWhenDev} from "./utils/save_dev_data";
 import {processPressureMessageFromPubSub} from "./utils/process_pressure_message";
 import {processSectorStatusMessage} from "./utils/process_sector_status_message";
 import {processPumpStatusMessage} from "./utils/process_pump_status_message";
 import {processPumpFlowMessage} from "./utils/process_pump_flow_message";
 import {processPumpPressureMessage} from "./utils/process_pump_pressure_message";
 import {processBoardStatusMessage} from "./utils/process_board_status_message";
-import {CallableRequest} from "firebase-functions/v2/https";
-import {createMqttClient} from "./services/mqtt";
-import {HttpCallableReqBody, StatusMessage} from "./interfaces/interfaces";
-// import {saveDataWhenDev} from "./utils/save_dev_data";
 import {processSenseCapData} from "./utils/process_sense_cap_data";
-import {saveDataWhenDev} from "./utils/save_dev_data";
 
 admin.initializeApp();
 
 /**
- * Cloud function is triggered by a message published to the `pressure` topic
+ * Listens to new messages on the 'saia-dataflow' topic
+ * from PubSub and tries to pass the message to the
+ * appropriate function for processing.
+ *
  */
-exports.processPressureMessages = pubsub.onMessagePublished(
-  "pressure",
+exports.processDataflowMessages = pubsub.onMessagePublished(
+  "saia-dataflow",
   async (event) => {
+    let success = false;
     const message = event.data.message.json;
-    const successInProcessingMessage = await processPressureMessageFromPubSub(
-      message
-    );
-    return Promise.resolve(successInProcessingMessage);
-  }
-);
 
-/**
- * Cloud function triggered by a message published to the `sector-status` topic
- */
-exports.processSectorStatusMessages = pubsub.onMessagePublished(
-  "sector-status",
-  async (event) => {
-    const message = event.data.message.json;
-    const successInProcessingMessage = await processSectorStatusMessage(
-      message
-    );
-    return Promise.resolve(successInProcessingMessage);
-  }
-);
+    // Messages for weather stations coming from TTN has an end_device_ids key
+    // If the key is present, it means the message is from a weather station
+    // and should be processed differently
+    const hasEndDeviceIdKey = message.end_device_ids !== undefined;
 
-exports.processPumpStatusMessages = pubsub.onMessagePublished(
-  "pump-status",
-  async (event) => {
-    const message = event.data.message.json;
-    const successInProcessingMessage = await processPumpStatusMessage(message);
-    return Promise.resolve(successInProcessingMessage);
-  }
-);
+    if (hasEndDeviceIdKey) {
+      success = await processSenseCapData(message);
+      return Promise.resolve(success);
+    }
+    const messageType = message.type;
+    if (!messageType) {
+      throw new Error("Message type is required");
+    }
+    logger.info(`Processing message of type: ${messageType}`);
 
-exports.processPumpFlowMessages = pubsub.onMessagePublished(
-  "pump-flow",
-  async (event) => {
-    const message = event.data.message.json;
-    const successInProcessingMessage = await processPumpFlowMessage(message);
-    return Promise.resolve(successInProcessingMessage);
-  }
-);
+    // Call the appropriate function to process the message
+    // based on the message type
+    switch (messageType) {
+      case "pressure":
+        success = await processPressureMessageFromPubSub(message);
+        break;
+      case "sector_status":
+        success = await processSectorStatusMessage(message);
+        break;
+      case "pump_status":
+        success = await processPumpStatusMessage(message);
+        break;
+      case "pump_flow":
+        success = await processPumpFlowMessage(message);
+        break;
+      case "pump_pressure":
+        success = await processPumpPressureMessage(message);
+        break;
+      case "board_status":
+        success = await processBoardStatusMessage(message);
+        break;
+      default:
+        throw new Error("Invalid message type");
+    }
 
-exports.processPumpPressureMessages = pubsub.onMessagePublished(
-  "pump-pressure",
-  async (event) => {
-    const message = event.data.message.json;
-    const successInProcessingMessage = await processPumpPressureMessage(
-      message
-    );
-    return Promise.resolve(successInProcessingMessage);
-  }
-);
-
-exports.processSenseCapSensorData = pubsub.onMessagePublished(
-  "sensor",
-  async (event) => {
-    const message = event.data.message.json;
-    const successInProcessingMessage = await processSenseCapData(message);
-    return Promise.resolve(successInProcessingMessage);
-  }
-);
-
-exports.processBoardStatusMessages = pubsub.onMessagePublished(
-  "board-status",
-  async (event) => {
-    const message = event.data.message.json;
-    const successInProcessingMessage = await processBoardStatusMessage(message);
-    return Promise.resolve(successInProcessingMessage);
+    return Promise.resolve(success);
   }
 );
 
@@ -101,7 +88,7 @@ exports.toggleItemStatus = https.onCall(async (req: CallableRequest) => {
     const body: HttpCallableReqBody = req.data;
 
     logger.info(
-      `Toggling status of ${body.message} to ${body.message} with topic ${body.topic}`
+      `Toggling status of ${body.mqttMsgName} to ${body.message} with topic ${body.topic}`
     );
     const client = await createMqttClient();
     if (client.disconnected) {
@@ -112,6 +99,7 @@ exports.toggleItemStatus = https.onCall(async (req: CallableRequest) => {
     const messageForMqtt: StatusMessage = {
       name: body.mqttMsgName,
       status: body.message,
+      type: body.isPump ? "pump_status" : "sector_status",
     };
     const messageBuffer = Buffer.from(JSON.stringify(messageForMqtt));
     client.publish(body.topic, messageBuffer);
