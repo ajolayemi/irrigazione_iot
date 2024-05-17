@@ -101,33 +101,33 @@ export type Database = {
           collector_id: number
           company_id: number
           created_at: string
+          eui: string
           id: number
           model: string
           mqtt_msg_name: string
           name: string
-          serial_number: string
           updated_at: string
         }
         Insert: {
           collector_id: number
           company_id: number
           created_at?: string
+          eui: string
           id?: number
           model: string
           mqtt_msg_name: string
           name: string
-          serial_number: string
           updated_at: string
         }
         Update: {
           collector_id?: number
           company_id?: number
           created_at?: string
+          eui?: string
           id?: number
           model?: string
           mqtt_msg_name?: string
           name?: string
-          serial_number?: string
           updated_at?: string
         }
         Relationships: [
@@ -961,15 +961,15 @@ export type Database = {
         }
         Returns: number
       }
-      get_sensor_company_id: {
+      get_user_email_v2: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      get_weather_station_company_id: {
         Args: {
           sensor_id_input: number
         }
         Returns: number
-      }
-      get_user_email_v2: {
-        Args: Record<PropertyKey, never>
-        Returns: string
       }
     }
     Enums: {
