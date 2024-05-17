@@ -56,7 +56,7 @@ export interface PumpPressureKeys {
 
 export interface BoardStatusMessage {
   vbat: number;
-  name: string;
+  eui: string;
 }
 
 export interface HttpCallableReqBody {

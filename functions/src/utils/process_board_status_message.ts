@@ -1,6 +1,6 @@
 import {logger} from "firebase-functions/v1";
 import {BoardStatusMessage} from "../interfaces/interfaces";
-import {getBoardByMqttMsgName} from "../database/boards/read_board_data";
+import {getBoardByEui} from "../database/boards/read_board_data";
 import {insertBoardStatusData} from "../database/boards/insert_board_data";
 
 export const processBoardStatusMessage = async (
@@ -13,21 +13,21 @@ export const processBoardStatusMessage = async (
 
     logger.info("Processing board status message...");
 
-    const board = await getBoardByMqttMsgName(message.name);
+    const board = await getBoardByEui(message.eui);
 
     if (!board) {
       throw new Error(
-        `No board matching the provided ${message.name} was found in database`
+        `No board matching the provided ${message.eui} was found in database`
       );
     }
 
-    logger.info(`Inserting board status for ${message.name} into database`);
+    logger.info(`Inserting board status for ${board.name} into database`);
     await insertBoardStatusData({
       created_at: new Date().toISOString(),
       board_id: board.id,
       battery_level: message.vbat,
     });
-    logger.info(`Board status for ${message.name} inserted successfully`);
+    logger.info(`Board status for ${board.name} inserted successfully`);
     return true;
   } catch (error) {
     logger.error(`Error processing board status message: ${error}`);
