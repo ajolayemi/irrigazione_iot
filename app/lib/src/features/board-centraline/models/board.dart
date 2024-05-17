@@ -12,7 +12,7 @@ class Board extends Equatable {
     required this.id,
     required this.name,
     required this.model,
-    required this.serialNumber,
+    required this.eui,
     required this.collectorId,
     required this.companyId,
     required this.mqttMsgName,
@@ -24,7 +24,7 @@ class Board extends Equatable {
       : id = '',
         name = '',
         model = '',
-        serialNumber = '',
+        eui = '',
         collectorId = '',
         companyId = '',
         createdAt = null,
@@ -41,8 +41,8 @@ class Board extends Equatable {
   @JsonKey(name: BoardDatabaseKeys.model)
   final String model;
 
-  @JsonKey(name: BoardDatabaseKeys.serialNumber)
-  final String serialNumber;
+  @JsonKey(name: BoardDatabaseKeys.eui)
+  final String eui;
 
   @JsonKey(name: BoardDatabaseKeys.collectorId)
   @IntConverter()
@@ -67,7 +67,7 @@ class Board extends Equatable {
       id,
       name,
       model,
-      serialNumber,
+      eui,
       collectorId,
       companyId,
       createdAt,
@@ -80,7 +80,7 @@ class Board extends Equatable {
     String? id,
     String? name,
     String? model,
-    String? serialNumber,
+    String? eui,
     String? collectorId,
     String? companyId,
     DateTime? createdAt,
@@ -91,7 +91,7 @@ class Board extends Equatable {
       id: id ?? this.id,
       name: name ?? this.name,
       model: model ?? this.model,
-      serialNumber: serialNumber ?? this.serialNumber,
+      eui: eui ?? this.eui,
       collectorId: collectorId ?? this.collectorId,
       companyId: companyId ?? this.companyId,
       createdAt: createdAt ?? this.createdAt,

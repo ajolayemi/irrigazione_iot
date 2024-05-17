@@ -84,7 +84,7 @@ class _AddUpdateBoardFormContentState
       _initialBoard = board;
       _nameController.text = _initialBoard?.name ?? '';
       _modelController.text = _initialBoard?.model ?? '';
-      _serialNumberController.text = _initialBoard?.serialNumber ?? '';
+      _serialNumberController.text = _initialBoard?.eui ?? '';
       _mqttMessageNameController.text = _initialBoard?.mqttMsgName ?? '';
 
       if (board != null) {
@@ -203,7 +203,7 @@ class _AddUpdateBoardFormContentState
           name: _name,
           id: _initialBoard?.id,
           model: _model,
-          serialNumber: _serialNumber,
+          eui: _serialNumber,
           mqttMsgName: _mqttMsgName,
         );
 
