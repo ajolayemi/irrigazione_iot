@@ -45,7 +45,7 @@ export interface StatusMessage {
 export interface PumpFlowRateMessage {
   count: number;
   name: string;
-  litresPerSeconds: number;
+  litresPerSecond: number;
 }
 
 export interface PumpPressureKeys {
