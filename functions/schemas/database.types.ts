@@ -341,18 +341,21 @@ export type Database = {
           created_at: string
           flow: number
           id: number
+          litres_per_second: number
           pump_id: number
         }
         Insert: {
           created_at?: string
           flow: number
           id?: number
+          litres_per_second?: number
           pump_id: number
         }
         Update: {
           created_at?: string
           flow?: number
           id?: number
+          litres_per_second?: number
           pump_id?: number
         }
         Relationships: [
