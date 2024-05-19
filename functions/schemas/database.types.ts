@@ -405,6 +405,7 @@ export type Database = {
       }
       pump_statuses: {
         Row: {
+          company_id: number
           created_at: string
           id: number
           pump_id: number
@@ -412,6 +413,7 @@ export type Database = {
           status_boolean: boolean
         }
         Insert: {
+          company_id: number
           created_at?: string
           id?: number
           pump_id: number
@@ -419,6 +421,7 @@ export type Database = {
           status_boolean?: boolean
         }
         Update: {
+          company_id?: number
           created_at?: string
           id?: number
           pump_id?: number
@@ -426,6 +429,13 @@ export type Database = {
           status_boolean?: boolean
         }
         Relationships: [
+          {
+            foreignKeyName: "public_pump_statuses_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "public_pump_statuses_pump_id_fkey"
             columns: ["pump_id"]
