@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/dashboard/screens/dashboard_screen_contents.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
@@ -61,19 +62,7 @@ class DashboardScreen extends ConsumerWidget {
               ),
             ],
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return ListTile(
-                  title: Text('Item $index'),
-                  onTap: () {
-                    context.goNamed(AppRoute.home.name);
-                  },
-                );
-              },
-              childCount: nums.length,
-            ),
-          ),
+          const DashboardScreenContents(),
         ],
       ),
     );

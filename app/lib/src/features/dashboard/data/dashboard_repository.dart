@@ -1,0 +1,28 @@
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/features/dashboard/data/supabase_dashboard_repository.dart';
+import 'package:irrigazione_iot/src/features/dashboard/models/pump_statuses_stat.dart';
+import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'dashboard_repository.g.dart';
+
+abstract class DashboardRepository {
+  /// Emits a list of [PumpStatusesStat]s for the provided [companyId].
+  Stream<List<PumpStatusesStat>?> watchPumpsStatusesStats(String companyId);
+}
+
+@Riverpod(keepAlive: true)
+DashboardRepository dashboardRepository(DashboardRepositoryRef ref) {
+  final supabaseClient = ref.watch(supabaseClientProvider);
+  return SupabaseDashboardRepository(supabaseClient);
+}
+
+@riverpod
+Stream<List<PumpStatusesStat>?> pumpsStatusesStatsStream(
+    PumpsStatusesStatsStreamRef ref) {
+  final currentSelectedCompanyByUser =
+      ref.watch(currentTappedCompanyProvider).value;
+  if (currentSelectedCompanyByUser == null) return Stream.value([]);
+  final dashboardRepo = ref.watch(dashboardRepositoryProvider);
+  return dashboardRepo.watchPumpsStatusesStats(currentSelectedCompanyByUser.id);
+}
