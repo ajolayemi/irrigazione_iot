@@ -12,6 +12,7 @@ class PumpStatus extends Equatable {
     required this.pumpId,
     required this.status,
     required this.statusBoolean,
+    required this.companyId,
     this.createdAt,
   });
 
@@ -22,6 +23,10 @@ class PumpStatus extends Equatable {
   @JsonKey(name: PumpStatusDatabaseKeys.pumpId)
   @IntConverter()
   final String pumpId;
+
+  @JsonKey(name: PumpStatusDatabaseKeys.companyId)
+  @IntConverter()
+  final String companyId;
 
   @JsonKey(name: PumpStatusDatabaseKeys.status)
   final String status;
