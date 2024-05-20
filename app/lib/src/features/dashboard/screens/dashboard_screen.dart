@@ -36,8 +36,6 @@ class DashboardScreen extends ConsumerWidget {
     final user = ref.watch(authRepositoryProvider).currentUser;
 
     // TODO: show terminal pressure as first item
-    // TODO: same goes for sectors with their pressures 
-    
 
     return Scaffold(
       body: PaddedSafeArea(
