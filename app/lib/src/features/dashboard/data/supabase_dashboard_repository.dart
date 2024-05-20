@@ -1,4 +1,4 @@
-import 'package:irrigazione_iot/src/features/dashboard/models/pump_switched_on_database_keys.dart';
+import 'package:irrigazione_iot/src/features/dashboard/models/pump_statuses_stat_database_keys.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/dashboard/data/dashboard_repository.dart';

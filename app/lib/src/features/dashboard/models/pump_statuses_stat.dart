@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:irrigazione_iot/src/features/dashboard/models/pump_switched_on_database_keys.dart';
+import 'package:irrigazione_iot/src/features/dashboard/models/pump_statuses_stat_database_keys.dart';
 import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
 part 'pump_statuses_stat.g.dart';
