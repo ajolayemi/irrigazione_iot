@@ -495,6 +495,42 @@ export type Database = {
           },
         ]
       }
+      pumps_switched_on: {
+        Row: {
+          company_id: number
+          id: number
+          pump_id: number
+          status_boolean: boolean
+        }
+        Insert: {
+          company_id: number
+          id?: number
+          pump_id: number
+          status_boolean: boolean
+        }
+        Update: {
+          company_id?: number
+          id?: number
+          pump_id?: number
+          status_boolean?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_pumps_switched_on_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_pumps_switched_on_pump_id_fkey"
+            columns: ["pump_id"]
+            isOneToOne: false
+            referencedRelation: "pumps"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       sector_pressures: {
         Row: {
           created_at: string
@@ -981,6 +1017,13 @@ export type Database = {
       get_weather_station_company_id: {
         Args: {
           sensor_id_input: number
+        }
+        Returns: number
+      }
+      seconds_since_pump_last_switched_on: {
+        Args: {
+          pump_id_input: number
+          current_status_timestamp: string
         }
         Returns: number
       }
