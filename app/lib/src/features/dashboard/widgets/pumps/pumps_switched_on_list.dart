@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:irrigazione_iot/src/features/dashboard/data/dashboard_repository.dart';
 import 'package:irrigazione_iot/src/features/dashboard/models/pump_statuses_stat.dart';
-import 'package:irrigazione_iot/src/features/dashboard/widgets/dashboard_item_column.dart';
-import 'package:irrigazione_iot/src/features/dashboard/widgets/dashboard_items_listview.dart';
+import 'package:irrigazione_iot/src/features/dashboard/widgets/shared/dashboard_item_column.dart';
+import 'package:irrigazione_iot/src/features/dashboard/widgets/shared/dashboard_items_listview.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/pumps/pumps_switched_on_list_tile.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
