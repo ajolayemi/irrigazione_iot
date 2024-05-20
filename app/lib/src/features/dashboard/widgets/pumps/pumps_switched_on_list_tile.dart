@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/features/dashboard/widgets/pumps/pump_irriga
 import 'package:irrigazione_iot/src/features/dashboard/widgets/pumps/pump_pressure_rate.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/widgets/pump_tile_title.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_responsive_divider.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class PumpSwitchedOnListTile extends ConsumerWidget {
@@ -36,9 +37,9 @@ class PumpSwitchedOnListTile extends ConsumerWidget {
         children: [
           gapH8,
           PumpPressureRate(pumpId: pump.id),
-          gapH8,
+          const CommonResponsiveDivider(),
           PumpFlowRate(pumpId: pump.id),
-          gapH8,
+          const CommonResponsiveDivider(),
           PumpIrrigationDuration(pumpId: pump.id),
         ],
       ),
