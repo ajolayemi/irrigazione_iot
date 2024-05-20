@@ -19,8 +19,8 @@ class DashboardChildItemDetailsRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        leading,
-        trailing,
+        Flexible(child: leading),
+        Flexible(child: trailing),
       ],
     );
   }
