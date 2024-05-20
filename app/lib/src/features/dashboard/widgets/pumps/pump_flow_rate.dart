@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/pumps/pump_flow_last_updated.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/shared/dashboard_child_item_details_row.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_flow_repository.dart';
@@ -21,10 +22,12 @@ class PumpFlowRate extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         PumpFlowLastUpdated(pumpId: pumpId),
+        gapH8,
         DashboardChildItemDetailsRow(
           leading: const Text('Litri erogati'),
           trailing: Text('${pumpFlow?.flow ?? 0}'),
         ),
+        gapH8,
         DashboardChildItemDetailsRow(
           leading: const Text('Portata'),
           trailing:
