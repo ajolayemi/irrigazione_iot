@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
-import 'package:irrigazione_iot/src/features/dashboard/models/pump_statuses_stat.dart';
+import 'package:irrigazione_iot/src/features/dashboard/models/pump_switched_on.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/pumps/pump_flow_rate.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/pumps/pump_irrigation_duration.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/pumps/pump_pressure_rate.dart';
@@ -16,7 +16,7 @@ class PumpSwitchedOnListTile extends ConsumerWidget {
     required this.pumpStatusStat,
   });
 
-  final PumpStatusesStat pumpStatusStat;
+  final PumpSwitchedOn pumpStatusStat;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
