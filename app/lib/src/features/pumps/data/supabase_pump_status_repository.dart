@@ -25,7 +25,7 @@ class SupabasePumpStatusRepository implements PumpStatusRepository {
           .call(statusBody.toJson());
 
   @override
-  Stream<bool?> watchPumpStatus(String pumpId) {
+  Stream<PumpStatus?> watchPumpStatus(String pumpId) {
     final stream = _supabaseClient.pumpStatus
         .stream(primaryKey: [PumpStatusDatabaseKeys.id])
         .eq(PumpStatusDatabaseKeys.pumpId, pumpId)
@@ -33,9 +33,9 @@ class SupabasePumpStatusRepository implements PumpStatusRepository {
         .limit(1);
 
     return stream.map((status) {
-      if (status.isEmpty) return false;
+      if (status.isEmpty) return null;
 
-      return PumpStatus.fromJson(status.first).statusBoolean;
+      return PumpStatus.fromJson(status.first);
     });
   }
 }
