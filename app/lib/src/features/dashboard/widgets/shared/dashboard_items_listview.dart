@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:irrigazione_iot/src/shared/widgets/common_responsive_divider.dart';
 
 class DashboardItemsListView<T> extends StatelessWidget {
   const DashboardItemsListView({
@@ -13,10 +12,7 @@ class DashboardItemsListView<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      separatorBuilder: (context, index) {
-        return const CommonResponsiveDivider();
-      },
+    return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: itemBuilder,
