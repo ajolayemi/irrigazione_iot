@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/dashboard/screens/dashboard_screen_contents.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -41,29 +42,31 @@ class DashboardScreen extends ConsumerWidget {
     
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          AppSliverBar(
-            title: context.loc.welcome(user?.name ?? ''),
-            actions: [
-              // Icon button to select a new company
-              IconButton(
-                icon: const Icon(Icons.business),
-                onPressed: () {
-                  context.pushNamed(
-                    AppRoute.companiesListGrid.name,
-                  );
-                },
-              ),
-              // Icon button to logout
-              IconButton(
-                icon: const Icon(Icons.logout),
-                onPressed: () => _signOut(context, ref),
-              ),
-            ],
-          ),
-          const DashboardScreenContents(),
-        ],
+      body: PaddedSafeArea(
+        child: CustomScrollView(
+          slivers: <Widget>[
+            AppSliverBar(
+              title: context.loc.welcome(user?.name ?? ''),
+              actions: [
+                // Icon button to select a new company
+                IconButton(
+                  icon: const Icon(Icons.business),
+                  onPressed: () {
+                    context.pushNamed(
+                      AppRoute.companiesListGrid.name,
+                    );
+                  },
+                ),
+                // Icon button to logout
+                IconButton(
+                  icon: const Icon(Icons.logout),
+                  onPressed: () => _signOut(context, ref),
+                ),
+              ],
+            ),
+            const DashboardScreenContents(),
+          ],
+        ),
       ),
     );
   }
