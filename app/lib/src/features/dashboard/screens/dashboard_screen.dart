@@ -33,11 +33,9 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final nums = List.from(Iterable.generate(50, (i) => i));
     final user = ref.watch(authRepositoryProvider).currentUser;
 
     // TODO: show terminal pressure as first item
-    // TODO: pumps switched on should be shown in the dashboard
     // TODO: same goes for sectors with their pressures 
     
 
