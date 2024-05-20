@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/dashboard_child_item_details_row.dart';
+import 'package:irrigazione_iot/src/features/dashboard/widgets/shared/common_pressure_rate_trailing_text.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_statistic_repository.dart';
 
 /// Displays the current pressure rate of the pump.
@@ -21,15 +22,21 @@ class PumpPressureRate extends ConsumerWidget {
       children: [
         DashboardChildItemDetailsRow(
           leading: const Text('Filter in'),
-          trailing: Text('${pumpPressure?.filterInPressure ?? 0}'),
+          trailing: CommonPressureRateTrailingText(
+            pressure: pumpPressure?.filterInPressure ?? 0,
+          ),
         ),
         DashboardChildItemDetailsRow(
           leading: const Text('Filter out'),
-          trailing: Text('${pumpPressure?.filterOutPressure ?? 0}'),
+          trailing: CommonPressureRateTrailingText(
+            pressure: pumpPressure?.filterOutPressure ?? 0,
+          ),
         ),
         DashboardChildItemDetailsRow(
           leading: const Text('Filter diff'),
-          trailing: Text('${pumpPressure?.pressureDifference ?? 0}'),
+          trailing: CommonPressureRateTrailingText(
+            pressure: pumpPressure?.pressureDifference ?? 0,
+          ),
         ),
       ],
     );
