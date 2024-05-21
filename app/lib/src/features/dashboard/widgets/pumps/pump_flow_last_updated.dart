@@ -36,13 +36,8 @@ class PumpFlowLastUpdatedContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = context.loc;
     return DashboardChildItemDetailsRow(
-      leading: Text(
-        loc.lastUpdated,
-        softWrap: true,
-      ),
-      trailing: Text(
-        content == null ? loc.notAvailable : content!,
-      ),
+      leading: Text(loc.lastUpdated),
+      trailing: Text(content ?? loc.notAvailable),
     );
   }
 }
