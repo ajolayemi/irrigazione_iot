@@ -70,8 +70,8 @@
   "alertDialogConfirm": "Confirm",
   "alertDialogDelete": "Delete",
   "genericAlertDialogTitle": "Are you sure?",
-  "pumpStatusLastSwitchedOn": "last dispensation {when}",
-  "@pumpStatusLastSwitchedOn": {
+  "pumpFlowLastUpdate": "last update {when}",
+  "@pumpFlowLastUpdate": {
     "description": "The last time a pump status was switched on",
     "placeholders": {
       "when": {
@@ -695,6 +695,12 @@
     }
   },
   "addWeatherStationPageTitle": "New Weather Station",
-  "updateWeatherStationPageTitle": "Update Weather Station"
-
+  "updateWeatherStationPageTitle": "Update Weather Station",
+  "pumpSwitchedOnSince": "switched on since {when}",
+  "pumpsSwitchedOn": "Pumps switched on",
+  "sectorsSwitchedOn": "Sectors switched on",
+  "filterInForDashboard": "Filter IN",
+  "filterOutForDashboard": "Filter OUT",
+  "noPumpsSwitchedOn": "No pumps switched on at the moment",
+  "noSectorsSwitchedOn": "No sectors switched on at the moment"
 }

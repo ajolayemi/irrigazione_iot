@@ -29,6 +29,9 @@ abstract class CollectorSectorRepository {
 
   /// Get the [Collector] that is connected to the [Sector] with the provided [sectorId]
   Future<Collector?> getCollectorBySectorId(String sectorId);
+
+  /// Emits the collectorId of the [Collector] that is connected to the [Sector] with the provided [sectorId]
+  Stream<String?> watchCollectorIdBySectorId(String sectorId);
 }
 
 @Riverpod(keepAlive: true)
@@ -90,4 +93,11 @@ Future<Collector?> collectorBySectorId(
     CollectorBySectorIdRef ref, String sectorId) {
   final collectorSectorRepo = ref.watch(collectorSectorRepositoryProvider);
   return collectorSectorRepo.getCollectorBySectorId(sectorId);
+}
+
+@riverpod
+Stream<String?> collectorIdBySectorIdStream(
+    CollectorIdBySectorIdStreamRef ref, String sectorId) {
+  final collectorSectorRepo = ref.watch(collectorSectorRepositoryProvider);
+  return collectorSectorRepo.watchCollectorIdBySectorId(sectorId);
 }

@@ -49,7 +49,7 @@ class PumpListTileSubtitleContent extends StatelessWidget {
     return Text(
       lastDispensedString == null
           ? loc.notAvailable
-          : loc.pumpStatusLastSwitchedOn(lastDispensedString!),
+          : loc.pumpFlowLastUpdate(lastDispensedString!),
       style: context.commonSubtitleStyle,
     );
   }

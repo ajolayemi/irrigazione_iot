@@ -46,6 +46,7 @@ export const processPumpStatusMessage = async (
       status_boolean: pump.turn_on_command === status,
       created_at: new Date().toISOString(),
       pump_id: pump.id,
+      company_id: pump.company_id,
       status,
     };
 

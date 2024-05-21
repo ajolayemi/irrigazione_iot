@@ -1,11 +1,11 @@
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:irrigazione_iot/src/constants/firebase_funcs_constants.dart';
-import 'package:irrigazione_iot/src/shared/models/firebase_callable_function_body.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'package:irrigazione_iot/src/constants/firebase_funcs_constants.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_status.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_status_database_keys.dart';
+import 'package:irrigazione_iot/src/shared/models/firebase_callable_function_body.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabasePumpStatusRepository implements PumpStatusRepository {
@@ -25,7 +25,7 @@ class SupabasePumpStatusRepository implements PumpStatusRepository {
           .call(statusBody.toJson());
 
   @override
-  Stream<bool?> watchPumpStatus(String pumpId) {
+  Stream<PumpStatus?> watchPumpStatus(String pumpId) {
     final stream = _supabaseClient.pumpStatus
         .stream(primaryKey: [PumpStatusDatabaseKeys.id])
         .eq(PumpStatusDatabaseKeys.pumpId, pumpId)
@@ -33,9 +33,9 @@ class SupabasePumpStatusRepository implements PumpStatusRepository {
         .limit(1);
 
     return stream.map((status) {
-      if (status.isEmpty) return false;
+      if (status.isEmpty) return null;
 
-      return PumpStatus.fromJson(status.first).statusBoolean;
+      return PumpStatus.fromJson(status.first);
     });
   }
 }

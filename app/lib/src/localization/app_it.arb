@@ -35,7 +35,7 @@
   "alertDialogConfirm": "Conferma",
   "alertDialogDelete": "Elimina",
   "logInWithAnotherAccount": "Cambia account",
-  "pumpStatusLastSwitchedOn": "ultima erogazione {when}",
+  "pumpFlowLastUpdate": "ultimo aggiornamento {when}",
   "onStatusUpdateAlertDialogContent": "Stai per accendere {name}",
   "offStatusUpdateAlertDialogContent": "Stai per spegnere {name}",
   "onStatusDialogConfirmButtonTitle": "Accendi",
@@ -267,7 +267,10 @@
   "nWeatherStationsWithDefiniteArticle": "{n, plural, =1{la stazione meteo} =2{le stazioni meteo} other{le stazioni meteo}}",
   "nWeatherStationsWithArticulatedPreposition": "{n, plural, =1{alla stazione meteo} =2{alle stazioni meteo} other {alle stazioni meteo}}",
   "addWeatherStationPageTitle": "Nuova Stazione Meteo",
-  "updateWeatherStationPageTitle": "Aggiorna Stazione Meteo"
-
-
+  "updateWeatherStationPageTitle": "Aggiorna Stazione Meteo",
+  "pumpSwitchedOnSince": "accesa da {when}",
+  "pumpsSwitchedOn": "Pompe accese",
+  "sectorsSwitchedOn": "Settori accesi",
+  "noPumpsSwitchedOn": "Non ci sono pompe accese al momento",
+  "noSectorsSwitchedOn": "Non ci sono settori accesi al momento"
 }
