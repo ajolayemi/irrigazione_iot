@@ -49,7 +49,8 @@ class WeatherStationListScreen extends ConsumerWidget {
                 if (data == null || data.isEmpty) {
                   return SliverFillRemaining(
                     child: EmptyDataWidget(
-                      message: loc.emptyDataPlaceholder(loc.nWeatherStations(1)),
+                      message:
+                          loc.emptyDataPlaceholder(loc.nWeatherStations(1)),
                       buttonText: loc.addNewButtonLabel,
                       onPressed: () => _onTapAdd(context),
                     ),
@@ -60,7 +61,8 @@ class WeatherStationListScreen extends ConsumerWidget {
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
                       final weatherStation = data[index];
-                      return WeatherStationListTile(weatherStation: weatherStation);
+                      return WeatherStationListTile(
+                          weatherStation: weatherStation);
                     },
                     childCount: data.length,
                   ),
