@@ -14,7 +14,7 @@ class CommonPressureRateTrailingText extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = context.textTheme;
     return Text(
-      pressure.toString(),
+      '${pressure.toString()} bar',
       style: textTheme.titleMedium?.copyWith(
         color: pressure.getPressureColor(),
       ),
