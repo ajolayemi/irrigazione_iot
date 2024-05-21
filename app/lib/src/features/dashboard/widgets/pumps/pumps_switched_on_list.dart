@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/features/dashboard/widgets/shared/dashboard_
 import 'package:irrigazione_iot/src/features/dashboard/widgets/shared/dashboard_items_listview.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/pumps/pumps_switched_on_list_tile.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/empty_placeholder_widget.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 /// Widget to display the list of pumps switched on in the dashboard if there
@@ -22,7 +23,12 @@ class PumpsSwitchedOnList extends ConsumerWidget {
       value: pumpsSwitchedOn,
       data: (data) {
         if (data == null || data.isEmpty) {
-          return Container();
+          return DashboardItemColumn(
+            title: loc.pumpsSwitchedOn,
+            child: EmptyPlaceholderWidget(
+              message: loc.noPumpsSwitchedOn,
+            ),
+          );
         }
 
         return DashboardItemColumn(
@@ -31,7 +37,9 @@ class PumpsSwitchedOnList extends ConsumerWidget {
             items: data,
             itemBuilder: (context, index) {
               final pumpSwitchedOn = data[index];
-              return PumpSwitchedOnListTile(pumpSwitchedOn: pumpSwitchedOn);
+              return PumpSwitchedOnListTile(
+                pumpSwitchedOn: pumpSwitchedOn,
+              );
             },
           ),
         );

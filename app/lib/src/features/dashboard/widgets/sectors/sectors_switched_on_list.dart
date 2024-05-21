@@ -6,6 +6,7 @@ import 'package:irrigazione_iot/src/features/dashboard/widgets/sectors/sector_sw
 import 'package:irrigazione_iot/src/features/dashboard/widgets/shared/dashboard_item_column.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/shared/dashboard_items_listview.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
+import 'package:irrigazione_iot/src/shared/widgets/empty_placeholder_widget.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 /// Display the sectors that are switched on
@@ -20,7 +21,12 @@ class SectorsSwitchedOnList extends ConsumerWidget {
       value: sectorsSwitchedOn,
       data: (data) {
         if (data == null || data.isEmpty) {
-          return Container();
+          return DashboardItemColumn(
+            title: loc.sectorsSwitchedOn,
+            child: EmptyPlaceholderWidget(
+              message: loc.noSectorsSwitchedOn,
+            ),
+          );
         }
 
         return DashboardItemColumn(
