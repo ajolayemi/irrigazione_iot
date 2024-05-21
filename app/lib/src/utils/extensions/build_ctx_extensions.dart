@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:irrigazione_iot/src/localization/app_localizations.dart';
 import 'package:timeago/timeago.dart' as timeago;
+
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/localization/gen_l10n/app_localizations.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.dart';

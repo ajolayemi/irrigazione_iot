@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/config/theme/app_theme.dart';
-import 'package:irrigazione_iot/src/localization/app_localizations.dart';
+import 'package:irrigazione_iot/src/localization/gen_l10n/app_localizations.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
