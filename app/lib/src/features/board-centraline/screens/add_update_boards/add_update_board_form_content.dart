@@ -78,9 +78,15 @@ class _AddUpdateBoardFormContentState
 
   @override
   void initState() {
-    if (_isUpdating && widget.boardID != null) {
+    super.initState();
+    _asyncFormInit();
+  }
+
+  Future<void> _asyncFormInit() async {
+    final boardId = widget.boardID;
+    if (_isUpdating && boardId != null) {
       final board =
-          ref.read(boardStreamProvider(boardID: widget.boardID!)).valueOrNull;
+          await ref.read(boardStreamProvider(boardID: boardId).future);
       _initialBoard = board;
       _nameController.text = _initialBoard?.name ?? '';
       _modelController.text = _initialBoard?.model ?? '';
@@ -88,11 +94,9 @@ class _AddUpdateBoardFormContentState
       _mqttMessageNameController.text = _initialBoard?.mqttMsgName ?? '';
 
       if (board != null) {
-        final selectedCollector = ref
-            .read(collectorStreamProvider(
-              board.collectorId,
-            ))
-            .valueOrNull;
+        final selectedCollector =
+            await ref.read(collectorFutureProvider(board.collectorId).future);
+
         _selectedCollector = RadioButtonItem(
           label: selectedCollector?.name ?? '',
           value: selectedCollector?.id ?? '',
@@ -101,7 +105,6 @@ class _AddUpdateBoardFormContentState
         _connectedCollectorId = selectedCollector?.id;
       }
     }
-    super.initState();
   }
 
   @override
@@ -270,6 +273,7 @@ class _AddUpdateBoardFormContentState
                             fieldTitle: loc.nameFormFieldTitle,
                             fieldHintText: loc.boardNameHintText,
                             fieldController: _nameController,
+                            maxLength: AppConstants.maxBoardNameLength,
                             onEditingComplete: () => _nameEditingComplete(
                               value: _name,
                               existingNames: value,
@@ -298,6 +302,7 @@ class _AddUpdateBoardFormContentState
                             fieldTitle: loc.mqttMessageNameFormFieldTitle,
                             fieldHintText: loc.mqttMessageNameFormHint,
                             fieldController: _mqttMessageNameController,
+                            maxLength: AppConstants.maxMqttMessageNameLength,
                             onEditingComplete: () => _nameEditingComplete(
                               value: _mqttMsgName,
                               existingNames: value,
