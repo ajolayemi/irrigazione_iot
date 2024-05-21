@@ -23,6 +23,9 @@ abstract class WeatherStationRepository {
   /// Emits the [WeatherStation] with the given [id].
   Stream<WeatherStation?> watchWeatherStation(String id);
 
+  /// Fetches the [WeatherStation] with the given [id].
+  Future<WeatherStation?> getWeatherStation(String id);
+
   /// Emits a list of already used weather station names.
   /// This is used in form validation to prevent duplicate weather station names.
   Stream<List<String?>> watchUsedWeatherStationNames();
@@ -45,6 +48,12 @@ WeatherStationRepository weatherStationRepository(WeatherStationRepositoryRef re
 Stream<WeatherStation?> weatherStationStream(WeatherStationStreamRef ref, String id) {
   final sensorRepo = ref.watch(weatherStationRepositoryProvider);
   return sensorRepo.watchWeatherStation(id);
+}
+
+@riverpod
+Future<WeatherStation?> weatherStationFuture(WeatherStationFutureRef ref, String id) {
+  final sensorRepo = ref.watch(weatherStationRepositoryProvider);
+  return sensorRepo.getWeatherStation(id);
 }
 
 @riverpod

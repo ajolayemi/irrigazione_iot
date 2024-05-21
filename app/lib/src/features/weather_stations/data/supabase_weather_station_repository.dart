@@ -19,7 +19,11 @@ class SupabaseWeatherStationRepository implements WeatherStationRepository {
   }
 
   WeatherStation? _fromJsonSingle(List<Map<String, dynamic>> data) {
-    return data.isEmpty ? null : WeatherStation.fromJson(data.first);
+    return _toWeatherStation(data.first);
+  }
+
+  WeatherStation? _toWeatherStation(Map<String, dynamic>? data) {
+    return data == null ? null : WeatherStation.fromJson(data);
   }
 
   @override
@@ -67,6 +71,17 @@ class SupabaseWeatherStationRepository implements WeatherStationRepository {
   }
 
   @override
+  Future<WeatherStation?> getWeatherStation(String id) async {
+    final data = await _supabaseClient.weatherStations
+        .select()
+        .eq(WeatherStationDatabaseKeys.id, id)
+        .maybeSingle()
+        .withConverter(_toWeatherStation);
+
+    return data;
+  }
+
+  @override
   Stream<List<WeatherStation>?> watchWeatherStations(String companyId) {
     final stream = _supabaseClient.weatherStationStream
         .eq(WeatherStationDatabaseKeys.companyId, companyId);
@@ -89,7 +104,9 @@ class SupabaseWeatherStationRepository implements WeatherStationRepository {
     return _supabaseClient.weatherStationStream.map((data) {
       return data
           .map((weatherStation) =>
-              weatherStation[WeatherStationDatabaseKeys.eui].toString().toLowerCase())
+              weatherStation[WeatherStationDatabaseKeys.eui]
+                  .toString()
+                  .toLowerCase())
           .toList();
     });
   }
