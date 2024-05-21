@@ -9,7 +9,6 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/screens/add_pump/add_update_pump_controller.dart';
-import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/form_field_checkbox.dart';
@@ -76,18 +75,31 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
 
   bool get _isUpdating => widget.formType.isUpdating;
 
+  String get _pumpId => widget.pumpId ?? '0';
+
   @override
   void initState() {
-    _asyncInitForm();
     super.initState();
+    _asyncInitForm();
+  }
+
+  /// Updates the local variable that tracks if a
+  /// pump has a filter or not
+  void _setFilterState(bool? value) {
+    setState(() {
+      _thisPumpHasFilter = value ?? false;
+    });
   }
 
   Future<void> _asyncInitForm() async {
-    final pumpId = widget.pumpId;
-    if (_isUpdating && pumpId != null) {
-      final pump = await ref.read(pumpFutureProvider(pumpId).future);
+    if (_isUpdating) {
+      final pump = await ref.read(pumpFutureProvider(_pumpId).future);
       _initialPump = pump;
-      _thisPumpHasFilter = pump?.hasFilter ?? false;
+
+      // This is called here because otherwise the checkbox
+      // would not be updated when the pump is fetched
+      _setFilterState(pump?.hasFilter);
+
       _nameController.text = pump?.name ?? '';
       _volumeCapacityController.text = pump?.capacityInVolume.toString() ?? '';
       _kwCapacityController.text = pump?.consumeRateInKw.toString() ?? '';
@@ -113,16 +125,10 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
       // ask if user wants to save the pump
-      final shouldSave = await showAlertDialog(
-            context: context,
-            title: context.loc.formGenericSaveDialogTitle,
-            content: context.loc.formGenericSaveDialogContent(
-              context.loc.nPumpsWithArticulatedPreposition(1),
-            ),
-            defaultActionText: context.loc.genericSaveButtonLabel,
-            cancelActionText: context.loc.alertDialogCancel,
-          ) ??
-          false;
+      final shouldSave = await context.showSaveUpdateDialog(
+        isUpdating: _isUpdating,
+        what: context.loc.nPumpsWithArticulatedPreposition(1),
+      );
 
       if (!shouldSave) return;
       final toSave = _initialPump?.copyWith(
@@ -279,7 +285,6 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
     final numericFieldsKeyboardType =
         ref.watch(numericFieldsTextInputTypeProvider);
     final state = ref.watch(addUpdatePumpControllerProvider);
-
     final loc = context.loc;
     return Column(
       children: [
@@ -303,9 +308,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                           FormFieldCheckboxTile(
                             title: loc.itemHasFilter,
                             value: _thisPumpHasFilter,
-                            onChanged: (value) => setState(
-                              () => _thisPumpHasFilter = value ?? false,
-                            ),
+                            onChanged: _setFilterState,
                           ),
                           gapH16,
                           // name field
@@ -321,6 +324,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                                 fieldHintText: loc.pumpNameFormHint,
                                 fieldController: _nameController,
                                 textInputAction: TextInputAction.next,
+                                maxLength: AppConstants.maxPumpNameLength,
                                 validator: (_) => _nameErrorText(
                                   existingNames: value,
                                   value: name,
@@ -349,6 +353,8 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                                 fieldTitle: loc.mqttMessageNameFormFieldTitle,
                                 fieldHintText: loc.mqttMessageNameFormHint,
                                 fieldController: _mqttMessageNameController,
+                                maxLength:
+                                    AppConstants.maxMqttMessageNameLength,
                                 textInputAction: TextInputAction.next,
                                 validator: (_) => _nameErrorText(
                                   existingNames: mqttNames,
