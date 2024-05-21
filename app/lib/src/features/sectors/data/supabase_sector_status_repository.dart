@@ -22,7 +22,7 @@ class SupabaseSectorStatusRepository implements SectorStatusRepository {
       .call(statusBody.toJson());
 
   @override
-  Stream<bool?> watchSectorStatus(String sectorId) {
+  Stream<SectorStatus?> watchSectorStatus(String sectorId) {
     final stream = _supabaseClient.sectorStatus
         .stream(primaryKey: [SectorStatusDatabaseKeys.id])
         .eq(SectorStatusDatabaseKeys.sectorId, sectorId)
@@ -30,9 +30,9 @@ class SupabaseSectorStatusRepository implements SectorStatusRepository {
         .limit(1);
 
     return stream.map((statuses) {
-      if (statuses.isEmpty) return false;
-      final status = SectorStatus.fromJson(statuses.first);
-      return status.statusBoolean;
+      if (statuses.isEmpty) return null;
+      return  SectorStatus.fromJson(statuses.first);
+     
     });
   }
 }
