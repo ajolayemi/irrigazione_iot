@@ -1,4 +1,4 @@
-import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/providers/selected_sectors_id_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'connect_sectors_to_collector_controller.g.dart';
@@ -13,15 +13,16 @@ class ConnectSectorsToCollectorController
     required bool value,
     required String sectorId,
   }) {
-    final selectedSectorsId = [...ref.watch(selectedSectorsIdProvider)];
+    final selectedSectorsId = ref.read(selectedSectorsIdProvider);
     final sectorIndexInList = selectedSectorsId.indexOf(sectorId);
     if (value && sectorIndexInList >= 0) return;
     if (value) {
-      selectedSectorsId.add(sectorId);
-      ref.read(selectedSectorsIdProvider.notifier).state = selectedSectorsId;
+      ref.read(selectedSectorsIdProvider.notifier).add(sectorId);
     } else {
       selectedSectorsId.removeAt(sectorIndexInList);
-      ref.read(selectedSectorsIdProvider.notifier).state = selectedSectorsId;
+      ref
+          .read(selectedSectorsIdProvider.notifier)
+          .removeAtIndex(sectorId, sectorIndexInList);
     }
   }
 }

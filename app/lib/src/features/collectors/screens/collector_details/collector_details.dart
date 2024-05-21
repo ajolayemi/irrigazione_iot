@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/models/collector_sector.dart';
+import 'package:irrigazione_iot/src/features/collectors/providers/selected_sectors_id_provider.dart';
 import 'package:irrigazione_iot/src/features/collectors/screens/collector_details/collector_details_screen_content.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
@@ -24,8 +25,8 @@ class CollectorDetailsScreen extends ConsumerWidget {
       {required WidgetRef ref,
       required BuildContext context,
       required List<CollectorSector?> connectedSectors}) {
-    final sectorIds = connectedSectors.map((e) => e?.sectorId).toList();
-    ref.read(selectedSectorsIdProvider.notifier).state = sectorIds;
+    final sectorIds = connectedSectors.map((e) => e?.sectorId ?? '').toList();
+    ref.read(selectedSectorsIdProvider.notifier).initState(sectorIds);
     final params = PathParameters(id: collectorId).toJson();
     context.pushNamed(AppRoute.updateCollector.name, pathParameters: params);
   }

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
-import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/providers/selected_sectors_id_provider.dart';
 import 'package:irrigazione_iot/src/features/collectors/screens/collector_expansion_list_tile.dart';
 import 'package:irrigazione_iot/src/features/collectors/screens/collector_list/dismiss_collector_controller.dart';
 import 'package:irrigazione_iot/src/features/collectors/widgets/empty_collector_widget.dart';
@@ -24,7 +24,7 @@ class CollectorListScreen extends ConsumerWidget {
     required BuildContext context,
     required WidgetRef ref,
   }) {
-    ref.read(selectedSectorsIdProvider.notifier).state = [];
+    ref.read(selectedSectorsIdProvider.notifier).clear();
     context.pushNamed(
       AppRoute.addCollector.name,
     );

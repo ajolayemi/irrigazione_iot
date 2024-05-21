@@ -8,8 +8,8 @@ import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
-import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/models/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/providers/selected_sectors_id_provider.dart';
 import 'package:irrigazione_iot/src/features/collectors/screens/add_update_collector/add_update_collector_controller.dart';
 import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
@@ -145,7 +145,7 @@ class _AddUpdateCollectorFormContentsState
   }
 
   void _popScreen() {
-    ref.read(selectedSectorsIdProvider.notifier).state = [];
+    ref.read(selectedSectorsIdProvider.notifier).clear();
     context.popNavigator();
   }
 

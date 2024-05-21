@@ -7,7 +7,6 @@ class MoreOptionsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO add sensors section
     // TODO add statistics section
     // TODO fertirrigazione section
     return const Scaffold(

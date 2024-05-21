@@ -46,7 +46,6 @@ extension BuildContextExtensions on BuildContext {
 
   /// An alert dialog to display when user is trying to delete an item
   /// such as board, collector, pump and so on.
-  // TODO: this should replace all places where such dialog is being shown at the moment
   Future<bool> showDismissalDialog({
     String? alternateDialog,
     String? where,
@@ -64,7 +63,6 @@ extension BuildContextExtensions on BuildContext {
         false;
   }
 
-  // TODO: this should replace all alert dialogs for when user wants to save a form data
   Future<bool> showSaveUpdateDialog({
     required bool isUpdating,
     required String what,

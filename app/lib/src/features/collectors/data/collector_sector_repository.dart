@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/collectors/models/collector.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -55,10 +54,6 @@ Future<List<CollectorSector?>> collectorSectorsFuture(
   return collectorSectorRepo.getCollectorSectorsById(collectorId);
 }
 
-// Keeps track of the ids of the [Sector]s selected to be connected to the [Collector]
-final selectedSectorsIdProvider = StateProvider<List<String?>>((ref) {
-  return [];
-});
 
 /// Provider that emits the number of sectors that are currently switched on for a particular
 /// collector indicated by the provided [String]
@@ -78,7 +73,7 @@ Stream<int> numberOfSectorsSwitchedOn(NumberOfSectorsSwitchedOnRef ref,
         ref.watch(sectorStreamProvider(collectorSector!.sectorId)).valueOrNull;
     if (sector == null) return Stream.value(0);
     final status = ref.watch(sectorStatusStreamProvider(sector.id));
-    if (status.valueOrNull == true) {
+    if (status.valueOrNull?.statusBoolean == true) {
       sectorsSwitchedOn++;
     } else {
       continue;

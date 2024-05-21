@@ -8,11 +8,11 @@ part 'sector_switch_controller.g.dart';
 
 @riverpod
 class SectorSwitchController extends _$SectorSwitchController {
-  final initState = const CustomControllerState(loadingStates: {});
+  final _initState = const CustomControllerState(loadingStates: {});
   @override
   FutureOr<CustomControllerState> build() {
-    state = AsyncData<CustomControllerState>(initState);
-    return initState;
+    state = AsyncData<CustomControllerState>(_initState);
+    return _initState;
   }
 
   void setLoading(String sectorId, bool isLoading) {
@@ -28,7 +28,7 @@ class SectorSwitchController extends _$SectorSwitchController {
     if (value.hasError) {
       state = AsyncError(value.error!, StackTrace.current);
     } else {
-      state = AsyncData<CustomControllerState>(initState);
+      state = AsyncData<CustomControllerState>(_initState);
     }
   }
 }
