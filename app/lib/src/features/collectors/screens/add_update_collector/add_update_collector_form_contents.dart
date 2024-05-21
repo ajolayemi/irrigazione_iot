@@ -71,15 +71,28 @@ class _AddUpdateCollectorFormContentsState
 
   @override
   void initState() {
-    if (_isUpdating && widget.collectorId != null) {
-      final collector =
-          ref.read(collectorStreamProvider(widget.collectorId!)).valueOrNull;
+    super.initState();
+    _asyncInitForm();
+  }
+
+  /// Updates the value of the local variable that
+  /// tracks if this collector has a filter or not
+  void _setHasFilterState(bool? value) {
+    setState(() => _thisCollectorHasFilter = value ?? false);
+  }
+
+  Future<void> _asyncInitForm() async {
+    final collectorId = widget.collectorId;
+    if (_isUpdating && collectorId != null) {
+      final collector = await ref.read(
+        collectorFutureProvider(collectorId).future,
+      );
+
+      _setHasFilterState(collector?.hasFilter);
       _initialCollector = collector;
-      _thisCollectorHasFilter = collector?.hasFilter ?? false;
       _collectorNameController.text = _initialCollector?.name ?? '';
       _mqttMsgNameController.text = _initialCollector?.mqttMsgName ?? '';
     }
-    super.initState();
   }
 
   @override
@@ -221,9 +234,7 @@ class _AddUpdateCollectorFormContentsState
                   FormFieldCheckboxTile(
                     title: loc.itemHasFilter,
                     value: _thisCollectorHasFilter,
-                    onChanged: (value) => setState(
-                      () => _thisCollectorHasFilter = value ?? false,
-                    ),
+                    onChanged: _setHasFilterState,
                   ),
                   gapH16,
                   // name field
@@ -239,6 +250,7 @@ class _AddUpdateCollectorFormContentsState
                         fieldTitle: loc.collectorName,
                         fieldController: _collectorNameController,
                         fieldHintText: loc.collectorNameHintText,
+                        maxLength: AppConstants.maxCollectorNameLength,
                         onEditingComplete: () => _nameEditingComplete(
                           existingNames: values,
                           maxLength: AppConstants.maxCollectorNameLength,
@@ -267,6 +279,7 @@ class _AddUpdateCollectorFormContentsState
                         fieldTitle: loc.mqttMessageNameFormFieldTitle,
                         fieldController: _mqttMsgNameController,
                         fieldHintText: loc.mqttMessageNameFormHint,
+                        maxLength: AppConstants.maxMqttMessageNameLength,
                         onEditingComplete: () => _nameEditingComplete(
                           existingNames: values,
                           maxLength: AppConstants.maxMqttMessageNameLength,
