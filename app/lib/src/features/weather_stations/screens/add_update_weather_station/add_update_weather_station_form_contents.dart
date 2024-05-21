@@ -65,15 +65,16 @@ class _AddUpdateWeatherStationFormContentsState
 
   @override
   void initState() {
-    _initForm();
     super.initState();
+    _asyncInitForm();
   }
 
-  Future<void> _initForm() async {
-    if (_isUpdating) {
-      final weatherStation =
-          ref.read(weatherStationStreamProvider(widget.weatherStationId!));
-      final value = weatherStation.valueOrNull;
+  Future<void> _asyncInitForm() async {
+    final itemId = widget.weatherStationId;
+    if (_isUpdating && itemId != null) {
+      final value = await ref.read(
+        weatherStationFutureProvider(itemId).future,
+      );
 
       _initialWeatherStation = value;
 
@@ -81,8 +82,9 @@ class _AddUpdateWeatherStationFormContentsState
       _euiController.text = value?.eui ?? '';
 
       if (value != null) {
-        final sector =
-            await ref.read(sectorFutureProvider(value.sectorId).future);
+        final sector = await ref.read(
+          sectorFutureProvider(value.sectorId).future,
+        );
 
         _radioButtonSelectedSector = RadioButtonItem(
           value: sector?.id ?? '',
