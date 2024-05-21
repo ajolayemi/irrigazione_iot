@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/features/dashboard/models/pump_switched_on.d
 import 'package:irrigazione_iot/src/features/dashboard/widgets/pumps/pump_flow_rate.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/pumps/pump_irrigation_duration.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/pumps/pump_pressure_rate.dart';
+import 'package:irrigazione_iot/src/features/dashboard/widgets/shared/dashboard_child_item_list_tile.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/widgets/pump_tile_title.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_responsive_divider.dart';
@@ -25,7 +26,7 @@ class PumpSwitchedOnListTile extends ConsumerWidget {
         ref.watch(pumpStreamProvider(pumpSwitchedOn.pumpId)).valueOrNull;
     if (pump == null) return Container();
 
-    return ListTile(
+    return DashboardChildItemListTile(
       title: PumpTileTitle(
         pump: pump,
         style: textTheme.titleMedium?.copyWith(
