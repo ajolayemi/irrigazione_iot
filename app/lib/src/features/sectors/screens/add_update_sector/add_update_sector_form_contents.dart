@@ -119,11 +119,21 @@ class _AddUpdateSectorFormContentsState
     super.initState();
   }
 
+  /// Updates the local variable that tracks
+  /// if the sector has a filter or not
+  void _setFilterState(bool? value) {
+    setState(() {
+      _thisSectorHasFilter = value;
+    });
+  }
+
   Future<void> _asyncInitForm() async {
     final sectorId = widget.sectorId;
     if (_isUpdating && sectorId != null) {
       final sector = await ref.read(sectorFutureProvider(sectorId).future);
       final pump = await ref.read(pumpFutureProvider(sectorId).future);
+
+      _setFilterState(sector?.hasFilter);
 
       _initialSectorPump = pump;
       _initialSector = sector;
@@ -151,7 +161,6 @@ class _AddUpdateSectorFormContentsState
       _turnOffCommandController.text = _initialSector?.turnOffCommand ?? '';
       _notesController.text = _initialSector?.notes ?? '';
       _selectedPumpController.text = pump?.name ?? '';
-      _thisSectorHasFilter = _initialSector?.hasFilter;
       _mqttMsgNameController.text = _initialSector?.mqttMsgName ?? '';
 
       _selectedSpecieId = _initialSector?.specieId;
@@ -165,8 +174,8 @@ class _AddUpdateSectorFormContentsState
       }
 
       if (_selectedVarietyId != null) {
-        final variety = await ref
-            .read(varietyFutureProvider(_selectedVarietyId!).future);
+        final variety =
+            await ref.read(varietyFutureProvider(_selectedVarietyId!).future);
         _varietyController.text = variety?.name ?? '';
       }
     }
@@ -481,6 +490,7 @@ class _AddUpdateSectorFormContentsState
                         fieldHintText: loc.sectorNameHintText,
                         textInputAction: TextInputAction.next,
                         fieldController: _nameController,
+                        maxLength: AppConstants.maxSectorNameLength,
                         onEditingComplete: () => _nameEditingComplete(
                           value: name,
                           maxLength: AppConstants.maxSectorNameLength,
@@ -512,6 +522,7 @@ class _AddUpdateSectorFormContentsState
                         fieldTitle: loc.mqttMessageNameFormFieldTitle,
                         fieldHintText: loc.mqttMessageNameFormHint,
                         textInputAction: TextInputAction.next,
+                        maxLength: AppConstants.maxMqttMessageNameLength,
                         validator: (_) => _nameErrorText(
                           existingNames: value,
                           maxLength: AppConstants.maxMqttMessageNameLength,
