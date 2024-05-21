@@ -78,8 +78,14 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
 
   @override
   void initState() {
-    if (_isUpdating && widget.pumpId != null) {
-      final pump = ref.read(pumpStreamProvider(widget.pumpId!)).valueOrNull;
+    _asyncInitForm();
+    super.initState();
+  }
+
+  Future<void> _asyncInitForm() async {
+    final pumpId = widget.pumpId;
+    if (_isUpdating && pumpId != null) {
+      final pump = await ref.read(pumpFutureProvider(pumpId).future);
       _initialPump = pump;
       _thisPumpHasFilter = pump?.hasFilter ?? false;
       _nameController.text = pump?.name ?? '';
@@ -89,8 +95,6 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
       _offCommandController.text = pump?.turnOffCommand ?? '';
       _mqttMessageNameController.text = pump?.mqttMessageName ?? '';
     }
-
-    super.initState();
   }
 
   @override
