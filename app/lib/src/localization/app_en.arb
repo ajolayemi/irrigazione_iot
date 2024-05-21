@@ -697,6 +697,8 @@
   "addWeatherStationPageTitle": "New Weather Station",
   "updateWeatherStationPageTitle": "Update Weather Station",
   "pumpSwitchedOnSince": "switched on since {when}",
-  "pumpsSwitchedOn": "Pumps switched on"
-
+  "pumpsSwitchedOn": "Pumps switched on",
+  "sectorsSwitchedOn": "Sectors switched on",
+  "filterInForDashboard": "Filter IN",
+  "filterOutForDashboard": "Filter OUT"
 }

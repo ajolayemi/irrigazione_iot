@@ -269,5 +269,6 @@
   "addWeatherStationPageTitle": "Nuova Stazione Meteo",
   "updateWeatherStationPageTitle": "Aggiorna Stazione Meteo",
   "pumpSwitchedOnSince": "accesa da {when}",
-  "pumpsSwitchedOn": "Pompe accese"
+  "pumpsSwitchedOn": "Pompe accese",
+  "sectorsSwitchedOn": "Settori accesi"
 }
