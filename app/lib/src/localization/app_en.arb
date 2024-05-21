@@ -700,5 +700,7 @@
   "pumpsSwitchedOn": "Pumps switched on",
   "sectorsSwitchedOn": "Sectors switched on",
   "filterInForDashboard": "Filter IN",
-  "filterOutForDashboard": "Filter OUT"
+  "filterOutForDashboard": "Filter OUT",
+  "noPumpsSwitchedOn": "No pumps switched on at the moment",
+  "noSectorsSwitchedOn": "No sectors switched on at the moment"
 }
