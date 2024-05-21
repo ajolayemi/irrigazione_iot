@@ -10,7 +10,6 @@ import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
-import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/screens/add_update_sector/add_update_sector_controller.dart';
@@ -116,14 +115,15 @@ class _AddUpdateSectorFormContentsState
 
   @override
   void initState() {
-    if (_isUpdating && widget.sectorId != null) {
-      final sector =
-          ref.read(sectorStreamProvider(widget.sectorId!)).valueOrNull;
-      final sectorPump =
-          ref.read(sectorPumpStreamProvider(widget.sectorId!)).valueOrNull;
-      final pump = sectorPump == null
-          ? null
-          : ref.read(pumpStreamProvider(sectorPump.pumpId)).valueOrNull;
+    _asyncInitForm();
+    super.initState();
+  }
+
+  Future<void> _asyncInitForm() async {
+    final sectorId = widget.sectorId;
+    if (_isUpdating && sectorId != null) {
+      final sector = await ref.read(sectorFutureProvider(sectorId).future);
+      final pump = await ref.read(pumpFutureProvider(sectorId).future);
 
       _initialSectorPump = pump;
       _initialSector = sector;
@@ -159,22 +159,17 @@ class _AddUpdateSectorFormContentsState
 
       // Get the varieties and pumps from the database
       if (_selectedSpecieId != null) {
-        _specieController.text = ref
-                .read(specieStreamProvider(_selectedSpecieId!))
-                .valueOrNull
-                ?.name ??
-            '';
+        final specie =
+            await ref.read(specieFutureProvider(_selectedSpecieId!).future);
+        _specieController.text = specie?.name ?? '';
       }
 
       if (_selectedVarietyId != null) {
-        _varietyController.text = ref
-                .read(varietyStreamProvider(_selectedVarietyId!))
-                .valueOrNull
-                ?.name ??
-            '';
+        final variety = await ref
+            .read(varietyFutureProvider(_selectedVarietyId!).future);
+        _varietyController.text = variety?.name ?? '';
       }
     }
-    super.initState();
   }
 
   @override
@@ -392,22 +387,21 @@ class _AddUpdateSectorFormContentsState
       final shouldSave = await _checkUserIntention();
       if (!shouldSave) return;
       final toSave = _initialSector?.copyWith(
-        id: _initialSector?.id,
-        name: name,
-        companyId: _initialSector?.companyId,
-        specieId: _selectedSpecieId,
-        varietyId: _selectedVarietyId,
-        area: double.tryParse(area) ?? 0.0,
-        numOfPlants: double.tryParse(numOfPlants) ?? 0,
-        waterConsumptionPerHour: double.tryParse(unitConsumption) ?? 0.0,
-        irrigationSystemType: irrigationSystem.toIrrigationSystemType(),
-        irrigationSource: irrigationSource.toIrrigationSource(),
-        turnOnCommand: turnOnCommand,
-        turnOffCommand: turnOffCommand,
-        notes: notes,
-        hasFilter: _thisSectorHasFilter,
-        mqttMsgName: mqttMsgName
-      );
+          id: _initialSector?.id,
+          name: name,
+          companyId: _initialSector?.companyId,
+          specieId: _selectedSpecieId,
+          varietyId: _selectedVarietyId,
+          area: double.tryParse(area) ?? 0.0,
+          numOfPlants: double.tryParse(numOfPlants) ?? 0,
+          waterConsumptionPerHour: double.tryParse(unitConsumption) ?? 0.0,
+          irrigationSystemType: irrigationSystem.toIrrigationSystemType(),
+          irrigationSource: irrigationSource.toIrrigationSource(),
+          turnOnCommand: turnOnCommand,
+          turnOffCommand: turnOffCommand,
+          notes: notes,
+          hasFilter: _thisSectorHasFilter,
+          mqttMsgName: mqttMsgName);
 
       bool success = false;
 
