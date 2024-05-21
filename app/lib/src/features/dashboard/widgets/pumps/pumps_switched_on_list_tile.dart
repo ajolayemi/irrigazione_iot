@@ -13,16 +13,16 @@ import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 class PumpSwitchedOnListTile extends ConsumerWidget {
   const PumpSwitchedOnListTile({
     super.key,
-    required this.pumpStatusStat,
+    required this.pumpSwitchedOn,
   });
 
-  final PumpSwitchedOn pumpStatusStat;
+  final PumpSwitchedOn pumpSwitchedOn;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = context.textTheme;
     final pump =
-        ref.watch(pumpStreamProvider(pumpStatusStat.pumpId)).valueOrNull;
+        ref.watch(pumpStreamProvider(pumpSwitchedOn.pumpId)).valueOrNull;
     if (pump == null) return Container();
 
     return ListTile(
@@ -36,8 +36,15 @@ class PumpSwitchedOnListTile extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           gapH8,
-          PumpPressureRate(pumpId: pump.id),
-          const CommonResponsiveDivider(),
+          Visibility(
+            visible: pump.hasFilter,
+            child: Column(
+              children: [
+                PumpPressureRate(pumpId: pump.id),
+                const CommonResponsiveDivider(),
+              ],
+            ),
+          ),
           PumpFlowRate(pumpId: pump.id),
           const CommonResponsiveDivider(),
           PumpIrrigationDuration(pumpId: pump.id),

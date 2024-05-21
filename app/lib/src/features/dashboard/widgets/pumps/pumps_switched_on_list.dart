@@ -30,8 +30,8 @@ class PumpsSwitchedOnList extends ConsumerWidget {
           child: DashboardItemsListView<PumpSwitchedOn>(
             items: data,
             itemBuilder: (context, index) {
-              final pump = data[index];
-              return PumpSwitchedOnListTile(pumpStatusStat: pump);
+              final pumpSwitchedOn = data[index];
+              return PumpSwitchedOnListTile(pumpSwitchedOn: pumpSwitchedOn);
             },
           ),
         );
