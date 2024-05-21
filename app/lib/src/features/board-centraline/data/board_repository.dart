@@ -30,6 +30,9 @@ abstract class BoardRepository {
     required String boardID,
   });
 
+  /// Fetches the [Board] associated with the provided [boardId]
+  Future<Board?> getBoardByBoardId({required String boardId});
+
   /// Add a new [Board] to the database and returns the newly added [Board] if successful
   Future<Board?> createBoard({
     required Board board,
@@ -87,6 +90,13 @@ Stream<Board?> collectorBoardStream(CollectorBoardStreamRef ref,
 Stream<Board?> boardStream(BoardStreamRef ref, {required String boardID}) {
   final boardRepository = ref.watch(boardRepositoryProvider);
   return boardRepository.watchBoardByBoardID(boardID: boardID);
+}
+
+@riverpod
+Future<Board?> boardByBoardIdFuture(BoardByBoardIdFutureRef ref,
+    {required String boardId}) {
+  final boardRepository = ref.watch(boardRepositoryProvider);
+  return boardRepository.getBoardByBoardId(boardId: boardId);
 }
 
 /// gets a list of all collectors that are not yet connected

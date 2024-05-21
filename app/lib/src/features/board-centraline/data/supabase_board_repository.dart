@@ -21,6 +21,10 @@ class SupabaseBoardRepository implements BoardRepository {
     return data.isEmpty ? null : Board.fromJson(data.first);
   }
 
+  Board? _toBoard(Map<String, dynamic>? data) {
+    return data == null ? null : Board.fromJson(data);
+  }
+
   @override
   Future<Board?> createBoard({required Board board}) async {
     // set created_at and updated_at fields
@@ -84,6 +88,17 @@ class SupabaseBoardRepository implements BoardRepository {
           .map((collector) => Collector.fromJson(collector))
           .toList();
     });
+  }
+
+  @override
+  Future<Board?> getBoardByBoardId({required String boardId}) async {
+    final data = await _supabaseClient.boards
+        .select()
+        .eq(BoardDatabaseKeys.id, boardId)
+        .maybeSingle()
+        .withConverter(_toBoard);
+
+    return data;
   }
 
   @override
