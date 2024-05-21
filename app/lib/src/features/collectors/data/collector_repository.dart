@@ -16,6 +16,9 @@ abstract class CollectorRepository {
   /// emits a [Collector] with the given collectorID
   Stream<Collector?> watchCollector(String collectorID);
 
+  /// Fetches a [Collector] with the given collectorId
+  Future<Collector?> getCollector(String collectorId);
+
   /// adds a [Collector]
   Future<Collector?> createCollector(Collector collector);
 
@@ -62,6 +65,12 @@ Stream<List<String?>> usedCollectorNamesStream(
 Stream<Collector?> collectorStream(CollectorStreamRef ref, String collectorId) {
   final collectorRepository = ref.watch(collectorRepositoryProvider);
   return collectorRepository.watchCollector(collectorId);
+}
+
+@riverpod
+Future<Collector?> collectorFuture(CollectorFutureRef ref, String collectorId) {
+  final collectorRepository = ref.read(collectorRepositoryProvider);
+  return collectorRepository.getCollector(collectorId);
 }
 
 @riverpod

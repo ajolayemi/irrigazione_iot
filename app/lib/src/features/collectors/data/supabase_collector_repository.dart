@@ -19,6 +19,10 @@ class SupabaseCollectorRepository implements CollectorRepository {
     return data.isEmpty ? null : Collector.fromJson(data.first);
   }
 
+  Collector? _toCollector(Map<String, dynamic>? data) {
+    return data == null ? null : Collector.fromJson(data);
+  }
+
   @override
   Future<Collector?> createCollector(Collector collector) async {
     final data = collector
@@ -93,5 +97,15 @@ class SupabaseCollectorRepository implements CollectorRepository {
               Collector.fromJson(collector).mqttMsgName.toLowerCase(),
         )
         .toList());
+  }
+
+  @override
+  Future<Collector?> getCollector(String collectorId) async {
+    final data = await _supabaseClient.collectors
+        .select()
+        .eq(CollectorDatabaseKeys.id, collectorId)
+        .maybeSingle()
+        .withConverter(_toCollector);
+    return data;
   }
 }
