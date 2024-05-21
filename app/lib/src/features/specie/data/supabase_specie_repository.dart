@@ -1,9 +1,9 @@
-import 'package:irrigazione_iot/src/features/specie/models/specie_database_keys.dart';
-import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/specie/data/specie_repository.dart';
 import 'package:irrigazione_iot/src/features/specie/models/specie.dart';
+import 'package:irrigazione_iot/src/features/specie/models/specie_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabaseSpecieRepository implements SpecieRepository {
   const SupabaseSpecieRepository(this._supabaseClient);
@@ -24,6 +24,10 @@ class SupabaseSpecieRepository implements SpecieRepository {
 
   Specie? _specieSingleFromJsonList(List<Map<String, dynamic>>? json) =>
       json?.map((e) => Specie.fromJson(e)).first;
+
+  Specie? _toSpecie(Map<String, dynamic>? json) =>
+      json == null ? null : Specie.fromJson(json);
+
   @override
   Stream<List<Specie>?> watchSpecies({
     String? previouslySelectedSpecieId,
@@ -41,4 +45,14 @@ class SupabaseSpecieRepository implements SpecieRepository {
       .eq(SpecieDatabaseKeys.id, specieId)
       .limit(1)
       .map(_specieSingleFromJsonList);
+
+  @override
+  Future<Specie?> getSpecie(String specieId) async {
+    final data = await _supabaseClient.species
+        .select()
+        .eq(SpecieDatabaseKeys.id, specieId)
+        .maybeSingle()
+        .withConverter(_toSpecie);
+    return data;
+  }
 }

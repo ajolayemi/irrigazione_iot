@@ -14,6 +14,9 @@ abstract class PumpRepository {
   /// watches a specified pump with the given pumpId
   Stream<Pump?> watchPump(String pumpId);
 
+  /// Fetches the [Pump] with the given [pumpId]
+  Future<Pump?> getPump(String pumpId);
+
   /// creates a pump
   Future<Pump?> createPump(Pump pump);
 
@@ -30,7 +33,6 @@ abstract class PumpRepository {
   /// emits a list of already used commands (both on and offs) for the pumps in a specified
   /// company. This is used in form validation to prevent duplicate pump commands for a company
   Stream<List<String?>> watchCompanyUsedPumpCommands(String companyId);
-
 
   /// emits the list of mqtt messages names already used generally
   Stream<List<String?>> watchUsedMqttMessageNames();
@@ -54,12 +56,15 @@ Stream<List<Pump?>> companyPumpsStream(
 }
 
 @riverpod
-Stream<Pump?> pumpStream(
-  PumpStreamRef ref,
-  String pumpId,
-) {
+Stream<Pump?> pumpStream(PumpStreamRef ref, String pumpId) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   return pumpRepository.watchPump(pumpId);
+}
+
+@riverpod
+Future<Pump?> pumpFuture(PumpFutureRef ref, String pumpId) {
+  final pumpRepository = ref.watch(pumpRepositoryProvider);
+  return pumpRepository.getPump(pumpId);
 }
 
 @riverpod

@@ -9,8 +9,14 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'specie_repository.g.dart';
 
 abstract class SpecieRepository {
+  /// Emits a list of [Specie]s
   Stream<List<Specie>?> watchSpecies({String? previouslySelectedSpecieId});
+
+  /// Emits a [Specie] with the given [specieId]
   Stream<Specie?> watchSpecie(String specieId);
+
+  /// Fetches the [Specie] with the given [specieId]
+  Future<Specie?> getSpecie(String specieId);
 }
 
 @Riverpod(keepAlive: true)
@@ -23,11 +29,18 @@ SpecieRepository specieRepository(SpecieRepositoryRef ref) {
 Stream<List<Specie>?> speciesStream(SpeciesStreamRef ref,
     {String? previouslySelectedSpecieId}) {
   final repo = ref.watch(specieRepositoryProvider);
-  return repo.watchSpecies(previouslySelectedSpecieId: previouslySelectedSpecieId);
+  return repo.watchSpecies(
+      previouslySelectedSpecieId: previouslySelectedSpecieId);
 }
 
 @riverpod
 Stream<Specie?> specieStream(SpecieStreamRef ref, String specieId) {
   final repo = ref.watch(specieRepositoryProvider);
   return repo.watchSpecie(specieId);
+}
+
+@riverpod
+Future<Specie?> specieFuture(SpecieFutureRef ref, String specieId) {
+  final repo = ref.watch(specieRepositoryProvider);
+  return repo.getSpecie(specieId);
 }

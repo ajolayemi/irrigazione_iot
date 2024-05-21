@@ -18,6 +18,9 @@ class SupabasePumpRepository implements PumpRepository {
     return data.map((pump) => Pump.fromJson(pump)).toList();
   }
 
+  Pump? _toPump(Map<String, dynamic>? json) =>
+      json == null ? null : Pump.fromJson(json);
+
   @override
   Future<Pump?> createPump(Pump pump) async {
     // set created_at and updated_at fields
@@ -85,7 +88,6 @@ class SupabasePumpRepository implements PumpRepository {
     );
   }
 
-
   @override
   Stream<Pump?> watchPump(String pumpId) {
     final stream = _supabaseClient.pumps
@@ -97,6 +99,16 @@ class SupabasePumpRepository implements PumpRepository {
         .limit(1);
 
     return stream.map(_pumpFromJsonSingle);
+  }
+
+  @override
+  Future<Pump?> getPump(String pumpId) async {
+    final data = await _supabaseClient.pumps
+        .select()
+        .eq(PumpDatabaseKeys.id, pumpId)
+        .maybeSingle()
+        .withConverter(_toPump);
+    return data;
   }
 
   @override
