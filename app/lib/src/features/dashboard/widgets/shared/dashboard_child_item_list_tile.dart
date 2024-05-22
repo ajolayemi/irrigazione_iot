@@ -18,7 +18,7 @@ class DashboardChildItemListTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: Sizes.p16),
       child: Card(
-        elevation: 15,
+        elevation: 10,
         child: ListTile(
           title: title,
           subtitle: subtitle,
