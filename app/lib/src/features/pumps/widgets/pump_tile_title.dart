@@ -25,7 +25,7 @@ class PumpTileTitle extends ConsumerWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(pump.name, style: style,),
+        Flexible(child: Text(pump.name, style: style,)),
         gapW8,
         CommonStatusIndicator(status: isSwitchedOn)
       ],
