@@ -1,25 +1,16 @@
 import admin from "firebase-admin";
 import {https, logger, pubsub} from "firebase-functions/v2";
-import "dotenv/config";
-// import {processPressureMessageFromPubSub} from "./utils/process_pressure_message";
-// import {processSectorStatusMessage} from "./utils/process_sector_status_message";
-// import {processPumpStatusMessage} from "./utils/process_pump_status_message";
-// import {processPumpFlowMessage} from "./utils/process_pump_flow_message";
-// import {processPumpPressureMessage} from "./utils/process_pump_pressure_message";
-// import {processBoardStatusMessage} from "./utils/process_board_status_message";
 import {CallableRequest} from "firebase-functions/v2/https";
 import {createMqttClient} from "./services/mqtt";
 import {HttpCallableReqBody, StatusMessage} from "./interfaces/interfaces";
-// import {processSenseCapData} from "./utils/process_sense_cap_data";
 import {saveDataWhenDev} from "./utils/save_dev_data";
-import {processPressureMessageFromPubSub} from "./utils/process_pressure_message";
-import {processSectorStatusMessage} from "./utils/process_sector_status_message";
-import {processPumpStatusMessage} from "./utils/process_pump_status_message";
-import {processPumpFlowMessage} from "./utils/process_pump_flow_message";
-import {processPumpPressureMessage} from "./utils/process_pump_pressure_message";
-import {processBoardStatusMessage} from "./utils/process_board_status_message";
 import {processSenseCapData} from "./utils/process_sense_cap_data";
+import {
+  getDecodedPayloadMsg,
+  switchBaseOnMessageType,
+} from "./utils/helper_funcs";
 
+import "dotenv/config";
 admin.initializeApp();
 
 /**
@@ -34,44 +25,44 @@ exports.processDataflowMessages = pubsub.onMessagePublished(
     let success = false;
     const message = event.data.message.json;
 
-    // Messages for weather stations coming from TTN has an end_device_ids key
-    // If the key is present, it means the message is from a weather station
-    // and should be processed differently
+    // Some messages have an end_device_ids key and they're those
+    // who come from TTN - Nodered - Dataflow
     const hasEndDeviceIdKey = message.end_device_ids !== undefined;
 
     if (hasEndDeviceIdKey) {
-      success = await processSenseCapData(message);
-      return Promise.resolve(success);
-    }
-    const messageType = message.type;
-    if (!messageType) {
-      throw new Error("Message type is required");
-    }
-    logger.info(`Processing message of type: ${messageType}`);
+      // Entering here means we are dealing with a message from TTN
+      // and can either be pressure message, board_status, tensiometer or
+      // sense cap message
 
-    // Call the appropriate function to process the message
-    // based on the message type
-    switch (messageType) {
-      case "pressure":
-        success = await processPressureMessageFromPubSub(message);
-        break;
-      case "sector_status":
-        success = await processSectorStatusMessage(message);
-        break;
-      case "pump_status":
-        success = await processPumpStatusMessage(message);
-        break;
-      case "pump_flow":
-        success = await processPumpFlowMessage(message);
-        break;
-      case "pump_pressure":
-        success = await processPumpPressureMessage(message);
-        break;
-      case "board_status":
-        success = await processBoardStatusMessage(message);
-        break;
-      default:
-        throw new Error("Invalid message type");
+      // To know what data we are dealing with, we need to access its content
+      // and check the type of messages.
+
+      const decodedPayload = getDecodedPayloadMsg(message);
+
+      const decodedPayloadMsgType = decodedPayload.type;
+
+      // Message type will be undefined when we're dealing with
+      // sense cap data
+      if (!decodedPayloadMsgType) {
+        success = await processSenseCapData(message);
+        return Promise.resolve(success);
+      }
+
+      logger.info(`Processing message of type: ${decodedPayloadMsgType}`);
+      success = await switchBaseOnMessageType(
+        decodedPayloadMsgType,
+        decodedPayload
+      );
+    } else {
+      const messageType = message.type;
+      if (!messageType) {
+        throw new Error("Message type is required");
+      }
+      logger.info(`Processing message of type: ${messageType}`);
+
+      // Call the appropriate function to process the message
+      // based on the message type
+      success = await switchBaseOnMessageType(messageType, message);
     }
 
     return Promise.resolve(success);
