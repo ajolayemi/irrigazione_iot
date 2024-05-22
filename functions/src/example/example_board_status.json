@@ -1,0 +1,67 @@
+{
+  "end_device_ids": {
+    "device_id": "madonnina-edge-a8610a3436308016",
+    "application_ids": {"application_id": "grimaldi-arduino"},
+    "dev_eui": "A8610A3436308016",
+    "join_eui": "23E34334F4345534",
+    "dev_addr": "27FD6081"
+  },
+  "correlation_ids": ["gs:uplink:01HYFQWYGEW72PR5DBDPJC2F5M"],
+  "received_at": "2024-05-22T08:50:17.437738779Z",
+  "uplink_message": {
+    "session_key_id": "AY+bqboVM6OgJ7GmEcbM9w==",
+    "f_port": 2,
+    "f_cnt": 1070,
+    "frm_payload": "eyJ2YmF0IjoiMTIuOTEiLCJldWkiOiJFOENGQUFEOTI4RjYyQTI4IiwidHlwZSI6ImJvYXJkX3N0YXR1cyJ9",
+    "decoded_payload": {
+      "eui": "E8CFAAD928F62A28",
+      "type": "board_status",
+      "vbat": "12.91"
+    },
+    "rx_metadata": [
+      {
+        "gateway_ids": {
+          "gateway_id": "grimaldi-2cf7f110531001a2",
+          "eui": "2CF7F110531001A2"
+        },
+        "timestamp": 2828838718,
+        "rssi": -78,
+        "channel_rssi": -78,
+        "snr": 10,
+        "frequency_offset": "-167",
+        "uplink_token": "CicKJQoZZ3JpbWFsZGktMmNmN2YxMTA1MzEwMDFhMhIILPfxEFMQAaIQvs7yxAoaCwjJ47ayBhDu8NZtILCUtZ+qwqwB",
+        "channel_index": 5,
+        "received_at": "2024-05-22T08:50:17.197312141Z"
+      }
+    ],
+    "settings": {
+      "data_rate": {
+        "lora": {
+          "bandwidth": 125000,
+          "spreading_factor": 7,
+          "coding_rate": "4/5"
+        }
+      },
+      "frequency": "867500000",
+      "timestamp": 2828838718
+    },
+    "received_at": "2024-05-22T08:50:17.231467132Z",
+    "confirmed": true,
+    "consumed_airtime": "0.138496s",
+    "version_ids": {
+      "brand_id": "arduino",
+      "model_id": "mkr-wan-1310",
+      "hardware_version": "1.0",
+      "firmware_version": "1.2.3",
+      "band_id": "EU_863_870"
+    },
+    "network_ids": {
+      "net_id": "000013",
+      "ns_id": "EC656E0000102DE1",
+      "tenant_id": "madonninalora",
+      "cluster_id": "eu1",
+      "cluster_address": "eu1.cloud.thethings.industries",
+      "tenant_address": "madonninalora.eu1.cloud.thethings.industries"
+    }
+  }
+}

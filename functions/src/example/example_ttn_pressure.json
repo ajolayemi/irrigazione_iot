@@ -1,0 +1,67 @@
+{
+  "end_device_ids": {
+    "device_id": "madonnina-edge-a8610a3436308016",
+    "application_ids": {"application_id": "grimaldi-arduino"},
+    "dev_eui": "A8610A3436308016",
+    "join_eui": "23E34334F4345534",
+    "dev_addr": "27FD6081"
+  },
+  "correlation_ids": ["gs:uplink:01HYFFYC3WZ24GPPWXA2P63QC8"],
+  "received_at": "2024-05-22T06:31:15.531091088Z",
+  "uplink_message": {
+    "session_key_id": "AY+bqboVM6OgJ7GmEcbM9w==",
+    "f_port": 2,
+    "f_cnt": 931,
+    "frm_payload": "eyJhcGljdHJfMSI6Ii0wLjAxIiwiYXBpY3RyXzIiOiItMS4wOSIsInR5cGUiOiJwcmVzc3VyZSJ9",
+    "decoded_payload": {
+      "apictr_1": "-0.01",
+      "apictr_2": "-1.09",
+      "type": "pressure"
+    },
+    "rx_metadata": [
+      {
+        "gateway_ids": {
+          "gateway_id": "grimaldi-2cf7f110531001a2",
+          "eui": "2CF7F110531001A2"
+        },
+        "timestamp": 3076878938,
+        "rssi": -77,
+        "channel_rssi": -77,
+        "snr": 13.5,
+        "frequency_offset": "-157",
+        "uplink_token": "CicKJQoZZ3JpbWFsZGktMmNmN2YxMTA1MzEwMDFhMhIILPfxEFMQAaIQ2uSVuwsaDAizorayBhC93+WaASCQ35qixs+qAQ==",
+        "channel_index": 6,
+        "received_at": "2024-05-22T06:31:15.292829813Z"
+      }
+    ],
+    "settings": {
+      "data_rate": {
+        "lora": {
+          "bandwidth": 125000,
+          "spreading_factor": 7,
+          "coding_rate": "4/5"
+        }
+      },
+      "frequency": "867700000",
+      "timestamp": 3076878938
+    },
+    "received_at": "2024-05-22T06:31:15.325526883Z",
+    "confirmed": true,
+    "consumed_airtime": "0.128256s",
+    "version_ids": {
+      "brand_id": "arduino",
+      "model_id": "mkr-wan-1310",
+      "hardware_version": "1.0",
+      "firmware_version": "1.2.3",
+      "band_id": "EU_863_870"
+    },
+    "network_ids": {
+      "net_id": "000013",
+      "ns_id": "EC656E0000102DE1",
+      "tenant_id": "madonninalora",
+      "cluster_id": "eu1",
+      "cluster_address": "eu1.cloud.thethings.industries",
+      "tenant_address": "madonninalora.eu1.cloud.thethings.industries"
+    }
+  }
+}
