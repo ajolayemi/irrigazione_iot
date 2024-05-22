@@ -14,7 +14,7 @@ export const saveDataWhenDev = async (body: HttpCallableReqBody) => {
     await processSectorStatusMessage({
       name: body.mqttMsgName,
       status: body.message,
-      type: "sector_status"
+      type: "sector_status",
     });
     const pubSubLikeName = `${body.mqttMsgName}_pressure`;
 
@@ -27,7 +27,7 @@ export const saveDataWhenDev = async (body: HttpCallableReqBody) => {
     await processPumpStatusMessage({
       name: body.mqttMsgName,
       status: body.message,
-      type: "pump_status"
+      type: "pump_status",
     });
 
     if (body.msgBoolVersion) {

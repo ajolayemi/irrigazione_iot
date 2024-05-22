@@ -2,7 +2,7 @@ import {Tables} from "../../../schemas/database.types";
 import {createSupabaseClient} from "../../services/supabase_client";
 
 /**
- * References the get-weather-station-by-eui Supabase Edge function 
+ * References the get-weather-station-by-eui Supabase Edge function
  * to get a weather station by device eui
  * @param {string} eui The device eui of the sensor to get
  * @return {Promise<Tables<"weather_stations">>} The sensor with the given device eui
