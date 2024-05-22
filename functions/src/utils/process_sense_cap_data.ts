@@ -10,6 +10,7 @@ import {
   WeatherStationBatteryData,
   WeatherStationMeasurementData,
 } from "../interfaces/interfaces";
+import {getDecodedPayloadMsg} from "./helper_funcs";
 
 /**
  * Processes the data received from the SenseCAP device
@@ -141,7 +142,7 @@ const getMeasurementsAndBatteryData = (result: any): SenseCapSensorData => {
     throw new Error("No received_at key found in the result");
   }
 
-  const decodedPayload = getDecodedPayloadMsg(result);
+  const decodedPayload = getDecodedPayloadMsg(result, true);
   const deviceEui = getDeviceEui(result);
 
   const measurements: WeatherStationMeasurementData[] = [];
@@ -198,41 +199,4 @@ const getDeviceEui = (data: any): string => {
   return deviceEui;
 };
 
-/**
- * Gets the decoded payload message from the provided data
- * @param {any} data The data to get decoded payload from, typically a JSON object
- * @return {any} The decoded payload
- */
-const getDecodedPayloadMsg = (data: any): any => {
-  // Get the uplink message from the provided data
-  const uplinkMessage = data.uplink_message;
-  if (!uplinkMessage) {
-    logger.error("Aborting, no uplink_message key found in the result");
-    throw new Error("No uplink_message key found in the result");
-  }
 
-  // Get the decoded payload from the uplink message
-  const decodedPayload = uplinkMessage.decoded_payload;
-  if (!decodedPayload) {
-    logger.error(
-      "Aborting, no decoded_payload key found in the uplink_message"
-    );
-    throw new Error("No decoded_payload key found in the uplink_message");
-  }
-
-  // Check if the decoded payload is valid
-  if (!decodedPayload.valid) {
-    logger.error("Aborting, the decoded payload is not valid");
-    throw new Error("The decoded payload is not valid");
-  }
-
-  // Access the message from the decoded payload
-  const message = decodedPayload.messages;
-
-  if (!message) {
-    logger.error("Aborting, no message key found in the decoded payload");
-    throw new Error("No message key found in the decoded payload");
-  }
-
-  return message;
-};
