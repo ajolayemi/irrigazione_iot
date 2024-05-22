@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:irrigazione_iot/src/features/terminals/models/terminal_pressure_database_keys.dart';
+import 'package:irrigazione_iot/src/features/terminal/models/terminal_pressure_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'terminal_pressure.g.dart';
@@ -14,11 +15,16 @@ class TerminalPressure extends Equatable {
   });
 
   @JsonKey(name: TerminalPressureDatabaseKeys.id)
+  @IntConverter()
   final String id;
+
   @JsonKey(name: TerminalPressureDatabaseKeys.collectorId)
+  @IntConverter()
   final String collectorId;
+
   @JsonKey(name: TerminalPressureDatabaseKeys.pressure)
   final double pressure;
+  
   @JsonKey(name: TerminalPressureDatabaseKeys.createdAt)
   final DateTime? createdAt;
 

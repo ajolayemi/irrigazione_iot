@@ -8,6 +8,7 @@ import 'package:irrigazione_iot/src/features/dashboard/widgets/sectors/sector_da
 import 'package:irrigazione_iot/src/features/dashboard/widgets/sectors/sector_irrigation_duration.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/sectors/sector_pressure_for_dashboard.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/shared/dashboard_child_item_list_tile.dart';
+import 'package:irrigazione_iot/src/features/dashboard/widgets/terminal/terminal_pressure_for_dashboard.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_responsive_divider.dart';
 
@@ -33,6 +34,8 @@ class SectorSwitchedOnListTile extends ConsumerWidget {
           SectorCollectorPressureForDashboard(sectorId: sector.id),
           gapH8,
           SectorPressureForDashboard(sectorId: sector.id),
+          gapH8,
+          TerminalPressureForDashboard(sectorId: sector.id),
           const CommonResponsiveDivider(),
           SectorIrrigationDuration(sectorId: sector.id),
         ],
