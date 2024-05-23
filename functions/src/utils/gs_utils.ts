@@ -4,12 +4,11 @@ import {logger} from "firebase-functions/v2";
 import {getSecretFromCloud} from "../services/secrets";
 import {EnvVariables} from "../services/env_variables";
 
-
 /**
  * A wrapper around google sheet api func to insert new values to google sheet
  * @param {string} worksheetName The name of the worksheet where the insertion
  * should be done
- * @param {any[][]} dataToInsert The new values
+ * @param {Array<Array>} dataToInsert The new values
  * @return {Promise<SheetsV4.Schema$UpdateValuesResponse | null>}
  * The result of the insert request if it was successful or a null value
  */

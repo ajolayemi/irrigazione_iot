@@ -14,6 +14,17 @@ export class PressureWithFilterGs implements PressureWithFilterSheetData {
   filterDiffPressure: number;
   createdAt: string;
 
+  /**
+   * Creates a new instance of the PressureWithFilterGs class
+   * @param {number} entityId The id of the entity
+   *  @param {string} entityName The name of the entity
+   * @param {number} companyId The id of the company this entity belongs to
+   * @param {string} companyName The name of the company this entity belongs to
+   * @param {number} filterInPressure The pressure of the "filtro in ingresso"
+   * @param {number} filterOutPressure The pressure of the "filtro in uscita"
+   * @param {number} filterDiffPressure The pressure difference between the two filters
+   * @param {string} createdAt The timestamp of when this pressure data was received
+   * */
   constructor(
     entityId: number,
     entityName: string,
@@ -22,7 +33,7 @@ export class PressureWithFilterGs implements PressureWithFilterSheetData {
     filterInPressure: number,
     filterOutPressure: number,
     filterDiffPressure: number,
-    createdAt: string,
+    createdAt: string
   ) {
     this.entityId = entityId;
     this.entityName = entityName;
@@ -34,6 +45,10 @@ export class PressureWithFilterGs implements PressureWithFilterSheetData {
     this.createdAt = createdAt;
   }
 
+  /**
+   * Retrieves the values of the current instance as a 2D array.
+   * @return {Array<Array>} The values of the current instance as a 2D array.
+   */
   getValues(): any[][] {
     return [Object.values(this)];
   }

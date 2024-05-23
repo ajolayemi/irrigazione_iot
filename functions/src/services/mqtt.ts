@@ -2,6 +2,7 @@ import {connect, MqttClient} from "mqtt";
 import {getSecretFromCloud} from "./secrets";
 
 import dotenv = require("dotenv");
+import {logger} from "firebase-functions/v2";
 dotenv.config({path: "../../../.env"});
 
 /**
@@ -14,9 +15,15 @@ export const createMqttClient = async (): Promise<MqttClient> => {
   const passwordKey = `mqtt-password-${nodeEnv}`;
   const usernameKey = `mqtt-username-${nodeEnv}`;
 
+  logger.log("Getting MQTT secrets from cloud");
   const mqttUrl = await getSecretFromCloud(urlKey);
   const mqttUsername = await getSecretFromCloud(usernameKey);
   const mqttPassword = await getSecretFromCloud(passwordKey);
+
+  logger.log("Creating MQTT client with the following details: ");
+  logger.log(`URL: ${mqttUrl}`);
+  logger.log(`Username: ${mqttUsername}`);
+  logger.log(`Password: ${mqttPassword}`);
   return connect(mqttUrl, {
     username: mqttUsername,
     password: mqttPassword,

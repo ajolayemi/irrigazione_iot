@@ -14,7 +14,6 @@ import {processPumpStatusMessage} from "./process_pump_status_message";
  * @return {string} The formatted date
  */
 export const customFormatDate = (date: Date): string => {
-  
   const dateSection = date.toISOString().split("T")[0];
   const timeSection = date.toISOString().split("T")[1].split(".")[0];
   return `${dateSection} ${timeSection}`;
@@ -80,25 +79,25 @@ export const switchBaseOnMessageType = async (
   message: any
 ): Promise<boolean> => {
   switch (messageType) {
-    case "pressure":
-      return await processPressureMessageFromPubSub(message);
+  case "pressure":
+    return await processPressureMessageFromPubSub(message);
 
-    case "sector_status":
-      return await processSectorStatusMessage(message);
+  case "sector_status":
+    return await processSectorStatusMessage(message);
 
-    case "pump_status":
-      return await processPumpStatusMessage(message);
+  case "pump_status":
+    return await processPumpStatusMessage(message);
 
-    case "pump_flow":
-      return await processPumpFlowMessage(message);
+  case "pump_flow":
+    return await processPumpFlowMessage(message);
 
-    case "pump_pressure":
-      return await processPumpPressureMessage(message);
+  case "pump_pressure":
+    return await processPumpPressureMessage(message);
 
-    case "board_status":
-      return await processBoardStatusMessage(message);
+  case "board_status":
+    return await processBoardStatusMessage(message);
 
-    default:
-      throw new Error("Invalid message type");
+  default:
+    throw new Error("Invalid message type");
   }
 };

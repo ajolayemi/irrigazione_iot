@@ -82,25 +82,32 @@ exports.toggleItemStatus = https.onCall(async (req: CallableRequest) => {
       `Toggling status of ${body.mqttMsgName} to ${body.message} with topic ${body.topic}`
     );
     const client = await createMqttClient();
-    if (client.disconnected) {
-      throw new https.HttpsError("internal", "MQTT client is disconnected");
-    }
 
-    // Msgs sent to mqtt aren't raw strings, they are objects
-    const messageForMqtt: StatusMessage = {
-      name: body.mqttMsgName,
-      status: body.message,
-      type: body.isPump ? "pump_status" : "sector_status",
-    };
-    const messageBuffer = Buffer.from(JSON.stringify(messageForMqtt));
-    client.publish(body.topic, messageBuffer);
+    logger.info("Connecting to MQTT broker");
+    client.on("connect", async () => {
+      logger.info("Connected to MQTT broker");
+      if (client.disconnected) {
+        throw new https.HttpsError("internal", "MQTT client is disconnected");
+      }
 
-    // When dev environment is dev, insert manual data to local db
-    if (process.env.NODE_ENV === "dev") {
-      await saveDataWhenDev(body);
-    }
+      // Msgs sent to mqtt aren't raw strings, they are objects
+      const messageForMqtt: StatusMessage = {
+        name: body.mqttMsgName,
+        status: body.message,
+        type: body.isPump ? "pump_status" : "sector_status",
+      };
+      const messageBuffer = Buffer.from(JSON.stringify(messageForMqtt));
+      client.publish(body.topic, messageBuffer);
 
-    return {success: true};
+      // When dev environment is dev, insert manual data to local db
+      if (process.env.NODE_ENV === "dev") {
+        await saveDataWhenDev(body);
+      }
+
+      return {success: true};
+    });
+
+    logger.info("Disconnecting from MQTT broker");
   } catch (error) {
     throw new https.HttpsError("internal", error as string);
   }

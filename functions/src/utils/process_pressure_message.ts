@@ -45,7 +45,6 @@ export const processPressureMessageFromPubSub = async (
       splittedSectorKeys,
     } = getPressureMessageKeys(message);
 
-
     // It's expected that at least a single sector key is found in the message
     // If no sector key is found, then the message is invalid
     if (!sectorKeys.length || !splittedSectorKeys.length) {
@@ -124,9 +123,9 @@ export const processPressureMessageFromPubSub = async (
  * Abstracts the processing of sectors pressure in a pressure message.
  * It's values, if available are stored in the database
  * @param {string[]} sectorKeys The keys for sector pressure in the message, as they appear in the message
+ * @param {string} message The message to process sector pressure from
  * @param {Tables<"collectors">} collector The collector object that holds the sectors in the message
  * @param {Tables<"companies">} company The company that the collector belongs to
- * @param {string} message The message to process sector pressure from
  * @param {Date} timestamp The timestamp of the message
  * @return {Promise<boolean>} True if the sector pressure was successfully processed, false otherwise
  */
@@ -202,6 +201,7 @@ export const processSectorPressure = async (
  * @param {CustomJSON} message The message to process collector pressure from
  * @param {Tables<"collector">} collector The collector object that holds the sectors in the message
  * @param {Tables<"companies">} company The company that the collector belongs to
+ * @param {Date} timestamp The timestamp of the message
  * @return {Promise<boolean>} True if the collector pressure was successfully processed, false otherwise
  */
 export const processCollectorPressure = async (
@@ -228,7 +228,7 @@ export const processCollectorPressure = async (
       filter_out_pressure: _filterOutPressure,
     };
 
-    logger.info(`Saving collector pressure to the database and google sheet`);
+    logger.info("Saving collector pressure to the database and google sheet");
 
     // Save the data to database
     await insertCollectorPressure(_collectorPressure);
