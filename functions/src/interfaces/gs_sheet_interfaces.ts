@@ -74,3 +74,19 @@ export interface PressureWithFilterSheetData extends BaseData {
 export interface BaseStatusSheetData extends BaseData {
   status: boolean;
 }
+
+/**
+ * Interface for pump flows data saved to google sheets
+ */
+export interface PumpFlowSheetData extends BaseData {
+  /**
+   * The flow of the pump
+   */
+  flow: number;
+
+  /**
+   * The dispensed litres per second
+   */
+  dispensedLitresPerSecond: number;
+
+}

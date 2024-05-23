@@ -3,6 +3,10 @@ import {PumpFlowRateMessage} from "../interfaces/interfaces";
 import {getPumpByMqttMsgName} from "../database/pumps/read_pump_data";
 import {TablesInsert} from "../../schemas/database.types";
 import {insertPumpFlow} from "../database/pumps/insert_pump_data";
+import {PumpFlowGs} from "../models/pump_flow_for_gs";
+import {customFormatDate} from "./helper_funcs";
+import {insertDataInSheet} from "./gs_utils";
+import {getCompanyById} from "../database/companies/read_company_data";
 
 /**
  * Abstracts the process of a pump flow message
@@ -29,15 +33,43 @@ export const processPumpFlowMessage = async (
       );
     }
 
-    logger.info(`Inserting pump flow for ${name} into database`);
+    const currentDate = new Date();
+
+    logger.info(
+      `Inserting pump flow for ${name} into database and google sheet`
+    );
     const flowRate: TablesInsert<"pump_flows"> = {
-      created_at: new Date().toISOString(),
+      created_at: currentDate.toISOString(),
       pump_id: pump.id,
       flow: count * 100,
       litres_per_second: message.litresPerSecond,
     };
 
+    // Insert data to supabase
     await insertPumpFlow(flowRate);
+
+    // Get the company this pump belongs to
+    const company = await getCompanyById(pump.company_id.toString());
+
+    if (!company) {
+      throw new Error(
+        `No company matching the provided ${pump.company_id} was found`
+      );
+    }
+
+    // Insert data to google sheets
+    const dataForGs = new PumpFlowGs(
+      pump.id,
+      pump.name,
+      pump.company_id,
+      company.name,
+      flowRate.flow,
+      message.litresPerSecond,
+      customFormatDate(currentDate)
+    );
+
+    await insertDataInSheet("pump_flows", dataForGs.getValues());
+
     logger.info(`Pump flow for ${name} inserted successfully`);
     return true;
   } catch (error) {
