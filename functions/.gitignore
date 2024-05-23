@@ -75,3 +75,6 @@ lib/
 
 # Example folder saving example json files
 example/
+
+# API keys folder
+keys/

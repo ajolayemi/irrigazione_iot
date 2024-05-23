@@ -47,3 +47,22 @@ export const getCollectorBySectorId = async (
 
   return data["result"] as Tables<"collector_sectors">;
 };
+
+/**
+ * Gets the sector with the given id
+ * @param {string} id The id of the sector to get
+ * @return {Promise<Tables<"sectors">>} The sector with the given id
+ */
+export const getSectorById = async (id: string): Promise<Tables<"sectors">> => {
+  const supabase = await createSupabaseClient();
+  // Get the company by id
+  const {data, error} = await supabase.functions.invoke("get-sector-by-id", {
+    body: {id},
+  });
+
+  if (error) {
+    throw error;
+  }
+
+  return data["result"] as Tables<"sectors">;
+};
