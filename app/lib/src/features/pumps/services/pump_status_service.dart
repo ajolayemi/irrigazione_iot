@@ -44,15 +44,12 @@ class PumpStatusService {
     final mqttSuffix = _ref.read(mqttTopicsSuffixProvider);
 
     final body = FirebaseCallableFunctionBody(
-      topic: '$companyMqttTopicName/${mqttSuffix.pumpStatusToggle}',
-      message: statusCommand,
-      mqttMsgName: pump.mqttMessageName,
-      msgBoolVersion: status,
-      isPump: true
-    );
-    await pumpStatusRepo.togglePumpStatus(
-        statusBody: body
-      );
+        topic: '$companyMqttTopicName/${mqttSuffix.pumpStatusToggle}',
+        message: statusCommand,
+        mqttMsgName: pump.mqttMessageName,
+        msgBoolVersion: status,
+        isPump: true);
+    await pumpStatusRepo.togglePumpStatus(statusBody: body);
   }
 }
 
