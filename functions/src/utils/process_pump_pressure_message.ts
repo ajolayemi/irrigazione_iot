@@ -4,7 +4,7 @@ import {getPumpByMqttMsgName} from "../database/pumps/read_pump_data";
 import {insertPumpPressure} from "../database/pumps/insert_pump_data";
 import {TablesInsert} from "../../schemas/database.types";
 import {getCompanyById} from "../database/companies/read_company_data";
-import {PumpPressureGs} from "../models/pump_pressure_for_gs";
+import {PressureWithFilterGs} from "../models/pressure_with_filter_for_gs";
 import {customFormatDate} from "./helper_funcs";
 import {insertDataInSheet} from "./gs_utils";
 
@@ -56,7 +56,7 @@ export const processPumpPressureMessage = async (
       );
     }
 
-    const dataForGs = new PumpPressureGs(
+    const dataForGs = new PressureWithFilterGs(
       pump.id,
       pump.name,
       pump.company_id,
@@ -67,10 +67,7 @@ export const processPumpPressureMessage = async (
       customFormatDate(currentDate)
     );
 
-    await insertDataInSheet(
-      PumpPressureGs.workSheetName,
-      dataForGs.getValues()
-    );
+    await insertDataInSheet("pump_pressures", dataForGs.getValues());
 
     logger.info(`Pump pressure for ${pump.name} saved successfully`);
     return true;
