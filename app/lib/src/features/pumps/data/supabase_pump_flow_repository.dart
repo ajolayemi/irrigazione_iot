@@ -10,7 +10,7 @@ class SupabasePumpFlowRepository implements PumpFlowRepository {
   final SupabaseClient _supabaseClient;
 
   PumpFlow? _fromList(List<Map<String, dynamic>>? data) {
-    if (data == null) return null;
+    if (data == null || data.isEmpty) return null;
     return PumpFlow.fromJson(data.first);
   }
 
