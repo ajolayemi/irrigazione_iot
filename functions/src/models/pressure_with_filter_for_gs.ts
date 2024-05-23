@@ -1,10 +1,10 @@
-import {PumpPressureSheetData} from "../interfaces/gs_sheet_interfaces";
+import {PressureWithFilterSheetData} from "../interfaces/gs_sheet_interfaces";
 
 /**
- * Model class for pump pressure data inserted into google sheets
+ * Model class for pressure data inserted into google sheets
+ * Mostly used for pump and collector pressure
  */
-export class PumpPressureGs implements PumpPressureSheetData {
-  static readonly workSheetName = "pump_pressures";
+export class PressureWithFilterGs implements PressureWithFilterSheetData {
   entityId: number;
   entityName: string;
   companyId: number;
@@ -22,7 +22,7 @@ export class PumpPressureGs implements PumpPressureSheetData {
     filterInPressure: number,
     filterOutPressure: number,
     filterDiffPressure: number,
-    createdAt: string
+    createdAt: string,
   ) {
     this.entityId = entityId;
     this.entityName = entityName;
