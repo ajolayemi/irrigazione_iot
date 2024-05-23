@@ -7,6 +7,20 @@ import {processPumpFlowMessage} from "./process_pump_flow_message";
 import {processPumpStatusMessage} from "./process_pump_status_message";
 
 /**
+ * Helps in formatting date to a custom format
+ * for google sheets insertion. The format is
+ * YYYY-MM-DD HH:MM:SS
+ * @param {Date} date The date object to format
+ * @return {string} The formatted date
+ */
+export const customFormatDate = (date: Date): string => {
+  
+  const dateSection = date.toISOString().split("T")[0];
+  const timeSection = date.toISOString().split("T")[1].split(".")[0];
+  return `${dateSection} ${timeSection}`;
+};
+
+/**
  * Gets the decoded payload message from the provided data
  * @param {any} data The data to get decoded payload from, typically a JSON object
  * @param {boolean} isFromSenseCap Whether the data is from a SenseCAP device
@@ -66,25 +80,25 @@ export const switchBaseOnMessageType = async (
   message: any
 ): Promise<boolean> => {
   switch (messageType) {
-  case "pressure":
-    return await processPressureMessageFromPubSub(message);
+    case "pressure":
+      return await processPressureMessageFromPubSub(message);
 
-  case "sector_status":
-    return await processSectorStatusMessage(message);
+    case "sector_status":
+      return await processSectorStatusMessage(message);
 
-  case "pump_status":
-    return await processPumpStatusMessage(message);
+    case "pump_status":
+      return await processPumpStatusMessage(message);
 
-  case "pump_flow":
-    return await processPumpFlowMessage(message);
+    case "pump_flow":
+      return await processPumpFlowMessage(message);
 
-  case "pump_pressure":
-    return await processPumpPressureMessage(message);
+    case "pump_pressure":
+      return await processPumpPressureMessage(message);
 
-  case "board_status":
-    return await processBoardStatusMessage(message);
+    case "board_status":
+      return await processBoardStatusMessage(message);
 
-  default:
-    throw new Error("Invalid message type");
+    default:
+      throw new Error("Invalid message type");
   }
 };
