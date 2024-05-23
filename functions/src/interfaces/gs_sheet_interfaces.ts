@@ -39,9 +39,20 @@ export interface BaseData {
 }
 
 /**
+ * Interface for board status data inserted in google sheets
+ */
+export interface BoardStatusSheetData extends BaseData {
+  /**
+   * The battery level of the board
+   */
+  batteryLevel: number;
+}
+
+
+/**
  * Interface for base pressure with filter data inserted in google sheets
  */
-export interface BasePressureWithFilterSheetData extends BaseData {
+export interface PressureWithFilterSheetData extends BaseData {
   /**
    * The pressure of "filtro in ingresso"
    */
@@ -57,20 +68,3 @@ export interface BasePressureWithFilterSheetData extends BaseData {
    */
   filterDiffPressure: number;
 }
-
-/**
- * Interface for board status data inserted in google sheets
- */
-export interface BoardStatusSheetData extends BaseData {
-  /**
-   * The battery level of the board
-   */
-  batteryLevel: number;
-}
-
-/**
- * Interface for pump pressure data inserted in google sheets
- */
-export interface PumpPressureSheetData
-  extends BaseData,
-    BasePressureWithFilterSheetData {}
