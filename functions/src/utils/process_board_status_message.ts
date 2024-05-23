@@ -53,7 +53,7 @@ export const processBoardStatusMessage = async (
     );
     // Insert data to google sheets
     await insertDataInSheet(
-      BoardStatusGs.worksheet_name,
+      dataForGs.workSheetName,
       dataForGs.getValues()
     );
 
