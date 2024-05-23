@@ -1,10 +1,9 @@
 import {sheets_v4 as SheetsV4} from "googleapis";
 import {getSpreadsheets} from "../services/gs_client";
 import {logger} from "firebase-functions/v2";
-
-import dotenv = require("dotenv");
 import {getSecretFromCloud} from "../services/secrets";
-dotenv.config({path: "../../../.env"});
+import {EnvVariables} from "../services/env_variables";
+
 
 /**
  * A wrapper around google sheet api func to insert new values to google sheet
@@ -20,9 +19,8 @@ export const insertDataInSheet = async (
 ): Promise<SheetsV4.Schema$AppendValuesResponse | null> => {
   try {
     const sheets = getSpreadsheets();
-
     // Access cloud secrets to get the spreadsheet id
-    const nodeEnv = process.env.NODE_ENV;
+    const nodeEnv = EnvVariables.NODE_ENV;
     const sheetIdKey = `gs-id-${nodeEnv}`;
 
     const spreadsheetId = await getSecretFromCloud(sheetIdKey);
@@ -46,7 +44,7 @@ export const insertDataInSheet = async (
       ${insertResponse.statusText}`);
     return null;
   } catch (error) {
-    logger.error(`An error: ${error} occurred while 
+    logger.error(`${error} occurred while 
       trying to insert data in worksheet: ${worksheetName} 
       with provided values ${dataToInsert}`);
     return null;
