@@ -3,6 +3,9 @@ import {StatusMessage} from "../interfaces/interfaces";
 import {getPumpByMqttMsgName} from "../database/pumps/read_pump_data";
 import {TablesInsert} from "../../schemas/database.types";
 import {insertPumpStatus} from "../database/pumps/insert_pump_data";
+import {StatusGs} from "../models/pump_status_for_gs";
+import {customFormatDate} from "./helper_funcs";
+import {insertDataInSheet} from "./gs_utils";
 
 /**
  * Abstracts the process of a pump status message coming from
@@ -41,17 +44,34 @@ export const processPumpStatusMessage = async (
       );
     }
 
+    const currentDate = new Date();
+
     // insert the pump status into the database
     const pumpStatus: TablesInsert<"pump_statuses"> = {
       status_boolean: pump.turn_on_command === status,
-      created_at: new Date().toISOString(),
+      created_at: currentDate.toISOString(),
       pump_id: pump.id,
       company_id: pump.company_id,
       status,
     };
 
-    logger.info(`Inserting pump status for ${pumpName} into database`);
+    logger.info(
+      `Inserting pump status for ${pumpName} into database and google sheet`
+    );
     await insertPumpStatus(pumpStatus);
+
+    const dataForGs = new StatusGs(
+      pump.id,
+      pump.name,
+      pump.company_id,
+      pump.name,
+      pumpStatus.status_boolean ?? false,
+      customFormatDate(currentDate)
+    );
+
+    // insert the pump status into google sheets
+    await insertDataInSheet("pump_statuses", dataForGs.getValues());
+
     logger.info(`Pump status for ${pumpName} inserted successfully`);
     return true;
   } catch (error) {
