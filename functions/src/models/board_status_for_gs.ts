@@ -5,7 +5,7 @@ import {BoardStatusSheetData} from "../interfaces/gs_sheet_interfaces";
  * to google sheets
  */
 export class BoardStatusGs implements BoardStatusSheetData {
-  workSheetName: string;
+  static readonly workSheetName = "board_statuses";
   entityId: number;
   entityName: string;
   companyId: number;
@@ -27,8 +27,8 @@ export class BoardStatusGs implements BoardStatusSheetData {
     this.companyName = companyName;
     this.batteryLevel = batteryLevel;
     this.createdAt = createdAt;
-    this.workSheetName = "board_statuses";
   }
+    
 
   getValues(): any[][] {
     return [Object.values(this)];

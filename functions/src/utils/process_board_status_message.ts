@@ -52,10 +52,7 @@ export const processBoardStatusMessage = async (
       customFormatDate(currentDate)
     );
     // Insert data to google sheets
-    await insertDataInSheet(
-      dataForGs.workSheetName,
-      dataForGs.getValues()
-    );
+    await insertDataInSheet(BoardStatusGs.workSheetName, dataForGs.getValues());
 
     logger.info(`Board status for ${board.name} inserted successfully`);
     return true;
