@@ -14,6 +14,7 @@ import {PressureWithFilterGs} from "../models/pressure_with_filter_for_gs";
 import {customFormatDate} from "./helper_funcs";
 import {insertDataInSheet} from "./gs_utils";
 import {SectorPressureGs} from "../models/sector_pressure_for_gs";
+import {TerminalPressureForGs} from "../models/terminal_pressure_for_gs";
 
 /**
  * An helper function that helps in processing "pressure" messages sent from
@@ -43,6 +44,7 @@ export const processPressureMessageFromPubSub = async (
       sectorKeys,
       splittedSectorKeys,
     } = getPressureMessageKeys(message);
+
 
     // It's expected that at least a single sector key is found in the message
     // If no sector key is found, then the message is invalid
@@ -87,14 +89,20 @@ export const processPressureMessageFromPubSub = async (
     // We can now proceed to process the message
     if (!debug) {
       // First, call on the function that handles the terminal pressure message processing
-      await processTerminalPressure(terminalPressureKey, message, collectorId);
+      await processTerminalPressure(
+        terminalPressureKey,
+        message,
+        collector,
+        company,
+        currentDate
+      );
       // Next, call on the function that handles the collector pressure message processing
       await processCollectorPressure(
         collectorPressureKeys,
         message,
         collector,
         company,
-        currentDate,
+        currentDate
       );
       // Finally, call on the function that handles the sector pressure message processing
       await processSectorPressure(
@@ -213,7 +221,6 @@ export const processCollectorPressure = async (
     const _filterInPressure = message[collectorPressureKeys[0]] as number;
     const _filterOutPressure = message[collectorPressureKeys[1]] as number;
 
-
     const _collectorPressure: TablesInsert<"collector_pressures"> = {
       created_at: timestamp.toISOString(),
       collector_id: collector.id,
@@ -251,13 +258,17 @@ export const processCollectorPressure = async (
  * It's value, if available is stored in the database
  * @param {string} terminalPressureKey The key for terminal pressure in the message
  * @param {CustomJSON} message The message to process terminal pressure from
- * @param {number} collectorId The id of the collector that holds the sectors in the message
+ * @param {Tables<"collectors">} collector The collector object that holds the sectors in the message
+ * @param {Tables<"companies">} company The company that the collector belongs to
+ * @param {Date} timestamp The timestamp of the message
  * @return {Promise<boolean>} True if the terminal pressure was successfully processed, false otherwise
  */
 export const processTerminalPressure = async (
   terminalPressureKey: string,
   message: CustomJSON,
-  collectorId: number
+  collector: Tables<"collectors">,
+  company: Tables<"companies">,
+  timestamp: Date
 ): Promise<boolean> => {
   try {
     logger.info("Processing terminal pressure...");
@@ -270,12 +281,25 @@ export const processTerminalPressure = async (
     }
 
     const _terminalPressure: TablesInsert<"terminal_pressures"> = {
-      created_at: new Date().toISOString(),
-      collector_id: collectorId,
+      created_at: timestamp.toISOString(),
+      collector_id: collector.id,
       pressure: terminalPressure,
     };
-    logger.info("Saving terminal pressure to the database");
+
+    logger.info("Saving terminal pressure to the database and google sheet");
     await insertTerminalPressure(_terminalPressure);
+
+    // Prepare and insert data to google sheet
+    const dataForGs = new TerminalPressureForGs(
+      collector.id,
+      collector.name,
+      company.id,
+      company.name,
+      terminalPressure,
+      customFormatDate(timestamp)
+    );
+
+    await insertDataInSheet("terminal_pressures", dataForGs.getValues());
 
     return true;
   } catch (error) {
