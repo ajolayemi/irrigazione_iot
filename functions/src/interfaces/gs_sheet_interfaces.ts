@@ -39,6 +39,26 @@ export interface BaseData {
 }
 
 /**
+ * Interface for base pressure with filter data inserted in google sheets
+ */
+export interface BasePressureWithFilterSheetData extends BaseData {
+  /**
+   * The pressure of "filtro in ingresso"
+   */
+  filterInPressure: number;
+
+  /**
+   * The pressure of "filtro in uscita"
+   */
+  filterOutPressure: number;
+
+  /**
+   * The difference between the filter in and out pressure
+   */
+  filterDiffPressure: number;
+}
+
+/**
  * Interface for board status data inserted in google sheets
  */
 export interface BoardStatusSheetData extends BaseData {
@@ -49,5 +69,8 @@ export interface BoardStatusSheetData extends BaseData {
 }
 
 /**
- * Interface for collector pressures data inserted in google sheets
+ * Interface for pump pressure data inserted in google sheets
  */
+export interface PumpPressureSheetData
+  extends BaseData,
+    BasePressureWithFilterSheetData {}

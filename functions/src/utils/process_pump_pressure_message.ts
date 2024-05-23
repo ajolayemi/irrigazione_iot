@@ -3,6 +3,10 @@ import {CustomJSON, PumpPressureKeys} from "../interfaces/interfaces";
 import {getPumpByMqttMsgName} from "../database/pumps/read_pump_data";
 import {insertPumpPressure} from "../database/pumps/insert_pump_data";
 import {TablesInsert} from "../../schemas/database.types";
+import {getCompanyById} from "../database/companies/read_company_data";
+import {PumpPressureGs} from "../models/pump_pressure_for_gs";
+import {customFormatDate} from "./helper_funcs";
+import {insertDataInSheet} from "./gs_utils";
 
 export const processPumpPressureMessage = async (
   message: CustomJSON
@@ -24,22 +28,51 @@ export const processPumpPressureMessage = async (
     const pump = await getPumpByMqttMsgName(message[nameKey]);
 
     if (!pump) {
-      throw new Error("No pump found for the pump pressure message");
+      throw new Error(
+        `No pump found for the pump with mqtt name: ${message[nameKey]}`
+      );
     }
 
-    logger.info(`Pump found for pump pressure message: ${pump.id}`);
+    const currentDate = new Date();
 
     const pumpPressure: TablesInsert<"pump_pressures"> = {
-      created_at: new Date().toISOString(),
+      created_at: currentDate.toISOString(),
       pump_id: pump.id,
       filter_in_pressure: message[filterInKey],
       filter_out_pressure: message[filterOutKey],
     };
 
-    logger.info("Saving pump pressure to the database");
+    logger.info(
+      `Saving pump pressure for ${pump.name} to the database and google sheet`
+    );
     await insertPumpPressure(pumpPressure);
 
-    logger.info("Pump pressure saved successfully");
+    // Get the company this pump belongs to
+    const company = await getCompanyById(pump.company_id.toString());
+
+    if (!company) {
+      throw new Error(
+        `No company found for the company with id: ${pump.company_id}`
+      );
+    }
+
+    const dataForGs = new PumpPressureGs(
+      pump.id,
+      pump.name,
+      pump.company_id,
+      company.name,
+      message[filterInKey],
+      message[filterOutKey],
+      message[filterInKey] - message[filterOutKey],
+      customFormatDate(currentDate)
+    );
+
+    await insertDataInSheet(
+      PumpPressureGs.workSheetName,
+      dataForGs.getValues()
+    );
+
+    logger.info(`Pump pressure for ${pump.name} saved successfully`);
     return true;
   } catch (error) {
     logger.error("Error processing pump pressure message: ", error);
