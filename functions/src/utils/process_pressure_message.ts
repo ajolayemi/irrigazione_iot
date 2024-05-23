@@ -4,10 +4,15 @@ import {
   getSectorByMqttMsgName,
 } from "../database/sectors/read_sector_data";
 import {logger} from "firebase-functions/v1";
-import {TablesInsert} from "../../schemas/database.types";
+import {Tables, TablesInsert} from "../../schemas/database.types";
 import {insertCollectorPressure} from "../database/collectors/insert_collector_data";
 import {insertTerminalPressure} from "../database/terminal/insert_terminal_data";
 import {insertSectorPressure} from "../database/sectors/insert_sector_data";
+import {getCompanyById} from "../database/companies/read_company_data";
+import {getCollectorById} from "../database/collectors/read_collector_data";
+import {PressureWithFilterGs} from "../models/pressure_with_filter_for_gs";
+import {customFormatDate} from "./helper_funcs";
+import {insertDataInSheet} from "./gs_utils";
 
 /**
  * An helper function that helps in processing "pressure" messages sent from
@@ -43,13 +48,37 @@ export const processPressureMessageFromPubSub = async (
       throw new Error("No sector key found in the message");
     }
 
+    console.log("sectorKeys", sectorKeys);
     // Get the collector that holds the sectors in the message
     const collectorId = await getCollectorForSector(splittedSectorKeys);
+
+    console.log("collectorId", collectorId);
 
     if (!collectorId) {
       throw new Error("No collector found for the sectors in the message");
     }
-    logger.info(`Collector found for sectors in the message: ${collectorId}`);
+
+    // Get the real collector object from the database
+    const collector = await getCollectorById(collectorId.toString());
+
+    if (!collector) {
+      throw new Error(
+        `Collector with id ${collectorId} not found in the database`
+      );
+    }
+
+    // Get the company that this collector belongs to
+    const company = await getCompanyById(collector.company_id.toString());
+
+    if (!company) {
+      throw new Error(
+        `Company with id ${collector.company_id} not found in the database`
+      );
+    }
+
+    logger.info(
+      `Collector found for sectors in the message: ${collector.name}`
+    );
 
     // Reaching here means that the message is valid and the collector that holds
     // the sectors in the message has been found
@@ -61,7 +90,8 @@ export const processPressureMessageFromPubSub = async (
       await processCollectorPressure(
         collectorPressureKeys,
         message,
-        collectorId
+        collector,
+        company
       );
       // Finally, call on the function that handles the sector pressure message processing
       await processSectorPressure(sectorKeys, message);
@@ -123,31 +153,53 @@ export const processSectorPressure = async (
  * It's values, if available are stored in the database
  * @param {string[]} collectorPressureKeys The keys for collector pressure in the message
  * @param {CustomJSON} message The message to process collector pressure from
- * @param {number} collectorId The id of the collector that holds the sectors in the message
+ * @param {Tables<"collector">} collector The collector object that holds the sectors in the message
+ * @param {Tables<"companies">} company The company that the collector belongs to
  * @return {Promise<boolean>} True if the collector pressure was successfully processed, false otherwise
  */
 export const processCollectorPressure = async (
   collectorPressureKeys: string[],
   message: CustomJSON,
-  collectorId: number
+  collector: Tables<"collectors">,
+  company: Tables<"companies">
 ): Promise<boolean> => {
+  if (!collectorPressureKeys.length) {
+    logger.info("Exiting... No collector pressure keys found in the message");
+    return false;
+  }
   try {
     logger.info("Processing collector pressure...");
 
     const _filterInPressure = message[collectorPressureKeys[0]] as number;
     const _filterOutPressure = message[collectorPressureKeys[1]] as number;
 
+    const currentDate = new Date();
+
     const _collectorPressure: TablesInsert<"collector_pressures"> = {
-      created_at: new Date().toISOString(),
-      collector_id: collectorId,
+      created_at: currentDate.toISOString(),
+      collector_id: collector.id,
       filter_in_pressure: _filterInPressure,
       filter_out_pressure: _filterOutPressure,
     };
 
-    logger.info("Saving collector pressure to the database");
+    logger.info(`Saving collector pressure to the database and google sheet`);
+
     // Save the data to database
     await insertCollectorPressure(_collectorPressure);
 
+    // Save to google sheets
+    const dataForGs = new PressureWithFilterGs(
+      collector.id,
+      collector.name,
+      company.id,
+      company.name,
+      _filterInPressure,
+      _filterOutPressure,
+      _filterInPressure - _filterOutPressure,
+      customFormatDate(currentDate)
+    );
+
+    await insertDataInSheet("collector_pressures", dataForGs.getValues());
     return true;
   } catch (error) {
     logger.error("Error processing collector pressure: ", error);
@@ -221,7 +273,7 @@ const getCollectorForSector = async (
     const collector = await getCollectorBySectorId(sectorId.id.toString());
 
     if (collector) {
-      toReturn = collector.id;
+      toReturn = collector.collector_id;
       break;
     }
   }
