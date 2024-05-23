@@ -6,6 +6,7 @@ import {insertPumpStatus} from "../database/pumps/insert_pump_data";
 import {StatusGs} from "../models/pump_status_for_gs";
 import {customFormatDate} from "./helper_funcs";
 import {insertDataInSheet} from "./gs_utils";
+import {getCompanyById} from "../database/companies/read_company_data";
 
 /**
  * Abstracts the process of a pump status message coming from
@@ -60,11 +61,19 @@ export const processPumpStatusMessage = async (
     );
     await insertPumpStatus(pumpStatus);
 
+    const company = await getCompanyById(pump.company_id.toString());
+
+    if (!company) {
+      throw new Error(
+        `No company matching the provided ${pump.company_id} was found`
+      );
+    }
+
     const dataForGs = new StatusGs(
       pump.id,
       pump.name,
       pump.company_id,
-      pump.name,
+      company.name,
       pumpStatus.status_boolean ?? false,
       customFormatDate(currentDate)
     );
