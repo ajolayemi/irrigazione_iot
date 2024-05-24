@@ -30,14 +30,6 @@ export interface CustomJSON {
   [key: string]: any;
 }
 
-/**
- * An interface of what the status msgs from MQTT - Dataflow - PubSub looks like
- */
-export interface StatusMessage {
-  status: string;
-  name: string;
-  type: string;
-}
 
 /**
  * An interface of what pump flow rate message from MQTT - Dataflow - PubSub looks like
@@ -59,14 +51,6 @@ export interface BoardStatusMessage {
   eui: string;
 }
 
-export interface HttpCallableReqBody {
-  topic: string;
-  message: string;
-  mqttMsgName: string;
-  msgBoolVersion: boolean;
-  isSector?: boolean;
-  isPump?: boolean;
-}
 
 export interface WeatherStationMeasurementData {
   measurementId: string;

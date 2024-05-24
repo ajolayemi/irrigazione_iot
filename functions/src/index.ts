@@ -1,9 +1,5 @@
 import admin from "firebase-admin";
-import {https, logger, pubsub} from "firebase-functions/v2";
-import {CallableRequest} from "firebase-functions/v2/https";
-import {createMqttClient} from "./services/mqtt";
-import {HttpCallableReqBody, StatusMessage} from "./interfaces/interfaces";
-import {saveDataWhenDev} from "./utils/save_dev_data";
+import {logger, pubsub} from "firebase-functions/v2";
 import {processSenseCapData} from "./utils/process_sense_cap_data";
 import {
   getDecodedPayloadMsg,
