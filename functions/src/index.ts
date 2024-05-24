@@ -6,7 +6,7 @@ import {
   switchBaseOnMessageType,
 } from "./utils/helper_funcs";
 
-import "dotenv/config";
+
 admin.initializeApp();
 
 /**
