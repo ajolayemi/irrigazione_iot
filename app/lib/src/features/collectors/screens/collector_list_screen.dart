@@ -8,7 +8,6 @@ import 'package:irrigazione_iot/src/features/collectors/providers/selected_secto
 import 'package:irrigazione_iot/src/features/collectors/screens/collector_expansion_list_tile.dart';
 import 'package:irrigazione_iot/src/features/collectors/screens/collector_list/dismiss_collector_controller.dart';
 import 'package:irrigazione_iot/src/features/collectors/widgets/empty_collector_widget.dart';
-import 'package:irrigazione_iot/src/features/sectors/screens/sector_switch_controller.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
@@ -32,13 +31,6 @@ class CollectorListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    /// listen to switch controller state here as well because sector state
-    /// can also be changed from this screen
-    ref.listen(
-      sectorSwitchControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
-
     /// listen to collector dismissal controller state
     /// and show alert dialog if there is an error
     ref.listen(

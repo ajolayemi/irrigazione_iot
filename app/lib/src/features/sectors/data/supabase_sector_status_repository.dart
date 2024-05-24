@@ -1,25 +1,34 @@
-import 'package:cloud_functions/cloud_functions.dart';
-import 'package:irrigazione_iot/src/constants/firebase_funcs_constants.dart';
-import 'package:irrigazione_iot/src/shared/models/firebase_callable_function_body.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector_status.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector_status_database_keys.dart';
+import 'package:irrigazione_iot/src/shared/models/item_status_request.dart';
+import 'package:irrigazione_iot/src/shared/services/mqtt_client_service.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabaseSectorStatusRepository implements SectorStatusRepository {
-  const SupabaseSectorStatusRepository(this._supabaseClient, this._firebaseFunctions,);
+  const SupabaseSectorStatusRepository(
+    this._supabaseClient,
+    this._mqttService,
+  );
   final SupabaseClient _supabaseClient;
-  final FirebaseFunctions _firebaseFunctions;
+  final MqttClientService _mqttService;
 
   @override
-  Future<void> toggleSectorStatus(
-     {
-    required FirebaseCallableFunctionBody statusBody,
-  }) =>  _firebaseFunctions
-      .httpsCallable(FirebaseFunctionsConstants.toggleItemStatusFuncName)
-      .call(statusBody.toJson());
+  Future<void> toggleSectorStatus({
+    required ItemStatusRequest statusBody,
+  }) async {
+    final mqttClient = await _mqttService.connect();
+
+    await _mqttService.publishMessage(
+      mqttClient,
+      statusBody.topic,
+      statusBody.toJson(),
+    );
+
+    return;
+  }
 
   @override
   Stream<SectorStatus?> watchSectorStatus(String sectorId) {
@@ -31,8 +40,7 @@ class SupabaseSectorStatusRepository implements SectorStatusRepository {
 
     return stream.map((statuses) {
       if (statuses.isEmpty) return null;
-      return  SectorStatus.fromJson(statuses.first);
-     
+      return SectorStatus.fromJson(statuses.first);
     });
   }
 }

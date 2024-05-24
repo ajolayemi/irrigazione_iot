@@ -1,16 +1,16 @@
 import {logger} from "firebase-functions/v2";
-import {StatusMessage} from "../interfaces/interfaces";
+import {StatusMessage} from "../../interfaces/interfaces";
 import {
   getCollectorBySectorId,
   getSectorByMqttMsgName,
-} from "../database/sectors/read_sector_data";
-import {TablesInsert} from "../../schemas/database.types";
-import {insertSectorStatus} from "../database/sectors/insert_sector_data";
-import {getCompanyById} from "../database/companies/read_company_data";
-import {getCollectorById} from "../database/collectors/read_collector_data";
-import {SectorStatusGs} from "../models/sector_status_for_gs";
-import {customFormatDate} from "./helper_funcs";
-import {insertDataInSheet} from "./gs_utils";
+} from "./read_sector_data";
+import {TablesInsert} from "../../../schemas/database.types";
+import {insertSectorStatus} from "./insert_sector_data";
+import {getCompanyById} from "../companies/read_company_data";
+import {getCollectorById} from "../collectors/read_collector_data";
+import {SectorStatusGs} from "../../models/sector_status_for_gs";
+import {customFormatDate} from "../../utils/helper_funcs";
+import {insertDataInSheet} from "../../utils/gs_utils";
 
 /**
  * Abstracts off the process of sector status message coming from

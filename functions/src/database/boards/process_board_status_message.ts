@@ -1,12 +1,12 @@
 import {logger} from "firebase-functions/v1";
-import {BoardStatusMessage} from "../interfaces/interfaces";
-import {getBoardByEui} from "../database/boards/read_board_data";
-import {insertBoardStatusData} from "../database/boards/insert_board_data";
-import {insertDataInSheet} from "./gs_utils";
-import {TablesInsert} from "../../schemas/database.types";
-import {customFormatDate} from "./helper_funcs";
-import {BoardStatusGs} from "../models/board_status_for_gs";
-import {getCompanyById} from "../database/companies/read_company_data";
+import {BoardStatusMessage} from "../../interfaces/interfaces";
+import {getBoardByEui} from "./read_board_data";
+import {insertBoardStatusData} from "./insert_board_data";
+import {insertDataInSheet} from "../../utils/gs_utils";
+import {TablesInsert} from "../../../schemas/database.types";
+import {customFormatDate} from "../../utils/helper_funcs";
+import {BoardStatusGs} from "../../models/board_status_for_gs";
+import {getCompanyById} from "../companies/read_company_data";
 
 export const processBoardStatusMessage = async (
   message: BoardStatusMessage

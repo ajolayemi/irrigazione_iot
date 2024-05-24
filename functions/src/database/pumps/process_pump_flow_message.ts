@@ -1,12 +1,12 @@
 import {logger} from "firebase-functions/v2";
-import {PumpFlowRateMessage} from "../interfaces/interfaces";
-import {getPumpByMqttMsgName} from "../database/pumps/read_pump_data";
-import {TablesInsert} from "../../schemas/database.types";
-import {insertPumpFlow} from "../database/pumps/insert_pump_data";
-import {PumpFlowGs} from "../models/pump_flow_for_gs";
-import {customFormatDate} from "./helper_funcs";
-import {insertDataInSheet} from "./gs_utils";
-import {getCompanyById} from "../database/companies/read_company_data";
+import {PumpFlowRateMessage} from "../../interfaces/interfaces";
+import {getPumpByMqttMsgName} from "./read_pump_data";
+import {TablesInsert} from "../../../schemas/database.types";
+import {insertPumpFlow} from "./insert_pump_data";
+import {PumpFlowGs} from "../../models/pump_flow_for_gs";
+import {customFormatDate} from "../../utils/helper_funcs";
+import {insertDataInSheet} from "../../utils/gs_utils";
+import {getCompanyById} from "../companies/read_company_data";
 
 /**
  * Abstracts the process of a pump flow message

@@ -8,7 +8,7 @@ import 'package:irrigazione_iot/src/features/company_users/data/company_reposito
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
-import 'package:irrigazione_iot/src/shared/models/firebase_callable_function_body.dart';
+import 'package:irrigazione_iot/src/shared/models/item_status_request.dart';
 
 part 'sector_status_service.g.dart';
 
@@ -38,7 +38,9 @@ class SectorStatusService {
     final collector =
         await collectorSectorRepo.getCollectorBySectorId(sector.id);
 
-    if (collector == null) return;
+    if (collector == null) {
+      throw Exception('You have to connect the sector to a collector first');
+    }
 
     final companyMqttTopicName = company.mqttTopicName;
     final statusCommand = sector.getMqttStatusCommand(status);
@@ -47,13 +49,12 @@ class SectorStatusService {
 
     final mqttSuffix = _ref.read(mqttTopicsSuffixProvider);
 
-    final body = FirebaseCallableFunctionBody(
+    final body = ItemStatusRequest(
       topic:
           '$companyMqttTopicName/collettore${collector.mqttMsgName}/${mqttSuffix.sectorStatusToggle}',
       message: statusCommand,
       mqttMsgName: sector.mqttMsgName,
-      msgBoolVersion: status,
-      isSector: true,
+      messageType: 'sector_status',
     );
 
     await sectorStatusRepo.toggleSectorStatus(statusBody: body);

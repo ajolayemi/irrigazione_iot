@@ -59,14 +59,6 @@ export interface BoardStatusMessage {
   eui: string;
 }
 
-export interface HttpCallableReqBody {
-  topic: string;
-  message: string;
-  mqttMsgName: string;
-  msgBoolVersion: boolean;
-  isSector?: boolean;
-  isPump?: boolean;
-}
 
 export interface WeatherStationMeasurementData {
   measurementId: string;

@@ -1,16 +1,12 @@
 import admin from "firebase-admin";
-import {https, logger, pubsub} from "firebase-functions/v2";
-import {CallableRequest} from "firebase-functions/v2/https";
-import {createMqttClient} from "./services/mqtt";
-import {HttpCallableReqBody, StatusMessage} from "./interfaces/interfaces";
-import {saveDataWhenDev} from "./utils/save_dev_data";
-import {processSenseCapData} from "./utils/process_sense_cap_data";
+import {logger, pubsub} from "firebase-functions/v2";
+import {processSenseCapData} from "./database/weather_station/process_sense_cap_data";
 import {
   getDecodedPayloadMsg,
   switchBaseOnMessageType,
 } from "./utils/helper_funcs";
 
-import "dotenv/config";
+
 admin.initializeApp();
 
 /**
@@ -68,47 +64,3 @@ exports.processDataflowMessages = pubsub.onMessagePublished(
     return Promise.resolve(success);
   }
 );
-
-/**
- * A callable function that handles toggling the status of an item
- * Item can be a pump, sector, board, etc.
- *
- */
-exports.toggleItemStatus = https.onCall(async (req: CallableRequest) => {
-  try {
-    const body: HttpCallableReqBody = req.data;
-
-    logger.info(
-      `Toggling status of ${body.mqttMsgName} to ${body.message} with topic ${body.topic}`
-    );
-    const client = await createMqttClient();
-
-    logger.info("Connecting to MQTT broker");
-    client.on("connect", async () => {
-      logger.info("Connected to MQTT broker");
-      if (client.disconnected) {
-        throw new https.HttpsError("internal", "MQTT client is disconnected");
-      }
-
-      // Msgs sent to mqtt aren't raw strings, they are objects
-      const messageForMqtt: StatusMessage = {
-        name: body.mqttMsgName,
-        status: body.message,
-        type: body.isPump ? "pump_status" : "sector_status",
-      };
-      const messageBuffer = Buffer.from(JSON.stringify(messageForMqtt));
-      client.publish(body.topic, messageBuffer);
-
-      // When dev environment is dev, insert manual data to local db
-      if (process.env.NODE_ENV === "dev") {
-        await saveDataWhenDev(body);
-      }
-
-      return {success: true};
-    });
-
-    logger.info("Disconnecting from MQTT broker");
-  } catch (error) {
-    throw new https.HttpsError("internal", error as string);
-  }
-});

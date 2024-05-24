@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
-import 'package:irrigazione_iot/src/features/authentication/models/app_user.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
-import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/details_tile_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class UserProfileScreenContents extends ConsumerWidget {
   const UserProfileScreenContents({super.key});
@@ -24,7 +24,7 @@ class UserProfileScreenContents extends ConsumerWidget {
         ResponsiveDetailsCard(
           child: DetailTileWidget(
             title: loc.userProfileDetailsName,
-            subtitle: currentUser.fullName,
+            subtitle: currentUser.name,
           ),
         ),
         gapH8,

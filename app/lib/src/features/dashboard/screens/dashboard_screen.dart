@@ -35,8 +35,6 @@ class DashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authRepositoryProvider).currentUser;
 
-    // TODO: show terminal pressure as first item
-
     return Scaffold(
       body: PaddedSafeArea(
         child: CustomScrollView(
