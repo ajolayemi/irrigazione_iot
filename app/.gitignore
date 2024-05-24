@@ -140,3 +140,7 @@ node_modules/
 
 # dart generated files
 *.g.dart
+
+# localizations
+app_localizations_**.**
+app_localizations.**
