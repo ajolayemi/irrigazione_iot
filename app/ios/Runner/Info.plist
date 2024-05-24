@@ -45,6 +45,13 @@
 		<true />
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true />
+		<!-- For MQTT -->
+		<key>NSLocalNetworkUsageDescription</key>
+		<string>Looking for local tcp Bonjour service</string>
+		<key>NSBonjourServices</key>
+		<array>
+			<string>mqtt.tcp</string>
+		</array>
 		<!-- Google Sign-in Section -->
 		<key>CFBundleURLTypes</key>
 		<array>
