@@ -58,6 +58,8 @@ class MqttClientService {
 
     client.setProtocolV311();
 
+    client.logging(on: false);
+
     client.onConnected = _onConnected;
 
     client.onDisconnected = _onDisconnected;
