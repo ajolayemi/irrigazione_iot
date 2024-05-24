@@ -33,6 +33,4 @@ class AppUser {
   }
 }
 
-extension AppUserExtensions on AppUser {
-  String get fullName => '$name $surname';
-}
+
