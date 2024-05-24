@@ -38,7 +38,9 @@ class SectorStatusService {
     final collector =
         await collectorSectorRepo.getCollectorBySectorId(sector.id);
 
-    if (collector == null) return;
+    if (collector == null) {
+      throw Exception('You have to connect the sector to a collector first');
+    }
 
     final companyMqttTopicName = company.mqttTopicName;
     final statusCommand = sector.getMqttStatusCommand(status);
