@@ -1,10 +1,10 @@
-import 'package:irrigazione_iot/src/features/pumps/models/pump_status.dart';
-import 'package:irrigazione_iot/src/shared/models/firebase_callable_function_body.dart';
-import 'package:irrigazione_iot/src/shared/providers/firebase_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/pumps/data/supabase_pump_status_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump_status.dart';
+import 'package:irrigazione_iot/src/shared/models/item_status_request.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
+import 'package:irrigazione_iot/src/shared/services/mqtt_client_service.dart';
 
 part 'pump_status_repository.g.dart';
 
@@ -15,16 +15,19 @@ abstract class PumpStatusRepository {
 
   /// Toggles the status of a pump
   Future<void> togglePumpStatus({
-    required FirebaseCallableFunctionBody statusBody,
+    required ItemStatusRequest statusBody,
   });
 }
 
 @Riverpod(keepAlive: true)
 PumpStatusRepository pumpStatusRepository(PumpStatusRepositoryRef ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
-  final firebaseFunctions = ref.watch(firebaseFunctionsProvider);
+  final mqttClient = ref.watch(mqttClientServiceProvider);
 
-  return SupabasePumpStatusRepository(supabaseClient, firebaseFunctions);
+  return SupabasePumpStatusRepository(
+    supabaseClient,
+    mqttClient,
+  );
 }
 
 /// Emits the status of the pump with the provided [pumpId]

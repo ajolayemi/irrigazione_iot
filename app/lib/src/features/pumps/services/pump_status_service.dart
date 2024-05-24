@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/shared/models/firebase_callable_function_body.dart';
+import 'package:irrigazione_iot/src/shared/models/item_status_request.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/data/mqtt_topics_suffix.dart';
@@ -43,12 +43,12 @@ class PumpStatusService {
 
     final mqttSuffix = _ref.read(mqttTopicsSuffixProvider);
 
-    final body = FirebaseCallableFunctionBody(
-        topic: '$companyMqttTopicName/${mqttSuffix.pumpStatusToggle}',
-        message: statusCommand,
-        mqttMsgName: pump.mqttMessageName,
-        msgBoolVersion: status,
-        isPump: true);
+    final body = ItemStatusRequest(
+      topic: '$companyMqttTopicName/${mqttSuffix.pumpStatusToggle}',
+      message: statusCommand,
+      mqttMsgName: pump.mqttMessageName,
+      messageType: 'pump_status',
+    );
     await pumpStatusRepo.togglePumpStatus(statusBody: body);
   }
 }
