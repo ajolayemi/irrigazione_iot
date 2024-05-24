@@ -168,34 +168,7 @@ GoRouter goRouter(GoRouterRef ref) {
             ],
           ),
 
-          // Pump branch
-          StatefulShellBranch(
-            navigatorKey: _pumpShellNavigatorKey,
-            routes: [
-              GoRoute(
-                path: AppRoute.pump.path,
-                name: AppRoute.pump.name,
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: PumpListScreen(),
-                ),
-                routes: [
-                  GoRoute(
-                      path: AppRoute.pumpDetails.path,
-                      name: AppRoute.pumpDetails.name,
-                      pageBuilder: (context, state) {
-                        return MaterialPage(
-                          fullscreenDialog: true,
-                          child: PumpDetailsScreen(
-                            pumpId: state.pathId,
-                          ),
-                        );
-                      }),
-                ],
-              ),
-            ],
-          ),
-
-          // Meteo branch
+          // Sector branch
           StatefulShellBranch(
             navigatorKey: _sectorShellNavigatorKey,
             routes: [
@@ -215,6 +188,33 @@ GoRouter goRouter(GoRouterRef ref) {
                           fullscreenDialog: true,
                           child: SectorDetailsScreen(
                             sectorID: state.pathId,
+                          ),
+                        );
+                      }),
+                ],
+              ),
+            ],
+          ),
+
+          // Pump branch
+          StatefulShellBranch(
+            navigatorKey: _pumpShellNavigatorKey,
+            routes: [
+              GoRoute(
+                path: AppRoute.pump.path,
+                name: AppRoute.pump.name,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: PumpListScreen(),
+                ),
+                routes: [
+                  GoRoute(
+                      path: AppRoute.pumpDetails.path,
+                      name: AppRoute.pumpDetails.name,
+                      pageBuilder: (context, state) {
+                        return MaterialPage(
+                          fullscreenDialog: true,
+                          child: PumpDetailsScreen(
+                            pumpId: state.pathId,
                           ),
                         );
                       }),
