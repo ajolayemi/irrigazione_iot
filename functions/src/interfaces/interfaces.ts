@@ -30,6 +30,14 @@ export interface CustomJSON {
   [key: string]: any;
 }
 
+/**
+ * An interface of what the status msgs from MQTT - Dataflow - PubSub looks like
+ */
+export interface StatusMessage {
+  status: string;
+  name: string;
+  type: string;
+}
 
 /**
  * An interface of what pump flow rate message from MQTT - Dataflow - PubSub looks like
