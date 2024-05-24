@@ -78,7 +78,13 @@ class SupabaseAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> signOut() => _authClient.signOut();
+  Future<void> signOut() async {
+    await _authClient.signOut();
+
+    // Sign out from Google
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+  }
 
   @override
   Future<AppUser?> signUp({

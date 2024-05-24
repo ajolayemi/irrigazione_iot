@@ -173,6 +173,7 @@ class _AddUpdateCollectorFormContentsState
   }
 
   Future<void> _submit() async {
+    _node.unfocus();
     setState(() => _submitted = true);
 
     if (_collectorFormKey.currentState!.validate()) {

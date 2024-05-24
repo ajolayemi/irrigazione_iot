@@ -40,7 +40,7 @@ class SectorsSwitchedOnList extends ConsumerWidget {
           ),
         );
       },
-      loading: () => const CircularProgressIndicator.adaptive(),
+      loading: () => const Center(child: CircularProgressIndicator.adaptive()),
     );
   }
 }

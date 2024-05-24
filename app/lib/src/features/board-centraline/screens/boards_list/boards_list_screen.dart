@@ -49,7 +49,9 @@ class BoardsListScreen extends ConsumerWidget {
                 value: boards,
                 data: (boards) {
                   if (boards.isEmpty) {
-                    return const EmptyBoardWidget();
+                    return EmptyBoardWidget(
+                      onTapAdd: () => _onTapAdd(context, ref),
+                    );
                   }
 
                   return SliverList(

@@ -48,7 +48,7 @@ class PumpListTileSubtitleContent extends StatelessWidget {
     final loc = context.loc;
     return Text(
       lastDispensedString == null
-          ? loc.notAvailable
+          ? loc.pumpFlowLastUpdate(loc.notAvailable)
           : loc.pumpFlowLastUpdate(lastDispensedString!),
       style: context.commonSubtitleStyle,
     );

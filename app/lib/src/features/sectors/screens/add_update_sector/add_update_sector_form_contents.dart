@@ -391,6 +391,7 @@ class _AddUpdateSectorFormContentsState
   }
 
   Future<void> _submit() async {
+    _node.unfocus();
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
       final shouldSave = await _checkUserIntention();

@@ -70,9 +70,9 @@
   "alertDialogConfirm": "Confirm",
   "alertDialogDelete": "Delete",
   "genericAlertDialogTitle": "Are you sure?",
-  "pumpFlowLastUpdate": "last update {when}",
+  "pumpFlowLastUpdate": "last flow update {when}",
   "@pumpFlowLastUpdate": {
-    "description": "The last time a pump status was switched on",
+    "description": "The last time a pump flow values was received",
     "placeholders": {
       "when": {
         "type": "String",
@@ -142,7 +142,7 @@
   },
   "formGenericUpdateDialogTitle": "Do you want to update the data?",
   "formGenericUpdateDialogContent": "You're about to update the data for {fieldName} in the database",
-  "notAvailable": "Not available",
+  "notAvailable": "not available",
   "deleteConfirmationDialogTitle": "Clicking on delete will remove all data related to {name} from database",
   "@deleteConfirmationDialogTitle": {
     "description": "The title of the delete confirmation dialog",

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/dashboard/screens/dashboard_screen_contents.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
@@ -37,6 +38,7 @@ class DashboardScreen extends ConsumerWidget {
 
     return Scaffold(
       body: PaddedSafeArea(
+        padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
         child: CustomScrollView(
           slivers: <Widget>[
             AppSliverBar(

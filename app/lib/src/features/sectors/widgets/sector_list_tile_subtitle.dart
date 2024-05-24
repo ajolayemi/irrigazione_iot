@@ -15,6 +15,7 @@ class SectorListTileSubtitle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final loc = context.loc;
     final sectorVariety =
         ref.watch(varietyStreamProvider(sector.varietyId)).valueOrNull;
     final sectorSpecie =
@@ -27,10 +28,12 @@ class SectorListTileSubtitle extends ConsumerWidget {
         ref.watch(sectorLastPressureStreamProvider(sector.id)).valueOrNull;
     final lastIrrigatedString = context.timeAgo(
       lastPressureReading?.createdAt,
-      fallbackValue: context.loc.notAvailable,
+      fallbackValue: loc.notAvailable,
     );
+
+    print(lastIrrigatedString);
     return Text(
-      '$varietySpecie\n${context.loc.sectorLastIrrigation(
+      '$varietySpecie\n${loc.sectorLastIrrigation(
         lastIrrigatedString,
       )}',
       style: context.commonSubtitleStyle,
