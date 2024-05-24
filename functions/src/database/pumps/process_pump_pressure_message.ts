@@ -1,12 +1,12 @@
 import {logger} from "firebase-functions/v1";
-import {CustomJSON, PumpPressureKeys} from "../interfaces/interfaces";
-import {getPumpByMqttMsgName} from "../database/pumps/read_pump_data";
-import {insertPumpPressure} from "../database/pumps/insert_pump_data";
-import {TablesInsert} from "../../schemas/database.types";
-import {getCompanyById} from "../database/companies/read_company_data";
-import {PressureWithFilterGs} from "../models/pressure_with_filter_for_gs";
-import {customFormatDate} from "./helper_funcs";
-import {insertDataInSheet} from "./gs_utils";
+import {CustomJSON, PumpPressureKeys} from "../../interfaces/interfaces";
+import {getPumpByMqttMsgName} from "./read_pump_data";
+import {insertPumpPressure} from "./insert_pump_data";
+import {TablesInsert} from "../../../schemas/database.types";
+import {getCompanyById} from "../companies/read_company_data";
+import {PressureWithFilterGs} from "../../models/pressure_with_filter_for_gs";
+import {customFormatDate} from "../../utils/helper_funcs";
+import {insertDataInSheet} from "../../utils/gs_utils";
 
 export const processPumpPressureMessage = async (
   message: CustomJSON

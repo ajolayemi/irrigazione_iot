@@ -1,6 +1,6 @@
 import admin from "firebase-admin";
 import {logger, pubsub} from "firebase-functions/v2";
-import {processSenseCapData} from "./utils/process_sense_cap_data";
+import {processSenseCapData} from "./database/weather_station/process_sense_cap_data";
 import {
   getDecodedPayloadMsg,
   switchBaseOnMessageType,

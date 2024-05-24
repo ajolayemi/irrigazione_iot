@@ -1,12 +1,12 @@
 import {logger} from "firebase-functions/v2";
-import {StatusMessage} from "../interfaces/interfaces";
-import {getPumpByMqttMsgName} from "../database/pumps/read_pump_data";
-import {TablesInsert} from "../../schemas/database.types";
-import {insertPumpStatus} from "../database/pumps/insert_pump_data";
-import {StatusGs} from "../models/pump_status_for_gs";
-import {customFormatDate} from "./helper_funcs";
-import {insertDataInSheet} from "./gs_utils";
-import {getCompanyById} from "../database/companies/read_company_data";
+import {StatusMessage} from "../../interfaces/interfaces";
+import {getPumpByMqttMsgName} from "./read_pump_data";
+import {TablesInsert} from "../../../schemas/database.types";
+import {insertPumpStatus} from "./insert_pump_data";
+import {StatusGs} from "../../models/pump_status_for_gs";
+import {customFormatDate} from "../../utils/helper_funcs";
+import {insertDataInSheet} from "../../utils/gs_utils";
+import {getCompanyById} from "../companies/read_company_data";
 
 /**
  * Abstracts the process of a pump status message coming from

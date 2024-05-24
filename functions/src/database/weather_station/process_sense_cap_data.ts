@@ -1,20 +1,20 @@
 import {logger} from "firebase-functions/v2";
-import {TablesInsert} from "../../schemas/database.types";
+import {TablesInsert} from "../../../schemas/database.types";
 import {
   insertWeatherStationBatteryData,
   insertWeatherStationMeasurementData,
-} from "../database/weather_station/insert_weather_station_data";
-import {getWeatherStationByEui} from "../database/weather_station/read_weather_station_data";
+} from "./insert_weather_station_data";
+import {getWeatherStationByEui} from "./read_weather_station_data";
 import {
   SenseCapSensorData,
   WeatherStationBatteryData,
   WeatherStationMeasurementData,
-} from "../interfaces/interfaces";
-import {customFormatDate, getDecodedPayloadMsg} from "./helper_funcs";
-import {getCompanyById} from "../database/companies/read_company_data";
-import {SenseCapBatteryGs, SenseCapGs} from "../models/sensecap_for_gs";
-import {insertDataInSheet} from "./gs_utils";
-import {getSectorById} from "../database/sectors/read_sector_data";
+} from "../../interfaces/interfaces";
+import {customFormatDate, getDecodedPayloadMsg} from "../../utils/helper_funcs";
+import {getCompanyById} from "../companies/read_company_data";
+import {SenseCapBatteryGs, SenseCapGs} from "../../models/sensecap_for_gs";
+import {insertDataInSheet} from "../../utils/gs_utils";
+import {getSectorById} from "../sectors/read_sector_data";
 
 /**
  * Processes the data received from the SenseCAP device

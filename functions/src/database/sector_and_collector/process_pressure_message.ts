@@ -1,20 +1,20 @@
-import {PressureMessageKeys, CustomJSON} from "../interfaces/interfaces";
+import {PressureMessageKeys, CustomJSON} from "../../interfaces/interfaces";
 import {
   getCollectorBySectorId,
   getSectorByMqttMsgName,
-} from "../database/sectors/read_sector_data";
+} from "../sectors/read_sector_data";
 import {logger} from "firebase-functions/v1";
-import {Tables, TablesInsert} from "../../schemas/database.types";
-import {insertCollectorPressure} from "../database/collectors/insert_collector_data";
-import {insertTerminalPressure} from "../database/terminal/insert_terminal_data";
-import {insertSectorPressure} from "../database/sectors/insert_sector_data";
-import {getCompanyById} from "../database/companies/read_company_data";
-import {getCollectorById} from "../database/collectors/read_collector_data";
-import {PressureWithFilterGs} from "../models/pressure_with_filter_for_gs";
-import {customFormatDate} from "./helper_funcs";
-import {insertDataInSheet} from "./gs_utils";
-import {SectorPressureGs} from "../models/sector_pressure_for_gs";
-import {TerminalPressureForGs} from "../models/terminal_pressure_for_gs";
+import {Tables, TablesInsert} from "../../../schemas/database.types";
+import {insertCollectorPressure} from "../collectors/insert_collector_data";
+import {insertTerminalPressure} from "../terminal/insert_terminal_data";
+import {insertSectorPressure} from "../sectors/insert_sector_data";
+import {getCompanyById} from "../companies/read_company_data";
+import {getCollectorById} from "../collectors/read_collector_data";
+import {PressureWithFilterGs} from "../../models/pressure_with_filter_for_gs";
+import {customFormatDate} from "../../utils/helper_funcs";
+import {insertDataInSheet} from "../../utils/gs_utils";
+import {SectorPressureGs} from "../../models/sector_pressure_for_gs";
+import {TerminalPressureForGs} from "../../models/terminal_pressure_for_gs";
 
 /**
  * An helper function that helps in processing "pressure" messages sent from

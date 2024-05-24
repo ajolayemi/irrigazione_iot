@@ -1,10 +1,10 @@
 import {logger} from "firebase-functions/v2";
-import {processPressureMessageFromPubSub} from "./process_pressure_message";
-import {processSectorStatusMessage} from "./process_sector_status_message";
-import {processBoardStatusMessage} from "./process_board_status_message";
-import {processPumpPressureMessage} from "./process_pump_pressure_message";
-import {processPumpFlowMessage} from "./process_pump_flow_message";
-import {processPumpStatusMessage} from "./process_pump_status_message";
+import {processPressureMessageFromPubSub} from "../database/sector_and_collector/process_pressure_message";
+import {processSectorStatusMessage} from "../database/sectors/process_sector_status_message";
+import {processBoardStatusMessage} from "../database/boards/process_board_status_message";
+import {processPumpPressureMessage} from "../database/pumps/process_pump_pressure_message";
+import {processPumpFlowMessage} from "../database/pumps/process_pump_flow_message";
+import {processPumpStatusMessage} from "../database/pumps/process_pump_status_message";
 
 /**
  * Helps in formatting date to a custom format
