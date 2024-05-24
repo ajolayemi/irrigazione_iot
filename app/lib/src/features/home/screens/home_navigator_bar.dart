@@ -28,12 +28,12 @@ class HomeNavigationBar extends StatelessWidget {
             label: context.loc.collectorPageTitle,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.water),
-            label: context.loc.pumpPageTitle,
-          ),
-          NavigationDestination(
             icon: const Icon(Icons.category),
             label: context.loc.sectorPageTitle,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.water),
+            label: context.loc.pumpPageTitle,
           ),
           NavigationDestination(
             icon: const Icon(Icons.more_horiz),

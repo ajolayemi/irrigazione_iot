@@ -34,14 +34,14 @@ class HomeNavigationRail extends StatelessWidget {
               label: Text(context.loc.collectorPageTitle),
             ),
             NavigationRailDestination(
-              icon: const Icon(Icons.water),
-              selectedIcon: const Icon(Icons.water),
-              label: Text(context.loc.pumpPageTitle),
-            ),
-            NavigationRailDestination(
               icon: const Icon(Icons.category),
               selectedIcon: const Icon(Icons.category),
               label: Text(context.loc.sectorPageTitle),
+            ),
+            NavigationRailDestination(
+              icon: const Icon(Icons.water),
+              selectedIcon: const Icon(Icons.water),
+              label: Text(context.loc.pumpPageTitle),
             ),
             NavigationRailDestination(
               icon: const Icon(Icons.more_horiz),
