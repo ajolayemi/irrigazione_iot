@@ -77,7 +77,9 @@ class SupabaseSectorPumpRepository implements SectorPumpRepository {
     )
         .withConverter((pumps) {
       if (pumps.isEmpty) return null;
-      return pumps.map((pump) => Pump.fromJson(pump)).toList();
+      final res = pumps.map((pump) => Pump.fromJson(pump)).toList();
+      res.sort((a, b) => a.name.compareTo(b.name));
+      return res;
     });
   }
 }
