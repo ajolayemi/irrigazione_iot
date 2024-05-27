@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/widgets/empty_pump_widget.dart';
-import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
@@ -51,9 +51,7 @@ class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
 
   @override
   Widget build(BuildContext context) {
-    final availablePumps = ref.watch(availablePumpsFutureProvider(
-      alreadyConnectedPumpId: widget.pumpIdPreviouslyConnectedToSector,
-    ));
+    final availablePumps = ref.watch(companyPumpsStreamProvider);
     final loc = context.loc;
 
     return CustomSliverConnectSomethingTo(
@@ -68,7 +66,7 @@ class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
       child: AsyncValueSliverWidget(
         value: availablePumps,
         data: (pumps) {
-          if (pumps == null || pumps.isEmpty) {
+          if (pumps.isEmpty) {
             return const EmptyPumpWidget();
           }
 
@@ -78,10 +76,10 @@ class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
               (context, index) {
                 final pump = pumps[index];
                 return ResponsiveRadioListTile(
-                  title: pump.name,
+                  title: pump?.name ?? '',
                   value: RadioButtonItem(
-                    value: pump.id,
-                    label: pump.name,
+                    value: pump?.id ?? '',
+                    label: pump?.name ?? '',
                   ),
                   groupValue: _selectedPump,
                   onChanged: (val) => setState(() {
