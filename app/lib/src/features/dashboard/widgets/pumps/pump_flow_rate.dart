@@ -25,13 +25,13 @@ class PumpFlowRate extends ConsumerWidget {
         gapH8,
         DashboardChildItemDetailsRow(
           leading: const Text('Litri erogati'),
-          trailing: Text('${pumpFlow?.flow ?? 0}'),
+          trailing: Text('${pumpFlow?.flow.toInt() ?? 0}'),
         ),
         gapH8,
         DashboardChildItemDetailsRow(
           leading: const Text('Portata'),
           trailing:
-              Text('${pumpFlow?.litresPerSecond.toStringAsFixed(2) ?? 0} l/s'),
+              Text('${pumpFlow?.litresPerSecond.toInt() ?? 0} l/s'),
         ),
       ],
     );
