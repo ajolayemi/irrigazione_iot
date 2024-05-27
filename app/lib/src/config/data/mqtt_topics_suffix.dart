@@ -10,7 +10,7 @@ class MqttTopicsSuffix {
   String get pumpStatusToggle => 'controlmotor'; 
 
   /// Suffix for when user is trying to update sector status
-  String get sectorStatusToggle => 'el';
+  String get sectorStatusToggle => 'nodered';
 }
 
 @Riverpod(keepAlive: true)
