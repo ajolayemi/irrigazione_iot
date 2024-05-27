@@ -17,14 +17,13 @@ class DashboardChildItemListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: Sizes.p16),
-      child: Card(
-        elevation: 10,
-        child: ListTile(
+      child: 
+        ListTile(
           title: title,
           subtitle: subtitle,
           trailing: trailing,
         ),
-      ),
+      
     );
   }
 }

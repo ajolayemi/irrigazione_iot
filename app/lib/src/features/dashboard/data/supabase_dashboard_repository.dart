@@ -23,13 +23,19 @@ class SupabaseDashboardRepository implements DashboardRepository {
   List<PumpSwitchedOn>? convertToPumpSwitchedOnList(
       List<Map<String, dynamic>>? data) {
     if (data == null) return null;
-    return data.map((e) => PumpSwitchedOn.fromJson(e)).toList();
+    return data
+        .map((e) => PumpSwitchedOn.fromJson(e))
+        .where((e) => e.statusBoolean)
+        .toList();
   }
 
   List<SectorSwitchedOn>? convertToSectorSwitchedOnList(
       List<Map<String, dynamic>>? data) {
     if (data == null) return null;
-    return data.map((e) => SectorSwitchedOn.fromJson(e)).toList();
+    return data
+        .map((e) => SectorSwitchedOn.fromJson(e))
+        .where((e) => e.statusBoolean)
+        .toList();
   }
 
   @override

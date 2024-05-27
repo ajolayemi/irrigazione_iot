@@ -332,7 +332,8 @@ class _AddUpdateCollectorFormContentsState
               : loc.genericSaveButtonLabel,
           buttonType: ButtonType.primary,
           onPressed: _submit,
-        )
+        ),
+        gapH32,
       ],
     );
   }

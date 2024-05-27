@@ -10,6 +10,7 @@ import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/screens/add_update_sector/add_update_sector_controller.dart';
@@ -131,17 +132,25 @@ class _AddUpdateSectorFormContentsState
     final sectorId = widget.sectorId;
     if (_isUpdating && sectorId != null) {
       final sector = await ref.read(sectorFutureProvider(sectorId).future);
-      final pump = await ref.read(pumpFutureProvider(sectorId).future);
+
+      final pumpConnectedToSector = await ref.read(sectorPumpFutureProvider(
+        sectorId,
+      ).future);
+
+      if (pumpConnectedToSector != null) {
+        final pump = await ref
+            .read(pumpFutureProvider(pumpConnectedToSector.pumpId).future);
+        _initialSectorPump = pump;
+      }
 
       _setFilterState(sector?.hasFilter);
 
-      _initialSectorPump = pump;
       _initialSector = sector;
 
       // set the initial values for the selected pump
       _selectedPump = RadioButtonItem(
-        value: pump?.id ?? '',
-        label: pump?.name ?? '',
+        value: _initialSectorPump?.id ?? '',
+        label: _initialSectorPump?.name ?? '',
       );
 
       // set some form fields initial values
@@ -160,7 +169,7 @@ class _AddUpdateSectorFormContentsState
       _turnOnCommandController.text = _initialSector?.turnOnCommand ?? '';
       _turnOffCommandController.text = _initialSector?.turnOffCommand ?? '';
       _notesController.text = _initialSector?.notes ?? '';
-      _selectedPumpController.text = pump?.name ?? '';
+      _selectedPumpController.text = _initialSectorPump?.name ?? '';
       _mqttMsgNameController.text = _initialSector?.mqttMsgName ?? '';
 
       _selectedSpecieId = _initialSector?.specieId;

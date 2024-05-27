@@ -15,16 +15,23 @@ class DashboardItemColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = context.textTheme;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: textTheme.titleLarge,
-        ),
-        gapH8,
-        child,
-      ],
+    return Card(
+      elevation: 5,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          gapH8,
+          Padding(
+            padding: const EdgeInsets.all(Sizes.p8),
+            child: Text(
+              title,
+              style: textTheme.titleLarge,
+            ),
+          ),
+          gapH8,
+          child,
+        ],
+      ),
     );
   }
 }
