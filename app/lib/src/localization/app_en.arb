@@ -560,7 +560,7 @@
   "signUpPageIntroductoryTitleText": "Get started with us!",
   "signUpPageIntroductorySubtitleText": "Create your account",
   "signInPageIntroductorySubtitleText": "Sign into your account to continue",
-  "mqttMessageNameFormFieldTitle": "Code name in MQTT message",
+  "mqttMessageNameFormFieldTitle": "Alias name in MQTT message",
   "mqttMessageNameFormHint": "alias name in mqtt msgs...",
   "itemHasFilter": "Has a filter connected?",
   "selectAPumpHintText": "select a pump...",
