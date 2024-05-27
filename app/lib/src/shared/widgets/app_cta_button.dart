@@ -40,11 +40,11 @@ class CTAButton extends StatelessWidget {
       height: Sizes.p48,
       child: buttonType == ButtonType.primary
           ? FilledButton(
-              onPressed: isLoading ? () {} : onPressed,
+              onPressed: isLoading ? null : onPressed,
               child: content,
             )
           : OutlinedButton(
-              onPressed: isLoading ? () {} : onPressed,
+              onPressed: isLoading ? null : onPressed,
               child: content,
             ),
     );
