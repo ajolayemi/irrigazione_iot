@@ -316,7 +316,7 @@ class _AddUpdateSectorFormContentsState
 
   void _nonEmptyFieldsEditingComplete(String value) {
     if (canSubmitNonEmptyFields(value: value)) {
-      _node.nextFocus();
+      _node.unfocus();
     }
   }
 
