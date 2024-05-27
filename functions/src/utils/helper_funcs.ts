@@ -1,11 +1,24 @@
 import {logger} from "firebase-functions/v2";
 import {processPressureMessageFromPubSub} from "../database/sector_and_collector/process_pressure_message";
-import {processSectorStatusMessage} from "../database/sectors/process_sector_status_message";
-import {processBoardStatusMessage} from "../database/boards/process_board_status_message";
+import {
+  processSectorStatusMessage,
+  processSectorStatusMessageForGs,
+} from "../database/sectors/process_sector_status_message";
+import {
+  processBoardStatusMessage,
+  processBoardStatusMessageForGs,
+} from "../database/boards/process_board_status_message";
 import {processPumpPressureMessage} from "../database/pumps/process_pump_pressure_message";
 import {processPumpFlowMessage} from "../database/pumps/process_pump_flow_message";
 import {processPumpStatusMessage} from "../database/pumps/process_pump_status_message";
+import {
+  processCollectorPressureDataForGs,
+  processSectorPressureDataForGs,
+  processTerminalPressureDataForGs,
+} from "../database/sector_and_collector/sector_and_collector_utils_for_gs";
 
+// TODO: this function should take in date as string and handle the conversion
+// TODO: to a date object
 /**
  * Helps in formatting date to a custom format
  * for google sheets insertion. The format is
@@ -79,25 +92,53 @@ export const switchBaseOnMessageType = async (
   message: any
 ): Promise<boolean> => {
   switch (messageType) {
-  case "pressure":
-    return await processPressureMessageFromPubSub(message);
+    case "pressure":
+      return await processPressureMessageFromPubSub(message);
 
-  case "sector_status":
-    return await processSectorStatusMessage(message);
+    case "sector_status":
+      return await processSectorStatusMessage(message);
 
-  case "pump_status":
-    return await processPumpStatusMessage(message);
+    case "pump_status":
+      return await processPumpStatusMessage(message);
 
-  case "pump_flow":
-    return await processPumpFlowMessage(message);
+    case "pump_flow":
+      return await processPumpFlowMessage(message);
 
-  case "pump_pressure":
-    return await processPumpPressureMessage(message);
+    case "pump_pressure":
+      return await processPumpPressureMessage(message);
 
-  case "board_status":
-    return await processBoardStatusMessage(message);
+    case "board_status":
+      return await processBoardStatusMessage(message);
 
-  default:
-    throw new Error("Invalid message type");
+    default:
+      throw new Error("Invalid message type");
+  }
+};
+
+/**
+ * Helps in choosing what function to call base on table name when the function to
+ * insert data in google sheet is called
+ * @param {string} table The table name to process
+ * @param {any} record The record to process
+ */
+export const switchBaseOnTable = async (table: string, record: any) => {
+  switch (table) {
+    case "sector_statuses":
+      return await processSectorStatusMessageForGs(record);
+
+    case "board_statuses":
+      return await processBoardStatusMessageForGs(record);
+
+    case "terminal_pressures":
+      return await processTerminalPressureDataForGs(record);
+
+    case "sector_pressures":
+      return await processSectorPressureDataForGs(record);
+
+    case "collector_pressures":
+      return await processCollectorPressureDataForGs(record);
+
+    default:
+      throw new Error("Invalid table name");
   }
 };

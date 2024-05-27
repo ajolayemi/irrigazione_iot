@@ -1,6 +1,6 @@
 import {logger} from "firebase-functions/v1";
 import {BoardStatusMessage} from "../../interfaces/interfaces";
-import {getBoardByEui} from "./read_board_data";
+import {getBoardByEui, getBoardById} from "./read_board_data";
 import {insertBoardStatusData} from "./insert_board_data";
 import {insertDataInSheet} from "../../utils/gs_utils";
 import {TablesInsert} from "../../../schemas/database.types";
@@ -27,7 +27,7 @@ export const processBoardStatusMessage = async (
     }
 
     logger.info(
-      `Inserting board status for ${board.name} into database and google sheet`
+      `Inserting board status for ${board.name} into database`
     );
     const currentDate = new Date();
 
@@ -40,24 +40,51 @@ export const processBoardStatusMessage = async (
     // Insert data to supabase
     await insertBoardStatusData(boardStatus);
 
+    logger.info(`Board status for ${board.name} inserted successfully`);
+    return true;
+  } catch (error) {
+    logger.error(`Error processing board status message: ${error}`);
+    return false;
+  }
+};
+
+/**
+ * Processes board status messages for google sheet
+ * @param {TablesInsert<"board_statuses">} data The data to process
+ * @return {Promise<boolean>} A promise that resolves to true if the data was processed successfully
+ */
+export const processBoardStatusMessageForGs = async (
+  data: TablesInsert<"board_statuses">
+): Promise<boolean> => {
+  if (!data) {
+    throw new Error(
+      "No data provided to process board status message for google sheet"
+    );
+  }
+  console.log("Processing board status message for google sheet with data: ");
+  console.log(data);
+  try {
+    const board = await getBoardById(data.board_id.toString());
     // Get the company this board belongs to
     const company = await getCompanyById(board.company_id.toString());
+
+    // TODO: the
+    const timestamp = new Date(data.created_at || new Date());
 
     const dataForGs = new BoardStatusGs(
       board.id,
       board.name,
       board.company_id,
       company.name,
-      message.vbat,
-      customFormatDate(currentDate)
+      data.battery_level,
+      customFormatDate(timestamp)
     );
     // Insert data to google sheets
     await insertDataInSheet(BoardStatusGs.workSheetName, dataForGs.getValues());
-
-    logger.info(`Board status for ${board.name} inserted successfully`);
-    return true;
+    return Promise.resolve(true);
   } catch (error) {
-    logger.error(`Error processing board status message: ${error}`);
-    return false;
+    throw new Error(
+      `Error processing board status message for google sheet: ${error}`
+    );
   }
 };

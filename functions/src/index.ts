@@ -1,11 +1,11 @@
 import admin from "firebase-admin";
-import {logger, pubsub} from "firebase-functions/v2";
+import {logger, pubsub, https} from "firebase-functions/v2";
 import {processSenseCapData} from "./database/weather_station/process_sense_cap_data";
 import {
   getDecodedPayloadMsg,
   switchBaseOnMessageType,
+  switchBaseOnTable,
 } from "./utils/helper_funcs";
-
 
 admin.initializeApp();
 
@@ -64,3 +64,20 @@ exports.processDataflowMessages = pubsub.onMessagePublished(
     return Promise.resolve(success);
   }
 );
+
+/**
+ * A firebase callable function that gets called by supabase webhook
+ * when a new record is inserted to tables in the database.
+ * The function processes the received data and saves it to google sheets
+ */
+exports.insertDataInGoogleSheet = https.onRequest(async (req, res) => {
+  try {
+    const {table, record} = req.body;
+    console.log(`Inserting data to google sheet for table: ${table}`);
+    console.log(`Data received: ${JSON.stringify(record)}`);
+    await switchBaseOnTable(table, record);
+    res.status(200).send("Data inserted successfully");
+  } catch (error) {
+    res.status(500).send(`Error inserting data: ${error}`);
+  }
+});

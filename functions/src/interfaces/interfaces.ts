@@ -1,3 +1,5 @@
+import {Tables} from "../../schemas/database.types";
+
 /**
  * An interface that defines the keys that are expected in a pressure message
  * sent from the MQTT broker
@@ -59,7 +61,6 @@ export interface BoardStatusMessage {
   eui: string;
 }
 
-
 export interface WeatherStationMeasurementData {
   measurementId: string;
   measurementValue: number;
@@ -75,4 +76,12 @@ export interface SenseCapSensorData {
   deviceEui: string;
   measurements: WeatherStationMeasurementData[];
   battery?: WeatherStationBatteryData;
+}
+
+/**
+ * An interface of data necessary when processing pressure data
+ */
+export interface PressureProcessingData {
+  collector: Tables<"collectors">;
+  company: Tables<"companies">;
 }

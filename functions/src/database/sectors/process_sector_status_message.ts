@@ -2,6 +2,7 @@ import {logger} from "firebase-functions/v2";
 import {StatusMessage} from "../../interfaces/interfaces";
 import {
   getCollectorBySectorId,
+  getSectorById,
   getSectorByMqttMsgName,
 } from "./read_sector_data";
 import {TablesInsert} from "../../../schemas/database.types";
@@ -64,11 +65,36 @@ export const processSectorStatusMessage = async (
       status,
     };
 
-    logger.info(
-      `Inserting sector status for ${sectorName} into database and google sheet`
-    );
+    logger.info(`Inserting sector status for ${sectorName} into database`);
     // Insert data to the database
     await insertSectorStatus(sectorStatus);
+
+    logger.info(`Sector status for ${sectorName} inserted successfully`);
+    return Promise.resolve(true);
+  } catch (error) {
+    throw new Error(`Error processing sector status message: ${error}`);
+  }
+};
+
+/**
+ * Processes sector status message for google sheet
+ * @param {TablesInsert<"sector_statuses">} data The sector status to process
+ * @return {Promise<boolean?>} A promise that resolves to true if the sector status
+ * message was processed successfully, otherwise false
+ */
+export const processSectorStatusMessageForGs = async (
+  data: TablesInsert<"sector_statuses">
+): Promise<boolean> => {
+  console.log("Processing sector status message for google sheet with data: ");
+  console.log(data);
+  if (!data) {
+    throw new Error(
+      "No data provided to process sector status message for google sheet"
+    );
+  }
+  try {
+    // Get the sector this status belongs to
+    const sector = await getSectorById(data.sector_id.toString());
 
     // Get the company this sector belongs to
     const company = await getCompanyById(sector.company_id.toString());
@@ -91,6 +117,8 @@ export const processSectorStatusMessage = async (
     // Get the collector details
     const collector = await getCollectorById(collectorSector.id.toString());
 
+    const toDate = new Date(data.created_at ?? new Date());
+
     const dataForGs = new SectorStatusGs(
       sector.id,
       sector.name,
@@ -98,17 +126,17 @@ export const processSectorStatusMessage = async (
       company.name,
       collectorSector.id,
       collector.name,
-      sectorStatus.status_boolean ?? false,
-      customFormatDate(currentDate)
+      data.status_boolean ?? false,
+      customFormatDate(toDate)
     );
 
+    console.log("Inserting data to google sheet");
     // Insert data to google sheet
     await insertDataInSheet("sector_statuses", dataForGs.getValues());
-
-    logger.info(`Sector status for ${sectorName} inserted successfully`);
-    return true;
+    return Promise.resolve(true);
   } catch (error) {
-    logger.error("Error processing sector status message", error);
-    return false;
+    throw new Error(
+      `Error processing sector status message for google sheet: ${error}`
+    );
   }
 };
