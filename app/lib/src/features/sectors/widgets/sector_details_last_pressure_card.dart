@@ -17,7 +17,7 @@ class SectorDetailsLastPressureCard extends ConsumerWidget {
     return ResponsiveDetailsCard(
       child: DetailTileWidget(
           title: loc.pressure,
-          subtitle: '${lastPressure?.pressure.toString()} bar'),
+          subtitle: '${lastPressure?.pressure.toString() ?? '0'} bar'),
     );
   }
 }
