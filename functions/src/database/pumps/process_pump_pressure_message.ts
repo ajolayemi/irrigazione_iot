@@ -87,8 +87,6 @@ export const processPumpPressureDataForGs = async (
         `No company matching the provided ${pump.company_id} was found`
       );
     }
-
-    const toDate = new Date(data.created_at ?? new Date());
     const dataForGs = new PressureWithFilterGs(
       pump.id,
       pump.name,
@@ -97,7 +95,7 @@ export const processPumpPressureDataForGs = async (
       data.filter_in_pressure ?? 0,
       data.filter_out_pressure ?? 0,
       data.pressure_difference ?? 0,
-      customFormatDate(toDate)
+      customFormatDate(data.created_at)
     );
 
     await insertDataInSheet("pump_pressures", dataForGs.getValues());

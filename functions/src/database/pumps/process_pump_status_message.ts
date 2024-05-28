@@ -101,14 +101,13 @@ export const processPumpStatusDataForGs = async (
       );
     }
 
-    const toDate = new Date(data.created_at ?? new Date());
     const dataForGs = new StatusGs(
       pump.id,
       pump.name,
       pump.company_id,
       company.name,
       data.status_boolean ?? false,
-      customFormatDate(toDate)
+      customFormatDate(data.created_at)
     );
 
     await insertDataInSheet("pump_statuses", dataForGs.getValues());
