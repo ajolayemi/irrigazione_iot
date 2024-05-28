@@ -30,8 +30,6 @@ class SectorListTileSubtitle extends ConsumerWidget {
       lastPressureReading?.createdAt,
       fallbackValue: loc.notAvailable,
     );
-
-    print(lastIrrigatedString);
     return Text(
       '$varietySpecie\n${loc.sectorLastIrrigation(
         lastIrrigatedString,
