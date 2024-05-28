@@ -35,7 +35,6 @@ export const processCollectorPressureDataForGs = async (
       data.collector_id.toString()
     );
 
-    const toDate = new Date(data.created_at ?? new Date());
 
     // Prepare and insert data to google sheet
     // Save to google sheets
@@ -47,7 +46,7 @@ export const processCollectorPressureDataForGs = async (
       data.filter_in_pressure ?? 0,
       data.filter_out_pressure ?? 0,
       data.pressure_difference ?? 0,
-      customFormatDate(toDate)
+      customFormatDate(data.created_at)
     );
 
     await insertDataInSheet("collector_pressures", dataForGs.getValues());
@@ -87,7 +86,6 @@ export const processSectorPressureDataForGs = async (
     // Get the sector this status belongs to
     const sector = await getSectorById(data.sector_id.toString());
 
-    const toDate = new Date(data.created_at ?? new Date());
 
     const dataForGs = new SectorPressureGs(
       sector.id,
@@ -97,7 +95,7 @@ export const processSectorPressureDataForGs = async (
       collector.id,
       collector.name,
       data.pressure ?? 0,
-      customFormatDate(toDate)
+      customFormatDate(data.created_at)
     );
 
     await insertDataInSheet("sector_pressures", dataForGs.getValues());
@@ -129,7 +127,6 @@ export const processTerminalPressureDataForGs = async (
     const {collector, company} = await getPressureProcessingData(
       data.collector_id.toString()
     );
-    const toDate = new Date(data.created_at ?? new Date());
 
     // Prepare and insert data to google sheet
     const dataForGs = new TerminalPressureForGs(
@@ -138,7 +135,7 @@ export const processTerminalPressureDataForGs = async (
       company.id,
       company.name,
       data.pressure ?? 0,
-      customFormatDate(toDate)
+      customFormatDate(data.created_at)
     );
 
     await insertDataInSheet("terminal_pressures", dataForGs.getValues());

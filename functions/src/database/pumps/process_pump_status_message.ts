@@ -1,5 +1,5 @@
 import {logger} from "firebase-functions/v2";
-import {getPumpByMqttMsgName} from "./read_pump_data";
+import {getPumpById, getPumpByMqttMsgName} from "./read_pump_data";
 import {TablesInsert} from "../../../schemas/database.types";
 import {insertPumpStatus} from "./insert_pump_data";
 import {StatusGs} from "../../models/pump_status_for_gs";
@@ -56,11 +56,43 @@ export const processPumpStatusMessage = async (
       status,
     };
 
-    logger.info(
-      `Inserting pump status for ${pumpName} into database and google sheet`
-    );
+    logger.info(`Inserting pump status for ${pumpName} into database`);
     await insertPumpStatus(pumpStatus);
 
+    logger.info(`Pump status for ${pumpName} inserted successfully`);
+    return Promise.resolve(true);
+  } catch (error) {
+    throw new Error("Error processing pump status message");
+  }
+};
+
+/**
+ * Processes pump status data for google sheets
+ * @param {TablesInsert<"pump_statuses">} data The pump status data to process
+ * @return {Promise<boolean>} A promise that resolves to true if the pump status data
+ * was processed successfully
+ */
+export const processPumpStatusDataForGs = async (
+  data: TablesInsert<"pump_statuses">
+): Promise<boolean> => {
+  if (!data) {
+    throw new Error(
+      "Data to process pump status for google sheets is undefined"
+    );
+  }
+  console.log("Processing pump status for google sheets with data:");
+  console.log(data);
+  try {
+    // Get the pump this status data belongs to
+    const pump = await getPumpById(data.pump_id.toString());
+
+    if (!pump) {
+      throw new Error(
+        `No pump matching the provided ${data.status} was found in database`
+      );
+    }
+
+    // Get the company this pump belongs to
     const company = await getCompanyById(pump.company_id.toString());
 
     if (!company) {
@@ -69,22 +101,19 @@ export const processPumpStatusMessage = async (
       );
     }
 
+    const toDate = new Date(data.created_at ?? new Date());
     const dataForGs = new StatusGs(
       pump.id,
       pump.name,
       pump.company_id,
       company.name,
-      pumpStatus.status_boolean ?? false,
-      customFormatDate(currentDate)
+      data.status_boolean ?? false,
+      customFormatDate(toDate)
     );
 
-    // insert the pump status into google sheets
     await insertDataInSheet("pump_statuses", dataForGs.getValues());
-
-    logger.info(`Pump status for ${pumpName} inserted successfully`);
-    return true;
+    return Promise.resolve(true);
   } catch (error) {
-    logger.error("Error processing pump status message", error);
-    return false;
+    throw new Error("Error processing pump status for google sheets");
   }
 };

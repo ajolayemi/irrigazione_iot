@@ -85,3 +85,23 @@ export interface PressureProcessingData {
   collector: Tables<"collectors">;
   company: Tables<"companies">;
 }
+
+/**
+ * The expected result when weather stations table is cross
+ * referenced with other tables
+ */
+export interface WeatherStationReferencedTables {
+  station: {
+    id: number;
+    name: string;
+    eui: string;
+  };
+  sector: {
+    id: number;
+    name: string;
+  };
+  company: {
+    id: number;
+    name: string;
+  };
+}

@@ -8,14 +8,27 @@ import {
   processBoardStatusMessage,
   processBoardStatusMessageForGs,
 } from "../database/boards/process_board_status_message";
-import {processPumpPressureMessage} from "../database/pumps/process_pump_pressure_message";
-import {processPumpFlowMessage} from "../database/pumps/process_pump_flow_message";
-import {processPumpStatusMessage} from "../database/pumps/process_pump_status_message";
+import {
+  processPumpPressureDataForGs,
+  processPumpPressureMessage,
+} from "../database/pumps/process_pump_pressure_message";
+import {
+  processPumpFlowDataForGs,
+  processPumpFlowMessage,
+} from "../database/pumps/process_pump_flow_message";
+import {
+  processPumpStatusDataForGs,
+  processPumpStatusMessage,
+} from "../database/pumps/process_pump_status_message";
 import {
   processCollectorPressureDataForGs,
   processSectorPressureDataForGs,
   processTerminalPressureDataForGs,
 } from "../database/sector_and_collector/sector_and_collector_utils_for_gs";
+import {
+  processSenseCapBatteryDataForGs,
+  processSenseCapSensorDataForGs,
+} from "../database/weather_station/process_sense_cap_data_for_gs";
 
 // TODO: this function should take in date as string and handle the conversion
 // TODO: to a date object
@@ -23,12 +36,13 @@ import {
  * Helps in formatting date to a custom format
  * for google sheets insertion. The format is
  * YYYY-MM-DD HH:MM:SS
- * @param {Date} date The date object to format
+ * @param {string} dateString The date string to format
  * @return {string} The formatted date
  */
-export const customFormatDate = (date: Date): string => {
-  const dateSection = date.toISOString().split("T")[0];
-  const timeSection = date.toISOString().split("T")[1].split(".")[0];
+export const customFormatDate = (dateString?: string): string => {
+  const toDateObj = new Date(dateString ?? new Date());
+  const dateSection = toDateObj.toISOString().split("T")[0];
+  const timeSection = toDateObj.toISOString().split("T")[1].split(".")[0];
   return `${dateSection} ${timeSection}`;
 };
 
@@ -137,6 +151,21 @@ export const switchBaseOnTable = async (table: string, record: any) => {
 
     case "collector_pressures":
       return await processCollectorPressureDataForGs(record);
+
+    case "pump_flows":
+      return await processPumpFlowDataForGs(record);
+
+    case "pump_pressures":
+      return await processPumpPressureDataForGs(record);
+
+    case "pump_statuses":
+      return await processPumpStatusDataForGs(record);
+
+    case "weather_station_battery_data":
+      return await processSenseCapBatteryDataForGs(record);
+
+    case "weather_station_measurements":
+      return await processSenseCapSensorDataForGs(record);
 
     default:
       throw new Error("Invalid table name");

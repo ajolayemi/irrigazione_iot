@@ -117,8 +117,6 @@ export const processSectorStatusMessageForGs = async (
     // Get the collector details
     const collector = await getCollectorById(collectorSector.id.toString());
 
-    const toDate = new Date(data.created_at ?? new Date());
-
     const dataForGs = new SectorStatusGs(
       sector.id,
       sector.name,
@@ -127,7 +125,7 @@ export const processSectorStatusMessageForGs = async (
       collectorSector.id,
       collector.name,
       data.status_boolean ?? false,
-      customFormatDate(toDate)
+      customFormatDate(data.created_at)
     );
 
     console.log("Inserting data to google sheet");

@@ -68,16 +68,13 @@ export const processBoardStatusMessageForGs = async (
     // Get the company this board belongs to
     const company = await getCompanyById(board.company_id.toString());
 
-    // TODO: the
-    const timestamp = new Date(data.created_at || new Date());
-
     const dataForGs = new BoardStatusGs(
       board.id,
       board.name,
       board.company_id,
       company.name,
       data.battery_level,
-      customFormatDate(timestamp)
+      customFormatDate(data.created_at)
     );
     // Insert data to google sheets
     await insertDataInSheet(BoardStatusGs.workSheetName, dataForGs.getValues());

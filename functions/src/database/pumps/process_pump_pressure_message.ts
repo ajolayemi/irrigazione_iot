@@ -1,6 +1,6 @@
 import {logger} from "firebase-functions/v1";
 import {CustomJSON, PumpPressureKeys} from "../../interfaces/interfaces";
-import {getPumpByMqttMsgName} from "./read_pump_data";
+import {getPumpById, getPumpByMqttMsgName} from "./read_pump_data";
 import {insertPumpPressure} from "./insert_pump_data";
 import {TablesInsert} from "../../../schemas/database.types";
 import {getCompanyById} from "../companies/read_company_data";
@@ -42,38 +42,68 @@ export const processPumpPressureMessage = async (
       filter_out_pressure: message[filterOutKey],
     };
 
-    logger.info(
-      `Saving pump pressure for ${pump.name} to the database and google sheet`
-    );
+    logger.info(`Saving pump pressure for ${pump.name} to the database`);
     await insertPumpPressure(pumpPressure);
+
+    logger.info(`Pump pressure for ${pump.name} saved successfully`);
+    return Promise.resolve(true);
+  } catch (error) {
+    throw new Error("Error processing pump pressure message");
+  }
+};
+
+/**
+ * Processes pump pressure data for Google Sheets
+ * @param {TablesInsert<"pump_pressures">} data The pump pressure data to process
+ * @return {Promise<boolean>} A promise that resolves to true if the pump pressure data
+ * was processed successfully
+ */
+export const processPumpPressureDataForGs = async (
+  data: TablesInsert<"pump_pressures">
+): Promise<boolean> => {
+  if (!data) {
+    throw new Error(
+      "Data to process pump pressure for google sheets is undefined"
+    );
+  }
+
+  console.log("Processing pump pressure for google sheets with data:");
+  console.log(data);
+  try {
+    // Get the pump this pressure data belongs to
+    const pump = await getPumpById(data.pump_id.toString());
+
+    if (!pump) {
+      throw new Error(
+        `No pump matching the provided ${data.pump_id} was found in database`
+      );
+    }
 
     // Get the company this pump belongs to
     const company = await getCompanyById(pump.company_id.toString());
 
     if (!company) {
       throw new Error(
-        `No company found for the company with id: ${pump.company_id}`
+        `No company matching the provided ${pump.company_id} was found`
       );
     }
 
+    const toDate = new Date(data.created_at ?? new Date());
     const dataForGs = new PressureWithFilterGs(
       pump.id,
       pump.name,
       pump.company_id,
       company.name,
-      message[filterInKey],
-      message[filterOutKey],
-      message[filterInKey] - message[filterOutKey],
-      customFormatDate(currentDate)
+      data.filter_in_pressure ?? 0,
+      data.filter_out_pressure ?? 0,
+      data.pressure_difference ?? 0,
+      customFormatDate(toDate)
     );
 
     await insertDataInSheet("pump_pressures", dataForGs.getValues());
-
-    logger.info(`Pump pressure for ${pump.name} saved successfully`);
-    return true;
+    return Promise.resolve(true);
   } catch (error) {
-    logger.error("Error processing pump pressure message: ", error);
-    return false;
+    throw new Error("Error processing pump pressure for google sheets");
   }
 };
 

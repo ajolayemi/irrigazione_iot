@@ -10,11 +10,7 @@ import {
   WeatherStationBatteryData,
   WeatherStationMeasurementData,
 } from "../../interfaces/interfaces";
-import {customFormatDate, getDecodedPayloadMsg} from "../../utils/helper_funcs";
-import {getCompanyById} from "../companies/read_company_data";
-import {SenseCapBatteryGs, SenseCapGs} from "../../models/sensecap_for_gs";
-import {insertDataInSheet} from "../../utils/gs_utils";
-import {getSectorById} from "../sectors/read_sector_data";
+import {getDecodedPayloadMsg} from "../../utils/helper_funcs";
 
 /**
  * Processes the data received from the SenseCAP device
@@ -36,16 +32,6 @@ export const processSenseCapData = async (data: any): Promise<boolean> => {
   // Get the station with the provided device eui
   const station = await getWeatherStationByEui(stationData.deviceEui);
 
-  // Get the company this station belongs to
-  const company = await getCompanyById(station.company_id.toString());
-
-  if (!company) {
-    logger.error(
-      `Aborting, no company found with the provided id: ${station.company_id}`
-    );
-    throw new Error("No company found with the provided id");
-  }
-
   if (!station) {
     logger.error(
       `Aborting, no station found with the provided device eui: ${stationData.deviceEui}`
@@ -53,8 +39,6 @@ export const processSenseCapData = async (data: any): Promise<boolean> => {
     throw new Error("No station found with the provided device eui");
   }
 
-  // get the sector where the station is located
-  const sector = await getSectorById(station.sector_id.toString());
 
   // if battery data is available, insert battery data to database
   if (stationData.battery) {
@@ -64,24 +48,11 @@ export const processSenseCapData = async (data: any): Promise<boolean> => {
       battery_level: stationData.battery["Battery(%)"],
     };
     logger.info(
-      `Saving battery data for station named: ${station.name} to the database and google sheets`
+      `Saving battery data for station named: ${station.name} to the database`
     );
     await insertWeatherStationBatteryData(sensorBattery);
 
-    // Prepare battery data for insertion to google sheets
-    const batteryDataForGs = new SenseCapBatteryGs(
-      station.id,
-      station.name,
-      station.eui,
-      station.company_id,
-      company.name,
-      station.sector_id,
-      sector.name,
-      sensorBattery.battery_level,
-      customFormatDate(dateToConsider)
-    );
 
-    await insertDataInSheet("sensecap_battery", batteryDataForGs.getValues());
     logger.info("Station battery data saved successfully");
   }
 
@@ -93,31 +64,9 @@ export const processSenseCapData = async (data: any): Promise<boolean> => {
       dateToConsider.toISOString()
     );
   logger.info(
-    `Saving measurement data for station named: ${station.name} to the database and google sheets`
+    `Saving measurement data for station named: ${station.name} to the database`
   );
   await insertWeatherStationMeasurementData(weatherStationMeasurement);
-
-  // Prepare for data insertion into google sheets
-  const dataForGs = new SenseCapGs(
-    station.id,
-    station.name,
-    station.eui,
-    station.company_id,
-    company.name,
-    station.sector_id,
-    sector.name,
-    weatherStationMeasurement.air_temperature,
-    weatherStationMeasurement.air_humidity,
-    weatherStationMeasurement.light_intensity,
-    weatherStationMeasurement.uv_index,
-    weatherStationMeasurement.wind_speed,
-    weatherStationMeasurement.rain_gauge,
-    weatherStationMeasurement.barometric_pressure,
-    weatherStationMeasurement.wind_direction_sensor,
-    customFormatDate(dateToConsider)
-  );
-
-  await insertDataInSheet("sensecap_weather", dataForGs.getValues());
 
   logger.info("Station measurement data saved successfully");
 
