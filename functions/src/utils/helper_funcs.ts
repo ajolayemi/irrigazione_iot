@@ -106,26 +106,26 @@ export const switchBaseOnMessageType = async (
   message: any
 ): Promise<boolean> => {
   switch (messageType) {
-    case "pressure":
-      return await processPressureMessageFromPubSub(message);
+  case "pressure":
+    return await processPressureMessageFromPubSub(message);
 
-    case "sector_status":
-      return await processSectorStatusMessage(message);
+  case "sector_status":
+    return await processSectorStatusMessage(message);
 
-    case "pump_status":
-      return await processPumpStatusMessage(message);
+  case "pump_status":
+    return await processPumpStatusMessage(message);
 
-    case "pump_flow":
-      return await processPumpFlowMessage(message);
+  case "pump_flow":
+    return await processPumpFlowMessage(message);
 
-    case "pump_pressure":
-      return await processPumpPressureMessage(message);
+  case "pump_pressure":
+    return await processPumpPressureMessage(message);
 
-    case "board_status":
-      return await processBoardStatusMessage(message);
+  case "board_status":
+    return await processBoardStatusMessage(message);
 
-    default:
-      throw new Error("Invalid message type");
+  default:
+    throw new Error("Invalid message type");
   }
 };
 
@@ -137,37 +137,37 @@ export const switchBaseOnMessageType = async (
  */
 export const switchBaseOnTable = async (table: string, record: any) => {
   switch (table) {
-    case "sector_statuses":
-      return await processSectorStatusMessageForGs(record);
+  case "sector_statuses":
+    return await processSectorStatusMessageForGs(record);
 
-    case "board_statuses":
-      return await processBoardStatusMessageForGs(record);
+  case "board_statuses":
+    return await processBoardStatusMessageForGs(record);
 
-    case "terminal_pressures":
-      return await processTerminalPressureDataForGs(record);
+  case "terminal_pressures":
+    return await processTerminalPressureDataForGs(record);
 
-    case "sector_pressures":
-      return await processSectorPressureDataForGs(record);
+  case "sector_pressures":
+    return await processSectorPressureDataForGs(record);
 
-    case "collector_pressures":
-      return await processCollectorPressureDataForGs(record);
+  case "collector_pressures":
+    return await processCollectorPressureDataForGs(record);
 
-    case "pump_flows":
-      return await processPumpFlowDataForGs(record);
+  case "pump_flows":
+    return await processPumpFlowDataForGs(record);
 
-    case "pump_pressures":
-      return await processPumpPressureDataForGs(record);
+  case "pump_pressures":
+    return await processPumpPressureDataForGs(record);
 
-    case "pump_statuses":
-      return await processPumpStatusDataForGs(record);
+  case "pump_statuses":
+    return await processPumpStatusDataForGs(record);
 
-    case "weather_station_battery_data":
-      return await processSenseCapBatteryDataForGs(record);
+  case "weather_station_battery_data":
+    return await processSenseCapBatteryDataForGs(record);
 
-    case "weather_station_measurements":
-      return await processSenseCapSensorDataForGs(record);
+  case "weather_station_measurements":
+    return await processSenseCapSensorDataForGs(record);
 
-    default:
-      throw new Error("Invalid table name");
+  default:
+    throw new Error("Invalid table name");
   }
 };
