@@ -34,35 +34,6 @@ drop index if exists "public"."pump_pressures_pkey";
 
 drop index if exists "public"."sector_pressures_pkey";
 
-CREATE UNIQUE INDEX collector_pressure_pkey ON public.collector_pressures USING btree (id);
-
-CREATE UNIQUE INDEX sector_pumps_pump_id_key ON public.sector_pumps USING btree (pump_id);
-
-CREATE UNIQUE INDEX terminal_pressure_pkey ON public.terminal_pressures USING btree (id);
-
-CREATE UNIQUE INDEX board_statuses_pkey ON public.board_statuses USING btree (id);
-
-CREATE UNIQUE INDEX pump_flows_pkey ON public.pump_flows USING btree (id);
-
-CREATE UNIQUE INDEX pump_pressures_pkey ON public.pump_pressures USING btree (id);
-
-CREATE UNIQUE INDEX sector_pressures_pkey ON public.sector_pressures USING btree (id);
-
-alter table "public"."collector_pressures" add constraint "collector_pressure_pkey" PRIMARY KEY using index "collector_pressure_pkey";
-
-alter table "public"."terminal_pressures" add constraint "terminal_pressure_pkey" PRIMARY KEY using index "terminal_pressure_pkey";
-
-alter table "public"."board_statuses" add constraint "board_statuses_pkey" PRIMARY KEY using index "board_statuses_pkey";
-
-alter table "public"."pump_flows" add constraint "pump_flows_pkey" PRIMARY KEY using index "pump_flows_pkey";
-
-alter table "public"."pump_pressures" add constraint "pump_pressures_pkey" PRIMARY KEY using index "pump_pressures_pkey";
-
-alter table "public"."sector_pressures" add constraint "sector_pressures_pkey" PRIMARY KEY using index "sector_pressures_pkey";
-
-alter table "public"."sector_pumps" add constraint "sector_pumps_pump_id_key" UNIQUE using index "sector_pumps_pump_id_key";
-
-set check_function_bodies = off;
 
 DROP FUNCTION IF EXISTS public.notify_webhook;
 

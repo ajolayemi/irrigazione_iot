@@ -105,3 +105,18 @@ export interface WeatherStationReferencedTables {
     name: string;
   };
 }
+
+/**
+ * Expended result when cross referencing tables like boards
+ * with other tables (such as companies)
+ */
+export interface ReferencedTablesQueryResult {
+  item: {
+    id: number;
+    name: string;
+  };
+  referencedTable: {
+    id: number;
+    name: string;
+  };
+}

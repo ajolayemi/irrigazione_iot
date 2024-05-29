@@ -1,4 +1,5 @@
 import {Tables} from "../../../schemas/database.types";
+import {ReferencedTablesQueryResult} from "../../interfaces/interfaces";
 import {createSupabaseClient} from "../../services/supabase_client";
 
 /**
@@ -29,4 +30,50 @@ export const getBoardById = async (id: string): Promise<Tables<"boards">> => {
   });
   if (error) throw error;
   return data["result"] as Tables<"boards">;
+};
+
+/**
+ * References the query-board-referenced-tables Supabase Edge function
+ * to get some necessary information when processing board data
+ * for Google Sheets
+ * @param {string} id The ID of the board
+ * @return {Promise<ReferencedTablesQueryResult>} The necessary information for processing board data
+ */
+export const queryBoardReferencedTables = async (
+  id: string
+): Promise<ReferencedTablesQueryResult> => {
+  try {
+    const supabase = await createSupabaseClient();
+
+    const {data, error} = await supabase.functions.invoke(
+      "query-board-referenced-tables",
+      {
+        body: {id},
+      }
+    );
+
+    if (error) {
+      throw error;
+    }
+
+    const res = data["boards"];
+
+    if (!res || !res.length) {
+      throw new Error("No board found");
+    }
+
+    const item = res[0];
+
+    console.log(`Query result: ${JSON.stringify(item)}`);
+
+    return {
+      item: {
+        id: item.id,
+        name: item.name,
+      },
+      referencedTable: item.companies,
+    };
+  } catch (error) {
+    throw new Error(`Error querying board referenced tables: ${error}`);
+  }
 };

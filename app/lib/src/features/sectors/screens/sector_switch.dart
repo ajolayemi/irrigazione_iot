@@ -44,8 +44,11 @@ class SectorSwitch extends ConsumerWidget {
     final globalLoadingState =
         ref.watch(sectorSwitchControllerProvider).isGlobalLoading;
 
-    final isSwitchedOn =
-        ref.watch(sectorStatusStreamProvider(sector.id)).valueOrNull?.statusBoolean ?? false;
+    final isSwitchedOn = ref
+            .watch(sectorStatusStreamProvider(sector.id))
+            .valueOrNull
+            ?.statusBoolean ??
+        false;
 
     return thisSectorStatusIsLoading
         ? const CircularProgressIndicator.adaptive()

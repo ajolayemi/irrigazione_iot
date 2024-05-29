@@ -1,12 +1,11 @@
 import {logger} from "firebase-functions/v1";
 import {BoardStatusMessage} from "../../interfaces/interfaces";
-import {getBoardByEui, getBoardById} from "./read_board_data";
+import {getBoardByEui, queryBoardReferencedTables} from "./read_board_data";
 import {insertBoardStatusData} from "./insert_board_data";
 import {insertDataInSheet} from "../../utils/gs_utils";
 import {TablesInsert} from "../../../schemas/database.types";
 import {customFormatDate} from "../../utils/helper_funcs";
 import {BoardStatusGs} from "../../models/board_status_for_gs";
-import {getCompanyById} from "../companies/read_company_data";
 
 export const processBoardStatusMessage = async (
   message: BoardStatusMessage
@@ -26,9 +25,7 @@ export const processBoardStatusMessage = async (
       );
     }
 
-    logger.info(
-      `Inserting board status for ${board.name} into database`
-    );
+    logger.info(`Inserting board status for ${board.name} into database`);
     const currentDate = new Date();
 
     const boardStatus: TablesInsert<"board_statuses"> = {
@@ -64,14 +61,14 @@ export const processBoardStatusMessageForGs = async (
   console.log("Processing board status message for google sheet with data: ");
   console.log(data);
   try {
-    const board = await getBoardById(data.board_id.toString());
-    // Get the company this board belongs to
-    const company = await getCompanyById(board.company_id.toString());
+    console.log("Querying board referenced tables... ");
+    const {item: board, referencedTable: company} =
+      await queryBoardReferencedTables(data.board_id.toString());
 
     const dataForGs = new BoardStatusGs(
       board.id,
       board.name,
-      board.company_id,
+      company.id,
       company.name,
       data.battery_level,
       customFormatDate(data.created_at)

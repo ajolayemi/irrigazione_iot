@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:typed_data/typed_data.dart' as typed;
 
 import 'package:irrigazione_iot/env/env.dart';
-import 'package:irrigazione_iot/src/utils/delay.dart';
 
 part 'mqtt_client_service.g.dart';
 
@@ -38,7 +38,7 @@ class MqttClientService {
       );
 
       // add 10 seconds delay to allow supabase data sync
-      await delay(true, 10000);
+      await delay(true, 5000);
 
       client.disconnect();
       return messageId;
