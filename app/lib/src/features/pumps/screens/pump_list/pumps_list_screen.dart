@@ -33,7 +33,7 @@ class _PumpListScreenState extends ConsumerState<PumpListScreen> {
   /// Responds to the search query.
   void _onPressedSearchIcon() {
     if (_showSearchField) {
-      ref.read(pumpSearchQueryResultProvider.notifier).resetSearchQuery();
+      ref.read(pumpSearchQueryResultProvider.notifier).reset();
     }
     setState(() {
       _showSearchField = !_showSearchField;
@@ -75,9 +75,8 @@ class _PumpListScreenState extends ConsumerState<PumpListScreen> {
             ),
             if (_showSearchField)
               SearchTextField(
-                onSearch: ref
-                    .read(pumpSearchQueryResultProvider.notifier)
-                    .setSearchQuery,
+                onSearch:
+                    ref.read(pumpSearchQueryResultProvider.notifier).search,
               ),
             AsyncValueSliverWidget(
               value: companyPumps,

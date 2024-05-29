@@ -4,8 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'pump_search_query_result.g.dart';
 
-/// Notifier class that keeps track of the search query for the pump list.
-/// This is used to filter the list of pumps based on the search query.
+/// Responsible for filtering the list of pumps based on the search query.
 @riverpod
 class PumpSearchQueryResult extends _$PumpSearchQueryResult {
   @override
@@ -13,8 +12,8 @@ class PumpSearchQueryResult extends _$PumpSearchQueryResult {
     return ref.watch(companyPumpsStreamProvider).valueOrNull ?? [];
   }
 
-  void setSearchQuery(String query) {
-    resetSearchQuery();
+  void search(String query) {
+    reset();
     // If query is not empty, filter the list of pumps based on the query
     if (query.isNotEmpty) {
       final copiedState = List<Pump?>.from(state);
@@ -25,11 +24,11 @@ class PumpSearchQueryResult extends _$PumpSearchQueryResult {
 
     // If query is empty, reset the list of pumps to the original list
     else {
-      resetSearchQuery();
+      reset();
     }
   }
 
-  void resetSearchQuery() {
+  void reset() {
     state = ref.read(companyPumpsStreamProvider).valueOrNull ?? [];
   }
 }
