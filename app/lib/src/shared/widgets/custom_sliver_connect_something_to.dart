@@ -16,12 +16,26 @@ class CustomSliverConnectSomethingTo extends StatelessWidget {
     this.actions,
     this.onCTAPressed,
     this.ctaAlternativeText,
+    this.subChild,
   });
 
+  /// Title of the screen
   final String title;
+
+  /// The main content of the screen
   final Widget child;
+
+  /// A widget (which is meant to be a text field to search for items)
+  /// to be displayed at the top of the screen, right after the title
+  final Widget? subChild;
+
+  /// Actions to be displayed in the app bar
   final List<Widget>? actions;
+
+  /// Function to execute when the CTA button is pressed
   final VoidCallback? onCTAPressed;
+
+  /// Alternative text for the CTA button
   final String? ctaAlternativeText;
   @override
   Widget build(BuildContext context) {
@@ -38,6 +52,7 @@ class CustomSliverConnectSomethingTo extends StatelessWidget {
                     title: title,
                     actions: actions,
                   ),
+                  subChild ?? const SliverToBoxAdapter(),
                   child,
                 ],
               ),
