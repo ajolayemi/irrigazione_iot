@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:irrigazione_iot/src/features/sectors/providers/select_a_specie_query_result.dart';
 import 'package:irrigazione_iot/src/features/specie/data/specie_repository.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
+import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_search_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_sliver_connect_something_to.dart';
+import 'package:irrigazione_iot/src/shared/widgets/empty_search_result.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.dart';
 import 'package:irrigazione_iot/src/shared/widgets/search_text_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indicator.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
-import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 
 class SelectASpecieScreen extends ConsumerStatefulWidget {
   const SelectASpecieScreen({
@@ -37,19 +40,32 @@ class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
     super.initState();
   }
 
+  void _onPressedSearchIcon() {
+    if (_isSearching) {
+      ref.read(selectASpecieQueryResultProvider.notifier).reset();
+    }
+    setState(() {
+      _isSearching = !_isSearching;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final species = ref.watch(
-      speciesStreamProvider(
-          previouslySelectedSpecieId: widget.selectedSpecieId),
-    );
+    final species = ref.watch(speciesStreamProvider);
+
+    final queryResult = ref.watch(selectASpecieQueryResultProvider);
     final loc = context.loc;
     return CustomSliverConnectSomethingTo(
-      subChild: _isSearching ? SearchTextField() : null,
+      subChild: _isSearching
+          ? SearchTextField(
+              onSearch:
+                  ref.read(selectASpecieQueryResultProvider.notifier).search,
+            )
+          : null,
       actions: [
         CommonSearchIconButton(
           isVisibile: species.valueOrNull?.isNotEmpty ?? false,
-          onPressed: () {},
+          onPressed: _onPressedSearchIcon,
           isSearching: _isSearching,
         ),
       ],
@@ -57,9 +73,12 @@ class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
       onCTAPressed: () => context.popNavigator(_selectedSpecie),
       child: AsyncValueSliverWidget(
         value: species,
-        data: (species) {
+        data: (data) {
+          if (data != null && data.isNotEmpty && queryResult.isEmpty) {
+            return const EmptySearchResult();
+          }
           // TODO: replace this with more meaningful empty widget
-          if (species == null || species.isEmpty) {
+          if (data == null || data.isEmpty) {
             return const SliverFillRemaining(
               child: Center(
                 child: Text('No species found'),
@@ -69,7 +88,7 @@ class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
           return SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final specie = species[index];
+                final specie = queryResult[index];
 
                 return ResponsiveRadioListTile(
                   title: specie.name,
@@ -86,7 +105,7 @@ class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
                   }),
                 );
               },
-              childCount: species.length,
+              childCount: queryResult.length,
             ),
           );
         },
