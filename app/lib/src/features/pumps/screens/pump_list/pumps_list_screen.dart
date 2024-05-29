@@ -63,6 +63,7 @@ class _PumpListScreenState extends ConsumerState<PumpListScreen> {
               title: context.loc.pumpPageTitle,
               actions: [
                 CommonSearchIconButton(
+                  isVisibile: companyPumps.valueOrNull?.isNotEmpty ?? false,
                   isSearching: _showSearchField,
                   onPressed: _onPressedSearchIcon,
                 ),

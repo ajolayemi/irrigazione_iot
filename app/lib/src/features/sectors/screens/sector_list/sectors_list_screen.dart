@@ -56,6 +56,9 @@ class _SectorsListScreenState extends ConsumerState<SectorsListScreen> {
     final loc = context.loc;
 
     final queryResult = ref.watch(sectorSearchQueryResultProvider);
+
+    print(sectors.valueOrNull?.isNotEmpty);
+
     return Scaffold(
       body: PaddedSafeArea(
         child: CustomScrollView(
@@ -64,6 +67,7 @@ class _SectorsListScreenState extends ConsumerState<SectorsListScreen> {
               title: loc.sectorPageTitle,
               actions: [
                 CommonSearchIconButton(
+                  isVisibile: sectors.valueOrNull?.isNotEmpty ?? false,
                   onPressed: _onPressedSearchIcon,
                   isSearching: _isSearching,
                 ),
