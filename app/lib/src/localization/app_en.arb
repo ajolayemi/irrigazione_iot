@@ -703,5 +703,7 @@
   "filterOutForDashboard": "Filter OUT",
   "noPumpsSwitchedOn": "No pumps switched on at the moment",
   "noSectorsSwitchedOn": "No sectors switched on at the moment",
-  "date": "Date"
+  "date": "Date",
+  "search": "Search...",
+  "noSearchResults": "No results found"
 }
