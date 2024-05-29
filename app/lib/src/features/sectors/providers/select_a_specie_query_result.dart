@@ -16,10 +16,11 @@ class SelectASpecieQueryResult extends _$SelectASpecieQueryResult {
     // If query is not empty, filter the list of species based on the query
     if (query.isNotEmpty) {
       final copiedState = List<Specie>.from(state);
-      state = copiedState
-          .where((specie) =>
-              specie.name.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      state = copiedState.where((specie) {
+        final name = specie.name.toLowerCase();
+        final search = query.toLowerCase();
+        return name.contains(search);
+      }).toList();
     }
 
     // If query is empty, reset the list of species to the original list
