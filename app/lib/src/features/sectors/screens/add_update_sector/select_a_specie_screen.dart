@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/specie/data/specie_repository.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_search_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_sliver_connect_something_to.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.dart';
+import 'package:irrigazione_iot/src/shared/widgets/search_text_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indicator.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
@@ -23,6 +25,7 @@ class SelectASpecieScreen extends ConsumerStatefulWidget {
 }
 
 class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
+  bool _isSearching = false;
   late RadioButtonItem _selectedSpecie;
 
   @override
@@ -42,6 +45,14 @@ class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
     );
     final loc = context.loc;
     return CustomSliverConnectSomethingTo(
+      subChild: _isSearching ? SearchTextField() : null,
+      actions: [
+        CommonSearchIconButton(
+          isVisibile: species.valueOrNull?.isNotEmpty ?? false,
+          onPressed: () {},
+          isSearching: _isSearching,
+        ),
+      ],
       title: loc.selectASpecie,
       onCTAPressed: () => context.popNavigator(_selectedSpecie),
       child: AsyncValueSliverWidget(
