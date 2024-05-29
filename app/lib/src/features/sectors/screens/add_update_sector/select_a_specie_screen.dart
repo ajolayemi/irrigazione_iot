@@ -74,11 +74,12 @@ class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
       child: AsyncValueSliverWidget(
         value: species,
         data: (data) {
-          if (data != null && data.isNotEmpty && queryResult.isEmpty) {
+          final hasData = data != null && data.isNotEmpty;
+          if (hasData && queryResult.isEmpty) {
             return const EmptySearchResult();
           }
           // TODO: replace this with more meaningful empty widget
-          if (data == null || data.isEmpty) {
+          if (!hasData) {
             return const SliverFillRemaining(
               child: Center(
                 child: Text('No species found'),
