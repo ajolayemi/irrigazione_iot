@@ -57,8 +57,6 @@ class _SectorsListScreenState extends ConsumerState<SectorsListScreen> {
 
     final queryResult = ref.watch(sectorSearchQueryResultProvider);
 
-    print(sectors.valueOrNull?.isNotEmpty);
-
     return Scaffold(
       body: PaddedSafeArea(
         child: CustomScrollView(
