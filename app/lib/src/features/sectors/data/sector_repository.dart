@@ -34,17 +34,17 @@ abstract class SectorRepository {
   /// deletes a [Sector]
   Future<bool> deleteSector(String sectorID);
 
-  /// emits a list of already used sector names for a specified company
+  /// Fetches list of already used sector names for a specified company
   /// this is used in form validation to prevent duplicate sector names for a company
-  Stream<List<String?>> watchCompanyUsedSectorNames(String companyId);
+  Future<List<String?>> getCompanyUsedSectorNames(String companyId);
 
-  /// emits a list of already used commands (on and off) for a specified company
+  /// Fetches list of already used commands (on and off) for a specified company
   /// this is used in form validation to prevent duplicate commands for a company
-  Stream<List<String?>> watchCompanySectorUsedCommands(String companyId);
+  Future<List<String?>> getCompanySectorUsedCommands(String companyId);
 
-  /// emits a list of general already used mqtt names
+  /// Fetches list of general already used mqtt names
   /// this is used in form validation to prevent duplicate mqtt names
-  Stream<List<String?>> watchSectorUsedMqttMsgNames();
+  Future<List<String?>> getSectorUsedMqttMsgNames();
 }
 
 @Riverpod(keepAlive: true)
@@ -88,29 +88,29 @@ Future<Sector?> sectorFuture(SectorFutureRef ref, String sectorID) {
 }
 
 @riverpod
-Stream<List<String?>> usedSectorNamesStream(UsedSectorNamesStreamRef ref) {
+Future<List<String?>> usedSectorNamesFuture(UsedSectorNamesFutureRef ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.read(currentTappedCompanyProvider).valueOrNull;
-  if (currentSelectedCompanyByUser == null) return Stream.value([]);
+  if (currentSelectedCompanyByUser == null) return Future.value([]);
   return sectorsRepository
-      .watchCompanyUsedSectorNames(currentSelectedCompanyByUser.id);
+      .getCompanyUsedSectorNames(currentSelectedCompanyByUser.id);
 }
 
 @riverpod
-Stream<List<String?>> usedSectorCommandsStream(
-    UsedSectorCommandsStreamRef ref) {
+Future<List<String?>> usedSectorCommandsFuture(
+    UsedSectorCommandsFutureRef ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.read(currentTappedCompanyProvider).valueOrNull;
-  if (currentSelectedCompanyByUser == null) return Stream.value([]);
+  if (currentSelectedCompanyByUser == null) return Future.value([]);
   return sectorsRepository
-      .watchCompanySectorUsedCommands(currentSelectedCompanyByUser.id);
+      .getCompanySectorUsedCommands(currentSelectedCompanyByUser.id);
 }
 
 @riverpod
-Stream<List<String?>> sectorUsedMqttMessageNamesStream(
-    SectorUsedMqttMessageNamesStreamRef ref) {
+Future<List<String?>> sectorUsedMqttMessageNamesFuture(
+    SectorUsedMqttMessageNamesFutureRef ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
-  return sectorsRepository.watchSectorUsedMqttMsgNames();
+  return sectorsRepository.getSectorUsedMqttMsgNames();
 }

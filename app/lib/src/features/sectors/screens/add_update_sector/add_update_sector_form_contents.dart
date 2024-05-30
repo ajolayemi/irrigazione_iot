@@ -496,7 +496,7 @@ class _AddUpdateSectorFormContentsState
                   Consumer(
                     builder: (context, ref, child) {
                       final usedNames =
-                          ref.watch(usedSectorNamesStreamProvider);
+                          ref.watch(usedSectorNamesFutureProvider);
                       final value = usedNames.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -528,7 +528,7 @@ class _AddUpdateSectorFormContentsState
                   Consumer(
                     builder: (context, ref, child) {
                       final usedMqttNames =
-                          ref.watch(sectorUsedMqttMessageNamesStreamProvider);
+                          ref.watch(sectorUsedMqttMessageNamesFutureProvider);
                       final value = usedMqttNames.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -678,7 +678,7 @@ class _AddUpdateSectorFormContentsState
                   Consumer(
                     builder: (context, ref, child) {
                       final usedCommands =
-                          ref.watch(usedSectorCommandsStreamProvider);
+                          ref.watch(usedSectorCommandsFutureProvider);
                       final commands = usedCommands.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -709,7 +709,7 @@ class _AddUpdateSectorFormContentsState
                   Consumer(
                     builder: (context, ref, child) {
                       final usedCommands =
-                          ref.watch(usedSectorCommandsStreamProvider);
+                          ref.watch(usedSectorCommandsFutureProvider);
                       final commands = usedCommands.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
