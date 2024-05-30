@@ -55,7 +55,7 @@ class _SectorsListScreenState extends ConsumerState<SectorsListScreen> {
     );
 
     // A list of original list of sectors that belong to the company
-    final companySectors = ref.watch(sectorListStreamProvider).valueOrNull;
+    final companySectors = ref.watch(companySectorsFutureProvider).valueOrNull;
 
     final filteredSectors = ref.watch(sectorSearchQueryResultProvider);
 
