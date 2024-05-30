@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/screens/pump_list/dismiss_pump_controller.dart';
 import 'package:irrigazione_iot/src/features/pumps/providers/pump_search_query_result.dart';
 import 'package:irrigazione_iot/src/features/pumps/screens/pump_list/pump_status_controller.dart';
@@ -14,7 +15,7 @@ import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_search_icon_button.dart';
-import 'package:irrigazione_iot/src/shared/widgets/empty_search_result.dart';
+import 'package:irrigazione_iot/src/shared/widgets/filtered_screen_item_renderer.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/shared/widgets/search_text_field.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
@@ -87,27 +88,18 @@ class _PumpListScreenState extends ConsumerState<PumpListScreen> {
               value: filteredPumps,
               loading: () => const PumpListTileSkeleton(), // todo replace
               data: (filterResult) {
-                final originallyHasPumps =
-                    companyPumps != null && companyPumps.isNotEmpty;
-
-                final filterIsEmpty = filterResult?.isEmpty ?? true;
-
-                if (!originallyHasPumps) {
-                  return const EmptyPumpWidget();
-                }
-
-                if (originallyHasPumps && filterIsEmpty) {
-                  return const EmptySearchResult();
-                }
-
-                // It should be save to assume that the pumps are not null here
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final pump = filterResult![index];
-                      return PumpListTile(pump: pump);
-                    },
-                    childCount: filterResult?.length,
+                return FilteredScreenItemRenderer<Pump?>(
+                  baseItems: companyPumps,
+                  filteredItems: filterResult,
+                  noBaseItemsWidget: const EmptyPumpWidget(),
+                  mainWidget: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        final pump = filterResult![index];
+                        return PumpListTile(pump: pump);
+                      },
+                      childCount: filterResult?.length,
+                    ),
                   ),
                 );
               },
