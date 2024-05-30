@@ -24,7 +24,7 @@ class SelectAVarietyQueryResult extends _$SelectAVarietyQueryResult {
         return name.contains(queryLower);
       }).toList();
 
-      state = AsyncData<List<Variety>>([...filteredVarieties]);
+      state = AsyncData<List<Variety>?>([...filteredVarieties]);
     } else {
       reset();
     }
