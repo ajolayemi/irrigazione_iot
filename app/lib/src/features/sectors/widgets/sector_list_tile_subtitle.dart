@@ -24,17 +24,21 @@ class SectorListTileSubtitle extends ConsumerWidget {
         ? '${sectorSpecie.name} ${sectorVariety.name}'
         : context.loc.notAvailable;
 
-    final lastPressureReading =
-        ref.watch(sectorLastPressureStreamProvider(sector.id)).valueOrNull;
-    final lastIrrigatedString = context.timeAgo(
-      lastPressureReading?.createdAt,
-      fallbackValue: loc.notAvailable,
-    );
-    return Text(
-      '$varietySpecie\n${loc.sectorLastIrrigation(
-        lastIrrigatedString,
-      )}',
-      style: context.commonSubtitleStyle,
+    return Consumer(
+      builder: (context, ref, child) {
+        final lastPressureReading =
+            ref.watch(sectorLastPressureStreamProvider(sector.id)).valueOrNull;
+        final lastIrrigatedString = context.timeAgo(
+          lastPressureReading?.createdAt,
+          fallbackValue: loc.notAvailable,
+        );
+        return Text(
+          '$varietySpecie\n${loc.sectorLastIrrigation(
+            lastIrrigatedString,
+          )}',
+          style: context.commonSubtitleStyle,
+        );
+      },
     );
   }
 }
