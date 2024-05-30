@@ -14,6 +14,10 @@ class SupabaseSectorRepository implements SectorRepository {
     return data.map((sector) => Sector.fromJson(sector)).toList();
   }
 
+  List<Sector>? _sectorsFromList(List<Map<String, dynamic>> data) {
+    return data.map((sector) => Sector.fromJson(sector)).toList();
+  }
+
   Sector? _sectorFromJsonSingle(List<Map<String, dynamic>> data) {
     return data.isEmpty ? null : Sector.fromJson(data.first);
   }
@@ -58,20 +62,21 @@ class SupabaseSectorRepository implements SectorRepository {
   }
 
   @override
-  Stream<List<String?>> watchCompanyUsedSectorNames(String companyId) {
-    return watchSectors(companyId).map(
-      (sectors) => sectors.map((sector) => sector?.name.toLowerCase()).toList(),
-    );
+  Future<List<String?>> getCompanyUsedSectorNames(String companyId) async {
+    final sectors = await getCompanySectors(companyId);
+    if (sectors == null) return [];
+    return sectors.map((sector) => sector.name).toList();
   }
 
   @override
-  Stream<List<String?>> watchCompanySectorUsedCommands(String companyId) {
-    return watchSectors(companyId).map(
-      (sectors) => sectors
-          .map((sector) => [sector?.turnOnCommand, sector?.turnOffCommand])
-          .expand((element) => element)
-          .toList(),
-    );
+  Future<List<String?>> getCompanySectorUsedCommands(String companyId) async {
+    final sectors = await getCompanySectors(companyId);
+    if (sectors == null) return [];
+
+    return sectors
+        .map((sector) => [sector.turnOnCommand, sector.turnOffCommand])
+        .expand((element) => element)
+        .toList();
   }
 
   @override
@@ -95,7 +100,7 @@ class SupabaseSectorRepository implements SectorRepository {
   }
 
   @override
-  Stream<List<Sector?>> watchSectors(String companyId) {
+  Stream<List<Sector?>> watchCompanySectors(String companyId) {
     final stream = _supabaseClient.sectors.stream(
       primaryKey: [SectorDatabaseKeys.id],
     ).eq(
@@ -107,10 +112,22 @@ class SupabaseSectorRepository implements SectorRepository {
   }
 
   @override
-  Stream<List<String?>> watchSectorUsedMqttMsgNames() {
+  Future<List<Sector>?> getAllSectors() async {
+    return _supabaseClient.sectors.select().withConverter(_sectorsFromList);
+  }
+
+  @override
+  Future<List<String?>> getSectorUsedMqttMsgNames() async {
+    final sectors = await getAllSectors();
+    if (sectors == null) return [];
+    return sectors.map((sector) => sector.mqttMsgName).toList();
+  }
+
+  @override
+  Future<List<Sector>?> getCompanySectors(String companyId) {
     return _supabaseClient.sectors
-        .stream(primaryKey: [SectorDatabaseKeys.id]).map((sectors) => sectors
-            .map((sector) => Sector.fromJson(sector).mqttMsgName.toLowerCase())
-            .toList());
+        .select()
+        .eq(SectorDatabaseKeys.companyId, companyId)
+        .withConverter(_sectorsFromList);
   }
 }

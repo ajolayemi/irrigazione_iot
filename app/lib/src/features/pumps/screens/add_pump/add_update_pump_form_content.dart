@@ -316,7 +316,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                           Consumer(
                             builder: (context, ref, child) {
                               final usedPumpNames =
-                                  ref.watch(companyUsedPumpNamesStreamProvider);
+                                  ref.watch(companyUsedPumpNamesFutureProvider);
                               final value = usedPumpNames.valueOrNull ?? [];
                               return FormTitleAndField(
                                 enabled: !state.isLoading,
@@ -346,7 +346,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                           Consumer(
                             builder: (context, ref, child) {
                               final usedMqttNames = ref.watch(
-                                  pumpUsedMqttMessageNamesStreamProvider);
+                                  pumpUsedMqttMessageNamesFutureProvider);
                               final mqttNames = usedMqttNames.valueOrNull ?? [];
                               return FormTitleAndField(
                                 enabled: !state.isLoading,
@@ -409,7 +409,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                           Consumer(
                             builder: (context, ref, child) {
                               final usedCommands = ref
-                                  .watch(companyUsedPumpCommandsStreamProvider);
+                                  .watch(companyUsedPumpCommandsFutureProvider);
                               final commands = usedCommands.valueOrNull ?? [];
                               return FormTitleAndField(
                                 enabled: !state.isLoading,
@@ -441,7 +441,7 @@ class _AddUpdatePumpContents extends ConsumerState<AddUpdatePumpContents>
                           Consumer(
                             builder: (context, ref, child) {
                               final usedCommands = ref
-                                  .watch(companyUsedPumpCommandsStreamProvider);
+                                  .watch(companyUsedPumpCommandsFutureProvider);
                               final commands = usedCommands.valueOrNull ?? [];
                               return FormTitleAndField(
                                 enabled: !state.isLoading,

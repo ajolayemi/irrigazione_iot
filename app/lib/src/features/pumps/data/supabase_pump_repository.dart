@@ -18,6 +18,10 @@ class SupabasePumpRepository implements PumpRepository {
     return data.map((pump) => Pump.fromJson(pump)).toList();
   }
 
+  List<Pump>? _fromList(List<Map<String, dynamic>> data) {
+    return data.map((pump) => Pump.fromJson(pump)).toList();
+  }
+
   Pump? _toPump(Map<String, dynamic>? json) =>
       json == null ? null : Pump.fromJson(json);
 
@@ -72,23 +76,6 @@ class SupabasePumpRepository implements PumpRepository {
   }
 
   @override
-  Stream<List<String?>> watchCompanyUsedPumpNames(String companyId) {
-    return watchCompanyPumps(companyId).map(
-      (pumps) => pumps.map((pump) => pump?.name.toLowerCase()).toList(),
-    );
-  }
-
-  @override
-  Stream<List<String?>> watchCompanyUsedPumpCommands(String companyId) {
-    return watchCompanyPumps(companyId).map(
-      (pumps) => pumps
-          .map((pump) => [pump?.turnOnCommand, pump?.turnOffCommand])
-          .expand((element) => element)
-          .toList(),
-    );
-  }
-
-  @override
   Stream<Pump?> watchPump(String pumpId) {
     final stream = _supabaseClient.pumps
         .stream(primaryKey: [PumpDatabaseKeys.id])
@@ -100,6 +87,39 @@ class SupabasePumpRepository implements PumpRepository {
 
     return stream.map(_pumpFromJsonSingle);
   }
+  
+  @override
+  Future<List<Pump>?> getCompanyPumps(String companyId) async {
+    return _supabaseClient.pumps
+        .select()
+        .eq(PumpDatabaseKeys.companyId, companyId)
+        .withConverter(_fromList);
+  }
+
+  @override
+  Future<List<Pump>?> getAllPumps() async {
+    return _supabaseClient.pumps.select().withConverter(_fromList);
+  }
+
+  @override
+  Future<List<String?>> getCompanyUsedPumpNames(String companyId) async {
+    final companyPumps = await getCompanyPumps(companyId);
+    if (companyPumps == null || companyPumps.isEmpty) return [];
+    return companyPumps.map((pump) => pump.name).toList();
+  }
+
+  @override
+  Future<List<String?>> getCompanyUsedPumpCommands(String companyId) async {
+    final companyPumps = await getCompanyPumps(companyId);
+
+    if (companyPumps == null || companyPumps.isEmpty) return [];
+
+    return companyPumps
+        .map((pump) => [pump.turnOnCommand, pump.turnOffCommand])
+        .expand((element) => element)
+        .toList();
+  }
+
 
   @override
   Future<Pump?> getPump(String pumpId) async {
@@ -112,10 +132,9 @@ class SupabasePumpRepository implements PumpRepository {
   }
 
   @override
-  Stream<List<String?>> watchUsedMqttMessageNames() {
-    return _supabaseClient.pumps.stream(primaryKey: [PumpDatabaseKeys.id]).map(
-      (pumps) =>
-          pumps.map((pump) => Pump.fromJson(pump).mqttMessageName).toList(),
-    );
+  Future<List<String?>> getUsedMqttMessageNames() async {
+    final pumps = await getAllPumps();
+    if (pumps == null || pumps.isEmpty) return [];
+    return pumps.map((pump) => pump.mqttMessageName).toList();
   }
 }

@@ -58,11 +58,6 @@ abstract class BoardRepository {
   /// Emits a list of already used board names for a specified company
   /// this is used in form validation to prevent duplicate board names for a company
   Stream<List<String?>> watchCompanyUsedBoardNames(String companyId);
-
-  /// Emits a list of already used mqtt names in general
-  /// this is used in form validation to prevent duplicate mqtt names
-  /// for boards
-  Stream<List<String?>> watchBoardsUsedMqttNames();
 }
 
 @Riverpod(keepAlive: true)
@@ -122,11 +117,4 @@ Stream<List<String?>> usedBoardNamesStream(UsedBoardNamesStreamRef ref) {
   if (currentSelectedCompanyByUser == null) return Stream.value([]);
   return boardRepository
       .watchCompanyUsedBoardNames(currentSelectedCompanyByUser.id);
-}
-
-@riverpod
-Stream<List<String?>> boardsUsedMqttNamesStream(
-    BoardsUsedMqttNamesStreamRef ref) {
-  final boardRepository = ref.watch(boardRepositoryProvider);
-  return boardRepository.watchBoardsUsedMqttNames();
 }

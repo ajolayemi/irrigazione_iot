@@ -50,7 +50,7 @@ class CollectorExpansionTileChildItem extends ConsumerWidget {
                   onPressed: () => _navigateToCollectorDetails(context),
                 ),
           title: CollectorTileRowWidget(collector: collector),
-          // subtitle: CollectorTileSubtitle(collectorId: collector.id),
+          subtitle: CollectorTileSubtitle(collectorId: collector.id),
           children: collectorSectors.isEmpty
               ? []
               : collectorSectors.map((collectorSector) => Consumer(

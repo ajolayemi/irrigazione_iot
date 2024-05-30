@@ -25,7 +25,7 @@ class PumpSwitchedOnListTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = context.textTheme;
     final pump =
-        ref.watch(pumpStreamProvider(pumpSwitchedOn.pumpId)).valueOrNull;
+        ref.watch(pumpFutureProvider(pumpSwitchedOn.pumpId)).valueOrNull;
     if (pump == null) return Container();
 
     return DashboardChildItemListTile(

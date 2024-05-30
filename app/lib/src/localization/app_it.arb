@@ -273,5 +273,7 @@
   "sectorsSwitchedOn": "Settori accesi",
   "noPumpsSwitchedOn": "Non ci sono pompe accese al momento",
   "noSectorsSwitchedOn": "Non ci sono settori accesi al momento",
-  "date": "Data"
+  "date": "Data",
+  "search": "Cerca...",
+  "noSearchResults": "Nessun risultato trovato"
 }

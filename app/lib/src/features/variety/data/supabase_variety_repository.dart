@@ -9,31 +9,22 @@ class SupabaseVarietyRepository implements VarietyRepository {
   const SupabaseVarietyRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
-  List<Variety>? _varietiesFromJson(
-      List<Map<String, dynamic>>? json, String? selectedId) {
+  List<Variety>? _varietiesFromJson(List<Map<String, dynamic>>? json) {
     if (json == null) return null;
-    final varieties = json.map((e) => Variety.fromJson(e)).toList();
-    final indexOfSelected =
-        varieties.indexWhere((variety) => variety.id == selectedId);
-    if (indexOfSelected != -1) {
-      final selectedVariety = varieties.removeAt(indexOfSelected);
-      varieties.insert(0, selectedVariety);
-    }
-    return varieties;
+    return json.map((e) => Variety.fromJson(e)).toList();
   }
 
   Variety? _varietySingleFromJsonList(List<Map<String, dynamic>>? json) =>
       json?.map((e) => Variety.fromJson(e)).first;
-  
+
   Variety? _toVariety(Map<String, dynamic>? json) =>
       json == null ? null : Variety.fromJson(json);
 
   @override
-  Stream<List<Variety>?> watchVarieties(String? previouslySelectedVarietyId) =>
-      _supabaseClient.varieties
-          .stream(primaryKey: [VarietyDatabaseKeys.id])
-          .order(VarietyDatabaseKeys.name, ascending: true)
-          .map((data) => _varietiesFromJson(data, previouslySelectedVarietyId));
+  Stream<List<Variety>?> watchVarieties() => _supabaseClient.varieties
+      .stream(primaryKey: [VarietyDatabaseKeys.id])
+      .order(VarietyDatabaseKeys.name, ascending: true)
+      .map((data) => _varietiesFromJson(data));
 
   @override
   Stream<Variety?> watchVariety(String varietyId) => _supabaseClient.varieties
@@ -49,6 +40,15 @@ class SupabaseVarietyRepository implements VarietyRepository {
         .eq(VarietyDatabaseKeys.id, varietyId)
         .maybeSingle()
         .withConverter(_toVariety);
+    return data;
+  }
+
+  @override
+  Future<List<Variety>?> getVarieties() async {
+    final data = await _supabaseClient.varieties
+        .select()
+        .order(VarietyDatabaseKeys.name, ascending: true)
+        .withConverter(_varietiesFromJson);
     return data;
   }
 }

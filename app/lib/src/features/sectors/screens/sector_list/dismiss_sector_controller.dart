@@ -1,7 +1,6 @@
+import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/services/dismiss_sector_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-
 
 part 'dismiss_sector_controller.g.dart';
 
@@ -21,6 +20,9 @@ class DismissSectorController extends _$DismissSectorController {
       state = AsyncError(res.error!, StackTrace.current);
       return false;
     }
+
+    // Invalidate the list of sectors
+    ref.invalidate(companySectorsFutureProvider);
     state = const AsyncData<void>(null);
     return true;
   }

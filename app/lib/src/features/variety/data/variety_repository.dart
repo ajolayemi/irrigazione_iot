@@ -10,7 +10,10 @@ part 'variety_repository.g.dart';
 
 abstract class VarietyRepository {
   /// Emits a list of [Variety]s
-  Stream<List<Variety>?> watchVarieties(String? previouslySelectedVarietyId);
+  Stream<List<Variety>?> watchVarieties();
+
+  /// Fetches list of [Variety]s
+  Future<List<Variety>?> getVarieties();
 
   /// Emits a [Variety] with the given [varietyId]
   Stream<Variety?> watchVariety(String varietyId);
@@ -26,10 +29,15 @@ VarietyRepository varietyRepository(VarietyRepositoryRef ref) {
 }
 
 @riverpod
-Stream<List<Variety>?> varietiesStream(VarietiesStreamRef ref,
-    {String? previouslySelectedVarietyId}) {
+Stream<List<Variety>?> varietiesStream(VarietiesStreamRef ref) {
   final repo = ref.watch(varietyRepositoryProvider);
-  return repo.watchVarieties(previouslySelectedVarietyId);
+  return repo.watchVarieties();
+}
+
+@riverpod
+Future<List<Variety>?> varietiesFuture(VarietiesFutureRef ref) {
+  final repo = ref.watch(varietyRepositoryProvider);
+  return repo.getVarieties();
 }
 
 @riverpod

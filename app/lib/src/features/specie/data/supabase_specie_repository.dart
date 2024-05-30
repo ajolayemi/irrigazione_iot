@@ -9,17 +9,9 @@ class SupabaseSpecieRepository implements SpecieRepository {
   const SupabaseSpecieRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
-  List<Specie>? _speciesFromJson(
-      List<Map<String, dynamic>>? json, String? selectedId) {
+  List<Specie>? _speciesFromJson(List<Map<String, dynamic>>? json) {
     if (json == null) return null;
-    final species = json.map((e) => Specie.fromJson(e)).toList();
-    final indexOfSelected =
-        species.indexWhere((specie) => specie.id == selectedId);
-    if (indexOfSelected != -1) {
-      final selectedSpecie = species.removeAt(indexOfSelected);
-      species.insert(0, selectedSpecie);
-    }
-    return species;
+    return json.map((e) => Specie.fromJson(e)).toList();
   }
 
   Specie? _specieSingleFromJsonList(List<Map<String, dynamic>>? json) =>
@@ -29,14 +21,11 @@ class SupabaseSpecieRepository implements SpecieRepository {
       json == null ? null : Specie.fromJson(json);
 
   @override
-  Stream<List<Specie>?> watchSpecies({
-    String? previouslySelectedSpecieId,
-  }) {
+  Stream<List<Specie>?> watchSpecies() {
     final stream = _supabaseClient.species.stream(primaryKey: [
       SpecieDatabaseKeys.id
     ]).order(SpecieDatabaseKeys.name, ascending: true);
-    return stream
-        .map((data) => _speciesFromJson(data, previouslySelectedSpecieId));
+    return stream.map((data) => _speciesFromJson(data));
   }
 
   @override
@@ -53,6 +42,15 @@ class SupabaseSpecieRepository implements SpecieRepository {
         .eq(SpecieDatabaseKeys.id, specieId)
         .maybeSingle()
         .withConverter(_toSpecie);
+    return data;
+  }
+
+  @override
+  Future<List<Specie>?> getSpecies() async {
+    final data = await _supabaseClient.species
+        .select()
+        .order(SpecieDatabaseKeys.name, ascending: true)
+        .withConverter(_speciesFromJson);
     return data;
   }
 }

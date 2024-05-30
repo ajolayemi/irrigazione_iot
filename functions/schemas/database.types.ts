@@ -104,7 +104,6 @@ export type Database = {
           eui: string
           id: number
           model: string
-          mqtt_msg_name: string
           name: string
           updated_at: string
         }
@@ -115,7 +114,6 @@ export type Database = {
           eui: string
           id?: number
           model: string
-          mqtt_msg_name: string
           name: string
           updated_at: string
         }
@@ -126,7 +124,6 @@ export type Database = {
           eui?: string
           id?: number
           model?: string
-          mqtt_msg_name?: string
           name?: string
           updated_at?: string
         }
@@ -709,6 +706,42 @@ export type Database = {
             columns: ["variety_id"]
             isOneToOne: false
             referencedRelation: "varieties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sectors_switched_on: {
+        Row: {
+          company_id: number
+          id: number
+          sector_id: number
+          status_boolean: boolean
+        }
+        Insert: {
+          company_id: number
+          id?: number
+          sector_id: number
+          status_boolean: boolean
+        }
+        Update: {
+          company_id?: number
+          id?: number
+          sector_id?: number
+          status_boolean?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_sectors_switched_on_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_sectors_switched_on_sector_id_fkey"
+            columns: ["sector_id"]
+            isOneToOne: false
+            referencedRelation: "sectors"
             referencedColumns: ["id"]
           },
         ]
