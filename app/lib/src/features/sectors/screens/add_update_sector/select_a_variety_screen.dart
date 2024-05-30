@@ -7,7 +7,7 @@ import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_search_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_sliver_connect_something_to.dart';
-import 'package:irrigazione_iot/src/shared/widgets/empty_search_result.dart';
+import 'package:irrigazione_iot/src/shared/widgets/filtered_screen_item_renderer.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.dart';
 import 'package:irrigazione_iot/src/shared/widgets/search_text_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indicator.dart';
@@ -53,8 +53,11 @@ class _SelectAVarietyScreenState extends ConsumerState<SelectAVarietyScreen> {
   @override
   Widget build(BuildContext context) {
     final loc = context.loc;
-    final varieties = ref.watch(varietiesStreamProvider);
 
+    // A general list of all varieties
+    final varieties = ref.watch(varietiesFutureProvider).valueOrNull;
+
+    // A list of varieties that are filtered based on the search query
     final queryResult = ref.watch(selectAVarietyQueryResultProvider);
     return CustomSliverConnectSomethingTo(
       subChild: !_isSearching
@@ -66,33 +69,28 @@ class _SelectAVarietyScreenState extends ConsumerState<SelectAVarietyScreen> {
       title: loc.selectAVarietyPageTitle,
       actions: [
         CommonSearchIconButton(
-          isVisibile: varieties.valueOrNull?.isNotEmpty ?? false,
+          isVisibile: varieties?.isNotEmpty ?? false,
           onPressed: _onPressedSearchIcon,
           isSearching: _isSearching,
         )
       ],
       onCTAPressed: () => context.popNavigator(_selectedVariety),
       child: AsyncValueSliverWidget<List<Variety>?>(
-        value: varieties,
-        data: (data) {
-          final hasData = data != null && data.isNotEmpty;
-          if (hasData && queryResult.isEmpty) {
-            return const EmptySearchResult();
-          }
-          // TODO: replace this with more meaningful empty widget
-          if (!hasData) {
-            return const SliverFillRemaining(
+        value: queryResult,
+        data: (filteredResult) {
+          return FilteredScreenItemRenderer<Variety?>(
+            baseItems: varieties,
+            filteredItems: filteredResult,
+            noBaseItemsWidget: const SliverFillRemaining(
               child: Center(
                 child: Text('No varieties found'),
               ),
-            );
-          }
-
-          return SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final variety = queryResult[index];
-                return ResponsiveRadioListTile(
+            ),
+            mainWidget: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final variety = filteredResult![index];
+                  return ResponsiveRadioListTile(
                     title: variety.name,
                     value: RadioButtonItem(
                       value: variety.id,
@@ -100,15 +98,17 @@ class _SelectAVarietyScreenState extends ConsumerState<SelectAVarietyScreen> {
                     ),
                     groupValue: _selectedVariety,
                     onChanged: (value) => setState(
-                          () {
-                            _selectedVariety = RadioButtonItem(
-                              value: variety.id,
-                              label: variety.name,
-                            );
-                          },
-                        ));
-              },
-              childCount: queryResult.length,
+                      () {
+                        _selectedVariety = RadioButtonItem(
+                          value: variety.id,
+                          label: variety.name,
+                        );
+                      },
+                    ),
+                  );
+                },
+                childCount: filteredResult?.length,
+              ),
             ),
           );
         },

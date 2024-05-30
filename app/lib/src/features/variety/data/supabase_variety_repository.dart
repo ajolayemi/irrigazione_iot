@@ -42,4 +42,13 @@ class SupabaseVarietyRepository implements VarietyRepository {
         .withConverter(_toVariety);
     return data;
   }
+
+  @override
+  Future<List<Variety>?> getVarieties() async {
+    final data = await _supabaseClient.varieties
+        .select()
+        .order(VarietyDatabaseKeys.name, ascending: true)
+        .withConverter(_varietiesFromJson);
+    return data;
+  }
 }
