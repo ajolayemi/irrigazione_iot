@@ -19,7 +19,7 @@ class SectorListTileSubtitle extends ConsumerWidget {
     final sectorVariety =
         ref.watch(varietyFutureProvider(sector.varietyId)).valueOrNull;
     final sectorSpecie =
-        ref.watch(specieStreamProvider(sector.specieId)).valueOrNull;
+        ref.watch(specieFutureProvider(sector.specieId)).valueOrNull;
     final varietySpecie = sectorVariety != null && sectorSpecie != null
         ? '${sectorSpecie.name} ${sectorVariety.name}'
         : context.loc.notAvailable;
