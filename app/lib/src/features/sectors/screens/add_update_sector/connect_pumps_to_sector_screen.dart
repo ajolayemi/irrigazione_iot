@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
-import 'package:irrigazione_iot/src/features/pumps/screens/pump_list/pump_search_query_result.dart';
+import 'package:irrigazione_iot/src/features/pumps/providers/pump_search_query_result.dart';
 import 'package:irrigazione_iot/src/features/pumps/widgets/empty_pump_widget.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
