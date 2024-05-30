@@ -18,6 +18,9 @@ class DismissPumpController extends _$DismissPumpController {
       state = AsyncError(res.error!, StackTrace.current);
       return false;
     }
+
+    // force the pump list provider to refresh
+    ref.invalidate(companyPumpsFutureProvider);
     state = const AsyncData<void>(null);
     return true;
   }

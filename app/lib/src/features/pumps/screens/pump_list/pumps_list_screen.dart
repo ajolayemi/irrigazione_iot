@@ -51,8 +51,10 @@ class _PumpListScreenState extends ConsumerState<PumpListScreen> {
       (_, state) => state.showAlertDialogOnError(context),
     );
 
-    final companyPumps = ref.watch(companyPumpsStreamProvider);
+    /// A list of original list of pumps that belong to the company
+    final companyPumps = ref.watch(companyPumpsFutureProvider).valueOrNull;
 
+    /// A list of pumps that are filtered based on the search query
     final filteredPumps = ref.watch(pumpSearchQueryResultProvider);
 
     return Scaffold(
@@ -63,7 +65,7 @@ class _PumpListScreenState extends ConsumerState<PumpListScreen> {
               title: context.loc.pumpPageTitle,
               actions: [
                 CommonSearchIconButton(
-                  isVisibile: companyPumps.valueOrNull?.isNotEmpty ?? false,
+                  isVisibile: companyPumps?.isNotEmpty ?? false,
                   isSearching: _showSearchField,
                   onPressed: _onPressedSearchIcon,
                 ),
@@ -74,29 +76,38 @@ class _PumpListScreenState extends ConsumerState<PumpListScreen> {
                 ),
               ],
             ),
+            // List of filter chips goes here
+
             if (_showSearchField)
               SearchTextField(
                 onSearch:
                     ref.read(pumpSearchQueryResultProvider.notifier).search,
               ),
             AsyncValueSliverWidget(
-              value: companyPumps,
+              value: filteredPumps,
               loading: () => const PumpListTileSkeleton(), // todo replace
-              data: (pumps) {
-                if (pumps.isNotEmpty && filteredPumps.isEmpty) {
-                  return const EmptySearchResult();
-                }
-                if (pumps.isEmpty) {
+              data: (filterResult) {
+                final originallyHasPumps =
+                    companyPumps != null && companyPumps.isNotEmpty;
+
+                final filterIsEmpty = filterResult?.isEmpty ?? true;
+
+                if (!originallyHasPumps) {
                   return const EmptyPumpWidget();
                 }
+
+                if (originallyHasPumps && filterIsEmpty) {
+                  return const EmptySearchResult();
+                }
+
                 // It should be save to assume that the pumps are not null here
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
-                      final pump = filteredPumps[index]!;
+                      final pump = filterResult![index];
                       return PumpListTile(pump: pump);
                     },
-                    childCount: filteredPumps.length,
+                    childCount: filterResult?.length,
                   ),
                 );
               },

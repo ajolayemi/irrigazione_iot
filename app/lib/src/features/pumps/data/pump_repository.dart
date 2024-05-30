@@ -11,6 +11,9 @@ abstract class PumpRepository {
   /// watch the pumps pertaining to a company
   Stream<List<Pump?>> watchCompanyPumps(String companyId);
 
+  /// Gets the list of [Pump]s  pertaining to a company
+  Future<List<Pump>?> getCompanyPumps(String companyId);
+
   /// watches a specified pump with the given pumpId
   Stream<Pump?> watchPump(String pumpId);
 
@@ -53,6 +56,17 @@ Stream<List<Pump?>> companyPumpsStream(
       ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return Stream.value([]);
   return pumpRepository.watchCompanyPumps(currentSelectedCompanyByUser.id);
+}
+
+@riverpod
+Future<List<Pump>?> companyPumpsFuture(
+  CompanyPumpsFutureRef ref,
+) {
+  final pumpRepository = ref.watch(pumpRepositoryProvider);
+  final currentSelectedCompanyByUser =
+      ref.watch(currentTappedCompanyProvider).value;
+  if (currentSelectedCompanyByUser == null) return Future.value([]);
+  return pumpRepository.getCompanyPumps(currentSelectedCompanyByUser.id);
 }
 
 @riverpod

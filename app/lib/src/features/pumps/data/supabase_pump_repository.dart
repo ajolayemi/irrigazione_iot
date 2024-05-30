@@ -18,6 +18,10 @@ class SupabasePumpRepository implements PumpRepository {
     return data.map((pump) => Pump.fromJson(pump)).toList();
   }
 
+  List<Pump>? _fromList(List<Map<String, dynamic>> data) {
+    return data.map((pump) => Pump.fromJson(pump)).toList();
+  }
+
   Pump? _toPump(Map<String, dynamic>? json) =>
       json == null ? null : Pump.fromJson(json);
 
@@ -69,6 +73,14 @@ class SupabasePumpRepository implements PumpRepository {
     );
 
     return stream.map(_pumpsFromJsonList);
+  }
+
+  @override
+  Future<List<Pump>?> getCompanyPumps(String companyId) {
+    return _supabaseClient.pumps
+        .select()
+        .eq(PumpDatabaseKeys.companyId, companyId)
+        .withConverter(_fromList);
   }
 
   @override
