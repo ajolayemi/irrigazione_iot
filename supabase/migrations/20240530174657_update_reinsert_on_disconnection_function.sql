@@ -3,7 +3,7 @@ CREATE
 OR REPLACE FUNCTION reinsert_on_disconnection () RETURNS trigger LANGUAGE plpgsql AS $$
 declare
   sector sectors%ROWTYPE;
-  existing_available_sector%ROWTYPE;
+  existing_available_sector available_sectors%ROWTYPE;
   begin 
     SELECT * INTO sector FROM sectors WHERE id = old.sector_id;
 
