@@ -12,6 +12,9 @@ abstract class SpecieRepository {
   /// Emits a list of [Specie]s
   Stream<List<Specie>?> watchSpecies();
 
+  /// Fetches the list of [Specie]s
+  Future<List<Specie>?> getSpecies();
+
   /// Emits a [Specie] with the given [specieId]
   Stream<Specie?> watchSpecie(String specieId);
 
@@ -29,6 +32,12 @@ SpecieRepository specieRepository(SpecieRepositoryRef ref) {
 Stream<List<Specie>?> speciesStream(SpeciesStreamRef ref) {
   final repo = ref.watch(specieRepositoryProvider);
   return repo.watchSpecies();
+}
+
+@riverpod
+Future<List<Specie>?> speciesFuture(SpeciesFutureRef ref) {
+  final repo = ref.watch(specieRepositoryProvider);
+  return repo.getSpecies();
 }
 
 @riverpod

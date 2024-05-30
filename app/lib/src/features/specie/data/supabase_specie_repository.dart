@@ -9,11 +9,9 @@ class SupabaseSpecieRepository implements SpecieRepository {
   const SupabaseSpecieRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
-  List<Specie>? _speciesFromJson(
-      List<Map<String, dynamic>>? json) {
+  List<Specie>? _speciesFromJson(List<Map<String, dynamic>>? json) {
     if (json == null) return null;
     return json.map((e) => Specie.fromJson(e)).toList();
-
   }
 
   Specie? _specieSingleFromJsonList(List<Map<String, dynamic>>? json) =>
@@ -27,8 +25,7 @@ class SupabaseSpecieRepository implements SpecieRepository {
     final stream = _supabaseClient.species.stream(primaryKey: [
       SpecieDatabaseKeys.id
     ]).order(SpecieDatabaseKeys.name, ascending: true);
-    return stream
-        .map((data) => _speciesFromJson(data));
+    return stream.map((data) => _speciesFromJson(data));
   }
 
   @override
@@ -45,6 +42,15 @@ class SupabaseSpecieRepository implements SpecieRepository {
         .eq(SpecieDatabaseKeys.id, specieId)
         .maybeSingle()
         .withConverter(_toSpecie);
+    return data;
+  }
+
+  @override
+  Future<List<Specie>?> getSpecies() async {
+    final data = await _supabaseClient.species
+        .select()
+        .order(SpecieDatabaseKeys.name, ascending: true)
+        .withConverter(_speciesFromJson);
     return data;
   }
 }

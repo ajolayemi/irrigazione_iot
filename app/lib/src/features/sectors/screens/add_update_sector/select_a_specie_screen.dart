@@ -7,7 +7,7 @@ import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_search_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/custom_sliver_connect_something_to.dart';
-import 'package:irrigazione_iot/src/shared/widgets/empty_search_result.dart';
+import 'package:irrigazione_iot/src/shared/widgets/filtered_screen_item_renderer.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.dart';
 import 'package:irrigazione_iot/src/shared/widgets/search_text_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indicator.dart';
@@ -51,10 +51,14 @@ class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final species = ref.watch(speciesStreamProvider);
-
-    final queryResult = ref.watch(selectASpecieQueryResultProvider);
     final loc = context.loc;
+
+    // A general list of all species
+    final species = ref.watch(speciesFutureProvider).valueOrNull;
+
+    // A list of species that are filtered based on the search query
+    final queryResult = ref.watch(selectASpecieQueryResultProvider);
+
     return CustomSliverConnectSomethingTo(
       subChild: _isSearching
           ? SearchTextField(
@@ -64,7 +68,7 @@ class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
           : null,
       actions: [
         CommonSearchIconButton(
-          isVisibile: species.valueOrNull?.isNotEmpty ?? false,
+          isVisibile: species?.isNotEmpty ?? false,
           onPressed: _onPressedSearchIcon,
           isSearching: _isSearching,
         ),
@@ -72,41 +76,38 @@ class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
       title: loc.selectASpecie,
       onCTAPressed: () => context.popNavigator(_selectedSpecie),
       child: AsyncValueSliverWidget(
-        value: species,
-        data: (data) {
-          final hasData = data != null && data.isNotEmpty;
-          if (hasData && queryResult.isEmpty) {
-            return const EmptySearchResult();
-          }
-          // TODO: replace this with more meaningful empty widget
-          if (!hasData) {
-            return const SliverFillRemaining(
+        value: queryResult,
+        data: (filteredResult) {
+          return FilteredScreenItemRenderer(
+            baseItems: species,
+            filteredItems: filteredResult,
+            noBaseItemsWidget: const SliverFillRemaining(
               child: Center(
                 child: Text('No species found'),
               ),
-            );
-          }
-          return SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final specie = queryResult[index];
+            ),
+            mainWidget: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final specie = filteredResult![index];
 
-                return ResponsiveRadioListTile(
-                  title: specie.name,
-                  value: RadioButtonItem(
-                    value: specie.id,
-                    label: specie.name,
-                  ),
-                  groupValue: _selectedSpecie,
-                  onChanged: (val) => setState(() {
-                    _selectedSpecie = _selectedSpecie.copyWith(
-                      value: val?.value,
-                      label: val?.label,
-                    );
-                  }),
-                );
-              },
-              childCount: queryResult.length,
+                  return ResponsiveRadioListTile(
+                    title: specie.name,
+                    value: RadioButtonItem(
+                      value: specie.id,
+                      label: specie.name,
+                    ),
+                    groupValue: _selectedSpecie,
+                    onChanged: (val) => setState(() {
+                      _selectedSpecie = _selectedSpecie.copyWith(
+                        value: val?.value,
+                        label: val?.label,
+                      );
+                    }),
+                  );
+                },
+                childCount: filteredResult?.length,
+              ),
             ),
           );
         },
