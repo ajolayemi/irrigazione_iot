@@ -210,6 +210,7 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _onTappedSpecie() async {
+    _node.unfocus();
     final queryParam = QueryParameters(
       id: _selectedSpecieId,
       name: specie,
@@ -225,6 +226,7 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _onTappedVariety() async {
+    _node.unfocus();
     final queryParam = QueryParameters(
       id: _selectedVarietyId,
       name: variety,
@@ -242,6 +244,7 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _onTappedIrrigationSystem() async {
+    _node.unfocus();
     final queryParam = QueryParameters(
       id: irrigationSystem,
       name: irrigationSystem,
@@ -256,6 +259,7 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _onTappedIrrigationSource() async {
+    _node.unfocus();
     final queryParam = QueryParameters(
       id: irrigationSource,
       name: irrigationSource,
@@ -270,6 +274,7 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _onTappedConnectedPumps() async {
+    _node.unfocus();
     final queryParam = QueryParameters(
       id: _selectedPump?.value,
       name: _selectedPump?.label,

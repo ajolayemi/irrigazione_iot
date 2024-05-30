@@ -34,6 +34,8 @@ class AddUpdateSectorService {
       sector.copyWith(companyId: companyId),
     );
 
+    _invalidateSectorList();
+
     if (createdSector == null || pumpIdToConnectToSector.isEmpty) {
       debugPrint('Sector creation failed');
       return;
@@ -68,6 +70,7 @@ class AddUpdateSectorService {
     final updatedSector =
         await sectorRepo.updateSector(sector.copyWith(companyId: companyId));
 
+    _invalidateSectorList();
     if (updatedSector == null) return;
 
     // Get the current pump connected to the sector
@@ -109,6 +112,11 @@ class AddUpdateSectorService {
         'Updating sector pump: ${a?.toJson()} for sector: ${updatedSector.name}');
 
     return;
+  }
+
+  /// Invalidate the list of sectors to force a refresh
+  void _invalidateSectorList() {
+    ref.invalidate(companySectorsFutureProvider);
   }
 }
 

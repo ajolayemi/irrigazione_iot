@@ -4,8 +4,9 @@ import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
+import 'package:irrigazione_iot/src/features/sectors/providers/sector_search_query_result.dart';
 import 'package:irrigazione_iot/src/features/sectors/screens/sector_list/dismiss_sector_controller.dart';
-import 'package:irrigazione_iot/src/features/sectors/screens/sector_list/sector_search_query_result.dart';
 import 'package:irrigazione_iot/src/features/sectors/screens/sector_switch_controller.dart';
 import 'package:irrigazione_iot/src/features/sectors/widgets/empty_sector_widget.dart';
 import 'package:irrigazione_iot/src/features/sectors/widgets/sector_list_tile.dart';
@@ -14,7 +15,7 @@ import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_search_icon_button.dart';
-import 'package:irrigazione_iot/src/shared/widgets/empty_search_result.dart';
+import 'package:irrigazione_iot/src/shared/widgets/filtered_screen_item_renderer.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/shared/widgets/search_text_field.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
@@ -33,7 +34,7 @@ class _SectorsListScreenState extends ConsumerState<SectorsListScreen> {
 
   void _onPressedSearchIcon() {
     if (_isSearching) {
-      ref.read(sectorSearchQueryResultProvider.notifier).resetState();
+      ref.read(sectorSearchQueryResultProvider.notifier).reset();
     }
     setState(() {
       _isSearching = !_isSearching;
@@ -42,6 +43,7 @@ class _SectorsListScreenState extends ConsumerState<SectorsListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = context.loc;
     ref.listen(
       sectorSwitchControllerProvider,
       (_, state) => state.showAlertDialogOnError(context),
@@ -52,10 +54,10 @@ class _SectorsListScreenState extends ConsumerState<SectorsListScreen> {
       (_, state) => state.showAlertDialogOnError(context),
     );
 
-    final sectors = ref.watch(sectorListStreamProvider);
-    final loc = context.loc;
+    // A list of original list of sectors that belong to the company
+    final companySectors = ref.watch(sectorListStreamProvider).valueOrNull;
 
-    final queryResult = ref.watch(sectorSearchQueryResultProvider);
+    final filteredSectors = ref.watch(sectorSearchQueryResultProvider);
 
     return Scaffold(
       body: PaddedSafeArea(
@@ -65,7 +67,7 @@ class _SectorsListScreenState extends ConsumerState<SectorsListScreen> {
               title: loc.sectorPageTitle,
               actions: [
                 CommonSearchIconButton(
-                  isVisibile: sectors.valueOrNull?.isNotEmpty ?? false,
+                  isVisibile: companySectors?.isNotEmpty ?? false,
                   onPressed: _onPressedSearchIcon,
                   isSearching: _isSearching,
                 ),
@@ -80,26 +82,22 @@ class _SectorsListScreenState extends ConsumerState<SectorsListScreen> {
                     ref.read(sectorSearchQueryResultProvider.notifier).search,
               ),
             AsyncValueSliverWidget(
-              value: sectors,
-              data: (data) {
-                if (data.isNotEmpty && queryResult.isEmpty) {
-                  return const EmptySearchResult();
-                }
-                if (data.isEmpty) {
-                  return const EmptySectorWidget();
-                }
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final sector = queryResult[index];
-                      if (sector == null) {
-                        return const EmptySectorWidget();
-                      }
-                      return SectorListTile(sector: sector);
-                    },
-                    childCount: queryResult.length,
-                  ),
-                );
+              value: filteredSectors,
+              data: (filteredResult) {
+                return FilteredScreenItemRenderer<Sector?>(
+                    baseItems: companySectors,
+                    filteredItems: filteredResult,
+                    noBaseItemsWidget: const EmptySectorWidget(),
+                    mainWidget: SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          final sector = filteredResult![index];
+
+                          return SectorListTile(sector: sector);
+                        },
+                        childCount: filteredResult?.length,
+                      ),
+                    ));
               },
               loading: () => const SectorsListTileSkeleton(),
             )
