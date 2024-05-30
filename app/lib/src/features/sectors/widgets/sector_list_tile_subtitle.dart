@@ -17,7 +17,7 @@ class SectorListTileSubtitle extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
     final sectorVariety =
-        ref.watch(varietyStreamProvider(sector.varietyId)).valueOrNull;
+        ref.watch(varietyFutureProvider(sector.varietyId)).valueOrNull;
     final sectorSpecie =
         ref.watch(specieStreamProvider(sector.specieId)).valueOrNull;
     final varietySpecie = sectorVariety != null && sectorSpecie != null
