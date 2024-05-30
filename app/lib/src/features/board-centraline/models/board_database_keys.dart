@@ -10,5 +10,4 @@ class BoardDatabaseKeys {
   static const String companyId = 'company_id';
   static const String createdAt = 'created_at';
   static const String updatedAt = 'updated_at';
-  static const String mqttMsgName = 'mqtt_msg_name';
 }

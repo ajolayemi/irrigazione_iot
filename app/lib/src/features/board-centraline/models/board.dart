@@ -15,7 +15,6 @@ class Board extends Equatable {
     required this.eui,
     required this.collectorId,
     required this.companyId,
-    required this.mqttMsgName,
     this.createdAt,
     this.updatedAt,
   });
@@ -28,8 +27,7 @@ class Board extends Equatable {
         collectorId = '',
         companyId = '',
         createdAt = null,
-        updatedAt = null,
-        mqttMsgName = '';
+        updatedAt = null;
 
   @JsonKey(name: BoardDatabaseKeys.id, includeToJson: false)
   @IntConverter()
@@ -58,9 +56,6 @@ class Board extends Equatable {
   @JsonKey(name: BoardDatabaseKeys.updatedAt)
   final DateTime? updatedAt;
 
-  @JsonKey(name: BoardDatabaseKeys.mqttMsgName)
-  final String mqttMsgName;
-
   @override
   List<Object?> get props {
     return [
@@ -72,7 +67,6 @@ class Board extends Equatable {
       companyId,
       createdAt,
       updatedAt,
-      mqttMsgName,
     ];
   }
 
@@ -85,7 +79,6 @@ class Board extends Equatable {
     String? companyId,
     DateTime? createdAt,
     DateTime? updatedAt,
-    String? mqttMsgName,
   }) {
     return Board(
       id: id ?? this.id,
@@ -96,7 +89,6 @@ class Board extends Equatable {
       companyId: companyId ?? this.companyId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      mqttMsgName: mqttMsgName ?? this.mqttMsgName,
     );
   }
 

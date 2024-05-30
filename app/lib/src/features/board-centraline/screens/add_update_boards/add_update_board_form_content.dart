@@ -49,21 +49,18 @@ class _AddUpdateBoardFormContentState
   final _nameController = TextEditingController();
   final _modelController = TextEditingController();
   final _serialNumberController = TextEditingController();
-  final _mqttMessageNameController = TextEditingController();
   final _connectedCollectorController = TextEditingController();
 
   // fields values
   String get _name => _nameController.text;
   String get _model => _modelController.text;
   String get _serialNumber => _serialNumberController.text;
-  String get _mqttMsgName => _mqttMessageNameController.text;
   String get _connectedCollector => _connectedCollectorController.text;
 
   // Keys for testing
   static const _nameFieldKey = Key('boardNameField');
   static const _modelFieldKey = Key('boardModelField');
   static const _serialNumberFieldKey = Key('boardSerialNumberField');
-  static const _mqttMsgNameFieldKey = Key('mqttMessageNameField');
   static const _selectedCollectorFieldKey = Key('boardSelectedCollectorField');
 
   Board? _initialBoard = const Board.empty();
@@ -91,7 +88,6 @@ class _AddUpdateBoardFormContentState
       _nameController.text = _initialBoard?.name ?? '';
       _modelController.text = _initialBoard?.model ?? '';
       _serialNumberController.text = _initialBoard?.eui ?? '';
-      _mqttMessageNameController.text = _initialBoard?.mqttMsgName ?? '';
 
       if (board != null) {
         final selectedCollector =
@@ -112,7 +108,6 @@ class _AddUpdateBoardFormContentState
     _nameController.dispose();
     _modelController.dispose();
     _serialNumberController.dispose();
-    _mqttMessageNameController.dispose();
     _connectedCollectorController.dispose();
     _node.dispose();
     super.dispose();
@@ -207,7 +202,6 @@ class _AddUpdateBoardFormContentState
           id: _initialBoard?.id,
           model: _model,
           eui: _serialNumber,
-          mqttMsgName: _mqttMsgName,
         );
 
         bool success = false;
@@ -289,35 +283,7 @@ class _AddUpdateBoardFormContentState
                           );
                         },
                       ),
-                      gapH16,
-                      // Board mqtt message name field
-                      Consumer(
-                        builder: (context, ref, child) {
-                          final mqttMsgNames =
-                              ref.watch(boardsUsedMqttNamesStreamProvider);
-                          final value = mqttMsgNames.valueOrNull ?? [];
 
-                          return FormTitleAndField(
-                            fieldKey: _mqttMsgNameFieldKey,
-                            fieldTitle: loc.mqttMessageNameFormFieldTitle,
-                            fieldHintText: loc.mqttMessageNameFormHint,
-                            fieldController: _mqttMessageNameController,
-                            maxLength: AppConstants.maxMqttMessageNameLength,
-                            onEditingComplete: () => _nameEditingComplete(
-                              value: _mqttMsgName,
-                              existingNames: value,
-                              maxLength: AppConstants.maxMqttMessageNameLength,
-                              initialValue: _initialBoard?.mqttMsgName,
-                            ),
-                            validator: (_) => _nameErrorText(
-                              value: _mqttMsgName,
-                              existingNames: value,
-                              maxLength: AppConstants.maxMqttMessageNameLength,
-                              initialValue: _initialBoard?.mqttMsgName,
-                            ),
-                          );
-                        },
-                      ),
                       gapH16,
                       // Board model field
                       FormTitleAndField(
