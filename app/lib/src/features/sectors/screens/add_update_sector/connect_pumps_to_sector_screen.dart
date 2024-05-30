@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
+import 'package:irrigazione_iot/src/features/pumps/screens/pump_list/pump_search_query_result.dart';
 import 'package:irrigazione_iot/src/features/pumps/widgets/empty_pump_widget.dart';
-import 'package:irrigazione_iot/src/features/sectors/providers/connect_a_pump_query_result.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
@@ -56,7 +56,7 @@ class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
 
   void _onPressedSearchIcon() {
     if (_isSearching) {
-      ref.read(connectAPumpQueryResultProvider.notifier).reset();
+      ref.read(pumpSearchQueryResultProvider.notifier).reset();
     }
     setState(() {
       _isSearching = !_isSearching;
@@ -65,22 +65,22 @@ class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
 
   @override
   Widget build(BuildContext context) {
-    final availablePumps = ref.watch(companyPumpsStreamProvider);
+    final availablePumps = ref.watch(companyPumpsFutureProvider).valueOrNull;
     final loc = context.loc;
 
-    final queryResult = ref.watch(connectAPumpQueryResultProvider);
+    final queryResult = ref.watch(pumpSearchQueryResultProvider);
 
     return CustomSliverConnectSomethingTo(
       subChild: _isSearching
           ? SearchTextField(
               onSearch:
-                  ref.read(connectAPumpQueryResultProvider.notifier).search,
+                  ref.read(pumpSearchQueryResultProvider.notifier).search,
             )
           : null,
       title: loc.connectPumpToSectorPageTile,
       actions: [
         CommonSearchIconButton(
-          isVisibile: availablePumps.valueOrNull?.isNotEmpty ?? false,
+          isVisibile: availablePumps?.isNotEmpty ?? false,
           onPressed: _onPressedSearchIcon,
           isSearching: _isSearching,
         ),
@@ -91,14 +91,17 @@ class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
         ),
       ],
       child: AsyncValueSliverWidget(
-        value: availablePumps,
-        data: (data) {
-          final hasData = data.isNotEmpty;
+        value: queryResult,
+        data: (filterResult) {
+          final hasPumpsOriginally =
+              availablePumps != null && availablePumps.isNotEmpty;
 
-          if (hasData && queryResult.isEmpty) {
+          final filterIsEmpty = filterResult?.isEmpty ?? true;
+
+          if (hasPumpsOriginally && filterIsEmpty) {
             return const EmptySearchResult();
           }
-          if (data.isEmpty) {
+          if (!hasPumpsOriginally) {
             return const EmptyPumpWidget();
           }
 
@@ -106,12 +109,12 @@ class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
           return SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final pump = queryResult[index];
+                final pump = filterResult![index];
                 return ResponsiveRadioListTile(
-                  title: pump?.name ?? '',
+                  title: pump.name,
                   value: RadioButtonItem(
-                    value: pump?.id ?? '',
-                    label: pump?.name ?? '',
+                    value: pump.id,
+                    label: pump.name,
                   ),
                   groupValue: _selectedPump,
                   onChanged: (val) => setState(() {
@@ -122,7 +125,7 @@ class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
                   }),
                 );
               },
-              childCount: queryResult.length,
+              childCount: filterResult?.length,
             ),
           );
         },
