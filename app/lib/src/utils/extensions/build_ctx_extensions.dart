@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -9,6 +10,8 @@ import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.dart';
 
 extension BuildContextExtensions on BuildContext {
+  FocusScopeNode get focusScope => FocusScope.of(this);
+
   ThemeData get theme => Theme.of(this);
 
   TextTheme get textTheme => theme.textTheme;
@@ -22,6 +25,8 @@ extension BuildContextExtensions on BuildContext {
   String get locale => Localizations.localeOf(this).languageCode;
 
   String get localeShort => '${locale}_short';
+
+  void dismissKeyboard() => focusScope.unfocus();
 
   void popNavigator<T extends Object?>([T? result]) =>
       Navigator.of(this).pop(result);
