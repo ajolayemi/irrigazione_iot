@@ -38,7 +38,7 @@ class MqttClientService {
       );
 
       // add 10 seconds delay to allow supabase data sync
-      await delay(true, 5000);
+      await delay(true, 2000);
 
       client.disconnect();
       return messageId;
