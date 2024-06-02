@@ -10,6 +10,7 @@
     "start": "npm run shell",
     "dev": "NODE_ENV=dev",
     "deploy": "firebase deploy --only functions",
+    "deploy:one": "firebase deploy --only functions:insertDataToSupabase",
     "logs": "firebase functions:log"
   },
   "engines": {
