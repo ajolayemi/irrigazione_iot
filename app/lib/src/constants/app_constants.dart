@@ -9,4 +9,5 @@ class AppConstants {
   static const int maxMqttMessageNameLength = 15;
   static const int maxWeatherStationNameLength = 20;
   static const int maxWeatherStationEuiLength = 16;
+  static const int weenatTokenValidityDays = 365;
 }

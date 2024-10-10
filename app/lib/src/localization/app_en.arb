@@ -705,5 +705,8 @@
   "noSectorsSwitchedOn": "No sectors switched on at the moment",
   "date": "Date",
   "search": "Search...",
-  "noSearchResults": "No results found"
+  "noSearchResults": "No results found",
+  "weenat": "Weenat",
+  "weenatAuthScreenIntroductoryText": "Enter your Weenat credentials to continue",
+  "weenatSignInCta": "Sign into Weenat"
 }

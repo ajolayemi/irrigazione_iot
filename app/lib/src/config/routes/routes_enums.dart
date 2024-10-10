@@ -47,7 +47,9 @@ enum AppRoute {
   companyUsers('/company-users'),
   companyUserDetails('details/:id'),
   addCompanyUser('add'),
-  updateCompanyUser('edit');
+  updateCompanyUser('edit'),
+  weenatAuth('/weenat-auth-screen'),
+  weenatMap('/weenat-map-screen');
 
   const AppRoute(this.path);
   final String path;

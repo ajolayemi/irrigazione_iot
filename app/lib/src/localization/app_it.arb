@@ -275,5 +275,8 @@
   "noSectorsSwitchedOn": "Non ci sono settori accesi al momento",
   "date": "Data",
   "search": "Cerca...",
-  "noSearchResults": "Nessun risultato trovato"
+  "noSearchResults": "Nessun risultato trovato",
+  "weenat": "Weenat",
+  "weenatAuthScreenIntroductoryText": "Inserisci le tue credenziali Weenat per continuare",
+  "weenatSignInCta": "Sign into Weenat"
 }
