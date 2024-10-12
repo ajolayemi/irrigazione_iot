@@ -34,7 +34,7 @@ class HttpRepository {
           debugPrint('Response: ${response.data}');
           return handler.next(response);
         },
-        onError: (DioError e, handler) {
+        onError: (DioException e, handler) {
           debugPrint('Error: ${e.message}');
           return handler.next(e);
         },
