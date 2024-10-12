@@ -1,10 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/features/weenat/models/weenat_auth_payload.dart';
-import 'package:irrigazione_iot/src/features/weenat/providers/weenat_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'package:irrigazione_iot/src/data/datasource/dao/weenat_dao.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/weenat/data/weenat_repository.dart';
+import 'package:irrigazione_iot/src/features/weenat/models/weenat_auth_payload.dart';
+import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot.dart';
+import 'package:irrigazione_iot/src/features/weenat/providers/weenat_providers.dart';
 import 'package:irrigazione_iot/src/shared/services/shared_preferences_service.dart';
 
 part 'weenat_service.g.dart';
@@ -36,6 +38,14 @@ class WeenatService {
         token: token,
         uid: uid,
       );
+
+      // After successful authentication, make call to get plots
+      final plots = await repo.getPlots(token: token) ?? [];
+      final plotsEntities = plots.toEntities();
+      // Insert plots into local database
+      await _ref
+          .read(weenatDaoProvider)
+          .insertWeenatPlots(plots: plotsEntities);
 
       return true;
     } catch (error) {

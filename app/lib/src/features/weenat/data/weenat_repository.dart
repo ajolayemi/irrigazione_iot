@@ -1,5 +1,6 @@
 import 'package:irrigazione_iot/src/features/weenat/data/weenat_repository_impl.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_auth_payload.dart';
+import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'weenat_repository.g.dart';
@@ -13,7 +14,7 @@ abstract class WeenatRepository {
 
   /// Retrieves the list of plots associated with the current
   /// weenat account
-  Future<void> getPlots();
+  Future<List<WeenatPlot>?> getPlots({required String token});
 
   /// Retrieves the list of measures for a particular plot with
   /// [plotId] in the provided [start] to [end] timestamps
@@ -26,5 +27,5 @@ abstract class WeenatRepository {
 
 @Riverpod(keepAlive: true)
 WeenatRepository weenatRepository(WeenatRepositoryRef ref) {
-  return WeenatRepositoryImpl();
+  return WeenatRepositoryImpl("https://api-prod.weenat.com/api");
 }

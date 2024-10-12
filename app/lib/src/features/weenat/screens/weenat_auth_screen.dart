@@ -16,7 +16,7 @@ class WeenatAuthScreen extends ConsumerWidget {
     final isLoading = ref.watch(weenatAuthControllerProvider).isLoading;
     return PopScope(
       canPop: !isLoading,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, result) {
         if (didPop) {
           debugPrint('User exited Weenat auth screen');
         } else {
