@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/application/di/service_locator.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:irrigazione_iot/src/app.dart';
 import 'package:irrigazione_iot/src/exceptions/error_logger.dart';
@@ -23,6 +24,8 @@ class AppBootstrap {
 
     // Load the SharedPreferences instance during initialization
     await container.read(sharedPreferencesProvider.future);
+
+      ServiceLocator.init();
 
     return UncontrolledProviderScope(
       container: container,
