@@ -56,3 +56,9 @@ extension WeenatPlotsX on List<WeenatPlot> {
     return map((e) => e.toEntity()).toList();
   }
 }
+
+extension WeenatPlotEntitiesX on List<WeenatPlotEntity> {
+  List<WeenatPlot> toModels(List<WeenatPlotEntity> entities) {
+    return entities.map((entity) => WeenatPlot.fromEntity(entity)).toList();
+  }
+}

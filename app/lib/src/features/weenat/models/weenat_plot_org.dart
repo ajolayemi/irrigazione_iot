@@ -15,7 +15,7 @@ class WeenatPlotOrg with _$WeenatPlotOrg {
 
   factory WeenatPlotOrg.fromJson(Map<String, dynamic> json) =>
       _$WeenatPlotOrgFromJson(json);
-  
+
   WeenatPlotOrgEntity toEntity() {
     return WeenatPlotOrgEntity()
       ..id = id
@@ -29,5 +29,22 @@ class WeenatPlotOrg with _$WeenatPlotOrg {
       id: entity.id,
       name: entity.name,
     );
+  }
+}
+
+extension WeenatPlotOrgsX on List<WeenatPlotOrg> {
+  List<WeenatPlotOrgEntity> toEntities() {
+    return map((org) => org.toEntity()).toList();
+  }
+
+  List<WeenatPlotOrg> fromEntities(List<WeenatPlotOrgEntity> entities) {
+    return entities.map((entity) => WeenatPlotOrg.fromEntity(entity)).toList();
+  }
+}
+
+
+extension WeenatPlotOrgEntitiesX on List<WeenatPlotOrgEntity> {
+  List<WeenatPlotOrg> toModels(List<WeenatPlotOrgEntity> entities) {
+    return entities.map((entity) => WeenatPlotOrg.fromEntity(entity)).toList();
   }
 }
