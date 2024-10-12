@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 class HttpHeaders {
   static const accept = 'accept';
@@ -26,15 +27,15 @@ class HttpRepository {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          print('Request: ${options.uri}');
+          debugPrint('Request: ${options.uri}');
           return handler.next(options);
         },
         onResponse: (response, handler) {
-          print('Response: ${response.data}');
+          debugPrint('Response: ${response.data}');
           return handler.next(response);
         },
         onError: (DioError e, handler) {
-          print('Error: ${e.message}');
+          debugPrint('Error: ${e.message}');
           return handler.next(e);
         },
       ),
