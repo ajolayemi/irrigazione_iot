@@ -33,9 +33,21 @@
     "description": "The title of the sign in with Google button"
   },
   "forgotPasswordButtonTitle": "Forgot Password?",
+  "@forgotPasswordButtonTitle": {
+    "description": "The title of the forgot password button"
+  },
   "orSignWithText": "or sign in with",
+  "@orSignWithText": {
+    "description": "The text for the alternative sign in options"
+  },
   "invalidEmailErrorText": "Invalid email",
-  "emptyEmailErrorText": "Email can't be empty",
+  "@invalidEmailErrorText": {
+    "description": "The error message that is displayed when the email is invalid"
+  },
+  "emptyEmailErrorText": "Email can''t be empty",
+  "@emptyEmailErrorText": {
+    "description": "The error message that is displayed when the email field is empty"
+  },
   "shortPasswordErrorText": "Password is too short, it has to be a minimum of {minPasswordLength} characters",
   "@shortPasswordErrorText": {
     "description": "The error message that is displayed when the password is empty",
@@ -47,15 +59,42 @@
       }
     }
   },
-  "emptyPasswordErrorText": "Password can't be empty",
+  "emptyPasswordErrorText": "Password can''t be empty",
+  "@emptyPasswordErrorText": {
+    "description": "The error message that is displayed when the password is empty"
+  },
   "settingsPageTitle": "Settings",
+  "@settingsPageTitle": {
+    "description": "The title of the settings page"
+  },
   "collectorPageTitle": "Collectors",
+  "@collectorPageTitle": {
+    "description": "The title of the collectors page"
+  },
   "pumpPageTitle": "Pumps",
+  "@pumpPageTitle": {
+    "description": "The title of the pumps page"
+  },
   "meteoPageTitle": "Meteo",
+  "@meteoPageTitle": {
+    "description": "The title of the meteo page"
+  },
   "sectorPageTitle": "Sectors",
+  "@sectorPageTitle": {
+    "description": "The title of the sectors page"
+  },
   "graphsPageTitle": "Graphs",
+  "@graphsPageTitle": {
+    "description": "The title of the graphs page"
+  },
   "morePageTitle": "More",
+  "@morePageTitle": {
+    "description": "The title of the more page"
+  },
   "chooseCompany": "Choose a company",
+  "@chooseCompany": {
+    "description": "The text for choosing a company"
+  },
   "welcome": "Welcome, {username}!",
   "@welcome": {
     "description": "The welcome message that is displayed on the home page",
@@ -67,9 +106,21 @@
     }
   },
   "alertDialogCancel": "Cancel",
+  "@alertDialogCancel": {
+    "description": "The text for the cancel button in alert dialogs"
+  },
   "alertDialogConfirm": "Confirm",
+  "@alertDialogConfirm": {
+    "description": "The text for the confirm button in alert dialogs"
+  },
   "alertDialogDelete": "Delete",
+  "@alertDialogDelete": {
+    "description": "The text for the delete button in alert dialogs"
+  },
   "genericAlertDialogTitle": "Are you sure?",
+  "@genericAlertDialogTitle": {
+    "description": "The title of generic alert dialogs"
+  },
   "pumpFlowLastUpdate": "last flow update {when}",
   "@pumpFlowLastUpdate": {
     "description": "The last time a pump flow values was received",
@@ -81,32 +132,53 @@
     }
   },
   "genericSaveButtonLabel": "Save",
+  "@genericSaveButtonLabel": {
+    "description": "The label for the save button"
+  },
   "genericUpdateButtonLabel": "Update",
-  "onStatusUpdateAlertDialogContent": "You're about to switch on {name}",
+  "@genericUpdateButtonLabel": {
+    "description": "The label for the update button"
+  },
+  "onStatusUpdateAlertDialogContent": "You''re about to switch on {name}",
   "@onStatusUpdateAlertDialogContent": {
     "description": "The content of the alert dialog that is displayed when the user wants to switch on things like pumps, sectors",
     "placeholders": {
       "name": {
-        "description": "The name of what's about to be switched on",
+        "description": "The name of what''s about to be switched on",
         "example": "Pump 1"
       }
     }
   },
-  "offStatusUpdateAlertDialogContent": "You're about to switch off {name}",
+  "offStatusUpdateAlertDialogContent": "You''re about to switch off {name}",
   "@offStatusUpdateAlertDialogContent": {
     "description": "The content of the alert dialog that is displayed when the user wants to switch on things like pumps, sectors",
     "placeholders": {
       "name": {
-        "description": "The name of what's about to be switched off",
+        "description": "The name of what''s about to be switched off",
         "example": "Pump 1"
       }
     }
   },
   "onStatusDialogConfirmButtonTitle": "Switch On",
+  "@onStatusDialogConfirmButtonTitle": {
+    "description": "The title of the button to confirm switching on"
+  },
   "offStatusDialogConfirmButtonTitle": "Switch Off",
+  "@offStatusDialogConfirmButtonTitle": {
+    "description": "The title of the button to confirm switching off"
+  },
   "statusListTileTitle": "Current Status",
+  "@statusListTileTitle": {
+    "description": "The title of the list tile showing the current status"
+  },
   "onStatusValue": "On",
+  "@onStatusValue": {
+    "description": "The value indicating the status is on"
+  },
   "offStatusValue": "Off",
+  "@offStatusValue": {
+    "description": "The value indicating the status is off"
+  },
   "noCompanyFoundForUser": "Hello {username}!\nThere is no company associated with your account in our database",
   "@noCompanyFoundForUser": {
     "description": "The message that is displayed when the user doesn't have a company associated with their account",
@@ -118,19 +190,58 @@
     }
   },
   "logInWithAnotherAccount": "Change Account",
+  "@logInWithAnotherAccount": {
+    "description": "The title of the button to log in with another account"
+  },
   "addNewPumpPageTitle": "New Pump",
+  "@addNewPumpPageTitle": {
+    "description": "The title of the page to add a new pump"
+  },
   "updatePumpPageTitle": "Update Pump",
+  "@updatePumpPageTitle": {
+    "description": "The title of the page to update a pump"
+  },
   "pumpNameFormHint": "eg: Pompa Giardino",
+  "@pumpNameFormHint": {
+    "description": "The hint text for the pump name form field"
+  },
   "pumpVolumeCapacityFormFieldTitle": "Volume capacity",
+  "@pumpVolumeCapacityFormFieldTitle": {
+    "description": "The title of the volume capacity form field"
+  },
   "pumpVolumeCapacityFormHint": "eg: 1000",
+  "@pumpVolumeCapacityFormHint": {
+    "description": "The hint text for the volume capacity form field"
+  },
   "pumpKwFormFieldTitle": "Power (kW)",
+  "@pumpKwFormFieldTitle": {
+    "description": "The title of the power form field"
+  },
   "pumpKwFormHint": "eg: 50",
+  "@pumpKwFormHint": {
+    "description": "The hint text for the power form field"
+  },
   "onCommandFormFieldTitle": "On command",
+  "@onCommandFormFieldTitle": {
+    "description": "The title of the on command form field"
+  },
   "onCommandFormHint": "eg: 1",
+  "@onCommandFormHint": {
+    "description": "The hint text for the on command form field"
+  },
   "offCommandFormFieldTitle": "Off command",
+  "@offCommandFormFieldTitle": {
+    "description": "The title of the off command form field"
+  },
   "offCommandFormHint": "eg: 2",
+  "@offCommandFormHint": {
+    "description": "The hint text for the off command form field"
+  },
   "formGenericSaveDialogTitle": "Do you want to save the data?",
-  "formGenericSaveDialogContent": "You're about to save the data for {fieldName} in the database",
+  "@formGenericSaveDialogTitle": {
+    "description": "The title of the generic save dialog"
+  },
+  "formGenericSaveDialogContent": "You''re about to save the data for {fieldName} in the database",
   "@formGenericSaveDialogContent": {
     "description": "The content of the alert dialog that is displayed when the user wants to save data",
     "placeholders": {
@@ -141,8 +252,19 @@
     }
   },
   "formGenericUpdateDialogTitle": "Do you want to update the data?",
-  "formGenericUpdateDialogContent": "You're about to update the data for {fieldName} in the database",
+  "@formGenericUpdateDialogTitle": {},
+  "formGenericUpdateDialogContent": "You''re about to update the data for {fieldName} in the database",
+  "@formGenericUpdateDialogContent": {
+    "description": "The content of the alert dialog that is displayed when the user wants to update data",
+    "placeholders": {
+      "fieldName": {
+        "description": "The name of the field",
+        "example": "pump"
+      }
+    }
+  },
   "notAvailable": "not available",
+  "@notAvailable": {},
   "deleteConfirmationDialogTitle": "Clicking on delete will remove all data related to {name} from database",
   "@deleteConfirmationDialogTitle": {
     "description": "The title of the delete confirmation dialog",
@@ -164,27 +286,93 @@
     }
   },
   "sectorNameHintText": "eg: ME8",
+  "@sectorNameHintText": {
+    "description": "The hint text for the sector name field"
+  },
   "sectorSpecie": "Specie",
+  "@sectorSpecie": {
+    "description": "The label for the sector specie field"
+  },
   "sectorSpecieHintText": "select a specie...",
+  "@sectorSpecieHintText": {
+    "description": "The hint text for the sector specie field"
+  },
   "sectorVariety": "Variety",
+  "@sectorVariety": {
+    "description": "The label for the sector variety field"
+  },
   "sectorVarietyHintText": "select a variety...",
+  "@sectorVarietyHintText": {
+    "description": "The hint text for the sector variety field"
+  },
   "sectorOccupiedArea": "Occupied area",
+  "@sectorOccupiedArea": {
+    "description": "The label for the sector occupied area field"
+  },
   "sectorOccupiedAreaHintText": "eg: 100",
+  "@sectorOccupiedAreaHintText": {
+    "description": "The hint text for the sector occupied area field"
+  },
   "sectorNumberOfPlants": "Number of plants",
+  "@sectorNumberOfPlants": {
+    "description": "The label for the sector number of plants field"
+  },
   "sectorNumberOfPlantsHintText": "eg: 100",
+  "@sectorNumberOfPlantsHintText": {
+    "description": "The hint text for the sector number of plants field"
+  },
   "sectorUnitConsumptionPerHour": "Consumption per plant (l/h)",
+  "@sectorUnitConsumptionPerHour": {
+    "description": "The label for the sector unit consumption per hour field"
+  },
   "sectorUnitConsumptionPerHourHintText": "eg: 1",
+  "@sectorUnitConsumptionPerHourHintText": {
+    "description": "The hint text for the sector unit consumption per hour field"
+  },
   "sectorTotalConsumption": "Total consumption (l/h)",
+  "@sectorTotalConsumption": {
+    "description": "The label for the sector total consumption field"
+  },
   "sectorIrrigationSystem": "Irrigation system",
+  "@sectorIrrigationSystem": {
+    "description": "The label for the sector irrigation system field"
+  },
   "sectorIrrigationSource": "Irrigation source",
+  "@sectorIrrigationSource": {
+    "description": "The label for the sector irrigation source field"
+  },
   "sectorNotes": "Notes",
+  "@sectorNotes": {
+    "description": "The label for the sector notes field"
+  },
   "sectorConnectedPumps": "Connected pump",
+  "@sectorConnectedPumps": {
+    "description": "The label for the sector connected pumps field"
+  },
   "sectorLastIrrigationEmpty": "Never irrigated",
+  "@sectorLastIrrigationEmpty": {
+    "description": "The label for the sector last irrigation empty field"
+  },
   "sectorLastIrrigationForTile": "Last irrigated",
+  "@sectorLastIrrigationForTile": {
+    "description": "The label for the sector last irrigation for tile field"
+  },
   "addSectorPageTitle": "New Sector",
+  "@addSectorPageTitle": {
+    "description": "The title of the page to add a new sector"
+  },
   "updateSectorPageTitle": "Update Sector",
+  "@updateSectorPageTitle": {
+    "description": "The title of the page to update a sector"
+  },
   "selectASpecie": "Select a specie",
+  "@selectASpecie": {
+    "description": "The label for selecting a specie"
+  },
   "selectAnOption": "Select an option",
+  "@selectAnOption": {
+    "description": "The label for selecting an option"
+  },
   "fieldTooLongErrorText": "Field value is too long, it has to be a maximum of {max} characters",
   "@fieldTooLongErrorText": {
     "description": "The error message that is displayed when a form field value is too long",
@@ -196,9 +384,15 @@
       }
     }
   },
-  "emptyFormFieldErrorText": "Field can't be empty",
+  "emptyFormFieldErrorText": "Field can''t be empty",
   "notANumberErrorText": "Field has to be a number",
+  "@notANumberErrorText": {
+    "description": "The error message that is displayed when a form field value is not a number"
+  },
   "notGreaterThanZeroErrorText": "Field has to be greater than 0",
+  "@notGreaterThanZeroErrorText": {
+    "description": "The error message that is displayed when a form field value is not greater than 0"
+  },
   "commandAlreadyInUseErrorText": "This command value is already in use for another {fieldName}",
   "@commandAlreadyInUseErrorText": {
     "description": "The error message that is displayed when a form field command value is already in use",
@@ -209,7 +403,7 @@
       }
     }
   },
-  "duplicateCommandsInFormErrorText": "You can't use the same command to switch on and switch off {fieldName}",
+  "duplicateCommandsInFormErrorText": "You can''t use the same command to switch on and switch off {fieldName}",
   "@duplicateCommandsInFormErrorText": {
     "description": "The error message that is displayed when the user tries to use the same command to switch on and switch off a pump",
     "placeholders": {
@@ -330,11 +524,17 @@
     }
   },
   "addNewButtonLabel": "Add New",
+  "@addNewButtonLabel": {},
   "connectPumpToSectorPageTile": "Select a pump",
+  "@connectPumpToSectorPageTile": {},
   "noPumpConnectedToSectorErrorText": "You have to connect at least one pump to this sector",
+  "@noPumpConnectedToSectorErrorText": {},
   "pumpLastDispensationForTile": "Was last switched on",
+  "@pumpLastDispensationForTile": {},
   "pumpLastDispensationEmpty": "Never switched on",
+  "@pumpLastDispensationEmpty": {},
   "pumpTotalDispensedLitres": "Total litres dispensed",
+  "@pumpTotalDispensedLitres": {},
   "nCollectors": "{n, plural, =1{collector} =2{collectors} other{collectors}}",
   "@nCollectors": {
     "description": "The pluralized version of the word 'collector'",
@@ -380,27 +580,71 @@
     }
   },
   "addNewCollectorPageTitle": "New Collector",
+  "@addNewCollectorPageTitle": {},
   "updateCollectorPageTitle": "Update Collector",
+  "@updateCollectorPageTitle": {},
   "collectorName": "Collector name",
+  "@collectorName": {},
   "collectorNameHintText": "eg: Collettore Giardino",
+  "@collectorNameHintText": {},
   "collectorFilterName": "Filter (filtro) name ",
+  "@collectorFilterName": {},
   "collectorFilterNameHintText": "eg: Filtro 1",
+  "@collectorFilterNameHintText": {},
   "nSelectedSectors": "{n, plural, =0{0 sectors selected} =1{1 sector selected} other{{n} sectors selected}}",
+  "@nSelectedSectors": {
+    "description": "The pluralized version of the word 'sector' with a count",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
   "connectSectorToCollectorPageTitle": "Select Sectors",
+  "@connectSectorToCollectorPageTitle": {
+    "description": "The title of the page where the user can select sectors to connect to a collector"
+  },
   "collectorConnectedSectors": "Connected sectors",
+  "@collectorConnectedSectors": {
+    "description": "The title for the connected sectors section"
+  },
   "noSectorConnectedToCollectorErrorText": "You have to connect at least one sector to this collector",
+  "@noSectorConnectedToCollectorErrorText": {},
   "genericConfirmButtonLabel": "Confirm",
+  "@genericConfirmButtonLabel": {},
   "allSectorsAreConnectedToACollector": "All available sectors have already been connected to a collector",
+  "@allSectorsAreConnectedToACollector": {},
   "nConnectedSectors": "{n, plural, =0{0 sectors connected} =1{1 sector connected} other{{n} sectors connected}}",
+  "@nConnectedSectors": {
+    "description": "The pluralized version of the word 'sector' with a count",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
   "batteryLevel": "Battery:",
+  "@batteryLevel": {},
   "filterPressureDifference": "Filter diff:",
+  "@filterPressureDifference": {},
   "iotBoardsMenuTitle": "Boards",
+  "@iotBoardsMenuTitle": {},
   "settingsMenuTitle": "Settings",
+  "@settingsMenuTitle": {},
   "profilePageTitle": "My Profile",
+  "@profilePageTitle": {},
   "logOutButtonTitle": "Logout",
+  "@logOutButtonTitle": {},
   "logOutAlertDialogTitle": "Are you sure you want to log out?",
+  "@logOutAlertDialogTitle": {},
   "logOutAlertDialogContent": "You will be logged out of the application",
+  "@logOutAlertDialogContent": {},
   "logOutAlertDialogConfirm": "Logout",
+  "@logOutAlertDialogConfirm": {},
   "nBoards": "{n, plural, =1{board} =2{boards} other{boards}}",
   "@nBoards": {
     "description": "The pluralized version of the word 'board'",
@@ -446,34 +690,128 @@
     }
   },
   "addNewBoardPageTitle": "New Board",
+  "@addNewBoardPageTitle": {
+    "description": "The title of the page to add a new board"
+  },
   "updateBoardPageTitle": "Update Board",
+  "@updateBoardPageTitle": {
+    "description": "The title of the page to update a board"
+  },
   "boardNameHintText": "eg: arduino mkr16",
+  "@boardNameHintText": {
+    "description": "The hint text for the board name field"
+  },
   "boardModel": "Model",
+  "@boardModel": {
+    "description": "The label for the board model field"
+  },
   "boardModelHintText": "eg: MKR 1010",
+  "@boardModelHintText": {
+    "description": "The hint text for the board model field"
+  },
   "boardSerialNumber": "Serial number",
+  "@boardSerialNumber": {
+    "description": "The label for the board serial number field"
+  },
   "boardSerialNumberHintText": "eg: 123456789",
+  "@boardSerialNumberHintText": {
+    "description": "The hint text for the board serial number field"
+  },
   "boardConnectedCollector": "Connected Collector",
+  "@boardConnectedCollector": {
+    "description": "The label for the connected collector field"
+  },
   "boardConnectedCollectorHintText": "Select a collector",
+  "@boardConnectedCollectorHintText": {
+    "description": "The hint text for the connected collector field"
+  },
   "allCollectorsAreConnectedToABoard": "All available collectors have already been connected to a board",
+  "@allCollectorsAreConnectedToABoard": {
+    "description": "The message displayed when all collectors are connected to a board"
+  },
   "connectCollectorToBoardPageTitle": "Select a collector",
+  "@connectCollectorToBoardPageTitle": {
+    "description": "The title of the page to connect a collector to a board"
+  },
   "nSelectedCollectors": "{n, plural, =0{0 collectors selected} =1{1 collector selected} other{{n} collectors selected}}",
+  "@nSelectedCollectors": {
+    "description": "The pluralized version of the word 'collector' with a count",
+    "placeholders": {
+      "n": {
+        "example": "3",
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
   "noCollectorConnectedToBoardErrorText": "You have to connect at least one collector to this board",
+  "@noCollectorConnectedToBoardErrorText": {
+    "description": "The error message displayed when no collector is connected to the board"
+  },
   "userProfileDetailsName": "Names",
+  "@userProfileDetailsName": {
+    "description": "The label for the user's name field"
+  },
   "userProfileDetailsEmail": "Email",
+  "@userProfileDetailsEmail": {
+    "description": "The label for the user's email field"
+  },
   "userProfileDetailsCurrentCompany": "Current company profile",
+  "@userProfileDetailsCurrentCompany": {
+    "description": "The label for the user's current company profile field"
+  },
   "companyProfileMenuTitle": "Company Profile",
+  "@companyProfileMenuTitle": {
+    "description": "The title of the company profile menu"
+  },
   "companyUsersMenuTitle": "My Company Users",
+  "@companyUsersMenuTitle": {
+    "description": "The title of the company users menu"
+  },
   "companyNameHintText": "eg: My Company",
+  "@companyNameHintText": {
+    "description": "The hint text for the company name field"
+  },
   "companyRegisteredAddress": "Registered office address",
+  "@companyRegisteredAddress": {
+    "description": "The label for the company's registered address field"
+  },
   "companyRegisteredAddressHintText": "eg: 123 Main Street, 12345, City, Country",
+  "@companyRegisteredAddressHintText": {
+    "description": "The hint text for the company's registered address field"
+  },
   "companyVatNumber": "VAT number",
+  "@companyVatNumber": {
+    "description": "The label for the company's VAT number field"
+  },
   "companyVatNumberHintText": "eg: 123456789",
+  "@companyVatNumberHintText": {
+    "description": "The hint text for the company's VAT number field"
+  },
   "companyFiscalCode": "Fiscal code",
+  "@companyFiscalCode": {
+    "description": "The label for the company's fiscal code field"
+  },
   "companyFiscalCodeHintText": "eg: 123456789",
+  "@companyFiscalCodeHintText": {
+    "description": "The hint text for the company's fiscal code field"
+  },
   "companyEmail": "Email",
+  "@companyEmail": {
+    "description": "The label for the company's email field"
+  },
   "companyEmailHintText": "eg: email@company.com",
+  "@companyEmailHintText": {
+    "description": "The hint text for the company's email field"
+  },
   "companyPhone": "Phone",
+  "@companyPhone": {
+    "description": "The label for the company's phone field"
+  },
   "companyPhoneHintText": "eg: +123456789",
+  "@companyPhoneHintText": {
+    "description": "The hint text for the company's phone field"
+  },
   "dependentFieldsEmptyErrorText": "One between {firstFieldName} and {secondFieldName} has to be filled",
   "@dependentFieldsEmptyErrorText": {
     "description": "The error message that is displayed when one of two dependent fields is empty",
@@ -489,7 +827,13 @@
     }
   },
   "addNewCompanyPageTitle": "New Company",
+  "@addNewCompanyPageTitle": {
+    "description": "The title of the page to add a new company"
+  },
   "updateCompanyPageTitle": "Update Company",
+  "@updateCompanyPageTitle": {
+    "description": "The title of the page to update a company"
+  },
   "nCompany": "{n, plural, =1{company} =2{companies} other{companies}}",
   "@nCompany": {
     "description": "The pluralized version of the word 'company'",
@@ -502,18 +846,57 @@
     }
   },
   "noUsersConnectedWithCompany": "You have no registered users associated with your company",
+  "@noUsersConnectedWithCompany": {
+    "description": "Message displayed when no users are connected with the company"
+  },
   "companyUserFullName": "Full name",
+  "@companyUserFullName": {
+    "description": "Label for the full name of the company user"
+  },
   "companyUserFullNameHintTest": "eg: John Doe",
+  "@companyUserFullNameHintTest": {
+    "description": "Hint text for the full name of the company user"
+  },
   "companyUserEmail": "Email",
+  "@companyUserEmail": {
+    "description": "Label for the email of the company user"
+  },
   "companyUserEmailHintText": "eg: example@example.com",
+  "@companyUserEmailHintText": {
+    "description": "Hint text for the email of the company user"
+  },
   "companyUserRole": "Assign a role",
+  "@companyUserRole": {
+    "description": "Label for assigning a role to the company user"
+  },
   "companyUserRoleHintText": "Select a role",
+  "@companyUserRoleHintText": {
+    "description": "Hint text for assigning a role to the company user"
+  },
   "companyUserAssignedRoleForDetails": "Assigned role",
+  "@companyUserAssignedRoleForDetails": {
+    "description": "Label for the assigned role of the company user"
+  },
   "companyUserAddedOn": "Added on",
+  "@companyUserAddedOn": {
+    "description": "Label for the date the company user was added"
+  },
   "companyUserLastUpdated": "Last updated",
+  "@companyUserLastUpdated": {
+    "description": "Label for the date the company user was last updated"
+  },
   "addNewCompanyUserPageTitle": "New User",
+  "@addNewCompanyUserPageTitle": {
+    "description": "Title for the page to add a new company user"
+  },
   "updateCompanyUserPageTitle": "Update User",
+  "@updateCompanyUserPageTitle": {
+    "description": "Title for the page to update a company user"
+  },
   "emailAlreadyInUseErrorText": "This email is already in use",
+  "@emailAlreadyInUseErrorText": {
+    "description": "Error message displayed when the email is already in use"
+  },
   "nCompanyUsers": "{n, plural, =1{company user} =2{company users} other{company users}}",
   "@nCompanyUsers": {
     "description": "The pluralized version of the word 'company user'",
@@ -526,9 +909,18 @@
     }
   },
   "assignRoleDialogTitle": "Assign a role",
+  "@assignRoleDialogTitle": {
+    "description": "The title of the dialog to assign a role"
+  },
   "me": "Me",
+  "@me": {
+    "description": "The label for the current user"
+  },
   "companyUserDismissalDialogTitle": "Are you sure you want to delete this user?",
-  "companyUserDismissalDialogContent": "You're about to delete {companyUserName} as a user",
+  "@companyUserDismissalDialogTitle": {
+    "description": "The title of the dialog to confirm user deletion"
+  },
+  "companyUserDismissalDialogContent": "You''re about to delete {companyUserName} as a user",
   "@companyUserDismissalDialogContent": {
     "description": "The content of the alert dialog that is displayed when the user wants to delete a company user",
     "placeholders": {
@@ -538,49 +930,178 @@
       }
     }
   },
-  "cantDeleteYourselfDialogTitle": "You can't delete yourself as a user",
+  "cantDeleteYourselfDialogTitle": "You can''t delete yourself as a user",
+  "@cantDeleteYourselfDialogTitle": {
+    "description": "The title of the dialog that appears when a user tries to delete themselves"
+  },
   "noUppercaseInPasswordErrorText": "Password has to contain at least one uppercase letter",
+  "@noUppercaseInPasswordErrorText": {
+    "description": "The error message displayed when the password does not contain an uppercase letter"
+  },
   "noLowercaseInPasswordErrorText": "Password has to contain at least one lowercase letter",
+  "@noLowercaseInPasswordErrorText": {
+    "description": "The error message displayed when the password does not contain a lowercase letter"
+  },
   "noNumberInPasswordErrorText": "Password has to contain at least one number",
+  "@noNumberInPasswordErrorText": {
+    "description": "The error message displayed when the password does not contain a number"
+  },
   "noSpecialCharacterInPasswordErrorText": "Password has to contain at least one special character",
+  "@noSpecialCharacterInPasswordErrorText": {
+    "description": "The error message displayed when the password does not contain a special character"
+  },
   "passwordsDoNotMatchErrorText": "Passwords do not match",
+  "@passwordsDoNotMatchErrorText": {
+    "description": "The error message displayed when the passwords do not match"
+  },
   "invalidCredentialsErrorText": "The email or password you entered is incorrect",
+  "@invalidCredentialsErrorText": {
+    "description": "The error message displayed when the email or password is incorrect"
+  },
   "introductorySignInText": "Sign in with your registered account details to continue",
-  "noAccountText": "Don't have an account?",
+  "@introductorySignInText": {
+    "description": "The introductory text for the sign-in page"
+  },
+  "noAccountText": "Don''t have an account?",
+  "@noAccountText": {
+    "description": "The text displayed when the user does not have an account"
+  },
   "signUpText": "Sign Up",
+  "@signUpText": {
+    "description": "The text for the sign-up link"
+  },
   "signUpButtonTitle": "Sign Up",
+  "@signUpButtonTitle": {
+    "description": "The title of the sign-up button"
+  },
   "confirmPasswordFormFieldTitle": "Confirm password",
+  "@confirmPasswordFormFieldTitle": {
+    "description": "The title for the confirm password form field"
+  },
   "confirmPasswordFormHint": "••••••••",
+  "@confirmPasswordFormHint": {
+    "description": "The hint text for the confirm password form field"
+  },
   "alreadyHaveAnAccountText": "Already have an account?",
+  "@alreadyHaveAnAccountText": {
+    "description": "The text displayed when the user already has an account"
+  },
   "nameFormFieldTitle": "Name",
+  "@nameFormFieldTitle": {
+    "description": "The title for the name form field"
+  },
   "nameFormHint": "John",
+  "@nameFormHint": {
+    "description": "The hint text for the name form field"
+  },
   "surnameFormFieldTitle": "Surname",
+  "@surnameFormFieldTitle": {
+    "description": "The title for the surname form field"
+  },
   "surnameFormHint": "Doe",
+  "@surnameFormHint": {
+    "description": "The hint text for the surname form field"
+  },
   "signInPageIntroductoryTitleText": "Welcome back!",
+  "@signInPageIntroductoryTitleText": {
+    "description": "The introductory title text for the sign-in page"
+  },
   "signUpPageIntroductoryTitleText": "Get started with us!",
+  "@signUpPageIntroductoryTitleText": {
+    "description": "The introductory title text for the sign-up page"
+  },
   "signUpPageIntroductorySubtitleText": "Create your account",
+  "@signUpPageIntroductorySubtitleText": {
+    "description": "The introductory subtitle text for the sign-up page"
+  },
   "signInPageIntroductorySubtitleText": "Sign into your account to continue",
+  "@signInPageIntroductorySubtitleText": {
+    "description": "The introductory subtitle text for the sign-in page"
+  },
   "mqttMessageNameFormFieldTitle": "Alias name in MQTT message",
+  "@mqttMessageNameFormFieldTitle": {
+    "description": "The title for the alias name in MQTT message form field"
+  },
   "mqttMessageNameFormHint": "alias name in mqtt msgs...",
+  "@mqttMessageNameFormHint": {
+    "description": "The hint text for the alias name in MQTT message form field"
+  },
   "itemHasFilter": "Has a filter connected?",
+  "@itemHasFilter": {
+    "description": "The label for indicating if an item has a filter connected"
+  },
   "selectAPumpHintText": "select a pump...",
+  "@selectAPumpHintText": {
+    "description": "The hint text for selecting a pump"
+  },
   "selectAVarietyPageTitle": "Select a variety",
+  "@selectAVarietyPageTitle": {
+    "description": "The title for the select a variety page"
+  },
   "selectAnOptionHintText": "select an option...",
+  "@selectAnOptionHintText": {
+    "description": "The hint text for selecting an option"
+  },
   "mqttTopicNameFormFieldTitle": "Name in MQTT topic",
+  "@mqttTopicNameFormFieldTitle": {
+    "description": "The title for the name in MQTT topic form field"
+  },
   "mqttTopicNameFormHint": "alias name in mqtt topic...",
+  "@mqttTopicNameFormHint": {
+    "description": "The hint text for the name in MQTT topic form field"
+  },
   "switchOn": "Switch On",
+  "@switchOn": {
+    "description": "The label for the switch on command"
+  },
   "switchOff": "Switch Off",
+  "@switchOff": {
+    "description": "The label for the switch off command"
+  },
   "entityCharacteristics": "Characteristics",
+  "@entityCharacteristics": {
+    "description": "The label for entity characteristics"
+  },
   "entityStatistics": "Statistics",
+  "@entityStatistics": {
+    "description": "The label for entity statistics"
+  },
   "yes": "Yes",
+  "@yes": {
+    "description": "The label for yes"
+  },
   "no": "No",
+  "@no": {
+    "description": "The label for no"
+  },
   "mqttOnCommand": "On Command (MQTT)",
+  "@mqttOnCommand": {
+    "description": "The label for the MQTT on command"
+  },
   "mqttOffCommand": "Off Command (MQTT)",
+  "@mqttOffCommand": {
+    "description": "The label for the MQTT off command"
+  },
   "lastFilterInPressure": "Last filter in pressure",
+  "@lastFilterInPressure": {
+    "description": "The label for the last filter in pressure"
+  },
   "lastFilterOutPressure": "Last filter out pressure",
+  "@lastFilterOutPressure": {
+    "description": "The label for the last filter out pressure"
+  },
   "lastFilterPressureDifference": "Last filter pressure difference",
+  "@lastFilterPressureDifference": {
+    "description": "The label for the last filter pressure difference"
+  },
   "pressure": "Pressure",
+  "@pressure": {
+    "description": "The label for pressure"
+  },
   "sensorPageTitle": "Sensors",
+  "@sensorPageTitle": {
+    "description": "The title for the sensors page"
+  },
   "nSensors": "{n, plural, =1{sensor} =2{sensors} other{sensors}}",
   "@nSensors": {
     "description": "The pluralized version of the word 'sensor'",
@@ -626,30 +1147,105 @@
     }
   },
   "addSensorPageTitle": "New Sensor",
+  "@addSensorPageTitle": {
+    "description": "The title of the page to add a new sensor"
+  },
   "updateSensorPageTitle": "Update Sensor",
+  "@updateSensorPageTitle": {
+    "description": "The title of the page to update a sensor"
+  },
   "airTemperature": "Air Temperature",
+  "@airTemperature": {
+    "description": "The label for air temperature"
+  },
   "airHumidity": "Air Humidity",
+  "@airHumidity": {
+    "description": "The label for air humidity"
+  },
   "lightIntensity": "Light Intensity",
+  "@lightIntensity": {
+    "description": "The label for light intensity"
+  },
   "barometricPressure": "Barometric Pressure",
+  "@barometricPressure": {
+    "description": "The label for barometric pressure"
+  },
   "windDirection": "Wind Direction",
+  "@windDirection": {
+    "description": "The label for wind direction"
+  },
   "windSpeed": "Wind Speed",
+  "@windSpeed": {
+    "description": "The label for wind speed"
+  },
   "rainfallHourly": "Rainfall Hourly",
+  "@rainfallHourly": {
+    "description": "The label for hourly rainfall"
+  },
   "uvIndex": "UV Index",
+  "@uvIndex": {
+    "description": "The label for UV index"
+  },
   "deviceEui": "Device EUI",
+  "@deviceEui": {
+    "description": "The label for device EUI"
+  },
   "sensorsMenuTitle": "Sensors",
+  "@sensorsMenuTitle": {
+    "description": "The title for the sensors menu"
+  },
   "lastUpdated": "Last updated",
+  "@lastUpdated": {
+    "description": "The label for the last updated field"
+  },
   "connectedSector": "Connected sector",
+  "@connectedSector": {
+    "description": "The label for the connected sector field"
+  },
   "weatherStationNameHintText": "eg: Stazione meteo 1",
+  "@weatherStationNameHintText": {
+    "description": "The hint text for the weather station name field"
+  },
   "weatherStationEuiHintText": "device unique identifier...",
+  "@weatherStationEuiHintText": {
+    "description": "The hint text for the weather station EUI field"
+  },
   "selectASectorPageTitle": "Select a sector",
+  "@selectASectorPageTitle": {
+    "description": "The title of the page to select a sector"
+  },
   "historyPageTitle": "History",
+  "@historyPageTitle": {
+    "description": "The title of the history page"
+  },
   "noHistory": "No history",
+  "@noHistory": {
+    "description": "The message displayed when there is no history"
+  },
   "registerYourCompany": "Register your company",
+  "@registerYourCompany": {
+    "description": "The label for registering your company"
+  },
   "loginToYourAccount": "Login to your account",
-  "welcomePageIntro": "We're glad to have you here! Please select an option to continue",
+  "@loginToYourAccount": {
+    "description": "Prompt to login to the user's account"
+  },
+  "welcomePageIntro": "We''re glad to have you here! Please select an option to continue",
+  "@welcomePageIntro": {
+    "description": "Introductory message on the welcome page"
+  },
   "or": "or",
+  "@or": {
+    "description": "The word 'or' used between options"
+  },
   "companyCreatedSuccessfully": "Your company has been created successfully!",
+  "@companyCreatedSuccessfully": {
+    "description": "Message displayed when a company is created successfully"
+  },
   "weatherStationPageTitle": "Weather Stations",
+  "@weatherStationPageTitle": {
+    "description": "The title of the weather stations page"
+  },
   "nWeatherStations": "{n, plural, =1{weather station} =2{weather stations} other{weather stations}}",
   "@nWeatherStations": {
     "description": "The pluralized version of the word 'weather station'",
@@ -695,19 +1291,73 @@
     }
   },
   "addWeatherStationPageTitle": "New Weather Station",
+  "@addWeatherStationPageTitle": {
+    "description": "The title of the page to add a new weather station"
+  },
   "updateWeatherStationPageTitle": "Update Weather Station",
+  "@updateWeatherStationPageTitle": {
+    "description": "The title of the page to update a weather station"
+  },
   "pumpSwitchedOnSince": "switched on since {when}",
+  "@pumpSwitchedOnSince": {
+    "description": "The message indicating when the pump was switched on",
+    "placeholders": {
+      "when": {
+        "type": "String",
+        "example": "2 hours ago"
+      }
+    }
+  },
   "pumpsSwitchedOn": "Pumps switched on",
+  "@pumpsSwitchedOn": {
+    "description": "The message indicating that pumps are switched on"
+  },
   "sectorsSwitchedOn": "Sectors switched on",
+  "@sectorsSwitchedOn": {
+    "description": "The message indicating that sectors are switched on"
+  },
   "filterInForDashboard": "Filter IN",
+  "@filterInForDashboard": {
+    "description": "The label for the filter IN on the dashboard"
+  },
   "filterOutForDashboard": "Filter OUT",
+  "@filterOutForDashboard": {
+    "description": "The label for the filter OUT on the dashboard"
+  },
   "noPumpsSwitchedOn": "No pumps switched on at the moment",
+  "@noPumpsSwitchedOn": {
+    "description": "The message indicating that no pumps are switched on at the moment"
+  },
   "noSectorsSwitchedOn": "No sectors switched on at the moment",
+  "@noSectorsSwitchedOn": {
+    "description": "The message indicating that no sectors are switched on at the moment"
+  },
   "date": "Date",
+  "@date": {
+    "description": "The label for the date field"
+  },
   "search": "Search...",
+  "@search": {
+    "description": "The placeholder text for the search field"
+  },
   "noSearchResults": "No results found",
+  "@noSearchResults": {
+    "description": "The message indicating that no search results were found"
+  },
   "weenat": "Weenat",
+  "@weenat": {
+    "description": "The label for Weenat"
+  },
   "weenatAuthScreenIntroductoryText": "Enter your Weenat credentials to continue",
+  "@weenatAuthScreenIntroductoryText": {
+    "description": "The introductory text for the Weenat authentication screen"
+  },
   "weenatSignInCta": "Sign into Weenat",
-  "weenatSelectCompany": "Select a company"
+  "@weenatSignInCta": {
+    "description": "The call-to-action text for signing into Weenat"
+  },
+  "weenatSelectCompany": "Select a company",
+  "@weenatSelectCompany": {
+    "description": "The label for selecting a company in Weenat"
+  }
 }

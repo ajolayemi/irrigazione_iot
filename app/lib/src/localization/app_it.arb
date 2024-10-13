@@ -27,7 +27,7 @@
   "meteoPageTitle": "Meteo",
   "sectorPageTitle": "Settori",
   "graphsPageTitle": "Grafici",
-  "chooseCompany": "Scegli un'azienda",
+  "chooseCompany": "Scegli un''azienda",
   "welcome": "Ciao, {username}!",
   "genericSaveButtonLabel": "Salva",
   "genericUpdateButtonLabel": "Aggiorna",
@@ -58,8 +58,24 @@
   "offCommandFormHint": "es: 2",
   "formGenericSaveDialogTitle": "Vuoi salvare i dati?",
   "formGenericSaveDialogDescription": "Stai per salvare i dati relativi {fieldName} nel database",
+  "@formGenericSaveDialogDescription": {
+    "description": "Description for the save dialog",
+    "placeholders": {
+      "fieldName": {
+        "example": "nomeCampo"
+      }
+    }
+  },
   "formGenericUpdateDialogTitle": "Vuoi aggiornare i dati?",
   "formGenericUpdateDialogDescription": "Stai per aggiornare i dati relativi {fieldName} nel database",
+  "@formGenericUpdateDialogDescription": {
+    "description": "Description for the update dialog",
+    "placeholders": {
+      "fieldName": {
+        "example": "nomeCampo"
+      }
+    }
+  },
   "notAvailable": "non disponibile",
   "deleteConfirmationDialogTitle": "Cliccando su elimina, verranno cancellati tutti i dati relativi {name}",
   "sectorLastIrrigation": "ultima irrigazione {when}",
@@ -84,12 +100,18 @@
   "addSectorPageTitle": "Nuovo Settore",
   "updateSectorPageTitle": "Aggiorna Settore",
   "selectASpecie": "Seleziona una specie",
-  "selectAnOption": "Seleziona un'opzione",
+  "selectAnOption": "Seleziona un''opzione",
   "selectAnIrrigationSource": "Seleziona una fonte di irrigazione",
+  "@selectAnIrrigationSource": {
+    "description": "Prompt to select an irrigation source"
+  },
   "commandAlreadyInUseErrorText": "Questo comando è già in uso per {fieldName}",
   "duplicateCommandsInFormErrorText": "Non puoi usare lo stesso comando per spegnere e accendere {fieldName}",
   "fieldTooLongErrorText": "Il nome inserito è troppo lungo, deve essere massimo {max} caratteri",
   "emptyFormFieldErrorText": "Il campo non può essere vuoto",
+  "@emptyFormFieldErrorText": {
+    "description": "Error message when a form field is empty"
+  },
   "notANumberErrorText": "Il campo deve essere un numero",
   "notGreaterThanZeroErrorText": "Il campo deve essere maggiore di zero",
   "fieldValueAlreadyInUseErrorText": "Il valore inserito è già in uso per {fieldName}",
@@ -130,8 +152,8 @@
   "settingsMenuTitle": "Impostazioni",
   "profilePageTitle": "Il mio profilo",
   "logOutButtonTitle": "Esci",
-  "logOutAlertDialogTitle": "Sei sicuro di voler uscire dall'applicazione?",
-  "logOutAlertDialogContent": "Cliccando su 'Logout' verrai disconnesso dall'applicazione",
+  "logOutAlertDialogTitle": "Sei sicuro di voler uscire dall''applicazione?",
+  "logOutAlertDialogContent": "Cliccando su 'Logout' verrai disconnesso dall''applicazione",
   "logOutAlertDialogConfirm": "Esci",
   "nBoards": "{n, plural, =1{centralina} =2{centraline} other{centraline}}",
   "nBoardsWithIndefiniteArticle": "{n, plural, =1{una centralina} =2{delle centraline} other{delle centraline}}",
@@ -194,7 +216,7 @@
   "noNumberInPasswordErrorText": "La password deve contenere almeno un numero",
   "noSpecialCharacterInPasswordErrorText": "La password deve contenere almeno un carattere speciale",
   "passwordsDoNotMatchErrorText": "Le password non corrispondono",
-  "invalidCredentialsErrorText": "La password o l'indirizzo email inseriti non sono corretti",
+  "invalidCredentialsErrorText": "La password o l''indirizzo email inseriti non sono corretti",
   "introductorySignInText": "Accedi con le tue credenziali per continuare",
   "noAccountText": "Non hai un account?",
   "signUpText": "Registrati",
@@ -215,7 +237,7 @@
   "itemHasFilter": "Dispone di un filtro?",
   "selectAPumpHintText": "seleziona una pompa...",
   "selectAVarietyPageTitle": "Seleziona una varietà",
-  "selectAnOptionHintText": "seleziona un'opzione...",
+  "selectAnOptionHintText": "seleziona un''opzione...",
   "formGenericUpdateDialogContent": "Questa operazione sovrascriverà i dati esistenti per {fieldName} nel database",
   "formGenericSaveDialogContent": "Stai per salvare i dati per {fieldName} nel database",
   "mqttTopicNameFormFieldTitle": "Nome nei topic MQTT",
@@ -239,8 +261,8 @@
   "nSensorsWithArticulatedPreposition": "{n, plural, =1{al sensore} =2{ai sensori} other {ai sensori}}",
   "addSensorPageTitle": "Nuovo Sensore",
   "updateSensorPageTitle": "Aggiorna Sensore",
-  "airTemperature": "Temperatura dell'aria",
-  "airHumidity": "Umidità dell'aria",
+  "airTemperature": "Temperatura dell''aria",
+  "airHumidity": "Umidità dell''aria",
   "lightIntensity": "Intensità luminosa",
   "barometricPressure": "Pressione barometrica",
   "windDirection": "Direzione del vento",
@@ -258,7 +280,7 @@
   "noHistory": "Nessun dato disponibile",
   "registerYourCompany": "Registra la tua azienda",
   "loginToYourAccount": "Accedi al tuo account",
-  "welcomePageIntro": "Siamo lieti di darti il benvenuto! Per continuare, seleziona un'opzione",
+  "welcomePageIntro": "Siamo lieti di darti il benvenuto! Per continuare, seleziona un''opzione",
   "or": "oppure",
   "companyCreatedSuccessfully": "Azienda creata con successo!",
   "weatherStationPageTitle": "Stazioni Meteo",
@@ -279,5 +301,9 @@
   "weenat": "Weenat",
   "weenatAuthScreenIntroductoryText": "Inserisci le tue credenziali Weenat per continuare",
   "weenatSignInCta": "Sign into Weenat",
-  "weenatSelectCompany": "Scegli un''azienda"
+  "weenatSelectCompany": "Scegli un''azienda",
+  "collectorName": "Nome Collettore",
+  "filterInForDashboard": "Filter IN",
+  "filterOutForDashboard": "Filter OUT"
+
 }
