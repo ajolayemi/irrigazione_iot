@@ -708,5 +708,6 @@
   "noSearchResults": "No results found",
   "weenat": "Weenat",
   "weenatAuthScreenIntroductoryText": "Enter your Weenat credentials to continue",
-  "weenatSignInCta": "Sign into Weenat"
+  "weenatSignInCta": "Sign into Weenat",
+  "weenatSelectCompany": "Select a company"
 }
