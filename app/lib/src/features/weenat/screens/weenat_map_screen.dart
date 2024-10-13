@@ -59,14 +59,14 @@ class _WeenatMapScreenState extends ConsumerState<WeenatMapScreen> {
                   GoogleMap(
                     zoomControlsEnabled: false,
                     myLocationButtonEnabled: false,
-                    mapType: MapType.satellite,
+                    mapType: MapType.hybrid,
                     mapToolbarEnabled: true,
                     initialCameraPosition: CameraPosition(
                       target: LatLng(
                         37.30876803981336,
                         15.031336292492695,
                       ),
-                      zoom: 15,
+                      zoom: 5,
                     ),
                     onMapCreated: (controller) => _controller = controller,
                   ),
