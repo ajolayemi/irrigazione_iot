@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_manual_providers_as_generated_provider_dependency
 import 'package:irrigazione_iot/src/data/datasource/dao/weenat_dao.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot.dart';
@@ -26,7 +27,7 @@ bool hasWeenatToken(HasWeenatTokenRef ref) {
 /// Access local database to retrieve list of available
 /// [WeenatPlotOrg]s
 @Riverpod(keepAlive: true)
-FutureOr<List<WeenatPlotOrg>?> weenatPlotOrgs(WeenatPlotOrgsRef ref) async {
+FutureOr<List<WeenatPlotOrg>?> weenatOrgs(WeenatOrgsRef ref) async {
   final dao = ref.watch(weenatDaoProvider);
   final entities = await dao.getWeenatOrgs() ?? [];
   return entities.toModels(entities);
@@ -37,7 +38,7 @@ FutureOr<List<WeenatPlotOrg>?> weenatPlotOrgs(WeenatPlotOrgsRef ref) async {
 class SelectedWeenatOrg extends _$SelectedWeenatOrg {
   @override
   WeenatPlotOrg? build() {
-    final orgs = ref.watch(weenatPlotOrgsProvider).valueOrNull;
+    final orgs = ref.watch(weenatOrgsProvider).valueOrNull;
     if (orgs == null || orgs.isEmpty) return null;
     return orgs.first;
   }
@@ -48,11 +49,12 @@ class SelectedWeenatOrg extends _$SelectedWeenatOrg {
 /// Holds onto the index of the selected [WeenatPlotOrg]
 @Riverpod(keepAlive: true)
 int? selectedOrgIndex(SelectedOrgIndexRef ref) {
-  final orgs = ref.watch(weenatPlotOrgsProvider).valueOrNull;
+  final orgs = ref.watch(weenatOrgsProvider).valueOrNull;
   final selectedOrg = ref.watch(selectedWeenatOrgProvider);
   if (orgs == null || orgs.isEmpty || selectedOrg == null) return null;
   return orgs.indexOf(selectedOrg);
 }
+
 /// Access local database to retrieve list of available
 /// [WeenatPlot]s for the selected [WeenatPlotOrg]
 @Riverpod(keepAlive: true)

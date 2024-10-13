@@ -25,7 +25,7 @@ class _WeenatMapScreenState extends ConsumerState<WeenatMapScreen> {
 
   Future<void> _selectOrg(int? currentIndex) async {
     if (currentIndex == null) return;
-    final orgs = ref.read(weenatPlotOrgsProvider).valueOrNull;
+    final orgs = ref.read(weenatOrgsProvider).valueOrNull;
 
     if (orgs == null || orgs.isEmpty) return;
     final index = await AppDrawerUtils.showChoiceSheet(
