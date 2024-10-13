@@ -7,6 +7,7 @@ import 'package:irrigazione_iot/src/app_bootstrap_supabase.dart';
 
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:irrigazione_iot/src/application/di/service_locator.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -22,6 +23,8 @@ void main() async {
     anonKey: Env.supabaseProdAnonKey,
     url: Env.supabaseProdUrl,
   );
+
+  ServiceLocator.init();
 
   // turn off the # in the URLs on the web
   usePathUrlStrategy();
