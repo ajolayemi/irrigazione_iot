@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'weenat_plot_org.dart';
+part of 'weenat_org.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,34 +14,33 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-WeenatPlotOrg _$WeenatPlotOrgFromJson(Map<String, dynamic> json) {
-  return _WeenatPlotOrg.fromJson(json);
+WeenatOrg _$WeenatOrgFromJson(Map<String, dynamic> json) {
+  return _WeenatOrg.fromJson(json);
 }
 
 /// @nodoc
-mixin _$WeenatPlotOrg {
+mixin _$WeenatOrg {
   int? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $WeenatPlotOrgCopyWith<WeenatPlotOrg> get copyWith =>
+  $WeenatOrgCopyWith<WeenatOrg> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $WeenatPlotOrgCopyWith<$Res> {
-  factory $WeenatPlotOrgCopyWith(
-          WeenatPlotOrg value, $Res Function(WeenatPlotOrg) then) =
-      _$WeenatPlotOrgCopyWithImpl<$Res, WeenatPlotOrg>;
+abstract class $WeenatOrgCopyWith<$Res> {
+  factory $WeenatOrgCopyWith(WeenatOrg value, $Res Function(WeenatOrg) then) =
+      _$WeenatOrgCopyWithImpl<$Res, WeenatOrg>;
   @useResult
   $Res call({int? id, String? name});
 }
 
 /// @nodoc
-class _$WeenatPlotOrgCopyWithImpl<$Res, $Val extends WeenatPlotOrg>
-    implements $WeenatPlotOrgCopyWith<$Res> {
-  _$WeenatPlotOrgCopyWithImpl(this._value, this._then);
+class _$WeenatOrgCopyWithImpl<$Res, $Val extends WeenatOrg>
+    implements $WeenatOrgCopyWith<$Res> {
+  _$WeenatOrgCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -68,22 +67,22 @@ class _$WeenatPlotOrgCopyWithImpl<$Res, $Val extends WeenatPlotOrg>
 }
 
 /// @nodoc
-abstract class _$$WeenatPlotOrgImplCopyWith<$Res>
-    implements $WeenatPlotOrgCopyWith<$Res> {
-  factory _$$WeenatPlotOrgImplCopyWith(
-          _$WeenatPlotOrgImpl value, $Res Function(_$WeenatPlotOrgImpl) then) =
-      __$$WeenatPlotOrgImplCopyWithImpl<$Res>;
+abstract class _$$WeenatOrgImplCopyWith<$Res>
+    implements $WeenatOrgCopyWith<$Res> {
+  factory _$$WeenatOrgImplCopyWith(
+          _$WeenatOrgImpl value, $Res Function(_$WeenatOrgImpl) then) =
+      __$$WeenatOrgImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int? id, String? name});
 }
 
 /// @nodoc
-class __$$WeenatPlotOrgImplCopyWithImpl<$Res>
-    extends _$WeenatPlotOrgCopyWithImpl<$Res, _$WeenatPlotOrgImpl>
-    implements _$$WeenatPlotOrgImplCopyWith<$Res> {
-  __$$WeenatPlotOrgImplCopyWithImpl(
-      _$WeenatPlotOrgImpl _value, $Res Function(_$WeenatPlotOrgImpl) _then)
+class __$$WeenatOrgImplCopyWithImpl<$Res>
+    extends _$WeenatOrgCopyWithImpl<$Res, _$WeenatOrgImpl>
+    implements _$$WeenatOrgImplCopyWith<$Res> {
+  __$$WeenatOrgImplCopyWithImpl(
+      _$WeenatOrgImpl _value, $Res Function(_$WeenatOrgImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +91,7 @@ class __$$WeenatPlotOrgImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
   }) {
-    return _then(_$WeenatPlotOrgImpl(
+    return _then(_$WeenatOrgImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -108,11 +107,11 @@ class __$$WeenatPlotOrgImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$WeenatPlotOrgImpl extends _WeenatPlotOrg {
-  const _$WeenatPlotOrgImpl({this.id, this.name}) : super._();
+class _$WeenatOrgImpl extends _WeenatOrg {
+  const _$WeenatOrgImpl({this.id, this.name}) : super._();
 
-  factory _$WeenatPlotOrgImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WeenatPlotOrgImplFromJson(json);
+  factory _$WeenatOrgImpl.fromJson(Map<String, dynamic> json) =>
+      _$$WeenatOrgImplFromJson(json);
 
   @override
   final int? id;
@@ -121,14 +120,14 @@ class _$WeenatPlotOrgImpl extends _WeenatPlotOrg {
 
   @override
   String toString() {
-    return 'WeenatPlotOrg(id: $id, name: $name)';
+    return 'WeenatOrg(id: $id, name: $name)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WeenatPlotOrgImpl &&
+            other is _$WeenatOrgImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name));
   }
@@ -140,24 +139,24 @@ class _$WeenatPlotOrgImpl extends _WeenatPlotOrg {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$WeenatPlotOrgImplCopyWith<_$WeenatPlotOrgImpl> get copyWith =>
-      __$$WeenatPlotOrgImplCopyWithImpl<_$WeenatPlotOrgImpl>(this, _$identity);
+  _$$WeenatOrgImplCopyWith<_$WeenatOrgImpl> get copyWith =>
+      __$$WeenatOrgImplCopyWithImpl<_$WeenatOrgImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$WeenatPlotOrgImplToJson(
+    return _$$WeenatOrgImplToJson(
       this,
     );
   }
 }
 
-abstract class _WeenatPlotOrg extends WeenatPlotOrg {
-  const factory _WeenatPlotOrg({final int? id, final String? name}) =
-      _$WeenatPlotOrgImpl;
-  const _WeenatPlotOrg._() : super._();
+abstract class _WeenatOrg extends WeenatOrg {
+  const factory _WeenatOrg({final int? id, final String? name}) =
+      _$WeenatOrgImpl;
+  const _WeenatOrg._() : super._();
 
-  factory _WeenatPlotOrg.fromJson(Map<String, dynamic> json) =
-      _$WeenatPlotOrgImpl.fromJson;
+  factory _WeenatOrg.fromJson(Map<String, dynamic> json) =
+      _$WeenatOrgImpl.fromJson;
 
   @override
   int? get id;
@@ -165,6 +164,6 @@ abstract class _WeenatPlotOrg extends WeenatPlotOrg {
   String? get name;
   @override
   @JsonKey(ignore: true)
-  _$$WeenatPlotOrgImplCopyWith<_$WeenatPlotOrgImpl> get copyWith =>
+  _$$WeenatOrgImplCopyWith<_$WeenatOrgImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

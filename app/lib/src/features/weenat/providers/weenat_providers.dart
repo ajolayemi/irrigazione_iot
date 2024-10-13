@@ -2,7 +2,7 @@
 import 'package:irrigazione_iot/src/data/datasource/dao/weenat_dao.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot.dart';
-import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot_org.dart';
+import 'package:irrigazione_iot/src/features/weenat/models/weenat_org.dart';
 import 'package:irrigazione_iot/src/shared/services/shared_preferences_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -25,28 +25,28 @@ bool hasWeenatToken(HasWeenatTokenRef ref) {
 }
 
 /// Access local database to retrieve list of available
-/// [WeenatPlotOrg]s
+/// [WeenatOrg]s
 @Riverpod(keepAlive: true)
-FutureOr<List<WeenatPlotOrg>?> weenatOrgs(WeenatOrgsRef ref) async {
+FutureOr<List<WeenatOrg>?> weenatOrgs(WeenatOrgsRef ref) async {
   final dao = ref.watch(weenatDaoProvider);
   final entities = await dao.getWeenatOrgs() ?? [];
   return entities.toModels(entities);
 }
 
-/// Holds onto the current selected [WeenatPlotOrg]
+/// Holds onto the current selected [WeenatOrg]
 @Riverpod(keepAlive: true)
 class SelectedWeenatOrg extends _$SelectedWeenatOrg {
   @override
-  WeenatPlotOrg? build() {
+  WeenatOrg? build() {
     final orgs = ref.watch(weenatOrgsProvider).valueOrNull;
     if (orgs == null || orgs.isEmpty) return null;
     return orgs.first;
   }
 
-  void setSelected(WeenatPlotOrg? org) => state = org;
+  void setSelected(WeenatOrg? org) => state = org;
 }
 
-/// Holds onto the index of the selected [WeenatPlotOrg]
+/// Holds onto the index of the selected [WeenatOrg]
 @Riverpod(keepAlive: true)
 int? selectedOrgIndex(SelectedOrgIndexRef ref) {
   final orgs = ref.watch(weenatOrgsProvider).valueOrNull;
@@ -56,7 +56,7 @@ int? selectedOrgIndex(SelectedOrgIndexRef ref) {
 }
 
 /// Access local database to retrieve list of available
-/// [WeenatPlot]s for the selected [WeenatPlotOrg]
+/// [WeenatPlot]s for the selected [WeenatOrg]
 @Riverpod(keepAlive: true)
 FutureOr<List<WeenatPlot>?> weenatPlotsForOrg(WeenatPlotsForOrgRef ref) async {
   final orgId = ref.watch(selectedWeenatOrgProvider.select((val) => val?.id));

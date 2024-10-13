@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:irrigazione_iot/src/data/datasource/entities/weenat_plot_entity.dart';
-import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot_org.dart';
+import 'package:irrigazione_iot/src/features/weenat/models/weenat_org.dart';
 
 part 'weenat_plot.freezed.dart';
 part 'weenat_plot.g.dart';
@@ -15,7 +15,7 @@ class WeenatPlot with _$WeenatPlot {
     String? name,
     @JsonKey(name: 'latitude') double? lat,
     @JsonKey(name: 'longitude') double? lng,
-    @JsonKey(name: 'organization') WeenatPlotOrg? org,
+    @JsonKey(name: 'organization') WeenatOrg? org,
     @JsonKey(name: 'device_count') int? deviceCount,
     DateTime? lastUpdate,
   }) = _WeenatPlot;
@@ -45,7 +45,7 @@ class WeenatPlot with _$WeenatPlot {
       lat: entity.lat,
       lng: entity.lng,
       name: entity.name,
-      org: WeenatPlotOrg.fromEntity(entity.org),
+      org: WeenatOrg.fromEntity(entity.org),
       lastUpdate: entity.lastUpdate,
     );
   }

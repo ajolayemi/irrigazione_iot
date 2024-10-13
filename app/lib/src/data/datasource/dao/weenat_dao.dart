@@ -22,13 +22,13 @@ class WeenatDao extends AppAbstractDao {
   }
 
   /// Retrieves available weenat orgs from the database
-  Future<List<WeenatPlotOrgEntity>?> getWeenatOrgs() async {
+  Future<List<WeenatOrgEntity>?> getWeenatOrgs() async {
     final orgs = await _db?.weenatPlotEntitys
         .where(distinct: true)
         .orgProperty()
         .findAll();
 
-    List<WeenatPlotOrgEntity> orgsList = [];
+    List<WeenatOrgEntity> orgsList = [];
 
     if (orgs == null) return null;
 

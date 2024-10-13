@@ -27,7 +27,7 @@ mixin _$WeenatPlot {
   @JsonKey(name: 'longitude')
   double? get lng => throw _privateConstructorUsedError;
   @JsonKey(name: 'organization')
-  WeenatPlotOrg? get org => throw _privateConstructorUsedError;
+  WeenatOrg? get org => throw _privateConstructorUsedError;
   @JsonKey(name: 'device_count')
   int? get deviceCount => throw _privateConstructorUsedError;
   DateTime? get lastUpdate => throw _privateConstructorUsedError;
@@ -49,11 +49,11 @@ abstract class $WeenatPlotCopyWith<$Res> {
       String? name,
       @JsonKey(name: 'latitude') double? lat,
       @JsonKey(name: 'longitude') double? lng,
-      @JsonKey(name: 'organization') WeenatPlotOrg? org,
+      @JsonKey(name: 'organization') WeenatOrg? org,
       @JsonKey(name: 'device_count') int? deviceCount,
       DateTime? lastUpdate});
 
-  $WeenatPlotOrgCopyWith<$Res>? get org;
+  $WeenatOrgCopyWith<$Res>? get org;
 }
 
 /// @nodoc
@@ -97,7 +97,7 @@ class _$WeenatPlotCopyWithImpl<$Res, $Val extends WeenatPlot>
       org: freezed == org
           ? _value.org
           : org // ignore: cast_nullable_to_non_nullable
-              as WeenatPlotOrg?,
+              as WeenatOrg?,
       deviceCount: freezed == deviceCount
           ? _value.deviceCount
           : deviceCount // ignore: cast_nullable_to_non_nullable
@@ -111,12 +111,12 @@ class _$WeenatPlotCopyWithImpl<$Res, $Val extends WeenatPlot>
 
   @override
   @pragma('vm:prefer-inline')
-  $WeenatPlotOrgCopyWith<$Res>? get org {
+  $WeenatOrgCopyWith<$Res>? get org {
     if (_value.org == null) {
       return null;
     }
 
-    return $WeenatPlotOrgCopyWith<$Res>(_value.org!, (value) {
+    return $WeenatOrgCopyWith<$Res>(_value.org!, (value) {
       return _then(_value.copyWith(org: value) as $Val);
     });
   }
@@ -135,12 +135,12 @@ abstract class _$$WeenatPlotImplCopyWith<$Res>
       String? name,
       @JsonKey(name: 'latitude') double? lat,
       @JsonKey(name: 'longitude') double? lng,
-      @JsonKey(name: 'organization') WeenatPlotOrg? org,
+      @JsonKey(name: 'organization') WeenatOrg? org,
       @JsonKey(name: 'device_count') int? deviceCount,
       DateTime? lastUpdate});
 
   @override
-  $WeenatPlotOrgCopyWith<$Res>? get org;
+  $WeenatOrgCopyWith<$Res>? get org;
 }
 
 /// @nodoc
@@ -182,7 +182,7 @@ class __$$WeenatPlotImplCopyWithImpl<$Res>
       org: freezed == org
           ? _value.org
           : org // ignore: cast_nullable_to_non_nullable
-              as WeenatPlotOrg?,
+              as WeenatOrg?,
       deviceCount: freezed == deviceCount
           ? _value.deviceCount
           : deviceCount // ignore: cast_nullable_to_non_nullable
@@ -224,7 +224,7 @@ class _$WeenatPlotImpl extends _WeenatPlot {
   final double? lng;
   @override
   @JsonKey(name: 'organization')
-  final WeenatPlotOrg? org;
+  final WeenatOrg? org;
   @override
   @JsonKey(name: 'device_count')
   final int? deviceCount;
@@ -277,7 +277,7 @@ abstract class _WeenatPlot extends WeenatPlot {
       final String? name,
       @JsonKey(name: 'latitude') final double? lat,
       @JsonKey(name: 'longitude') final double? lng,
-      @JsonKey(name: 'organization') final WeenatPlotOrg? org,
+      @JsonKey(name: 'organization') final WeenatOrg? org,
       @JsonKey(name: 'device_count') final int? deviceCount,
       final DateTime? lastUpdate}) = _$WeenatPlotImpl;
   const _WeenatPlot._() : super._();
@@ -297,7 +297,7 @@ abstract class _WeenatPlot extends WeenatPlot {
   double? get lng;
   @override
   @JsonKey(name: 'organization')
-  WeenatPlotOrg? get org;
+  WeenatOrg? get org;
   @override
   @JsonKey(name: 'device_count')
   int? get deviceCount;

@@ -15,7 +15,7 @@ class WeenatPlotEntity {
 
   double? lng;
 
-  WeenatPlotOrgEntity? org;
+  WeenatOrgEntity? org;
 
   int? deviceCount;
 
@@ -23,8 +23,8 @@ class WeenatPlotEntity {
 }
 
 @embedded
-@Name('WeenatPlotOrg')
-class WeenatPlotOrgEntity {
+@Name('WeenatOrg')
+class WeenatOrgEntity {
   int? id;
 
   String? name;
