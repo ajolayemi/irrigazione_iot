@@ -4,6 +4,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_org.dart';
 import 'package:irrigazione_iot/src/features/weenat/providers/weenat_providers.dart';
+import 'package:irrigazione_iot/src/features/weenat/widgets/weenat_plots_card.dart';
+import 'package:irrigazione_iot/src/features/weenat/widgets/weenat_range_picker.dart';
+import 'package:irrigazione_iot/src/features/weenat/widgets/weenat_tensiometer_range_picker.dart';
 import 'package:irrigazione_iot/src/utils/app_drawer_utils.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
@@ -134,6 +137,28 @@ class _WeenatMapScreenState extends ConsumerState<WeenatMapScreen> {
                       ],
                     ),
                   ),
+
+                  // Tensiometer range choice, data range choice, and plots cards
+                  // section
+                  const Positioned(
+                    bottom: 34,
+                    left: 0,
+                    right: 0,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Sizes.p12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          WeenatTensiometerRangePicker(),
+                          gapH12,
+                          WeenatRangePicker(),
+                          gapH4,
+                          WeenatPlotsCard(),
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

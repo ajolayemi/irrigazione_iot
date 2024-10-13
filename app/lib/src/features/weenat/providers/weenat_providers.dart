@@ -64,3 +64,31 @@ FutureOr<List<WeenatPlot>?> weenatPlotsForOrg(WeenatPlotsForOrgRef ref) async {
   final entities = await dao.getWeenatPlotsForOrg(orgId) ?? [];
   return entities.toModels(entities);
 }
+
+/// Holds onto the static lists of available tensiometers ranges
+@Riverpod(keepAlive: true)
+List<String> tensiometerRanges(TensiometerRangesRef ref) {
+  return ['15', '30', '45'];
+}
+
+/// Holds onto the current selected tensiometer range
+@Riverpod(keepAlive: true)
+class SelectedTensiometerRange extends _$SelectedTensiometerRange {
+  @override
+  String? build() {
+    final ranges = ref.watch(tensiometerRangesProvider);
+    if (ranges.isEmpty) return null;
+    return ranges.first;
+  }
+
+  void setSelected(String? range) => state = range;
+}
+
+/// Checks to see if a tensiometer range is selected
+@Riverpod(keepAlive: true)
+bool tensiometerRangeIsSelected(
+  TensiometerRangeIsSelectedRef ref,
+  String range,
+) {
+  return ref.watch(selectedTensiometerRangeProvider) == range;
+}
