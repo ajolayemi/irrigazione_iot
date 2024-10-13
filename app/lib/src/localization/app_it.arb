@@ -304,6 +304,10 @@
   "weenatSelectCompany": "Scegli un''azienda",
   "collectorName": "Nome Collettore",
   "filterInForDashboard": "Filter IN",
-  "filterOutForDashboard": "Filter OUT"
-
+  "filterOutForDashboard": "Filter OUT",
+  "tensiometerDepth": "Profondità",
+  "centimeters": "cm",
+  "weenatLast7Days": "G-7",
+  "weenatLast24Hours": "G-1",
+  "weenatLastHour": "Un'ora fa"
 }

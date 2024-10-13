@@ -1359,5 +1359,26 @@
   "weenatSelectCompany": "Select a company",
   "@weenatSelectCompany": {
     "description": "The label for selecting a company in Weenat"
+  },
+  "tensiometerDepth": "Depth",
+  "@tensiometerDepth": {
+    "description": "The label for the tensiometer depth"
+  },
+  "centimeters": "cm",
+  "@centimeters": {
+    "description": "The unit of measurement for centimeters"
+  },
+  "weenatLast7Days": "G-7",
+  "@weenatLast7Days": {
+    "description": "The label for the last 7 days in Weenat"
+  },
+  "weenatLast24Hours": "G-1",
+  "@weenatLast24Hours": {
+    "description": "The label for the last 24 hours in Weenat"
+  },
+  "weenatLastHour": "G-0",
+  "@weenatLastHour": {
+    "description": "The label for the last hour in Weenat"
   }
+
 }
