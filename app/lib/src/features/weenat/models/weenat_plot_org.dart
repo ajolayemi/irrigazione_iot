@@ -40,6 +40,10 @@ extension WeenatPlotOrgsX on List<WeenatPlotOrg> {
   List<WeenatPlotOrg> fromEntities(List<WeenatPlotOrgEntity> entities) {
     return entities.map((entity) => WeenatPlotOrg.fromEntity(entity)).toList();
   }
+
+  List<String> toNames() {
+    return map((org) => org.name ?? '').toList();
+  }
 }
 
 

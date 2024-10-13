@@ -45,6 +45,14 @@ class SelectedWeenatOrg extends _$SelectedWeenatOrg {
   void setSelected(WeenatPlotOrg? org) => state = org;
 }
 
+/// Holds onto the index of the selected [WeenatPlotOrg]
+@Riverpod(keepAlive: true)
+int? selectedOrgIndex(SelectedOrgIndexRef ref) {
+  final orgs = ref.watch(weenatPlotOrgsProvider).valueOrNull;
+  final selectedOrg = ref.watch(selectedWeenatOrgProvider);
+  if (orgs == null || orgs.isEmpty || selectedOrg == null) return null;
+  return orgs.indexOf(selectedOrg);
+}
 /// Access local database to retrieve list of available
 /// [WeenatPlot]s for the selected [WeenatPlotOrg]
 @Riverpod(keepAlive: true)
