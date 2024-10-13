@@ -145,14 +145,24 @@ class _WeenatMapScreenState extends ConsumerState<WeenatMapScreen> {
                     left: 0,
                     right: 0,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: Sizes.p12),
+                      padding: EdgeInsets.symmetric(horizontal: 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          WeenatTensiometerRangePicker(),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: Sizes.p16,
+                            ),
+                            child: WeenatTensiometerRangePicker(),
+                          ),
                           gapH12,
-                          WeenatRangePicker(),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: Sizes.p16,
+                            ),
+                            child: WeenatRangePicker(),
+                          ),
                           gapH4,
                           WeenatPlotsCard(),
                         ],
