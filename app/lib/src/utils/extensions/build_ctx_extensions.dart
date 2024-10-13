@@ -156,3 +156,17 @@ extension BuildContextExtensions on BuildContext {
     );
   }
 }
+
+extension ScreenExtensions on BuildContext {
+  Size get screenSize => MediaQuery.sizeOf(this);
+
+  EdgeInsets get screenPadding => MediaQuery.paddingOf(this);
+
+  double get screenWidth => screenSize.width;
+
+  double get screenHeight => screenSize.height;
+
+  double get screenBottomPadding => screenPadding.bottom;
+
+  double get screenTopPadding => screenPadding.top;
+}
