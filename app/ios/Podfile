@@ -41,4 +41,15 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
   end
+
+# Add automatic compiler flag to indicate that app does not need to access user's location
+# When in background
+# This is required to bypass the App Store's location permission requirements
+installer.pods_project.targets.each do |target|
+  if target.name == "geolocator_apple"
+    target.build_configurations.each do |config|
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'BYPASS_PERMISSION_LOCATION_ALWAYS=1']
+    end
+  end
+end
 end
