@@ -23,6 +23,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_riverpod: ^2.4.9
+  flutter_svg: ^2.0.10+1
   freezed_annotation: ^2.4.4
   geolocator: ^13.0.1
   get_it: ^8.0.0
@@ -69,9 +70,23 @@ flutter:
   assets:
     # Add assets from the images directory to the application.
     - assets/images/
+    - assets/images/weenat/
 
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/icon/icon.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
+
+flutter_gen:
+  output: lib/gen/
+
+  integrations:
+    flutter_svg: true
+
+  assets:
+    enabled: true
+  fonts:
+    enabled: false
+  colors:
+    enabled: false
