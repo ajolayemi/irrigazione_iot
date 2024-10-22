@@ -27,6 +27,8 @@ class _WeenatMapScreenState extends ConsumerState<WeenatMapScreen> {
   void initState() {
     // Initialize user's location provider
     ref.read(userLocationCoordinatesProvider);
+    ref.read(selectedMarkerIconProvider);
+    ref.read(unselectedMarkerIconProvider);
 
     super.initState();
   }
@@ -102,6 +104,9 @@ class _WeenatMapScreenState extends ConsumerState<WeenatMapScreen> {
                             ),
                             onMapCreated: (controller) {
                               _controller = controller;
+                              ref
+                                  .read(mapControllerProvider.notifier)
+                                  .setController(controller);
                             },
                             markers: markers,
                           );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:irrigazione_iot/src/features/weenat/providers/weenat_providers.dart';
+import 'package:irrigazione_iot/src/utils/weenat_utils.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot.dart';
@@ -24,36 +26,29 @@ class WeenatPlotsCard extends ConsumerStatefulWidget {
 class _WeenatPlotsCardState extends ConsumerState<WeenatPlotsCard> {
   int? indexScrolledTo = 0;
   int? selectedIndex = 0;
-  final _scrollController = ItemScrollController();
+  late ItemScrollController _scrollController;
   final _itemPositionsListener = ItemPositionsListener.create();
 
   List<WeenatPlot> get plots => widget.plots;
 
   @override
   void initState() {
+    _scrollController = ref.read(itemScrollControllerProvider);
     _itemPositionsListener.itemPositions.addListener(() {
       final positions = _itemPositionsListener.itemPositions.value;
       if (positions.isNotEmpty) {
         final index = positions.first.index;
-        if (index == indexScrolledTo) {
+        final currentIndex = ref.read(selectedPlotIndexProvider);
+        if (index == currentIndex) {
           final itemAtIndex = plots[index];
-          _moveCamera(itemAtIndex);
-          ref.read(selectedPlotIndexProvider.notifier).setSelected(index);
+          WeenatUtils.moveCamera(
+            item: itemAtIndex,
+            mapController: widget.mapController,
+          );
         }
       }
     });
     super.initState();
-  }
-
-  Future<void> _moveCamera(WeenatPlot item) async {
-    await widget.mapController?.animateCamera(
-      CameraUpdate.newLatLng(
-        LatLng(
-          item.lat ?? 0.0,
-          item.lng ?? 0.0,
-        ),
-      ),
-    );
   }
 
   Future<void> _onSwipe({
@@ -68,18 +63,13 @@ class _WeenatPlotsCardState extends ConsumerState<WeenatPlotsCard> {
     }
 
     final nextIndex = isSwipeRight ? currentIndex - 1 : currentIndex + 1;
-
-    // TODO: this should be refactored later on
-    if (_scrollController.isAttached) {
-      _scrollController.scrollTo(
-        index: nextIndex,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-      setState(() {
-        indexScrolledTo = nextIndex;
-      });
-    }
+    WeenatUtils.scrollCarousel(
+      index: nextIndex,
+      scrollController: _scrollController,
+      onScrollCompleted: () {
+        ref.read(selectedPlotIndexProvider.notifier).setSelected(nextIndex);
+      },
+    );
   }
 
   @override

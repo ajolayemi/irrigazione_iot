@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:irrigazione_iot/src/data/datasource/entities/weenat_plot_entity.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_org.dart';
-
+import 'package:collection/collection.dart';
 part 'weenat_plot.freezed.dart';
 part 'weenat_plot.g.dart';
 
@@ -59,15 +59,23 @@ extension WeenatPlotsX on List<WeenatPlot> {
 
   /// Builds a set of [Marker]s from the list of [WeenatPlot]s
   /// for use in Google Maps
-  Set<Marker> toMarkers() {
-    return map((plot) {
+  Set<Marker> toMarkers({
+    BitmapDescriptor? selectedIcon,
+    BitmapDescriptor? unselectedIcon,
+    int? selectedPlotId,
+    Function(WeenatPlot? plot, int? plotIndex)? onTap,
+  }) {
+    const defaultMarker = BitmapDescriptor.defaultMarker;
+    return mapIndexed((index, plot) {
+      final isSelected = selectedPlotId == plot.id;
+
       return Marker(
         markerId: MarkerId(plot.id.toString()),
         position: LatLng(plot.lat ?? 0, plot.lng ?? 0),
-        infoWindow: InfoWindow(
-          title: plot.name ?? '',
-          snippet: plot.org?.name ?? '',
-        ),
+        icon: isSelected
+            ? selectedIcon ?? defaultMarker
+            : unselectedIcon ?? defaultMarker,
+        onTap: () => onTap?.call(plot, index),
       );
     }).toSet();
   }

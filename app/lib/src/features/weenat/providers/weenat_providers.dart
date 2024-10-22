@@ -2,6 +2,8 @@
 import 'dart:async';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:irrigazione_iot/src/features/weenat/providers/weenat_plot_carousel_providers.dart';
+import 'package:irrigazione_iot/src/utils/weenat_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/enums/weenat_sensor_data_types.dart';
@@ -12,6 +14,7 @@ import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot_sensor_data.dart';
 import 'package:irrigazione_iot/src/features/weenat/services/weenat_service.dart';
 import 'package:irrigazione_iot/src/shared/services/shared_preferences_service.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 part 'weenat_providers.g.dart';
 
@@ -100,15 +103,91 @@ bool tensiometerRangeIsSelected(
   return ref.watch(selectedTensiometerRangeProvider) == range;
 }
 
+/// Holds onto the selected marker icon
+@Riverpod(keepAlive: true)
+FutureOr<BitmapDescriptor> selectedMarkerIcon(SelectedMarkerIconRef ref) {
+  return WeenatUtils.getPlotSelectedIcon();
+}
+
+/// Holds onto the unselected marker icon
+/// for the map
+@Riverpod(keepAlive: true)
+FutureOr<BitmapDescriptor> unselectedMarkerIcon(UnselectedMarkerIconRef ref) {
+  return WeenatUtils.getPlotUnselectedIcon();
+}
+
 /// Holds onto the list of [Marker]s to be displayed on the map
 /// for the selected [WeenatOrg]
 @Riverpod(keepAlive: true)
 Set<Marker> weenatMapMarkers(WeenatMapMarkersRef ref) {
+  final selectedIcon = ref.watch(selectedMarkerIconProvider).valueOrNull;
+  final unselectedIcon = ref.watch(unselectedMarkerIconProvider).valueOrNull;
   final plots = ref.watch(weenatPlotsForOrgProvider).valueOrNull;
+
+  final selectedPlotId = ref.watch(
+    selectedPlotProvider.select(
+      (plot) => plot?.id,
+    ),
+  );
   if (plots != null && plots.isNotEmpty) {
-    return plots.toMarkers();
+    return plots.toMarkers(
+      selectedIcon: selectedIcon,
+      unselectedIcon: unselectedIcon,
+      selectedPlotId: selectedPlotId,
+      onTap: (plot, index) {
+        if (index == null || plot == null) {
+          return;
+        }
+        ref.read(selectedPlotIndexProvider.notifier).setSelected(index);
+        WeenatUtils.scrollCarousel(
+          index: index,
+          scrollController: ref.read(itemScrollControllerProvider),
+        );
+        WeenatUtils.moveCamera(
+          item: plot,
+          mapController: ref.read(mapControllerProvider),
+        );
+      },
+    );
   }
   return {};
+}
+
+/// Holds onto the currently selected [Marker] on the map
+@Riverpod(keepAlive: true)
+class SelectedMarker extends _$SelectedMarker {
+  @override
+  Marker? build() {
+    final plots = ref.watch(weenatPlotsForOrgProvider).valueOrNull;
+    final markers = plots?.toMarkers() ?? {};
+    final selectedPlotId = ref.watch(
+      selectedPlotProvider.select(
+        (plot) => plot?.id,
+      ),
+    );
+    if (markers.isEmpty || selectedPlotId == null) return null;
+    return markers.firstWhere(
+        (marker) => marker.markerId.value == selectedPlotId.toString());
+  }
+}
+
+/// Holds onto the current [GoogleMapController] for the map
+@Riverpod(keepAlive: true)
+class MapController extends _$MapController {
+  @override
+  GoogleMapController? build() {
+    return null;
+  }
+
+  void setController(GoogleMapController? controller) {
+    state = controller;
+  }
+}
+
+/// Holds onto the current [ItemScrollController]
+@Riverpod(keepAlive: true)
+ItemScrollController itemScrollController(ItemScrollControllerRef ref) {
+  return ItemScrollController();
 }
 
 /// Holds onto the list of retrieved sensor data for a given plot in a given org
