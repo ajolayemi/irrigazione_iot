@@ -12,11 +12,15 @@ class SharedPreferencesService {
   // The last time that a token was updated
   static const String _weenatTimestampTokenSuffixKey = 'weenat_timestamp_token';
 
-  String _buildFinalTokenKey({
-    required String uid,
+  // The last time plot sensor data for a particular plot was updated
+  static const String _weenatPlotSensorDataTimestampKey =
+      'weenat_plot_sensor_data_timestamp';
+
+  String _buildFinalKey({
+    required String prefix,
     required String key,
   }) {
-    return '$uid _$key';
+    return '$prefix _$key';
   }
 
   /// Clears all currently saved weenat token preferences
@@ -25,12 +29,12 @@ class SharedPreferencesService {
 
     final pref = await SharedPreferences.getInstance();
 
-    final prefKey = _buildFinalTokenKey(
-      uid: uid,
+    final prefKey = _buildFinalKey(
+      prefix: uid,
       key: _weenatTokenSuffixKey,
     );
-    final timestampKey = _buildFinalTokenKey(
-      uid: uid,
+    final timestampKey = _buildFinalKey(
+      prefix: uid,
       key: _weenatTimestampTokenSuffixKey,
     );
 
@@ -47,12 +51,12 @@ class SharedPreferencesService {
 
     final pref = await SharedPreferences.getInstance();
 
-    final prefKey = _buildFinalTokenKey(
-      uid: uid,
+    final prefKey = _buildFinalKey(
+      prefix: uid,
       key: _weenatTokenSuffixKey,
     );
-    final timestampKey = _buildFinalTokenKey(
-      uid: uid,
+    final timestampKey = _buildFinalKey(
+      prefix: uid,
       key: _weenatTimestampTokenSuffixKey,
     );
     pref.setString(prefKey, token);
@@ -73,12 +77,12 @@ class SharedPreferencesService {
     if (uid == null || uid.isEmpty) return null;
 
     final pref = await SharedPreferences.getInstance();
-    final prefKey = _buildFinalTokenKey(
-      uid: uid,
+    final prefKey = _buildFinalKey(
+      prefix: uid,
       key: _weenatTokenSuffixKey,
     );
-    final timestampKey = _buildFinalTokenKey(
-      uid: uid,
+    final timestampKey = _buildFinalKey(
+      prefix: uid,
       key: _weenatTimestampTokenSuffixKey,
     );
     final token = pref.getString(prefKey);
@@ -98,6 +102,35 @@ class SharedPreferencesService {
     }
 
     return token;
+  }
+
+  /// Saves the last time that plot sensor data was updated
+  /// for a particular plot
+  Future<void> setPlotSensorDataTimestamp({
+    required int plotId,
+    required DateTime timestamp,
+  }) async {
+    final pref = await SharedPreferences.getInstance();
+    final prefKey = _buildFinalKey(
+      prefix: plotId.toString(),
+      key: _weenatPlotSensorDataTimestampKey,
+    );
+    pref.setString(
+      prefKey,
+      timestamp.toIso8601String(),
+    );
+  }
+
+  /// Retrieves the last time that plot sensor data was updated
+  /// for a particular plot
+  Future<DateTime?> getPlotSensorDataTimestamp({required int plotId}) async {
+    final pref = await SharedPreferences.getInstance();
+    final prefKey = _buildFinalKey(
+      prefix: plotId.toString(),
+      key: _weenatPlotSensorDataTimestampKey,
+    );
+    final timestamp = pref.getString(prefKey);
+    return DateTime.tryParse(timestamp ?? '');
   }
 }
 

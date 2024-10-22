@@ -25,13 +25,33 @@ class WeenatRepositoryImpl extends HttpRepository implements WeenatRepository {
   }
 
   @override
-  Future<void> getMeasures({
-    required String plotId,
-    required DateTime from,
-    required DateTime to,
-  }) {
-    // TODO: implement getMeasures
-    throw UnimplementedError();
+  Future<Map<String, dynamic>?> getMeasures({
+    required int plotId,
+    required int unixStart,
+    required int unixEnd,
+    required String token,
+    int? orgId,
+  }) async {
+    try {
+      /// Make api service call to retrieve data from Weenat's server
+      final headers = {
+        HttpHeaders.contentType: HttpHeaders.json,
+        HttpHeaders.authorization: '${HttpHeaders.bearer} $token',
+      };
+
+      final url = orgId != null
+          ? '/v2/access/plots/$plotId/measures/?start=$unixStart&end=$unixEnd&organization=$orgId'
+          : '/v2/access/plots/$plotId/measures/?start=$unixStart&end=$unixEnd';
+
+      final res = await get(
+        path: url,
+        headers: headers,
+      );
+
+      return res.data as Map<String, dynamic>;
+    } catch (_) {
+      rethrow;
+    }
   }
 
   @override

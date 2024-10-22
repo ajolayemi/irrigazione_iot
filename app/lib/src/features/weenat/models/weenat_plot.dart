@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:irrigazione_iot/src/data/datasource/entities/weenat_plot_entity.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_org.dart';
 
@@ -54,6 +55,21 @@ class WeenatPlot with _$WeenatPlot {
 extension WeenatPlotsX on List<WeenatPlot> {
   List<WeenatPlotEntity> toEntities() {
     return map((e) => e.toEntity()).toList();
+  }
+
+  /// Builds a set of [Marker]s from the list of [WeenatPlot]s
+  /// for use in Google Maps
+  Set<Marker> toMarkers() {
+    return map((plot) {
+      return Marker(
+        markerId: MarkerId(plot.id.toString()),
+        position: LatLng(plot.lat ?? 0, plot.lng ?? 0),
+        infoWindow: InfoWindow(
+          title: plot.name ?? '',
+          snippet: plot.org?.name ?? '',
+        ),
+      );
+    }).toSet();
   }
 }
 

@@ -24,7 +24,6 @@ class WeenatRangePicker extends ConsumerWidget {
           width: 1,
         ),
       ),
-
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -85,7 +84,8 @@ class WeenatRangePickerItem extends StatelessWidget {
           vertical: Sizes.p8,
         ),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.lightGreen : AppColorsPalette.white,
+          color:
+              isSelected ? AppColorsPalette.lightGreen : AppColorsPalette.white,
           borderRadius: isFirstItem
               ? const BorderRadius.only(
                   topLeft: Radius.circular(

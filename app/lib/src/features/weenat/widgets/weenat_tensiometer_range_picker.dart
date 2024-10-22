@@ -57,7 +57,7 @@ class WeenatTensiometerRangePicker extends ConsumerWidget {
                         final isFirstItem = index == 0;
                         final defaultDec = BoxDecoration(
                           color: isSelected
-                              ? Colors.blueGrey
+                              ? AppColorsPalette.weenatBlue
                               : AppColorsPalette.white,
                           borderRadius: isFirstItem
                               ? const BorderRadius.only(

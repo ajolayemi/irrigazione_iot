@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/data/datasource/entities/weenat_plot_entity.dart';
+import 'package:irrigazione_iot/src/data/datasource/entities/weenat_plot_sensor_data_entity.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -14,6 +15,7 @@ class LocalDbInstance {
     final isar = await Isar.open(
       [
         WeenatPlotEntitySchema,
+        WeenatPlotSensorDataEntitySchema,
       ],
       directory: dir.path,
     );

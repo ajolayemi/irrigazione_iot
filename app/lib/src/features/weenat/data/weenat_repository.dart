@@ -17,11 +17,13 @@ abstract class WeenatRepository {
   Future<List<WeenatPlot>?> getPlots({required String token});
 
   /// Retrieves the list of measures for a particular plot with
-  /// [plotId] in the provided [start] to [end] timestamps
-  Future<void> getMeasures({
-    required String plotId,
-    required DateTime from,
-    required DateTime to,
+  /// [plotId] in the given [orgId] in the provided [unixStart] to [unixEnd] timestamps
+  Future<Map<String, dynamic>?> getMeasures({
+    required int plotId,
+    required int unixStart,
+    required int unixEnd,
+    required String token,
+    int? orgId,
   });
 }
 

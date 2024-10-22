@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$WeenatDataRangeOption {
   String get locKey => throw _privateConstructorUsedError;
   int get daysDifference => throw _privateConstructorUsedError;
+  WeenatDataRangeType get type => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $WeenatDataRangeOptionCopyWith<WeenatDataRangeOption> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $WeenatDataRangeOptionCopyWith<$Res> {
           $Res Function(WeenatDataRangeOption) then) =
       _$WeenatDataRangeOptionCopyWithImpl<$Res, WeenatDataRangeOption>;
   @useResult
-  $Res call({String locKey, int daysDifference});
+  $Res call({String locKey, int daysDifference, WeenatDataRangeType type});
 }
 
 /// @nodoc
@@ -49,6 +50,7 @@ class _$WeenatDataRangeOptionCopyWithImpl<$Res,
   $Res call({
     Object? locKey = null,
     Object? daysDifference = null,
+    Object? type = null,
   }) {
     return _then(_value.copyWith(
       locKey: null == locKey
@@ -59,6 +61,10 @@ class _$WeenatDataRangeOptionCopyWithImpl<$Res,
           ? _value.daysDifference
           : daysDifference // ignore: cast_nullable_to_non_nullable
               as int,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as WeenatDataRangeType,
     ) as $Val);
   }
 }
@@ -72,7 +78,7 @@ abstract class _$$WeenatDataRangeOptionImplCopyWith<$Res>
       __$$WeenatDataRangeOptionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String locKey, int daysDifference});
+  $Res call({String locKey, int daysDifference, WeenatDataRangeType type});
 }
 
 /// @nodoc
@@ -89,6 +95,7 @@ class __$$WeenatDataRangeOptionImplCopyWithImpl<$Res>
   $Res call({
     Object? locKey = null,
     Object? daysDifference = null,
+    Object? type = null,
   }) {
     return _then(_$WeenatDataRangeOptionImpl(
       locKey: null == locKey
@@ -99,6 +106,10 @@ class __$$WeenatDataRangeOptionImplCopyWithImpl<$Res>
           ? _value.daysDifference
           : daysDifference // ignore: cast_nullable_to_non_nullable
               as int,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as WeenatDataRangeType,
     ));
   }
 }
@@ -107,17 +118,19 @@ class __$$WeenatDataRangeOptionImplCopyWithImpl<$Res>
 
 class _$WeenatDataRangeOptionImpl extends _WeenatDataRangeOption {
   const _$WeenatDataRangeOptionImpl(
-      {required this.locKey, required this.daysDifference})
+      {required this.locKey, required this.daysDifference, required this.type})
       : super._();
 
   @override
   final String locKey;
   @override
   final int daysDifference;
+  @override
+  final WeenatDataRangeType type;
 
   @override
   String toString() {
-    return 'WeenatDataRangeOption(locKey: $locKey, daysDifference: $daysDifference)';
+    return 'WeenatDataRangeOption(locKey: $locKey, daysDifference: $daysDifference, type: $type)';
   }
 
   @override
@@ -127,11 +140,12 @@ class _$WeenatDataRangeOptionImpl extends _WeenatDataRangeOption {
             other is _$WeenatDataRangeOptionImpl &&
             (identical(other.locKey, locKey) || other.locKey == locKey) &&
             (identical(other.daysDifference, daysDifference) ||
-                other.daysDifference == daysDifference));
+                other.daysDifference == daysDifference) &&
+            (identical(other.type, type) || other.type == type));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, locKey, daysDifference);
+  int get hashCode => Object.hash(runtimeType, locKey, daysDifference, type);
 
   @JsonKey(ignore: true)
   @override
@@ -144,13 +158,16 @@ class _$WeenatDataRangeOptionImpl extends _WeenatDataRangeOption {
 abstract class _WeenatDataRangeOption extends WeenatDataRangeOption {
   const factory _WeenatDataRangeOption(
       {required final String locKey,
-      required final int daysDifference}) = _$WeenatDataRangeOptionImpl;
+      required final int daysDifference,
+      required final WeenatDataRangeType type}) = _$WeenatDataRangeOptionImpl;
   const _WeenatDataRangeOption._() : super._();
 
   @override
   String get locKey;
   @override
   int get daysDifference;
+  @override
+  WeenatDataRangeType get type;
   @override
   @JsonKey(ignore: true)
   _$$WeenatDataRangeOptionImplCopyWith<_$WeenatDataRangeOptionImpl>

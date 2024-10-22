@@ -1,10 +1,17 @@
 // ignore_for_file: avoid_manual_providers_as_generated_provider_dependency
+import 'dart:async';
+
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'package:irrigazione_iot/src/config/enums/weenat_sensor_data_types.dart';
 import 'package:irrigazione_iot/src/data/datasource/dao/weenat_dao.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
-import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_org.dart';
+import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot.dart';
+import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot_sensor_data.dart';
+import 'package:irrigazione_iot/src/features/weenat/services/weenat_service.dart';
 import 'package:irrigazione_iot/src/shared/services/shared_preferences_service.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'weenat_providers.g.dart';
 
@@ -68,7 +75,7 @@ FutureOr<List<WeenatPlot>?> weenatPlotsForOrg(WeenatPlotsForOrgRef ref) async {
 /// Holds onto the static lists of available tensiometers ranges
 @Riverpod(keepAlive: true)
 List<String> tensiometerRanges(TensiometerRangesRef ref) {
-  return ['15', '30', '45'];
+  return ['15', '20', '45'];
 }
 
 /// Holds onto the current selected tensiometer range
@@ -91,4 +98,53 @@ bool tensiometerRangeIsSelected(
   String range,
 ) {
   return ref.watch(selectedTensiometerRangeProvider) == range;
+}
+
+/// Holds onto the list of [Marker]s to be displayed on the map
+/// for the selected [WeenatOrg]
+@Riverpod(keepAlive: true)
+Set<Marker> weenatMapMarkers(WeenatMapMarkersRef ref) {
+  final plots = ref.watch(weenatPlotsForOrgProvider).valueOrNull;
+  if (plots != null && plots.isNotEmpty) {
+    return plots.toMarkers();
+  }
+  return {};
+}
+
+/// Holds onto the list of retrieved sensor data for a given plot in a given org
+@Riverpod(keepAlive: true)
+FutureOr<List<WeenatPlotSensorData>?> plotSensorData(
+  PlotSensorDataRef ref, {
+  required DateTime start,
+  required DateTime end,
+  required WeenatSensorDataType type,
+  int? plotId,
+  int? depth,
+}) {
+  // Get the current time
+  DateTime now = DateTime.now();
+
+  // Calculate the time remaining until the next hour
+  DateTime nextHour = DateTime(now.year, now.month, now.day, now.hour + 1);
+  Duration timeUntilNextHour = nextHour.difference(now);
+
+  // Start a timer that will run once the time remaining until the next hour has passed
+  final timer = Timer.periodic(timeUntilNextHour, (timer) {
+    // Invalidate the provider to force a refresh
+    ref.invalidateSelf();
+  });
+
+  ref.onDispose(() {
+    timer.cancel();
+  });
+  final service = ref.watch(weenatServiceProvider);
+
+  if (plotId == null || depth == null) return [];
+  return service.getPlotSensorData(
+    from: start,
+    to: end,
+    plotId: plotId,
+    type: type,
+    depth: depth,
+  );
 }

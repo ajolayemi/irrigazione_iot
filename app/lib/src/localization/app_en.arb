@@ -1352,7 +1352,7 @@
   "@weenatAuthScreenIntroductoryText": {
     "description": "The introductory text for the Weenat authentication screen"
   },
-  "weenatSignInCta": "Sign into Weenat",
+  "weenatSignInCta": "Sign In",
   "@weenatSignInCta": {
     "description": "The call-to-action text for signing into Weenat"
   },
@@ -1376,7 +1376,7 @@
   "@weenatLast24Hours": {
     "description": "The label for the last 24 hours in Weenat"
   },
-  "weenatLastHour": "G-0",
+  "weenatLastHour": "Real time",
   "@weenatLastHour": {
     "description": "The label for the last hour in Weenat"
   }

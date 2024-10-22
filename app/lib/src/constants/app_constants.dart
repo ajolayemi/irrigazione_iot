@@ -10,4 +10,5 @@ class AppConstants {
   static const int maxWeatherStationNameLength = 20;
   static const int maxWeatherStationEuiLength = 16;
   static const int weenatTokenValidityDays = 365;
+  static const Duration weenatSensorDataUpdateInterval = Duration(hours: 1);
 }

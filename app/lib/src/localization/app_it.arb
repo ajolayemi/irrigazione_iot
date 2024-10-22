@@ -300,7 +300,7 @@
   "noSearchResults": "Nessun risultato trovato",
   "weenat": "Weenat",
   "weenatAuthScreenIntroductoryText": "Inserisci le tue credenziali Weenat per continuare",
-  "weenatSignInCta": "Sign into Weenat",
+  "weenatSignInCta": "Accedi",
   "weenatSelectCompany": "Scegli un''azienda",
   "collectorName": "Nome Collettore",
   "filterInForDashboard": "Filter IN",
@@ -309,5 +309,5 @@
   "centimeters": "cm",
   "weenatLast7Days": "G-7",
   "weenatLast24Hours": "G-1",
-  "weenatLastHour": "Un'ora fa"
+  "weenatLastHour": "Tempo reale"
 }

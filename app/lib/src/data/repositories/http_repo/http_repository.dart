@@ -17,12 +17,13 @@ class HttpHeaders {
 }
 
 // TODO: properly handle exceptions
+// TODO: the interceptor should handle adding token header
 /// Wraps the http client to make http requests
 class HttpRepository {
   HttpRepository({
     required this.baseUrl,
-    this.connectTimeout = const Duration(seconds: 5),
-    this.receiveTimeout = const Duration(seconds: 3),
+    this.connectTimeout = const Duration(seconds: 20),
+    this.receiveTimeout = const Duration(seconds: 10),
   }) {
     _dio.interceptors.add(
       InterceptorsWrapper(
