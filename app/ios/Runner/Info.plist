@@ -67,5 +67,7 @@
 			</dict>
 		</array>
 		<!-- End of the Google Sign-in Section -->
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>A feature of this app(Weenat) requires access to user location</string>
 	</dict>
 </plist>
