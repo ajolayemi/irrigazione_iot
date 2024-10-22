@@ -11,3 +11,4 @@ output-dir: lib/src/localization/gen_l10n
 output-localization-file: app_localizations.dart
 nullable-getter: false
 untranslated-messages-file: untranslated_messages.txt
+use-escaping: false
