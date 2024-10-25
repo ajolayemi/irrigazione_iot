@@ -186,7 +186,7 @@ class WeenatService {
           final isType = data.dataType == type;
           final isDepth = data.sensorDataDepth == depth;
           final isPlotId = data.plotId == plotId;
-          final isTimestamp = data.timeStamp == data.timeStamp;
+          final isTimestamp = data.timeStamp == from;
           return isType && isDepth && isPlotId && isTimestamp;
         },
       ).toList();

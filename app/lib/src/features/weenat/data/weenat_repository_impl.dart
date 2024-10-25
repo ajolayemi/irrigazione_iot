@@ -1,4 +1,5 @@
 import 'package:irrigazione_iot/src/data/repositories/http_repo/http_repository.dart';
+import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
 import 'package:irrigazione_iot/src/features/weenat/data/weenat_repository.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_auth_payload.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_auth_res_data.dart';
@@ -19,8 +20,8 @@ class WeenatRepositoryImpl extends HttpRepository implements WeenatRepository {
       );
       final data = res.data as Map<String, dynamic>;
       return WeenatAuthResData.fromJson(data).token;
-    } catch (_) {
-      rethrow;
+    } catch (error) {
+      throw IncorrectWeenatCredentialsException();
     }
   }
 
