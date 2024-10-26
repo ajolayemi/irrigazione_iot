@@ -13,8 +13,11 @@ class BoardBatteryLevelIndicator extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final boardStatus =
-        ref.watch(boardStatusStreamProvider(boardID: boardId)).valueOrNull;
+    final boardStatus = ref
+        .watch(boardStatusProvider(
+          boardId: boardId,
+        ))
+        .valueOrNull;
 
     final batteryLevel = (boardStatus?.batteryLevel ?? 0.0);
     return BatteryLevelIndicator(batteryLevel: batteryLevel);
