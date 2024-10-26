@@ -1,6 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/data/board_status_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_battery_repository.dart';
+import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_measurement_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station.dart';
 
@@ -51,5 +54,48 @@ class ProviderUtils {
 
     // Invalidate the provider that holds onto the EUIs of used weather stations
     ref.invalidate(usedWeatherStationEUIsProvider);
+  }
+
+  /// Helps in refreshing the states of some providers when user pulls to refresh
+  /// on the board lists screen
+  static Future<void> refreshBoardListStates(WidgetRef ref) async {
+    ref.refresh(boardsListProvider.future).ignore();
+    final boards = ref.read(boardsListProvider).valueOrNull;
+    if (boards != null) {
+      for (final board in boards) {
+        ref.refresh(boardStatusProvider(boardId: board.id).future).ignore();
+        ref.refresh(collectorBoardProvider(collectorId: board.collectorId).future).ignore();
+      }
+    }
+  }
+
+  /// Helps in refreshing the states of some providers when user pulls to refresh
+  /// on the weather stations lists screen
+  static Future<void> refreshWeatherStationsListStates(WidgetRef ref) async {
+    // Refresh the general list of weather stations
+    ref.refresh(weatherStationsProvider.future).ignore();
+
+    // Access the list of weather stations
+    final weatherStations = ref.read(weatherStationsProvider).valueOrNull;
+    if (weatherStations != null) {
+      for (final weatherStation in weatherStations) {
+        ref
+            .refresh(weatherStationsCountProvider(weatherStation.id).future)
+            .ignore();
+        ref
+            .refresh(
+              weatherStationBatteryProvider(weatherStationId: weatherStation.id)
+                  .future,
+            )
+            .ignore();
+        ref
+            .refresh(
+              weatherStationMeasurementProvider(
+                weatherStationId: weatherStation.id,
+              ).future,
+            )
+            .ignore();
+      }
+    }
   }
 }

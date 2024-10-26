@@ -15,6 +15,7 @@ import 'package:irrigazione_iot/src/shared/widgets/empty_data_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
+import 'package:irrigazione_iot/src/utils/provider_utils.dart';
 
 // Displays a list of weather stations
 class WeatherStationListScreen extends ConsumerWidget {
@@ -35,7 +36,7 @@ class WeatherStationListScreen extends ConsumerWidget {
     return Scaffold(
       body: PaddedSafeArea(
         child: CustomScrollViewWithRefreshIndicator(
-          onRefresh: () => ref.refresh(weatherStationsProvider.future),
+          onRefresh: () => ProviderUtils.refreshWeatherStationsListStates(ref),
           slivers: [
             AppSliverBar(
               title: loc.weatherStationPageTitle,
