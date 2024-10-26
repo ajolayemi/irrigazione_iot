@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_manual_providers_as_generated_provider_dependency
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -17,67 +18,71 @@ abstract class WeatherStationRepository {
   /// Deletes an existing [WeatherStation].
   Future<bool> deleteWeatherStation(String weatherStationId);
 
-  /// Emits all available [WeatherStation]s for the given [companyId].
-  Stream<List<WeatherStation>?> watchWeatherStations(String companyId);
-
-  /// Emits the [WeatherStation] with the given [id].
-  Stream<WeatherStation?> watchWeatherStation(String id);
+  /// Returns all available [WeatherStation]s for the given [companyId].
+  Future<List<WeatherStation>?> getWeatherStations({required String companyId});
 
   /// Fetches the [WeatherStation] with the given [id].
   Future<WeatherStation?> getWeatherStation(String id);
 
-  /// Emits a list of already used weather station names.
-  /// This is used in form validation to prevent duplicate weather station names.
-  Stream<List<String?>> watchUsedWeatherStationNames();
+  /// Gets a general list of all available [WeatherStation]s.
+  Future<List<WeatherStation>?> getAllWeatherStations();
 
-  /// Emits the list of already registered weather station EUIs.
+  /// Returns a list of already used weather station names.
+  /// This is used in form validation to prevent duplicate weather station names.
+  Future<List<String>?> getUsedWeatherStationNames();
+
+  /// Returns the list of already registered weather station EUIs.
   /// This is used in form validation to prevent duplicate weather station EUIs.
-  Stream<List<String?>> watchUsedWeatherStationEUIs();
+  Future<List<String>?> getUsedWeatherStationEUIs();
 
   /// Emits the number of weather stations connected to the provided [sectorId]
-  Stream<int> watchWeatherStationsCount(String sectorId);
+  Future<int> getWeatherStationsCount(String sectorId);
 }
 
 @Riverpod(keepAlive: true)
-WeatherStationRepository weatherStationRepository(WeatherStationRepositoryRef ref) {
+WeatherStationRepository weatherStationRepository(
+    WeatherStationRepositoryRef ref) {
   final supabaseClient = ref.read(supabaseClientProvider);
   return SupabaseWeatherStationRepository(supabaseClient);
 }
 
 @riverpod
-Stream<WeatherStation?> weatherStationStream(WeatherStationStreamRef ref, String id) {
-  final sensorRepo = ref.watch(weatherStationRepositoryProvider);
-  return sensorRepo.watchWeatherStation(id);
-}
-
-@riverpod
-Future<WeatherStation?> weatherStationFuture(WeatherStationFutureRef ref, String id) {
+Future<WeatherStation?> weatherStation(
+  WeatherStationRef ref,
+  String id,
+) {
   final sensorRepo = ref.watch(weatherStationRepositoryProvider);
   return sensorRepo.getWeatherStation(id);
 }
 
 @riverpod
-Stream<List<WeatherStation>?> weatherStationsStream(WeatherStationsStreamRef ref) {
-  final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return Stream.value([]);
-  final sensorRepo = ref.watch(weatherStationRepositoryProvider);
-  return sensorRepo.watchWeatherStations(companyId);
+FutureOr<List<WeatherStation>?> weatherStations(WeatherStationsRef ref) {
+  final companyId = ref.watch(tappedCompanyIdProvider).valueOrNull;
+  if (companyId == null) return null;
+  final repo = ref.watch(weatherStationRepositoryProvider);
+  return repo.getWeatherStations(companyId: companyId);
 }
 
-@riverpod
-Stream<List<String?>> usedWeatherStationNamesStream(UsedWeatherStationNamesStreamRef ref) {
-  final sensorRepo = ref.watch(weatherStationRepositoryProvider);
-  return sensorRepo.watchUsedWeatherStationNames();
+@Riverpod(keepAlive: true)
+FutureOr<List<String>?> usedWeatherStationsNames(
+  UsedWeatherStationsNamesRef ref,
+) {
+  final repo = ref.watch(weatherStationRepositoryProvider);
+  return repo.getUsedWeatherStationNames();
 }
 
-@riverpod
-Stream<List<String?>> usedWeatherStationEUIsStream(UsedWeatherStationEUIsStreamRef ref) {
-  final sensorRepo = ref.watch(weatherStationRepositoryProvider);
-  return sensorRepo.watchUsedWeatherStationEUIs();
+@Riverpod(keepAlive: true)
+FutureOr<List<String>?> usedWeatherStationEUIs(UsedWeatherStationEUIsRef ref) {
+  final repo = ref.watch(weatherStationRepositoryProvider);
+  return repo.getUsedWeatherStationEUIs();
 }
 
-@riverpod
-Stream<int> weatherStationsCountStream(WeatherStationsCountStreamRef ref, String sectorId) {
+@Riverpod(keepAlive: true)
+FutureOr<int> weatherStationsCount(
+  WeatherStationsCountRef ref,
+  String sectorId,
+) {
   final sensorRepo = ref.watch(weatherStationRepositoryProvider);
-  return sensorRepo.watchWeatherStationsCount(sectorId);
+  return sensorRepo.getWeatherStationsCount(sectorId);
 }
+

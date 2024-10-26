@@ -18,9 +18,6 @@ class SupabaseWeatherStationRepository implements WeatherStationRepository {
         .toList();
   }
 
-  WeatherStation? _fromJsonSingle(List<Map<String, dynamic>> data) {
-    return _toWeatherStation(data.first);
-  }
 
   WeatherStation? _toWeatherStation(Map<String, dynamic>? data) {
     return data == null ? null : WeatherStation.fromJson(data);
@@ -63,14 +60,6 @@ class SupabaseWeatherStationRepository implements WeatherStationRepository {
   }
 
   @override
-  Stream<WeatherStation?> watchWeatherStation(String id) {
-    final stream = _supabaseClient.weatherStationStream
-        .eq(WeatherStationDatabaseKeys.id, id);
-
-    return stream.map(_fromJsonSingle);
-  }
-
-  @override
   Future<WeatherStation?> getWeatherStation(String id) async {
     final data = await _supabaseClient.weatherStations
         .select()
@@ -82,40 +71,44 @@ class SupabaseWeatherStationRepository implements WeatherStationRepository {
   }
 
   @override
-  Stream<List<WeatherStation>?> watchWeatherStations(String companyId) {
-    final stream = _supabaseClient.weatherStationStream
-        .eq(WeatherStationDatabaseKeys.companyId, companyId);
+  Future<List<WeatherStation>?> getWeatherStations(
+      {required String companyId}) async {
+    final data = await _supabaseClient.weatherStations
+        .select()
+        .eq(WeatherStationDatabaseKeys.companyId, companyId)
+        .withConverter(_fromJsonList);
 
-    return stream.map(_fromJsonList);
+    return data;
   }
 
   @override
-  Stream<List<String?>> watchUsedWeatherStationNames() {
-    return _supabaseClient.weatherStationStream.map((data) {
-      return data
-          .map((data) =>
-              data[WeatherStationDatabaseKeys.name].toString().toLowerCase())
-          .toList();
-    });
+  Future<List<String>?> getUsedWeatherStationNames() async {
+    final stations = await getAllWeatherStations();
+    return stations?.map((station) => station.name.toLowerCase()).toList();
   }
 
   @override
-  Stream<List<String?>> watchUsedWeatherStationEUIs() {
-    return _supabaseClient.weatherStationStream.map((data) {
-      return data
-          .map((weatherStation) =>
-              weatherStation[WeatherStationDatabaseKeys.eui]
-                  .toString()
-                  .toLowerCase())
-          .toList();
-    });
+  Future<List<String>?> getUsedWeatherStationEUIs() async {
+    final stations = await getAllWeatherStations();
+    return stations?.map((station) => station.eui.toLowerCase()).toList();
   }
 
   @override
-  Stream<int> watchWeatherStationsCount(String sectorId) {
-    final stream = _supabaseClient.weatherStationStream
-        .eq(WeatherStationDatabaseKeys.sectorId, sectorId);
+  Future<int> getWeatherStationsCount(String sectorId) async {
+    final sectorStations = await _supabaseClient.weatherStations
+        .select()
+        .eq(WeatherStationDatabaseKeys.sectorId, sectorId)
+        .withConverter(_fromJsonList);
 
-    return stream.map((data) => data.length);
+    return sectorStations?.length ?? 0;
+  }
+
+  @override
+  Future<List<WeatherStation>?> getAllWeatherStations() async {
+    final data = await _supabaseClient.weatherStations
+        .select()
+        .withConverter(_fromJsonList);
+
+    return data;
   }
 }

@@ -10,6 +10,7 @@ import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_sliver_list_skeleton.dart';
+import 'package:irrigazione_iot/src/shared/widgets/custom_scroll_view_with_refresh_indicator.dart';
 import 'package:irrigazione_iot/src/shared/widgets/empty_data_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
@@ -29,11 +30,12 @@ class WeatherStationListScreen extends ConsumerWidget {
       (_, state) => state.showAlertDialogOnError(context),
     );
     final loc = context.loc;
-    final weatherStations = ref.watch(weatherStationsStreamProvider);
+    final weatherStations = ref.watch(weatherStationsProvider);
 
     return Scaffold(
       body: PaddedSafeArea(
-        child: CustomScrollView(
+        child: CustomScrollViewWithRefreshIndicator(
+          onRefresh: () => ref.refresh(weatherStationsProvider.future),
           slivers: [
             AppSliverBar(
               title: loc.weatherStationPageTitle,

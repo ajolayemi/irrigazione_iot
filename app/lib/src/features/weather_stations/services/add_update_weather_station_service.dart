@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/utils/provider_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
@@ -38,6 +39,11 @@ class AddUpdateWeatherStationService {
       debugPrint('Weather station creation failed');
     }
 
+    ProviderUtils.invalidateWeatherStationStates(
+      ref: _ref,
+      weatherStation: createdWeatherStation,
+    );
+
     debugPrint('Created weather station: ${createdWeatherStation?.toJson()}');
   }
 
@@ -65,6 +71,11 @@ class AddUpdateWeatherStationService {
     if (updatedWeatherStation == null) {
       debugPrint('Weather station update failed');
     }
+
+    ProviderUtils.invalidateWeatherStationStates(
+      ref: _ref,
+      weatherStation: updatedWeatherStation,
+    );
 
     debugPrint('Updated weather station: ${updatedWeatherStation?.toJson()}');
   }

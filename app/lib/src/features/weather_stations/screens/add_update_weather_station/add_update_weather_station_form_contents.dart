@@ -72,9 +72,7 @@ class _AddUpdateWeatherStationFormContentsState
   Future<void> _asyncInitForm() async {
     final itemId = widget.weatherStationId;
     if (_isUpdating && itemId != null) {
-      final value = await ref.read(
-        weatherStationFutureProvider(itemId).future,
-      );
+      final value = await ref.read(weatherStationProvider(itemId).future);
 
       _initialWeatherStation = value;
 
@@ -232,9 +230,8 @@ class _AddUpdateWeatherStationFormContentsState
                   // name field
                   Consumer(
                     builder: (context, ref, child) {
-                      final usedNames = ref.watch(
-                        usedWeatherStationNamesStreamProvider,
-                      );
+                      final usedNames =
+                          ref.watch(usedWeatherStationsNamesProvider);
                       final values = usedNames.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -265,7 +262,7 @@ class _AddUpdateWeatherStationFormContentsState
                   Consumer(
                     builder: (context, ref, child) {
                       final usedEuis =
-                          ref.watch(usedWeatherStationEUIsStreamProvider);
+                          ref.watch(usedWeatherStationEUIsProvider);
                       final values = usedEuis.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
