@@ -4,6 +4,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/utils/provider_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'add_update_board_service.g.dart';
@@ -46,7 +47,7 @@ class AddUpdateBoardService {
           ),
         );
 
-    _invalidateStates(createdBoard);
+    ProviderUtils.invalidateBoardStates(board: createdBoard, ref: _ref);
 
     debugPrint('created board: ${createdBoard?.toJson()}');
   }
@@ -69,26 +70,9 @@ class AddUpdateBoardService {
           ),
         );
 
-    _invalidateStates(updatedBoard);
+    ProviderUtils.invalidateBoardStates(board: updatedBoard, ref: _ref);
 
     debugPrint('updated board: ${updatedBoard?.toJson()}');
-  }
-
-  // Helper function to invalidate states of various providers
-  void _invalidateStates(Board? board) {
-    // Invalidate general list of boards provider
-    _ref.invalidate(boardsListProvider);
-
-    if (board != null) {
-      // Invalidate the specific board provider
-      _ref.invalidate(boardProvider(boardId: board.id));
-
-      // Invalidate the collector board provider
-      _ref.invalidate(collectorBoardProvider(collectorId: board.collectorId));
-    }
-
-    // Invalidate the provider that holds list of used board names
-    _ref.invalidate(usedBoardNamesProvider);
   }
 }
 
