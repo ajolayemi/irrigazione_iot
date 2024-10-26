@@ -12,4 +12,6 @@ class AppConstants {
   static const int weenatTokenValidityDays = 365;
   static const Duration weenatSensorDataUpdateInterval = Duration(hours: 1);
   static const Duration boardStatusUpdateInterval = Duration(minutes: 10);
+  static const Duration weatherStationMeasurementUpdateInterval = Duration(minutes: 1);
+  static const Duration weatherStationBatteryUpdateInterval = Duration(hours: 12);
 }

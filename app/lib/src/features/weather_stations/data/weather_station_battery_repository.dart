@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/weather_stations/data/supabase_weather_station_battery_repository.dart';
@@ -7,21 +10,37 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'weather_station_battery_repository.g.dart';
 
 abstract class WeatherStationBatteryRepository {
-  /// emits the last [WeatherStationBattery] data for the given [weatherStationId]
-  Stream<WeatherStationBattery?> lastWeatherStationBatteryStream(
-      String weatherStationId);
+  /// Returns the last [WeatherStationBattery] data for the given [weatherStationId]
+  Future<WeatherStationBattery?> getLastWeatherStationBattery(
+    String weatherStationId,
+  );
 }
 
 @Riverpod(keepAlive: true)
 WeatherStationBatteryRepository weatherStationBatteryRepository(
-    WeatherStationBatteryRepositoryRef ref) {
+  WeatherStationBatteryRepositoryRef ref,
+) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseWeatherStationBatteryRepository(supabaseClient);
 }
 
-@riverpod
-Stream<WeatherStationBattery?> lastWeatherStationBatteryStream(
-    LastWeatherStationBatteryStreamRef ref, String weatherStationId) {
+/// Holds onto the most recent [WeatherStationBattery] for a weather station
+/// It auto updates at a set interval
+@Riverpod(keepAlive: true)
+FutureOr<WeatherStationBattery?> weatherStationBattery(
+  WeatherStationBatteryRef ref, {
+  required String weatherStationId,
+}) {
+  final timer = Timer.periodic(
+    AppConstants.weatherStationBatteryUpdateInterval,
+    (_) {
+      ref.invalidateSelf();
+    },
+  );
+
+  ref.onDispose(() {
+    timer.cancel();
+  });
   final repo = ref.watch(weatherStationBatteryRepositoryProvider);
-  return repo.lastWeatherStationBatteryStream(weatherStationId);
+  return repo.getLastWeatherStationBattery(weatherStationId);
 }
