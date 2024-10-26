@@ -82,8 +82,7 @@ class _AddUpdateBoardFormContentState
   Future<void> _asyncFormInit() async {
     final boardId = widget.boardID;
     if (_isUpdating && boardId != null) {
-      final board =
-          await ref.read(boardStreamProvider(boardID: boardId).future);
+      final board = await ref.read(boardProvider(boardId: boardId).future);
       _initialBoard = board;
       _nameController.text = _initialBoard?.name ?? '';
       _modelController.text = _initialBoard?.model ?? '';
@@ -260,7 +259,7 @@ class _AddUpdateBoardFormContentState
                       Consumer(
                         builder: (context, ref, child) {
                           final boardUsedNames =
-                              ref.watch(usedBoardNamesStreamProvider);
+                              ref.watch(usedBoardNamesProvider);
                           final value = boardUsedNames.valueOrNull ?? [];
                           return FormTitleAndField(
                             fieldKey: _nameFieldKey,

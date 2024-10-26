@@ -46,6 +46,8 @@ class AddUpdateBoardService {
           ),
         );
 
+    _invalidateStates(createdBoard);
+
     debugPrint('created board: ${createdBoard?.toJson()}');
   }
 
@@ -67,7 +69,26 @@ class AddUpdateBoardService {
           ),
         );
 
+    _invalidateStates(updatedBoard);
+
     debugPrint('updated board: ${updatedBoard?.toJson()}');
+  }
+
+  // Helper function to invalidate states of various providers
+  void _invalidateStates(Board? board) {
+    // Invalidate general list of boards provider
+    _ref.invalidate(boardsListProvider);
+
+    if (board != null) {
+      // Invalidate the specific board provider
+      _ref.invalidate(boardProvider(boardId: board.id));
+
+      // Invalidate the collector board provider
+      _ref.invalidate(collectorBoardProvider(collectorId: board.collectorId));
+    }
+
+    // Invalidate the provider that holds list of used board names
+    _ref.invalidate(usedBoardNamesProvider);
   }
 }
 

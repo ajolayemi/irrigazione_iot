@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
-import 'package:irrigazione_iot/src/features/board-centraline/widgets/boards_list_tile.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/screens/boards_list/dismiss_board_controller.dart';
+import 'package:irrigazione_iot/src/features/board-centraline/widgets/boards_list_tile.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/widgets/empty_board_widget.dart';
-import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_sliver_list_skeleton.dart';
+import 'package:irrigazione_iot/src/shared/widgets/custom_scroll_view_with_refresh_indicator.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 /// Displays a list of boards, i.e centraline in italian.
 class BoardsListScreen extends ConsumerWidget {
@@ -29,26 +31,27 @@ class BoardsListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final boards = ref.watch(boardListStreamProvider);
+    final boards = ref.watch(boardsListProvider);
     final ignoring = ref.watch(dismissBoardControllerProvider).isLoading;
     return IgnorePointer(
       ignoring: ignoring,
       child: Scaffold(
         body: PaddedSafeArea(
-            child: CustomScrollView(
-          slivers: [
-            AppSliverBar(
-              title: loc.iotBoardsMenuTitle,
-              actions: [
-                CommonAddIconButton(
-                  onPressed: () => _onTapAdd(context, ref),
-                ),
-              ],
-            ),
-            AsyncValueSliverWidget(
+          child: CustomScrollViewWithRefreshIndicator(
+            onRefresh: () => ref.refresh(boardsListProvider.future),
+            slivers: [
+              AppSliverBar(
+                title: loc.iotBoardsMenuTitle,
+                actions: [
+                  CommonAddIconButton(
+                    onPressed: () => _onTapAdd(context, ref),
+                  ),
+                ],
+              ),
+              AsyncValueSliverWidget(
                 value: boards,
                 data: (boards) {
-                  if (boards.isEmpty) {
+                  if (boards == null || boards.isEmpty) {
                     return EmptyBoardWidget(
                       onTapAdd: () => _onTapAdd(context, ref),
                     );
@@ -58,17 +61,19 @@ class BoardsListScreen extends ConsumerWidget {
                       delegate: SliverChildBuilderDelegate(
                     (context, index) {
                       // It's safe to assume that board is not null
-                      final board = boards[index]!;
+                      final board = boards[index];
                       return BoardListTile(board: board);
                     },
                     childCount: boards.length,
                   ));
                 },
                 loading: () => const CommonSliverListSkeleton(
-                      hasLeading: false,
-                    )),
-          ],
-        )),
+                  hasLeading: false,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

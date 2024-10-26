@@ -22,7 +22,7 @@ class CollectorTileSubtitle extends ConsumerWidget {
           builder: (context, ref, child) {
             /// Get the board (centralina) that is linked to this collector
             final board = ref
-                .watch(collectorBoardStreamProvider(collectorID: collectorId))
+                .watch(collectorBoardProvider(collectorId: collectorId))
                 .valueOrNull;
 
             
