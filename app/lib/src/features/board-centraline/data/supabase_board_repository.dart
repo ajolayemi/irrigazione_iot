@@ -55,7 +55,7 @@ class SupabaseBoardRepository implements BoardRepository {
   @override
   Future<bool> deleteBoard({required String boardID}) async {
     final res = await _supabaseClient.invokeFunction(
-      functionName: 'delete-board',
+      functionName: 'delete-boards',
       body: DeleteBody(ids: [boardID]).toJson(),
     );
 
