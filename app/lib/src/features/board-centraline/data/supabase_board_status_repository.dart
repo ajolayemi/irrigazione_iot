@@ -9,20 +9,6 @@ class SupabaseBoardStatusRepository implements BoardStatusRepository {
   final SupabaseClient _supabaseClient;
 
   @override
-  Stream<BoardStatus?> watchBoardStatus(String boardID) {
-    final stream = _supabaseClient.boardStatus
-        .stream(primaryKey: [BoardStatusDatabaseKeys.id])
-        .eq(BoardStatusDatabaseKeys.boardId, boardID)
-        .order(BoardStatusDatabaseKeys.createdAt, ascending: false)
-        .limit(1);
-
-    return stream.map((statuses) {
-      if (statuses.isEmpty) return null;
-      return BoardStatus.fromJson(statuses.first);
-    });
-  }
-
-  @override
   Future<BoardStatus?> getBoardStatus(String boardID) async {
     final status = await _supabaseClient.boardStatus
         .select()
