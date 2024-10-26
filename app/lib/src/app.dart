@@ -2,16 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
 import 'package:irrigazione_iot/src/config/theme/app_theme.dart';
+import 'package:irrigazione_iot/src/features/weenat/providers/weenat_providers.dart';
 import 'package:irrigazione_iot/src/localization/gen_l10n/app_localizations.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 /// The Widget that configures your application.
-class IotIrrigationApp extends ConsumerWidget {
+class IotIrrigationApp extends ConsumerStatefulWidget {
   const IotIrrigationApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<IotIrrigationApp> createState() => _IotIrrigationAppState();
+}
+
+class _IotIrrigationAppState extends ConsumerState<IotIrrigationApp> {
+  @override
+  void initState() {
+    // ref.read(weenatTokenProvider);
+    super.initState();
+    ref.read(weenatTokenProvider);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final routeConfig = ref.watch(goRouterProvider);
     final settingsController = ref.watch(settingsControllerProvider);
     return MaterialApp.router(
