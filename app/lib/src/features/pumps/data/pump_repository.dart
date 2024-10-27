@@ -8,17 +8,11 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'pump_repository.g.dart';
 
 abstract class PumpRepository {
-  /// watch the pumps pertaining to a company
-  Stream<List<Pump?>> watchCompanyPumps(String companyId);
-
   /// Gets the list of [Pump]s  pertaining to a company
   Future<List<Pump>?> getCompanyPumps(String companyId);
 
   /// Gets a list of all the pumps in the database
   Future<List<Pump>?> getAllPumps();
-
-  /// watches a specified pump with the given pumpId
-  Stream<Pump?> watchPump(String pumpId);
 
   /// Fetches the [Pump] with the given [pumpId]
   Future<Pump?> getPump(String pumpId);
@@ -50,23 +44,10 @@ PumpRepository pumpRepository(PumpRepositoryRef ref) {
   return SupabasePumpRepository(supabaseClient);
 }
 
-
-/// Emits the list of pumps pertaining to the company selected by the user
-@riverpod
-Stream<List<Pump?>> companyPumpsStream(
-  CompanyPumpsStreamRef ref,
-) {
-  final pumpRepository = ref.watch(pumpRepositoryProvider);
-  final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).value;
-  if (currentSelectedCompanyByUser == null) return Stream.value([]);
-  return pumpRepository.watchCompanyPumps(currentSelectedCompanyByUser.id);
-}
-
 /// Fetches the list of pumps pertaining to the company selected by the user
 @riverpod
-Future<List<Pump>?> companyPumpsFuture(
-  CompanyPumpsFutureRef ref,
+Future<List<Pump>?> companyPumps(
+  CompanyPumpsRef ref,
 ) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   final currentSelectedCompanyByUser =
@@ -75,22 +56,12 @@ Future<List<Pump>?> companyPumpsFuture(
   return pumpRepository.getCompanyPumps(currentSelectedCompanyByUser.id);
 }
 
-
 /// Fetches all pumps available in the database
 @riverpod
-Future<List<Pump>?> allPumpsFuture(AllPumpsFutureRef ref) {
+Future<List<Pump>?> pumps(PumpsRef ref) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   return pumpRepository.getAllPumps();
 }
-
-
-/// Emits the pump with the given pumpId
-@riverpod
-Stream<Pump?> pumpStream(PumpStreamRef ref, String pumpId) {
-  final pumpRepository = ref.watch(pumpRepositoryProvider);
-  return pumpRepository.watchPump(pumpId);
-}
-
 
 /// Fetches the pump with the given pumpId
 @riverpod

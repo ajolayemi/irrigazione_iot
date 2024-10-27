@@ -66,7 +66,7 @@ class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
 
   @override
   Widget build(BuildContext context) {
-    final availablePumps = ref.watch(companyPumpsFutureProvider).valueOrNull;
+    final availablePumps = ref.watch(companyPumpsProvider).valueOrNull;
     final loc = context.loc;
 
     final queryResult = ref.watch(pumpSearchQueryResultProvider);

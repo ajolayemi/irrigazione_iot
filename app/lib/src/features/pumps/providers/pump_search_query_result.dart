@@ -10,7 +10,7 @@ part 'pump_search_query_result.g.dart';
 class PumpSearchQueryResult extends _$PumpSearchQueryResult {
   @override
   FutureOr<List<Pump>?> build() {
-    final data = ref.watch(companyPumpsFutureProvider).valueOrNull ?? [];
+    final data = ref.watch(companyPumpsProvider).valueOrNull ?? [];
     return data;
   }
 
@@ -38,6 +38,6 @@ class PumpSearchQueryResult extends _$PumpSearchQueryResult {
   }
 
   void reset() {
-    state = ref.read(companyPumpsFutureProvider);
+    state = ref.read(companyPumpsProvider);
   }
 }

@@ -3,20 +3,12 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_database_keys.dart';
-import 'package:irrigazione_iot/src/features/pumps/models/pump_status_database_keys.dart';
 import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabasePumpRepository implements PumpRepository {
   const SupabasePumpRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
-
-  Pump? _pumpFromJsonSingle(List<Map<String, dynamic>> data) =>
-      data.isEmpty ? null : Pump.fromJson(data.first);
-
-  List<Pump?> _pumpsFromJsonList(List<Map<String, dynamic>> data) {
-    return data.map((pump) => Pump.fromJson(pump)).toList();
-  }
 
   List<Pump>? _fromList(List<Map<String, dynamic>> data) {
     return data.map((pump) => Pump.fromJson(pump)).toList();
@@ -64,30 +56,6 @@ class SupabasePumpRepository implements PumpRepository {
     return res.onDelete;
   }
 
-  @override
-  Stream<List<Pump?>> watchCompanyPumps(String companyId) {
-    final stream =
-        _supabaseClient.pumps.stream(primaryKey: [PumpDatabaseKeys.id]).eq(
-      PumpDatabaseKeys.companyId,
-      companyId,
-    );
-
-    return stream.map(_pumpsFromJsonList);
-  }
-
-  @override
-  Stream<Pump?> watchPump(String pumpId) {
-    final stream = _supabaseClient.pumps
-        .stream(primaryKey: [PumpDatabaseKeys.id])
-        .eq(
-          PumpStatusDatabaseKeys.id,
-          pumpId,
-        )
-        .limit(1);
-
-    return stream.map(_pumpFromJsonSingle);
-  }
-  
   @override
   Future<List<Pump>?> getCompanyPumps(String companyId) async {
     return _supabaseClient.pumps

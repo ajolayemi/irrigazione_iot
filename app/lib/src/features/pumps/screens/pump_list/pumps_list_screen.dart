@@ -15,11 +15,13 @@ import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_search_icon_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/custom_scroll_view_with_refresh_indicator.dart';
 import 'package:irrigazione_iot/src/shared/widgets/filtered_screen_item_renderer.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/shared/widgets/search_text_field.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
+import 'package:irrigazione_iot/src/utils/provider_utils.dart';
 
 class PumpListScreen extends ConsumerStatefulWidget {
   const PumpListScreen({super.key});
@@ -53,14 +55,15 @@ class _PumpListScreenState extends ConsumerState<PumpListScreen> {
     );
 
     /// A list of original list of pumps that belong to the company
-    final companyPumps = ref.watch(companyPumpsFutureProvider).valueOrNull;
+    final companyPumps = ref.watch(companyPumpsProvider).valueOrNull;
 
     /// A list of pumps that are filtered based on the search query
     final filteredPumps = ref.watch(pumpSearchQueryResultProvider);
 
     return Scaffold(
       body: PaddedSafeArea(
-        child: CustomScrollView(
+        child: CustomScrollViewWithRefreshIndicator(
+          onRefresh: () => ProviderUtils.refreshPumpsListStates(ref),
           slivers: [
             AppSliverBar(
               title: context.loc.pumpPageTitle,

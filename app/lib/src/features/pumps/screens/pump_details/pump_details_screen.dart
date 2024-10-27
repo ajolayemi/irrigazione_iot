@@ -10,6 +10,7 @@ import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_edit_icon_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/custom_scroll_view_with_refresh_indicator.dart';
 
 class PumpDetailsScreen extends ConsumerWidget {
   const PumpDetailsScreen({
@@ -28,9 +29,10 @@ class PumpDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pump = ref.watch(pumpStreamProvider(pumpId));
+    final pump = ref.watch(pumpFutureProvider(pumpId));
     return Scaffold(
-      body: CustomScrollView(
+      body: CustomScrollViewWithRefreshIndicator(
+        onRefresh: () => ref.refresh(pumpFutureProvider(pumpId).future),
         slivers: [
           AppSliverBar(
             title: pump.value?.name ?? '',
