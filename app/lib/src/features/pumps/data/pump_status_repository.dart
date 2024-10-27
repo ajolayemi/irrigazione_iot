@@ -31,7 +31,7 @@ PumpStatusRepository pumpStatusRepository(PumpStatusRepositoryRef ref) {
 }
 
 /// Emits the status of the pump with the provided [pumpId]
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<PumpStatus?> pumpStatusStream(PumpStatusStreamRef ref, String pumpId) {
   final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
   return pumpStatusRepository.watchPumpStatus(pumpId);

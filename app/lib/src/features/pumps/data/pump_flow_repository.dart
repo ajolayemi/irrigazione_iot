@@ -23,22 +23,29 @@ PumpFlowRepository pumpFlowRepository(PumpFlowRepositoryRef ref) {
   return SupabasePumpFlowRepository(supabaseClient);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<int> pumpTotalDispensedLitres(
-    PumpTotalDispensedLitresRef ref, String pumpId) {
+  PumpTotalDispensedLitresRef ref,
+  String pumpId,
+) {
   final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
   return pumpDetailsRepository.watchTotalLitresDispensed(pumpId);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<DateTime?> lastDispensationStream(
-    LastDispensationStreamRef ref, String pumpId) {
+  LastDispensationStreamRef ref,
+  String pumpId,
+) {
   final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
   return pumpDetailsRepository.watchLastDispensation(pumpId);
 }
 
-@riverpod
-Stream<PumpFlow?> pumpLastFlowStream(PumpLastFlowStreamRef ref, String pumpId) {
+@Riverpod(keepAlive: true)
+Stream<PumpFlow?> pumpLastFlowStream(
+  PumpLastFlowStreamRef ref,
+  String pumpId,
+) {
   final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
   return pumpDetailsRepository.watchPumpLastFlow(pumpId);
 }
