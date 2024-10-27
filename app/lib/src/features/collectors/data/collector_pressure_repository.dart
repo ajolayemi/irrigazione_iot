@@ -18,7 +18,7 @@ CollectorPressureRepository collectorPressureRepository(
   return SupabaseCollectorPressureRepository(supabaseClient);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<CollectorPressure?> collectorPressureStream(
     CollectorPressureStreamRef ref, String collectorId) {
   final collectorPressureRepository =

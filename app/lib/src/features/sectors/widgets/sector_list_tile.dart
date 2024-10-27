@@ -28,7 +28,7 @@ class SectorListTile extends ConsumerWidget {
     if (!askUser) return false;
     return ref
         .read(dismissSectorControllerProvider.notifier)
-        .confirmDismiss(sector.id);
+        .confirmDismiss(sector);
   }
 
   @override

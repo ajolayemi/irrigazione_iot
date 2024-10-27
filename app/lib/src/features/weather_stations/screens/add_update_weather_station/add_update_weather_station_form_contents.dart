@@ -81,7 +81,7 @@ class _AddUpdateWeatherStationFormContentsState
 
       if (value != null) {
         final sector = await ref.read(
-          sectorFutureProvider(value.sectorId).future,
+          sectorProvider(value.sectorId).future,
         );
 
         _radioButtonSelectedSector = RadioButtonItem(

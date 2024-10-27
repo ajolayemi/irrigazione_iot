@@ -55,7 +55,7 @@ class CollectorExpansionTileChildItem extends ConsumerWidget {
               ? []
               : collectorSectors.map((collectorSector) => Consumer(
                 builder: (context, ref, child) {
-                  final sector = ref.watch(sectorStreamProvider(collectorSector!.sectorId)).valueOrNull;
+                  final sector = ref.watch(sectorProvider(collectorSector!.sectorId)).valueOrNull;
                   if (sector == null) {
                     return const SizedBox();
                   }

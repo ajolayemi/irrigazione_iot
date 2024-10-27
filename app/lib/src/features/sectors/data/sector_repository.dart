@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
@@ -10,17 +9,11 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'sector_repository.g.dart';
 
 abstract class SectorRepository {
-  /// emits a list of [Sector]s pertaining to a company
-  Stream<List<Sector?>> watchCompanySectors(String companyId);
-
   /// Fetches a list of [Sector]s pertaining to a company
   Future<List<Sector>?> getCompanySectors(String companyId);
 
   /// Fetches a list of all [Sector]s in the database
   Future<List<Sector>?> getAllSectors();
-
-  /// emits a [Sector] with the given sectorID
-  Stream<Sector?> watchSector(String sectorID);
 
   /// fetches the [Sector] with the given [sectorId]
   Future<Sector?> getSector(String sectorId);
@@ -53,16 +46,9 @@ SectorRepository sectorRepository(SectorRepositoryRef ref) {
   return SupabaseSectorRepository(supabaseClient);
 }
 
-@riverpod
-Stream<List<Sector?>> sectorListStream(SectorListStreamRef ref) {
-  final sectorsRepository = ref.read(sectorRepositoryProvider);
-  final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return Stream.value([]);
-  return sectorsRepository.watchCompanySectors(companyId);
-}
-
-@riverpod
-Future<List<Sector>?> companySectorsFuture(CompanySectorsFutureRef ref) {
+/// Fetches the list of sectors for the current company
+@Riverpod(keepAlive: true)
+Future<List<Sector>?> sectors(SectorsRef ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return Future.value([]);
@@ -75,15 +61,11 @@ Future<List<Sector>?> allSectorsFuture(AllSectorsFutureRef ref) {
   return sectorsRepository.getAllSectors();
 }
 
-@riverpod
-Stream<Sector?> sectorStream(SectorStreamRef ref, String sectorID) {
-  final sectorsRepository = ref.read(sectorRepositoryProvider);
-  return sectorsRepository.watchSector(sectorID);
-}
 
-@riverpod
-Future<Sector?> sectorFuture(SectorFutureRef ref, String sectorID) {
-  final sectorsRepository = ref.read(sectorRepositoryProvider);
+
+@Riverpod(keepAlive: true)
+FutureOr<Sector?> sector(SectorRef ref, String sectorID) {
+  final sectorsRepository = ref.watch(sectorRepositoryProvider);
   return sectorsRepository.getSector(sectorID);
 }
 

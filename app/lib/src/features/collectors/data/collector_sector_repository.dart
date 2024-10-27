@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_manual_providers_as_generated_provider_dependency
 import 'package:irrigazione_iot/src/features/collectors/models/collector.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -54,7 +55,6 @@ Future<List<CollectorSector?>> collectorSectorsFuture(
   return collectorSectorRepo.getCollectorSectorsById(collectorId);
 }
 
-
 /// Provider that emits the number of sectors that are currently switched on for a particular
 /// collector indicated by the provided [String]
 @riverpod
@@ -70,7 +70,7 @@ Stream<int> numberOfSectorsSwitchedOn(NumberOfSectorsSwitchedOnRef ref,
   // Loop through the list of collector sectors and check if at least a sector is switched on
   for (final collectorSector in collectorSectors) {
     final sector =
-        ref.watch(sectorStreamProvider(collectorSector!.sectorId)).valueOrNull;
+        ref.watch(sectorProvider(collectorSector!.sectorId)).valueOrNull;
     if (sector == null) return Stream.value(0);
     final status = ref.watch(sectorStatusStreamProvider(sector.id));
     if (status.valueOrNull?.statusBoolean == true) {

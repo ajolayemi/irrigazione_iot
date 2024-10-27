@@ -10,20 +10,21 @@ abstract class SectorPressureRepository {
   /// Emits the last time the sector with the provided [sectorId] had a pressure reading
   /// Which is also the last time the sector was irrigated
   Stream<SectorPressure?> watchLastSectorPressureReading(String sectorId);
-
-  /// Emits the last pressure re
 }
 
 @Riverpod(keepAlive: true)
 SectorPressureRepository sectorPressureRepository(
-    SectorPressureRepositoryRef ref) {
+  SectorPressureRepositoryRef ref,
+) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseSectorPressureRepository(supabaseClient);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<SectorPressure?> sectorLastPressureStream(
-    SectorLastPressureStreamRef ref, String sectorId) {
+  SectorLastPressureStreamRef ref,
+  String sectorId,
+) {
   final sectorPressureRepository = ref.watch(sectorPressureRepositoryProvider);
   return sectorPressureRepository.watchLastSectorPressureReading(sectorId);
 }

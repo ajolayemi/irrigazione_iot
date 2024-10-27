@@ -54,7 +54,7 @@ class ConnectSectorsToCollector extends ConsumerWidget {
                       return Consumer(
                         builder: (context, ref, child) {
                           final companyGenerallyHasSectors =
-                              ref.watch(sectorListStreamProvider);
+                              ref.watch(sectorsProvider);
                           final itDoes = companyGenerallyHasSectors
                                   .valueOrNull?.isNotEmpty ??
                               false;
@@ -121,8 +121,7 @@ class ConnectSectorsToCollectorCheckboxItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sector =
-        ref.watch(sectorStreamProvider(availableSector.sectorId)).valueOrNull;
+    final sector = ref.watch(sectorProvider(availableSector.sectorId)).valueOrNull;
     final selectedSectorsId = ref.watch(selectedSectorsIdProvider);
     final sectorIsSelected = selectedSectorsId.contains(sector?.id);
 

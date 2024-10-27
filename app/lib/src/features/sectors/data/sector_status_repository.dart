@@ -25,9 +25,11 @@ SectorStatusRepository sectorStatusRepository(SectorStatusRepositoryRef ref) {
   return SupabaseSectorStatusRepository(supabaseClient, mqttService);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<SectorStatus?> sectorStatusStream(
-    SectorStatusStreamRef ref, String sectorId) {
+  SectorStatusStreamRef ref,
+  String sectorId,
+) {
   final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);
   return sectorStatusRepository.watchSectorStatus(sectorId);
 }

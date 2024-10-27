@@ -10,7 +10,7 @@ part 'sector_search_query_result.g.dart';
 class SectorSearchQueryResult extends _$SectorSearchQueryResult {
   @override
   FutureOr<List<Sector>?> build() {
-    return ref.watch(companySectorsFutureProvider).valueOrNull ?? [];
+    return ref.watch(sectorsProvider).valueOrNull ?? [];
   }
 
   void search(String query) {
@@ -38,6 +38,6 @@ class SectorSearchQueryResult extends _$SectorSearchQueryResult {
   }
 
   void reset() {
-    state = ref.read(companySectorsFutureProvider);
+    state = ref.read(sectorsProvider);
   }
 }

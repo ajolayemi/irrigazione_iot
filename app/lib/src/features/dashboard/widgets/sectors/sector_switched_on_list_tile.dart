@@ -19,7 +19,7 @@ class SectorSwitchedOnListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sector = ref.watch(sectorStreamProvider(item.sectorId)).valueOrNull;
+    final sector = ref.watch(sectorProvider(item.sectorId)).valueOrNull;
 
     if (sector == null) return Container();
 

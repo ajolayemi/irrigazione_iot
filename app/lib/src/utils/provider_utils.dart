@@ -5,6 +5,8 @@ import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart'
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_pump_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_battery_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_measurement_repository.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_repository.dart';
@@ -72,6 +74,19 @@ class ProviderUtils {
     ref.invalidate(companyPumpsProvider);
   }
 
+  /// Invalidates the states of different providers connected to
+  /// the sector entity
+  static void invalidateSectorStates({
+    required Ref ref,
+    Sector? sector,
+  }) {
+    ref.invalidate(sectorsProvider);
+    ref.invalidate(allSectorsFutureProvider);
+    ref.invalidate(usedSectorNamesFutureProvider);
+    ref.invalidate(usedSectorCommandsFutureProvider);
+    ref.invalidate(sectorUsedMqttMessageNamesFutureProvider);
+  }
+
   /// Helps in refreshing the states of some providers when user pulls to refresh
   /// on the board lists screen
   static Future<void> refreshBoardListStates(WidgetRef ref) async {
@@ -125,5 +140,27 @@ class ProviderUtils {
     ref.refresh(companyPumpsProvider.future).ignore();
 
     // TODO: refresh other pump related states
+  }
+
+  /// Helps in refreshing the states of some providers when user pulls to refresh
+  /// on the sectors lists screen
+  static Future<void> refreshSectorsStates(WidgetRef ref) async {
+    // Refresh the general list of sectors
+    ref.refresh(sectorsProvider.future).ignore();
+
+    ref.invalidate(allSectorsFutureProvider);
+    ref.invalidate(usedSectorNamesFutureProvider);
+    ref.invalidate(usedSectorCommandsFutureProvider);
+    ref.invalidate(sectorUsedMqttMessageNamesFutureProvider);
+
+    // Access list of available sectors
+    final sectors = ref.read(sectorsProvider).valueOrNull;
+    if (sectors != null) {
+      for (final sector in sectors) {
+        ref.refresh(sectorProvider(sector.id).future).ignore();
+        ref.refresh(sectorPumpFutureProvider(sector.id).future).ignore();
+      }
+    }
+    // TODO: refresh other sector related states
   }
 }

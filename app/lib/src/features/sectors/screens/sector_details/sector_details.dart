@@ -9,7 +9,9 @@ import 'package:irrigazione_iot/src/shared/models/path_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_edit_icon_button.dart';
+import 'package:irrigazione_iot/src/shared/widgets/custom_scroll_view_with_refresh_indicator.dart';
 import 'package:irrigazione_iot/src/shared/widgets/empty_placeholder_widget.dart';
+import 'package:irrigazione_iot/src/utils/provider_utils.dart';
 
 class SectorDetailsScreen extends ConsumerWidget {
   const SectorDetailsScreen({
@@ -28,7 +30,7 @@ class SectorDetailsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // TODO: show sector pressure in the details screen (linea di aduzione)
     // TODO: add an icon to show how many sensors are connected to this sector
-    final sectorData = ref.watch(sectorStreamProvider(sectorID));
+    final sectorData = ref.watch(sectorProvider(sectorID));
     return SafeArea(
       child: Scaffold(
         body: AsyncValueSliverWidget(
@@ -38,7 +40,8 @@ class SectorDetailsScreen extends ConsumerWidget {
               return const EmptyPlaceholderWidget(message: 'aaaa');
             } // todo replace widget with the right one
 
-            return CustomScrollView(
+            return CustomScrollViewWithRefreshIndicator(
+              onRefresh: () => ProviderUtils.refreshSectorsStates(ref),
               slivers: [
                 AppSliverBar(
                   title: sector.name,

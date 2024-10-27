@@ -131,7 +131,7 @@ class _AddUpdateSectorFormContentsState
   Future<void> _asyncInitForm() async {
     final sectorId = widget.sectorId;
     if (_isUpdating && sectorId != null) {
-      final sector = await ref.read(sectorFutureProvider(sectorId).future);
+      final sector = await ref.read(sectorProvider(sectorId).future);
 
       final pumpConnectedToSector = await ref.read(sectorPumpFutureProvider(
         sectorId,

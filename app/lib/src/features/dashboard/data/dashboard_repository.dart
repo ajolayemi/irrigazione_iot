@@ -21,7 +21,7 @@ DashboardRepository dashboardRepository(DashboardRepositoryRef ref) {
   return SupabaseDashboardRepository(supabaseClient);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<List<PumpSwitchedOn>?> pumpsSwitchedOnStream(
     PumpsSwitchedOnStreamRef ref) {
   final currentSelectedCompanyByUser =
@@ -31,7 +31,7 @@ Stream<List<PumpSwitchedOn>?> pumpsSwitchedOnStream(
   return dashboardRepo.watchPumpsSwitchedOn(currentSelectedCompanyByUser.id);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<List<SectorSwitchedOn>?> sectorsSwitchedOnStream(
     SectorsSwitchedOnStreamRef ref) {
   final currentSelectedCompanyByUser =

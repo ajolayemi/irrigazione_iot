@@ -80,35 +80,11 @@ class SupabaseSectorRepository implements SectorRepository {
   }
 
   @override
-  Stream<Sector?> watchSector(String sectorID) {
-    final stream = _supabaseClient.sectors.stream(
-      primaryKey: [SectorDatabaseKeys.id],
-    ).eq(
-      SectorDatabaseKeys.id,
-      sectorID,
-    );
-
-    return stream.map(_sectorFromJsonSingle);
-  }
-
-  @override
   Future<Sector?> getSector(String sectorId) async {
     final res = await _supabaseClient.sectors
         .select()
         .eq(SectorDatabaseKeys.id, sectorId);
     return _sectorFromJsonSingle(res);
-  }
-
-  @override
-  Stream<List<Sector?>> watchCompanySectors(String companyId) {
-    final stream = _supabaseClient.sectors.stream(
-      primaryKey: [SectorDatabaseKeys.id],
-    ).eq(
-      SectorDatabaseKeys.companyId,
-      companyId,
-    );
-
-    return stream.map(_sectorsFromJsonList);
   }
 
   @override
