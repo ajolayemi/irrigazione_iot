@@ -28,7 +28,7 @@ class BoardStatus extends Equatable {
 
   @JsonKey(name: BoardStatusDatabaseKeys.batteryLevel)
   final double batteryLevel;
-  
+
   @JsonKey(name: BoardStatusDatabaseKeys.boardId)
   @IntConverter()
   final String boardId;
@@ -43,4 +43,25 @@ class BoardStatus extends Equatable {
       _$BoardStatusFromJson(json);
 
   Map<String, dynamic> toJson() => _$BoardStatusToJson(this);
+}
+
+extension BoardStatusEx on BoardStatus? {
+  double get batteryLevelForUi {
+    final batteryLevel = this?.batteryLevel ?? 0;
+
+    switch (batteryLevel) {
+      case < 11:
+        return 5.0;
+      case >= 11 && <= 12.1:
+        return 25.0;
+      case >= 12.2 && <= 12.3:
+        return 50.0;
+      case >= 12.4 && <= 12.5:
+        return 75.0;
+      case >= 12.6:
+        return 100.0;
+      default:
+        return 0.0;
+    }
+  }
 }
