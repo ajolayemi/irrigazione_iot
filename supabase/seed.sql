@@ -171,22 +171,22 @@ values
         'p6'
     );
 
--- Seed data for pump_statuses table
-insert into
-    public.pump_statuses (status, pump_id)
-values
-    ('1', 1),
-    ('2', 1),
-    ('3', 2),
-    ('4', 2),
-    ('5', 3),
-    ('6', 3),
-    ('7', 4),
-    ('8', 4),
-    ('9', 5),
-    ('10', 5),
-    ('11', 6),
-    ('12', 6);
+-- -- Seed data for pump_statuses table
+-- insert into
+--     public.pump_statuses (status, pump_id)
+-- values
+--     ('1', 1),
+--     ('2', 1),
+--     ('3', 2),
+--     ('4', 2),
+--     ('5', 3),
+--     ('6', 3),
+--     ('7', 4),
+--     ('8', 4),
+--     ('9', 5),
+--     ('10', 5),
+--     ('11', 6),
+--     ('12', 6);
 
 -- Seed data for pump_pressures table
 insert into
@@ -460,11 +460,10 @@ insert into
     public.boards (
         name,
         model,
-        serial_number,
+        eui,
         collector_id,
         company_id,
-        updated_at,
-        mqtt_msg_name
+        updated_at
     )
 values
     (
@@ -473,8 +472,7 @@ values
         '1234567890',
         1,
         1,
-        now (),
-        'mkr 3'
+        now ()
     ),
     (
         'arduino mkr 4',
@@ -482,8 +480,7 @@ values
         '1234567891',
         2,
         1,
-        now (),
-        'mkr 4'
+        now ()
     ),
     (
         'arduino mkr 5',
@@ -491,8 +488,7 @@ values
         '1234567892',
         3,
         2,
-        now (),
-        'mkr 5'
+        now ()
     ),
     (
         'arduino mkr 6',
@@ -500,8 +496,7 @@ values
         '1234567893',
         4,
         2,
-        now (),
-        'mkr 6'
+        now ()
     ),
     (
         'arduino mkr 7',
@@ -509,8 +504,7 @@ values
         '1234567894',
         5,
         3,
-        now (),
-        'mkr 7'
+        now ()
     ),
     (
         'arduino mkr 8',
@@ -518,8 +512,7 @@ values
         '1234567895',
         6,
         3,
-        now (),
-        'mkr 8'
+        now ()
     );
 
 -- Seed data for board_statuses table

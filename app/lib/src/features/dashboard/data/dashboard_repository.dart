@@ -33,10 +33,14 @@ Stream<List<PumpSwitchedOn>?> pumpsSwitchedOnStream(
 
 @Riverpod(keepAlive: true)
 Stream<List<SectorSwitchedOn>?> sectorsSwitchedOnStream(
-    SectorsSwitchedOnStreamRef ref) {
+  SectorsSwitchedOnStreamRef ref,
+) {
   final currentSelectedCompanyByUser =
       ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return Stream.value([]);
   final dashboardRepo = ref.watch(dashboardRepositoryProvider);
-  return dashboardRepo.watchSectorsSwitchedOn(currentSelectedCompanyByUser.id);
+  final data = dashboardRepo.watchSectorsSwitchedOn(
+    currentSelectedCompanyByUser.id,
+  );
+  return data;
 }
