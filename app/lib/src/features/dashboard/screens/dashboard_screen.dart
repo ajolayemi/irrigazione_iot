@@ -42,7 +42,7 @@ class DashboardScreen extends ConsumerWidget {
         child: CustomScrollView(
           slivers: <Widget>[
             AppSliverBar(
-              title: context.loc.welcome(user?.name ?? ''),
+              title: '',
               actions: [
                 // Icon button to select a new company
                 IconButton(
@@ -60,7 +60,7 @@ class DashboardScreen extends ConsumerWidget {
                 ),
               ],
             ),
-            const DashboardScreenContents(),
+             DashboardScreenContents(userName: user?.name ?? '',),
           ],
         ),
       ),
