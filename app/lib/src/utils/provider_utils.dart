@@ -85,6 +85,10 @@ class ProviderUtils {
     ref.invalidate(usedSectorNamesFutureProvider);
     ref.invalidate(usedSectorCommandsFutureProvider);
     ref.invalidate(sectorUsedMqttMessageNamesFutureProvider);
+    if (sector != null) {
+      ref.invalidate(sectorProvider(sector.id));
+      ref.invalidate(sectorPumpFutureProvider(sector.id));
+    }
   }
 
   /// Helps in refreshing the states of some providers when user pulls to refresh
