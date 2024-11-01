@@ -21,45 +21,48 @@ class BatteryLevelIndicator extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final color = _getBatteryColor(batteryLevel);
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          '${batteryLevel.toStringAsFixed(0)}%',
-          style: TextStyle(
-            color: color,
-          ),
-        ),
-        gapW8,
-        Container(
-          width: 30, // Set the width of the battery icon
-          height: 15, // Set the height of the battery icon
-          decoration: BoxDecoration(
-            border: Border.all(
+    return Visibility(
+      visible: batteryLevel > 0,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '${batteryLevel.toStringAsFixed(0)}%',
+            style: TextStyle(
               color: color,
-              width: 2,
             ),
-            borderRadius: BorderRadius.circular(4),
           ),
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: FractionallySizedBox(
-                  alignment: Alignment.centerLeft,
-                  widthFactor:
-                      batteryLevel / 100, // Size factor based on battery level
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: _getBatteryColor(batteryLevel),
-                      borderRadius: BorderRadius.circular(2),
+          gapW8,
+          Container(
+            width: 30, // Set the width of the battery icon
+            height: 15, // Set the height of the battery icon
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: color,
+                width: 2,
+              ),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: FractionallySizedBox(
+                    alignment: Alignment.centerLeft,
+                    widthFactor:
+                        batteryLevel / 100, // Size factor based on battery level
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: _getBatteryColor(batteryLevel),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
