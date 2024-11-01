@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:irrigazione_iot/env/env.dart';
 import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
@@ -60,14 +61,17 @@ class SupabaseAuthRepository implements AuthRepository {
       serverClientId: webClientId,
     );
     final googleUser = await googleSignIn.signIn();
-    final googleAuth = await googleUser!.authentication;
-    final accessToken = googleAuth.accessToken;
-    final idToken = googleAuth.idToken;
-    if (accessToken == null) {
-      throw 'No Access Token found.';
+
+    final googleAuth = await googleUser?.authentication;
+    final accessToken = googleAuth?.accessToken;
+    final idToken = googleAuth?.idToken;
+    if (accessToken == null || accessToken.isEmpty) {
+      debugPrint('No Access Token found.');
+      return;
     }
-    if (idToken == null) {
-      throw 'No ID Token found.';
+    if (idToken == null || idToken.isEmpty) {
+      debugPrint('No ID Token found.');
+      return;
     }
 
     await _authClient.signInWithIdToken(
