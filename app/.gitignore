@@ -144,3 +144,6 @@ node_modules/
 # localizations
 app_localizations_**.**
 app_localizations.**
+
+# FVM Version Cache
+.fvm/
