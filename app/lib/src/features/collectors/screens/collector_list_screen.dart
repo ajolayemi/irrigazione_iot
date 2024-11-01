@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/providers/selected_sectors_id_provider.dart';
 import 'package:irrigazione_iot/src/features/collectors/screens/collector_expansion_list_tile.dart';
@@ -80,6 +81,9 @@ class CollectorListScreen extends ConsumerWidget {
               hasLeading: false,
               hasSubtitle: false,
             ),
+          ),
+          const SliverToBoxAdapter(
+            child: gapH48,
           )
         ],
       ),

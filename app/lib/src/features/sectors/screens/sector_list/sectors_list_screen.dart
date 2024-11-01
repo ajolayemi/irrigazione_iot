@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/sectors/data/sector_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
 import 'package:irrigazione_iot/src/features/sectors/providers/sector_search_query_result.dart';
@@ -103,6 +104,9 @@ class _SectorsListScreenState extends ConsumerState<SectorsListScreen> {
                     ));
               },
               loading: () => const SectorsListTileSkeleton(),
+            ),
+            const SliverToBoxAdapter(
+              child: gapH48,
             )
           ],
         ),
