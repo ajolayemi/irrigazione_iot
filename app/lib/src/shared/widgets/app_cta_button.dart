@@ -26,7 +26,10 @@ class CTAButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final content = isLoading
-        ? const CircularProgressIndicator.adaptive()
+        ? const SizedBox(
+          height: Sizes.p20,
+          width: Sizes.p20,
+          child:  CircularProgressIndicator.adaptive())
         : Text(
             text,
             textAlign: TextAlign.center,
@@ -40,11 +43,11 @@ class CTAButton extends StatelessWidget {
       height: Sizes.p48,
       child: buttonType == ButtonType.primary
           ? FilledButton(
-              onPressed: isLoading ? () {} : onPressed,
+              onPressed: isLoading ? null : onPressed,
               child: content,
             )
           : OutlinedButton(
-              onPressed: isLoading ? () {} : onPressed,
+              onPressed: isLoading ? null : onPressed,
               child: content,
             ),
     );

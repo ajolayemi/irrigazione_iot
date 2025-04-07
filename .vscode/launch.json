@@ -15,6 +15,14 @@
       "request": "launch",
       "type": "dart",
       "program": "app/lib/main.dart"
+    },
+    {
+      "name": "irrigazione_iot (Supabase) release",
+      "request": "launch",
+      "type": "dart",
+      "program": "app/lib/main.dart",
+      "flutterMode": "release"
+
     }
   ]
 }

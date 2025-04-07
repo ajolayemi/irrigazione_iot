@@ -207,7 +207,14 @@ mixin AppFormValidators {
   /// - has at least one lowercase letter
   /// - has at least one digit
   /// - has at least one special character
-  bool canSubmitPassword({required String value, required int minLength}) {
+  bool canSubmitPassword({
+    required String value,
+    required int minLength,
+     bool validateJustEmpty = false,
+  }) {
+    if (validateJustEmpty) {
+      return nonEmptyValidator.isValid(value);
+    }
     return nonEmptyValidator.isValid(value) &&
         MinLengthStringValidator(minLength).isValid(value) &&
         PasswordUppercaseValidator().isValid(value) &&
@@ -217,19 +224,27 @@ mixin AppFormValidators {
   }
 
   /// Gets the error key for password field
-  String? getPasswordErrorKey({required String value, required int minLength}) {
+  String? getPasswordErrorKey({
+    required String value,
+    required int minLength,
+    bool validateJustEmpty = false,
+  }) {
     if (value.isEmpty) {
       return 'emptyPasswordErrorText';
-    } else if (!MinLengthStringValidator(minLength).isValid(value)) {
-      return 'shortPasswordErrorText';
-    } else if (!PasswordUppercaseValidator().isPartialValid(value)) {
-      return 'noUppercaseInPasswordErrorText';
-    } else if (!PasswordLowercaseValidator().isPartialValid(value)) {
-      return 'noLowercaseInPasswordErrorText';
-    } else if (!PasswordDigitValidator().isPartialValid(value)) {
-      return 'noNumberInPasswordErrorText';
-    } else if (!PasswordSpecialCharacterValidator().isPartialValid(value)) {
-      return 'noSpecialCharacterInPasswordErrorText';
+    }
+
+    if (!validateJustEmpty) {
+      if (!MinLengthStringValidator(minLength).isValid(value)) {
+        return 'shortPasswordErrorText';
+      } else if (!PasswordUppercaseValidator().isPartialValid(value)) {
+        return 'noUppercaseInPasswordErrorText';
+      } else if (!PasswordLowercaseValidator().isPartialValid(value)) {
+        return 'noLowercaseInPasswordErrorText';
+      } else if (!PasswordDigitValidator().isPartialValid(value)) {
+        return 'noNumberInPasswordErrorText';
+      } else if (!PasswordSpecialCharacterValidator().isPartialValid(value)) {
+        return 'noSpecialCharacterInPasswordErrorText';
+      }
     }
     return null;
   }

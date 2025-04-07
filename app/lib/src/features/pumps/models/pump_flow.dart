@@ -13,22 +13,35 @@ class PumpFlow extends Equatable {
     required this.id,
     required this.pumpId,
     required this.flow,
-   this.createdAt,
+    required this.litresPerSecond,
+    this.createdAt,
   });
 
   @JsonKey(name: PumpFlowDatabaseKeys.id, includeToJson: false)
   @IntConverter()
   final String id;
+
   @JsonKey(name: PumpFlowDatabaseKeys.pumpId)
   @IntConverter()
   final String pumpId;
+
   @JsonKey(name: PumpFlowDatabaseKeys.flow)
   final double flow;
+
+  @JsonKey(name: PumpFlowDatabaseKeys.litresPerSecond)
+  final double litresPerSecond;
+
   @JsonKey(name: PumpFlowDatabaseKeys.createdAt)
   final DateTime? createdAt;
 
   @override
-  List<Object?> get props => [id, pumpId, flow, createdAt];
+  List<Object?> get props => [
+        id,
+        pumpId,
+        flow,
+        createdAt,
+        litresPerSecond,
+      ];
 
   factory PumpFlow.fromJson(Map<String, dynamic> json) =>
       _$PumpFlowFromJson(json);

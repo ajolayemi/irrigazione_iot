@@ -32,7 +32,7 @@ class PumpTileTrailingButton extends ConsumerWidget {
     final thisPumpStatusIsLoading =
         ref.watch(pumpStatusControllerProvider).stateWithIdIsLoading(pump.id);
     final isSwitchedOn =
-        ref.watch(pumpStatusStreamProvider(pump.id)).valueOrNull ?? false;
+        ref.watch(pumpStatusStreamProvider(pump.id)).valueOrNull?.statusBoolean ?? false;
     return thisPumpStatusIsLoading
         ? const CircularProgressIndicator.adaptive()
         : IgnorePointer(

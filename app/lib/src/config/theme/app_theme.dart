@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,7 +16,7 @@ class AppTheme {
       appBarOpacity: 0.95,
       appBarElevation: 0,
       //appBarStyle: FlexAppBarStyle.primary,
-      transparentStatusBar: true, // TODO adapt this to user platform
+      transparentStatusBar: Platform.isIOS, // TODO adapt this to user platform
       swapColors: true,
       lightIsWhite: true,
       visualDensity: FlexColorScheme.comfortablePlatformDensity,

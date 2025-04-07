@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/weather_station_list/weather_stations_list_screen.dart';
+import 'package:irrigazione_iot/src/features/weenat/screens/weenat_auth_screen.dart';
+import 'package:irrigazione_iot/src/features/weenat/screens/weenat_map_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/enums/form_types.dart';
@@ -168,34 +170,7 @@ GoRouter goRouter(GoRouterRef ref) {
             ],
           ),
 
-          // Pump branch
-          StatefulShellBranch(
-            navigatorKey: _pumpShellNavigatorKey,
-            routes: [
-              GoRoute(
-                path: AppRoute.pump.path,
-                name: AppRoute.pump.name,
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: PumpListScreen(),
-                ),
-                routes: [
-                  GoRoute(
-                      path: AppRoute.pumpDetails.path,
-                      name: AppRoute.pumpDetails.name,
-                      pageBuilder: (context, state) {
-                        return MaterialPage(
-                          fullscreenDialog: true,
-                          child: PumpDetailsScreen(
-                            pumpId: state.pathId,
-                          ),
-                        );
-                      }),
-                ],
-              ),
-            ],
-          ),
-
-          // Meteo branch
+          // Sector branch
           StatefulShellBranch(
             navigatorKey: _sectorShellNavigatorKey,
             routes: [
@@ -215,6 +190,33 @@ GoRouter goRouter(GoRouterRef ref) {
                           fullscreenDialog: true,
                           child: SectorDetailsScreen(
                             sectorID: state.pathId,
+                          ),
+                        );
+                      }),
+                ],
+              ),
+            ],
+          ),
+
+          // Pump branch
+          StatefulShellBranch(
+            navigatorKey: _pumpShellNavigatorKey,
+            routes: [
+              GoRoute(
+                path: AppRoute.pump.path,
+                name: AppRoute.pump.name,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: PumpListScreen(),
+                ),
+                routes: [
+                  GoRoute(
+                      path: AppRoute.pumpDetails.path,
+                      name: AppRoute.pumpDetails.name,
+                      pageBuilder: (context, state) {
+                        return MaterialPage(
+                          fullscreenDialog: true,
+                          child: PumpDetailsScreen(
+                            pumpId: state.pathId,
                           ),
                         );
                       }),
@@ -630,6 +632,22 @@ GoRouter goRouter(GoRouterRef ref) {
             },
           ),
         ],
+      ),
+      GoRoute(
+        path: AppRoute.weenatAuth.path,
+        name: AppRoute.weenatAuth.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: WeenatAuthScreen(),
+        ),
+      ),
+      GoRoute(
+        path: AppRoute.weenatMap.path,
+        name: AppRoute.weenatMap.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          fullscreenDialog: true,
+          child: WeenatMapScreen(),
+        ),
       ),
     ],
   );

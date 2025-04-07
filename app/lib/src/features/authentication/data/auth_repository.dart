@@ -36,7 +36,7 @@ abstract class AuthRepository {
 
   /// Gets the current logged in user
   AppUser? get currentUser;
-  
+
   /// Gets the current active session
   /// As for Supabase, since confirm email address is enabled
   /// A session is available only when user's email address has been confirmed
@@ -53,4 +53,9 @@ AuthRepository authRepository(AuthRepositoryRef ref) {
 Stream<AuthState?> authStateChanges(AuthStateChangesRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.authStateChanges();
+}
+
+@riverpod
+String? userUid(UserUidRef ref) {
+  return ref.watch(authRepositoryProvider).currentUser?.uid;
 }

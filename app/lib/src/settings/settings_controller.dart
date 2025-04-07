@@ -4,8 +4,6 @@ import 'package:irrigazione_iot/src/settings/settings_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 
-part 'settings_controller.g.dart';
-
 /// A class that many Widgets can interact with to read user settings, update
 /// user settings, or listen to user settings changes.
 ///
@@ -53,9 +51,6 @@ class SettingsController with ChangeNotifier {
   }
 }
 
-
-@riverpod
-SettingsController settingsController(settingsControllerRef) {
-   throw UnimplementedError();
-}
-
+final settingsControllerProvider = Provider<SettingsController>((ref) {
+  throw UnimplementedError();
+});

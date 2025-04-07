@@ -36,7 +36,7 @@ class PumpListTile extends ConsumerWidget {
 
     return ref
         .read(dismissPumpControllerProvider.notifier)
-        .confirmDismiss(pump.id);
+        .confirmDismiss(pump);
   }
 
 

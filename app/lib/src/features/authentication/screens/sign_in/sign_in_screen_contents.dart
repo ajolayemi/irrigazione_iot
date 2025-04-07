@@ -7,7 +7,6 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/exceptions/app_exception.dart';
 import 'package:irrigazione_iot/src/features/authentication/screens/sign_in/sign_in_controller.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/dont_have_an_account.dart';
-import 'package:irrigazione_iot/src/features/authentication/widgets/forgot_password.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/password_visibility_icon_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/providers_sign_in_button.dart';
 import 'package:irrigazione_iot/src/features/authentication/widgets/sliver_sign_in_cta.dart';
@@ -146,7 +145,6 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = ref.watch(signInControllerProvider).isLoading;
     final loc = context.loc;
     final obscurePassword = !ref.watch(showPasswordProvider);
     final textTheme = context.textTheme;
@@ -209,8 +207,8 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
                           onPressed: _onTapViewPassword,
                         ),
                       ),
-                      gapH4,
-                      ForgotPassword(isLoading: isLoading),
+                      // gapH4,
+                      // ForgotPassword(isLoading: isLoading),
                       gapH32,
                       // sign in button
                       SignInSliverCtaButton(onPressed: _submit),

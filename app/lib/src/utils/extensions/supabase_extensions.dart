@@ -16,6 +16,7 @@ import 'package:irrigazione_iot/src/features/sectors/models/sector_pressure_data
 import 'package:irrigazione_iot/src/features/sectors/models/sector_pump_database_keys.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector_status_database_keys.dart';
 import 'package:irrigazione_iot/src/features/specie/models/specie_database_keys.dart';
+import 'package:irrigazione_iot/src/features/terminal/models/terminal_pressure_database_keys.dart';
 import 'package:irrigazione_iot/src/features/variety/models/variety_database_keys.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_battery_database_keys.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_database_keys.dart';
@@ -100,6 +101,14 @@ extension SupabaseClientExtensions on SupabaseClient {
 
   SupabaseQueryBuilder get weatherStationBatteryData =>
       from(WeatherStationBatteryDatabaseKeys.table);
+
+  SupabaseQueryBuilder get terminalPressure =>
+      from(TerminalPressureDatabaseKeys.table);
+
+  SupabaseStreamFilterBuilder get terminalPressureStream =>
+      terminalPressure.stream(
+        primaryKey: [TerminalPressureDatabaseKeys.id],
+      );
 
   /// Getter for the current access token
   String? get accessToken => auth.currentSession?.accessToken;

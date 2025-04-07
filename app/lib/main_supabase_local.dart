@@ -1,11 +1,13 @@
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_functions/cloud_functions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:irrigazione_iot/env/env.dart';
 import 'package:irrigazione_iot/firebase_options.dart';
 import 'package:irrigazione_iot/src/app_bootstrap.dart';
-import 'package:irrigazione_iot/src/app_bootstrap_supabase.dart';
+import 'package:irrigazione_iot/src/app_bootstrap_local.dart';
+import 'package:irrigazione_iot/src/application/di/service_locator.dart';
 
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -24,9 +26,11 @@ void main() async {
   // initialize Supabase with the local environment variables
   await Supabase.initialize(
     anonKey: Env.supabaseLocalAnonKey,
-    url: Env.supabaseLocalUrlForEmulators,
+    url: Env.supabaseLocalUrlForRealDevice,
     debug: true,
   );
+
+  ServiceLocator.init();
 
   // turn off the # in the URLs on the web
   usePathUrlStrategy();
@@ -35,7 +39,7 @@ void main() async {
   final appBootstrap = AppBootstrap();
 
   // create a container configured with all the Supabase repositories
-  final container = await appBootstrap.createSupabaseProviderContainer();
+  final container = await appBootstrap.createLocalProviderContainer();
   // use the container above to create the root widget
   final root = await appBootstrap.createRootWidget(container: container);
 

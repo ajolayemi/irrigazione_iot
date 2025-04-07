@@ -49,21 +49,18 @@ class _AddUpdateBoardFormContentState
   final _nameController = TextEditingController();
   final _modelController = TextEditingController();
   final _serialNumberController = TextEditingController();
-  final _mqttMessageNameController = TextEditingController();
   final _connectedCollectorController = TextEditingController();
 
   // fields values
   String get _name => _nameController.text;
   String get _model => _modelController.text;
   String get _serialNumber => _serialNumberController.text;
-  String get _mqttMsgName => _mqttMessageNameController.text;
   String get _connectedCollector => _connectedCollectorController.text;
 
   // Keys for testing
   static const _nameFieldKey = Key('boardNameField');
   static const _modelFieldKey = Key('boardModelField');
   static const _serialNumberFieldKey = Key('boardSerialNumberField');
-  static const _mqttMsgNameFieldKey = Key('mqttMessageNameField');
   static const _selectedCollectorFieldKey = Key('boardSelectedCollectorField');
 
   Board? _initialBoard = const Board.empty();
@@ -78,21 +75,23 @@ class _AddUpdateBoardFormContentState
 
   @override
   void initState() {
-    if (_isUpdating && widget.boardID != null) {
-      final board =
-          ref.read(boardStreamProvider(boardID: widget.boardID!)).valueOrNull;
+    super.initState();
+    _asyncFormInit();
+  }
+
+  Future<void> _asyncFormInit() async {
+    final boardId = widget.boardID;
+    if (_isUpdating && boardId != null) {
+      final board = await ref.read(boardProvider(boardId: boardId).future);
       _initialBoard = board;
       _nameController.text = _initialBoard?.name ?? '';
       _modelController.text = _initialBoard?.model ?? '';
-      _serialNumberController.text = _initialBoard?.serialNumber ?? '';
-      _mqttMessageNameController.text = _initialBoard?.mqttMsgName ?? '';
+      _serialNumberController.text = _initialBoard?.eui ?? '';
 
       if (board != null) {
-        final selectedCollector = ref
-            .read(collectorStreamProvider(
-              board.collectorId,
-            ))
-            .valueOrNull;
+        final selectedCollector =
+            await ref.read(collectorFutureProvider(board.collectorId).future);
+
         _selectedCollector = RadioButtonItem(
           label: selectedCollector?.name ?? '',
           value: selectedCollector?.id ?? '',
@@ -101,7 +100,6 @@ class _AddUpdateBoardFormContentState
         _connectedCollectorId = selectedCollector?.id;
       }
     }
-    super.initState();
   }
 
   @override
@@ -109,7 +107,6 @@ class _AddUpdateBoardFormContentState
     _nameController.dispose();
     _modelController.dispose();
     _serialNumberController.dispose();
-    _mqttMessageNameController.dispose();
     _connectedCollectorController.dispose();
     _node.dispose();
     super.dispose();
@@ -203,8 +200,7 @@ class _AddUpdateBoardFormContentState
           name: _name,
           id: _initialBoard?.id,
           model: _model,
-          serialNumber: _serialNumber,
-          mqttMsgName: _mqttMsgName,
+          eui: _serialNumber,
         );
 
         bool success = false;
@@ -263,13 +259,14 @@ class _AddUpdateBoardFormContentState
                       Consumer(
                         builder: (context, ref, child) {
                           final boardUsedNames =
-                              ref.watch(usedBoardNamesStreamProvider);
+                              ref.watch(usedBoardNamesProvider);
                           final value = boardUsedNames.valueOrNull ?? [];
                           return FormTitleAndField(
                             fieldKey: _nameFieldKey,
                             fieldTitle: loc.nameFormFieldTitle,
                             fieldHintText: loc.boardNameHintText,
                             fieldController: _nameController,
+                            maxLength: AppConstants.maxBoardNameLength,
                             onEditingComplete: () => _nameEditingComplete(
                               value: _name,
                               existingNames: value,
@@ -285,34 +282,7 @@ class _AddUpdateBoardFormContentState
                           );
                         },
                       ),
-                      gapH16,
-                      // Board mqtt message name field
-                      Consumer(
-                        builder: (context, ref, child) {
-                          final mqttMsgNames =
-                              ref.watch(boardsUsedMqttNamesStreamProvider);
-                          final value = mqttMsgNames.valueOrNull ?? [];
 
-                          return FormTitleAndField(
-                            fieldKey: _mqttMsgNameFieldKey,
-                            fieldTitle: loc.mqttMessageNameFormFieldTitle,
-                            fieldHintText: loc.mqttMessageNameFormHint,
-                            fieldController: _mqttMessageNameController,
-                            onEditingComplete: () => _nameEditingComplete(
-                              value: _mqttMsgName,
-                              existingNames: value,
-                              maxLength: AppConstants.maxMqttMessageNameLength,
-                              initialValue: _initialBoard?.mqttMsgName,
-                            ),
-                            validator: (_) => _nameErrorText(
-                              value: _mqttMsgName,
-                              existingNames: value,
-                              maxLength: AppConstants.maxMqttMessageNameLength,
-                              initialValue: _initialBoard?.mqttMsgName,
-                            ),
-                          );
-                        },
-                      ),
                       gapH16,
                       // Board model field
                       FormTitleAndField(

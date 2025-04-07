@@ -24,7 +24,10 @@ class CollectorPressure extends Equatable {
         collectorId = '',
         pressureDifference = 0;
 
-  @JsonKey(name: CollectorPressureDatabaseKeys.id, includeToJson: false)
+  @JsonKey(
+      name: CollectorPressureDatabaseKeys.id,
+      includeToJson: false,
+      )
   @IntConverter()
   final String id;
 

@@ -22,6 +22,7 @@ class AppSliverBar extends StatelessWidget {
       snap: true,
       expandedHeight: expandedHeight ?? 100.0,
       flexibleSpace: FlexibleSpaceBar(
+        centerTitle: true,
         titlePadding: const EdgeInsets.symmetric(
           vertical: Sizes.p16,
           // horizontal: Sizes.p16,

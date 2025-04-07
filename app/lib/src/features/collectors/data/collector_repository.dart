@@ -16,6 +16,9 @@ abstract class CollectorRepository {
   /// emits a [Collector] with the given collectorID
   Stream<Collector?> watchCollector(String collectorID);
 
+  /// Fetches a [Collector] with the given collectorId
+  Future<Collector?> getCollector(String collectorId);
+
   /// adds a [Collector]
   Future<Collector?> createCollector(Collector collector);
 
@@ -40,7 +43,7 @@ CollectorRepository collectorRepository(CollectorRepositoryRef ref) {
   return SupabaseCollectorRepository(supabaseClient);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<List<Collector?>> collectorListStream(CollectorListStreamRef ref) {
   final collectorRepository = ref.read(collectorRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
@@ -48,7 +51,7 @@ Stream<List<Collector?>> collectorListStream(CollectorListStreamRef ref) {
   return collectorRepository.watchCollectors(companyId);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<List<String?>> usedCollectorNamesStream(
     UsedCollectorNamesStreamRef ref) {
   final collectorRepository = ref.read(collectorRepositoryProvider);
@@ -58,13 +61,19 @@ Stream<List<String?>> usedCollectorNamesStream(
 }
 
 /// Watches a single instance of [Collector] as specified by [String]
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<Collector?> collectorStream(CollectorStreamRef ref, String collectorId) {
   final collectorRepository = ref.watch(collectorRepositoryProvider);
   return collectorRepository.watchCollector(collectorId);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
+Future<Collector?> collectorFuture(CollectorFutureRef ref, String collectorId) {
+  final collectorRepository = ref.read(collectorRepositoryProvider);
+  return collectorRepository.getCollector(collectorId);
+}
+
+@Riverpod(keepAlive: true)
 Stream<List<String?>> collectorUsedMqttMessageNamesStream(
     CollectorUsedMqttMessageNamesStreamRef ref) {
   final collectorRepository = ref.read(collectorRepositoryProvider);

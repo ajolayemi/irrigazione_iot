@@ -30,9 +30,8 @@ class WeatherStationDetailsCharacteristics extends ConsumerWidget {
         ),
         Consumer(
           builder: (context, ref, child) {
-            final sectorConnected =
-                ref.watch(sectorStreamProvider(weatherStation.sectorId));
-            final value = sectorConnected.valueOrNull;
+            final sector = ref.watch(sectorProvider(weatherStation.sectorId));
+            final value = sector.valueOrNull;
             return ResponsiveDetailsCard(
                 child: DetailTileWidget(
               title: loc.connectedSector,

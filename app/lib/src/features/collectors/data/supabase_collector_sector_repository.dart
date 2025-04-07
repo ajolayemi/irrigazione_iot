@@ -21,6 +21,11 @@ class SupabaseCollectorSectorRepository implements CollectorSectorRepository {
         .toList();
   }
 
+  String? _collectorIdFromSingle(List<Map<String, dynamic>> data) {
+    if (data.isEmpty) return null;
+    return data.first[CollectorSectorDatabaseKeys.collectorId].toString();
+  }
+
   @override
   Future<CollectorSector?> createCollectorSector(
     CollectorSector collectorSector,
@@ -80,5 +85,14 @@ class SupabaseCollectorSectorRepository implements CollectorSectorRepository {
     );
 
     return stream.map(_collectorSectorFromList);
+  }
+
+  @override
+  Stream<String?> watchCollectorIdBySectorId(String sectorId) {
+    final stream = _supabaseClient.collectorSectorsStream
+        .eq(CollectorSectorDatabaseKeys.sectorId, sectorId)
+        .limit(1);
+
+    return stream.map(_collectorIdFromSingle);
   }
 }

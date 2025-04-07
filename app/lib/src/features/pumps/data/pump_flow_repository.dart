@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/features/pumps/models/pump_flow.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/pumps/data/supabase_pump_flow_repository.dart';
@@ -11,6 +12,9 @@ abstract class PumpFlowRepository {
 
   /// Emits the last time the pump with the provided [pumpId] dispensed water
   Stream<DateTime?> watchLastDispensation(String pumpId);
+
+  /// Emits the last [PumpFlow] of the pump with the provided [pumpId]
+  Stream<PumpFlow?> watchPumpLastFlow(String pumpId);
 }
 
 @Riverpod(keepAlive: true)
@@ -19,16 +23,29 @@ PumpFlowRepository pumpFlowRepository(PumpFlowRepositoryRef ref) {
   return SupabasePumpFlowRepository(supabaseClient);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<int> pumpTotalDispensedLitres(
-    PumpTotalDispensedLitresRef ref, String pumpId) {
+  PumpTotalDispensedLitresRef ref,
+  String pumpId,
+) {
   final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
   return pumpDetailsRepository.watchTotalLitresDispensed(pumpId);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<DateTime?> lastDispensationStream(
-    LastDispensationStreamRef ref, String pumpId) {
+  LastDispensationStreamRef ref,
+  String pumpId,
+) {
   final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
   return pumpDetailsRepository.watchLastDispensation(pumpId);
+}
+
+@Riverpod(keepAlive: true)
+Stream<PumpFlow?> pumpLastFlowStream(
+  PumpLastFlowStreamRef ref,
+  String pumpId,
+) {
+  final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
+  return pumpDetailsRepository.watchPumpLastFlow(pumpId);
 }

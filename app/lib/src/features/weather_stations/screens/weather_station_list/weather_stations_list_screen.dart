@@ -10,10 +10,12 @@ import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/shared/widgets/async_value_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_add_icon_button.dart';
 import 'package:irrigazione_iot/src/shared/widgets/common_sliver_list_skeleton.dart';
+import 'package:irrigazione_iot/src/shared/widgets/custom_scroll_view_with_refresh_indicator.dart';
 import 'package:irrigazione_iot/src/shared/widgets/empty_data_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
+import 'package:irrigazione_iot/src/utils/provider_utils.dart';
 
 // Displays a list of weather stations
 class WeatherStationListScreen extends ConsumerWidget {
@@ -29,11 +31,12 @@ class WeatherStationListScreen extends ConsumerWidget {
       (_, state) => state.showAlertDialogOnError(context),
     );
     final loc = context.loc;
-    final weatherStations = ref.watch(weatherStationsStreamProvider);
+    final weatherStations = ref.watch(weatherStationsProvider);
 
     return Scaffold(
       body: PaddedSafeArea(
-        child: CustomScrollView(
+        child: CustomScrollViewWithRefreshIndicator(
+          onRefresh: () => ProviderUtils.refreshWeatherStationsListStates(ref),
           slivers: [
             AppSliverBar(
               title: loc.weatherStationPageTitle,
@@ -49,7 +52,8 @@ class WeatherStationListScreen extends ConsumerWidget {
                 if (data == null || data.isEmpty) {
                   return SliverFillRemaining(
                     child: EmptyDataWidget(
-                      message: loc.emptyDataPlaceholder(loc.nWeatherStations(1)),
+                      message:
+                          loc.emptyDataPlaceholder(loc.nWeatherStations(1)),
                       buttonText: loc.addNewButtonLabel,
                       onPressed: () => _onTapAdd(context),
                     ),
@@ -60,7 +64,8 @@ class WeatherStationListScreen extends ConsumerWidget {
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
                       final weatherStation = data[index];
-                      return WeatherStationListTile(weatherStation: weatherStation);
+                      return WeatherStationListTile(
+                          weatherStation: weatherStation);
                     },
                     childCount: data.length,
                   ),

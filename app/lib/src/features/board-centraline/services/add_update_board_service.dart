@@ -4,6 +4,7 @@ import 'package:irrigazione_iot/src/features/authentication/data/auth_repository
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/models/board.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
+import 'package:irrigazione_iot/src/utils/provider_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'add_update_board_service.g.dart';
@@ -46,6 +47,8 @@ class AddUpdateBoardService {
           ),
         );
 
+    ProviderUtils.invalidateBoardStates(board: createdBoard, ref: _ref);
+
     debugPrint('created board: ${createdBoard?.toJson()}');
   }
 
@@ -66,6 +69,8 @@ class AddUpdateBoardService {
             collectorId: collectorIdToConnect,
           ),
         );
+
+    ProviderUtils.invalidateBoardStates(board: updatedBoard, ref: _ref);
 
     debugPrint('updated board: ${updatedBoard?.toJson()}');
   }

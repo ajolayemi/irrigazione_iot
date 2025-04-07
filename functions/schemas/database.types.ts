@@ -101,33 +101,30 @@ export type Database = {
           collector_id: number
           company_id: number
           created_at: string
+          eui: string
           id: number
           model: string
-          mqtt_msg_name: string
           name: string
-          serial_number: string
           updated_at: string
         }
         Insert: {
           collector_id: number
           company_id: number
           created_at?: string
+          eui: string
           id?: number
           model: string
-          mqtt_msg_name: string
           name: string
-          serial_number: string
           updated_at: string
         }
         Update: {
           collector_id?: number
           company_id?: number
           created_at?: string
+          eui?: string
           id?: number
           model?: string
-          mqtt_msg_name?: string
           name?: string
-          serial_number?: string
           updated_at?: string
         }
         Relationships: [
@@ -341,18 +338,21 @@ export type Database = {
           created_at: string
           flow: number
           id: number
+          litres_per_second: number
           pump_id: number
         }
         Insert: {
           created_at?: string
           flow: number
           id?: number
+          litres_per_second?: number
           pump_id: number
         }
         Update: {
           created_at?: string
           flow?: number
           id?: number
+          litres_per_second?: number
           pump_id?: number
         }
         Relationships: [
@@ -402,6 +402,7 @@ export type Database = {
       }
       pump_statuses: {
         Row: {
+          company_id: number
           created_at: string
           id: number
           pump_id: number
@@ -409,6 +410,7 @@ export type Database = {
           status_boolean: boolean
         }
         Insert: {
+          company_id: number
           created_at?: string
           id?: number
           pump_id: number
@@ -416,6 +418,7 @@ export type Database = {
           status_boolean?: boolean
         }
         Update: {
+          company_id?: number
           created_at?: string
           id?: number
           pump_id?: number
@@ -423,6 +426,13 @@ export type Database = {
           status_boolean?: boolean
         }
         Relationships: [
+          {
+            foreignKeyName: "public_pump_statuses_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "public_pump_statuses_pump_id_fkey"
             columns: ["pump_id"]
@@ -478,6 +488,42 @@ export type Database = {
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pumps_switched_on: {
+        Row: {
+          company_id: number
+          id: number
+          pump_id: number
+          status_boolean: boolean
+        }
+        Insert: {
+          company_id: number
+          id?: number
+          pump_id: number
+          status_boolean: boolean
+        }
+        Update: {
+          company_id?: number
+          id?: number
+          pump_id?: number
+          status_boolean?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_pumps_switched_on_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_pumps_switched_on_pump_id_fkey"
+            columns: ["pump_id"]
+            isOneToOne: false
+            referencedRelation: "pumps"
             referencedColumns: ["id"]
           },
         ]
@@ -660,6 +706,42 @@ export type Database = {
             columns: ["variety_id"]
             isOneToOne: false
             referencedRelation: "varieties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sectors_switched_on: {
+        Row: {
+          company_id: number
+          id: number
+          sector_id: number
+          status_boolean: boolean
+        }
+        Insert: {
+          company_id: number
+          id?: number
+          sector_id: number
+          status_boolean: boolean
+        }
+        Update: {
+          company_id?: number
+          id?: number
+          sector_id?: number
+          status_boolean?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_sectors_switched_on_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_sectors_switched_on_sector_id_fkey"
+            columns: ["sector_id"]
+            isOneToOne: false
+            referencedRelation: "sectors"
             referencedColumns: ["id"]
           },
         ]
@@ -961,15 +1043,22 @@ export type Database = {
         }
         Returns: number
       }
-      get_sensor_company_id: {
+      get_user_email_v2: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      get_weather_station_company_id: {
         Args: {
           sensor_id_input: number
         }
         Returns: number
       }
-      get_user_email_v2: {
-        Args: Record<PropertyKey, never>
-        Returns: string
+      seconds_since_pump_last_switched_on: {
+        Args: {
+          pump_id_input: number
+          current_status_timestamp: string
+        }
+        Returns: number
       }
     }
     Enums: {

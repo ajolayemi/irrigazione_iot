@@ -65,15 +65,14 @@ class _AddUpdateWeatherStationFormContentsState
 
   @override
   void initState() {
-    _initForm();
     super.initState();
+    _asyncInitForm();
   }
 
-  Future<void> _initForm() async {
-    if (_isUpdating) {
-      final weatherStation =
-          ref.read(weatherStationStreamProvider(widget.weatherStationId!));
-      final value = weatherStation.valueOrNull;
+  Future<void> _asyncInitForm() async {
+    final itemId = widget.weatherStationId;
+    if (_isUpdating && itemId != null) {
+      final value = await ref.read(weatherStationProvider(itemId).future);
 
       _initialWeatherStation = value;
 
@@ -81,8 +80,9 @@ class _AddUpdateWeatherStationFormContentsState
       _euiController.text = value?.eui ?? '';
 
       if (value != null) {
-        final sector =
-            await ref.read(sectorFutureProvider(value.sectorId).future);
+        final sector = await ref.read(
+          sectorProvider(value.sectorId).future,
+        );
 
         _radioButtonSelectedSector = RadioButtonItem(
           value: sector?.id ?? '',
@@ -230,9 +230,8 @@ class _AddUpdateWeatherStationFormContentsState
                   // name field
                   Consumer(
                     builder: (context, ref, child) {
-                      final usedNames = ref.watch(
-                        usedWeatherStationNamesStreamProvider,
-                      );
+                      final usedNames =
+                          ref.watch(usedWeatherStationsNamesProvider);
                       final values = usedNames.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -263,7 +262,7 @@ class _AddUpdateWeatherStationFormContentsState
                   Consumer(
                     builder: (context, ref, child) {
                       final usedEuis =
-                          ref.watch(usedWeatherStationEUIsStreamProvider);
+                          ref.watch(usedWeatherStationEUIsProvider);
                       final values = usedEuis.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,

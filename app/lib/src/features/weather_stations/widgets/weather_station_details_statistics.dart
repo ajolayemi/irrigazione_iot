@@ -34,7 +34,9 @@ class WeatherStationDetailsStatistics extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
     final lastMeasurements = ref
-        .watch(lastWeatherStationMeasurementStreamProvider(weatherStationId))
+        .watch(weatherStationMeasurementProvider(
+          weatherStationId: weatherStationId,
+        ))
         .valueOrNull;
     return CommonExpansionTile(
       title: loc.entityStatistics,

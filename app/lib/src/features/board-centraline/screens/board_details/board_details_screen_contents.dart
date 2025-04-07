@@ -28,7 +28,7 @@ class BoardDetailsScreenContents extends ConsumerWidget {
       ResponsiveDetailsCard(
         child: DetailTileWidget(
           title: loc.boardSerialNumber,
-          subtitle: board.serialNumber,
+          subtitle: board.eui,
         ),
       ),
       Consumer(

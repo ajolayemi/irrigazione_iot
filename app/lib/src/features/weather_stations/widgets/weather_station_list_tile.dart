@@ -25,7 +25,7 @@ class WeatherStationListTile extends ConsumerWidget {
     if (await context.showDismissalDialog(where: where)) {
       return await ref
           .read(dismissWeatherStationControllerProvider.notifier)
-          .confirmDismiss(weatherStation.id);
+          .confirmDismiss(weatherStation);
     }
     return false;
   }

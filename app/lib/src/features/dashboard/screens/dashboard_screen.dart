@@ -3,9 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
+import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
+import 'package:irrigazione_iot/src/features/dashboard/screens/dashboard_screen_contents.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -31,50 +34,35 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final nums = List.from(Iterable.generate(50, (i) => i));
     final user = ref.watch(authRepositoryProvider).currentUser;
 
-    // TODO: show terminal pressure as first item
-    // TODO: pumps switched on should be shown in the dashboard
-    // TODO: same goes for sectors with their pressures 
-    
-
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          AppSliverBar(
-            title: context.loc.welcome(user?.name ?? ''),
-            actions: [
-              // Icon button to select a new company
-              IconButton(
-                icon: const Icon(Icons.business),
-                onPressed: () {
-                  context.pushNamed(
-                    AppRoute.companiesListGrid.name,
-                  );
-                },
-              ),
-              // Icon button to logout
-              IconButton(
-                icon: const Icon(Icons.logout),
-                onPressed: () => _signOut(context, ref),
-              ),
-            ],
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return ListTile(
-                  title: Text('Item $index'),
-                  onTap: () {
-                    context.goNamed(AppRoute.home.name);
+      body: PaddedSafeArea(
+        padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
+        child: CustomScrollView(
+          slivers: <Widget>[
+            AppSliverBar(
+              title: '',
+              actions: [
+                // Icon button to select a new company
+                IconButton(
+                  icon: const Icon(Icons.business),
+                  onPressed: () {
+                    context.pushNamed(
+                      AppRoute.companiesListGrid.name,
+                    );
                   },
-                );
-              },
-              childCount: nums.length,
+                ),
+                // Icon button to logout
+                IconButton(
+                  icon: const Icon(Icons.logout),
+                  onPressed: () => _signOut(context, ref),
+                ),
+              ],
             ),
-          ),
-        ],
+             DashboardScreenContents(userName: user?.name ?? '',),
+          ],
+        ),
       ),
     );
   }

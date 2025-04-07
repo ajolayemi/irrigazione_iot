@@ -3,7 +3,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_database_keys.dart';
-import 'package:irrigazione_iot/src/features/pumps/models/pump_status_database_keys.dart';
 import 'package:irrigazione_iot/src/shared/models/db_cud_bodies.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
@@ -11,12 +10,12 @@ class SupabasePumpRepository implements PumpRepository {
   const SupabasePumpRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
-  Pump? _pumpFromJsonSingle(List<Map<String, dynamic>> data) =>
-      data.isEmpty ? null : Pump.fromJson(data.first);
-
-  List<Pump?> _pumpsFromJsonList(List<Map<String, dynamic>> data) {
+  List<Pump>? _fromList(List<Map<String, dynamic>> data) {
     return data.map((pump) => Pump.fromJson(pump)).toList();
   }
+
+  Pump? _toPump(Map<String, dynamic>? json) =>
+      json == null ? null : Pump.fromJson(json);
 
   @override
   Future<Pump?> createPump(Pump pump) async {
@@ -58,52 +57,52 @@ class SupabasePumpRepository implements PumpRepository {
   }
 
   @override
-  Stream<List<Pump?>> watchCompanyPumps(String companyId) {
-    final stream =
-        _supabaseClient.pumps.stream(primaryKey: [PumpDatabaseKeys.id]).eq(
-      PumpDatabaseKeys.companyId,
-      companyId,
-    );
-
-    return stream.map(_pumpsFromJsonList);
+  Future<List<Pump>?> getCompanyPumps(String companyId) async {
+    return _supabaseClient.pumps
+        .select()
+        .eq(PumpDatabaseKeys.companyId, companyId)
+        .withConverter(_fromList);
   }
 
   @override
-  Stream<List<String?>> watchCompanyUsedPumpNames(String companyId) {
-    return watchCompanyPumps(companyId).map(
-      (pumps) => pumps.map((pump) => pump?.name.toLowerCase()).toList(),
-    );
+  Future<List<Pump>?> getAllPumps() async {
+    return _supabaseClient.pumps.select().withConverter(_fromList);
   }
 
   @override
-  Stream<List<String?>> watchCompanyUsedPumpCommands(String companyId) {
-    return watchCompanyPumps(companyId).map(
-      (pumps) => pumps
-          .map((pump) => [pump?.turnOnCommand, pump?.turnOffCommand])
-          .expand((element) => element)
-          .toList(),
-    );
+  Future<List<String?>> getCompanyUsedPumpNames(String companyId) async {
+    final companyPumps = await getCompanyPumps(companyId);
+    if (companyPumps == null || companyPumps.isEmpty) return [];
+    return companyPumps.map((pump) => pump.name).toList();
+  }
+
+  @override
+  Future<List<String?>> getCompanyUsedPumpCommands(String companyId) async {
+    final companyPumps = await getCompanyPumps(companyId);
+
+    if (companyPumps == null || companyPumps.isEmpty) return [];
+
+    return companyPumps
+        .map((pump) => [pump.turnOnCommand, pump.turnOffCommand])
+        .expand((element) => element)
+        .toList();
   }
 
 
   @override
-  Stream<Pump?> watchPump(String pumpId) {
-    final stream = _supabaseClient.pumps
-        .stream(primaryKey: [PumpDatabaseKeys.id])
-        .eq(
-          PumpStatusDatabaseKeys.id,
-          pumpId,
-        )
-        .limit(1);
-
-    return stream.map(_pumpFromJsonSingle);
+  Future<Pump?> getPump(String pumpId) async {
+    final data = await _supabaseClient.pumps
+        .select()
+        .eq(PumpDatabaseKeys.id, pumpId)
+        .maybeSingle()
+        .withConverter(_toPump);
+    return data;
   }
 
   @override
-  Stream<List<String?>> watchUsedMqttMessageNames() {
-    return _supabaseClient.pumps.stream(primaryKey: [PumpDatabaseKeys.id]).map(
-      (pumps) =>
-          pumps.map((pump) => Pump.fromJson(pump).mqttMessageName).toList(),
-    );
+  Future<List<String?>> getUsedMqttMessageNames() async {
+    final pumps = await getAllPumps();
+    if (pumps == null || pumps.isEmpty) return [];
+    return pumps.map((pump) => pump.mqttMessageName).toList();
   }
 }

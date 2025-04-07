@@ -25,4 +25,7 @@ class PasswordTooShortException extends AppException {
   PasswordTooShortException() : super('password-too-short', 'Password is too short');
 }
 
+class IncorrectWeenatCredentialsException extends AppException {
+  IncorrectWeenatCredentialsException() : super('incorrect-weenat-credentials', 'Incorrect Weenat credentials');
+}
 

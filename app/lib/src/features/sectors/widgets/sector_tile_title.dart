@@ -14,12 +14,11 @@ class SectorTileTitle extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isSwitchedOn =
-        ref.watch(sectorStatusStreamProvider(sector.id)).valueOrNull ?? false;
+        ref.watch(sectorStatusStreamProvider(sector.id)).valueOrNull?.statusBoolean ?? false;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // TODO: this should be fitted to the available space
-        Text(sector.name),
+        Flexible(child: Text(sector.name)),
         gapW8,
         CommonStatusIndicator(status: isSwitchedOn),
         gapW16,

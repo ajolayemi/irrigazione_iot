@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
+import 'package:irrigazione_iot/src/localization/gen_l10n/app_localizations.dart';
 import 'package:irrigazione_iot/src/shared/models/radio_button_item.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.dart';
 
 extension BuildContextExtensions on BuildContext {
+  FocusScopeNode get focusScope => FocusScope.of(this);
+
   ThemeData get theme => Theme.of(this);
 
   TextTheme get textTheme => theme.textTheme;
@@ -21,6 +25,8 @@ extension BuildContextExtensions on BuildContext {
   String get locale => Localizations.localeOf(this).languageCode;
 
   String get localeShort => '${locale}_short';
+
+  void dismissKeyboard() => focusScope.unfocus();
 
   void popNavigator<T extends Object?>([T? result]) =>
       Navigator.of(this).pop(result);
@@ -46,7 +52,6 @@ extension BuildContextExtensions on BuildContext {
 
   /// An alert dialog to display when user is trying to delete an item
   /// such as board, collector, pump and so on.
-  // TODO: this should replace all places where such dialog is being shown at the moment
   Future<bool> showDismissalDialog({
     String? alternateDialog,
     String? where,
@@ -64,7 +69,6 @@ extension BuildContextExtensions on BuildContext {
         false;
   }
 
-  // TODO: this should replace all alert dialogs for when user wants to save a form data
   Future<bool> showSaveUpdateDialog({
     required bool isUpdating,
     required String what,
@@ -151,4 +155,18 @@ extension BuildContextExtensions on BuildContext {
       ),
     );
   }
+}
+
+extension ScreenExtensions on BuildContext {
+  Size get screenSize => MediaQuery.sizeOf(this);
+
+  EdgeInsets get screenPadding => MediaQuery.paddingOf(this);
+
+  double get screenWidth => screenSize.width;
+
+  double get screenHeight => screenSize.height;
+
+  double get screenBottomPadding => screenPadding.bottom;
+
+  double get screenTopPadding => screenPadding.top;
 }

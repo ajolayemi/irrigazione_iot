@@ -15,7 +15,10 @@ class PaddedSafeArea extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: padding,
-        child: child,
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: child,
+        ),
       ),
     );
   }

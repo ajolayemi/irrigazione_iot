@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_statistic_history.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
@@ -35,23 +34,20 @@ class WeatherStationStatisticHistoryScreenContents extends StatelessWidget {
         ),
         SliverFillRemaining(
           child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
             child: DataTable(
               dividerThickness: 0,
               columns: [
-                const DataColumn(
-                  label: Text('Date'),
-                ),
-                const DataColumn(
-                  label: Text('Time'),
+              DataColumn(
+                  label: Text(loc.date),
                 ),
                 DataColumn(
                   label: Flexible(
-                      child: Text(
-                    locStatisticName,
-                    overflow: TextOverflow.clip,
-                    softWrap: true,
-                  )),
+                    child: Text(
+                      locStatisticName,
+                      overflow: TextOverflow.clip,
+                      softWrap: true,
+                    ),
+                  ),
                 ),
               ],
               rows: histories.map(
@@ -65,13 +61,6 @@ class WeatherStationStatisticHistoryScreenContents extends StatelessWidget {
                       ),
                       DataCell(
                         Text(
-                          DateFormat.Hm().format(
-                            e.createdAt!,
-                          ),
-                        ),
-                      ),
-                      DataCell(
-                        Text(
                           '${e.value} ${keyForUm.getUmX(keyForUm)}',
                         ),
                       ),
@@ -81,7 +70,8 @@ class WeatherStationStatisticHistoryScreenContents extends StatelessWidget {
               ).toList(),
             ),
           ),
-        )
+        ),
+    
       ],
     );
   }

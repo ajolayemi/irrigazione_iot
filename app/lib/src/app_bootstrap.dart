@@ -24,6 +24,7 @@ class AppBootstrap {
     // Load the SharedPreferences instance during initialization
     await container.read(sharedPreferencesProvider.future);
 
+
     return UncontrolledProviderScope(
       container: container,
       child: const IotIrrigationApp(),

@@ -1,0 +1,1 @@
+alter table "public"."pump_flows" add column "litres_per_second" real not null default '0'::real;

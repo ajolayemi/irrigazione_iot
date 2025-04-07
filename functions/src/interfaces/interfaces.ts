@@ -1,3 +1,5 @@
+import {Tables} from "../../schemas/database.types";
+
 /**
  * An interface that defines the keys that are expected in a pressure message
  * sent from the MQTT broker
@@ -36,6 +38,7 @@ export interface CustomJSON {
 export interface StatusMessage {
   status: string;
   name: string;
+  type: string;
 }
 
 /**
@@ -44,7 +47,7 @@ export interface StatusMessage {
 export interface PumpFlowRateMessage {
   count: number;
   name: string;
-  litresPerSeconds: number;
+  litresPerSecond: number;
 }
 
 export interface PumpPressureKeys {
@@ -55,16 +58,7 @@ export interface PumpPressureKeys {
 
 export interface BoardStatusMessage {
   vbat: number;
-  name: string;
-}
-
-export interface HttpCallableReqBody {
-  topic: string;
-  message: string;
-  mqttMsgName: string;
-  msgBoolVersion: boolean;
-  isSector?: boolean;
-  isPump?: boolean;
+  eui: string;
 }
 
 export interface WeatherStationMeasurementData {
@@ -82,4 +76,47 @@ export interface SenseCapSensorData {
   deviceEui: string;
   measurements: WeatherStationMeasurementData[];
   battery?: WeatherStationBatteryData;
+}
+
+/**
+ * An interface of data necessary when processing pressure data
+ */
+export interface PressureProcessingData {
+  collector: Tables<"collectors">;
+  company: Tables<"companies">;
+}
+
+/**
+ * The expected result when weather stations table is cross
+ * referenced with other tables
+ */
+export interface WeatherStationReferencedTables {
+  station: {
+    id: number;
+    name: string;
+    eui: string;
+  };
+  sector: {
+    id: number;
+    name: string;
+  };
+  company: {
+    id: number;
+    name: string;
+  };
+}
+
+/**
+ * Expended result when cross referencing tables like boards
+ * with other tables (such as companies)
+ */
+export interface ReferencedTablesQueryResult {
+  item: {
+    id: number;
+    name: string;
+  };
+  referencedTable: {
+    id: number;
+    name: string;
+  };
 }

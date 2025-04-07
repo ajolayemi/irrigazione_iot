@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/board-centraline/data/supabase_board_status_repository.dart';
@@ -7,8 +10,8 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'board_status_repository.g.dart';
 
 abstract class BoardStatusRepository {
-  /// Emits the most recent [BoardStatus] for the provided boardId
-  Stream<BoardStatus?> watchBoardStatus(String boardID);
+  /// Gets the most recent [BoardStatus] for the provided boardId
+  Future<BoardStatus?> getBoardStatus(String boardID);
 }
 
 @Riverpod(keepAlive: true)
@@ -17,11 +20,22 @@ BoardStatusRepository boardStatusRepository(BoardStatusRepositoryRef ref) {
   return SupabaseBoardStatusRepository(supabaseClient);
 }
 
-@riverpod
-Stream<BoardStatus?> boardStatusStream(BoardStatusStreamRef ref,
-    {required String boardID}) {
-  final boardStatusRepository = ref.read(boardStatusRepositoryProvider);
-  return boardStatusRepository.watchBoardStatus(boardID);
+
+/// Holds onto the most recent [BoardStatus] for a board
+/// It auto updates at a set interval
+@Riverpod(keepAlive: true)
+FutureOr<BoardStatus?> boardStatus(
+  BoardStatusRef ref, {
+  required String boardId,
+}) {
+  final timer = Timer.periodic(AppConstants.boardStatusUpdateInterval, (_) {
+    ref.invalidateSelf();
+  });
+
+  ref.onDispose(() {
+    timer.cancel();
+  });
+
+  final repo = ref.watch(boardStatusRepositoryProvider);
+  return repo.getBoardStatus(boardId);
 }
-
-

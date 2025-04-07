@@ -91,4 +91,26 @@ final class Env {
     defaultValue: 'your_android_client_id',
   )
   static final String androidClientId = _Env.androidClientId;
+
+  @EnviedField(
+    varName: "MQTT_BROKER_URL",
+    obfuscate: true,
+    defaultValue: "your_mqtt_broker_url",
+  )
+  static final String mqttBrokerUrl = _Env.mqttBrokerUrl;
+
+
+  @EnviedField(
+    varName: "MQTT_BROKER_USERNAME",
+    obfuscate: true,
+    defaultValue: "your_mqtt_broker_port",
+  )
+  static final String mqttBrokerUsername = _Env.mqttBrokerUsername;
+
+  @EnviedField(
+    varName: "MQTT_BROKER_PASSWORD",
+    obfuscate: true,
+    defaultValue: "your_mqtt_broker_password",
+  )
+  static final String mqttBrokerPassword = _Env.mqttBrokerPassword;
 }

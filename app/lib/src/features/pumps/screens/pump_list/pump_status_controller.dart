@@ -8,11 +8,11 @@ part 'pump_status_controller.g.dart';
 
 @riverpod
 class PumpStatusController extends _$PumpStatusController {
-  final initValue = const CustomControllerState(loadingStates: {});
+  final _initValue = const CustomControllerState(loadingStates: {});
   @override
   FutureOr<CustomControllerState> build() {
-    state = AsyncData<CustomControllerState>(initValue);
-    return initValue;
+    state = AsyncData<CustomControllerState>(_initValue);
+    return _initValue;
   }
 
   void setLoading(String pumpId, bool isLoading) {
@@ -31,7 +31,7 @@ class PumpStatusController extends _$PumpStatusController {
     if (value.hasError) {
       state = AsyncError(value.error!, StackTrace.current);
     } else {
-      state = AsyncData<CustomControllerState>(initValue);
+      state = AsyncData<CustomControllerState>(_initValue);
     }
   }
 }

@@ -8,9 +8,9 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2017",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
   },
   "compileOnSave": true,
 
-  "include": ["src", "schemas"],
+  "include": ["src", "schemas"]
 }

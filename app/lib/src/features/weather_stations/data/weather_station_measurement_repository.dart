@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/weather_stations/data/supabase_weather_station_measurement_repository.dart';
@@ -7,8 +10,7 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'weather_station_measurement_repository.g.dart';
 
 abstract class WeatherStationMeasurementRepository {
-  /// Emits the last [WeatherStationMeasurement] for the given [weatherStationId].
-  Stream<WeatherStationMeasurement?> weatherStationMeasurementStream(
+  Future<WeatherStationMeasurement?> getStationMeasurement(
     String weatherStationId,
   );
 }
@@ -20,9 +22,21 @@ WeatherStationMeasurementRepository weatherStationMeasurementRepository(
   return SupabaseWeatherStationMeasurementRepository(supabaseClient);
 }
 
-@riverpod
-Stream<WeatherStationMeasurement?> lastWeatherStationMeasurementStream(
-    LastWeatherStationMeasurementStreamRef ref, String weatherStationId) {
+@Riverpod(keepAlive: true)
+FutureOr<WeatherStationMeasurement?> weatherStationMeasurement(
+  WeatherStationMeasurementRef ref, {
+  required String weatherStationId,
+}) {
+  final timer = Timer.periodic(
+    AppConstants.weatherStationMeasurementUpdateInterval,
+    (_) {
+      ref.invalidateSelf();
+    },
+  );
+
+  ref.onDispose(() {
+    timer.cancel();
+  });
   final repo = ref.watch(weatherStationMeasurementRepositoryProvider);
-  return repo.weatherStationMeasurementStream(weatherStationId);
+  return repo.getStationMeasurement(weatherStationId);
 }

@@ -25,11 +25,10 @@ class BoardListTile extends ConsumerWidget {
     if (await context.showDismissalDialog(where: where)) {
       return await ref
           .read(dismissBoardControllerProvider.notifier)
-          .confirmDismiss(board.id);
+          .confirmDismiss(board);
     }
     return false;
   }
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/more/widgets/company_users_item.dart';
 import 'package:irrigazione_iot/src/features/more/widgets/more_page_item_list_tile.dart';
+import 'package:irrigazione_iot/src/features/weenat/providers/weenat_providers.dart';
 import 'package:irrigazione_iot/src/shared/models/path_params.dart';
-import 'package:irrigazione_iot/src/shared/widgets/common_responsive_divider.dart';
-import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
-import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_sliver_bar.dart';
+import 'package:irrigazione_iot/src/shared/widgets/common_responsive_divider.dart';
 import 'package:irrigazione_iot/src/shared/widgets/sliver_logout_button.dart';
+import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class MoreOptionsScreenContent extends ConsumerWidget {
   const MoreOptionsScreenContent({super.key});
-
-  void _showNotImplemented(BuildContext context) {
-    showNotImplementedAlertDialog(context: context);
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,6 +44,28 @@ class MoreOptionsScreenContent extends ConsumerWidget {
                       ),
                       leadingIcon: Icons.wb_sunny,
                     ),
+                    Consumer(
+                      builder: (context, ref, child) {
+                        final hasToken = ref.watch(hasWeenatTokenProvider);
+                        return MorePageItemListTile(
+                          title: loc.weenat,
+                          onTap: () {
+                            // If there is no already saved token for current user
+                            // take user to weenat auth page
+                            if (!hasToken) {
+                              context.pushNamed(AppRoute.weenatAuth.name);
+                              return;
+                            }
+
+                            // Otherwise, take them directly to map page
+                            context.pushNamed(AppRoute.weenatMap.name);
+                          },
+                          // TODO: fix icon here
+                          leadingIcon: Icons.abc,
+                        );
+                      },
+                    ),
+
                     const CommonResponsiveDivider(),
                     MorePageItemListTile(
                       title: loc.profilePageTitle,

@@ -11,10 +11,10 @@ class SupabaseAppUser implements AppUser {
   String get email => _user.email ?? '';
 
   @override
-  String get name => _user.userMetadata?['name'];
+  String get name => _user.userMetadata?['name'] ?? '';
 
   @override
-  String get surname => _user.userMetadata?['surname'];
+  String get surname => _user.userMetadata?['surname'] ?? '';
 
   @override
   UserID get uid => _user.id;

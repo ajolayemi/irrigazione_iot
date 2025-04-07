@@ -10,23 +10,23 @@ class SupabaseWeatherStationMeasurementRepository
   const SupabaseWeatherStationMeasurementRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
-  WeatherStationMeasurement? _fromData(List<Map<String, dynamic>> data) =>
-      data.isNotEmpty ? WeatherStationMeasurement.fromJson(data.first) : null;
-
   @override
-  Stream<WeatherStationMeasurement?> weatherStationMeasurementStream(
-      String weatherStationId) {
-    return _supabaseClient.weatherStationMeasurements
-        .stream(primaryKey: [WeatherStationMeasurementsDatabaseKeys.id])
+  Future<WeatherStationMeasurement?> getStationMeasurement(
+    String weatherStationId,
+  ) async {
+    final data = await _supabaseClient.weatherStationMeasurements
+        .select()
         .eq(
           WeatherStationMeasurementsDatabaseKeys.weatherStationId,
           weatherStationId,
         )
-        .order(
-          WeatherStationMeasurementsDatabaseKeys.createdAt,
-          ascending: false,
-        )
+        .order(WeatherStationMeasurementsDatabaseKeys.createdAt,
+            ascending: false)
         .limit(1)
-        .map(_fromData);
+        .maybeSingle();
+
+    if (data == null) return null;
+
+    return WeatherStationMeasurement.fromJson(data);
   }
 }

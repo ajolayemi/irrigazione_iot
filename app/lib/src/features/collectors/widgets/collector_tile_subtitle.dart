@@ -3,16 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/data/board_repository.dart';
 import 'package:irrigazione_iot/src/features/board-centraline/widgets/board_battery_level_indicator.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector.dart';
 import 'package:irrigazione_iot/src/features/collectors/widgets/filter_pressure_diff_widget.dart';
 
 /// A row widget that displays the battery level and the filter pressure difference
 class CollectorTileSubtitle extends ConsumerWidget {
   const CollectorTileSubtitle({
     super.key,
-    required this.collectorId,
+    required this.collector,
   });
 
-  final String collectorId;
+  final Collector collector;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,24 +23,26 @@ class CollectorTileSubtitle extends ConsumerWidget {
           builder: (context, ref, child) {
             /// Get the board (centralina) that is linked to this collector
             final board = ref
-                .watch(collectorBoardStreamProvider(collectorID: collectorId))
+                .watch(collectorBoardProvider(
+                  collectorId: collector.id,
+                ))
                 .valueOrNull;
-
-            
 
             /// If the board is null, return an empty widget
             if (board == null) {
-              return const SizedBox();
+              return const SizedBox.shrink();
             }
-            return BoardBatteryLevelIndicator(
-              boardId: board.id,
+            return Row(
+              children: [
+                BoardBatteryLevelIndicator(
+                  boardId: board.id,
+                ),
+                gapW8,
+              ],
             );
           },
         ),
-        gapW8,
-        CollectorFilterPressureDifference(
-          collectorId: collectorId,
-        )
+        CollectorFilterPressureDifference(collector: collector)
       ],
     );
   }

@@ -18,9 +18,11 @@ PumpStatisticRepository pumpStatisticRepository(
   return SupabasePumpStatisticRepository(supabaseClient);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<PumpPressure?> pumpLastPressureStream(
-    PumpLastPressureStreamRef ref, String pumpId) {
+  PumpLastPressureStreamRef ref,
+  String pumpId,
+) {
   final pumpStatisticRepository = ref.read(pumpStatisticRepositoryProvider);
   return pumpStatisticRepository.watchLastPumpPressure(pumpId);
 }

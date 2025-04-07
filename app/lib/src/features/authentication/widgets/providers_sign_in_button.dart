@@ -33,7 +33,11 @@ class SliverAuthProviderSignInButton extends ConsumerWidget {
     final globalLoadingState =
         ref.watch(signInControllerProvider).isGlobalLoading;
     final content = thisButtonIsLoading
-        ? const CircularProgressIndicator.adaptive()
+        ? const SizedBox(
+            height: 20,
+            width: 20,
+            child: CircularProgressIndicator.adaptive(),
+          )
         : Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,

@@ -37,5 +37,5 @@ export class ColumnNames {
   static readonly sensor_id_as_fkey = "sensor_id";
 
   static readonly columns_to_get_for_mqtt =
-    "id, company_id, turn_on_command, turn_off_command";
+    "id, name, company_id, turn_on_command, turn_off_command";
 }

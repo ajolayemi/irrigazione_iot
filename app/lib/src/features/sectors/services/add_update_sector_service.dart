@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/utils/provider_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
@@ -32,6 +33,11 @@ class AddUpdateSectorService {
     //create sector
     final createdSector = await sectorRepo.createSector(
       sector.copyWith(companyId: companyId),
+    );
+
+    ProviderUtils.invalidateSectorStates(
+      ref: ref,
+      sector: createdSector,
     );
 
     if (createdSector == null || pumpIdToConnectToSector.isEmpty) {
@@ -68,6 +74,10 @@ class AddUpdateSectorService {
     final updatedSector =
         await sectorRepo.updateSector(sector.copyWith(companyId: companyId));
 
+    ProviderUtils.invalidateSectorStates(
+      ref: ref,
+      sector: updatedSector,
+    );
     if (updatedSector == null) return;
 
     // Get the current pump connected to the sector

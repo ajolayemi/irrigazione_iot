@@ -10,18 +10,21 @@ class SupabaseWeatherStationBatteryRepository
   const SupabaseWeatherStationBatteryRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
-  WeatherStationBattery? _fromData(List<Map<String, dynamic>> data) =>
-      data.isEmpty ? null : WeatherStationBattery.fromJson(data.first);
-
   @override
-  Stream<WeatherStationBattery?> lastWeatherStationBatteryStream(
-      String weatherStationId) {
-    return _supabaseClient.weatherStationBatteryData
-        .stream(primaryKey: [WeatherStationBatteryDatabaseKeys.id])
-        .eq(WeatherStationBatteryDatabaseKeys.weatherStationId,
-            weatherStationId)
+  Future<WeatherStationBattery?> getLastWeatherStationBattery(
+    String weatherStationId,
+  ) async {
+    final data = await _supabaseClient.weatherStationBatteryData
+        .select()
+        .eq(
+          WeatherStationBatteryDatabaseKeys.weatherStationId,
+          weatherStationId,
+        )
         .order(WeatherStationBatteryDatabaseKeys.createdAt, ascending: false)
         .limit(1)
-        .map(_fromData);
+        .maybeSingle();
+
+    if (data == null) return null;
+    return WeatherStationBattery.fromJson(data);
   }
 }

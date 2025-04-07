@@ -18,9 +18,9 @@ class WeatherStationDetailsLastUpdateCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final lastMeasurement = ref.watch(
-      lastWeatherStationMeasurementStreamProvider(weatherStationId),
-    );
+    final lastMeasurement = ref.watch(weatherStationMeasurementProvider(
+      weatherStationId: weatherStationId,
+    ));
     final lastUpdated = lastMeasurement.valueOrNull?.createdAt;
 
     if (lastUpdated == null) {

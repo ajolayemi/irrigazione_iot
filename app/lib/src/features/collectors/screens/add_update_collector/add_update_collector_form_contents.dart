@@ -8,8 +8,8 @@ import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_repository.dart';
-import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:irrigazione_iot/src/features/collectors/models/collector.dart';
+import 'package:irrigazione_iot/src/features/collectors/providers/selected_sectors_id_provider.dart';
 import 'package:irrigazione_iot/src/features/collectors/screens/add_update_collector/add_update_collector_controller.dart';
 import 'package:irrigazione_iot/src/shared/models/query_params.dart';
 import 'package:irrigazione_iot/src/shared/widgets/alert_dialogs.dart';
@@ -71,15 +71,28 @@ class _AddUpdateCollectorFormContentsState
 
   @override
   void initState() {
-    if (_isUpdating && widget.collectorId != null) {
-      final collector =
-          ref.read(collectorStreamProvider(widget.collectorId!)).valueOrNull;
+    super.initState();
+    _asyncInitForm();
+  }
+
+  /// Updates the value of the local variable that
+  /// tracks if this collector has a filter or not
+  void _setHasFilterState(bool? value) {
+    setState(() => _thisCollectorHasFilter = value ?? false);
+  }
+
+  Future<void> _asyncInitForm() async {
+    final collectorId = widget.collectorId;
+    if (_isUpdating && collectorId != null) {
+      final collector = await ref.read(
+        collectorFutureProvider(collectorId).future,
+      );
+
+      _setHasFilterState(collector?.hasFilter);
       _initialCollector = collector;
-      _thisCollectorHasFilter = collector?.hasFilter ?? false;
       _collectorNameController.text = _initialCollector?.name ?? '';
       _mqttMsgNameController.text = _initialCollector?.mqttMsgName ?? '';
     }
-    super.initState();
   }
 
   @override
@@ -145,7 +158,7 @@ class _AddUpdateCollectorFormContentsState
   }
 
   void _popScreen() {
-    ref.read(selectedSectorsIdProvider.notifier).state = [];
+    ref.read(selectedSectorsIdProvider.notifier).clear();
     context.popNavigator();
   }
 
@@ -160,6 +173,7 @@ class _AddUpdateCollectorFormContentsState
   }
 
   Future<void> _submit() async {
+    _node.unfocus();
     setState(() => _submitted = true);
 
     if (_collectorFormKey.currentState!.validate()) {
@@ -221,9 +235,7 @@ class _AddUpdateCollectorFormContentsState
                   FormFieldCheckboxTile(
                     title: loc.itemHasFilter,
                     value: _thisCollectorHasFilter,
-                    onChanged: (value) => setState(
-                      () => _thisCollectorHasFilter = value ?? false,
-                    ),
+                    onChanged: _setHasFilterState,
                   ),
                   gapH16,
                   // name field
@@ -239,6 +251,7 @@ class _AddUpdateCollectorFormContentsState
                         fieldTitle: loc.collectorName,
                         fieldController: _collectorNameController,
                         fieldHintText: loc.collectorNameHintText,
+                        maxLength: AppConstants.maxCollectorNameLength,
                         onEditingComplete: () => _nameEditingComplete(
                           existingNames: values,
                           maxLength: AppConstants.maxCollectorNameLength,
@@ -267,6 +280,7 @@ class _AddUpdateCollectorFormContentsState
                         fieldTitle: loc.mqttMessageNameFormFieldTitle,
                         fieldController: _mqttMsgNameController,
                         fieldHintText: loc.mqttMessageNameFormHint,
+                        maxLength: AppConstants.maxMqttMessageNameLength,
                         onEditingComplete: () => _nameEditingComplete(
                           existingNames: values,
                           maxLength: AppConstants.maxMqttMessageNameLength,
@@ -318,7 +332,8 @@ class _AddUpdateCollectorFormContentsState
               : loc.genericSaveButtonLabel,
           buttonType: ButtonType.primary,
           onPressed: _submit,
-        )
+        ),
+        gapH32,
       ],
     );
   }

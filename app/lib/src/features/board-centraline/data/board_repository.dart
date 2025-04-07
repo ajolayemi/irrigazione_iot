@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_manual_providers_as_generated_provider_dependency
 import 'dart:async';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -15,35 +16,23 @@ part 'board_repository.g.dart';
 /// This repository is responsible for managing the boards.
 abstract class BoardRepository {
   /// Emits a list of boards, if any, pertaining to the company specified with
-  /// [String]
-  Stream<List<Board?>> watchBoardsByCompanyID({
-    required String companyID,
-  });
+  /// [companyId]
+  Future<List<Board>?> getBoardsByCompanyId({required String companyId});
 
-  /// Emits the [Board] associated with a collector specified by collectorId
-  Stream<Board?> watchBoardByCollectorID({
-    required String collectorID,
-  });
+  /// Returns the [Board] associated with a collector specified by collectorId
+  Future<Board?> getBoardByCollectorId({required String collectorId});
 
-  /// Emits the [Board] associated with the provided boardId
-  Stream<Board?> watchBoardByBoardID({
-    required String boardID,
-  });
+  /// Fetches the [Board] associated with the provided [boardId]
+  Future<Board?> getBoard({required String boardId});
 
   /// Add a new [Board] to the database and returns the newly added [Board] if successful
-  Future<Board?> createBoard({
-    required Board board,
-  });
+  Future<Board?> createBoard({required Board board});
 
   /// Update an existing [Board] in the database and returns the updated [Board] if successful
-  Future<Board?> updateBoard({
-    required Board board,
-  });
+  Future<Board?> updateBoard({required Board board});
 
   /// Delete a [Board] from the database and returns true if successful
-  Future<bool> deleteBoard({
-    required String boardID,
-  });
+  Future<bool> deleteBoard({required String boardID});
 
   /// Gets a list of all [Collector]s that are not yet connected to a [Board]
   /// This is used when a user wants to connect a collector to a board
@@ -52,14 +41,9 @@ abstract class BoardRepository {
     String? alreadyConnectedCollectorId,
   });
 
-  /// Emits a list of already used board names for a specified company
+  /// Returns a list of already used board names for a specified company
   /// this is used in form validation to prevent duplicate board names for a company
-  Stream<List<String?>> watchCompanyUsedBoardNames(String companyId);
-
-  /// Emits a list of already used mqtt names in general
-  /// this is used in form validation to prevent duplicate mqtt names
-  /// for boards
-  Stream<List<String?>> watchBoardsUsedMqttNames();
+  Future<List<String>?> getUsedBoardNames({required String companyId});
 }
 
 @Riverpod(keepAlive: true)
@@ -69,54 +53,52 @@ BoardRepository boardRepository(BoardRepositoryRef ref) {
 }
 
 @riverpod
-Stream<List<Board?>> boardListStream(BoardListStreamRef ref) {
-  final boardRepository = ref.read(boardRepositoryProvider);
-  final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return Stream.value([]);
-  return boardRepository.watchBoardsByCompanyID(companyID: companyId);
+FutureOr<List<Board>?> boardsList(BoardsListRef ref) {
+  final companyId = ref.watch(tappedCompanyIdProvider).valueOrNull;
+  if (companyId == null) return Future.value([]);
+  final repo = ref.watch(boardRepositoryProvider);
+  return repo.getBoardsByCompanyId(companyId: companyId);
 }
 
 @riverpod
-Stream<Board?> collectorBoardStream(CollectorBoardStreamRef ref,
-    {required String collectorID}) {
-  final boardRepository = ref.read(boardRepositoryProvider);
-  return boardRepository.watchBoardByCollectorID(collectorID: collectorID);
+FutureOr<Board?> collectorBoard(
+  CollectorBoardRef ref, {
+  required String collectorId,
+}) {
+  final repo = ref.watch(boardRepositoryProvider);
+  return repo.getBoardByCollectorId(collectorId: collectorId);
 }
 
-@riverpod
-Stream<Board?> boardStream(BoardStreamRef ref, {required String boardID}) {
+@Riverpod(keepAlive: true)
+Future<Board?> board(
+  BoardRef ref, {
+  required String boardId,
+}) {
   final boardRepository = ref.watch(boardRepositoryProvider);
-  return boardRepository.watchBoardByBoardID(boardID: boardID);
+  return boardRepository.getBoard(boardId: boardId);
 }
 
 /// gets a list of all collectors that are not yet connected
 /// to a [Board]
 @riverpod
 Future<List<Collector>?> availableCollectorsFuture(
-    AvailableCollectorsFutureRef ref,
-    {String? alreadyConnectedCollectorId}) {
+  AvailableCollectorsFutureRef ref, {
+  String? alreadyConnectedCollectorId,
+}) {
   final currentSelectedCompany =
       ref.watch(currentTappedCompanyProvider).valueOrNull;
   if (currentSelectedCompany == null) return Future.value([]);
   final boardRepository = ref.watch(boardRepositoryProvider);
   return boardRepository.getAvailableCollectors(
-      companyId: currentSelectedCompany.id,
-      alreadyConnectedCollectorId: alreadyConnectedCollectorId);
+    companyId: currentSelectedCompany.id,
+    alreadyConnectedCollectorId: alreadyConnectedCollectorId,
+  );
 }
 
-@riverpod
-Stream<List<String?>> usedBoardNamesStream(UsedBoardNamesStreamRef ref) {
+@Riverpod(keepAlive: true)
+FutureOr<List<String>?> usedBoardNames(UsedBoardNamesRef ref) {
   final boardRepository = ref.watch(boardRepositoryProvider);
-  final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).valueOrNull;
-  if (currentSelectedCompanyByUser == null) return Stream.value([]);
-  return boardRepository
-      .watchCompanyUsedBoardNames(currentSelectedCompanyByUser.id);
-}
-
-@riverpod
-Stream<List<String?>> boardsUsedMqttNamesStream(
-    BoardsUsedMqttNamesStreamRef ref) {
-  final boardRepository = ref.watch(boardRepositoryProvider);
-  return boardRepository.watchBoardsUsedMqttNames();
+  final companyId = ref.watch(tappedCompanyIdProvider).valueOrNull;
+  if (companyId == null) return Future.value([]);
+  return boardRepository.getUsedBoardNames(companyId: companyId);
 }

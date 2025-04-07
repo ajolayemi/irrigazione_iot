@@ -23,7 +23,5 @@ extension AsyncValueUI on AsyncValue {
       return error.message;
     }
     return error.toString();
-
-    // TODO add implementation for either supabase or firebase errors
   }
 }

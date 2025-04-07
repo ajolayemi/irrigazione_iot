@@ -41,3 +41,13 @@ Future<Company?> currentTappedCompany(CurrentTappedCompanyRef ref) {
   final companyRepo = ref.watch(companyRepositoryProvider);
   return companyRepo.fetchCompany(companyId);
 }
+
+/// Holds onto the id of the currently selected company
+@Riverpod(keepAlive: true)
+FutureOr<String?> tappedCompanyId(TappedCompanyIdRef ref) async {
+  return ref.watch(
+    currentTappedCompanyProvider.selectAsync(
+      (value) => value?.id,
+    ),
+  );
+}

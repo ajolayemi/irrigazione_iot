@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/config/routes/routes_enums.dart';
-import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/features/collectors/providers/selected_sectors_id_provider.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/empty_data_widget.dart';
 
@@ -20,7 +20,7 @@ class EmptyCollectorWidget extends ConsumerWidget {
     required BuildContext context,
     required WidgetRef ref,
   }) {
-    ref.read(selectedSectorsIdProvider.notifier).state = [];
+    ref.read(selectedSectorsIdProvider.notifier).clear();
     context.pushNamed(
       AppRoute.addCollector.name,
     );

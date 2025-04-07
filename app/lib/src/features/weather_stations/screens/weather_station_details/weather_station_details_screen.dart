@@ -17,8 +17,7 @@ class WeatherStationDetailsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final weatherStation =
-        ref.watch(weatherStationStreamProvider(weatherStationId));
+    final weatherStation = ref.watch(weatherStationProvider(weatherStationId));
     return Scaffold(
       body: AsyncValueSliverWidget(
         value: weatherStation,

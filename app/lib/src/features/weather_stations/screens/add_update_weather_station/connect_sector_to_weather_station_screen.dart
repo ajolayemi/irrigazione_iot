@@ -45,7 +45,7 @@ class _ConnectSectorToWeatherStationScreenState
   Widget build(BuildContext context) {
     final loc = context.loc;
 
-    final sectors = ref.watch(sectorListStreamProvider);
+    final sectors = ref.watch(sectorsProvider);
     return CustomSliverConnectSomethingTo(
       title: loc.selectASectorPageTitle,
       actions: [
@@ -53,10 +53,10 @@ class _ConnectSectorToWeatherStationScreenState
           onPressed: () => _onTapAdd(context),
         ),
       ],
-      child: AsyncValueSliverWidget<List<Sector?>>(
+      child: AsyncValueSliverWidget<List<Sector>?>(
         value: sectors,
         data: (data) {
-          if (data.isEmpty) {
+          if ( data == null || data.isEmpty) {
             return SliverEmptyDataWidget(
               message: loc.emptyDataPlaceholder(
                 loc.nSectors(1),
@@ -69,7 +69,7 @@ class _ConnectSectorToWeatherStationScreenState
           return SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final sector = data[index]!;
+                final sector = data[index];
                 return ResponsiveRadioListTile(
                   title: sector.name,
                   value: RadioButtonItem(

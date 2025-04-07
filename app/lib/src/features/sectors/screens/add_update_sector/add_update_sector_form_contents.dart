@@ -116,22 +116,41 @@ class _AddUpdateSectorFormContentsState
 
   @override
   void initState() {
-    if (_isUpdating && widget.sectorId != null) {
-      final sector =
-          ref.read(sectorStreamProvider(widget.sectorId!)).valueOrNull;
-      final sectorPump =
-          ref.read(sectorPumpStreamProvider(widget.sectorId!)).valueOrNull;
-      final pump = sectorPump == null
-          ? null
-          : ref.read(pumpStreamProvider(sectorPump.pumpId)).valueOrNull;
+    _asyncInitForm();
+    super.initState();
+  }
 
-      _initialSectorPump = pump;
+  /// Updates the local variable that tracks
+  /// if the sector has a filter or not
+  void _setFilterState(bool? value) {
+    setState(() {
+      _thisSectorHasFilter = value;
+    });
+  }
+
+  Future<void> _asyncInitForm() async {
+    final sectorId = widget.sectorId;
+    if (_isUpdating && sectorId != null) {
+      final sector = await ref.read(sectorProvider(sectorId).future);
+
+      final pumpConnectedToSector = await ref.read(sectorPumpFutureProvider(
+        sectorId,
+      ).future);
+
+      if (pumpConnectedToSector != null) {
+        final pump = await ref
+            .read(pumpFutureProvider(pumpConnectedToSector.pumpId).future);
+        _initialSectorPump = pump;
+      }
+
+      _setFilterState(sector?.hasFilter);
+
       _initialSector = sector;
 
       // set the initial values for the selected pump
       _selectedPump = RadioButtonItem(
-        value: pump?.id ?? '',
-        label: pump?.name ?? '',
+        value: _initialSectorPump?.id ?? '',
+        label: _initialSectorPump?.name ?? '',
       );
 
       // set some form fields initial values
@@ -150,8 +169,7 @@ class _AddUpdateSectorFormContentsState
       _turnOnCommandController.text = _initialSector?.turnOnCommand ?? '';
       _turnOffCommandController.text = _initialSector?.turnOffCommand ?? '';
       _notesController.text = _initialSector?.notes ?? '';
-      _selectedPumpController.text = pump?.name ?? '';
-      _thisSectorHasFilter = _initialSector?.hasFilter;
+      _selectedPumpController.text = _initialSectorPump?.name ?? '';
       _mqttMsgNameController.text = _initialSector?.mqttMsgName ?? '';
 
       _selectedSpecieId = _initialSector?.specieId;
@@ -159,22 +177,17 @@ class _AddUpdateSectorFormContentsState
 
       // Get the varieties and pumps from the database
       if (_selectedSpecieId != null) {
-        _specieController.text = ref
-                .read(specieStreamProvider(_selectedSpecieId!))
-                .valueOrNull
-                ?.name ??
-            '';
+        final specie =
+            await ref.read(specieFutureProvider(_selectedSpecieId!).future);
+        _specieController.text = specie?.name ?? '';
       }
 
       if (_selectedVarietyId != null) {
-        _varietyController.text = ref
-                .read(varietyStreamProvider(_selectedVarietyId!))
-                .valueOrNull
-                ?.name ??
-            '';
+        final variety =
+            await ref.read(varietyFutureProvider(_selectedVarietyId!).future);
+        _varietyController.text = variety?.name ?? '';
       }
     }
-    super.initState();
   }
 
   @override
@@ -197,6 +210,7 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _onTappedSpecie() async {
+    _node.unfocus();
     final queryParam = QueryParameters(
       id: _selectedSpecieId,
       name: specie,
@@ -212,6 +226,7 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _onTappedVariety() async {
+    _node.unfocus();
     final queryParam = QueryParameters(
       id: _selectedVarietyId,
       name: variety,
@@ -229,6 +244,7 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _onTappedIrrigationSystem() async {
+    _node.unfocus();
     final queryParam = QueryParameters(
       id: irrigationSystem,
       name: irrigationSystem,
@@ -243,6 +259,7 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _onTappedIrrigationSource() async {
+    _node.unfocus();
     final queryParam = QueryParameters(
       id: irrigationSource,
       name: irrigationSource,
@@ -257,6 +274,7 @@ class _AddUpdateSectorFormContentsState
   }
 
   void _onTappedConnectedPumps() async {
+    _node.unfocus();
     final queryParam = QueryParameters(
       id: _selectedPump?.value,
       name: _selectedPump?.label,
@@ -312,7 +330,7 @@ class _AddUpdateSectorFormContentsState
 
   void _nonEmptyFieldsEditingComplete(String value) {
     if (canSubmitNonEmptyFields(value: value)) {
-      _node.nextFocus();
+      _node.unfocus();
     }
   }
 
@@ -387,27 +405,27 @@ class _AddUpdateSectorFormContentsState
   }
 
   Future<void> _submit() async {
+    _node.unfocus();
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
       final shouldSave = await _checkUserIntention();
       if (!shouldSave) return;
       final toSave = _initialSector?.copyWith(
-        id: _initialSector?.id,
-        name: name,
-        companyId: _initialSector?.companyId,
-        specieId: _selectedSpecieId,
-        varietyId: _selectedVarietyId,
-        area: double.tryParse(area) ?? 0.0,
-        numOfPlants: double.tryParse(numOfPlants) ?? 0,
-        waterConsumptionPerHour: double.tryParse(unitConsumption) ?? 0.0,
-        irrigationSystemType: irrigationSystem.toIrrigationSystemType(),
-        irrigationSource: irrigationSource.toIrrigationSource(),
-        turnOnCommand: turnOnCommand,
-        turnOffCommand: turnOffCommand,
-        notes: notes,
-        hasFilter: _thisSectorHasFilter,
-        mqttMsgName: mqttMsgName
-      );
+          id: _initialSector?.id,
+          name: name,
+          companyId: _initialSector?.companyId,
+          specieId: _selectedSpecieId,
+          varietyId: _selectedVarietyId,
+          area: double.tryParse(area) ?? 0.0,
+          numOfPlants: double.tryParse(numOfPlants) ?? 0,
+          waterConsumptionPerHour: double.tryParse(unitConsumption) ?? 0.0,
+          irrigationSystemType: irrigationSystem.toIrrigationSystemType(),
+          irrigationSource: irrigationSource.toIrrigationSource(),
+          turnOnCommand: turnOnCommand,
+          turnOffCommand: turnOffCommand,
+          notes: notes,
+          hasFilter: _thisSectorHasFilter,
+          mqttMsgName: mqttMsgName);
 
       bool success = false;
 
@@ -478,7 +496,7 @@ class _AddUpdateSectorFormContentsState
                   Consumer(
                     builder: (context, ref, child) {
                       final usedNames =
-                          ref.watch(usedSectorNamesStreamProvider);
+                          ref.watch(usedSectorNamesFutureProvider);
                       final value = usedNames.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -487,6 +505,7 @@ class _AddUpdateSectorFormContentsState
                         fieldHintText: loc.sectorNameHintText,
                         textInputAction: TextInputAction.next,
                         fieldController: _nameController,
+                        maxLength: AppConstants.maxSectorNameLength,
                         onEditingComplete: () => _nameEditingComplete(
                           value: name,
                           maxLength: AppConstants.maxSectorNameLength,
@@ -509,7 +528,7 @@ class _AddUpdateSectorFormContentsState
                   Consumer(
                     builder: (context, ref, child) {
                       final usedMqttNames =
-                          ref.watch(sectorUsedMqttMessageNamesStreamProvider);
+                          ref.watch(sectorUsedMqttMessageNamesFutureProvider);
                       final value = usedMqttNames.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -518,6 +537,7 @@ class _AddUpdateSectorFormContentsState
                         fieldTitle: loc.mqttMessageNameFormFieldTitle,
                         fieldHintText: loc.mqttMessageNameFormHint,
                         textInputAction: TextInputAction.next,
+                        maxLength: AppConstants.maxMqttMessageNameLength,
                         validator: (_) => _nameErrorText(
                           existingNames: value,
                           maxLength: AppConstants.maxMqttMessageNameLength,
@@ -658,7 +678,7 @@ class _AddUpdateSectorFormContentsState
                   Consumer(
                     builder: (context, ref, child) {
                       final usedCommands =
-                          ref.watch(usedSectorCommandsStreamProvider);
+                          ref.watch(usedSectorCommandsFutureProvider);
                       final commands = usedCommands.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -689,7 +709,7 @@ class _AddUpdateSectorFormContentsState
                   Consumer(
                     builder: (context, ref, child) {
                       final usedCommands =
-                          ref.watch(usedSectorCommandsStreamProvider);
+                          ref.watch(usedSectorCommandsFutureProvider);
                       final commands = usedCommands.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,

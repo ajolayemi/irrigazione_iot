@@ -14,7 +14,9 @@ class WeatherStationBatteryLevelIndicator extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final weatherStationBatteryLevel = ref
-        .watch(lastWeatherStationBatteryStreamProvider(weatherStationId))
+        .watch(weatherStationBatteryProvider(
+          weatherStationId: weatherStationId,
+        ))
         .valueOrNull;
     final batteryLevel = (weatherStationBatteryLevel?.batteryLevel ?? 0.0);
     return BatteryLevelIndicator(

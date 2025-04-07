@@ -50,18 +50,24 @@ class CollectorExpansionTileChildItem extends ConsumerWidget {
                   onPressed: () => _navigateToCollectorDetails(context),
                 ),
           title: CollectorTileRowWidget(collector: collector),
-          subtitle: CollectorTileSubtitle(collectorId: collector.id),
+          subtitle: CollectorTileSubtitle(
+            collector: collector,
+          ),
           children: collectorSectors.isEmpty
               ? []
-              : collectorSectors.map((collectorSector) => Consumer(
-                builder: (context, ref, child) {
-                  final sector = ref.watch(sectorStreamProvider(collectorSector!.sectorId)).valueOrNull;
-                  if (sector == null) {
-                    return const SizedBox();
-                  }
-                  return SectorListTileItem(sector: sector);
-                },
-              )).toList(),
+              : collectorSectors
+                  .map((collectorSector) => Consumer(
+                        builder: (context, ref, child) {
+                          final sector = ref
+                              .watch(sectorProvider(collectorSector!.sectorId))
+                              .valueOrNull;
+                          if (sector == null) {
+                            return const SizedBox();
+                          }
+                          return SectorListTileItem(sector: sector);
+                        },
+                      ))
+                  .toList(),
         ),
       ),
     );

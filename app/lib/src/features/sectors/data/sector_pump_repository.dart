@@ -18,9 +18,6 @@ abstract class SectorPumpRepository {
   /// Get the [SectorPump] connected to the specified [sectorId] from database if any
   Future<SectorPump?> getSectorPump(String sectorId);
 
-  /// Watch the [SectorPump] connected to the specified [sectorId] from database
-  Stream<SectorPump?> watchSectorPump(String sectorId);
-
   /// Gets a list of [Pump]s of the current company that aren't connected yet to a sector
   Future<List<Pump>?> getAvailablePumps({
     required String companyId,
@@ -34,11 +31,6 @@ SectorPumpRepository sectorPumpRepository(SectorPumpRepositoryRef ref) {
   return SupabaseSectorPumpRepository(supabaseClient);
 }
 
-@riverpod
-Stream<SectorPump?> sectorPumpStream(SectorPumpStreamRef ref, String sectorId) {
-  final sectorPumpRepo = ref.watch(sectorPumpRepositoryProvider);
-  return sectorPumpRepo.watchSectorPump(sectorId);
-}
 
 @riverpod
 Future<SectorPump?> sectorPumpFuture(SectorPumpFutureRef ref, String sectorId) {

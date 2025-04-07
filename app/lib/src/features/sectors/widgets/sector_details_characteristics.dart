@@ -27,9 +27,9 @@ class SectorDetailsCharacteristics extends ConsumerWidget {
         Consumer(
           builder: (context, ref, child) {
             final sectorPump =
-                ref.watch(sectorPumpStreamProvider(sector.id)).valueOrNull;
+                ref.watch(sectorPumpFutureProvider(sector.id)).valueOrNull;
             final pump = ref
-                .watch(pumpStreamProvider(sectorPump?.pumpId ?? '0'))
+                .watch(pumpFutureProvider(sectorPump?.pumpId ?? '0'))
                 .valueOrNull;
             return ResponsiveDetailsCard(
               child: DetailTileWidget(

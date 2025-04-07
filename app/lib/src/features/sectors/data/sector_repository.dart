@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
@@ -10,35 +9,35 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'sector_repository.g.dart';
 
 abstract class SectorRepository {
-  /// emits a list of sectors pertaining to a company
-  Stream<List<Sector?>> watchSectors(String companyId);
+  /// Fetches a list of [Sector]s pertaining to a company
+  Future<List<Sector>?> getCompanySectors(String companyId);
 
-  /// emits a sector with the given sectorID
-  Stream<Sector?> watchSector(String sectorID);
+  /// Fetches a list of all [Sector]s in the database
+  Future<List<Sector>?> getAllSectors();
 
-  /// fetches the sector with the given [sectorId]
+  /// fetches the [Sector] with the given [sectorId]
   Future<Sector?> getSector(String sectorId);
 
-  /// adds a sector
+  /// adds a [Sector]
   Future<Sector?> createSector(Sector sector);
 
-  /// updates a sector
+  /// updates a [Sector]
   Future<Sector?> updateSector(Sector sector);
 
-  /// deletes a sector
+  /// deletes a [Sector]
   Future<bool> deleteSector(String sectorID);
 
-  /// emits a list of already used sector names for a specified company
+  /// Fetches list of already used sector names for a specified company
   /// this is used in form validation to prevent duplicate sector names for a company
-  Stream<List<String?>> watchCompanyUsedSectorNames(String companyId);
+  Future<List<String?>> getCompanyUsedSectorNames(String companyId);
 
-  /// emits a list of already used commands (on and off) for a specified company
+  /// Fetches list of already used commands (on and off) for a specified company
   /// this is used in form validation to prevent duplicate commands for a company
-  Stream<List<String?>> watchCompanySectorUsedCommands(String companyId);
+  Future<List<String?>> getCompanySectorUsedCommands(String companyId);
 
-  /// emits a list of general already used mqtt names
+  /// Fetches list of general already used mqtt names
   /// this is used in form validation to prevent duplicate mqtt names
-  Stream<List<String?>> watchSectorUsedMqttMsgNames();
+  Future<List<String?>> getSectorUsedMqttMsgNames();
 }
 
 @Riverpod(keepAlive: true)
@@ -47,49 +46,53 @@ SectorRepository sectorRepository(SectorRepositoryRef ref) {
   return SupabaseSectorRepository(supabaseClient);
 }
 
-@riverpod
-Stream<List<Sector?>> sectorListStream(SectorListStreamRef ref) {
+/// Fetches the list of sectors for the current company
+@Riverpod(keepAlive: true)
+Future<List<Sector>?> sectors(SectorsRef ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
-  if (companyId == null) return Stream.value([]);
-  return sectorsRepository.watchSectors(companyId);
+  if (companyId == null) return Future.value([]);
+  return sectorsRepository.getCompanySectors(companyId);
 }
 
 @riverpod
-Stream<Sector?> sectorStream(SectorStreamRef ref, String sectorID) {
+Future<List<Sector>?> allSectorsFuture(AllSectorsFutureRef ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
-  return sectorsRepository.watchSector(sectorID);
+  return sectorsRepository.getAllSectors();
 }
 
-@riverpod
-Future<Sector?> sectorFuture(SectorFutureRef ref, String sectorID) {
-  final sectorsRepository = ref.read(sectorRepositoryProvider);
+
+
+@Riverpod(keepAlive: true)
+FutureOr<Sector?> sector(SectorRef ref, String sectorID) {
+  final sectorsRepository = ref.watch(sectorRepositoryProvider);
   return sectorsRepository.getSector(sectorID);
 }
 
 @riverpod
-Stream<List<String?>> usedSectorNamesStream(UsedSectorNamesStreamRef ref) {
+Future<List<String?>> usedSectorNamesFuture(UsedSectorNamesFutureRef ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.read(currentTappedCompanyProvider).valueOrNull;
-  if (currentSelectedCompanyByUser == null) return Stream.value([]);
+  if (currentSelectedCompanyByUser == null) return Future.value([]);
   return sectorsRepository
-      .watchCompanyUsedSectorNames(currentSelectedCompanyByUser.id);
+      .getCompanyUsedSectorNames(currentSelectedCompanyByUser.id);
 }
 
 @riverpod
-Stream<List<String?>> usedSectorCommandsStream(UsedSectorCommandsStreamRef ref) {
+Future<List<String?>> usedSectorCommandsFuture(
+    UsedSectorCommandsFutureRef ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
   final currentSelectedCompanyByUser =
       ref.read(currentTappedCompanyProvider).valueOrNull;
-  if (currentSelectedCompanyByUser == null) return Stream.value([]);
+  if (currentSelectedCompanyByUser == null) return Future.value([]);
   return sectorsRepository
-      .watchCompanySectorUsedCommands(currentSelectedCompanyByUser.id);
+      .getCompanySectorUsedCommands(currentSelectedCompanyByUser.id);
 }
 
 @riverpod
-Stream<List<String?>> sectorUsedMqttMessageNamesStream(
-    SectorUsedMqttMessageNamesStreamRef ref) {
+Future<List<String?>> sectorUsedMqttMessageNamesFuture(
+    SectorUsedMqttMessageNamesFutureRef ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
-  return sectorsRepository.watchSectorUsedMqttMsgNames();
+  return sectorsRepository.getSectorUsedMqttMsgNames();
 }
