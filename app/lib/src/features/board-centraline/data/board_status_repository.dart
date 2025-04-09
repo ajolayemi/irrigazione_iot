@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -15,17 +16,16 @@ abstract class BoardStatusRepository {
 }
 
 @Riverpod(keepAlive: true)
-BoardStatusRepository boardStatusRepository(BoardStatusRepositoryRef ref) {
+BoardStatusRepository boardStatusRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseBoardStatusRepository(supabaseClient);
 }
-
 
 /// Holds onto the most recent [BoardStatus] for a board
 /// It auto updates at a set interval
 @Riverpod(keepAlive: true)
 FutureOr<BoardStatus?> boardStatus(
-  BoardStatusRef ref, {
+  Ref ref, {
   required String boardId,
 }) {
   final timer = Timer.periodic(AppConstants.boardStatusUpdateInterval, (_) {

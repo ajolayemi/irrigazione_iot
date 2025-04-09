@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
@@ -26,21 +27,21 @@ abstract class SectorPumpRepository {
 }
 
 @Riverpod(keepAlive: true)
-SectorPumpRepository sectorPumpRepository(SectorPumpRepositoryRef ref) {
+SectorPumpRepository sectorPumpRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseSectorPumpRepository(supabaseClient);
 }
 
 
 @riverpod
-Future<SectorPump?> sectorPumpFuture(SectorPumpFutureRef ref, String sectorId) {
+Future<SectorPump?> sectorPumpFuture(Ref ref, String sectorId) {
   final sectorPumpRepo = ref.watch(sectorPumpRepositoryProvider);
   return sectorPumpRepo.getSectorPump(sectorId);
 }
 
 @riverpod
 Future<List<Pump>?> availablePumpsFuture(
-  AvailablePumpsFutureRef ref, {
+  Ref ref, {
   String? alreadyConnectedPumpId,
 }) {
   final currentSelectedCompanyByUser =

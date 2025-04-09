@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,95 +10,73 @@ part of 'weenat_org.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-WeenatOrg _$WeenatOrgFromJson(Map<String, dynamic> json) {
-  return _WeenatOrg.fromJson(json);
-}
 
 /// @nodoc
 mixin _$WeenatOrg {
-  int? get id => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
+  int? get id;
+  String? get name;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $WeenatOrgCopyWith<WeenatOrg> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $WeenatOrgCopyWith<$Res> {
-  factory $WeenatOrgCopyWith(WeenatOrg value, $Res Function(WeenatOrg) then) =
-      _$WeenatOrgCopyWithImpl<$Res, WeenatOrg>;
-  @useResult
-  $Res call({int? id, String? name});
-}
-
-/// @nodoc
-class _$WeenatOrgCopyWithImpl<$Res, $Val extends WeenatOrg>
-    implements $WeenatOrgCopyWith<$Res> {
-  _$WeenatOrgCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of WeenatOrg
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $WeenatOrgCopyWith<WeenatOrg> get copyWith =>
+      _$WeenatOrgCopyWithImpl<WeenatOrg>(this as WeenatOrg, _$identity);
+
+  /// Serializes this WeenatOrg to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is WeenatOrg &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name);
+
+  @override
+  String toString() {
+    return 'WeenatOrg(id: $id, name: $name)';
   }
 }
 
 /// @nodoc
-abstract class _$$WeenatOrgImplCopyWith<$Res>
-    implements $WeenatOrgCopyWith<$Res> {
-  factory _$$WeenatOrgImplCopyWith(
-          _$WeenatOrgImpl value, $Res Function(_$WeenatOrgImpl) then) =
-      __$$WeenatOrgImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $WeenatOrgCopyWith<$Res> {
+  factory $WeenatOrgCopyWith(WeenatOrg value, $Res Function(WeenatOrg) _then) =
+      _$WeenatOrgCopyWithImpl;
   @useResult
   $Res call({int? id, String? name});
 }
 
 /// @nodoc
-class __$$WeenatOrgImplCopyWithImpl<$Res>
-    extends _$WeenatOrgCopyWithImpl<$Res, _$WeenatOrgImpl>
-    implements _$$WeenatOrgImplCopyWith<$Res> {
-  __$$WeenatOrgImplCopyWithImpl(
-      _$WeenatOrgImpl _value, $Res Function(_$WeenatOrgImpl) _then)
-      : super(_value, _then);
+class _$WeenatOrgCopyWithImpl<$Res> implements $WeenatOrgCopyWith<$Res> {
+  _$WeenatOrgCopyWithImpl(this._self, this._then);
 
+  final WeenatOrg _self;
+  final $Res Function(WeenatOrg) _then;
+
+  /// Create a copy of WeenatOrg
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
   }) {
-    return _then(_$WeenatOrgImpl(
+    return _then(_self.copyWith(
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
       name: freezed == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -107,63 +86,87 @@ class __$$WeenatOrgImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$WeenatOrgImpl extends _WeenatOrg {
-  const _$WeenatOrgImpl({this.id, this.name}) : super._();
-
-  factory _$WeenatOrgImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WeenatOrgImplFromJson(json);
+class _WeenatOrg implements WeenatOrg {
+  const _WeenatOrg({this.id, this.name});
+  factory _WeenatOrg.fromJson(Map<String, dynamic> json) =>
+      _$WeenatOrgFromJson(json);
 
   @override
   final int? id;
   @override
   final String? name;
 
+  /// Create a copy of WeenatOrg
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'WeenatOrg(id: $id, name: $name)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$WeenatOrgCopyWith<_WeenatOrg> get copyWith =>
+      __$WeenatOrgCopyWithImpl<_WeenatOrg>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$WeenatOrgToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WeenatOrgImpl &&
+            other is _WeenatOrg &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name);
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$WeenatOrgImplCopyWith<_$WeenatOrgImpl> get copyWith =>
-      __$$WeenatOrgImplCopyWithImpl<_$WeenatOrgImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WeenatOrgImplToJson(
-      this,
-    );
+  String toString() {
+    return 'WeenatOrg(id: $id, name: $name)';
   }
 }
 
-abstract class _WeenatOrg extends WeenatOrg {
-  const factory _WeenatOrg({final int? id, final String? name}) =
-      _$WeenatOrgImpl;
-  const _WeenatOrg._() : super._();
-
-  factory _WeenatOrg.fromJson(Map<String, dynamic> json) =
-      _$WeenatOrgImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$WeenatOrgCopyWith<$Res>
+    implements $WeenatOrgCopyWith<$Res> {
+  factory _$WeenatOrgCopyWith(
+          _WeenatOrg value, $Res Function(_WeenatOrg) _then) =
+      __$WeenatOrgCopyWithImpl;
   @override
-  int? get id;
-  @override
-  String? get name;
-  @override
-  @JsonKey(ignore: true)
-  _$$WeenatOrgImplCopyWith<_$WeenatOrgImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @useResult
+  $Res call({int? id, String? name});
 }
+
+/// @nodoc
+class __$WeenatOrgCopyWithImpl<$Res> implements _$WeenatOrgCopyWith<$Res> {
+  __$WeenatOrgCopyWithImpl(this._self, this._then);
+
+  final _WeenatOrg _self;
+  final $Res Function(_WeenatOrg) _then;
+
+  /// Create a copy of WeenatOrg
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+  }) {
+    return _then(_WeenatOrg(
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+// dart format on

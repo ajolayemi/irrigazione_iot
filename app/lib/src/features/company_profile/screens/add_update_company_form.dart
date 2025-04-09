@@ -29,7 +29,7 @@ class AddUpdateCompanyForm extends ConsumerWidget {
       ignoring: isLoading,
       child: PopScope(
         canPop: !isLoading,
-        onPopInvoked: (didPop) {
+        onPopInvokedWithResult: (didPop, _) {
           if (didPop) {
             debugPrint('User exited Company form');
           } else {

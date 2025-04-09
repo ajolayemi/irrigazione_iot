@@ -22,7 +22,7 @@ class ResponsiveDetailsCard extends StatelessWidget {
       ),
       child: Card(
         elevation: 2,
-        surfaceTintColor: Colors.transparent.withOpacity(0.2),
+        surfaceTintColor: Colors.transparent.withValues(alpha: 0.2),
         child: child,
       ),
     );

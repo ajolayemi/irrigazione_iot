@@ -27,7 +27,7 @@ class AddUpdateWeatherStationForm extends ConsumerWidget {
     final isLoading = controller.isLoading;
     return PopScope(
       canPop: !isLoading,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         if (didPop) {
           debugPrint('User exited the weather station form');
         } else {

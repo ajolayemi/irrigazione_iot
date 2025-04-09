@@ -2,11 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/enums/weenat_sensor_data_types.dart';
-import 'package:irrigazione_iot/src/data/datasource/dao/weenat_dao.dart';
+
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/weenat/data/weenat_repository.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_auth_payload.dart';
-import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot_sensor_data.dart';
 import 'package:irrigazione_iot/src/features/weenat/providers/weenat_providers.dart';
 import 'package:irrigazione_iot/src/shared/services/shared_preferences_service.dart';
@@ -35,6 +34,7 @@ class WeenatService {
         return false;
       }
 
+      // TODO: replace with flutter_secure_storage
       // Save token to shared preferences
       await prefService.setUserWeenatToken(
         token: token,
@@ -42,12 +42,7 @@ class WeenatService {
       );
 
       // After successful authentication, make call to get plots
-      final plots = await repo.getPlots(token: token) ?? [];
-      final plotsEntities = plots.toEntities();
-      // Insert plots into local database
-      await _ref
-          .read(weenatDaoProvider)
-          .insertWeenatPlots(plots: plotsEntities);
+      await repo.getPlots(token: token) ?? [];
 
       return true;
     } catch (error) {
@@ -71,28 +66,28 @@ class WeenatService {
 
       // retrieve last time sensor data was updated from shared preferences
       final prefService = _ref.read(sharedPrefsServiceProvider);
-      final lastUpdated = await prefService.getPlotSensorDataTimestamp(
-        plotId: plotId,
-      );
-      final lastUpdatedToDateTime = DateTime.tryParse(lastUpdated.toString());
+      // final lastUpdated = await prefService.getPlotSensorDataTimestamp(
+      //   plotId: plotId,
+      // );
+      // final lastUpdatedToDateTime = DateTime.tryParse(lastUpdated.toString());
 
-      // Check if the last time sensor data was updated is within the valid time frame
-      if (lastUpdatedToDateTime != null && !forceRefresh) {
-        if (lastUpdatedToDateTime.hour == from.hour) {
-          /// The same time interval is used when asking for sensor data
-          /// from the database to make sure that just a single value is returned
-          final fromDb = await _ref.read(weenatDaoProvider).getPlotSensorData(
-                from: from,
-                to: from,
-                plotId: plotId,
-                depth: depth,
-                type: type,
-              );
+      // // Check if the last time sensor data was updated is within the valid time frame
+      // if (lastUpdatedToDateTime != null && !forceRefresh) {
+      //   if (lastUpdatedToDateTime.hour == from.hour) {
+      //     /// The same time interval is used when asking for sensor data
+      //     /// from the database to make sure that just a single value is returned
+      //     final fromDb = await _ref.read(weenatDaoProvider).getPlotSensorData(
+      //           from: from,
+      //           to: from,
+      //           plotId: plotId,
+      //           depth: depth,
+      //           type: type,
+      //         );
 
-          final toModels = fromDb?.toModels();
-          return toModels;
-        }
-      }
+      //     final toModels = fromDb?.toModels();
+      //     return toModels;
+      //   }
+      // }
 
       // For the given [to] value, add an hour
       final finalEndDate = to.add(const Duration(hours: 1));
@@ -168,11 +163,6 @@ class WeenatService {
         ));
       }
 
-      final toEntity = sensorData.toEntities();
-
-      // Insert sensor data into local database
-      await _ref.read(weenatDaoProvider).insertSensorData(data: toEntity);
-
       // Save the last time sensor data was updated
       await prefService.setPlotSensorDataTimestamp(
         plotId: plotId,
@@ -237,6 +227,6 @@ class WeenatService {
 }
 
 @Riverpod(keepAlive: true)
-WeenatService weenatService(WeenatServiceRef ref) {
+WeenatService weenatService(Ref ref) {
   return WeenatService(ref);
 }

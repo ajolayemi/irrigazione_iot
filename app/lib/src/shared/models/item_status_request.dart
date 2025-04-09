@@ -32,6 +32,8 @@ class ItemStatusRequest {
   @JsonKey(name: "name")
   final String mqttMsgName;
 
+  factory ItemStatusRequest.fromJson(Map<String, dynamic> json) =>
+      _$ItemStatusRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$ItemStatusRequestToJson(this);
 }

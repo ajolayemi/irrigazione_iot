@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -17,14 +18,14 @@ abstract class WeatherStationMeasurementRepository {
 
 @Riverpod(keepAlive: true)
 WeatherStationMeasurementRepository weatherStationMeasurementRepository(
-    WeatherStationMeasurementRepositoryRef ref) {
+    Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseWeatherStationMeasurementRepository(supabaseClient);
 }
 
 @Riverpod(keepAlive: true)
 FutureOr<WeatherStationMeasurement?> weatherStationMeasurement(
-  WeatherStationMeasurementRef ref, {
+  Ref ref, {
   required String weatherStationId,
 }) {
   final timer = Timer.periodic(

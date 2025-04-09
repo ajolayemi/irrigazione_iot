@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_manual_providers_as_generated_provider_dependency
 import 'dart:async';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/board-centraline/data/supabase_board_repository.dart';
@@ -47,13 +48,13 @@ abstract class BoardRepository {
 }
 
 @Riverpod(keepAlive: true)
-BoardRepository boardRepository(BoardRepositoryRef ref) {
+BoardRepository boardRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseBoardRepository(supabaseClient);
 }
 
 @riverpod
-FutureOr<List<Board>?> boardsList(BoardsListRef ref) {
+FutureOr<List<Board>?> boardsList(Ref ref) {
   final companyId = ref.watch(tappedCompanyIdProvider).valueOrNull;
   if (companyId == null) return Future.value([]);
   final repo = ref.watch(boardRepositoryProvider);
@@ -62,7 +63,7 @@ FutureOr<List<Board>?> boardsList(BoardsListRef ref) {
 
 @riverpod
 FutureOr<Board?> collectorBoard(
-  CollectorBoardRef ref, {
+  Ref ref, {
   required String collectorId,
 }) {
   final repo = ref.watch(boardRepositoryProvider);
@@ -71,7 +72,7 @@ FutureOr<Board?> collectorBoard(
 
 @Riverpod(keepAlive: true)
 Future<Board?> board(
-  BoardRef ref, {
+  Ref ref, {
   required String boardId,
 }) {
   final boardRepository = ref.watch(boardRepositoryProvider);
@@ -82,7 +83,7 @@ Future<Board?> board(
 /// to a [Board]
 @riverpod
 Future<List<Collector>?> availableCollectorsFuture(
-  AvailableCollectorsFutureRef ref, {
+  Ref ref, {
   String? alreadyConnectedCollectorId,
 }) {
   final currentSelectedCompany =
@@ -96,7 +97,7 @@ Future<List<Collector>?> availableCollectorsFuture(
 }
 
 @Riverpod(keepAlive: true)
-FutureOr<List<String>?> usedBoardNames(UsedBoardNamesRef ref) {
+FutureOr<List<String>?> usedBoardNames(Ref ref) {
   final boardRepository = ref.watch(boardRepositoryProvider);
   final companyId = ref.watch(tappedCompanyIdProvider).valueOrNull;
   if (companyId == null) return Future.value([]);

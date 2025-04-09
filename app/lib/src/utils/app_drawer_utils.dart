@@ -20,7 +20,7 @@ class AppDrawerUtils {
       useSafeArea: true,
       enableDrag: false,
       showDragHandle: true,
-      barrierColor: Colors.grey.withOpacity(0.1),
+      barrierColor: Colors.grey.withValues(alpha: 0.1),
       builder: (context) => AppBottomChoiceSheet(
         title: title,
         items: items,

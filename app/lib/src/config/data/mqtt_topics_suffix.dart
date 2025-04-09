@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'mqtt_topics_suffix.g.dart';
@@ -14,6 +15,6 @@ class MqttTopicsSuffix {
 }
 
 @Riverpod(keepAlive: true)
-MqttTopicsSuffix mqttTopicsSuffix(MqttTopicsSuffixRef ref) {
+MqttTopicsSuffix mqttTopicsSuffix(Ref ref) {
   return MqttTopicsSuffix();
 }

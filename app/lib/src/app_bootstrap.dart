@@ -11,7 +11,7 @@ import 'package:irrigazione_iot/src/settings/settings_service.dart';
 /// Helper class to initialize services and configure the error handlers
 class AppBootstrap {
   /// Create the root widget that should be passed to [runApp]
-  Future<Widget> createRootWidget(
+  Future<UncontrolledProviderScope> createRootWidget(
       {required ProviderContainer container}) async {
     // Register the timeago messages
     registerTimeagoMessages();

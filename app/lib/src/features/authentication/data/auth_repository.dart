@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/supabase_auth_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -44,18 +45,18 @@ abstract class AuthRepository {
 }
 
 @Riverpod(keepAlive: true)
-AuthRepository authRepository(AuthRepositoryRef ref) {
+AuthRepository authRepository(Ref ref) {
   return SupabaseAuthRepository(Supabase.instance.client.auth);
 }
 
 // * Using keepAlive since other providers need to listen to this provider
 @Riverpod(keepAlive: true)
-Stream<AuthState?> authStateChanges(AuthStateChangesRef ref) {
+Stream<AuthState?> authStateChanges(Ref ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.authStateChanges();
 }
 
 @riverpod
-String? userUid(UserUidRef ref) {
+String? userUid(Ref ref) {
   return ref.watch(authRepositoryProvider).currentUser?.uid;
 }

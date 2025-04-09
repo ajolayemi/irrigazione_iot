@@ -62,6 +62,6 @@ class SectorStatusService {
 }
 
 @Riverpod(keepAlive: true)
-SectorStatusService sectorStatusService(SectorStatusServiceRef ref) {
+SectorStatusService sectorStatusService(Ref ref) {
   return SectorStatusService(ref);
 }

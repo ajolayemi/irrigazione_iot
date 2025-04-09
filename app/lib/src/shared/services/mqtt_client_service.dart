@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/utils/delay.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
@@ -122,6 +123,6 @@ class MqttClientService {
 }
 
 @Riverpod(keepAlive: true)
-MqttClientService mqttClientService(MqttClientServiceRef ref) {
+MqttClientService mqttClientService(Ref ref) {
   return const MqttClientService();
 }

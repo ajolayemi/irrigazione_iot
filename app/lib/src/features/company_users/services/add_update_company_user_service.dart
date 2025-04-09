@@ -61,6 +61,6 @@ class AddUpdateCompanyUserService {
 
 @riverpod
 AddUpdateCompanyUserService addUpdateCompanyUserService(
-    AddUpdateCompanyUserServiceRef ref) {
+    Ref ref) {
   return AddUpdateCompanyUserService(ref);
 }

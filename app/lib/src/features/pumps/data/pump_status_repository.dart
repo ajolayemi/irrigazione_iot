@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/pumps/data/supabase_pump_status_repository.dart';
@@ -20,7 +21,7 @@ abstract class PumpStatusRepository {
 }
 
 @Riverpod(keepAlive: true)
-PumpStatusRepository pumpStatusRepository(PumpStatusRepositoryRef ref) {
+PumpStatusRepository pumpStatusRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   final mqttClient = ref.watch(mqttClientServiceProvider);
 
@@ -32,7 +33,7 @@ PumpStatusRepository pumpStatusRepository(PumpStatusRepositoryRef ref) {
 
 /// Emits the status of the pump with the provided [pumpId]
 @Riverpod(keepAlive: true)
-Stream<PumpStatus?> pumpStatusStream(PumpStatusStreamRef ref, String pumpId) {
+Stream<PumpStatus?> pumpStatusStream(Ref ref, String pumpId) {
   final pumpStatusRepository = ref.watch(pumpStatusRepositoryProvider);
   return pumpStatusRepository.watchPumpStatus(pumpId);
 }

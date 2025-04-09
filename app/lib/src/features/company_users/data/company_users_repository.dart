@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
@@ -48,14 +49,14 @@ abstract class CompanyUsersRepository {
 }
 
 @Riverpod(keepAlive: true)
-CompanyUsersRepository companyUsersRepository(CompanyUsersRepositoryRef ref) {
+CompanyUsersRepository companyUsersRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseCompanyUsersRepository(supabaseClient);
 }
 
 /// A stream that emits a list of companies associated with the current user
 @riverpod
-Stream<List<Company>> userCompaniesStream(UserCompaniesStreamRef ref) {
+Stream<List<Company>> userCompaniesStream(Ref ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   final user = authRepository.currentUser;
   if (user == null) {
@@ -69,7 +70,7 @@ Stream<List<Company>> userCompaniesStream(UserCompaniesStreamRef ref) {
 
 /// Emits the [CompanyUserRole] of the current user in the current company
 @Riverpod(keepAlive: true)
-Stream<CompanyUserRole?> companyUserRole(CompanyUserRoleRef ref) {
+Stream<CompanyUserRole?> companyUserRole(Ref ref) {
   final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
   final currentSelectedCompany = ref.watch(currentTappedCompanyProvider).value;
   final authRepository = ref.watch(authRepositoryProvider);
@@ -85,8 +86,7 @@ Stream<CompanyUserRole?> companyUserRole(CompanyUserRoleRef ref) {
 
 /// Emits a list of [CompanyUser]s associated with the current company
 @riverpod
-Stream<List<CompanyUser?>> usersAssociatedWithCompanyStream(
-    UsersAssociatedWithCompanyStreamRef ref) {
+Stream<List<CompanyUser?>> usersAssociatedWithCompanyStream(Ref ref) {
   final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
   final currentSelectedCompany = ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompany == null) {
@@ -99,7 +99,7 @@ Stream<List<CompanyUser?>> usersAssociatedWithCompanyStream(
 
 /// Emits the [CompanyUser] linked with the provided companyUserId
 @riverpod
-Stream<CompanyUser?> companyUserStream(CompanyUserStreamRef ref,
+Stream<CompanyUser?> companyUserStream(Ref ref,
     {required String companyUserId}) {
   final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
 
@@ -108,8 +108,7 @@ Stream<CompanyUser?> companyUserStream(CompanyUserStreamRef ref,
 
 /// Emits a list of email addresses already associated with the current company
 @riverpod
-Stream<List<String>> emailsAssociatedWithCompanyStream(
-    EmailsAssociatedWithCompanyStreamRef ref) {
+Stream<List<String>> emailsAssociatedWithCompanyStream(Ref ref) {
   final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
   final currentSelectedCompany = ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompany == null) {

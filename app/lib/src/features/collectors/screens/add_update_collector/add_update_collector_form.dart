@@ -26,7 +26,7 @@ class AddUpdateCollectorForm extends ConsumerWidget {
     final isLoading = ref.watch(addUpdateCollectorControllerProvider).isLoading;
     return PopScope(
       canPop: !isLoading,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         if (didPop) {
           debugPrint('User exited COLLECTOR form');
         } else {

@@ -4,7 +4,7 @@ part 'weenat_sensor_data_payload.freezed.dart';
 part 'weenat_sensor_data_payload.g.dart';
 
 @freezed
-class WeenatSensorDataPayload with _$WeenatSensorDataPayload {
+abstract class WeenatSensorDataPayload with _$WeenatSensorDataPayload {
   const WeenatSensorDataPayload._();
 
   const factory WeenatSensorDataPayload({

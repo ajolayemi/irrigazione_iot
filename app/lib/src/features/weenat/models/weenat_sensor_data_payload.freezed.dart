@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,91 +10,56 @@ part of 'weenat_sensor_data_payload.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-WeenatSensorDataPayload _$WeenatSensorDataPayloadFromJson(
-    Map<String, dynamic> json) {
-  return _WeenatSensorDataPayload.fromJson(json);
-}
 
 /// @nodoc
 mixin _$WeenatSensorDataPayload {
-  int get start => throw _privateConstructorUsedError;
-  int get end => throw _privateConstructorUsedError;
+  int get start;
+  int get end;
   @JsonKey(name: 'plot_id')
-  int get plotId => throw _privateConstructorUsedError;
-  int? get organization => throw _privateConstructorUsedError;
+  int get plotId;
+  int? get organization;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $WeenatSensorDataPayloadCopyWith<WeenatSensorDataPayload> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $WeenatSensorDataPayloadCopyWith<$Res> {
-  factory $WeenatSensorDataPayloadCopyWith(WeenatSensorDataPayload value,
-          $Res Function(WeenatSensorDataPayload) then) =
-      _$WeenatSensorDataPayloadCopyWithImpl<$Res, WeenatSensorDataPayload>;
-  @useResult
-  $Res call(
-      {int start,
-      int end,
-      @JsonKey(name: 'plot_id') int plotId,
-      int? organization});
-}
-
-/// @nodoc
-class _$WeenatSensorDataPayloadCopyWithImpl<$Res,
-        $Val extends WeenatSensorDataPayload>
-    implements $WeenatSensorDataPayloadCopyWith<$Res> {
-  _$WeenatSensorDataPayloadCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of WeenatSensorDataPayload
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $WeenatSensorDataPayloadCopyWith<WeenatSensorDataPayload> get copyWith =>
+      _$WeenatSensorDataPayloadCopyWithImpl<WeenatSensorDataPayload>(
+          this as WeenatSensorDataPayload, _$identity);
+
+  /// Serializes this WeenatSensorDataPayload to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? start = null,
-    Object? end = null,
-    Object? plotId = null,
-    Object? organization = freezed,
-  }) {
-    return _then(_value.copyWith(
-      start: null == start
-          ? _value.start
-          : start // ignore: cast_nullable_to_non_nullable
-              as int,
-      end: null == end
-          ? _value.end
-          : end // ignore: cast_nullable_to_non_nullable
-              as int,
-      plotId: null == plotId
-          ? _value.plotId
-          : plotId // ignore: cast_nullable_to_non_nullable
-              as int,
-      organization: freezed == organization
-          ? _value.organization
-          : organization // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is WeenatSensorDataPayload &&
+            (identical(other.start, start) || other.start == start) &&
+            (identical(other.end, end) || other.end == end) &&
+            (identical(other.plotId, plotId) || other.plotId == plotId) &&
+            (identical(other.organization, organization) ||
+                other.organization == organization));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, start, end, plotId, organization);
+
+  @override
+  String toString() {
+    return 'WeenatSensorDataPayload(start: $start, end: $end, plotId: $plotId, organization: $organization)';
   }
 }
 
 /// @nodoc
-abstract class _$$WeenatSensorDataPayloadImplCopyWith<$Res>
-    implements $WeenatSensorDataPayloadCopyWith<$Res> {
-  factory _$$WeenatSensorDataPayloadImplCopyWith(
-          _$WeenatSensorDataPayloadImpl value,
-          $Res Function(_$WeenatSensorDataPayloadImpl) then) =
-      __$$WeenatSensorDataPayloadImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $WeenatSensorDataPayloadCopyWith<$Res> {
+  factory $WeenatSensorDataPayloadCopyWith(WeenatSensorDataPayload value,
+          $Res Function(WeenatSensorDataPayload) _then) =
+      _$WeenatSensorDataPayloadCopyWithImpl;
   @useResult
   $Res call(
       {int start,
@@ -103,15 +69,15 @@ abstract class _$$WeenatSensorDataPayloadImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$WeenatSensorDataPayloadImplCopyWithImpl<$Res>
-    extends _$WeenatSensorDataPayloadCopyWithImpl<$Res,
-        _$WeenatSensorDataPayloadImpl>
-    implements _$$WeenatSensorDataPayloadImplCopyWith<$Res> {
-  __$$WeenatSensorDataPayloadImplCopyWithImpl(
-      _$WeenatSensorDataPayloadImpl _value,
-      $Res Function(_$WeenatSensorDataPayloadImpl) _then)
-      : super(_value, _then);
+class _$WeenatSensorDataPayloadCopyWithImpl<$Res>
+    implements $WeenatSensorDataPayloadCopyWith<$Res> {
+  _$WeenatSensorDataPayloadCopyWithImpl(this._self, this._then);
 
+  final WeenatSensorDataPayload _self;
+  final $Res Function(WeenatSensorDataPayload) _then;
+
+  /// Create a copy of WeenatSensorDataPayload
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -120,21 +86,21 @@ class __$$WeenatSensorDataPayloadImplCopyWithImpl<$Res>
     Object? plotId = null,
     Object? organization = freezed,
   }) {
-    return _then(_$WeenatSensorDataPayloadImpl(
+    return _then(_self.copyWith(
       start: null == start
-          ? _value.start
+          ? _self.start
           : start // ignore: cast_nullable_to_non_nullable
               as int,
       end: null == end
-          ? _value.end
+          ? _self.end
           : end // ignore: cast_nullable_to_non_nullable
               as int,
       plotId: null == plotId
-          ? _value.plotId
+          ? _self.plotId
           : plotId // ignore: cast_nullable_to_non_nullable
               as int,
       organization: freezed == organization
-          ? _value.organization
+          ? _self.organization
           : organization // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
@@ -143,16 +109,15 @@ class __$$WeenatSensorDataPayloadImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$WeenatSensorDataPayloadImpl extends _WeenatSensorDataPayload {
-  const _$WeenatSensorDataPayloadImpl(
+class _WeenatSensorDataPayload extends WeenatSensorDataPayload {
+  const _WeenatSensorDataPayload(
       {required this.start,
       required this.end,
       @JsonKey(name: 'plot_id') required this.plotId,
       this.organization})
       : super._();
-
-  factory _$WeenatSensorDataPayloadImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WeenatSensorDataPayloadImplFromJson(json);
+  factory _WeenatSensorDataPayload.fromJson(Map<String, dynamic> json) =>
+      _$WeenatSensorDataPayloadFromJson(json);
 
   @override
   final int start;
@@ -164,16 +129,27 @@ class _$WeenatSensorDataPayloadImpl extends _WeenatSensorDataPayload {
   @override
   final int? organization;
 
+  /// Create a copy of WeenatSensorDataPayload
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'WeenatSensorDataPayload(start: $start, end: $end, plotId: $plotId, organization: $organization)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$WeenatSensorDataPayloadCopyWith<_WeenatSensorDataPayload> get copyWith =>
+      __$WeenatSensorDataPayloadCopyWithImpl<_WeenatSensorDataPayload>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$WeenatSensorDataPayloadToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WeenatSensorDataPayloadImpl &&
+            other is _WeenatSensorDataPayload &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.end, end) || other.end == end) &&
             (identical(other.plotId, plotId) || other.plotId == plotId) &&
@@ -181,48 +157,69 @@ class _$WeenatSensorDataPayloadImpl extends _WeenatSensorDataPayload {
                 other.organization == organization));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, start, end, plotId, organization);
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$WeenatSensorDataPayloadImplCopyWith<_$WeenatSensorDataPayloadImpl>
-      get copyWith => __$$WeenatSensorDataPayloadImplCopyWithImpl<
-          _$WeenatSensorDataPayloadImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WeenatSensorDataPayloadImplToJson(
-      this,
-    );
+  String toString() {
+    return 'WeenatSensorDataPayload(start: $start, end: $end, plotId: $plotId, organization: $organization)';
   }
 }
 
-abstract class _WeenatSensorDataPayload extends WeenatSensorDataPayload {
-  const factory _WeenatSensorDataPayload(
-      {required final int start,
-      required final int end,
-      @JsonKey(name: 'plot_id') required final int plotId,
-      final int? organization}) = _$WeenatSensorDataPayloadImpl;
-  const _WeenatSensorDataPayload._() : super._();
-
-  factory _WeenatSensorDataPayload.fromJson(Map<String, dynamic> json) =
-      _$WeenatSensorDataPayloadImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$WeenatSensorDataPayloadCopyWith<$Res>
+    implements $WeenatSensorDataPayloadCopyWith<$Res> {
+  factory _$WeenatSensorDataPayloadCopyWith(_WeenatSensorDataPayload value,
+          $Res Function(_WeenatSensorDataPayload) _then) =
+      __$WeenatSensorDataPayloadCopyWithImpl;
   @override
-  int get start;
-  @override
-  int get end;
-  @override
-  @JsonKey(name: 'plot_id')
-  int get plotId;
-  @override
-  int? get organization;
-  @override
-  @JsonKey(ignore: true)
-  _$$WeenatSensorDataPayloadImplCopyWith<_$WeenatSensorDataPayloadImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  @useResult
+  $Res call(
+      {int start,
+      int end,
+      @JsonKey(name: 'plot_id') int plotId,
+      int? organization});
 }
+
+/// @nodoc
+class __$WeenatSensorDataPayloadCopyWithImpl<$Res>
+    implements _$WeenatSensorDataPayloadCopyWith<$Res> {
+  __$WeenatSensorDataPayloadCopyWithImpl(this._self, this._then);
+
+  final _WeenatSensorDataPayload _self;
+  final $Res Function(_WeenatSensorDataPayload) _then;
+
+  /// Create a copy of WeenatSensorDataPayload
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? start = null,
+    Object? end = null,
+    Object? plotId = null,
+    Object? organization = freezed,
+  }) {
+    return _then(_WeenatSensorDataPayload(
+      start: null == start
+          ? _self.start
+          : start // ignore: cast_nullable_to_non_nullable
+              as int,
+      end: null == end
+          ? _self.end
+          : end // ignore: cast_nullable_to_non_nullable
+              as int,
+      plotId: null == plotId
+          ? _self.plotId
+          : plotId // ignore: cast_nullable_to_non_nullable
+              as int,
+      organization: freezed == organization
+          ? _self.organization
+          : organization // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+// dart format on

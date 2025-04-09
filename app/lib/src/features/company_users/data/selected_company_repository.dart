@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/models/company.dart';
@@ -24,15 +25,14 @@ class SelectedCompanyRepository {
 }
 
 @Riverpod(keepAlive: true)
-SelectedCompanyRepository selectedCompanyRepository(
-    SelectedCompanyRepositoryRef ref) {
+SelectedCompanyRepository selectedCompanyRepository(Ref ref) {
   final prefs = ref.watch(sharedPreferencesProvider).requireValue;
   return SelectedCompanyRepository(prefs: prefs);
 }
 
 // The provider that tracks and fetches the current tapped company object
 @Riverpod(keepAlive: true)
-Future<Company?> currentTappedCompany(CurrentTappedCompanyRef ref) {
+Future<Company?> currentTappedCompany(Ref ref) {
   final uid = ref.watch(authRepositoryProvider).currentUser?.uid;
   final companyId = ref
       .watch(selectedCompanyRepositoryProvider)
@@ -44,7 +44,7 @@ Future<Company?> currentTappedCompany(CurrentTappedCompanyRef ref) {
 
 /// Holds onto the id of the currently selected company
 @Riverpod(keepAlive: true)
-FutureOr<String?> tappedCompanyId(TappedCompanyIdRef ref) async {
+FutureOr<String?> tappedCompanyId(Ref ref) async {
   return ref.watch(
     currentTappedCompanyProvider.selectAsync(
       (value) => value?.id,

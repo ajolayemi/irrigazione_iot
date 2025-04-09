@@ -25,7 +25,7 @@ class DetailTileWidget extends StatelessWidget {
         subtitleTextStyle:
             context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
         titleTextStyle: context.textTheme.bodyLarge?.copyWith(
-          color: Colors.transparent.withOpacity(0.8),
+          color: Colors.transparent.withValues(alpha: 0.8),
         ),
         title: Text(title ?? ''),
         subtitle: Text(subtitle ?? ''),

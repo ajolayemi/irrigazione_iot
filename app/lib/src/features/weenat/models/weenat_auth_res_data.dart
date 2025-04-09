@@ -4,9 +4,7 @@ part 'weenat_auth_res_data.freezed.dart';
 part 'weenat_auth_res_data.g.dart';
 
 @freezed
-class WeenatAuthResData with _$WeenatAuthResData {
-  const WeenatAuthResData._();
-
+abstract class WeenatAuthResData with _$WeenatAuthResData {
   const factory WeenatAuthResData({
     String? token,
   }) = _WeenatAuthResData;

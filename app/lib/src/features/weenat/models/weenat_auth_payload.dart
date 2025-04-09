@@ -4,9 +4,7 @@ part 'weenat_auth_payload.freezed.dart';
 part 'weenat_auth_payload.g.dart';
 
 @freezed
-class WeenatAuthPayload with _$WeenatAuthPayload {
-  const WeenatAuthPayload._();
-
+abstract class WeenatAuthPayload with _$WeenatAuthPayload {
   const factory WeenatAuthPayload({
     String? email,
     String? password,

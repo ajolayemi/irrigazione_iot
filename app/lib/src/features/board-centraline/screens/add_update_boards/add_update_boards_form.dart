@@ -25,7 +25,7 @@ class AddUpdateBoardsForm extends ConsumerWidget {
 
     return PopScope(
       canPop: !isLoading,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         if (didPop) {
           debugPrint('User exited Board form');
         } else {

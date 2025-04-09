@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/dashboard/data/supabase_dashboard_repository.dart';
 import 'package:irrigazione_iot/src/features/dashboard/models/pump_switched_on.dart';
@@ -16,14 +17,13 @@ abstract class DashboardRepository {
 }
 
 @Riverpod(keepAlive: true)
-DashboardRepository dashboardRepository(DashboardRepositoryRef ref) {
+DashboardRepository dashboardRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseDashboardRepository(supabaseClient);
 }
 
 @Riverpod(keepAlive: true)
-Stream<List<PumpSwitchedOn>?> pumpsSwitchedOnStream(
-    PumpsSwitchedOnStreamRef ref) {
+Stream<List<PumpSwitchedOn>?> pumpsSwitchedOnStream(Ref ref) {
   final currentSelectedCompanyByUser =
       ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return Stream.value([]);
@@ -33,7 +33,7 @@ Stream<List<PumpSwitchedOn>?> pumpsSwitchedOnStream(
 
 @Riverpod(keepAlive: true)
 Stream<List<SectorSwitchedOn>?> sectorsSwitchedOnStream(
-  SectorsSwitchedOnStreamRef ref,
+  Ref ref,
 ) {
   final currentSelectedCompanyByUser =
       ref.watch(currentTappedCompanyProvider).value;

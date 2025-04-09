@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot.dart';
 import 'package:irrigazione_iot/src/features/weenat/providers/weenat_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -7,7 +8,7 @@ part 'weenat_plot_carousel_providers.g.dart';
 /// Holds onto the first [WeenatPlot] in the list of [WeenatPlot]s
 /// This is used to determine the google maps initial camera position
 @Riverpod(keepAlive: true)
-WeenatPlot? initialPlot(InitialPlotRef ref) {
+WeenatPlot? initialPlot(Ref ref) {
   final plots = ref.watch(weenatPlotsForOrgProvider).valueOrNull ?? [];
   return plots.isEmpty ? null : plots.first;
 }

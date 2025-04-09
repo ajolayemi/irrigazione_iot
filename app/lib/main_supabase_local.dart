@@ -7,7 +7,6 @@ import 'package:irrigazione_iot/env/env.dart';
 import 'package:irrigazione_iot/firebase_options.dart';
 import 'package:irrigazione_iot/src/app_bootstrap.dart';
 import 'package:irrigazione_iot/src/app_bootstrap_local.dart';
-import 'package:irrigazione_iot/src/application/di/service_locator.dart';
 
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -30,7 +29,6 @@ void main() async {
     debug: true,
   );
 
-  ServiceLocator.init();
 
   // turn off the # in the URLs on the web
   usePathUrlStrategy();

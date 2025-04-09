@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/company_users/data/supabase_company_repository.dart';
@@ -26,19 +27,19 @@ abstract class CompanyRepository {
 }
 
 @Riverpod(keepAlive: true)
-CompanyRepository companyRepository(CompanyRepositoryRef ref) {
+CompanyRepository companyRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseCompanyRepository(supabaseClient);
 }
 
 @riverpod
-Future<Company?> companyFuture(CompanyFutureRef ref, String companyId) {
+Future<Company?> companyFuture(Ref ref, String companyId) {
   final repository = ref.watch(companyRepositoryProvider);
   return repository.fetchCompany(companyId);
 }
 
 @riverpod
-Stream<Company?> companyStream(CompanyStreamRef ref, String companyId) {
+Stream<Company?> companyStream(Ref ref, String companyId) {
   final repository = ref.watch(companyRepositoryProvider);
   return repository.watchCompany(companyId);
 }

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/supabase_sector_status_repository.dart';
@@ -19,7 +20,7 @@ abstract class SectorStatusRepository {
 }
 
 @Riverpod(keepAlive: true)
-SectorStatusRepository sectorStatusRepository(SectorStatusRepositoryRef ref) {
+SectorStatusRepository sectorStatusRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   final mqttService = ref.watch(mqttClientServiceProvider);
   return SupabaseSectorStatusRepository(supabaseClient, mqttService);
@@ -27,7 +28,7 @@ SectorStatusRepository sectorStatusRepository(SectorStatusRepositoryRef ref) {
 
 @Riverpod(keepAlive: true)
 Stream<SectorStatus?> sectorStatusStream(
-  SectorStatusStreamRef ref,
+  Ref ref,
   String sectorId,
 ) {
   final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);

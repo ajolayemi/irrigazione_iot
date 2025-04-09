@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,135 +10,28 @@ part of 'weenat_data_range_option.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$WeenatDataRangeOption {
-  String get locKey => throw _privateConstructorUsedError;
-  int get daysDifference => throw _privateConstructorUsedError;
-  WeenatDataRangeType get type => throw _privateConstructorUsedError;
+  String get locKey;
+  int get daysDifference;
+  WeenatDataRangeType get type;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WeenatDataRangeOption
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $WeenatDataRangeOptionCopyWith<WeenatDataRangeOption> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $WeenatDataRangeOptionCopyWith<$Res> {
-  factory $WeenatDataRangeOptionCopyWith(WeenatDataRangeOption value,
-          $Res Function(WeenatDataRangeOption) then) =
-      _$WeenatDataRangeOptionCopyWithImpl<$Res, WeenatDataRangeOption>;
-  @useResult
-  $Res call({String locKey, int daysDifference, WeenatDataRangeType type});
-}
-
-/// @nodoc
-class _$WeenatDataRangeOptionCopyWithImpl<$Res,
-        $Val extends WeenatDataRangeOption>
-    implements $WeenatDataRangeOptionCopyWith<$Res> {
-  _$WeenatDataRangeOptionCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? locKey = null,
-    Object? daysDifference = null,
-    Object? type = null,
-  }) {
-    return _then(_value.copyWith(
-      locKey: null == locKey
-          ? _value.locKey
-          : locKey // ignore: cast_nullable_to_non_nullable
-              as String,
-      daysDifference: null == daysDifference
-          ? _value.daysDifference
-          : daysDifference // ignore: cast_nullable_to_non_nullable
-              as int,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as WeenatDataRangeType,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$WeenatDataRangeOptionImplCopyWith<$Res>
-    implements $WeenatDataRangeOptionCopyWith<$Res> {
-  factory _$$WeenatDataRangeOptionImplCopyWith(
-          _$WeenatDataRangeOptionImpl value,
-          $Res Function(_$WeenatDataRangeOptionImpl) then) =
-      __$$WeenatDataRangeOptionImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String locKey, int daysDifference, WeenatDataRangeType type});
-}
-
-/// @nodoc
-class __$$WeenatDataRangeOptionImplCopyWithImpl<$Res>
-    extends _$WeenatDataRangeOptionCopyWithImpl<$Res,
-        _$WeenatDataRangeOptionImpl>
-    implements _$$WeenatDataRangeOptionImplCopyWith<$Res> {
-  __$$WeenatDataRangeOptionImplCopyWithImpl(_$WeenatDataRangeOptionImpl _value,
-      $Res Function(_$WeenatDataRangeOptionImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? locKey = null,
-    Object? daysDifference = null,
-    Object? type = null,
-  }) {
-    return _then(_$WeenatDataRangeOptionImpl(
-      locKey: null == locKey
-          ? _value.locKey
-          : locKey // ignore: cast_nullable_to_non_nullable
-              as String,
-      daysDifference: null == daysDifference
-          ? _value.daysDifference
-          : daysDifference // ignore: cast_nullable_to_non_nullable
-              as int,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as WeenatDataRangeType,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$WeenatDataRangeOptionImpl extends _WeenatDataRangeOption {
-  const _$WeenatDataRangeOptionImpl(
-      {required this.locKey, required this.daysDifference, required this.type})
-      : super._();
-
-  @override
-  final String locKey;
-  @override
-  final int daysDifference;
-  @override
-  final WeenatDataRangeType type;
-
-  @override
-  String toString() {
-    return 'WeenatDataRangeOption(locKey: $locKey, daysDifference: $daysDifference, type: $type)';
-  }
+      _$WeenatDataRangeOptionCopyWithImpl<WeenatDataRangeOption>(
+          this as WeenatDataRangeOption, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WeenatDataRangeOptionImpl &&
+            other is WeenatDataRangeOption &&
             (identical(other.locKey, locKey) || other.locKey == locKey) &&
             (identical(other.daysDifference, daysDifference) ||
                 other.daysDifference == daysDifference) &&
@@ -147,29 +41,140 @@ class _$WeenatDataRangeOptionImpl extends _WeenatDataRangeOption {
   @override
   int get hashCode => Object.hash(runtimeType, locKey, daysDifference, type);
 
-  @JsonKey(ignore: true)
+  @override
+  String toString() {
+    return 'WeenatDataRangeOption(locKey: $locKey, daysDifference: $daysDifference, type: $type)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $WeenatDataRangeOptionCopyWith<$Res> {
+  factory $WeenatDataRangeOptionCopyWith(WeenatDataRangeOption value,
+          $Res Function(WeenatDataRangeOption) _then) =
+      _$WeenatDataRangeOptionCopyWithImpl;
+  @useResult
+  $Res call({String locKey, int daysDifference, WeenatDataRangeType type});
+}
+
+/// @nodoc
+class _$WeenatDataRangeOptionCopyWithImpl<$Res>
+    implements $WeenatDataRangeOptionCopyWith<$Res> {
+  _$WeenatDataRangeOptionCopyWithImpl(this._self, this._then);
+
+  final WeenatDataRangeOption _self;
+  final $Res Function(WeenatDataRangeOption) _then;
+
+  /// Create a copy of WeenatDataRangeOption
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? locKey = null,
+    Object? daysDifference = null,
+    Object? type = null,
+  }) {
+    return _then(_self.copyWith(
+      locKey: null == locKey
+          ? _self.locKey
+          : locKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      daysDifference: null == daysDifference
+          ? _self.daysDifference
+          : daysDifference // ignore: cast_nullable_to_non_nullable
+              as int,
+      type: null == type
+          ? _self.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as WeenatDataRangeType,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _WeenatDataRangeOption implements WeenatDataRangeOption {
+  const _WeenatDataRangeOption(
+      {required this.locKey, required this.daysDifference, required this.type});
+
+  @override
+  final String locKey;
+  @override
+  final int daysDifference;
+  @override
+  final WeenatDataRangeType type;
+
+  /// Create a copy of WeenatDataRangeOption
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$WeenatDataRangeOptionCopyWith<_WeenatDataRangeOption> get copyWith =>
+      __$WeenatDataRangeOptionCopyWithImpl<_WeenatDataRangeOption>(
+          this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _WeenatDataRangeOption &&
+            (identical(other.locKey, locKey) || other.locKey == locKey) &&
+            (identical(other.daysDifference, daysDifference) ||
+                other.daysDifference == daysDifference) &&
+            (identical(other.type, type) || other.type == type));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, locKey, daysDifference, type);
+
+  @override
+  String toString() {
+    return 'WeenatDataRangeOption(locKey: $locKey, daysDifference: $daysDifference, type: $type)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$WeenatDataRangeOptionCopyWith<$Res>
+    implements $WeenatDataRangeOptionCopyWith<$Res> {
+  factory _$WeenatDataRangeOptionCopyWith(_WeenatDataRangeOption value,
+          $Res Function(_WeenatDataRangeOption) _then) =
+      __$WeenatDataRangeOptionCopyWithImpl;
+  @override
+  @useResult
+  $Res call({String locKey, int daysDifference, WeenatDataRangeType type});
+}
+
+/// @nodoc
+class __$WeenatDataRangeOptionCopyWithImpl<$Res>
+    implements _$WeenatDataRangeOptionCopyWith<$Res> {
+  __$WeenatDataRangeOptionCopyWithImpl(this._self, this._then);
+
+  final _WeenatDataRangeOption _self;
+  final $Res Function(_WeenatDataRangeOption) _then;
+
+  /// Create a copy of WeenatDataRangeOption
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$WeenatDataRangeOptionImplCopyWith<_$WeenatDataRangeOptionImpl>
-      get copyWith => __$$WeenatDataRangeOptionImplCopyWithImpl<
-          _$WeenatDataRangeOptionImpl>(this, _$identity);
+  $Res call({
+    Object? locKey = null,
+    Object? daysDifference = null,
+    Object? type = null,
+  }) {
+    return _then(_WeenatDataRangeOption(
+      locKey: null == locKey
+          ? _self.locKey
+          : locKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      daysDifference: null == daysDifference
+          ? _self.daysDifference
+          : daysDifference // ignore: cast_nullable_to_non_nullable
+              as int,
+      type: null == type
+          ? _self.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as WeenatDataRangeType,
+    ));
+  }
 }
 
-abstract class _WeenatDataRangeOption extends WeenatDataRangeOption {
-  const factory _WeenatDataRangeOption(
-      {required final String locKey,
-      required final int daysDifference,
-      required final WeenatDataRangeType type}) = _$WeenatDataRangeOptionImpl;
-  const _WeenatDataRangeOption._() : super._();
-
-  @override
-  String get locKey;
-  @override
-  int get daysDifference;
-  @override
-  WeenatDataRangeType get type;
-  @override
-  @JsonKey(ignore: true)
-  _$$WeenatDataRangeOptionImplCopyWith<_$WeenatDataRangeOptionImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
+// dart format on

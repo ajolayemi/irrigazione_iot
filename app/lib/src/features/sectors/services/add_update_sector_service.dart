@@ -123,6 +123,6 @@ class AddUpdateSectorService {
 }
 
 @Riverpod(keepAlive: true)
-AddUpdateSectorService addUpdateSectorService(AddUpdateSectorServiceRef ref) {
+AddUpdateSectorService addUpdateSectorService(Ref ref) {
   return AddUpdateSectorService(ref);
 }

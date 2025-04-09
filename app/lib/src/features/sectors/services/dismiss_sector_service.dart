@@ -35,6 +35,6 @@ class DismissSectorService {
 }
 
 @Riverpod(keepAlive: true)
-DismissSectorService dismissSectorService(DismissSectorServiceRef ref) {
+DismissSectorService dismissSectorService(Ref ref) {
   return DismissSectorService(ref);
 }

@@ -83,7 +83,7 @@ class WeenatTensiometerRangePicker extends ConsumerWidget {
                       },
                     );
                   },
-                ).toList(),
+                ),
                 WeenatTensiometerRangePickerItem(
                   label: loc.centimeters,
                   labelColor: AppColorsPalette.white,

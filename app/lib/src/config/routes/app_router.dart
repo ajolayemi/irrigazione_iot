@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/screens/weather_station_list/weather_stations_list_screen.dart';
 import 'package:irrigazione_iot/src/features/weenat/screens/weenat_auth_screen.dart';
@@ -65,7 +66,7 @@ final _sectorShellNavigatorKey =
 final _moreShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'More');
 
 @Riverpod(keepAlive: true)
-GoRouter goRouter(GoRouterRef ref) {
+GoRouter goRouter(Ref ref) {
   final routerService = ref.read(routerRedirectServiceProvider);
   final authRepository = ref.watch(authRepositoryProvider);
   return GoRouter(

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/terminal/data/supabase_terminal_pressure_repository.dart';
@@ -13,15 +14,13 @@ abstract class TerminalPressureRepository {
 }
 
 @Riverpod(keepAlive: true)
-TerminalPressureRepository terminalPressureRepository(
-    TerminalPressureRepositoryRef ref) {
+TerminalPressureRepository terminalPressureRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseTerminalPressureRepository(supabaseClient);
 }
 
 @riverpod
-Stream<TerminalPressure?> terminalPressureStream(
-    TerminalPressureStreamRef ref, String collectorId) {
+Stream<TerminalPressure?> terminalPressureStream(Ref ref, String collectorId) {
   final repo = ref.watch(terminalPressureRepositoryProvider);
   return repo.watchTerminalPressure(collectorId);
 }

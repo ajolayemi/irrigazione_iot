@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/specie/data/supabase_specie_repository.dart';
@@ -23,31 +24,31 @@ abstract class SpecieRepository {
 }
 
 @Riverpod(keepAlive: true)
-SpecieRepository specieRepository(SpecieRepositoryRef ref) {
+SpecieRepository specieRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseSpecieRepository(supabaseClient);
 }
 
 @riverpod
-Stream<List<Specie>?> speciesStream(SpeciesStreamRef ref) {
+Stream<List<Specie>?> speciesStream(Ref ref) {
   final repo = ref.watch(specieRepositoryProvider);
   return repo.watchSpecies();
 }
 
 @riverpod
-Future<List<Specie>?> speciesFuture(SpeciesFutureRef ref) {
+Future<List<Specie>?> speciesFuture(Ref ref) {
   final repo = ref.watch(specieRepositoryProvider);
   return repo.getSpecies();
 }
 
 @riverpod
-Stream<Specie?> specieStream(SpecieStreamRef ref, String specieId) {
+Stream<Specie?> specieStream(Ref ref, String specieId) {
   final repo = ref.watch(specieRepositoryProvider);
   return repo.watchSpecie(specieId);
 }
 
 @riverpod
-Future<Specie?> specieFuture(SpecieFutureRef ref, String specieId) {
+Future<Specie?> specieFuture(Ref ref, String specieId) {
   final repo = ref.watch(specieRepositoryProvider);
   return repo.getSpecie(specieId);
 }

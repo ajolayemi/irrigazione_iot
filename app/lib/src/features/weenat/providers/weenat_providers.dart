@@ -1,13 +1,13 @@
 // ignore_for_file: avoid_manual_providers_as_generated_provider_dependency
 import 'dart:async';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:irrigazione_iot/src/features/weenat/providers/weenat_plot_carousel_providers.dart';
 import 'package:irrigazione_iot/src/utils/weenat_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/enums/weenat_sensor_data_types.dart';
-import 'package:irrigazione_iot/src/data/datasource/dao/weenat_dao.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_org.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot.dart';
@@ -22,14 +22,14 @@ part 'weenat_providers.g.dart';
 ///
 /// shared preferences
 @Riverpod(keepAlive: true)
-FutureOr<String?> weenatToken(WeenatTokenRef ref) {
+FutureOr<String?> weenatToken(Ref ref) {
   final prefService = ref.watch(sharedPrefsServiceProvider);
   final uid = ref.watch(authRepositoryProvider).currentUser?.uid;
   return prefService.getUserWeenatToken(uid: uid);
 }
 
 @Riverpod(keepAlive: true)
-bool hasWeenatToken(HasWeenatTokenRef ref) {
+bool hasWeenatToken(Ref ref) {
   final token = ref.watch(weenatTokenProvider).valueOrNull;
   return token != null && token.isNotEmpty;
 }
@@ -37,10 +37,8 @@ bool hasWeenatToken(HasWeenatTokenRef ref) {
 /// Access local database to retrieve list of available
 /// [WeenatOrg]s
 @Riverpod(keepAlive: true)
-FutureOr<List<WeenatOrg>?> weenatOrgs(WeenatOrgsRef ref) async {
-  final dao = ref.watch(weenatDaoProvider);
-  final entities = await dao.getWeenatOrgs() ?? [];
-  return entities.toModels(entities);
+FutureOr<List<WeenatOrg>?> weenatOrgs(Ref ref) {
+  return Future.value([]);
 }
 
 /// Holds onto the current selected [WeenatOrg]
@@ -58,7 +56,7 @@ class SelectedWeenatOrg extends _$SelectedWeenatOrg {
 
 /// Holds onto the index of the selected [WeenatOrg]
 @Riverpod(keepAlive: true)
-int? selectedOrgIndex(SelectedOrgIndexRef ref) {
+int? selectedOrgIndex(Ref ref) {
   final orgs = ref.watch(weenatOrgsProvider).valueOrNull;
   final selectedOrg = ref.watch(selectedWeenatOrgProvider);
   if (orgs == null || orgs.isEmpty || selectedOrg == null) return null;
@@ -68,16 +66,14 @@ int? selectedOrgIndex(SelectedOrgIndexRef ref) {
 /// Access local database to retrieve list of available
 /// [WeenatPlot]s for the selected [WeenatOrg]
 @Riverpod(keepAlive: true)
-FutureOr<List<WeenatPlot>?> weenatPlotsForOrg(WeenatPlotsForOrgRef ref) async {
-  final orgId = ref.watch(selectedWeenatOrgProvider.select((val) => val?.id));
-  final dao = ref.watch(weenatDaoProvider);
-  final entities = await dao.getWeenatPlotsForOrg(orgId) ?? [];
-  return entities.toModels(entities);
+FutureOr<List<WeenatPlot>?> weenatPlotsForOrg(Ref ref) async {
+  // final orgId = ref.watch(selectedWeenatOrgProvider.select((val) => val?.id));
+  return Future.value([]);
 }
 
 /// Holds onto the static lists of available tensiometers ranges
 @Riverpod(keepAlive: true)
-List<String> tensiometerRanges(TensiometerRangesRef ref) {
+List<String> tensiometerRanges(Ref ref) {
   return ['15', '20', '45'];
 }
 
@@ -97,7 +93,7 @@ class SelectedTensiometerRange extends _$SelectedTensiometerRange {
 /// Checks to see if a tensiometer range is selected
 @Riverpod(keepAlive: true)
 bool tensiometerRangeIsSelected(
-  TensiometerRangeIsSelectedRef ref,
+  Ref ref,
   String range,
 ) {
   return ref.watch(selectedTensiometerRangeProvider) == range;
@@ -105,21 +101,21 @@ bool tensiometerRangeIsSelected(
 
 /// Holds onto the selected marker icon
 @Riverpod(keepAlive: true)
-FutureOr<BitmapDescriptor> selectedMarkerIcon(SelectedMarkerIconRef ref) {
+FutureOr<BitmapDescriptor> selectedMarkerIcon(Ref ref) {
   return WeenatUtils.getPlotSelectedIcon();
 }
 
 /// Holds onto the unselected marker icon
 /// for the map
 @Riverpod(keepAlive: true)
-FutureOr<BitmapDescriptor> unselectedMarkerIcon(UnselectedMarkerIconRef ref) {
+FutureOr<BitmapDescriptor> unselectedMarkerIcon(Ref ref) {
   return WeenatUtils.getPlotUnselectedIcon();
 }
 
 /// Holds onto the list of [Marker]s to be displayed on the map
 /// for the selected [WeenatOrg]
 @Riverpod(keepAlive: true)
-Set<Marker> weenatMapMarkers(WeenatMapMarkersRef ref) {
+Set<Marker> weenatMapMarkers(Ref ref) {
   final selectedIcon = ref.watch(selectedMarkerIconProvider).valueOrNull;
   final unselectedIcon = ref.watch(unselectedMarkerIconProvider).valueOrNull;
   final plots = ref.watch(weenatPlotsForOrgProvider).valueOrNull;
@@ -186,14 +182,14 @@ class MapController extends _$MapController {
 
 /// Holds onto the current [ItemScrollController]
 @Riverpod(keepAlive: true)
-ItemScrollController itemScrollController(ItemScrollControllerRef ref) {
+ItemScrollController itemScrollController(Ref ref) {
   return ItemScrollController();
 }
 
 /// Holds onto the list of retrieved sensor data for a given plot in a given org
 @Riverpod(keepAlive: true)
 FutureOr<List<WeenatPlotSensorData>?> plotSensorData(
-  PlotSensorDataRef ref, {
+  Ref ref, {
   required DateTime start,
   required DateTime end,
   required WeenatSensorDataType type,

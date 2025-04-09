@@ -10,10 +10,6 @@ class SupabaseSectorRepository implements SectorRepository {
   const SupabaseSectorRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
-  List<Sector?> _sectorsFromJsonList(List<Map<String, dynamic>> data) {
-    return data.map((sector) => Sector.fromJson(sector)).toList();
-  }
-
   List<Sector>? _sectorsFromList(List<Map<String, dynamic>> data) {
     return data.map((sector) => Sector.fromJson(sector)).toList();
   }

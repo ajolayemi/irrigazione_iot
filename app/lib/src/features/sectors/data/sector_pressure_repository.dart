@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector_pressure.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -13,16 +14,14 @@ abstract class SectorPressureRepository {
 }
 
 @Riverpod(keepAlive: true)
-SectorPressureRepository sectorPressureRepository(
-  SectorPressureRepositoryRef ref,
-) {
+SectorPressureRepository sectorPressureRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseSectorPressureRepository(supabaseClient);
 }
 
 @Riverpod(keepAlive: true)
 Stream<SectorPressure?> sectorLastPressureStream(
-  SectorLastPressureStreamRef ref,
+  Ref ref,
   String sectorId,
 ) {
   final sectorPressureRepository = ref.watch(sectorPressureRepositoryProvider);

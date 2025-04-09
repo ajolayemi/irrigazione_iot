@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/variety/data/supabase_variety_repository.dart';
@@ -23,31 +24,31 @@ abstract class VarietyRepository {
 }
 
 @Riverpod(keepAlive: true)
-VarietyRepository varietyRepository(VarietyRepositoryRef ref) {
+VarietyRepository varietyRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseVarietyRepository(supabaseClient);
 }
 
 @riverpod
-Stream<List<Variety>?> varietiesStream(VarietiesStreamRef ref) {
+Stream<List<Variety>?> varietiesStream(Ref ref) {
   final repo = ref.watch(varietyRepositoryProvider);
   return repo.watchVarieties();
 }
 
 @riverpod
-Future<List<Variety>?> varietiesFuture(VarietiesFutureRef ref) {
+Future<List<Variety>?> varietiesFuture(Ref ref) {
   final repo = ref.watch(varietyRepositoryProvider);
   return repo.getVarieties();
 }
 
 @riverpod
-Future<Variety?> varietyFuture(VarietyFutureRef ref, String varietyId) {
+Future<Variety?> varietyFuture(Ref ref, String varietyId) {
   final repo = ref.watch(varietyRepositoryProvider);
   return repo.getVariety(varietyId);
 }
 
 @riverpod
-Stream<Variety?> varietyStream(VarietyStreamRef ref, String varietyId) {
+Stream<Variety?> varietyStream(Ref ref, String varietyId) {
   final repo = ref.watch(varietyRepositoryProvider);
   return repo.watchVariety(varietyId);
 }

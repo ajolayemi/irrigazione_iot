@@ -77,6 +77,6 @@ class AddUpdateBoardService {
 }
 
 @riverpod
-AddUpdateBoardService addUpdateBoardService(AddUpdateBoardServiceRef ref) {
+AddUpdateBoardService addUpdateBoardService(Ref ref) {
   return AddUpdateBoardService(ref);
 }

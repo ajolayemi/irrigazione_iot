@@ -26,7 +26,7 @@ class AddUpdateCompanyUserForm extends ConsumerWidget {
         ref.watch(addUpdateCompanyUserControllerProvider).isLoading;
     return PopScope(
       canPop: !isLoading,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         if (didPop) {
           debugPrint('User exited Company User form');
         } else {

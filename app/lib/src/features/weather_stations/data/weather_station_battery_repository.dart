@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/constants/app_constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -17,9 +18,7 @@ abstract class WeatherStationBatteryRepository {
 }
 
 @Riverpod(keepAlive: true)
-WeatherStationBatteryRepository weatherStationBatteryRepository(
-  WeatherStationBatteryRepositoryRef ref,
-) {
+WeatherStationBatteryRepository weatherStationBatteryRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseWeatherStationBatteryRepository(supabaseClient);
 }
@@ -28,7 +27,7 @@ WeatherStationBatteryRepository weatherStationBatteryRepository(
 /// It auto updates at a set interval
 @Riverpod(keepAlive: true)
 FutureOr<WeatherStationBattery?> weatherStationBattery(
-  WeatherStationBatteryRef ref, {
+  Ref ref, {
   required String weatherStationId,
 }) {
   final timer = Timer.periodic(

@@ -431,8 +431,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -442,8 +441,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -453,8 +451,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -464,8 +461,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -475,8 +471,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -486,8 +481,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -497,8 +491,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -508,8 +501,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -541,8 +533,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -552,8 +543,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -563,8 +553,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -574,8 +563,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -597,8 +585,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -622,8 +609,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -651,8 +637,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -662,8 +647,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -673,8 +657,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -684,8 +667,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -739,8 +721,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -840,8 +821,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -903,8 +883,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -1108,8 +1087,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -1119,8 +1097,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -1130,8 +1107,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -1141,8 +1117,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -1252,8 +1227,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -1263,8 +1237,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -1274,8 +1247,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },
@@ -1285,8 +1257,7 @@
     "placeholders": {
       "n": {
         "example": "3",
-        "type": "int",
-        "format": "compact"
+        "type": "int"
       }
     }
   },

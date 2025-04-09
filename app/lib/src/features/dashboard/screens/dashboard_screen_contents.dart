@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/pumps/pumps_switched_on_list.dart';
 import 'package:irrigazione_iot/src/features/dashboard/widgets/sectors/sectors_switched_on_list.dart';

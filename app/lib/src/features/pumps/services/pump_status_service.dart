@@ -54,6 +54,6 @@ class PumpStatusService {
 }
 
 @Riverpod(keepAlive: true)
-PumpStatusService pumpStatusService(PumpStatusServiceRef ref) {
+PumpStatusService pumpStatusService(Ref ref) {
   return PumpStatusService(ref);
 }

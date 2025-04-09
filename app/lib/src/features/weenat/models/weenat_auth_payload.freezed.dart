@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,96 +10,77 @@ part of 'weenat_auth_payload.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-WeenatAuthPayload _$WeenatAuthPayloadFromJson(Map<String, dynamic> json) {
-  return _WeenatAuthPayload.fromJson(json);
-}
 
 /// @nodoc
 mixin _$WeenatAuthPayload {
-  String? get email => throw _privateConstructorUsedError;
-  String? get password => throw _privateConstructorUsedError;
+  String? get email;
+  String? get password;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $WeenatAuthPayloadCopyWith<WeenatAuthPayload> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $WeenatAuthPayloadCopyWith<$Res> {
-  factory $WeenatAuthPayloadCopyWith(
-          WeenatAuthPayload value, $Res Function(WeenatAuthPayload) then) =
-      _$WeenatAuthPayloadCopyWithImpl<$Res, WeenatAuthPayload>;
-  @useResult
-  $Res call({String? email, String? password});
-}
-
-/// @nodoc
-class _$WeenatAuthPayloadCopyWithImpl<$Res, $Val extends WeenatAuthPayload>
-    implements $WeenatAuthPayloadCopyWith<$Res> {
-  _$WeenatAuthPayloadCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of WeenatAuthPayload
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $WeenatAuthPayloadCopyWith<WeenatAuthPayload> get copyWith =>
+      _$WeenatAuthPayloadCopyWithImpl<WeenatAuthPayload>(
+          this as WeenatAuthPayload, _$identity);
+
+  /// Serializes this WeenatAuthPayload to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? email = freezed,
-    Object? password = freezed,
-  }) {
-    return _then(_value.copyWith(
-      email: freezed == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is WeenatAuthPayload &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, email, password);
+
+  @override
+  String toString() {
+    return 'WeenatAuthPayload(email: $email, password: $password)';
   }
 }
 
 /// @nodoc
-abstract class _$$WeenatAuthPayloadImplCopyWith<$Res>
-    implements $WeenatAuthPayloadCopyWith<$Res> {
-  factory _$$WeenatAuthPayloadImplCopyWith(_$WeenatAuthPayloadImpl value,
-          $Res Function(_$WeenatAuthPayloadImpl) then) =
-      __$$WeenatAuthPayloadImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $WeenatAuthPayloadCopyWith<$Res> {
+  factory $WeenatAuthPayloadCopyWith(
+          WeenatAuthPayload value, $Res Function(WeenatAuthPayload) _then) =
+      _$WeenatAuthPayloadCopyWithImpl;
   @useResult
   $Res call({String? email, String? password});
 }
 
 /// @nodoc
-class __$$WeenatAuthPayloadImplCopyWithImpl<$Res>
-    extends _$WeenatAuthPayloadCopyWithImpl<$Res, _$WeenatAuthPayloadImpl>
-    implements _$$WeenatAuthPayloadImplCopyWith<$Res> {
-  __$$WeenatAuthPayloadImplCopyWithImpl(_$WeenatAuthPayloadImpl _value,
-      $Res Function(_$WeenatAuthPayloadImpl) _then)
-      : super(_value, _then);
+class _$WeenatAuthPayloadCopyWithImpl<$Res>
+    implements $WeenatAuthPayloadCopyWith<$Res> {
+  _$WeenatAuthPayloadCopyWithImpl(this._self, this._then);
 
+  final WeenatAuthPayload _self;
+  final $Res Function(WeenatAuthPayload) _then;
+
+  /// Create a copy of WeenatAuthPayload
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? email = freezed,
     Object? password = freezed,
   }) {
-    return _then(_$WeenatAuthPayloadImpl(
+    return _then(_self.copyWith(
       email: freezed == email
-          ? _value.email
+          ? _self.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
       password: freezed == password
-          ? _value.password
+          ? _self.password
           : password // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -107,65 +89,89 @@ class __$$WeenatAuthPayloadImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$WeenatAuthPayloadImpl extends _WeenatAuthPayload {
-  const _$WeenatAuthPayloadImpl({this.email, this.password}) : super._();
-
-  factory _$WeenatAuthPayloadImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WeenatAuthPayloadImplFromJson(json);
+class _WeenatAuthPayload implements WeenatAuthPayload {
+  const _WeenatAuthPayload({this.email, this.password});
+  factory _WeenatAuthPayload.fromJson(Map<String, dynamic> json) =>
+      _$WeenatAuthPayloadFromJson(json);
 
   @override
   final String? email;
   @override
   final String? password;
 
+  /// Create a copy of WeenatAuthPayload
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'WeenatAuthPayload(email: $email, password: $password)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$WeenatAuthPayloadCopyWith<_WeenatAuthPayload> get copyWith =>
+      __$WeenatAuthPayloadCopyWithImpl<_WeenatAuthPayload>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$WeenatAuthPayloadToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WeenatAuthPayloadImpl &&
+            other is _WeenatAuthPayload &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
                 other.password == password));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, email, password);
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$WeenatAuthPayloadImplCopyWith<_$WeenatAuthPayloadImpl> get copyWith =>
-      __$$WeenatAuthPayloadImplCopyWithImpl<_$WeenatAuthPayloadImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WeenatAuthPayloadImplToJson(
-      this,
-    );
+  String toString() {
+    return 'WeenatAuthPayload(email: $email, password: $password)';
   }
 }
 
-abstract class _WeenatAuthPayload extends WeenatAuthPayload {
-  const factory _WeenatAuthPayload(
-      {final String? email, final String? password}) = _$WeenatAuthPayloadImpl;
-  const _WeenatAuthPayload._() : super._();
-
-  factory _WeenatAuthPayload.fromJson(Map<String, dynamic> json) =
-      _$WeenatAuthPayloadImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$WeenatAuthPayloadCopyWith<$Res>
+    implements $WeenatAuthPayloadCopyWith<$Res> {
+  factory _$WeenatAuthPayloadCopyWith(
+          _WeenatAuthPayload value, $Res Function(_WeenatAuthPayload) _then) =
+      __$WeenatAuthPayloadCopyWithImpl;
   @override
-  String? get email;
-  @override
-  String? get password;
-  @override
-  @JsonKey(ignore: true)
-  _$$WeenatAuthPayloadImplCopyWith<_$WeenatAuthPayloadImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @useResult
+  $Res call({String? email, String? password});
 }
+
+/// @nodoc
+class __$WeenatAuthPayloadCopyWithImpl<$Res>
+    implements _$WeenatAuthPayloadCopyWith<$Res> {
+  __$WeenatAuthPayloadCopyWithImpl(this._self, this._then);
+
+  final _WeenatAuthPayload _self;
+  final $Res Function(_WeenatAuthPayload) _then;
+
+  /// Create a copy of WeenatAuthPayload
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? email = freezed,
+    Object? password = freezed,
+  }) {
+    return _then(_WeenatAuthPayload(
+      email: freezed == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      password: freezed == password
+          ? _self.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+// dart format on

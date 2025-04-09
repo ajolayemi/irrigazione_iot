@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,85 +10,69 @@ part of 'weenat_auth_res_data.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-WeenatAuthResData _$WeenatAuthResDataFromJson(Map<String, dynamic> json) {
-  return _WeenatAuthResData.fromJson(json);
-}
 
 /// @nodoc
 mixin _$WeenatAuthResData {
-  String? get token => throw _privateConstructorUsedError;
+  String? get token;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $WeenatAuthResDataCopyWith<WeenatAuthResData> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $WeenatAuthResDataCopyWith<$Res> {
-  factory $WeenatAuthResDataCopyWith(
-          WeenatAuthResData value, $Res Function(WeenatAuthResData) then) =
-      _$WeenatAuthResDataCopyWithImpl<$Res, WeenatAuthResData>;
-  @useResult
-  $Res call({String? token});
-}
-
-/// @nodoc
-class _$WeenatAuthResDataCopyWithImpl<$Res, $Val extends WeenatAuthResData>
-    implements $WeenatAuthResDataCopyWith<$Res> {
-  _$WeenatAuthResDataCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of WeenatAuthResData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $WeenatAuthResDataCopyWith<WeenatAuthResData> get copyWith =>
+      _$WeenatAuthResDataCopyWithImpl<WeenatAuthResData>(
+          this as WeenatAuthResData, _$identity);
+
+  /// Serializes this WeenatAuthResData to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? token = freezed,
-  }) {
-    return _then(_value.copyWith(
-      token: freezed == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is WeenatAuthResData &&
+            (identical(other.token, token) || other.token == token));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, token);
+
+  @override
+  String toString() {
+    return 'WeenatAuthResData(token: $token)';
   }
 }
 
 /// @nodoc
-abstract class _$$WeenatAuthResDataImplCopyWith<$Res>
-    implements $WeenatAuthResDataCopyWith<$Res> {
-  factory _$$WeenatAuthResDataImplCopyWith(_$WeenatAuthResDataImpl value,
-          $Res Function(_$WeenatAuthResDataImpl) then) =
-      __$$WeenatAuthResDataImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $WeenatAuthResDataCopyWith<$Res> {
+  factory $WeenatAuthResDataCopyWith(
+          WeenatAuthResData value, $Res Function(WeenatAuthResData) _then) =
+      _$WeenatAuthResDataCopyWithImpl;
   @useResult
   $Res call({String? token});
 }
 
 /// @nodoc
-class __$$WeenatAuthResDataImplCopyWithImpl<$Res>
-    extends _$WeenatAuthResDataCopyWithImpl<$Res, _$WeenatAuthResDataImpl>
-    implements _$$WeenatAuthResDataImplCopyWith<$Res> {
-  __$$WeenatAuthResDataImplCopyWithImpl(_$WeenatAuthResDataImpl _value,
-      $Res Function(_$WeenatAuthResDataImpl) _then)
-      : super(_value, _then);
+class _$WeenatAuthResDataCopyWithImpl<$Res>
+    implements $WeenatAuthResDataCopyWith<$Res> {
+  _$WeenatAuthResDataCopyWithImpl(this._self, this._then);
 
+  final WeenatAuthResData _self;
+  final $Res Function(WeenatAuthResData) _then;
+
+  /// Create a copy of WeenatAuthResData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? token = freezed,
   }) {
-    return _then(_$WeenatAuthResDataImpl(
+    return _then(_self.copyWith(
       token: freezed == token
-          ? _value.token
+          ? _self.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -96,59 +81,80 @@ class __$$WeenatAuthResDataImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$WeenatAuthResDataImpl extends _WeenatAuthResData {
-  const _$WeenatAuthResDataImpl({this.token}) : super._();
-
-  factory _$WeenatAuthResDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WeenatAuthResDataImplFromJson(json);
+class _WeenatAuthResData implements WeenatAuthResData {
+  const _WeenatAuthResData({this.token});
+  factory _WeenatAuthResData.fromJson(Map<String, dynamic> json) =>
+      _$WeenatAuthResDataFromJson(json);
 
   @override
   final String? token;
 
+  /// Create a copy of WeenatAuthResData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'WeenatAuthResData(token: $token)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$WeenatAuthResDataCopyWith<_WeenatAuthResData> get copyWith =>
+      __$WeenatAuthResDataCopyWithImpl<_WeenatAuthResData>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$WeenatAuthResDataToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WeenatAuthResDataImpl &&
+            other is _WeenatAuthResData &&
             (identical(other.token, token) || other.token == token));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, token);
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$WeenatAuthResDataImplCopyWith<_$WeenatAuthResDataImpl> get copyWith =>
-      __$$WeenatAuthResDataImplCopyWithImpl<_$WeenatAuthResDataImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WeenatAuthResDataImplToJson(
-      this,
-    );
+  String toString() {
+    return 'WeenatAuthResData(token: $token)';
   }
 }
 
-abstract class _WeenatAuthResData extends WeenatAuthResData {
-  const factory _WeenatAuthResData({final String? token}) =
-      _$WeenatAuthResDataImpl;
-  const _WeenatAuthResData._() : super._();
-
-  factory _WeenatAuthResData.fromJson(Map<String, dynamic> json) =
-      _$WeenatAuthResDataImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$WeenatAuthResDataCopyWith<$Res>
+    implements $WeenatAuthResDataCopyWith<$Res> {
+  factory _$WeenatAuthResDataCopyWith(
+          _WeenatAuthResData value, $Res Function(_WeenatAuthResData) _then) =
+      __$WeenatAuthResDataCopyWithImpl;
   @override
-  String? get token;
-  @override
-  @JsonKey(ignore: true)
-  _$$WeenatAuthResDataImplCopyWith<_$WeenatAuthResDataImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @useResult
+  $Res call({String? token});
 }
+
+/// @nodoc
+class __$WeenatAuthResDataCopyWithImpl<$Res>
+    implements _$WeenatAuthResDataCopyWith<$Res> {
+  __$WeenatAuthResDataCopyWithImpl(this._self, this._then);
+
+  final _WeenatAuthResData _self;
+  final $Res Function(_WeenatAuthResData) _then;
+
+  /// Create a copy of WeenatAuthResData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? token = freezed,
+  }) {
+    return _then(_WeenatAuthResData(
+      token: freezed == token
+          ? _self.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+// dart format on

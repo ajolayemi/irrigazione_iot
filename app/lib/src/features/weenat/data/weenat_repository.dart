@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/weenat/data/weenat_repository_impl.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_auth_payload.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_plot.dart';
@@ -28,6 +29,6 @@ abstract class WeenatRepository {
 }
 
 @Riverpod(keepAlive: true)
-WeenatRepository weenatRepository(WeenatRepositoryRef ref) {
+WeenatRepository weenatRepository(Ref ref) {
   return WeenatRepositoryImpl("https://api-prod.weenat.com/api");
 }

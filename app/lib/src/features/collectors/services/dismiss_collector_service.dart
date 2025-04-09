@@ -41,6 +41,6 @@ class DismissCollectorService {
 }
 
 @riverpod
-DismissCollectorService dismissCollectorService(DismissCollectorServiceRef ref) {
+DismissCollectorService dismissCollectorService(Ref ref) {
   return DismissCollectorService(ref);
 }

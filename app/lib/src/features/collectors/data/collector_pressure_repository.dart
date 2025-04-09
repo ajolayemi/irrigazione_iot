@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/collectors/data/supabase_collector_pressure_repository.dart';
@@ -12,15 +13,14 @@ abstract class CollectorPressureRepository {
 }
 
 @Riverpod(keepAlive: true)
-CollectorPressureRepository collectorPressureRepository(
-    CollectorPressureRepositoryRef ref) {
+CollectorPressureRepository collectorPressureRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseCollectorPressureRepository(supabaseClient);
 }
 
 @Riverpod(keepAlive: true)
 Stream<CollectorPressure?> collectorPressureStream(
-    CollectorPressureStreamRef ref, String collectorId) {
+    Ref ref, String collectorId) {
   final collectorPressureRepository =
       ref.read(collectorPressureRepositoryProvider);
   return collectorPressureRepository.watchCollectorPressure(collectorId);

@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,40 +10,65 @@ part of 'weenat_plot.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-WeenatPlot _$WeenatPlotFromJson(Map<String, dynamic> json) {
-  return _WeenatPlot.fromJson(json);
-}
 
 /// @nodoc
 mixin _$WeenatPlot {
-  int? get id => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
+  int? get id;
+  String? get name;
   @JsonKey(name: 'latitude')
-  double? get lat => throw _privateConstructorUsedError;
+  double? get lat;
   @JsonKey(name: 'longitude')
-  double? get lng => throw _privateConstructorUsedError;
+  double? get lng;
   @JsonKey(name: 'organization')
-  WeenatOrg? get org => throw _privateConstructorUsedError;
+  WeenatOrg? get org;
   @JsonKey(name: 'device_count')
-  int? get deviceCount => throw _privateConstructorUsedError;
-  DateTime? get lastUpdate => throw _privateConstructorUsedError;
+  int? get deviceCount;
+  DateTime? get lastUpdate;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+  /// Create a copy of WeenatPlot
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $WeenatPlotCopyWith<WeenatPlot> get copyWith =>
-      throw _privateConstructorUsedError;
+      _$WeenatPlotCopyWithImpl<WeenatPlot>(this as WeenatPlot, _$identity);
+
+  /// Serializes this WeenatPlot to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is WeenatPlot &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.lng, lng) || other.lng == lng) &&
+            (identical(other.org, org) || other.org == org) &&
+            (identical(other.deviceCount, deviceCount) ||
+                other.deviceCount == deviceCount) &&
+            (identical(other.lastUpdate, lastUpdate) ||
+                other.lastUpdate == lastUpdate));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, id, name, lat, lng, org, deviceCount, lastUpdate);
+
+  @override
+  String toString() {
+    return 'WeenatPlot(id: $id, name: $name, lat: $lat, lng: $lng, org: $org, deviceCount: $deviceCount, lastUpdate: $lastUpdate)';
+  }
 }
 
 /// @nodoc
-abstract class $WeenatPlotCopyWith<$Res> {
+abstract mixin class $WeenatPlotCopyWith<$Res> {
   factory $WeenatPlotCopyWith(
-          WeenatPlot value, $Res Function(WeenatPlot) then) =
-      _$WeenatPlotCopyWithImpl<$Res, WeenatPlot>;
+          WeenatPlot value, $Res Function(WeenatPlot) _then) =
+      _$WeenatPlotCopyWithImpl;
   @useResult
   $Res call(
       {int? id,
@@ -57,15 +83,14 @@ abstract class $WeenatPlotCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$WeenatPlotCopyWithImpl<$Res, $Val extends WeenatPlot>
-    implements $WeenatPlotCopyWith<$Res> {
-  _$WeenatPlotCopyWithImpl(this._value, this._then);
+class _$WeenatPlotCopyWithImpl<$Res> implements $WeenatPlotCopyWith<$Res> {
+  _$WeenatPlotCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final WeenatPlot _self;
+  final $Res Function(WeenatPlot) _then;
 
+  /// Create a copy of WeenatPlot
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -77,129 +102,58 @@ class _$WeenatPlotCopyWithImpl<$Res, $Val extends WeenatPlot>
     Object? deviceCount = freezed,
     Object? lastUpdate = freezed,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
       name: freezed == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
       lat: freezed == lat
-          ? _value.lat
+          ? _self.lat
           : lat // ignore: cast_nullable_to_non_nullable
               as double?,
       lng: freezed == lng
-          ? _value.lng
+          ? _self.lng
           : lng // ignore: cast_nullable_to_non_nullable
               as double?,
       org: freezed == org
-          ? _value.org
+          ? _self.org
           : org // ignore: cast_nullable_to_non_nullable
               as WeenatOrg?,
       deviceCount: freezed == deviceCount
-          ? _value.deviceCount
+          ? _self.deviceCount
           : deviceCount // ignore: cast_nullable_to_non_nullable
               as int?,
       lastUpdate: freezed == lastUpdate
-          ? _value.lastUpdate
-          : lastUpdate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $WeenatOrgCopyWith<$Res>? get org {
-    if (_value.org == null) {
-      return null;
-    }
-
-    return $WeenatOrgCopyWith<$Res>(_value.org!, (value) {
-      return _then(_value.copyWith(org: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$WeenatPlotImplCopyWith<$Res>
-    implements $WeenatPlotCopyWith<$Res> {
-  factory _$$WeenatPlotImplCopyWith(
-          _$WeenatPlotImpl value, $Res Function(_$WeenatPlotImpl) then) =
-      __$$WeenatPlotImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int? id,
-      String? name,
-      @JsonKey(name: 'latitude') double? lat,
-      @JsonKey(name: 'longitude') double? lng,
-      @JsonKey(name: 'organization') WeenatOrg? org,
-      @JsonKey(name: 'device_count') int? deviceCount,
-      DateTime? lastUpdate});
-
-  @override
-  $WeenatOrgCopyWith<$Res>? get org;
-}
-
-/// @nodoc
-class __$$WeenatPlotImplCopyWithImpl<$Res>
-    extends _$WeenatPlotCopyWithImpl<$Res, _$WeenatPlotImpl>
-    implements _$$WeenatPlotImplCopyWith<$Res> {
-  __$$WeenatPlotImplCopyWithImpl(
-      _$WeenatPlotImpl _value, $Res Function(_$WeenatPlotImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? lat = freezed,
-    Object? lng = freezed,
-    Object? org = freezed,
-    Object? deviceCount = freezed,
-    Object? lastUpdate = freezed,
-  }) {
-    return _then(_$WeenatPlotImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lat: freezed == lat
-          ? _value.lat
-          : lat // ignore: cast_nullable_to_non_nullable
-              as double?,
-      lng: freezed == lng
-          ? _value.lng
-          : lng // ignore: cast_nullable_to_non_nullable
-              as double?,
-      org: freezed == org
-          ? _value.org
-          : org // ignore: cast_nullable_to_non_nullable
-              as WeenatOrg?,
-      deviceCount: freezed == deviceCount
-          ? _value.deviceCount
-          : deviceCount // ignore: cast_nullable_to_non_nullable
-              as int?,
-      lastUpdate: freezed == lastUpdate
-          ? _value.lastUpdate
+          ? _self.lastUpdate
           : lastUpdate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
+  }
+
+  /// Create a copy of WeenatPlot
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $WeenatOrgCopyWith<$Res>? get org {
+    if (_self.org == null) {
+      return null;
+    }
+
+    return $WeenatOrgCopyWith<$Res>(_self.org!, (value) {
+      return _then(_self.copyWith(org: value));
+    });
   }
 }
 
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$WeenatPlotImpl extends _WeenatPlot {
-  const _$WeenatPlotImpl(
+class _WeenatPlot extends WeenatPlot {
+  const _WeenatPlot(
       {this.id,
       this.name,
       @JsonKey(name: 'latitude') this.lat,
@@ -208,9 +162,8 @@ class _$WeenatPlotImpl extends _WeenatPlot {
       @JsonKey(name: 'device_count') this.deviceCount,
       this.lastUpdate})
       : super._();
-
-  factory _$WeenatPlotImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WeenatPlotImplFromJson(json);
+  factory _WeenatPlot.fromJson(Map<String, dynamic> json) =>
+      _$WeenatPlotFromJson(json);
 
   @override
   final int? id;
@@ -231,16 +184,26 @@ class _$WeenatPlotImpl extends _WeenatPlot {
   @override
   final DateTime? lastUpdate;
 
+  /// Create a copy of WeenatPlot
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'WeenatPlot(id: $id, name: $name, lat: $lat, lng: $lng, org: $org, deviceCount: $deviceCount, lastUpdate: $lastUpdate)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$WeenatPlotCopyWith<_WeenatPlot> get copyWith =>
+      __$WeenatPlotCopyWithImpl<_WeenatPlot>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$WeenatPlotToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WeenatPlotImpl &&
+            other is _WeenatPlot &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.lat, lat) || other.lat == lat) &&
@@ -252,59 +215,103 @@ class _$WeenatPlotImpl extends _WeenatPlot {
                 other.lastUpdate == lastUpdate));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, name, lat, lng, org, deviceCount, lastUpdate);
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$WeenatPlotImplCopyWith<_$WeenatPlotImpl> get copyWith =>
-      __$$WeenatPlotImplCopyWithImpl<_$WeenatPlotImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WeenatPlotImplToJson(
-      this,
-    );
+  String toString() {
+    return 'WeenatPlot(id: $id, name: $name, lat: $lat, lng: $lng, org: $org, deviceCount: $deviceCount, lastUpdate: $lastUpdate)';
   }
 }
 
-abstract class _WeenatPlot extends WeenatPlot {
-  const factory _WeenatPlot(
-      {final int? id,
-      final String? name,
-      @JsonKey(name: 'latitude') final double? lat,
-      @JsonKey(name: 'longitude') final double? lng,
-      @JsonKey(name: 'organization') final WeenatOrg? org,
-      @JsonKey(name: 'device_count') final int? deviceCount,
-      final DateTime? lastUpdate}) = _$WeenatPlotImpl;
-  const _WeenatPlot._() : super._();
+/// @nodoc
+abstract mixin class _$WeenatPlotCopyWith<$Res>
+    implements $WeenatPlotCopyWith<$Res> {
+  factory _$WeenatPlotCopyWith(
+          _WeenatPlot value, $Res Function(_WeenatPlot) _then) =
+      __$WeenatPlotCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {int? id,
+      String? name,
+      @JsonKey(name: 'latitude') double? lat,
+      @JsonKey(name: 'longitude') double? lng,
+      @JsonKey(name: 'organization') WeenatOrg? org,
+      @JsonKey(name: 'device_count') int? deviceCount,
+      DateTime? lastUpdate});
 
-  factory _WeenatPlot.fromJson(Map<String, dynamic> json) =
-      _$WeenatPlotImpl.fromJson;
-
   @override
-  int? get id;
-  @override
-  String? get name;
-  @override
-  @JsonKey(name: 'latitude')
-  double? get lat;
-  @override
-  @JsonKey(name: 'longitude')
-  double? get lng;
-  @override
-  @JsonKey(name: 'organization')
-  WeenatOrg? get org;
-  @override
-  @JsonKey(name: 'device_count')
-  int? get deviceCount;
-  @override
-  DateTime? get lastUpdate;
-  @override
-  @JsonKey(ignore: true)
-  _$$WeenatPlotImplCopyWith<_$WeenatPlotImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  $WeenatOrgCopyWith<$Res>? get org;
 }
+
+/// @nodoc
+class __$WeenatPlotCopyWithImpl<$Res> implements _$WeenatPlotCopyWith<$Res> {
+  __$WeenatPlotCopyWithImpl(this._self, this._then);
+
+  final _WeenatPlot _self;
+  final $Res Function(_WeenatPlot) _then;
+
+  /// Create a copy of WeenatPlot
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? lat = freezed,
+    Object? lng = freezed,
+    Object? org = freezed,
+    Object? deviceCount = freezed,
+    Object? lastUpdate = freezed,
+  }) {
+    return _then(_WeenatPlot(
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lat: freezed == lat
+          ? _self.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lng: freezed == lng
+          ? _self.lng
+          : lng // ignore: cast_nullable_to_non_nullable
+              as double?,
+      org: freezed == org
+          ? _self.org
+          : org // ignore: cast_nullable_to_non_nullable
+              as WeenatOrg?,
+      deviceCount: freezed == deviceCount
+          ? _self.deviceCount
+          : deviceCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lastUpdate: freezed == lastUpdate
+          ? _self.lastUpdate
+          : lastUpdate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+
+  /// Create a copy of WeenatPlot
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $WeenatOrgCopyWith<$Res>? get org {
+    if (_self.org == null) {
+      return null;
+    }
+
+    return $WeenatOrgCopyWith<$Res>(_self.org!, (value) {
+      return _then(_self.copyWith(org: value));
+    });
+  }
+}
+
+// dart format on

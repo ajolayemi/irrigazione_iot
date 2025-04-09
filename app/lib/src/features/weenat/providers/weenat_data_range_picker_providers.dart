@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/config/enums/weenat_sensor_data_types.dart';
 import 'package:irrigazione_iot/src/features/weenat/models/weenat_data_range_option.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -6,7 +7,7 @@ part 'weenat_data_range_picker_providers.g.dart';
 
 /// Holds onto the static list of [WeenatDataRangeOption]s
 @Riverpod(keepAlive: true)
-List<WeenatDataRangeOption> dataRangeOptions(DataRangeOptionsRef ref) {
+List<WeenatDataRangeOption> dataRangeOptions(Ref ref) {
   return [
     const WeenatDataRangeOption(
       locKey: 'weenatLast7Days',

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -30,14 +31,13 @@ abstract class RoleManagementRepository {
 }
 
 @Riverpod(keepAlive: true)
-RoleManagementRepository roleManagementRepository(
-    RoleManagementRepositoryRef ref) {
+RoleManagementRepository roleManagementRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseRoleManagementRepository(supabaseClient);
 }
 
 @riverpod
-Stream<bool> userIsAdminStream(UserIsAdminStreamRef ref) {
+Stream<bool> userIsAdminStream(Ref ref) {
   final authRepo = ref.watch(authRepositoryProvider);
   final email = authRepo.currentSession?.user.email;
   if (email == null) return Stream.value(false);
@@ -49,7 +49,7 @@ Stream<bool> userIsAdminStream(UserIsAdminStreamRef ref) {
 }
 
 @riverpod
-Stream<bool> userIsSuperuserStream(UserIsSuperuserStreamRef ref) {
+Stream<bool> userIsSuperuserStream(Ref ref) {
   final authRepo = ref.watch(authRepositoryProvider);
   final email = authRepo.currentSession?.user.email;
   if (email == null) return Stream.value(false);
@@ -58,7 +58,7 @@ Stream<bool> userIsSuperuserStream(UserIsSuperuserStreamRef ref) {
 }
 
 @riverpod
-Stream<bool> userIsOwnerStream(UserIsOwnerStreamRef ref) {
+Stream<bool> userIsOwnerStream(Ref ref) {
   final authRepo = ref.watch(authRepositoryProvider);
   final email = authRepo.currentSession?.user.email;
   if (email == null) return Stream.value(false);
@@ -70,7 +70,7 @@ Stream<bool> userIsOwnerStream(UserIsOwnerStreamRef ref) {
 }
 
 @riverpod
-Stream<bool> userIsBasicStream(UserIsBasicStreamRef ref) {
+Stream<bool> userIsBasicStream(Ref ref) {
   final authRepo = ref.watch(authRepositoryProvider);
   final email = authRepo.currentSession?.user.email;
   if (email == null) return Stream.value(false);
@@ -83,21 +83,21 @@ Stream<bool> userIsBasicStream(UserIsBasicStreamRef ref) {
 
 /// As at now, only superusers are allowed to create items
 @riverpod
-Stream<bool> userCanCreateStream(UserCanCreateStreamRef ref) {
+Stream<bool> userCanCreateStream(Ref ref) {
   final isSuperUser = ref.watch(userIsSuperuserStreamProvider).valueOrNull;
   return Stream.value(isSuperUser ?? false);
 }
 
 /// As at now, only superusers are allowed to update
 @riverpod
-Stream<bool> userCanEditStream(UserCanEditStreamRef ref) {
+Stream<bool> userCanEditStream(Ref ref) {
   final isSuperUser = ref.watch(userIsSuperuserStreamProvider).valueOrNull;
   return Stream.value(isSuperUser ?? false);
 }
 
 /// As at now, only superusers are allowed to delete items
 @riverpod
-Stream<bool> userCanDeleteStream(UserCanDeleteStreamRef ref) {
+Stream<bool> userCanDeleteStream(Ref ref) {
   final isSuperUser = ref.watch(userIsSuperuserStreamProvider).valueOrNull;
   return Stream.value(isSuperUser ?? false);
 }

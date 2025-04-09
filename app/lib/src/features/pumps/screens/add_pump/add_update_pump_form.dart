@@ -26,7 +26,7 @@ class AddUpdatePumpForm extends ConsumerWidget {
     final isLoading = ref.watch(addUpdatePumpControllerProvider).isLoading;
     return PopScope(
       canPop: !isLoading,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         if (didPop) {
           debugPrint('User exited the form');
         } else {

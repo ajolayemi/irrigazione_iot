@@ -153,6 +153,6 @@ class AddUpdateCollectorService {
 
 @riverpod
 AddUpdateCollectorService addUpdateCollectorService(
-    AddUpdateCollectorServiceRef ref) {
+    Ref ref) {
   return AddUpdateCollectorService(ref);
 }

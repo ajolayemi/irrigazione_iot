@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
@@ -39,7 +40,7 @@ abstract class PumpRepository {
 }
 
 @Riverpod(keepAlive: true)
-PumpRepository pumpRepository(PumpRepositoryRef ref) {
+PumpRepository pumpRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabasePumpRepository(supabaseClient);
 }
@@ -47,7 +48,7 @@ PumpRepository pumpRepository(PumpRepositoryRef ref) {
 /// Fetches the list of pumps pertaining to the company selected by the user
 @riverpod
 Future<List<Pump>?> companyPumps(
-  CompanyPumpsRef ref,
+  Ref ref,
 ) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   final currentSelectedCompanyByUser =
@@ -58,14 +59,14 @@ Future<List<Pump>?> companyPumps(
 
 /// Fetches all pumps available in the database
 @riverpod
-Future<List<Pump>?> pumps(PumpsRef ref) {
+Future<List<Pump>?> pumps(Ref ref) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   return pumpRepository.getAllPumps();
 }
 
 /// Fetches the pump with the given pumpId
 @riverpod
-Future<Pump?> pumpFuture(PumpFutureRef ref, String pumpId) {
+Future<Pump?> pumpFuture(Ref ref, String pumpId) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   return pumpRepository.getPump(pumpId);
 }
@@ -73,7 +74,7 @@ Future<Pump?> pumpFuture(PumpFutureRef ref, String pumpId) {
 /// Fetches the list of already used pump names for the company selected by the user
 @riverpod
 Future<List<String?>> companyUsedPumpNamesFuture(
-  CompanyUsedPumpNamesFutureRef ref,
+  Ref ref,
 ) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   final currentSelectedCompanyByUser =
@@ -87,7 +88,7 @@ Future<List<String?>> companyUsedPumpNamesFuture(
 /// Fetches the list of already used pump commands for the company selected by the user
 @riverpod
 Future<List<String?>> companyUsedPumpCommandsFuture(
-  CompanyUsedPumpCommandsFutureRef ref,
+  Ref ref,
 ) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   final currentSelectedCompanyByUser =
@@ -101,7 +102,7 @@ Future<List<String?>> companyUsedPumpCommandsFuture(
 /// Fetches the list of already used mqtt message names
 @riverpod
 Future<List<String?>> pumpUsedMqttMessageNamesFuture(
-  PumpUsedMqttMessageNamesFutureRef ref,
+  Ref ref,
 ) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   return pumpRepository.getUsedMqttMessageNames();

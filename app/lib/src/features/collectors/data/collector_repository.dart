@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/collectors/data/supabase_collector_repository.dart';
@@ -38,13 +39,13 @@ abstract class CollectorRepository {
 }
 
 @Riverpod(keepAlive: true)
-CollectorRepository collectorRepository(CollectorRepositoryRef ref) {
+CollectorRepository collectorRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseCollectorRepository(supabaseClient);
 }
 
 @Riverpod(keepAlive: true)
-Stream<List<Collector?>> collectorListStream(CollectorListStreamRef ref) {
+Stream<List<Collector?>> collectorListStream(Ref ref) {
   final collectorRepository = ref.read(collectorRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return Stream.value([]);
@@ -53,7 +54,7 @@ Stream<List<Collector?>> collectorListStream(CollectorListStreamRef ref) {
 
 @Riverpod(keepAlive: true)
 Stream<List<String?>> usedCollectorNamesStream(
-    UsedCollectorNamesStreamRef ref) {
+    Ref ref) {
   final collectorRepository = ref.read(collectorRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return Stream.value([]);
@@ -62,20 +63,20 @@ Stream<List<String?>> usedCollectorNamesStream(
 
 /// Watches a single instance of [Collector] as specified by [String]
 @Riverpod(keepAlive: true)
-Stream<Collector?> collectorStream(CollectorStreamRef ref, String collectorId) {
+Stream<Collector?> collectorStream(Ref ref, String collectorId) {
   final collectorRepository = ref.watch(collectorRepositoryProvider);
   return collectorRepository.watchCollector(collectorId);
 }
 
 @Riverpod(keepAlive: true)
-Future<Collector?> collectorFuture(CollectorFutureRef ref, String collectorId) {
+Future<Collector?> collectorFuture(Ref ref, String collectorId) {
   final collectorRepository = ref.read(collectorRepositoryProvider);
   return collectorRepository.getCollector(collectorId);
 }
 
 @Riverpod(keepAlive: true)
 Stream<List<String?>> collectorUsedMqttMessageNamesStream(
-    CollectorUsedMqttMessageNamesStreamRef ref) {
+    Ref ref) {
   final collectorRepository = ref.read(collectorRepositoryProvider);
   return collectorRepository.watchCollectorUsedMqttMessageNames();
 }

@@ -106,7 +106,7 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
     return usersAssociatedWithCompany.map(
       (companyUsers) => companyUsers
           .map((companyUser) => companyUser?.email)
-          .whereNotNull()
+          .nonNulls
           .toList(),
     );
   }

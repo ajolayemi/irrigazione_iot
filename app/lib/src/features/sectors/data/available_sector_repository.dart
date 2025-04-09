@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
@@ -16,8 +17,7 @@ abstract class AvailableSectorRepository {
 }
 
 @Riverpod(keepAlive: true)
-AvailableSectorRepository availableSectorRepository(
-    AvailableSectorRepositoryRef ref) {
+AvailableSectorRepository availableSectorRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseAvailableSectorRepository(supabaseClient);
 }
@@ -26,8 +26,7 @@ AvailableSectorRepository availableSectorRepository(
 /// to a collector. If a collectorId is provided, the emitted list will include
 /// the sectors already connected to the collector.
 @riverpod
-Stream<List<AvailableSector>?> availableSectorsStream(
-    AvailableSectorsStreamRef ref,
+Stream<List<AvailableSector>?> availableSectorsStream(Ref ref,
     {String? collectorId}) {
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return Stream.value([]);

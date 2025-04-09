@@ -56,6 +56,6 @@ class AddUpdatePumpService {
 }
 
 @Riverpod(keepAlive: true)
-AddUpdatePumpService addUpdatePumpService(AddUpdatePumpServiceRef ref) {
+AddUpdatePumpService addUpdatePumpService(Ref ref) {
   return AddUpdatePumpService(ref);
 }

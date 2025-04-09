@@ -72,6 +72,6 @@ class RouterRedirectService {
 }
 
 @Riverpod(keepAlive: true)
-RouterRedirectService routerRedirectService(RouterRedirectServiceRef ref) {
+RouterRedirectService routerRedirectService(Ref ref) {
   return RouterRedirectService(ref);
 }

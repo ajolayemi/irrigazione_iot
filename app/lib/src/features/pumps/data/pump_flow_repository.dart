@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_flow.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -18,14 +19,14 @@ abstract class PumpFlowRepository {
 }
 
 @Riverpod(keepAlive: true)
-PumpFlowRepository pumpFlowRepository(PumpFlowRepositoryRef ref) {
+PumpFlowRepository pumpFlowRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabasePumpFlowRepository(supabaseClient);
 }
 
 @Riverpod(keepAlive: true)
 Stream<int> pumpTotalDispensedLitres(
-  PumpTotalDispensedLitresRef ref,
+  Ref ref,
   String pumpId,
 ) {
   final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
@@ -34,7 +35,7 @@ Stream<int> pumpTotalDispensedLitres(
 
 @Riverpod(keepAlive: true)
 Stream<DateTime?> lastDispensationStream(
-  LastDispensationStreamRef ref,
+  Ref ref,
   String pumpId,
 ) {
   final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
@@ -43,7 +44,7 @@ Stream<DateTime?> lastDispensationStream(
 
 @Riverpod(keepAlive: true)
 Stream<PumpFlow?> pumpLastFlowStream(
-  PumpLastFlowStreamRef ref,
+  Ref ref,
   String pumpId,
 ) {
   final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);

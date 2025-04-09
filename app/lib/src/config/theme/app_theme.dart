@@ -22,7 +22,7 @@ class AppTheme {
       visualDensity: FlexColorScheme.comfortablePlatformDensity,
       fontFamily: GoogleFonts.unbounded().fontFamily,
       subThemesData: const FlexSubThemesData(
-        useTextTheme: true,
+        useMaterial3Typography: true,
         fabUseShape: true,
         interactionEffects: true,
         bottomNavigationBarElevation: 0,

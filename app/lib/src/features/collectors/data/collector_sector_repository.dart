@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_manual_providers_as_generated_provider_dependency
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/collectors/models/collector.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -35,22 +36,21 @@ abstract class CollectorSectorRepository {
 }
 
 @Riverpod(keepAlive: true)
-CollectorSectorRepository collectorSectorRepository(
-    CollectorSectorRepositoryRef ref) {
+CollectorSectorRepository collectorSectorRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseCollectorSectorRepository(supabaseClient);
 }
 
 @riverpod
 Stream<List<CollectorSector?>> collectorSectorsStream(
-    CollectorSectorsStreamRef ref, String collectorId) {
+    Ref ref, String collectorId) {
   final collectorSectorRepo = ref.watch(collectorSectorRepositoryProvider);
   return collectorSectorRepo.watchCollectorSectorsById(collectorId);
 }
 
 @riverpod
 Future<List<CollectorSector?>> collectorSectorsFuture(
-    CollectorSectorsFutureRef ref, String collectorId) {
+    Ref ref, String collectorId) {
   final collectorSectorRepo = ref.watch(collectorSectorRepositoryProvider);
   return collectorSectorRepo.getCollectorSectorsById(collectorId);
 }
@@ -58,8 +58,7 @@ Future<List<CollectorSector?>> collectorSectorsFuture(
 /// Provider that emits the number of sectors that are currently switched on for a particular
 /// collector indicated by the provided [String]
 @riverpod
-Stream<int> numberOfSectorsSwitchedOn(NumberOfSectorsSwitchedOnRef ref,
-    {required String collectorId}) {
+Stream<int> numberOfSectorsSwitchedOn(Ref ref, {required String collectorId}) {
   // Get a list of collector sectors pertaining to the provided collector
   final collectorSectors =
       ref.watch(collectorSectorsFutureProvider(collectorId)).valueOrNull;
@@ -84,15 +83,13 @@ Stream<int> numberOfSectorsSwitchedOn(NumberOfSectorsSwitchedOnRef ref,
 }
 
 @riverpod
-Future<Collector?> collectorBySectorId(
-    CollectorBySectorIdRef ref, String sectorId) {
+Future<Collector?> collectorBySectorId(Ref ref, String sectorId) {
   final collectorSectorRepo = ref.watch(collectorSectorRepositoryProvider);
   return collectorSectorRepo.getCollectorBySectorId(sectorId);
 }
 
 @riverpod
-Stream<String?> collectorIdBySectorIdStream(
-    CollectorIdBySectorIdStreamRef ref, String sectorId) {
+Stream<String?> collectorIdBySectorIdStream(Ref ref, String sectorId) {
   final collectorSectorRepo = ref.watch(collectorSectorRepositoryProvider);
   return collectorSectorRepo.watchCollectorIdBySectorId(sectorId);
 }
