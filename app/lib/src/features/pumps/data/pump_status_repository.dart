@@ -15,9 +15,7 @@ abstract class PumpStatusRepository {
   Stream<PumpStatus?> watchPumpStatus(String pumpId);
 
   /// Toggles the status of a pump
-  Future<void> togglePumpStatus({
-    required ItemStatusRequest statusBody,
-  });
+  Future<void> togglePumpStatus({required ItemStatusRequest statusBody});
 }
 
 @Riverpod(keepAlive: true)
@@ -25,10 +23,7 @@ PumpStatusRepository pumpStatusRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   final mqttClient = ref.watch(mqttClientServiceProvider);
 
-  return SupabasePumpStatusRepository(
-    supabaseClient,
-    mqttClient,
-  );
+  return SupabasePumpStatusRepository(supabaseClient, mqttClient);
 }
 
 /// Emits the status of the pump with the provided [pumpId]

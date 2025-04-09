@@ -12,15 +12,11 @@ class BitmapDescriptorHelper {
   ]) async {
     final pictureInfo = await vg.loadPicture(SvgAssetLoader(assetName), null);
 
-    final double devicePixelRatio =
-        ui.PlatformDispatcher.instance.views.first.devicePixelRatio;
+    final double devicePixelRatio = ui.PlatformDispatcher.instance.views.first.devicePixelRatio;
     final int width = (size.width * devicePixelRatio).toInt();
     final int height = (size.height * devicePixelRatio).toInt();
 
-    final scaleFactor = math.min(
-      width / pictureInfo.size.width,
-      height / pictureInfo.size.height,
-    );
+    final scaleFactor = math.min(width / pictureInfo.size.width, height / pictureInfo.size.height);
 
     final recorder = ui.PictureRecorder();
 

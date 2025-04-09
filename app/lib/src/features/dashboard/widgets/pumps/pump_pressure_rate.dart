@@ -6,37 +6,27 @@ import 'package:irrigazione_iot/src/features/pumps/data/pump_statistic_repositor
 
 /// Displays the current pressure rate of the pump.
 class PumpPressureRate extends ConsumerWidget {
-  const PumpPressureRate({
-    super.key,
-    required this.pumpId,
-  });
+  const PumpPressureRate({super.key, required this.pumpId});
 
   final String pumpId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pumpPressure =
-        ref.watch(pumpLastPressureStreamProvider(pumpId)).valueOrNull;
+    final pumpPressure = ref.watch(pumpLastPressureStreamProvider(pumpId)).valueOrNull;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DashboardChildItemDetailsRow(
           leading: const Text('Filter in'),
-          trailing: CommonPressureRateTrailingText(
-            pressure: pumpPressure?.filterInPressure ?? 0,
-          ),
+          trailing: CommonPressureRateTrailingText(pressure: pumpPressure?.filterInPressure ?? 0),
         ),
         DashboardChildItemDetailsRow(
           leading: const Text('Filter out'),
-          trailing: CommonPressureRateTrailingText(
-            pressure: pumpPressure?.filterOutPressure ?? 0,
-          ),
+          trailing: CommonPressureRateTrailingText(pressure: pumpPressure?.filterOutPressure ?? 0),
         ),
         DashboardChildItemDetailsRow(
           leading: const Text('Filter diff'),
-          trailing: CommonPressureRateTrailingText(
-            pressure: pumpPressure?.pressureDifference ?? 0,
-          ),
+          trailing: CommonPressureRateTrailingText(pressure: pumpPressure?.pressureDifference ?? 0),
         ),
       ],
     );

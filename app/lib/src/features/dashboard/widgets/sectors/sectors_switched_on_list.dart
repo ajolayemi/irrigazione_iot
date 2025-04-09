@@ -23,9 +23,7 @@ class SectorsSwitchedOnList extends ConsumerWidget {
         if (data == null || data.isEmpty) {
           return DashboardItemColumn(
             title: loc.sectorsSwitchedOn,
-            child: EmptyPlaceholderWidget(
-              message: loc.noSectorsSwitchedOn,
-            ),
+            child: EmptyPlaceholderWidget(message: loc.noSectorsSwitchedOn),
           );
         }
 

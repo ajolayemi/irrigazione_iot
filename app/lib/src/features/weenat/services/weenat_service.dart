@@ -16,9 +16,7 @@ class WeenatService {
   WeenatService(this._ref);
   final Ref _ref;
 
-  Future<bool> authWeenatService({
-    required WeenatAuthPayload payload,
-  }) async {
+  Future<bool> authWeenatService({required WeenatAuthPayload payload}) async {
     try {
       // Access repository
       final repo = _ref.read(weenatRepositoryProvider);
@@ -36,10 +34,7 @@ class WeenatService {
 
       // TODO: replace with flutter_secure_storage
       // Save token to shared preferences
-      await prefService.setUserWeenatToken(
-        token: token,
-        uid: uid,
-      );
+      await prefService.setUserWeenatToken(token: token, uid: uid);
 
       // After successful authentication, make call to get plots
       await repo.getPlots(token: token) ?? [];
@@ -108,9 +103,7 @@ class WeenatService {
       for (final entry in data.entries) {
         final currentUnixTimestamp = entry.key;
 
-        final timestamp = DateTime.fromMillisecondsSinceEpoch(
-          int.parse(currentUnixTimestamp) * 1000,
-        );
+        final timestamp = DateTime.fromMillisecondsSinceEpoch(int.parse(currentUnixTimestamp) * 1000);
 
         final values = Map<String, dynamic>.from(entry.value);
 
@@ -124,16 +117,8 @@ class WeenatService {
         final waterPotentialRegex = RegExp(r'WHYD_[0-9]+');
 
         // Run the regex on the keys
-        final tempMatches = keys
-            .where(
-              (key) => tempRegex.hasMatch(key),
-            )
-            .toList();
-        final waterPotentialMatches = keys
-            .where(
-              (key) => waterPotentialRegex.hasMatch(key),
-            )
-            .toList();
+        final tempMatches = keys.where((key) => tempRegex.hasMatch(key)).toList();
+        final waterPotentialMatches = keys.where((key) => waterPotentialRegex.hasMatch(key)).toList();
 
         final combinedKeys = [...tempMatches, ...waterPotentialMatches];
 
@@ -144,42 +129,41 @@ class WeenatService {
         }
 
         /// Clean the sensor data
-        sensorData.addAll(cleanSensorData(
-          originalData: values,
-          copiedData: copiedValue,
-          keys: tempMatches,
-          timestamp: timestamp,
-          plotId: plotId,
-          dataType: WeenatSensorDataType.temperature,
-        ));
+        sensorData.addAll(
+          cleanSensorData(
+            originalData: values,
+            copiedData: copiedValue,
+            keys: tempMatches,
+            timestamp: timestamp,
+            plotId: plotId,
+            dataType: WeenatSensorDataType.temperature,
+          ),
+        );
 
-        sensorData.addAll(cleanSensorData(
-          originalData: values,
-          copiedData: copiedValue,
-          keys: waterPotentialMatches,
-          timestamp: timestamp,
-          plotId: plotId,
-          dataType: WeenatSensorDataType.waterPotential,
-        ));
+        sensorData.addAll(
+          cleanSensorData(
+            originalData: values,
+            copiedData: copiedValue,
+            keys: waterPotentialMatches,
+            timestamp: timestamp,
+            plotId: plotId,
+            dataType: WeenatSensorDataType.waterPotential,
+          ),
+        );
       }
 
       // Save the last time sensor data was updated
-      await prefService.setPlotSensorDataTimestamp(
-        plotId: plotId,
-        timestamp: DateTime.now(),
-      );
+      await prefService.setPlotSensorDataTimestamp(plotId: plotId, timestamp: DateTime.now());
 
       // Return the matching sensor data
-      return sensorData.where(
-        (data) {
-          // Return data who has the provided data type, depth, plotId and timestamp
-          final isType = data.dataType == type;
-          final isDepth = data.sensorDataDepth == depth;
-          final isPlotId = data.plotId == plotId;
-          final isTimestamp = data.timeStamp == from;
-          return isType && isDepth && isPlotId && isTimestamp;
-        },
-      ).toList();
+      return sensorData.where((data) {
+        // Return data who has the provided data type, depth, plotId and timestamp
+        final isType = data.dataType == type;
+        final isDepth = data.sensorDataDepth == depth;
+        final isPlotId = data.plotId == plotId;
+        final isTimestamp = data.timeStamp == from;
+        return isType && isDepth && isPlotId && isTimestamp;
+      }).toList();
     } catch (_) {
       rethrow;
     }
@@ -205,8 +189,7 @@ class WeenatService {
       // A custom id used for tracking data in local database is sum of
       // the plotId, the timestamp milliseconds since epoch, the depth and an id identifying the data type
 
-      final customId =
-          plotId + timestamp.millisecondsSinceEpoch + depth + dataType.id;
+      final customId = plotId + timestamp.millisecondsSinceEpoch + depth + dataType.id;
       final dataTypeName = dataType.name;
       final temperatureJson = {
         WeenatPlotSensorData.idKey: customId,

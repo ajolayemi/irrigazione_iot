@@ -4,8 +4,7 @@ import 'package:irrigazione_iot/src/features/collectors/models/collector_pressur
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class SupabaseCollectorPressureRepository
-    implements CollectorPressureRepository {
+class SupabaseCollectorPressureRepository implements CollectorPressureRepository {
   const SupabaseCollectorPressureRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 

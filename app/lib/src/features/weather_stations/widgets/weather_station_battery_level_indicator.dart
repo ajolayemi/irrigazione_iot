@@ -4,23 +4,15 @@ import 'package:irrigazione_iot/src/features/collectors/widgets/battery_level_in
 import 'package:irrigazione_iot/src/features/weather_stations/data/weather_station_battery_repository.dart';
 
 class WeatherStationBatteryLevelIndicator extends ConsumerWidget {
-  const WeatherStationBatteryLevelIndicator({
-    super.key,
-    required this.weatherStationId,
-  });
+  const WeatherStationBatteryLevelIndicator({super.key, required this.weatherStationId});
 
   final String weatherStationId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final weatherStationBatteryLevel = ref
-        .watch(weatherStationBatteryProvider(
-          weatherStationId: weatherStationId,
-        ))
-        .valueOrNull;
+    final weatherStationBatteryLevel =
+        ref.watch(weatherStationBatteryProvider(weatherStationId: weatherStationId)).valueOrNull;
     final batteryLevel = (weatherStationBatteryLevel?.batteryLevel ?? 0.0);
-    return BatteryLevelIndicator(
-      batteryLevel: batteryLevel.toDouble(),
-    );
+    return BatteryLevelIndicator(batteryLevel: batteryLevel.toDouble());
   }
 }

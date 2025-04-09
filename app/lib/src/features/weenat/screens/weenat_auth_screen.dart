@@ -9,10 +9,7 @@ class WeenatAuthScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(
-      weenatAuthControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+    ref.listen(weenatAuthControllerProvider, (_, state) => state.showAlertDialogOnError(context));
     final isLoading = ref.watch(weenatAuthControllerProvider).isLoading;
     return PopScope(
       canPop: !isLoading,
@@ -23,10 +20,7 @@ class WeenatAuthScreen extends ConsumerWidget {
           debugPrint('User tried to exit Weenat auth screen');
         }
       },
-      child: Scaffold(
-        appBar: AppBar(),
-        body: const WeenatAuthScreenContents(),
-      ),
+      child: Scaffold(appBar: AppBar(), body: const WeenatAuthScreenContents()),
     );
   }
 }

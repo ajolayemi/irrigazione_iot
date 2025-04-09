@@ -25,8 +25,7 @@ extension AppBootstrapLocal on AppBootstrap {
   /// As a result, this method does two things:
   /// - create and configure the repositories as desired
   /// - override the default implementations with a list of "overrides"
-  Future<ProviderContainer> createLocalProviderContainer(
-      {bool addDelay = true}) async {
+  Future<ProviderContainer> createLocalProviderContainer({bool addDelay = true}) async {
     final settingsController = await bootSettingsController();
     final localMqttSuffix = LocalMqttTopicsSuffix();
     return ProviderContainer(
@@ -35,9 +34,7 @@ extension AppBootstrapLocal on AppBootstrap {
         // services
         settingsControllerProvider.overrideWithValue(settingsController),
       ],
-      observers: [
-        AsyncErrorLogger(),
-      ],
+      observers: [AsyncErrorLogger()],
     );
   }
 }

@@ -14,30 +14,22 @@ class SectorDetailsLastIrrigationCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final lastIrrigation = ref
-        .watch(sectorLastPressureStreamProvider(sectorId))
-        .valueOrNull
-        ?.createdAt;
+    final lastIrrigation = ref.watch(sectorLastPressureStreamProvider(sectorId)).valueOrNull?.createdAt;
 
     if (lastIrrigation == null) {
       return ResponsiveDetailsCard(
-        child: DetailTileWidget(
-          title: loc.sectorLastIrrigationForTile,
-          subtitle: loc.notAvailable,
-        ),
+        child: DetailTileWidget(title: loc.sectorLastIrrigationForTile, subtitle: loc.notAvailable),
       );
     }
 
     return Timeago(
-      builder: (_, value) => ResponsiveDetailsCard(
-        child: DetailTileWidget(
-          title: loc.sectorLastIrrigationForTile,
-          subtitle: context.customFormatDateTime(
-            timeAgoDateString: value,
-            dateTime: lastIrrigation,
+      builder:
+          (_, value) => ResponsiveDetailsCard(
+            child: DetailTileWidget(
+              title: loc.sectorLastIrrigationForTile,
+              subtitle: context.customFormatDateTime(timeAgoDateString: value, dateTime: lastIrrigation),
+            ),
           ),
-        ),
-      ),
       date: lastIrrigation,
       locale: context.locale,
     );

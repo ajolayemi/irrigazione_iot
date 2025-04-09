@@ -16,26 +16,19 @@ class SectorListTileSubtitle extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final sectorVariety =
-        ref.watch(varietyFutureProvider(sector.varietyId)).valueOrNull;
-    final sectorSpecie =
-        ref.watch(specieFutureProvider(sector.specieId)).valueOrNull;
-    final varietySpecie = sectorVariety != null && sectorSpecie != null
-        ? '${sectorSpecie.name} ${sectorVariety.name}'
-        : context.loc.notAvailable;
+    final sectorVariety = ref.watch(varietyFutureProvider(sector.varietyId)).valueOrNull;
+    final sectorSpecie = ref.watch(specieFutureProvider(sector.specieId)).valueOrNull;
+    final varietySpecie =
+        sectorVariety != null && sectorSpecie != null
+            ? '${sectorSpecie.name} ${sectorVariety.name}'
+            : context.loc.notAvailable;
 
     return Consumer(
       builder: (context, ref, child) {
-        final lastPressureReading =
-            ref.watch(sectorLastPressureStreamProvider(sector.id)).valueOrNull;
-        final lastIrrigatedString = context.timeAgo(
-          lastPressureReading?.createdAt,
-          fallbackValue: loc.notAvailable,
-        );
+        final lastPressureReading = ref.watch(sectorLastPressureStreamProvider(sector.id)).valueOrNull;
+        final lastIrrigatedString = context.timeAgo(lastPressureReading?.createdAt, fallbackValue: loc.notAvailable);
         return Text(
-          '$varietySpecie\n${loc.sectorLastIrrigation(
-            lastIrrigatedString,
-          )}',
+          '$varietySpecie\n${loc.sectorLastIrrigation(lastIrrigatedString)}',
           style: context.commonSubtitleStyle,
         );
       },

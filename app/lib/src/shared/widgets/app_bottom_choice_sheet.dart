@@ -8,12 +8,7 @@ import 'package:irrigazione_iot/src/shared/widgets/no_glow_scroll.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class AppBottomChoiceSheet extends StatefulWidget {
-  const AppBottomChoiceSheet({
-    super.key,
-    required this.title,
-    required this.items,
-    required this.selectedIndex,
-  });
+  const AppBottomChoiceSheet({super.key, required this.title, required this.items, required this.selectedIndex});
 
   /// The bottom sheet title
   final String title;
@@ -69,10 +64,7 @@ class _AppBottomChoiceSheetState extends State<AppBottomChoiceSheet> {
       width: context.screenWidth,
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-        ),
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
       ),
       child: SafeArea(
         child: Padding(
@@ -86,19 +78,11 @@ class _AppBottomChoiceSheetState extends State<AppBottomChoiceSheet> {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        widget.title,
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      Text(widget.title, style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
                       const Spacer(),
                       GestureDetector(
                         onTap: () => context.popNavigator(),
-                        child: const Icon(
-                          Icons.close,
-                          color: Colors.black,
-                        ),
+                        child: const Icon(Icons.close, color: Colors.black),
                       ),
                     ],
                   ),
@@ -116,25 +100,13 @@ class _AppBottomChoiceSheetState extends State<AppBottomChoiceSheet> {
                             onTap: () => _onChanged(item),
                             child: Row(
                               children: [
-                                Expanded(
-                                  child: Text(
-                                    item,
-                                    style: textTheme.bodyMedium,
-                                  ),
-                                ),
-                                AppRadio(
-                                  value: item,
-                                  groupValue: _currentItem,
-                                  onChanged: _onChanged,
-                                )
+                                Expanded(child: Text(item, style: textTheme.bodyMedium)),
+                                AppRadio(value: item, groupValue: _currentItem, onChanged: _onChanged),
                               ],
                             ),
                           ),
                           gapH12,
-                          const Divider(
-                            height: 0,
-                            color: AppColorsPalette.grey2,
-                          ),
+                          const Divider(height: 0, color: AppColorsPalette.grey2),
                         ],
                       );
                     },

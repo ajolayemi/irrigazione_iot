@@ -10,11 +10,7 @@ extension AsyncValueUI on AsyncValue {
   void showAlertDialogOnError(BuildContext context) {
     if (!isLoading && hasError) {
       final message = _errorMessage(error);
-      showExceptionAlertDialog(
-        context: context,
-        title: 'An error occurred',
-        exception: message,
-      );
+      showExceptionAlertDialog(context: context, title: 'An error occurred', exception: message);
     }
   }
 

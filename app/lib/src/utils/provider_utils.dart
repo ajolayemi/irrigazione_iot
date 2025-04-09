@@ -17,10 +17,7 @@ class ProviderUtils {
 
   /// Helper function to invalidate states of various providers
   /// Connected to the board entity
-  static void invalidateBoardStates({
-    required Ref ref,
-    Board? board,
-  }) {
+  static void invalidateBoardStates({required Ref ref, Board? board}) {
     // Invalidate general list of boards provider
     ref.invalidate(boardsListProvider);
 
@@ -38,10 +35,7 @@ class ProviderUtils {
 
   /// Invalidates the states of different providers connected to
   /// the weather station entity
-  static void invalidateWeatherStationStates({
-    required Ref ref,
-    WeatherStation? weatherStation,
-  }) {
+  static void invalidateWeatherStationStates({required Ref ref, WeatherStation? weatherStation}) {
     // Invalidate general list of weather stations provider
     ref.invalidate(weatherStationsProvider);
 
@@ -63,10 +57,7 @@ class ProviderUtils {
 
   /// Invalidates the states of different providers connected to
   /// the pump entity
-  static void invalidatePumpStates({
-    required Ref ref,
-    Pump? pump,
-  }) {
+  static void invalidatePumpStates({required Ref ref, Pump? pump}) {
     // invalidate the available pumps so that the newly created pump is included
     ref.invalidate(availablePumpsFutureProvider);
 
@@ -76,10 +67,7 @@ class ProviderUtils {
 
   /// Invalidates the states of different providers connected to
   /// the sector entity
-  static void invalidateSectorStates({
-    required Ref ref,
-    Sector? sector,
-  }) {
+  static void invalidateSectorStates({required Ref ref, Sector? sector}) {
     ref.invalidate(sectorsProvider);
     ref.invalidate(allSectorsFutureProvider);
     ref.invalidate(usedSectorNamesFutureProvider);
@@ -99,10 +87,7 @@ class ProviderUtils {
     if (boards != null) {
       for (final board in boards) {
         ref.refresh(boardStatusProvider(boardId: board.id).future).ignore();
-        ref
-            .refresh(
-                collectorBoardProvider(collectorId: board.collectorId).future)
-            .ignore();
+        ref.refresh(collectorBoardProvider(collectorId: board.collectorId).future).ignore();
       }
     }
   }
@@ -117,22 +102,9 @@ class ProviderUtils {
     final weatherStations = ref.read(weatherStationsProvider).valueOrNull;
     if (weatherStations != null) {
       for (final weatherStation in weatherStations) {
-        ref
-            .refresh(weatherStationsCountProvider(weatherStation.id).future)
-            .ignore();
-        ref
-            .refresh(
-              weatherStationBatteryProvider(weatherStationId: weatherStation.id)
-                  .future,
-            )
-            .ignore();
-        ref
-            .refresh(
-              weatherStationMeasurementProvider(
-                weatherStationId: weatherStation.id,
-              ).future,
-            )
-            .ignore();
+        ref.refresh(weatherStationsCountProvider(weatherStation.id).future).ignore();
+        ref.refresh(weatherStationBatteryProvider(weatherStationId: weatherStation.id).future).ignore();
+        ref.refresh(weatherStationMeasurementProvider(weatherStationId: weatherStation.id).future).ignore();
       }
     }
   }

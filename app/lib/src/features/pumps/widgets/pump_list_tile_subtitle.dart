@@ -7,17 +7,13 @@ import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class PumpListTileSubtitle extends ConsumerWidget {
-  const PumpListTileSubtitle({
-    super.key,
-    required this.pump,
-  });
+  const PumpListTileSubtitle({super.key, required this.pump});
 
   final Pump pump;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lastDispensationDate =
-        ref.watch(lastDispensationStreamProvider(pump.id)).valueOrNull;
+    final lastDispensationDate = ref.watch(lastDispensationStreamProvider(pump.id)).valueOrNull;
 
     if (lastDispensationDate == null) {
       return const PumpListTileSubtitleContent();
@@ -25,9 +21,7 @@ class PumpListTileSubtitle extends ConsumerWidget {
 
     return Timeago(
       builder: (_, value) {
-        return PumpListTileSubtitleContent(
-          lastDispensedString: value,
-        );
+        return PumpListTileSubtitleContent(lastDispensedString: value);
       },
       date: lastDispensationDate,
       locale: context.locale,
@@ -36,10 +30,7 @@ class PumpListTileSubtitle extends ConsumerWidget {
 }
 
 class PumpListTileSubtitleContent extends StatelessWidget {
-  const PumpListTileSubtitleContent({
-    super.key,
-    this.lastDispensedString,
-  });
+  const PumpListTileSubtitleContent({super.key, this.lastDispensedString});
 
   final String? lastDispensedString;
 

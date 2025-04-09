@@ -10,7 +10,5 @@ part 'location_providers.g.dart';
 FutureOr<LatLng> userLocationCoordinates(Ref ref) async {
   final service = ref.watch(locationServiceProvider);
   final location = await service.getCurrentLocation();
-  return location != null
-      ? LatLng(location.latitude, location.longitude)
-      : LocationService.defaultLocation;
+  return location != null ? LatLng(location.latitude, location.longitude) : LocationService.defaultLocation;
 }

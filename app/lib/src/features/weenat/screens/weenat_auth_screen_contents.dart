@@ -22,12 +22,10 @@ class WeenatAuthScreenContents extends ConsumerStatefulWidget {
   const WeenatAuthScreenContents({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _WeenatAuthScreenContentsState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _WeenatAuthScreenContentsState();
 }
 
-class _WeenatAuthScreenContentsState
-    extends ConsumerState<WeenatAuthScreenContents> with AppFormValidators {
+class _WeenatAuthScreenContentsState extends ConsumerState<WeenatAuthScreenContents> with AppFormValidators {
   final _formKey = GlobalKey<FormState>();
   final _node = FocusScopeNode();
 
@@ -54,20 +52,14 @@ class _WeenatAuthScreenContentsState
   String? _emailErrorText() {
     if (!_submitted) return null;
 
-    return context.getLocalizedErrorText(
-      errorKey: getEmailErrorKey(value: _email),
-    );
+    return context.getLocalizedErrorText(errorKey: getEmailErrorKey(value: _email));
   }
 
   void _passwordEditingComplete() {
     if (!canSubmitEmail(value: _email)) {
       _node.previousFocus();
     }
-    if (!canSubmitPassword(
-      value: _password,
-      minLength: 1,
-      validateJustEmpty: true,
-    )) {
+    if (!canSubmitPassword(value: _password, minLength: 1, validateJustEmpty: true)) {
       _node.nextFocus();
     }
   }
@@ -76,11 +68,7 @@ class _WeenatAuthScreenContentsState
     if (!_submitted) return null;
     return context.getLocalizedErrorText(
       minFieldLength: 1,
-      errorKey: getPasswordErrorKey(
-        value: _password,
-        minLength: 1,
-        validateJustEmpty: true,
-      ),
+      errorKey: getPasswordErrorKey(value: _password, minLength: 1, validateJustEmpty: true),
     );
   }
 
@@ -88,15 +76,8 @@ class _WeenatAuthScreenContentsState
     _node.unfocus();
     setState(() => _submitted = true);
     if (_formKey.currentState?.validate() == true) {
-      final payload = WeenatAuthPayload(
-        email: _email,
-        password: _password,
-      );
-      final success = await ref
-          .read(
-            weenatAuthControllerProvider.notifier,
-          )
-          .authWeenat(payload: payload);
+      final payload = WeenatAuthPayload(email: _email, password: _password);
+      final success = await ref.read(weenatAuthControllerProvider.notifier).authWeenat(payload: payload);
       if (success && mounted) {
         context.pushReplacementNamed(AppRoute.weenatMap.name);
       }
@@ -131,10 +112,7 @@ class _WeenatAuthScreenContentsState
                     formKey: _formKey,
                     children: [
                       gapH32,
-                      Text(
-                        loc.weenatAuthScreenIntroductoryText,
-                        style: textTheme.titleLarge,
-                      ),
+                      Text(loc.weenatAuthScreenIntroductoryText, style: textTheme.titleLarge),
                       gapH32,
 
                       // email field
@@ -148,9 +126,7 @@ class _WeenatAuthScreenContentsState
                         keyboardType: TextInputType.emailAddress,
                         validator: (_) => _emailErrorText(),
                         inputFormatters: <TextInputFormatter>[
-                          ValidatorInputFormatter(
-                            editingValidator: EmailEditingRegexValidator(),
-                          ),
+                          ValidatorInputFormatter(editingValidator: EmailEditingRegexValidator()),
                         ],
                         onEditingComplete: _emailEditingComplete,
                       ),
@@ -170,9 +146,7 @@ class _WeenatAuthScreenContentsState
                           key: passwordVisibilityKey,
                           isVisible: obscurePassword,
                           onPressed: () {
-                            ref
-                                .read(showPasswordProvider.notifier)
-                                .update((state) => !state);
+                            ref.read(showPasswordProvider.notifier).update((state) => !state);
                           },
                         ),
                       ),

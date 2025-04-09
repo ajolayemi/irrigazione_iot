@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
-
 extension AppFormsErrorText on BuildContext {
   // method to get localized error messages for form fields
   String? getLocalizedErrorText({
@@ -58,11 +57,7 @@ extension AppFormsErrorText on BuildContext {
 
   /// Get's localized message for form dependent fields
   /// A different method is defined so as not to cluster up the getLocalizedErrorText method
-  String? getLocalizedDependentErrorText({
-    String? errorKey,
-    String? field1Name,
-    String? field2Name,
-  }) {
+  String? getLocalizedDependentErrorText({String? errorKey, String? field1Name, String? field2Name}) {
     if (errorKey == null) return null;
     switch (errorKey) {
       case 'dependentFieldsEmptyErrorText':

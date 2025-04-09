@@ -19,9 +19,7 @@ CollectorPressureRepository collectorPressureRepository(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
-Stream<CollectorPressure?> collectorPressureStream(
-    Ref ref, String collectorId) {
-  final collectorPressureRepository =
-      ref.read(collectorPressureRepositoryProvider);
+Stream<CollectorPressure?> collectorPressureStream(Ref ref, String collectorId) {
+  final collectorPressureRepository = ref.read(collectorPressureRepositoryProvider);
   return collectorPressureRepository.watchCollectorPressure(collectorId);
 }

@@ -12,8 +12,7 @@ class AddUpdateSectorController extends _$AddUpdateSectorController {
     // nothing to do here
   }
 
-  Future<bool> createSector(
-      {Sector? sector, String? pumpIdToConnectToSector}) async {
+  Future<bool> createSector({Sector? sector, String? pumpIdToConnectToSector}) async {
     final sectorService = ref.read(addUpdateSectorServiceProvider);
     state = const AsyncLoading();
     if (sector == null) {
@@ -26,16 +25,12 @@ class AddUpdateSectorController extends _$AddUpdateSectorController {
       return false;
     }
     state = await AsyncValue.guard(
-      () => sectorService.createSector(
-        sector: sector,
-        pumpIdToConnectToSector: pumpIdToConnectToSector,
-      ),
+      () => sectorService.createSector(sector: sector, pumpIdToConnectToSector: pumpIdToConnectToSector),
     );
     return !state.hasError;
   }
 
-  Future<bool> updateSector(
-      {Sector? sector, String? updatedPumpIdToConnectToSector}) async {
+  Future<bool> updateSector({Sector? sector, String? updatedPumpIdToConnectToSector}) async {
     final sectorService = ref.read(addUpdateSectorServiceProvider);
     state = const AsyncLoading();
     if (sector == null) {
@@ -44,14 +39,12 @@ class AddUpdateSectorController extends _$AddUpdateSectorController {
     }
 
     if (updatedPumpIdToConnectToSector == null) {
-      state = AsyncError(
-          'UpdatedPumpIdToConnectToSector is null', StackTrace.current);
+      state = AsyncError('UpdatedPumpIdToConnectToSector is null', StackTrace.current);
       return false;
     }
-    state = await AsyncValue.guard(() => sectorService.updateSector(
-          sector: sector,
-          updatedConnectedPumpId: updatedPumpIdToConnectToSector,
-        ));
+    state = await AsyncValue.guard(
+      () => sectorService.updateSector(sector: sector, updatedConnectedPumpId: updatedPumpIdToConnectToSector),
+    );
     return !state.hasError;
   }
 }

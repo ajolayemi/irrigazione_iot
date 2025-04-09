@@ -9,26 +9,27 @@ class AppTheme {
   const AppTheme._();
 
   static final lightTheme = FlexThemeData.light(
-      useMaterial3: true,
-      scheme: FlexScheme.greenM3,
-      surfaceMode: FlexSurfaceMode.highScaffoldLowSurfacesVariantDialog,
-      blendLevel: 40,
-      appBarOpacity: 0.95,
-      appBarElevation: 0,
-      //appBarStyle: FlexAppBarStyle.primary,
-      transparentStatusBar: Platform.isIOS, // TODO adapt this to user platform
-      swapColors: true,
-      lightIsWhite: true,
-      visualDensity: FlexColorScheme.comfortablePlatformDensity,
-      fontFamily: GoogleFonts.unbounded().fontFamily,
-      subThemesData: const FlexSubThemesData(
-        useMaterial3Typography: true,
-        fabUseShape: true,
-        interactionEffects: true,
-        bottomNavigationBarElevation: 0,
-        bottomNavigationBarOpacity: 1,
-        navigationBarOpacity: 1,
-        navigationBarMutedUnselectedIcon: true,
-        popupMenuOpacity: 0.95,
-      ));
+    useMaterial3: true,
+    scheme: FlexScheme.greenM3,
+    surfaceMode: FlexSurfaceMode.highScaffoldLowSurfacesVariantDialog,
+    blendLevel: 40,
+    appBarOpacity: 0.95,
+    appBarElevation: 0,
+    //appBarStyle: FlexAppBarStyle.primary,
+    transparentStatusBar: Platform.isIOS, // TODO adapt this to user platform
+    swapColors: true,
+    lightIsWhite: true,
+    visualDensity: FlexColorScheme.comfortablePlatformDensity,
+    fontFamily: GoogleFonts.unbounded().fontFamily,
+    subThemesData: const FlexSubThemesData(
+      useMaterial3Typography: true,
+      fabUseShape: true,
+      interactionEffects: true,
+      bottomNavigationBarElevation: 0,
+      bottomNavigationBarOpacity: 1,
+      navigationBarOpacity: 1,
+      navigationBarMutedUnselectedIcon: true,
+      popupMenuOpacity: 0.95,
+    ),
+  );
 }

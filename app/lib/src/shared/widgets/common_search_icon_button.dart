@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_bar_icon_buttons.dart';
 
 class CommonSearchIconButton extends StatelessWidget {
-  const CommonSearchIconButton({
-    super.key,
-    required this.onPressed,
-    this.isSearching = false,
-    this.isVisibile = true,
-  });
+  const CommonSearchIconButton({super.key, required this.onPressed, this.isSearching = false, this.isVisibile = true});
 
   /// Function to execute when the search icon is pressed.
   final VoidCallback onPressed;

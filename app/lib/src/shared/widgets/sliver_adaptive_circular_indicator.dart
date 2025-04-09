@@ -5,10 +5,6 @@ class SliverAdaptiveCircularIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SliverFillRemaining(
-      child: Center(
-        child: CircularProgressIndicator.adaptive(),
-      ),
-    );
+    return const SliverFillRemaining(child: Center(child: CircularProgressIndicator.adaptive()));
   }
 }

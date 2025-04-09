@@ -13,8 +13,7 @@ class SectorTileTitle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isSwitchedOn =
-        ref.watch(sectorStatusStreamProvider(sector.id)).valueOrNull?.statusBoolean ?? false;
+    final isSwitchedOn = ref.watch(sectorStatusStreamProvider(sector.id)).valueOrNull?.statusBoolean ?? false;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -22,7 +21,7 @@ class SectorTileTitle extends ConsumerWidget {
         gapW8,
         CommonStatusIndicator(status: isSwitchedOn),
         gapW16,
-        SectorConnectedSensors(sectorId: sector.id)
+        SectorConnectedSensors(sectorId: sector.id),
       ],
     );
   }

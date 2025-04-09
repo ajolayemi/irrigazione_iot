@@ -80,9 +80,7 @@ class _WeenatMapScreenState extends ConsumerState<WeenatMapScreen> {
                         builder: (context, ref, child) {
                           final initialPlot = ref.watch(initialPlotProvider);
                           final markers = ref.watch(weenatMapMarkersProvider);
-                          final userLocation = ref
-                              .watch(userLocationCoordinatesProvider)
-                              .valueOrNull;
+                          final userLocation = ref.watch(userLocationCoordinatesProvider).valueOrNull;
                           // TODO: refactor this so that if there is no initial plot
                           // TODO: the map should center on the user's location
 
@@ -93,20 +91,18 @@ class _WeenatMapScreenState extends ConsumerState<WeenatMapScreen> {
                             mapToolbarEnabled: true,
                             myLocationEnabled: true,
                             initialCameraPosition: CameraPosition(
-                              target: initialPlot == null
-                                  ? userLocation ??
-                                      LocationService.defaultLocation
-                                  : LatLng(
-                                      initialPlot.lat ?? 37.30876803981336,
-                                      initialPlot.lng ?? 15.031336292492695,
-                                    ),
+                              target:
+                                  initialPlot == null
+                                      ? userLocation ?? LocationService.defaultLocation
+                                      : LatLng(
+                                        initialPlot.lat ?? 37.30876803981336,
+                                        initialPlot.lng ?? 15.031336292492695,
+                                      ),
                               zoom: 15,
                             ),
                             onMapCreated: (controller) {
                               _controller = controller;
-                              ref
-                                  .read(mapControllerProvider.notifier)
-                                  .setController(controller);
+                              ref.read(mapControllerProvider.notifier).setController(controller);
                             },
                             markers: markers,
                           );
@@ -123,10 +119,7 @@ class _WeenatMapScreenState extends ConsumerState<WeenatMapScreen> {
                               onTap: () => context.popNavigator(),
                               child: Container(
                                 padding: const EdgeInsets.all(8),
-                                child: const Icon(
-                                  Icons.close,
-                                  color: Colors.white,
-                                ),
+                                child: const Icon(Icons.close, color: Colors.white),
                               ),
                             ),
 
@@ -135,10 +128,8 @@ class _WeenatMapScreenState extends ConsumerState<WeenatMapScreen> {
                             // Org name section with dropdown
                             Consumer(
                               builder: (context, ref, child) {
-                                final org =
-                                    ref.watch(selectedWeenatOrgProvider);
-                                final orgIndex =
-                                    ref.watch(selectedOrgIndexProvider);
+                                final org = ref.watch(selectedWeenatOrgProvider);
+                                final orgIndex = ref.watch(selectedOrgIndexProvider);
                                 return GestureDetector(
                                   onTap: () => _selectOrg(orgIndex),
                                   child: Container(
@@ -150,8 +141,7 @@ class _WeenatMapScreenState extends ConsumerState<WeenatMapScreen> {
                                     ),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         gapW8,
                                         Flexible(
@@ -159,22 +149,18 @@ class _WeenatMapScreenState extends ConsumerState<WeenatMapScreen> {
                                             org?.name ?? '',
                                             style: textTheme.bodyMedium,
                                             overflow: TextOverflow.ellipsis,
-                                            textScaler:
-                                                const TextScaler.linear(1),
+                                            textScaler: const TextScaler.linear(1),
                                             maxLines: 1,
                                           ),
                                         ),
                                         gapW24,
-                                        const Icon(
-                                          Icons.arrow_drop_down,
-                                          color: Colors.black,
-                                        ),
+                                        const Icon(Icons.arrow_drop_down, color: Colors.black),
                                       ],
                                     ),
                                   ),
                                 );
                               },
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -192,35 +178,24 @@ class _WeenatMapScreenState extends ConsumerState<WeenatMapScreen> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               const Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: Sizes.p16,
-                                ),
+                                padding: EdgeInsets.symmetric(horizontal: Sizes.p16),
                                 child: WeenatTensiometerRangePicker(),
                               ),
                               gapH12,
                               const Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: Sizes.p16,
-                                ),
+                                padding: EdgeInsets.symmetric(horizontal: Sizes.p16),
                                 child: WeenatRangePicker(),
                               ),
                               gapH4,
                               Consumer(
                                 builder: (context, ref, child) {
-                                  final plots = ref.watch(
-                                    weenatPlotsForOrgProvider,
-                                  );
+                                  final plots = ref.watch(weenatPlotsForOrgProvider);
 
                                   return plots.when(
                                     data: (plots) {
-                                      return WeenatPlotsCard(
-                                        mapController: _controller,
-                                        plots: plots ?? [],
-                                      );
+                                      return WeenatPlotsCard(mapController: _controller, plots: plots ?? []);
                                     },
-                                    loading: () =>
-                                        const CircularProgressIndicator
-                                            .adaptive(),
+                                    loading: () => const CircularProgressIndicator.adaptive(),
                                     error: (_, __) => const SizedBox.shrink(),
                                   );
                                 },
@@ -228,7 +203,7 @@ class _WeenatMapScreenState extends ConsumerState<WeenatMapScreen> {
                             ],
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

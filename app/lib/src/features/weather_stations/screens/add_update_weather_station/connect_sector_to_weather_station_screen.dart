@@ -14,22 +14,17 @@ import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indi
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class ConnectSectorToWeatherStationScreen extends ConsumerStatefulWidget {
-  const ConnectSectorToWeatherStationScreen({
-    super.key,
-    required this.selectedSector,
-  });
+  const ConnectSectorToWeatherStationScreen({super.key, required this.selectedSector});
 
   /// The previous value that was selected during the previous navigation
   /// to the weather station form screen.
   final RadioButtonItem selectedSector;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _ConnectSectorToWeatherStationScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ConnectSectorToWeatherStationScreenState();
 }
 
-class _ConnectSectorToWeatherStationScreenState
-    extends ConsumerState<ConnectSectorToWeatherStationScreen> {
+class _ConnectSectorToWeatherStationScreenState extends ConsumerState<ConnectSectorToWeatherStationScreen> {
   late RadioButtonItem _selectedValue;
 
   @override
@@ -38,8 +33,7 @@ class _ConnectSectorToWeatherStationScreenState
     super.initState();
   }
 
-  void _onTapAdd(BuildContext context) =>
-      context.pushNamed(AppRoute.addSector.name);
+  void _onTapAdd(BuildContext context) => context.pushNamed(AppRoute.addSector.name);
 
   @override
   Widget build(BuildContext context) {
@@ -48,47 +42,31 @@ class _ConnectSectorToWeatherStationScreenState
     final sectors = ref.watch(sectorsProvider);
     return CustomSliverConnectSomethingTo(
       title: loc.selectASectorPageTitle,
-      actions: [
-        CommonAddIconButton(
-          onPressed: () => _onTapAdd(context),
-        ),
-      ],
+      actions: [CommonAddIconButton(onPressed: () => _onTapAdd(context))],
       child: AsyncValueSliverWidget<List<Sector>?>(
         value: sectors,
         data: (data) {
-          if ( data == null || data.isEmpty) {
+          if (data == null || data.isEmpty) {
             return SliverEmptyDataWidget(
-              message: loc.emptyDataPlaceholder(
-                loc.nSectors(1),
-              ),
+              message: loc.emptyDataPlaceholder(loc.nSectors(1)),
               buttonText: loc.addNewButtonLabel,
               onPressed: () => _onTapAdd(context),
             );
           }
 
           return SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final sector = data[index];
-                return ResponsiveRadioListTile(
-                  title: sector.name,
-                  value: RadioButtonItem(
-                    value: sector.id,
-                    label: sector.name,
-                  ),
-                  groupValue: _selectedValue,
-                  onChanged: (value) => setState(
-                    () {
-                      _selectedValue = _selectedValue.copyWith(
-                        value: value?.value,
-                        label: value?.label,
-                      );
-                    },
-                  ),
-                );
-              },
-              childCount: data.length,
-            ),
+            delegate: SliverChildBuilderDelegate((context, index) {
+              final sector = data[index];
+              return ResponsiveRadioListTile(
+                title: sector.name,
+                value: RadioButtonItem(value: sector.id, label: sector.name),
+                groupValue: _selectedValue,
+                onChanged:
+                    (value) => setState(() {
+                      _selectedValue = _selectedValue.copyWith(value: value?.value, label: value?.label);
+                    }),
+              );
+            }, childCount: data.length),
           );
         },
         loading: () => const SliverAdaptiveCircularIndicator(),

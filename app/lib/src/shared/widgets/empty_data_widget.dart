@@ -12,12 +12,7 @@ import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 /// A place holder widget to tell user that there is no data to show.
 /// It presents a text button to allow user to perform a specific action.
 class EmptyDataWidget extends ConsumerWidget {
-  const EmptyDataWidget({
-    super.key,
-    required this.message,
-    required this.buttonText,
-    required this.onPressed,
-  });
+  const EmptyDataWidget({super.key, required this.message, required this.buttonText, required this.onPressed});
 
   final String message;
   final String buttonText;
@@ -25,8 +20,7 @@ class EmptyDataWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final canEdit =
-        ref.watch(userCanCreateStreamProvider).valueOrNull ?? false;
+    final canEdit = ref.watch(userCanCreateStreamProvider).valueOrNull ?? false;
     return ResponsiveCenter(
       maxContentWidth: Breakpoint.tablet,
       padding: const EdgeInsets.all(Sizes.p8),
@@ -34,18 +28,8 @@ class EmptyDataWidget extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            message,
-            style: context.textTheme.titleMedium,
-            textAlign: TextAlign.center,
-          ),
-          Visibility(
-            visible: canEdit,
-            child: CustomTextButton(
-              text: buttonText,
-              onPressed: onPressed,
-            ),
-          )
+          Text(message, style: context.textTheme.titleMedium, textAlign: TextAlign.center),
+          Visibility(visible: canEdit, child: CustomTextButton(text: buttonText, onPressed: onPressed)),
         ],
       ),
     );
@@ -53,11 +37,7 @@ class EmptyDataWidget extends ConsumerWidget {
 }
 
 class SliverEmptyDataWidget extends StatelessWidget {
-  const SliverEmptyDataWidget(
-      {super.key,
-      required this.message,
-      required this.buttonText,
-      required this.onPressed});
+  const SliverEmptyDataWidget({super.key, required this.message, required this.buttonText, required this.onPressed});
 
   final String message;
   final String buttonText;
@@ -65,12 +45,6 @@ class SliverEmptyDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverFillRemaining(
-      child: EmptyDataWidget(
-        message: message,
-        buttonText: buttonText,
-        onPressed: onPressed,
-      ),
-    );
+    return SliverFillRemaining(child: EmptyDataWidget(message: message, buttonText: buttonText, onPressed: onPressed));
   }
 }

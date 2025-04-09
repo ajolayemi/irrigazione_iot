@@ -8,8 +8,7 @@ class InsertBody {
 
   final Map<String, dynamic> data;
 
-  factory InsertBody.fromJson(Map<String, dynamic> json) =>
-      _$InsertBodyFromJson(json);
+  factory InsertBody.fromJson(Map<String, dynamic> json) => _$InsertBodyFromJson(json);
 
   Map<String, dynamic> toJson() => _$InsertBodyToJson(this);
 }
@@ -21,8 +20,7 @@ class UpdateBody {
   final String id;
   final Map<String, dynamic> data;
 
-  factory UpdateBody.fromJson(Map<String, dynamic> json) =>
-      _$UpdateBodyFromJson(json);
+  factory UpdateBody.fromJson(Map<String, dynamic> json) => _$UpdateBodyFromJson(json);
 
   Map<String, dynamic> toJson() => _$UpdateBodyToJson(this);
 }
@@ -33,8 +31,7 @@ class DeleteBody {
 
   final List<String> ids;
 
-  factory DeleteBody.fromJson(Map<String, dynamic> json) =>
-      _$DeleteBodyFromJson(json);
+  factory DeleteBody.fromJson(Map<String, dynamic> json) => _$DeleteBodyFromJson(json);
 
   Map<String, dynamic> toJson() => _$DeleteBodyToJson(this);
 }

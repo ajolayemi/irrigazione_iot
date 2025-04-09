@@ -10,12 +10,13 @@ class SupabaseBoardStatusRepository implements BoardStatusRepository {
 
   @override
   Future<BoardStatus?> getBoardStatus(String boardID) async {
-    final status = await _supabaseClient.boardStatus
-        .select()
-        .eq(BoardStatusDatabaseKeys.boardId, boardID)
-        .order(BoardStatusDatabaseKeys.createdAt, ascending: false)
-        .limit(1)
-        .maybeSingle();
+    final status =
+        await _supabaseClient.boardStatus
+            .select()
+            .eq(BoardStatusDatabaseKeys.boardId, boardID)
+            .order(BoardStatusDatabaseKeys.createdAt, ascending: false)
+            .limit(1)
+            .maybeSingle();
 
     if (status == null) return null;
 

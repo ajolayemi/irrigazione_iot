@@ -25,19 +25,18 @@ class Company extends Equatable {
     this.fiscalCode = '',
   });
 
-
   const Company.empty()
-      : id = '',
-        name = '',
-        registeredOfficeAddress = '',
-        phoneNumber = '',
-        email = '',
-        imageUrl = '',
-        mqttTopicName = '',
-        createdAt = null,
-        updatedAt = null,
-        vatNumber = '',
-        fiscalCode = '';
+    : id = '',
+      name = '',
+      registeredOfficeAddress = '',
+      phoneNumber = '',
+      email = '',
+      imageUrl = '',
+      mqttTopicName = '',
+      createdAt = null,
+      updatedAt = null,
+      vatNumber = '',
+      fiscalCode = '';
 
   // Unique identifier for the company from the database
   @JsonKey(name: CompanyDatabaseKeys.id, includeToJson: false)
@@ -87,7 +86,7 @@ class Company extends Equatable {
       fiscalCode,
       createdAt,
       updatedAt,
-      mqttTopicName
+      mqttTopicName,
     ];
   }
 
@@ -108,8 +107,7 @@ class Company extends Equatable {
       id: id ?? this.id,
       name: name ?? this.name,
       mqttTopicName: mqttTopicName ?? this.mqttTopicName,
-      registeredOfficeAddress:
-          registeredOfficeAddress ?? this.registeredOfficeAddress,
+      registeredOfficeAddress: registeredOfficeAddress ?? this.registeredOfficeAddress,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       email: email ?? this.email,
       imageUrl: imageUrl ?? this.imageUrl,
@@ -120,8 +118,7 @@ class Company extends Equatable {
     );
   }
 
-  factory Company.fromJson(Map<String, dynamic> json) =>
-      _$CompanyFromJson(json);
+  factory Company.fromJson(Map<String, dynamic> json) => _$CompanyFromJson(json);
 
   Map<String, dynamic> toJson() => _$CompanyToJson(this);
 }

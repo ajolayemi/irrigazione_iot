@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/config/theme/app_colors_palette.dart';
 
 class AppRadio extends StatelessWidget {
-  const AppRadio({
-    super.key,
-    required this.value,
-    this.groupValue,
-    required this.onChanged,
-  });
+  const AppRadio({super.key, required this.value, this.groupValue, required this.onChanged});
 
   final String value;
   final String? groupValue;
@@ -24,11 +19,9 @@ class AppRadio extends StatelessWidget {
       value: value,
       groupValue: groupValue,
       onChanged: onChanged,
-      fillColor: WidgetStateProperty.resolveWith<Color>(
-        (Set<WidgetState> states) {
-          return AppColorsPalette.grey8;
-        },
-      ),
+      fillColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+        return AppColorsPalette.grey8;
+      }),
     );
   }
 }

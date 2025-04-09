@@ -23,9 +23,7 @@ class WeatherStationDetailsStatisticTile extends StatelessWidget {
     return ResponsiveDetailsCard(
       child: DetailTileWidget(
         title: title,
-        subtitle: subtitle == null
-            ? context.loc.notAvailable
-            : '$subtitle ${keyForUm.getUmX(keyForUm)}',
+        subtitle: subtitle == null ? context.loc.notAvailable : '$subtitle ${keyForUm.getUmX(keyForUm)}',
         trailing: const Icon(Icons.arrow_forward_ios),
         onTap: onTap,
       ),

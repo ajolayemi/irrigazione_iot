@@ -9,12 +9,7 @@ class SectorConnectedSensors extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sensorsConnectedToSector = ref
-            .watch(
-              weatherStationsCountProvider(sectorId),
-            )
-            .valueOrNull ??
-        0;
+    final sensorsConnectedToSector = ref.watch(weatherStationsCountProvider(sectorId)).valueOrNull ?? 0;
     return Badge(
       label: Text(sensorsConnectedToSector.toString()),
       backgroundColor: Colors.blue,

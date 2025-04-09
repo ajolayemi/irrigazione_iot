@@ -13,8 +13,7 @@ class UserCompaniesController extends _$UserCompaniesController {
     final repo = ref.read(selectedCompanyRepositoryProvider);
     final uid = ref.read(authRepositoryProvider).currentUser?.uid ?? '';
     state = const AsyncLoading();
-    state = await AsyncValue.guard(
-        () => repo.updateSelectedCompanyId(uid, companyId));
+    state = await AsyncValue.guard(() => repo.updateSelectedCompanyId(uid, companyId));
     ref.invalidate(currentTappedCompanyProvider);
   }
 }

@@ -7,8 +7,4 @@ enum WeenatSensorDataType {
   const WeenatSensorDataType({required this.id});
 }
 
-enum WeenatDataRangeType {
-  lastHour,
-  yesterday,
-  last7Days,
-}
+enum WeenatDataRangeType { lastHour, yesterday, last7Days }

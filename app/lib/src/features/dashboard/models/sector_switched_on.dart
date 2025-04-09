@@ -6,12 +6,7 @@ part 'sector_switched_on.g.dart';
 
 @JsonSerializable()
 class SectorSwitchedOn {
-  SectorSwitchedOn({
-    required this.id,
-    required this.sectorId,
-    required this.companyId,
-    required this.statusBoolean,
-  });
+  SectorSwitchedOn({required this.id, required this.sectorId, required this.companyId, required this.statusBoolean});
 
   @JsonKey(name: SectorSwitchedOnDatabaseKeys.id)
   @IntConverter()
@@ -30,6 +25,5 @@ class SectorSwitchedOn {
 
   Map<String, dynamic> toJson() => _$SectorSwitchedOnToJson(this);
 
-  factory SectorSwitchedOn.fromJson(Map<String, dynamic> json) =>
-      _$SectorSwitchedOnFromJson(json);
+  factory SectorSwitchedOn.fromJson(Map<String, dynamic> json) => _$SectorSwitchedOnFromJson(json);
 }

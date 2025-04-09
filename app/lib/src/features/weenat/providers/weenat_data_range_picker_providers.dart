@@ -9,21 +9,9 @@ part 'weenat_data_range_picker_providers.g.dart';
 @Riverpod(keepAlive: true)
 List<WeenatDataRangeOption> dataRangeOptions(Ref ref) {
   return [
-    const WeenatDataRangeOption(
-      locKey: 'weenatLast7Days',
-      daysDifference: 7,
-      type: WeenatDataRangeType.last7Days,
-    ),
-    const WeenatDataRangeOption(
-      locKey: 'weenatLast24Hours',
-      daysDifference: 1,
-      type: WeenatDataRangeType.yesterday,
-    ),
-    const WeenatDataRangeOption(
-      locKey: 'weenatLastHour',
-      daysDifference: 0,
-      type: WeenatDataRangeType.lastHour,
-    ),
+    const WeenatDataRangeOption(locKey: 'weenatLast7Days', daysDifference: 7, type: WeenatDataRangeType.last7Days),
+    const WeenatDataRangeOption(locKey: 'weenatLast24Hours', daysDifference: 1, type: WeenatDataRangeType.yesterday),
+    const WeenatDataRangeOption(locKey: 'weenatLastHour', daysDifference: 0, type: WeenatDataRangeType.lastHour),
   ];
 }
 
@@ -34,9 +22,7 @@ class SelectedDataRangeOption extends _$SelectedDataRangeOption {
   WeenatDataRangeOption? build() {
     final options = ref.watch(dataRangeOptionsProvider);
     if (options.isEmpty) return null;
-    final index = options.indexWhere(
-      (element) => element.type == WeenatDataRangeType.lastHour,
-    );
+    final index = options.indexWhere((element) => element.type == WeenatDataRangeType.lastHour);
 
     if (index == -1) return options.first;
 

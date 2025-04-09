@@ -21,12 +21,7 @@ class SupabaseSectorRepository implements SectorRepository {
   @override
   Future<Sector?> createSector(Sector sector) async {
     // set created_at and updated_at fields
-    final data = sector
-        .copyWith(
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-        )
-        .toJson();
+    final data = sector.copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'insert-sector',
       body: InsertBody(data: data).toJson(),
@@ -40,10 +35,7 @@ class SupabaseSectorRepository implements SectorRepository {
     final data = sector.copyWith(updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'update-sector',
-      body: UpdateBody(
-        id: sector.id,
-        data: data,
-      ).toJson(),
+      body: UpdateBody(id: sector.id, data: data).toJson(),
     );
     return res.toObject<Sector>(Sector.fromJson);
   }
@@ -69,17 +61,12 @@ class SupabaseSectorRepository implements SectorRepository {
     final sectors = await getCompanySectors(companyId);
     if (sectors == null) return [];
 
-    return sectors
-        .map((sector) => [sector.turnOnCommand, sector.turnOffCommand])
-        .expand((element) => element)
-        .toList();
+    return sectors.map((sector) => [sector.turnOnCommand, sector.turnOffCommand]).expand((element) => element).toList();
   }
 
   @override
   Future<Sector?> getSector(String sectorId) async {
-    final res = await _supabaseClient.sectors
-        .select()
-        .eq(SectorDatabaseKeys.id, sectorId);
+    final res = await _supabaseClient.sectors.select().eq(SectorDatabaseKeys.id, sectorId);
     return _sectorFromJsonSingle(res);
   }
 
@@ -97,9 +84,6 @@ class SupabaseSectorRepository implements SectorRepository {
 
   @override
   Future<List<Sector>?> getCompanySectors(String companyId) {
-    return _supabaseClient.sectors
-        .select()
-        .eq(SectorDatabaseKeys.companyId, companyId)
-        .withConverter(_sectorsFromList);
+    return _supabaseClient.sectors.select().eq(SectorDatabaseKeys.companyId, companyId).withConverter(_sectorsFromList);
   }
 }

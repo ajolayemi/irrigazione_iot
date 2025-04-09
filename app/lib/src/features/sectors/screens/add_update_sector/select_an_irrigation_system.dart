@@ -6,16 +6,12 @@ import 'package:irrigazione_iot/src/shared/widgets/responsive_radio_list_tile.da
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class SelectAnIrrigationSystem extends StatefulWidget {
-  const SelectAnIrrigationSystem({
-    super.key,
-    this.selectedIrrigationSystem,
-  });
+  const SelectAnIrrigationSystem({super.key, this.selectedIrrigationSystem});
 
   final String? selectedIrrigationSystem;
 
   @override
-  State<SelectAnIrrigationSystem> createState() =>
-      _SelectAnIrrigationSystemState();
+  State<SelectAnIrrigationSystem> createState() => _SelectAnIrrigationSystemState();
 }
 
 class _SelectAnIrrigationSystemState extends State<SelectAnIrrigationSystem> {
@@ -38,29 +34,18 @@ class _SelectAnIrrigationSystemState extends State<SelectAnIrrigationSystem> {
       title: loc.selectAnOption,
       onCTAPressed: () => context.popNavigator(_selectedIrrigationSystem),
       child: SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            final irrigationSystemType = values[index];
-            return ResponsiveRadioListTile(
-              value: RadioButtonItem(
-                value: irrigationSystemType.uiName,
-                label: irrigationSystemType.uiName,
-              ),
-              groupValue: _selectedIrrigationSystem,
-              title: irrigationSystemType.uiName,
-              onChanged: (val) => setState(
-                () {
-                  _selectedIrrigationSystem =
-                      _selectedIrrigationSystem.copyWith(
-                    value: val?.value,
-                    label: val?.label,
-                  );
-                },
-              ),
-            );
-          },
-          childCount: IrrigationSystem.values.length,
-        ),
+        delegate: SliverChildBuilderDelegate((context, index) {
+          final irrigationSystemType = values[index];
+          return ResponsiveRadioListTile(
+            value: RadioButtonItem(value: irrigationSystemType.uiName, label: irrigationSystemType.uiName),
+            groupValue: _selectedIrrigationSystem,
+            title: irrigationSystemType.uiName,
+            onChanged:
+                (val) => setState(() {
+                  _selectedIrrigationSystem = _selectedIrrigationSystem.copyWith(value: val?.value, label: val?.label);
+                }),
+          );
+        }, childCount: IrrigationSystem.values.length),
       ),
     );
   }

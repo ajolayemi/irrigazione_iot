@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class FormFieldCheckboxTile extends StatelessWidget {
-  const FormFieldCheckboxTile({
-    super.key,
-    required this.title,
-    required this.value,
-    required this.onChanged,
-  });
+  const FormFieldCheckboxTile({super.key, required this.title, required this.value, required this.onChanged});
 
   final String title;
   final bool value;
@@ -20,15 +15,8 @@ class FormFieldCheckboxTile extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: context.textTheme.titleMedium,
-        ),
-        Checkbox.adaptive(
-          value: value,
-          onChanged: onChanged,
-          activeColor: theme.primaryColor,
-        ),
+        Text(title, style: context.textTheme.titleMedium),
+        Checkbox.adaptive(value: value, onChanged: onChanged, activeColor: theme.primaryColor),
       ],
     );
   }

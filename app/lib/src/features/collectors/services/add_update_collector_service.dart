@@ -13,9 +13,7 @@ import 'package:irrigazione_iot/src/features/company_users/data/selected_company
 part 'add_update_collector_service.g.dart';
 
 class AddUpdateCollectorService {
-  const AddUpdateCollectorService(
-    this._ref,
-  );
+  const AddUpdateCollectorService(this._ref);
   final Ref _ref;
 
   Future<void> createCollector(Collector collector) async {
@@ -38,9 +36,7 @@ class AddUpdateCollectorService {
     final sectorsToConnectToCollector = _ref.read(selectedSectorsIdProvider);
 
     // create collector
-    final createdCollector = await collectorRepo.createCollector(
-      collector.copyWith(companyId: companyId),
-    );
+    final createdCollector = await collectorRepo.createCollector(collector.copyWith(companyId: companyId));
 
     if (createdCollector == null) {
       debugPrint('Exiting createCollector, createdCollector is null');
@@ -51,16 +47,14 @@ class AddUpdateCollectorService {
       // loop over each sector and connect it to the created collector
       for (final sectorId in sectorsToConnectToCollector) {
         final collectorSector = CollectorSector(
-            id: '',
-            collectorId: createdCollector.id,
-            sectorId: sectorId!,
-            createdAt: DateTime.now());
-        debugPrint(
-            'Creating collector sector: ${collectorSector.toJson()} for collector: ${createdCollector.name}');
-        final createdCollectorSector =
-            await collectorSectorsRepo.createCollectorSector(collectorSector);
-        debugPrint(
-            'Created collectorSector: ${createdCollectorSector?.toJson()}');
+          id: '',
+          collectorId: createdCollector.id,
+          sectorId: sectorId!,
+          createdAt: DateTime.now(),
+        );
+        debugPrint('Creating collector sector: ${collectorSector.toJson()} for collector: ${createdCollector.name}');
+        final createdCollectorSector = await collectorSectorsRepo.createCollectorSector(collectorSector);
+        debugPrint('Created collectorSector: ${createdCollectorSector?.toJson()}');
       }
     }
   }
@@ -87,9 +81,7 @@ class AddUpdateCollectorService {
     // update collector, the update collector func returns earlier
     // if the collector data has never changed or if the collector that user
     // is trying to update does not exist before this call
-    final updatedCollector = await collectorRepo.updateCollector(
-      collector.copyWith(companyId: companyId),
-    );
+    final updatedCollector = await collectorRepo.updateCollector(collector.copyWith(companyId: companyId));
 
     if (updatedCollector == null) {
       debugPrint('Exiting updateCollector, updatedCollector is null');
@@ -97,41 +89,36 @@ class AddUpdateCollectorService {
     }
 
     // Get the list of current sectors connected to this collector
-    final currentCollectorSectors =
-        await collectorSectorsRepo.getCollectorSectorsById(updatedCollector.id);
+    final currentCollectorSectors = await collectorSectorsRepo.getCollectorSectorsById(updatedCollector.id);
 
     // Get the list of sectors that are not connected to the collector anymore
     // since this is an update event, it's possible that user chose not to connect
     // some sectors that were previously connected to the collector
-    final sectorsToDisconnect = currentCollectorSectors
-        .where((collectorSector) =>
-            !updatedConnectedSectorIds.contains(collectorSector?.sectorId))
-        .toList();
+    final sectorsToDisconnect =
+        currentCollectorSectors
+            .where((collectorSector) => !updatedConnectedSectorIds.contains(collectorSector?.sectorId))
+            .toList();
 
     // Disconnect the sectors that are no longer connected to the collector
     if (sectorsToDisconnect.isNotEmpty) {
       for (final collectorSector in sectorsToDisconnect) {
-        debugPrint(
-            'Deleting collector sector: ${collectorSector?.toJson()} for collector: ${updatedCollector.name}');
+        debugPrint('Deleting collector sector: ${collectorSector?.toJson()} for collector: ${updatedCollector.name}');
 
-        await collectorSectorsRepo.deleteCollectorSector(
-          collectorSector!.id,
-        );
+        await collectorSectorsRepo.deleteCollectorSector(collectorSector!.id);
       }
     }
 
     // If the user didn't connect any new sectors to the collector, we can return early
     if (updatedConnectedSectorIds.isEmpty) {
-      debugPrint(
-          'No new sectors to connect to the collector: ${updatedCollector.name}');
+      debugPrint('No new sectors to connect to the collector: ${updatedCollector.name}');
       return;
     }
 
     // Get the list of sectors that are not connected to the collector
-    final sectorsToConnect = updatedConnectedSectorIds
-        .where((sectorId) =>
-            !currentCollectorSectors.any((cs) => cs?.sectorId == sectorId))
-        .toList();
+    final sectorsToConnect =
+        updatedConnectedSectorIds
+            .where((sectorId) => !currentCollectorSectors.any((cs) => cs?.sectorId == sectorId))
+            .toList();
 
     if (sectorsToConnect.isEmpty) return;
 
@@ -144,15 +131,13 @@ class AddUpdateCollectorService {
       );
 
       // Reaching here means new sector(s) where selected to connect to the collector
-      debugPrint(
-          'Creating collector sector: ${collectorSector.toJson()} for collector: ${updatedCollector.name}');
+      debugPrint('Creating collector sector: ${collectorSector.toJson()} for collector: ${updatedCollector.name}');
       await collectorSectorsRepo.createCollectorSector(collectorSector);
     }
   }
 }
 
 @riverpod
-AddUpdateCollectorService addUpdateCollectorService(
-    Ref ref) {
+AddUpdateCollectorService addUpdateCollectorService(Ref ref) {
   return AddUpdateCollectorService(ref);
 }

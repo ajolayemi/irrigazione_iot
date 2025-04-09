@@ -25,34 +25,20 @@ class SupabaseCollectorRepository implements CollectorRepository {
 
   @override
   Future<Collector?> createCollector(Collector collector) async {
-    final data = collector
-        .copyWith(
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-        )
-        .toJson();
+    final data = collector.copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'insert-collector',
-      body: InsertBody(
-        data: data,
-      ).toJson(),
+      body: InsertBody(data: data).toJson(),
     );
     return res.toObject<Collector>(Collector.fromJson);
   }
 
   @override
   Future<Collector?> updateCollector(Collector collector) async {
-    final data = collector
-        .copyWith(
-          updatedAt: DateTime.now(),
-        )
-        .toJson();
+    final data = collector.copyWith(updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'update-collector',
-      body: UpdateBody(
-        id: collector.id,
-        data: data,
-      ).toJson(),
+      body: UpdateBody(id: collector.id, data: data).toJson(),
     );
     return res.toObject<Collector>(Collector.fromJson);
   }
@@ -69,34 +55,27 @@ class SupabaseCollectorRepository implements CollectorRepository {
   @override
   Stream<List<String?>> watchCompanyUsedCollectorNames(String companyId) {
     return watchCollectors(companyId).map((collectors) {
-      return collectors
-          .map((collector) => collector?.name.toLowerCase())
-          .toList();
+      return collectors.map((collector) => collector?.name.toLowerCase()).toList();
     });
   }
 
   @override
   Stream<Collector?> watchCollector(String collectorID) {
-    final stream = _supabaseClient.collectorStream
-        .eq(CollectorDatabaseKeys.id, collectorID);
+    final stream = _supabaseClient.collectorStream.eq(CollectorDatabaseKeys.id, collectorID);
     return stream.map(_collectorFromJsonSingle);
   }
 
   @override
   Stream<List<Collector?>> watchCollectors(String companyId) {
-    final stream = _supabaseClient.collectorStream
-        .eq(CollectorDatabaseKeys.companyId, companyId);
+    final stream = _supabaseClient.collectorStream.eq(CollectorDatabaseKeys.companyId, companyId);
     return stream.map(_collectorFromJsonList);
   }
 
   @override
   Stream<List<String?>> watchCollectorUsedMqttMessageNames() {
-    return _supabaseClient.collectorStream.map((collectors) => collectors
-        .map(
-          (collector) =>
-              Collector.fromJson(collector).mqttMsgName.toLowerCase(),
-        )
-        .toList());
+    return _supabaseClient.collectorStream.map(
+      (collectors) => collectors.map((collector) => Collector.fromJson(collector).mqttMsgName.toLowerCase()).toList(),
+    );
   }
 
   @override

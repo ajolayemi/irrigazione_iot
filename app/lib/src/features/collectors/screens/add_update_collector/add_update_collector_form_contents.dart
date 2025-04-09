@@ -23,22 +23,16 @@ import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class AddUpdateCollectorFormContents extends ConsumerStatefulWidget {
-  const AddUpdateCollectorFormContents({
-    super.key,
-    this.collectorId,
-    required this.formType,
-  });
+  const AddUpdateCollectorFormContents({super.key, this.collectorId, required this.formType});
 
   final String? collectorId;
   final GenericFormTypes formType;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _AddUpdateCollectorFormContentsState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _AddUpdateCollectorFormContentsState();
 }
 
-class _AddUpdateCollectorFormContentsState
-    extends ConsumerState<AddUpdateCollectorFormContents>
+class _AddUpdateCollectorFormContentsState extends ConsumerState<AddUpdateCollectorFormContents>
     with AppFormValidators {
   // general variables
   final _node = FocusScopeNode();
@@ -84,9 +78,7 @@ class _AddUpdateCollectorFormContentsState
   Future<void> _asyncInitForm() async {
     final collectorId = widget.collectorId;
     if (_isUpdating && collectorId != null) {
-      final collector = await ref.read(
-        collectorFutureProvider(collectorId).future,
-      );
+      final collector = await ref.read(collectorFutureProvider(collectorId).future);
 
       _setHasFilterState(collector?.hasFilter);
       _initialCollector = collector;
@@ -148,9 +140,7 @@ class _AddUpdateCollectorFormContentsState
     return await showAlertDialog(
           context: context,
           title: loc.formGenericSaveDialogTitle,
-          content: loc.formGenericSaveDialogContent(
-            loc.nCollectors(1),
-          ),
+          content: loc.formGenericSaveDialogContent(loc.nCollectors(1)),
           defaultActionText: loc.genericSaveButtonLabel,
           cancelActionText: loc.alertDialogCancel,
         ) ??
@@ -163,13 +153,8 @@ class _AddUpdateCollectorFormContentsState
   }
 
   void _onTappedConnectedSectors() {
-    final queryParam = QueryParameters(
-      id: widget.collectorId,
-    ).toJson();
-    context.pushNamed<int>(
-      AppRoute.connectSectorToCollector.name,
-      queryParameters: queryParam,
-    );
+    final queryParam = QueryParameters(id: widget.collectorId).toJson();
+    context.pushNamed<int>(AppRoute.connectSectorToCollector.name, queryParameters: queryParam);
   }
 
   Future<void> _submit() async {
@@ -186,17 +171,14 @@ class _AddUpdateCollectorFormContentsState
         );
 
         bool success = false;
-        success = widget.formType.isUpdating
-            ? await ref
-                .read(addUpdateCollectorControllerProvider.notifier)
-                .updateCollector(
-                  collectorToUpdate: collector,
-                )
-            : await ref
-                .read(addUpdateCollectorControllerProvider.notifier)
-                .createCollector(
-                  collectorToCreate: collector,
-                );
+        success =
+            widget.formType.isUpdating
+                ? await ref
+                    .read(addUpdateCollectorControllerProvider.notifier)
+                    .updateCollector(collectorToUpdate: collector)
+                : await ref
+                    .read(addUpdateCollectorControllerProvider.notifier)
+                    .createCollector(collectorToCreate: collector);
 
         if (success) {
           _popScreen();
@@ -222,11 +204,7 @@ class _AddUpdateCollectorFormContentsState
         Expanded(
           child: CustomScrollView(
             slivers: [
-              AppSliverBar(
-                title: _isUpdating
-                    ? loc.updateCollectorPageTitle
-                    : loc.addNewCollectorPageTitle,
-              ),
+              AppSliverBar(title: _isUpdating ? loc.updateCollectorPageTitle : loc.addNewCollectorPageTitle),
               ResponsiveSliverForm(
                 node: _node,
                 formKey: _collectorFormKey,
@@ -241,8 +219,7 @@ class _AddUpdateCollectorFormContentsState
                   // name field
                   Consumer(
                     builder: (context, ref, child) {
-                      final usedCollectorNames =
-                          ref.watch(usedCollectorNamesStreamProvider);
+                      final usedCollectorNames = ref.watch(usedCollectorNamesStreamProvider);
                       final values = usedCollectorNames.valueOrNull ?? [];
 
                       return FormTitleAndField(
@@ -252,18 +229,20 @@ class _AddUpdateCollectorFormContentsState
                         fieldController: _collectorNameController,
                         fieldHintText: loc.collectorNameHintText,
                         maxLength: AppConstants.maxCollectorNameLength,
-                        onEditingComplete: () => _nameEditingComplete(
-                          existingNames: values,
-                          maxLength: AppConstants.maxCollectorNameLength,
-                          value: _collectorName,
-                          initialValue: _initialCollector?.name,
-                        ),
-                        validator: (_) => _nameErrorText(
-                          existingNames: values,
-                          value: _collectorName,
-                          maxLength: AppConstants.maxCollectorNameLength,
-                          initialValue: _initialCollector?.name,
-                        ),
+                        onEditingComplete:
+                            () => _nameEditingComplete(
+                              existingNames: values,
+                              maxLength: AppConstants.maxCollectorNameLength,
+                              value: _collectorName,
+                              initialValue: _initialCollector?.name,
+                            ),
+                        validator:
+                            (_) => _nameErrorText(
+                              existingNames: values,
+                              value: _collectorName,
+                              maxLength: AppConstants.maxCollectorNameLength,
+                              initialValue: _initialCollector?.name,
+                            ),
                       );
                     },
                   ),
@@ -271,8 +250,7 @@ class _AddUpdateCollectorFormContentsState
                   // mqtt message name field
                   Consumer(
                     builder: (context, ref, child) {
-                      final usedMqttNames = ref
-                          .watch(collectorUsedMqttMessageNamesStreamProvider);
+                      final usedMqttNames = ref.watch(collectorUsedMqttMessageNamesStreamProvider);
                       final values = usedMqttNames.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -281,18 +259,20 @@ class _AddUpdateCollectorFormContentsState
                         fieldController: _mqttMsgNameController,
                         fieldHintText: loc.mqttMessageNameFormHint,
                         maxLength: AppConstants.maxMqttMessageNameLength,
-                        onEditingComplete: () => _nameEditingComplete(
-                          existingNames: values,
-                          maxLength: AppConstants.maxMqttMessageNameLength,
-                          value: _mqttMsgName,
-                          initialValue: _initialCollector?.mqttMsgName,
-                        ),
-                        validator: (_) => _nameErrorText(
-                          existingNames: values,
-                          value: _mqttMsgName,
-                          maxLength: AppConstants.maxMqttMessageNameLength,
-                          initialValue: _initialCollector?.mqttMsgName,
-                        ),
+                        onEditingComplete:
+                            () => _nameEditingComplete(
+                              existingNames: values,
+                              maxLength: AppConstants.maxMqttMessageNameLength,
+                              value: _mqttMsgName,
+                              initialValue: _initialCollector?.mqttMsgName,
+                            ),
+                        validator:
+                            (_) => _nameErrorText(
+                              existingNames: values,
+                              value: _mqttMsgName,
+                              maxLength: AppConstants.maxMqttMessageNameLength,
+                              initialValue: _initialCollector?.mqttMsgName,
+                            ),
                       );
                     },
                   ),
@@ -300,14 +280,12 @@ class _AddUpdateCollectorFormContentsState
                   // connected sectors
                   Consumer(
                     builder: (context, ref, child) {
-                      final selectedSectors =
-                          ref.watch(selectedSectorsIdProvider);
+                      final selectedSectors = ref.watch(selectedSectorsIdProvider);
                       return FormTitleAndField(
                         enabled: !isLoading,
                         fieldKey: _connectedSectorsKey,
                         fieldTitle: loc.collectorConnectedSectors,
-                        fieldHintText:
-                            loc.nSelectedSectors(selectedSectors.length),
+                        fieldHintText: loc.nSelectedSectors(selectedSectors.length),
                         canRequestFocus: false,
                         keyboardType: TextInputType.none,
                         onTap: _onTappedConnectedSectors,
@@ -317,9 +295,9 @@ class _AddUpdateCollectorFormContentsState
                         ),
                       );
                     },
-                  )
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -327,9 +305,7 @@ class _AddUpdateCollectorFormContentsState
         // button to save or update collector
         SliverCTAButton(
           isLoading: isLoading,
-          text: _isUpdating
-              ? loc.genericUpdateButtonLabel
-              : loc.genericSaveButtonLabel,
+          text: _isUpdating ? loc.genericUpdateButtonLabel : loc.genericSaveButtonLabel,
           buttonType: ButtonType.primary,
           onPressed: _submit,
         ),

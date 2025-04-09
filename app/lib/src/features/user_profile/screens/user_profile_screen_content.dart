@@ -19,38 +19,25 @@ class UserProfileScreenContents extends ConsumerWidget {
     final currentUser = ref.watch(authRepositoryProvider).currentUser!;
     final loc = context.loc;
     return ResponsiveSliverCenter(
-        child: Column(
-      children: [
-        ResponsiveDetailsCard(
-          child: DetailTileWidget(
-            title: loc.userProfileDetailsName,
-            subtitle: currentUser.name,
+      child: Column(
+        children: [
+          ResponsiveDetailsCard(child: DetailTileWidget(title: loc.userProfileDetailsName, subtitle: currentUser.name)),
+          gapH8,
+          ResponsiveDetailsCard(
+            child: DetailTileWidget(title: loc.userProfileDetailsEmail, subtitle: currentUser.email),
           ),
-        ),
-        gapH8,
-        ResponsiveDetailsCard(
-          child: DetailTileWidget(
-            title: loc.userProfileDetailsEmail,
-            subtitle: currentUser.email,
+          gapH8,
+          Consumer(
+            builder: (context, ref, child) {
+              final companyId = ref.watch(selectedCompanyRepositoryProvider).loadSelectedCompanyId(currentUser.uid);
+              final company = ref.watch(companyStreamProvider(companyId ?? '')).valueOrNull;
+              return ResponsiveDetailsCard(
+                child: DetailTileWidget(title: loc.userProfileDetailsCurrentCompany, subtitle: company?.name ?? ''),
+              );
+            },
           ),
-        ),
-        gapH8,
-        Consumer(
-          builder: (context, ref, child) {
-            final companyId = ref
-                .watch(selectedCompanyRepositoryProvider)
-                .loadSelectedCompanyId(currentUser.uid);
-            final company =
-                ref.watch(companyStreamProvider(companyId ?? '')).valueOrNull;
-            return ResponsiveDetailsCard(
-              child: DetailTileWidget(
-                title: loc.userProfileDetailsCurrentCompany,
-                subtitle: company?.name ?? '',
-              ),
-            );
-          },
-        )
-      ],
-    ));
+        ],
+      ),
+    );
   }
 }

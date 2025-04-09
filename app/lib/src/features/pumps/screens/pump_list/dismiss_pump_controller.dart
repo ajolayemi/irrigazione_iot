@@ -15,20 +15,13 @@ class DismissPumpController extends _$DismissPumpController {
   Future<bool> confirmDismiss(Pump pump) async {
     final pumpRepository = ref.read(pumpRepositoryProvider);
     state = const AsyncLoading<void>();
-    final res = await AsyncValue.guard(
-      () => pumpRepository.deletePump(
-        pump.id,
-      ),
-    );
+    final res = await AsyncValue.guard(() => pumpRepository.deletePump(pump.id));
     if (res.hasError) {
       state = AsyncError(res.error!, StackTrace.current);
       return false;
     }
 
-    ProviderUtils.invalidatePumpStates(
-      ref: ref,
-      pump: pump,
-    );
+    ProviderUtils.invalidatePumpStates(ref: ref, pump: pump);
     state = const AsyncData<void>(null);
     return true;
   }

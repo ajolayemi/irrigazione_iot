@@ -9,15 +9,10 @@ class SignUpController extends _$SignUpController {
   @override
   FutureOr<void> build() {}
 
-  Future<bool> signUpUser({
-    required AppUser appUser,
-    required String password,
-  }) async {
+  Future<bool> signUpUser({required AppUser appUser, required String password}) async {
     final authRepository = ref.watch(authRepositoryProvider);
     state = const AsyncLoading();
-    state = await AsyncValue.guard(
-      () => authRepository.signUp(appUser: appUser, password: password),
-    );
+    state = await AsyncValue.guard(() => authRepository.signUp(appUser: appUser, password: password));
     return !state.hasError;
   }
 }

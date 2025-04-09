@@ -22,18 +22,13 @@ class UserCompaniesListScreen extends ConsumerStatefulWidget {
   const UserCompaniesListScreen({super.key});
 
   @override
-  ConsumerState<UserCompaniesListScreen> createState() =>
-      _UserCompaniesListScreenState();
+  ConsumerState<UserCompaniesListScreen> createState() => _UserCompaniesListScreenState();
 }
 
-class _UserCompaniesListScreenState
-    extends ConsumerState<UserCompaniesListScreen> {
+class _UserCompaniesListScreenState extends ConsumerState<UserCompaniesListScreen> {
   @override
   Widget build(BuildContext context) {
-    ref.listen(
-      userCompaniesControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+    ref.listen(userCompaniesControllerProvider, (_, state) => state.showAlertDialogOnError(context));
     final userCompanies = ref.watch(userCompaniesStreamProvider);
 
     if (userCompanies.hasValue && userCompanies.value!.isEmpty) {
@@ -42,47 +37,34 @@ class _UserCompaniesListScreenState
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          AppSliverBar(
-            title: context.loc.chooseCompany,
-          ),
+          AppSliverBar(title: context.loc.chooseCompany),
           AsyncValueSliverWidget<List<Company>>(
             value: userCompanies,
-            loading: () => const CommonSliverListSkeleton(
-              hasSubtitle: false,
-            ),
+            loading: () => const CommonSliverListSkeleton(hasSubtitle: false),
             data: (userCompanies) {
               return SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final company = userCompanies[index];
-                    return ResponsiveCenter(
-                      maxContentWidth: Breakpoint.tablet,
-                      child: InkWell(
-                        onTap: () {
-                          ref
-                              .read(userCompaniesControllerProvider.notifier)
-                              .updateTappedCompanyId(company.id);
-                          context.goNamed(AppRoute.home.name);
-                        },
-                        child: ListTile(
-                          // leading: CompanyLogo(
-                          //   imageUrl: company.imageUrl,
-                          // ),
-                          title: Text(
-                            company.name,
-                          ),
-                          trailing: const Icon(
-                            Icons.arrow_forward_ios,
-                          ),
-                        ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final company = userCompanies[index];
+                  return ResponsiveCenter(
+                    maxContentWidth: Breakpoint.tablet,
+                    child: InkWell(
+                      onTap: () {
+                        ref.read(userCompaniesControllerProvider.notifier).updateTappedCompanyId(company.id);
+                        context.goNamed(AppRoute.home.name);
+                      },
+                      child: ListTile(
+                        // leading: CompanyLogo(
+                        //   imageUrl: company.imageUrl,
+                        // ),
+                        title: Text(company.name),
+                        trailing: const Icon(Icons.arrow_forward_ios),
                       ),
-                    );
-                  },
-                  childCount: userCompanies.length,
-                ),
+                    ),
+                  );
+                }, childCount: userCompanies.length),
               );
             },
-          )
+          ),
         ],
       ),
     );

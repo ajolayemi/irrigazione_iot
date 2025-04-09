@@ -13,8 +13,7 @@ class PumpFlowLastUpdated extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lastPumpFlow =
-        ref.watch(pumpLastFlowStreamProvider(pumpId)).valueOrNull?.createdAt;
+    final lastPumpFlow = ref.watch(pumpLastFlowStreamProvider(pumpId)).valueOrNull?.createdAt;
 
     if (lastPumpFlow == null) return const PumpFlowLastUpdatedContent();
     return Timeago(
@@ -35,9 +34,6 @@ class PumpFlowLastUpdatedContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = context.loc;
-    return DashboardChildItemDetailsRow(
-      leading: Text(loc.lastUpdated),
-      trailing: Text(content ?? loc.notAvailable),
-    );
+    return DashboardChildItemDetailsRow(leading: Text(loc.lastUpdated), trailing: Text(content ?? loc.notAvailable));
   }
 }

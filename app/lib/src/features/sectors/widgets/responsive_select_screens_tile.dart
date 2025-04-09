@@ -9,11 +9,7 @@ import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 /// The pages referencing this widget are mostly triggered by clicking on form fields
 /// and the user makes a selection from the list of items to simulate a dropdown
 class ResponsiveSelectScreensTile extends StatelessWidget {
-  const ResponsiveSelectScreensTile({
-    super.key,
-    required this.title,
-    this.onTap,
-  });
+  const ResponsiveSelectScreensTile({super.key, required this.title, this.onTap});
 
   final VoidCallback? onTap;
   final String title;
@@ -22,12 +18,7 @@ class ResponsiveSelectScreensTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveCenter(
       maxContentWidth: Breakpoint.tablet,
-      child: InkWell(
-        onTap: onTap,
-        child: ListTile(
-          title: Text(title),
-        ),
-      ),
+      child: InkWell(onTap: onTap, child: ListTile(title: Text(title))),
     );
   }
 }

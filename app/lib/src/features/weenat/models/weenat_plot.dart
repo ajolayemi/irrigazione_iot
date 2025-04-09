@@ -20,13 +20,10 @@ abstract class WeenatPlot with _$WeenatPlot {
     DateTime? lastUpdate,
   }) = _WeenatPlot;
 
-  factory WeenatPlot.fromJson(Map<String, dynamic> json) =>
-      _$WeenatPlotFromJson(json);
-
+  factory WeenatPlot.fromJson(Map<String, dynamic> json) => _$WeenatPlotFromJson(json);
 }
 
 extension WeenatPlotsX on List<WeenatPlot> {
-
   /// Builds a set of [Marker]s from the list of [WeenatPlot]s
   /// for use in Google Maps
   Set<Marker> toMarkers({
@@ -42,12 +39,9 @@ extension WeenatPlotsX on List<WeenatPlot> {
       return Marker(
         markerId: MarkerId(plot.id.toString()),
         position: LatLng(plot.lat ?? 0, plot.lng ?? 0),
-        icon: isSelected
-            ? selectedIcon ?? defaultMarker
-            : unselectedIcon ?? defaultMarker,
+        icon: isSelected ? selectedIcon ?? defaultMarker : unselectedIcon ?? defaultMarker,
         onTap: () => onTap?.call(plot, index),
       );
     }).toSet();
   }
 }
-

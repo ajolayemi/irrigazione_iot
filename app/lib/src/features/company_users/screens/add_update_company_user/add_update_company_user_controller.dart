@@ -15,8 +15,7 @@ class AddUpdateCompanyUserController extends _$AddUpdateCompanyUserController {
     final service = ref.read(addUpdateCompanyUserServiceProvider);
     state = const AsyncLoading();
     if (companyUser == null) {
-      state = AsyncError(
-          'no companyUser object provided during creation', StackTrace.current);
+      state = AsyncError('no companyUser object provided during creation', StackTrace.current);
       return Future.value(false);
     }
 
@@ -28,12 +27,10 @@ class AddUpdateCompanyUserController extends _$AddUpdateCompanyUserController {
     final service = ref.read(addUpdateCompanyUserServiceProvider);
     state = const AsyncLoading();
     if (companyUser == null) {
-      state = AsyncError(
-          'no companyUser object provided during update', StackTrace.current);
+      state = AsyncError('no companyUser object provided during update', StackTrace.current);
       return Future.value(false);
     }
-    state =
-        await AsyncValue.guard(() => service.updateCompanyUser(companyUser));
+    state = await AsyncValue.guard(() => service.updateCompanyUser(companyUser));
     return !state.hasError;
   }
 }

@@ -4,15 +4,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'connect_sectors_to_collector_controller.g.dart';
 
 @riverpod
-class ConnectSectorsToCollectorController
-    extends _$ConnectSectorsToCollectorController {
+class ConnectSectorsToCollectorController extends _$ConnectSectorsToCollectorController {
   @override
   FutureOr<void> build() {}
 
-  void handleSelection({
-    required bool value,
-    required String sectorId,
-  }) {
+  void handleSelection({required bool value, required String sectorId}) {
     final selectedSectorsId = ref.read(selectedSectorsIdProvider);
     final sectorIndexInList = selectedSectorsId.indexOf(sectorId);
     if (value && sectorIndexInList >= 0) return;
@@ -20,9 +16,7 @@ class ConnectSectorsToCollectorController
       ref.read(selectedSectorsIdProvider.notifier).add(sectorId);
     } else {
       selectedSectorsId.removeAt(sectorIndexInList);
-      ref
-          .read(selectedSectorsIdProvider.notifier)
-          .removeAtIndex(sectorId, sectorIndexInList);
+      ref.read(selectedSectorsIdProvider.notifier).removeAtIndex(sectorId, sectorIndexInList);
     }
   }
 }

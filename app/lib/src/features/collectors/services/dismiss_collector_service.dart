@@ -7,9 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'dismiss_collector_service.g.dart';
 
 class DismissCollectorService {
-  const DismissCollectorService(
-    this._ref,
-  );
+  const DismissCollectorService(this._ref);
   final Ref _ref;
 
   /// Handles the deletion of all data related to a collector
@@ -17,14 +15,12 @@ class DismissCollectorService {
   Future<void> dismissCollector(String collectorId) async {
     final collectorRepo = _ref.read(collectorRepositoryProvider);
     final collectorSectorRepo = _ref.read(collectorSectorRepositoryProvider);
-    final collectorWasDeleted =
-        await collectorRepo.deleteCollector(collectorId);
+    final collectorWasDeleted = await collectorRepo.deleteCollector(collectorId);
     // if the collector deletion was completed successfully
     if (collectorWasDeleted) {
       debugPrint('Collector deleted successfully');
       // get a list of all the sectors connected to the collector
-      final collectorSectors =
-          await collectorSectorRepo.getCollectorSectorsById(collectorId);
+      final collectorSectors = await collectorSectorRepo.getCollectorSectorsById(collectorId);
 
       if (collectorSectors.isEmpty) {
         debugPrint('No sectors connected to the collector');

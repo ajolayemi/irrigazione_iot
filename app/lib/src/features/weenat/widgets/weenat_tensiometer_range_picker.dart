@@ -19,7 +19,6 @@ class WeenatTensiometerRangePicker extends ConsumerWidget {
     return Align(
       alignment: Alignment.topRight,
       child: Row(
-   
         mainAxisAlignment: MainAxisAlignment.end,
         // crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -28,10 +27,7 @@ class WeenatTensiometerRangePicker extends ConsumerWidget {
             child: Text(
               loc.tensiometerDepth,
               textScaler: const TextScaler.linear(1),
-              style: textTheme.labelMedium?.copyWith(
-                color: AppColorsPalette.white,
-                fontWeight: FontWeight.bold,
-              ),
+              style: textTheme.labelMedium?.copyWith(color: AppColorsPalette.white, fontWeight: FontWeight.bold),
             ),
           ),
           gapW8,
@@ -39,60 +35,42 @@ class WeenatTensiometerRangePicker extends ConsumerWidget {
             decoration: BoxDecoration(
               color: AppColorsPalette.white,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: AppColorsPalette.grey4,
-                width: 1,
-              ),
+              border: Border.all(color: AppColorsPalette.grey4, width: 1),
             ),
             child: Column(
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ...ranges.mapIndexed(
-                  (index, item) {
-                    return Consumer(
-                      builder: (context, ref, child) {
-                        final isSelected = ref.watch(
-                          tensiometerRangeIsSelectedProvider(item),
-                        );
-                        final isFirstItem = index == 0;
-                        final defaultDec = BoxDecoration(
-                          color: isSelected
-                              ? AppColorsPalette.weenatBlue
-                              : AppColorsPalette.white,
-                          borderRadius: isFirstItem
-                              ? const BorderRadius.only(
-                                  topLeft: Radius.circular(8),
-                                  topRight: Radius.circular(8),
-                                )
-                              : null,
-                        );
-            
-                        return WeenatTensiometerRangePickerItem(
-                          label: item.toString(),
-                          labelColor: isSelected
-                              ? AppColorsPalette.white
-                              : AppColorsPalette.grey8,
-                          decoration: defaultDec,
-                          onTap: (range) {
-                            if (range == null || isSelected) return;
-                            ref
-                                .read(selectedTensiometerRangeProvider.notifier)
-                                .setSelected(range);
-                          },
-                        );
-                      },
-                    );
-                  },
-                ),
+                ...ranges.mapIndexed((index, item) {
+                  return Consumer(
+                    builder: (context, ref, child) {
+                      final isSelected = ref.watch(tensiometerRangeIsSelectedProvider(item));
+                      final isFirstItem = index == 0;
+                      final defaultDec = BoxDecoration(
+                        color: isSelected ? AppColorsPalette.weenatBlue : AppColorsPalette.white,
+                        borderRadius:
+                            isFirstItem
+                                ? const BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))
+                                : null,
+                      );
+
+                      return WeenatTensiometerRangePickerItem(
+                        label: item.toString(),
+                        labelColor: isSelected ? AppColorsPalette.white : AppColorsPalette.grey8,
+                        decoration: defaultDec,
+                        onTap: (range) {
+                          if (range == null || isSelected) return;
+                          ref.read(selectedTensiometerRangeProvider.notifier).setSelected(range);
+                        },
+                      );
+                    },
+                  );
+                }),
                 WeenatTensiometerRangePickerItem(
                   label: loc.centimeters,
                   labelColor: AppColorsPalette.white,
                   decoration: const BoxDecoration(
                     color: AppColorsPalette.grey8,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(8),
-                      bottomRight: Radius.circular(8),
-                    ),
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8)),
                   ),
                   isClickable: false,
                 ),

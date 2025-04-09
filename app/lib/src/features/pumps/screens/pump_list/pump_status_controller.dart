@@ -19,15 +19,11 @@ class PumpStatusController extends _$PumpStatusController {
     state = AsyncData(state.value!.setLoading(pumpId, isLoading));
   }
 
-  Future<void> toggleStatus(
-    Pump pump,
-    bool status,
-  ) async {
+  Future<void> toggleStatus(Pump pump, bool status) async {
     setLoading(pump.id, true);
     state = const AsyncLoading<CustomControllerState>().copyWithPrevious(state);
     final pumpStatusService = ref.read(pumpStatusServiceProvider);
-    final value = await AsyncValue.guard(
-        () => pumpStatusService.toggleStatus(pump: pump, status: status));
+    final value = await AsyncValue.guard(() => pumpStatusService.toggleStatus(pump: pump, status: status));
     if (value.hasError) {
       state = AsyncError(value.error!, StackTrace.current);
     } else {

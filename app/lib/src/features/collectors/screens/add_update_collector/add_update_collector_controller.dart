@@ -15,14 +15,10 @@ class AddUpdateCollectorController extends _$AddUpdateCollectorController {
     final collectorService = ref.read(addUpdateCollectorServiceProvider);
     state = const AsyncLoading();
     if (collectorToCreate == null) {
-      state = AsyncError(
-        'no collector object provided for creation',
-        StackTrace.current,
-      );
+      state = AsyncError('no collector object provided for creation', StackTrace.current);
       return Future.value(false);
     }
-    state = await AsyncValue.guard(
-        () => collectorService.createCollector(collectorToCreate));
+    state = await AsyncValue.guard(() => collectorService.createCollector(collectorToCreate));
     return !state.hasError;
   }
 
@@ -30,15 +26,11 @@ class AddUpdateCollectorController extends _$AddUpdateCollectorController {
     final collectorService = ref.read(addUpdateCollectorServiceProvider);
     state = const AsyncLoading();
     if (collectorToUpdate == null) {
-      state = AsyncError(
-        'no collector object provided for update',
-        StackTrace.current,
-      );
+      state = AsyncError('no collector object provided for update', StackTrace.current);
       return false;
     }
 
-    state = await AsyncValue.guard(
-        () => collectorService.updateCollector(collectorToUpdate));
+    state = await AsyncValue.guard(() => collectorService.updateCollector(collectorToUpdate));
     return !state.hasError;
   }
 }

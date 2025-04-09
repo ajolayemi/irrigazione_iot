@@ -12,9 +12,7 @@ part 'weather_station_battery_repository.g.dart';
 
 abstract class WeatherStationBatteryRepository {
   /// Returns the last [WeatherStationBattery] data for the given [weatherStationId]
-  Future<WeatherStationBattery?> getLastWeatherStationBattery(
-    String weatherStationId,
-  );
+  Future<WeatherStationBattery?> getLastWeatherStationBattery(String weatherStationId);
 }
 
 @Riverpod(keepAlive: true)
@@ -26,16 +24,10 @@ WeatherStationBatteryRepository weatherStationBatteryRepository(Ref ref) {
 /// Holds onto the most recent [WeatherStationBattery] for a weather station
 /// It auto updates at a set interval
 @Riverpod(keepAlive: true)
-FutureOr<WeatherStationBattery?> weatherStationBattery(
-  Ref ref, {
-  required String weatherStationId,
-}) {
-  final timer = Timer.periodic(
-    AppConstants.weatherStationBatteryUpdateInterval,
-    (_) {
-      ref.invalidateSelf();
-    },
-  );
+FutureOr<WeatherStationBattery?> weatherStationBattery(Ref ref, {required String weatherStationId}) {
+  final timer = Timer.periodic(AppConstants.weatherStationBatteryUpdateInterval, (_) {
+    ref.invalidateSelf();
+  });
 
   ref.onDispose(() {
     timer.cancel();

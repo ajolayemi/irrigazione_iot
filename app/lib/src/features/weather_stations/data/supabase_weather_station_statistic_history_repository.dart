@@ -5,24 +5,21 @@ import 'package:irrigazione_iot/src/features/weather_stations/models/weather_sta
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_statistic_history.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
-class SupabaseWeatherStationStatisticHistoryRepository
-    implements WeatherStationStatisticHistoryRepository {
+class SupabaseWeatherStationStatisticHistoryRepository implements WeatherStationStatisticHistoryRepository {
   const SupabaseWeatherStationStatisticHistoryRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
   String get _createdAt => WeatherStationMeasurementsDatabaseKeys.createdAt;
-  String get _weatherStationId =>
-      WeatherStationMeasurementsDatabaseKeys.weatherStationId;
+  String get _weatherStationId => WeatherStationMeasurementsDatabaseKeys.weatherStationId;
 
-  List<WeatherStationStatisticHistory> _convert(
-    List<Map<String, dynamic>> data,
-    String colName,
-  ) {
+  List<WeatherStationStatisticHistory> _convert(List<Map<String, dynamic>> data, String colName) {
     return data
-        .map((e) => WeatherStationStatisticHistory(
-              value: e[colName] as num,
-              createdAt: DateTime.parse(e[_createdAt] as String),
-            ))
+        .map(
+          (e) => WeatherStationStatisticHistory(
+            value: e[colName] as num,
+            createdAt: DateTime.parse(e[_createdAt] as String),
+          ),
+        )
         .toList();
   }
 

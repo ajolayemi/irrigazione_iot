@@ -25,9 +25,7 @@ class PumpsSwitchedOnList extends ConsumerWidget {
         if (data == null || data.isEmpty) {
           return DashboardItemColumn(
             title: loc.pumpsSwitchedOn,
-            child: EmptyPlaceholderWidget(
-              message: loc.noPumpsSwitchedOn,
-            ),
+            child: EmptyPlaceholderWidget(message: loc.noPumpsSwitchedOn),
           );
         }
 
@@ -37,9 +35,7 @@ class PumpsSwitchedOnList extends ConsumerWidget {
             items: data,
             itemBuilder: (context, index) {
               final pumpSwitchedOn = data[index];
-              return PumpSwitchedOnListTile(
-                pumpSwitchedOn: pumpSwitchedOn,
-              );
+              return PumpSwitchedOnListTile(pumpSwitchedOn: pumpSwitchedOn);
             },
           ),
         );

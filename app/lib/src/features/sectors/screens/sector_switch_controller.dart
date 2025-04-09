@@ -23,8 +23,7 @@ class SectorSwitchController extends _$SectorSwitchController {
     setLoading(sector.id, true);
     state = const AsyncLoading<CustomControllerState>().copyWithPrevious(state);
     final service = ref.read(sectorStatusServiceProvider);
-    final value =
-        await AsyncValue.guard(() => service.toggleStatus(sector: sector, status: status));
+    final value = await AsyncValue.guard(() => service.toggleStatus(sector: sector, status: status));
     if (value.hasError) {
       state = AsyncError(value.error!, StackTrace.current);
     } else {

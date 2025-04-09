@@ -26,30 +26,20 @@ AvailableSectorRepository availableSectorRepository(Ref ref) {
 /// to a collector. If a collectorId is provided, the emitted list will include
 /// the sectors already connected to the collector.
 @riverpod
-Stream<List<AvailableSector>?> availableSectorsStream(Ref ref,
-    {String? collectorId}) {
+Stream<List<AvailableSector>?> availableSectorsStream(Ref ref, {String? collectorId}) {
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return Stream.value([]);
 
   if (collectorId == null || collectorId.isEmpty) {
-    return ref
-        .read(availableSectorRepositoryProvider)
-        .watchAvailableSectors(companyId);
+    return ref.read(availableSectorRepositoryProvider).watchAvailableSectors(companyId);
   }
-  final sectorsAlreadyConnectedToCollector = ref
-      .watch(
-        collectorSectorsStreamProvider(collectorId),
-      )
-      .valueOrNull;
-  List<AvailableSector>? toAvailableSectors = sectorsAlreadyConnectedToCollector
-      ?.map((e) => AvailableSector(
-            sectorId: e!.sectorId,
-            companyId: companyId,
-          ))
-      .toList();
+  final sectorsAlreadyConnectedToCollector = ref.watch(collectorSectorsStreamProvider(collectorId)).valueOrNull;
+  List<AvailableSector>? toAvailableSectors =
+      sectorsAlreadyConnectedToCollector
+          ?.map((e) => AvailableSector(sectorId: e!.sectorId, companyId: companyId))
+          .toList();
 
-  return ref.read(availableSectorRepositoryProvider).watchAvailableSectors(
-        companyId,
-        sectorsAlreadyConnectedToCollector: toAvailableSectors,
-      );
+  return ref
+      .read(availableSectorRepositoryProvider)
+      .watchAvailableSectors(companyId, sectorsAlreadyConnectedToCollector: toAvailableSectors);
 }

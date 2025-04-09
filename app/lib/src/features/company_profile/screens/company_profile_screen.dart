@@ -12,19 +12,13 @@ import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class CompanyProfileScreen extends ConsumerWidget {
-  const CompanyProfileScreen({
-    super.key,
-    required this.companyID,
-  });
+  const CompanyProfileScreen({super.key, required this.companyID});
 
   final String companyID;
 
   void _onTap(BuildContext context) {
     final params = PathParameters(id: companyID).toJson();
-    context.pushNamed(
-      AppRoute.updateCompany.name,
-      pathParameters: params,
-    );
+    context.pushNamed(AppRoute.updateCompany.name, pathParameters: params);
   }
 
   @override
@@ -40,18 +34,11 @@ class CompanyProfileScreen extends ConsumerWidget {
 
                 return AppSliverBar(
                   title: loc.companyProfileMenuTitle,
-                  actions: [
-                    CommonEditIconButton(
-                      onPressed: () => _onTap(context),
-                      alternateIsVisible: canEdit,
-                    )
-                  ],
+                  actions: [CommonEditIconButton(onPressed: () => _onTap(context), alternateIsVisible: canEdit)],
                 );
               },
             ),
-            CompanyProfileScreenContents(
-              companyID: companyID,
-            ),
+            CompanyProfileScreenContents(companyID: companyID),
           ],
         ),
       ),

@@ -35,11 +35,9 @@ class AddUpdateCompanyUserService {
     }
 
     // Reaching here means all necessary checks have been passed
-    await _ref.read(companyUsersRepositoryProvider).addCompanyUser(
-          companyUser: companyUser.copyWith(
-            companyId: companyId,
-          ),
-        );
+    await _ref
+        .read(companyUsersRepositoryProvider)
+        .addCompanyUser(companyUser: companyUser.copyWith(companyId: companyId));
   }
 
   Future<void> updateCompanyUser(CompanyUser companyUser) async {
@@ -53,14 +51,11 @@ class AddUpdateCompanyUserService {
     }
 
     // Reaching here means all necessary checks have been passed
-    await _ref.read(companyUsersRepositoryProvider).updateCompanyUser(
-          companyUser: companyUser,
-        );
+    await _ref.read(companyUsersRepositoryProvider).updateCompanyUser(companyUser: companyUser);
   }
 }
 
 @riverpod
-AddUpdateCompanyUserService addUpdateCompanyUserService(
-    Ref ref) {
+AddUpdateCompanyUserService addUpdateCompanyUserService(Ref ref) {
   return AddUpdateCompanyUserService(ref);
 }

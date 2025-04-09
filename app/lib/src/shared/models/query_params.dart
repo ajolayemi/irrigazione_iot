@@ -4,11 +4,7 @@ part 'query_params.g.dart';
 
 @JsonSerializable()
 class QueryParameters {
-  const QueryParameters({
-    this.id,
-    this.name,
-    this.previouslyConnectedId,
-  });
+  const QueryParameters({this.id, this.name, this.previouslyConnectedId});
 
   /// Could be the id of a pump, a specie, a sector, etc.
   final String? id;
@@ -21,8 +17,7 @@ class QueryParameters {
   /// This keeps track of that
   final String? previouslyConnectedId;
 
-  factory QueryParameters.fromJson(Map<String, dynamic> json) =>
-      _$QueryParametersFromJson(json);
+  factory QueryParameters.fromJson(Map<String, dynamic> json) => _$QueryParametersFromJson(json);
 
   Map<String, dynamic> toJson() => _$QueryParametersToJson(this);
 }

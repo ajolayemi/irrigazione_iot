@@ -8,8 +8,7 @@ part 'select_a_specie_query_result.g.dart';
 @riverpod
 class SelectASpecieQueryResult extends _$SelectASpecieQueryResult {
   @override
-  FutureOr<List<Specie>?> build() =>
-      ref.watch(speciesFutureProvider).valueOrNull ?? [];
+  FutureOr<List<Specie>?> build() => ref.watch(speciesFutureProvider).valueOrNull ?? [];
 
   void search(String query) {
     reset();
@@ -19,15 +18,15 @@ class SelectASpecieQueryResult extends _$SelectASpecieQueryResult {
 
       // set state to loading
       state = const AsyncLoading<List<Specie>?>();
-      final filteredSpecies = currentState.where((specie) {
-        final name = specie.name.toLowerCase();
-        final queryLower = query.toLowerCase();
-        return name.contains(queryLower);
-      }).toList();
+      final filteredSpecies =
+          currentState.where((specie) {
+            final name = specie.name.toLowerCase();
+            final queryLower = query.toLowerCase();
+            return name.contains(queryLower);
+          }).toList();
 
       state = AsyncData<List<Specie>?>([...filteredSpecies]);
     }
-
     // If query is empty, reset the list of species to the original list
     else {
       reset();

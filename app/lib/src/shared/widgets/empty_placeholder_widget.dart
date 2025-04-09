@@ -15,12 +15,7 @@ class EmptyPlaceholderWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              message,
-              style: context.textTheme.bodyLarge,
-            ),
-          ],
+          children: [Text(message, style: context.textTheme.bodyLarge)],
         ),
       ),
     );

@@ -22,12 +22,10 @@ class SignUpScreenContents extends ConsumerStatefulWidget {
   const SignUpScreenContents({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _SignUpScreenContentsState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SignUpScreenContentsState();
 }
 
-class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
-    with AppFormValidators {
+class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents> with AppFormValidators {
   final _node = FocusScopeNode();
   final _formKey = GlobalKey<FormState>();
 
@@ -50,8 +48,7 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
   static const passwordKey = Key('signUpPassword');
   static const confirmPasswordKey = Key('signUpConfirmPassword');
   static const passwordVisibilityKey = Key('signUpPasswordVisibility');
-  static const confirmPasswordVisibilityKey =
-      Key('signUpConfirmPasswordVisibility');
+  static const confirmPasswordVisibilityKey = Key('signUpConfirmPasswordVisibility');
 
   var _submitted = false;
 
@@ -76,32 +73,22 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
 
   String? _nonEmptyFieldsErrorText(String value) {
     if (!_submitted) return null;
-    return context.getLocalizedErrorText(
-      errorKey: getNonEmptyFieldsErrorKey(value: value),
-    );
+    return context.getLocalizedErrorText(errorKey: getNonEmptyFieldsErrorKey(value: value));
   }
 
   void _emailEditingComplete() {
-    if (canSubmitEmail(
-      value: _email,
-    )) {
+    if (canSubmitEmail(value: _email)) {
       _node.nextFocus();
     }
   }
 
   String? _emailErrorText() {
     if (!_submitted) return null;
-    return context.getLocalizedErrorText(
-        errorKey: getEmailErrorKey(
-      value: _email,
-    ));
+    return context.getLocalizedErrorText(errorKey: getEmailErrorKey(value: _email));
   }
 
   void _passwordEditingComplete() {
-    if (canSubmitPassword(
-      value: _password,
-      minLength: AppConstants.minPasswordLength,
-    )) {
+    if (canSubmitPassword(value: _password, minLength: AppConstants.minPasswordLength)) {
       _node.nextFocus();
     }
   }
@@ -110,18 +97,12 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
     if (!_submitted) return null;
     return context.getLocalizedErrorText(
       minFieldLength: AppConstants.minPasswordLength,
-      errorKey: getPasswordErrorKey(
-        value: _password,
-        minLength: AppConstants.minPasswordLength,
-      ),
+      errorKey: getPasswordErrorKey(value: _password, minLength: AppConstants.minPasswordLength),
     );
   }
 
   void _confirmPasswordEditingComplete() {
-    if (canSubmitConfirmPassword(
-      password: _password,
-      confirmPassword: _confirmPassword,
-    )) {
+    if (canSubmitConfirmPassword(password: _password, confirmPassword: _confirmPassword)) {
       _node.unfocus();
     }
   }
@@ -129,10 +110,7 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
   String? _confirmPasswordErrorText() {
     if (!_submitted) return null;
     return context.getLocalizedErrorText(
-      errorKey: getConfirmPasswordErrorKey(
-        password: _password,
-        confirmPassword: _confirmPassword,
-      ),
+      errorKey: getConfirmPasswordErrorKey(password: _password, confirmPassword: _confirmPassword),
     );
   }
 
@@ -151,19 +129,13 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
     _node.unfocus();
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
-      final data = AppUser(
-        uid: '',
-        email: _email,
-        name: _name,
-        surname: _surname,
-      );
+      final data = AppUser(uid: '', email: _email, name: _name, surname: _surname);
 
       final signUpSuccess = await ref
           .read(signUpControllerProvider.notifier)
           .signUpUser(appUser: data, password: _password);
 
-      final hasEmailAlreadyInUseError = ref.read(signUpControllerProvider).error
-          is EmailAlreadyInUseException;
+      final hasEmailAlreadyInUseError = ref.read(signUpControllerProvider).error is EmailAlreadyInUseException;
       if (hasEmailAlreadyInUseError) {
         _emailAlreadyInUseErrorText = loc.emailAlreadyInUseErrorText;
         return;
@@ -198,15 +170,9 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
                     formKey: _formKey,
                     children: [
                       gapH32,
-                      Text(
-                        loc.signUpPageIntroductoryTitleText,
-                        style: context.textTheme.titleLarge,
-                      ),
+                      Text(loc.signUpPageIntroductoryTitleText, style: context.textTheme.titleLarge),
                       gapH8,
-                      Text(
-                        loc.signUpPageIntroductorySubtitleText,
-                        style: context.textTheme.titleSmall,
-                      ),
+                      Text(loc.signUpPageIntroductorySubtitleText, style: context.textTheme.titleSmall),
                       gapH32,
                       // name field
                       FormTitleAndField(
@@ -216,8 +182,7 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
                         fieldController: _nameController,
                         keyboardType: TextInputType.name,
                         validator: (_) => _nonEmptyFieldsErrorText(_name),
-                        onEditingComplete: () =>
-                            _nonEmptyFieldsEditingComplete(_name),
+                        onEditingComplete: () => _nonEmptyFieldsEditingComplete(_name),
                       ),
                       gapH16,
                       // surname field
@@ -228,36 +193,37 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
                         fieldController: _surnameController,
                         keyboardType: TextInputType.name,
                         validator: (_) => _nonEmptyFieldsErrorText(_surname),
-                        onEditingComplete: () =>
-                            _nonEmptyFieldsEditingComplete(_surname),
+                        onEditingComplete: () => _nonEmptyFieldsEditingComplete(_surname),
                       ),
                       gapH16,
                       // email field
                       FormTitleAndField(
-                          fieldKey: emailKey,
-                          fieldTitle: loc.emailFormFieldTitle,
-                          fieldHintText: loc.emailFormHint,
-                          fieldController: _emailController,
-                          errorText: _emailAlreadyInUseErrorText,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (_) => _emailErrorText(),
-                          onEditingComplete: _emailEditingComplete),
+                        fieldKey: emailKey,
+                        fieldTitle: loc.emailFormFieldTitle,
+                        fieldHintText: loc.emailFormHint,
+                        fieldController: _emailController,
+                        errorText: _emailAlreadyInUseErrorText,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (_) => _emailErrorText(),
+                        onEditingComplete: _emailEditingComplete,
+                      ),
                       gapH16,
                       // password field
                       FormTitleAndField(
-                          fieldKey: passwordKey,
-                          fieldTitle: loc.passwordFormFieldTitle,
-                          fieldHintText: loc.passwordFormHint,
-                          fieldController: _passwordController,
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: obscurePassword,
-                          validator: (_) => _passwordErrorText(),
-                          onEditingComplete: _passwordEditingComplete,
-                          suffixIcon: PasswordVisibilityIconButton(
-                            key: passwordVisibilityKey,
-                            isVisible: obscurePassword,
-                            onPressed: _onTapViewPassword,
-                          )),
+                        fieldKey: passwordKey,
+                        fieldTitle: loc.passwordFormFieldTitle,
+                        fieldHintText: loc.passwordFormHint,
+                        fieldController: _passwordController,
+                        keyboardType: TextInputType.visiblePassword,
+                        obscureText: obscurePassword,
+                        validator: (_) => _passwordErrorText(),
+                        onEditingComplete: _passwordEditingComplete,
+                        suffixIcon: PasswordVisibilityIconButton(
+                          key: passwordVisibilityKey,
+                          isVisible: obscurePassword,
+                          onPressed: _onTapViewPassword,
+                        ),
+                      ),
                       gapH16,
                       // confirm password field
                       FormTitleAndField(
@@ -277,9 +243,7 @@ class _SignUpScreenContentsState extends ConsumerState<SignUpScreenContents>
                       ),
                       gapH32,
                       // sign up button
-                      SignUpSliverCtaButton(
-                        onPressed: _signUp,
-                      ),
+                      SignUpSliverCtaButton(onPressed: _signUp),
                       gapH32,
                     ],
                   ),

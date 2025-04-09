@@ -8,15 +8,9 @@ class PumpDetailsSliverListSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (context, index) {
-          return CommonSkeletonTile(
-            hasLeading: false,
-            hasTrailing: index == 0,
-          );
-        },
-        childCount: 5,
-      ),
+      delegate: SliverChildBuilderDelegate((context, index) {
+        return CommonSkeletonTile(hasLeading: false, hasTrailing: index == 0);
+      }, childCount: 5),
     );
   }
 }

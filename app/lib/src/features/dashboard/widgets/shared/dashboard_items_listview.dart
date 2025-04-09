@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DashboardItemsListView<T> extends StatelessWidget {
-  const DashboardItemsListView({
-    super.key,
-    required this.items,
-    required this.itemBuilder,
-  });
+  const DashboardItemsListView({super.key, required this.items, required this.itemBuilder});
 
   final List<T> items;
   final Widget? Function(BuildContext, int) itemBuilder;

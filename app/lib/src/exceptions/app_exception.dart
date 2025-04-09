@@ -8,13 +8,13 @@ sealed class AppException implements Exception {
   String toString() => message;
 }
 
-
 class EmailAlreadyInUseException extends AppException {
   EmailAlreadyInUseException() : super('email-already-in-use', 'Email already in use');
 }
 
 class UserNotFoundException extends AppException {
-  UserNotFoundException() : super('user-not-found', 'User not found, check that you entered the right email and password');
+  UserNotFoundException()
+    : super('user-not-found', 'User not found, check that you entered the right email and password');
 }
 
 class IdenticalPasswordException extends AppException {
@@ -28,4 +28,3 @@ class PasswordTooShortException extends AppException {
 class IncorrectWeenatCredentialsException extends AppException {
   IncorrectWeenatCredentialsException() : super('incorrect-weenat-credentials', 'Incorrect Weenat credentials');
 }
-

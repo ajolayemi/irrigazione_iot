@@ -41,8 +41,7 @@ Stream<bool> userIsAdminStream(Ref ref) {
   final authRepo = ref.watch(authRepositoryProvider);
   final email = authRepo.currentSession?.user.email;
   if (email == null) return Stream.value(false);
-  final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).value;
+  final currentSelectedCompanyByUser = ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return Stream.value(false);
   final roleRepo = ref.watch(roleManagementRepositoryProvider);
   return roleRepo.isUserAdmin(email, currentSelectedCompanyByUser.id);
@@ -62,8 +61,7 @@ Stream<bool> userIsOwnerStream(Ref ref) {
   final authRepo = ref.watch(authRepositoryProvider);
   final email = authRepo.currentSession?.user.email;
   if (email == null) return Stream.value(false);
-  final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).value;
+  final currentSelectedCompanyByUser = ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return Stream.value(false);
   final roleRepo = ref.watch(roleManagementRepositoryProvider);
   return roleRepo.isUserOwner(email, currentSelectedCompanyByUser.id);
@@ -74,8 +72,7 @@ Stream<bool> userIsBasicStream(Ref ref) {
   final authRepo = ref.watch(authRepositoryProvider);
   final email = authRepo.currentSession?.user.email;
   if (email == null) return Stream.value(false);
-  final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).value;
+  final currentSelectedCompanyByUser = ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return Stream.value(false);
   final roleRepo = ref.watch(roleManagementRepositoryProvider);
   return roleRepo.isBasicUser(email, currentSelectedCompanyByUser.id);

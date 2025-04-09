@@ -11,13 +11,11 @@ class SectorPressureForDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pressure =
-        ref.watch(sectorLastPressureStreamProvider(sectorId)).valueOrNull;
+    final pressure = ref.watch(sectorLastPressureStreamProvider(sectorId)).valueOrNull;
 
     return DashboardChildItemDetailsRow(
       leading: const Text('Pressione settore'),
-      trailing:
-          CommonPressureRateTrailingText(pressure: pressure?.pressure ?? 0.0),
+      trailing: CommonPressureRateTrailingText(pressure: pressure?.pressure ?? 0.0),
     );
   }
 }

@@ -7,10 +7,7 @@ import 'package:irrigazione_iot/src/shared/widgets/empty_placeholder_widget.dart
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class WeatherStationDetailsScreen extends ConsumerWidget {
-  const WeatherStationDetailsScreen({
-    super.key,
-    required this.weatherStationId,
-  });
+  const WeatherStationDetailsScreen({super.key, required this.weatherStationId});
 
   final String weatherStationId;
 
@@ -27,9 +24,7 @@ class WeatherStationDetailsScreen extends ConsumerWidget {
           }
           return WeatherStationDetailsScreenContents(weatherStation: data);
         },
-        loading: () => const Center(
-          child: CircularProgressIndicator.adaptive(),
-        ),
+        loading: () => const Center(child: CircularProgressIndicator.adaptive()),
       ),
     );
   }

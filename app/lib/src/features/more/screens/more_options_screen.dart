@@ -9,10 +9,6 @@ class MoreOptionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO add statistics section
     // TODO fertirrigazione section
-    return const Scaffold(
-      body: PaddedSafeArea(
-        child: MoreOptionsScreenContent(),
-      ),
-    );
+    return const Scaffold(body: PaddedSafeArea(child: MoreOptionsScreenContent()));
   }
 }

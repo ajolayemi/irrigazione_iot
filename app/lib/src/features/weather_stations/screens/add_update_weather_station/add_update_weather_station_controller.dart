@@ -5,8 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'add_update_weather_station_controller.g.dart';
 
 @riverpod
-class AddUpdateWeatherStationController
-    extends _$AddUpdateWeatherStationController {
+class AddUpdateWeatherStationController extends _$AddUpdateWeatherStationController {
   @override
   FutureOr<void> build() {}
 
@@ -18,8 +17,7 @@ class AddUpdateWeatherStationController
       return false;
     }
 
-    state = await AsyncValue.guard(
-        () => service.createWeatherStation(weatherStation));
+    state = await AsyncValue.guard(() => service.createWeatherStation(weatherStation));
     return !state.hasError;
   }
 

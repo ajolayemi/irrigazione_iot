@@ -9,18 +9,9 @@ part 'sector_pump.g.dart';
 
 @JsonSerializable()
 class SectorPump extends Equatable {
-  const SectorPump({
-    required this.id,
-    required this.sectorId,
-    required this.pumpId,
-    this.createdAt,
-  });
+  const SectorPump({required this.id, required this.sectorId, required this.pumpId, this.createdAt});
 
-  const SectorPump.empty()
-      : id = '',
-        sectorId = '',
-        pumpId = '',
-        createdAt = null;
+  const SectorPump.empty() : id = '', sectorId = '', pumpId = '', createdAt = null;
 
   @JsonKey(name: SectorPumpDatabaseKeys.id, includeToJson: false)
   @IntConverter()
@@ -40,17 +31,11 @@ class SectorPump extends Equatable {
   @override
   List<Object?> get props => [id, sectorId, pumpId, createdAt];
 
-  factory SectorPump.fromJson(Map<String, dynamic> json) =>
-      _$SectorPumpFromJson(json);
+  factory SectorPump.fromJson(Map<String, dynamic> json) => _$SectorPumpFromJson(json);
 
   Map<String, dynamic> toJson() => _$SectorPumpToJson(this);
 
-  SectorPump copyWith({
-    String? id,
-    String? sectorId,
-    String? pumpId,
-    DateTime? createdAt,
-  }) {
+  SectorPump copyWith({String? id, String? sectorId, String? pumpId, DateTime? createdAt}) {
     return SectorPump(
       id: id ?? this.id,
       sectorId: sectorId ?? this.sectorId,

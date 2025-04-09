@@ -10,8 +10,7 @@ class SupabaseCompanyRepository implements CompanyRepository {
   const SupabaseCompanyRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
-  Company? _companyFromJson(Map<String, dynamic>? data) =>
-      data == null ? null : Company.fromJson(data);
+  Company? _companyFromJson(Map<String, dynamic>? data) => data == null ? null : Company.fromJson(data);
 
   Company? _companyFromJsonSingle(List<Map<String, dynamic>> data) =>
       data.isEmpty ? null : Company.fromJson(data.first);
@@ -19,12 +18,7 @@ class SupabaseCompanyRepository implements CompanyRepository {
   @override
   Future<Company?> addCompany({required Company company}) async {
     // set created_at and updated_at fields
-    final data = company
-        .copyWith(
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-        )
-        .toJson();
+    final data = company.copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now()).toJson();
 
     final res = await _supabaseClient.invokeFunction(
       functionName: 'insert-company',
@@ -40,10 +34,7 @@ class SupabaseCompanyRepository implements CompanyRepository {
     final data = company.copyWith(updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'update-company',
-      body: UpdateBody(
-        id: company.id,
-        data: data,
-      ).toJson(),
+      body: UpdateBody(id: company.id, data: data).toJson(),
     );
 
     return res.toObject<Company>(Company.fromJson);
@@ -60,11 +51,10 @@ class SupabaseCompanyRepository implements CompanyRepository {
   }
 
   @override
-  Future<Company?> fetchCompany(String companyId) =>
-      _supabaseClient.selectedCompanies
-          .eq(CompanyDatabaseKeys.id, companyId)
-          .maybeSingle()
-          .withConverter(_companyFromJson);
+  Future<Company?> fetchCompany(String companyId) => _supabaseClient.selectedCompanies
+      .eq(CompanyDatabaseKeys.id, companyId)
+      .maybeSingle()
+      .withConverter(_companyFromJson);
 
   @override
   Stream<Company?> watchCompany(String companyId) {

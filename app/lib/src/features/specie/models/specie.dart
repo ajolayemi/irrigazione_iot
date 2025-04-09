@@ -9,11 +9,7 @@ part 'specie.g.dart';
 
 @JsonSerializable()
 class Specie extends Equatable {
-  const Specie({
-    required this.id,
-    required this.name,
-    this.createdAt,
-  });
+  const Specie({required this.id, required this.name, this.createdAt});
 
   @JsonKey(name: SpecieDatabaseKeys.id)
   @IntConverter()

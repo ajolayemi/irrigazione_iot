@@ -10,15 +10,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'add_update_board_service.g.dart';
 
 class AddUpdateBoardService {
-  const AddUpdateBoardService(
-    this._ref,
-  );
+  const AddUpdateBoardService(this._ref);
   final Ref _ref;
 
-  Future<void> createBoard({
-    required Board board,
-    required String collectorIdToConnect,
-  }) async {
+  Future<void> createBoard({required Board board, required String collectorIdToConnect}) async {
     // the board argument that is provided as argument has no company
     // id, so we need to get it from somewhere else
 
@@ -40,22 +35,16 @@ class AddUpdateBoardService {
     }
 
     // Reaching here means all necessary checks have been passed
-    final createdBoard = await _ref.read(boardRepositoryProvider).createBoard(
-          board: board.copyWith(
-            companyId: companyId,
-            collectorId: collectorIdToConnect,
-          ),
-        );
+    final createdBoard = await _ref
+        .read(boardRepositoryProvider)
+        .createBoard(board: board.copyWith(companyId: companyId, collectorId: collectorIdToConnect));
 
     ProviderUtils.invalidateBoardStates(board: createdBoard, ref: _ref);
 
     debugPrint('created board: ${createdBoard?.toJson()}');
   }
 
-  Future<void> updateBoard({
-    required Board board,
-    required String collectorIdToConnect,
-  }) async {
+  Future<void> updateBoard({required Board board, required String collectorIdToConnect}) async {
     // The only check to perform here is to make sure that who reaches
     // here is a logged in user, that is so because an updated board
     // should have all the necessary information attached already from the form
@@ -64,11 +53,9 @@ class AddUpdateBoardService {
       debugPrint('Exiting updateBoard, user is null');
       return;
     }
-    final updatedBoard = await _ref.read(boardRepositoryProvider).updateBoard(
-          board: board.copyWith(
-            collectorId: collectorIdToConnect,
-          ),
-        );
+    final updatedBoard = await _ref
+        .read(boardRepositoryProvider)
+        .updateBoard(board: board.copyWith(collectorId: collectorIdToConnect));
 
     ProviderUtils.invalidateBoardStates(board: updatedBoard, ref: _ref);
 

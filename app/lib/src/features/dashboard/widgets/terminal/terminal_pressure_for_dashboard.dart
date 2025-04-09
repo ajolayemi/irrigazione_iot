@@ -12,11 +12,7 @@ class TerminalPressureForDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final collectorId = ref
-        .watch(
-          collectorIdBySectorIdStreamProvider(sectorId),
-        )
-        .valueOrNull;
+    final collectorId = ref.watch(collectorIdBySectorIdStreamProvider(sectorId)).valueOrNull;
 
     if (collectorId == null) {
       return const TerminalPressureForDashboardContent();
@@ -24,12 +20,9 @@ class TerminalPressureForDashboard extends ConsumerWidget {
 
     return Consumer(
       builder: (context, ref, child) {
-        final terminalPressure =
-            ref.watch(terminalPressureStreamProvider(collectorId));
+        final terminalPressure = ref.watch(terminalPressureStreamProvider(collectorId));
         final pressure = terminalPressure.valueOrNull?.pressure;
-        return TerminalPressureForDashboardContent(
-          pressure: pressure,
-        );
+        return TerminalPressureForDashboardContent(pressure: pressure);
       },
     );
   }
@@ -44,9 +37,7 @@ class TerminalPressureForDashboardContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return DashboardChildItemDetailsRow(
       leading: const Text('Pressione terminale'),
-      trailing: CommonPressureRateTrailingText(
-        pressure: pressure ?? 0.0,
-      ),
+      trailing: CommonPressureRateTrailingText(pressure: pressure ?? 0.0),
     );
   }
 }

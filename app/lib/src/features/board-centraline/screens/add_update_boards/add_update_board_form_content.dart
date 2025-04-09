@@ -23,22 +23,16 @@ import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class AddUpdateBoardFormContent extends ConsumerStatefulWidget {
-  const AddUpdateBoardFormContent({
-    super.key,
-    required this.formType,
-    this.boardID,
-  });
+  const AddUpdateBoardFormContent({super.key, required this.formType, this.boardID});
 
   final String? boardID;
   final GenericFormTypes formType;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _AddUpdateBoardFormContentState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _AddUpdateBoardFormContentState();
 }
 
-class _AddUpdateBoardFormContentState
-    extends ConsumerState<AddUpdateBoardFormContent> with AppFormValidators {
+class _AddUpdateBoardFormContentState extends ConsumerState<AddUpdateBoardFormContent> with AppFormValidators {
   // general variables
   final _node = FocusScopeNode();
   final _formKey = GlobalKey<FormState>();
@@ -89,13 +83,9 @@ class _AddUpdateBoardFormContentState
       _serialNumberController.text = _initialBoard?.eui ?? '';
 
       if (board != null) {
-        final selectedCollector =
-            await ref.read(collectorFutureProvider(board.collectorId).future);
+        final selectedCollector = await ref.read(collectorFutureProvider(board.collectorId).future);
 
-        _selectedCollector = RadioButtonItem(
-          label: selectedCollector?.name ?? '',
-          value: selectedCollector?.id ?? '',
-        );
+        _selectedCollector = RadioButtonItem(label: selectedCollector?.name ?? '', value: selectedCollector?.id ?? '');
         _connectedCollectorController.text = selectedCollector?.name ?? '';
         _connectedCollectorId = selectedCollector?.id;
       }
@@ -162,19 +152,18 @@ class _AddUpdateBoardFormContentState
 
   String? _nonEmptyFieldsErrorText({required String value}) {
     if (!_submitted) return null;
-    return context.getLocalizedErrorText(
-      errorKey: getNonEmptyFieldsErrorKey(value: value),
-    );
+    return context.getLocalizedErrorText(errorKey: getNonEmptyFieldsErrorKey(value: value));
   }
 
   void _popScreen() => context.popNavigator();
 
   Future<void> _onTappedConnectedCollector() async {
-    final queryParam = QueryParameters(
-            id: _selectedCollector?.value,
-            name: _selectedCollector?.label,
-            previouslyConnectedId: _connectedCollectorId)
-        .toJson();
+    final queryParam =
+        QueryParameters(
+          id: _selectedCollector?.value,
+          name: _selectedCollector?.label,
+          previouslyConnectedId: _connectedCollectorId,
+        ).toJson();
 
     final selectedCollector = await context.pushNamed<RadioButtonItem>(
       AppRoute.connectCollectorToBoard.name,
@@ -192,32 +181,18 @@ class _AddUpdateBoardFormContentState
     setState(() => _submitted = true);
 
     if (_formKey.currentState!.validate()) {
-      if (await context.showSaveUpdateDialog(
-        isUpdating: _isUpdating,
-        what: context.loc.nBoards(1),
-      )) {
-        final board = _initialBoard?.copyWith(
-          name: _name,
-          id: _initialBoard?.id,
-          model: _model,
-          eui: _serialNumber,
-        );
+      if (await context.showSaveUpdateDialog(isUpdating: _isUpdating, what: context.loc.nBoards(1))) {
+        final board = _initialBoard?.copyWith(name: _name, id: _initialBoard?.id, model: _model, eui: _serialNumber);
 
         bool success = false;
         if (_isUpdating) {
           success = await ref
               .read(addUpdateBoardControllerProvider.notifier)
-              .updateBoard(
-                boardToUpdate: board,
-                collectorIdToConnect: _selectedCollector?.value,
-              );
+              .updateBoard(boardToUpdate: board, collectorIdToConnect: _selectedCollector?.value);
         } else {
           success = await ref
               .read(addUpdateBoardControllerProvider.notifier)
-              .createBoard(
-                boardToCreate: board,
-                collectorIdToConnect: _selectedCollector?.value,
-              );
+              .createBoard(boardToCreate: board, collectorIdToConnect: _selectedCollector?.value);
         }
 
         if (success) {
@@ -246,11 +221,7 @@ class _AddUpdateBoardFormContentState
             Expanded(
               child: CustomScrollView(
                 slivers: [
-                  AppSliverBar(
-                    title: _isUpdating
-                        ? loc.updateBoardPageTitle
-                        : loc.addNewBoardPageTitle,
-                  ),
+                  AppSliverBar(title: _isUpdating ? loc.updateBoardPageTitle : loc.addNewBoardPageTitle),
                   ResponsiveSliverForm(
                     node: _node,
                     formKey: _formKey,
@@ -258,8 +229,7 @@ class _AddUpdateBoardFormContentState
                       // Board name field
                       Consumer(
                         builder: (context, ref, child) {
-                          final boardUsedNames =
-                              ref.watch(usedBoardNamesProvider);
+                          final boardUsedNames = ref.watch(usedBoardNamesProvider);
                           final value = boardUsedNames.valueOrNull ?? [];
                           return FormTitleAndField(
                             fieldKey: _nameFieldKey,
@@ -267,18 +237,20 @@ class _AddUpdateBoardFormContentState
                             fieldHintText: loc.boardNameHintText,
                             fieldController: _nameController,
                             maxLength: AppConstants.maxBoardNameLength,
-                            onEditingComplete: () => _nameEditingComplete(
-                              value: _name,
-                              existingNames: value,
-                              maxLength: AppConstants.maxBoardNameLength,
-                              initialValue: _initialBoard?.name,
-                            ),
-                            validator: (_) => _nameErrorText(
-                              value: _name,
-                              existingNames: value,
-                              maxLength: AppConstants.maxBoardNameLength,
-                              initialValue: _initialBoard?.name,
-                            ),
+                            onEditingComplete:
+                                () => _nameEditingComplete(
+                                  value: _name,
+                                  existingNames: value,
+                                  maxLength: AppConstants.maxBoardNameLength,
+                                  initialValue: _initialBoard?.name,
+                                ),
+                            validator:
+                                (_) => _nameErrorText(
+                                  value: _name,
+                                  existingNames: value,
+                                  maxLength: AppConstants.maxBoardNameLength,
+                                  initialValue: _initialBoard?.name,
+                                ),
                           );
                         },
                       ),
@@ -290,10 +262,8 @@ class _AddUpdateBoardFormContentState
                         fieldTitle: loc.boardModel,
                         fieldHintText: loc.boardModelHintText,
                         fieldController: _modelController,
-                        onEditingComplete: () =>
-                            _nonEmptyFieldsEditingComplete(value: _model),
-                        validator: (_) =>
-                            _nonEmptyFieldsErrorText(value: _model),
+                        onEditingComplete: () => _nonEmptyFieldsEditingComplete(value: _model),
+                        validator: (_) => _nonEmptyFieldsErrorText(value: _model),
                       ),
                       gapH16,
                       // Board serial number field
@@ -302,10 +272,8 @@ class _AddUpdateBoardFormContentState
                         fieldTitle: loc.boardSerialNumber,
                         fieldHintText: loc.boardSerialNumberHintText,
                         fieldController: _serialNumberController,
-                        onEditingComplete: () => _nonEmptyFieldsEditingComplete(
-                            value: _serialNumber),
-                        validator: (_) =>
-                            _nonEmptyFieldsErrorText(value: _serialNumber),
+                        onEditingComplete: () => _nonEmptyFieldsEditingComplete(value: _serialNumber),
+                        validator: (_) => _nonEmptyFieldsErrorText(value: _serialNumber),
                       ),
                       gapH16,
                       FormTitleAndField(
@@ -314,15 +282,10 @@ class _AddUpdateBoardFormContentState
                         fieldHintText: loc.selectAnOptionHintText,
                         fieldController: _connectedCollectorController,
                         canRequestFocus: false,
-                        suffixIcon: CommonFormSuffixIcon(
-                          onPressed: _onTappedConnectedCollector,
-                        ),
+                        suffixIcon: CommonFormSuffixIcon(onPressed: _onTappedConnectedCollector),
                         onTap: _onTappedConnectedCollector,
-                        onEditingComplete: () => _nonEmptyFieldsErrorText(
-                            value: _connectedCollector),
-                        validator: (_) => _nonEmptyFieldsErrorText(
-                          value: _connectedCollector,
-                        ),
+                        onEditingComplete: () => _nonEmptyFieldsErrorText(value: _connectedCollector),
+                        validator: (_) => _nonEmptyFieldsErrorText(value: _connectedCollector),
                       ),
                     ],
                   ),
@@ -332,9 +295,7 @@ class _AddUpdateBoardFormContentState
             gapH16,
             SliverCTAButton(
               isLoading: isLoading,
-              text: _isUpdating
-                  ? loc.genericUpdateButtonLabel
-                  : loc.genericSaveButtonLabel,
+              text: _isUpdating ? loc.genericUpdateButtonLabel : loc.genericSaveButtonLabel,
               buttonType: ButtonType.primary,
               onPressed: _submit,
             ),

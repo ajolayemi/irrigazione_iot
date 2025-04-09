@@ -20,13 +20,13 @@ class WeatherStation extends Equatable {
   });
 
   const WeatherStation.empty()
-      : id = '',
-        name = '',
-        eui = '',
-        createdAt = null,
-        updatedAt = null,
-        companyId = '',
-        sectorId = '';
+    : id = '',
+      name = '',
+      eui = '',
+      createdAt = null,
+      updatedAt = null,
+      companyId = '',
+      sectorId = '';
 
   @JsonKey(name: WeatherStationDatabaseKeys.id, includeToJson: false)
   @IntConverter()
@@ -54,19 +54,10 @@ class WeatherStation extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
-      id,
-      name,
-      eui,
-      createdAt,
-      updatedAt,
-      companyId,
-      sectorId,
-    ];
+    return [id, name, eui, createdAt, updatedAt, companyId, sectorId];
   }
 
-  factory WeatherStation.fromJson(Map<String, dynamic> json) =>
-      _$WeatherStationFromJson(json);
+  factory WeatherStation.fromJson(Map<String, dynamic> json) => _$WeatherStationFromJson(json);
 
   Map<String, dynamic> toJson() => _$WeatherStationToJson(this);
 

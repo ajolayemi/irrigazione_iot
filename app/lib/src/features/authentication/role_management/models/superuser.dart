@@ -8,11 +8,7 @@ part 'superuser.g.dart';
 
 @JsonSerializable()
 class SuperUser extends Equatable {
-  const SuperUser({
-    required this.id,
-    required this.email,
-    this.createdAt,
-  });
+  const SuperUser({required this.id, required this.email, this.createdAt});
 
   @IntConverter()
   final String id;
@@ -25,8 +21,7 @@ class SuperUser extends Equatable {
   @override
   List<Object?> get props => [id, email, createdAt];
 
-  factory SuperUser.fromJson(Map<String, dynamic> json) =>
-      _$SuperUserFromJson(json);
+  factory SuperUser.fromJson(Map<String, dynamic> json) => _$SuperUserFromJson(json);
 
   Map<String, dynamic> toJson() => _$SuperUserToJson(this);
 }

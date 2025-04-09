@@ -14,10 +14,7 @@ import 'package:irrigazione_iot/src/shared/widgets/empty_placeholder_widget.dart
 import 'package:irrigazione_iot/src/utils/provider_utils.dart';
 
 class SectorDetailsScreen extends ConsumerWidget {
-  const SectorDetailsScreen({
-    super.key,
-    required this.sectorID,
-  });
+  const SectorDetailsScreen({super.key, required this.sectorID});
 
   final String sectorID;
 
@@ -45,14 +42,9 @@ class SectorDetailsScreen extends ConsumerWidget {
               slivers: [
                 AppSliverBar(
                   title: sector.name,
-                  actions: [
-                    CommonEditIconButton(
-                        onPressed: () => _onEditSector(context))
-                  ],
+                  actions: [CommonEditIconButton(onPressed: () => _onEditSector(context))],
                 ),
-                SectorDetailsScreenContents(
-                  sector: sector,
-                )
+                SectorDetailsScreenContents(sector: sector),
               ],
             );
           },

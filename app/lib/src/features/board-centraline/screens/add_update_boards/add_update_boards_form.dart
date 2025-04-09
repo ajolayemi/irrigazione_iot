@@ -6,20 +6,14 @@ import 'package:irrigazione_iot/src/features/board-centraline/screens/add_update
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
-
 class AddUpdateBoardsForm extends ConsumerWidget {
-  const AddUpdateBoardsForm({
-    super.key,
-    required this.formType,
-    this.boardID,
-  });
+  const AddUpdateBoardsForm({super.key, required this.formType, this.boardID});
 
   final String? boardID;
   final GenericFormTypes formType;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(addUpdateBoardControllerProvider,
-        (_, state) => state.showAlertDialogOnError(context));
+    ref.listen(addUpdateBoardControllerProvider, (_, state) => state.showAlertDialogOnError(context));
 
     final isLoading = ref.watch(addUpdateBoardControllerProvider).isLoading;
 
@@ -32,14 +26,7 @@ class AddUpdateBoardsForm extends ConsumerWidget {
           debugPrint('User tried to exit Board form');
         }
       },
-      child: Scaffold(
-        body: PaddedSafeArea(
-          child: AddUpdateBoardFormContent(
-            formType: formType,
-            boardID: boardID,
-          ),
-        ),
-      ),
+      child: Scaffold(body: PaddedSafeArea(child: AddUpdateBoardFormContent(formType: formType, boardID: boardID))),
     );
   }
 }

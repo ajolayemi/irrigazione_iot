@@ -24,21 +24,21 @@ class Pump extends Equatable {
     required this.hasFilter,
     required this.companyId,
     this.createdAt,
-    this.updatedAt
+    this.updatedAt,
   });
 
   const Pump.empty()
-      : id = '',
-        name = '',
-        capacityInVolume = 0,
-        consumeRateInKw = 0,
-        companyId = '',
-        createdAt = null,
-        updatedAt = null,
-        turnOnCommand = '',
-        turnOffCommand = '',
-        mqttMessageName = '',
-        hasFilter = false;
+    : id = '',
+      name = '',
+      capacityInVolume = 0,
+      consumeRateInKw = 0,
+      companyId = '',
+      createdAt = null,
+      updatedAt = null,
+      turnOnCommand = '',
+      turnOffCommand = '',
+      mqttMessageName = '',
+      hasFilter = false;
 
   @JsonKey(name: PumpDatabaseKeys.id, includeToJson: false)
   @IntConverter()

@@ -8,9 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'dismiss_sector_service.g.dart';
 
 class DismissSectorService {
-  DismissSectorService(
-    this._ref,
-  );
+  DismissSectorService(this._ref);
   final Ref _ref;
 
   /// Handles the deletion of all data related to a sector
@@ -23,8 +21,7 @@ class DismissSectorService {
     // if the sector deletion was completed successfully
     if (sectorWasDeleted) {
       debugPrint('Sector deleted successfully');
-      final connectedSectorPump =
-          await sectorPumpsRepository.getSectorPump(sectorId);
+      final connectedSectorPump = await sectorPumpsRepository.getSectorPump(sectorId);
 
       if (connectedSectorPump != null) {
         await sectorPumpsRepository.deleteSectorPump(connectedSectorPump.id);

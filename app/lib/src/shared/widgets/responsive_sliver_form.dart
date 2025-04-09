@@ -2,12 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_scrollable.dart';
 
 class ResponsiveSliverForm extends StatelessWidget {
-  const ResponsiveSliverForm({
-    super.key,
-    required this.node,
-    required this.formKey,
-    required this.children,
-  });
+  const ResponsiveSliverForm({super.key, required this.node, required this.formKey, required this.children});
 
   final List<Widget> children;
   final FocusScopeNode node;
@@ -19,13 +14,7 @@ class ResponsiveSliverForm extends StatelessWidget {
       child: ResponsiveScrollable(
         child: FocusScope(
           node: node,
-          child: Form(
-            key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: children,
-            ),
-          ),
+          child: Form(key: formKey, child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: children)),
         ),
       ),
     );

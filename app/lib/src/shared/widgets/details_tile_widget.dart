@@ -2,15 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
-
 class DetailTileWidget extends StatelessWidget {
-  const DetailTileWidget({
-    super.key,
-    this.title,
-    this.subtitle,
-    this.trailing,
-    this.onTap,
-  });
+  const DetailTileWidget({super.key, this.title, this.subtitle, this.trailing, this.onTap});
 
   final String? title;
   final String? subtitle;
@@ -22,11 +15,8 @@ class DetailTileWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: ListTile(
-        subtitleTextStyle:
-            context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-        titleTextStyle: context.textTheme.bodyLarge?.copyWith(
-          color: Colors.transparent.withValues(alpha: 0.8),
-        ),
+        subtitleTextStyle: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+        titleTextStyle: context.textTheme.bodyLarge?.copyWith(color: Colors.transparent.withValues(alpha: 0.8)),
         title: Text(title ?? ''),
         subtitle: Text(subtitle ?? ''),
         trailing: trailing,

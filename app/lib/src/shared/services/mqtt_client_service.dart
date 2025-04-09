@@ -26,17 +26,12 @@ class MqttClientService {
   /// The client is disconnected after the message is published.
   ///
   /// Returns the message ID of the published message.˚
-  Future<int> publishMessage(MqttServerClient client, String topic,
-      Map<String, dynamic> message) async {
+  Future<int> publishMessage(MqttServerClient client, String topic, Map<String, dynamic> message) async {
     try {
       final builder = MqttClientPayloadBuilder();
       builder.addBuffer(convertMapToBuffer(message));
 
-      final messageId = client.publishMessage(
-        topic,
-        MqttQos.atLeastOnce,
-        builder.payload!,
-      );
+      final messageId = client.publishMessage(topic, MqttQos.atLeastOnce, builder.payload!);
 
       // add 10 seconds delay to allow supabase data sync
       await delay(true, 2000);
@@ -51,11 +46,7 @@ class MqttClientService {
 
   /// Connects to the MQTT broker and returns the client.
   Future<MqttServerClient> connect() async {
-    final client = MqttServerClient.withPort(
-      _brokerUrl,
-      _getRandomClientId(),
-      1883,
-    );
+    final client = MqttServerClient.withPort(_brokerUrl, _getRandomClientId(), 1883);
 
     client.setProtocolV311();
 
@@ -71,8 +62,7 @@ class MqttClientService {
       if (client.connectionStatus!.state == MqttConnectionState.connected) {
         return client;
       } else {
-        debugPrint(
-            'Failed to connect to MQTT Broker at $_brokerUrl - state: ${client.connectionStatus!.state}');
+        debugPrint('Failed to connect to MQTT Broker at $_brokerUrl - state: ${client.connectionStatus!.state}');
         client.disconnect();
         throw Exception('Failed to connect to MQTT Broker at $_brokerUrl');
       }

@@ -5,6 +5,5 @@ extension AppCommonStyles on BuildContext {
 
   TextStyle? get titleSmall => _textTheme.titleSmall;
 
-  TextStyle? get commonSubtitleStyle =>
-      titleSmall?.copyWith(color: Colors.grey);
+  TextStyle? get commonSubtitleStyle => titleSmall?.copyWith(color: Colors.grey);
 }

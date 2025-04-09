@@ -51,8 +51,7 @@ class ValidatorInputFormatter implements TextInputFormatter {
   final StringValidator editingValidator;
 
   @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
     final bool oldValueValid = editingValidator.isValid(oldValue.text);
     final bool newValueValid = editingValidator.isValid(newValue.text);
     if (oldValueValid && !newValueValid) {
@@ -77,7 +76,7 @@ class NonEmptyStringValidator extends StringValidator {
   bool isValid(String value) {
     return value.isNotEmpty;
   }
-  
+
   @override
   bool isPartialValid(String value) {
     throw UnimplementedError();
@@ -92,7 +91,7 @@ class MinLengthStringValidator extends StringValidator {
   bool isValid(String value) {
     return value.length >= minLength;
   }
-  
+
   @override
   bool isPartialValid(String value) {
     throw UnimplementedError();
@@ -107,7 +106,7 @@ class MaxLengthStringValidator extends StringValidator {
   bool isValid(String value) {
     return value.length <= maxLength;
   }
-  
+
   @override
   bool isPartialValid(String value) {
     throw UnimplementedError();
@@ -136,6 +135,5 @@ class PasswordDigitValidator extends RegexValidator {
 
 // Regex to validate that a password has at least a special character
 class PasswordSpecialCharacterValidator extends RegexValidator {
-  PasswordSpecialCharacterValidator()
-      : super(regexSource: '[!@#\$%^&*(),.?":{}|<>]');
+  PasswordSpecialCharacterValidator() : super(regexSource: '[!@#\$%^&*(),.?":{}|<>]');
 }

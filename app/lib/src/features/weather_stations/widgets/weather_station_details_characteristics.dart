@@ -8,10 +8,7 @@ import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart'
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class WeatherStationDetailsCharacteristics extends ConsumerWidget {
-  const WeatherStationDetailsCharacteristics({
-    super.key,
-    required this.weatherStation,
-  });
+  const WeatherStationDetailsCharacteristics({super.key, required this.weatherStation});
 
   final WeatherStation weatherStation;
 
@@ -22,23 +19,16 @@ class WeatherStationDetailsCharacteristics extends ConsumerWidget {
     return CommonExpansionTile(
       title: loc.entityCharacteristics,
       children: [
-        ResponsiveDetailsCard(
-          child: DetailTileWidget(
-            title: loc.deviceEui,
-            subtitle: weatherStation.eui,
-          ),
-        ),
+        ResponsiveDetailsCard(child: DetailTileWidget(title: loc.deviceEui, subtitle: weatherStation.eui)),
         Consumer(
           builder: (context, ref, child) {
             final sector = ref.watch(sectorProvider(weatherStation.sectorId));
             final value = sector.valueOrNull;
             return ResponsiveDetailsCard(
-                child: DetailTileWidget(
-              title: loc.connectedSector,
-              subtitle: value?.name ?? loc.notAvailable,
-            ));
+              child: DetailTileWidget(title: loc.connectedSector, subtitle: value?.name ?? loc.notAvailable),
+            );
           },
-        )
+        ),
       ],
     );
   }

@@ -19,18 +19,13 @@ class CompanyUsersListScreenContents extends ConsumerWidget {
           return const EmptyCompanyUsers();
         }
         return SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              final user = users[index]!;
-              return CompanyUserListTile(user: user);
-            },
-            childCount: users.length,
-          ),
+          delegate: SliverChildBuilderDelegate((context, index) {
+            final user = users[index]!;
+            return CompanyUserListTile(user: user);
+          }, childCount: users.length),
         );
       },
-      loading: () => const CommonSliverListSkeleton(
-        hasLeading: false,
-      ),
+      loading: () => const CommonSliverListSkeleton(hasLeading: false),
     );
   }
 }

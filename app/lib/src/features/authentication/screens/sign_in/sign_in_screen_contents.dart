@@ -22,20 +22,15 @@ import 'package:irrigazione_iot/src/utils/string_validators.dart';
 
 // Widget to show the sign in form
 class SignInScreenContents extends ConsumerStatefulWidget {
-  const SignInScreenContents({
-    super.key,
-    this.onSignedIn,
-  });
+  const SignInScreenContents({super.key, this.onSignedIn});
 
   final VoidCallback? onSignedIn;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _SignInScreenContentsState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SignInScreenContentsState();
 }
 
-class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
-    with AppFormValidators {
+class _SignInScreenContentsState extends ConsumerState<SignInScreenContents> with AppFormValidators {
   final _formKey = GlobalKey<FormState>();
   final _node = FocusScopeNode();
   final _emailController = TextEditingController();
@@ -70,12 +65,8 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
       final controller = ref.read(signInControllerProvider.notifier);
-      final success = await controller.authenticateWithEmailAndPassword(
-        _email,
-        _password,
-      );
-      final hasUserNotFoundException =
-          ref.read(signInControllerProvider).error is UserNotFoundException;
+      final success = await controller.authenticateWithEmailAndPassword(_email, _password);
+      final hasUserNotFoundException = ref.read(signInControllerProvider).error is UserNotFoundException;
 
       // If user not found, invalidate password field
       if (hasUserNotFoundException) {
@@ -110,19 +101,14 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
   String? _emailErrorText() {
     if (!_submitted) return null;
 
-    return context.getLocalizedErrorText(
-      errorKey: getEmailErrorKey(value: _email),
-    );
+    return context.getLocalizedErrorText(errorKey: getEmailErrorKey(value: _email));
   }
 
   void _passwordEditingComplete() {
     if (!canSubmitEmail(value: _email)) {
       _node.previousFocus();
     }
-    if (!canSubmitPassword(
-      value: _password,
-      minLength: AppConstants.minPasswordLength,
-    )) {
+    if (!canSubmitPassword(value: _password, minLength: AppConstants.minPasswordLength)) {
       _node.nextFocus();
     }
   }
@@ -131,10 +117,7 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
     if (!_submitted) return null;
     return context.getLocalizedErrorText(
       minFieldLength: AppConstants.minPasswordLength,
-      errorKey: getPasswordErrorKey(
-        value: _password,
-        minLength: AppConstants.minPasswordLength,
-      ),
+      errorKey: getPasswordErrorKey(value: _password, minLength: AppConstants.minPasswordLength),
     );
   }
 
@@ -163,15 +146,9 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
                     formKey: _formKey,
                     children: [
                       gapH32,
-                      Text(
-                        loc.signInPageIntroductoryTitleText,
-                        style: textTheme.titleLarge,
-                      ),
+                      Text(loc.signInPageIntroductoryTitleText, style: textTheme.titleLarge),
                       gapH8,
-                      Text(
-                        loc.signInPageIntroductorySubtitleText,
-                        style: textTheme.titleSmall,
-                      ),
+                      Text(loc.signInPageIntroductorySubtitleText, style: textTheme.titleSmall),
                       gapH32,
                       // email field
                       FormTitleAndField(
@@ -182,9 +159,7 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
                         keyboardType: TextInputType.emailAddress,
                         validator: (_) => _emailErrorText(),
                         inputFormatters: <TextInputFormatter>[
-                          ValidatorInputFormatter(
-                            editingValidator: EmailEditingRegexValidator(),
-                          ),
+                          ValidatorInputFormatter(editingValidator: EmailEditingRegexValidator()),
                         ],
                         onEditingComplete: _emailEditingComplete,
                       ),
@@ -217,11 +192,7 @@ class _SignInScreenContentsState extends ConsumerState<SignInScreenContents>
                       // Sign in with Google Button
                       SliverAuthProviderSignInButton(
                         text: loc.signInWithGoogleButtonTitle,
-                        providerIcon: Image.asset(
-                          'assets/images/google_logo.png',
-                          height: Sizes.p32,
-                          width: Sizes.p32,
-                        ),
+                        providerIcon: Image.asset('assets/images/google_logo.png', height: Sizes.p32, width: Sizes.p32),
                         onPressed: _submitWithGoogle,
                         buttonStateKey: SignInController.googleSignInStateKey,
                       ),

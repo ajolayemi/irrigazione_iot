@@ -9,18 +9,15 @@ import 'package:irrigazione_iot/src/shared/widgets/common_info_icon_button.dart'
 import 'package:irrigazione_iot/src/shared/widgets/common_tablet_responsive_center.dart';
 
 class WeatherStationListTileItem extends StatelessWidget {
-  const WeatherStationListTileItem({
-    super.key,
-    required this.weatherStation,
-    required this.isDeleting,
-  });
+  const WeatherStationListTileItem({super.key, required this.weatherStation, required this.isDeleting});
 
   final WeatherStation weatherStation;
   final bool isDeleting;
 
-  void _onTap(BuildContext context) =>
-      context.pushNamed(AppRoute.weatherStationDetails.name,
-          pathParameters: PathParameters(id: weatherStation.id).toJson());
+  void _onTap(BuildContext context) => context.pushNamed(
+    AppRoute.weatherStationDetails.name,
+    pathParameters: PathParameters(id: weatherStation.id).toJson(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +27,10 @@ class WeatherStationListTileItem extends StatelessWidget {
         child: InkWell(
           onTap: () => _onTap(context),
           child: ListTile(
-            leading: CommonInfoIconButton(
-              onPressed: () => _onTap(context),
-            ),
+            leading: CommonInfoIconButton(onPressed: () => _onTap(context)),
             title: Text(weatherStation.name),
-            trailing: WeatherStationBatteryLevelIndicator(
-              weatherStationId: weatherStation.id,
-            ),
-            subtitle: Text(
-              weatherStation.eui,
-              style: context.commonSubtitleStyle,
-            ),
+            trailing: WeatherStationBatteryLevelIndicator(weatherStationId: weatherStation.id),
+            subtitle: Text(weatherStation.eui, style: context.commonSubtitleStyle),
           ),
         ),
       ),

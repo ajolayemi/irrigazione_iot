@@ -15,12 +15,10 @@ class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   /// File path: assets/images/company_logo.png
-  AssetGenImage get companyLogo =>
-      const AssetGenImage('assets/images/company_logo.png');
+  AssetGenImage get companyLogo => const AssetGenImage('assets/images/company_logo.png');
 
   /// File path: assets/images/google_logo.png
-  AssetGenImage get googleLogo =>
-      const AssetGenImage('assets/images/google_logo.png');
+  AssetGenImage get googleLogo => const AssetGenImage('assets/images/google_logo.png');
 
   $AssetsImagesWeenatGen get weenat => const $AssetsImagesWeenatGen();
 
@@ -32,12 +30,10 @@ class $AssetsImagesWeenatGen {
   const $AssetsImagesWeenatGen();
 
   /// File path: assets/images/weenat/plot-selected.svg
-  SvgGenImage get plotSelected =>
-      const SvgGenImage('assets/images/weenat/plot-selected.svg');
+  SvgGenImage get plotSelected => const SvgGenImage('assets/images/weenat/plot-selected.svg');
 
   /// File path: assets/images/weenat/plot-unselected.svg
-  SvgGenImage get plotUnselected =>
-      const SvgGenImage('assets/images/weenat/plot-unselected.svg');
+  SvgGenImage get plotUnselected => const SvgGenImage('assets/images/weenat/plot-unselected.svg');
 
   /// List of all assets
   List<SvgGenImage> get values => [plotSelected, plotUnselected];
@@ -107,15 +103,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;

@@ -7,10 +7,7 @@ import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 
 class SignInSliverCtaButton extends ConsumerWidget {
-  const SignInSliverCtaButton({
-    super.key,
-    required this.onPressed,
-  });
+  const SignInSliverCtaButton({super.key, required this.onPressed});
 
   static const signInButtonKey = Key('signInButton');
 
@@ -20,10 +17,8 @@ class SignInSliverCtaButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final thisButtonIsLoading =
-        ref.watch(signInControllerProvider).stateWithIdIsLoading(stateKey);
-    final globalLoadingState =
-        ref.watch(signInControllerProvider).isGlobalLoading;
+    final thisButtonIsLoading = ref.watch(signInControllerProvider).stateWithIdIsLoading(stateKey);
+    final globalLoadingState = ref.watch(signInControllerProvider).isGlobalLoading;
     final loc = context.loc;
     return IgnorePointer(
       ignoring: globalLoadingState,

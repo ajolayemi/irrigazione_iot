@@ -13,11 +13,7 @@ class DismissBoardController extends _$DismissBoardController {
   Future<bool> confirmDismiss(Board board) async {
     final boardRepo = ref.read(boardRepositoryProvider);
     state = const AsyncLoading<void>();
-    state = await AsyncValue.guard(
-      () => boardRepo.deleteBoard(
-        boardID: board.id,
-      ),
-    );
+    state = await AsyncValue.guard(() => boardRepo.deleteBoard(boardID: board.id));
 
     final hasError = state.hasError;
 

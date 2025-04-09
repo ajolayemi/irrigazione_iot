@@ -20,14 +20,14 @@ class Board extends Equatable {
   });
 
   const Board.empty()
-      : id = '',
-        name = '',
-        model = '',
-        eui = '',
-        collectorId = '',
-        companyId = '',
-        createdAt = null,
-        updatedAt = null;
+    : id = '',
+      name = '',
+      model = '',
+      eui = '',
+      collectorId = '',
+      companyId = '',
+      createdAt = null,
+      updatedAt = null;
 
   @JsonKey(name: BoardDatabaseKeys.id, includeToJson: false)
   @IntConverter()
@@ -58,16 +58,7 @@ class Board extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
-      id,
-      name,
-      model,
-      eui,
-      collectorId,
-      companyId,
-      createdAt,
-      updatedAt,
-    ];
+    return [id, name, model, eui, collectorId, companyId, createdAt, updatedAt];
   }
 
   Board copyWith({

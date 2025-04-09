@@ -6,12 +6,7 @@ import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 /// A common widget to display a checkbox with a label
 /// It is responsive and will center the content on the screen
 class ResponsiveCheckboxTile extends StatelessWidget {
-  const ResponsiveCheckboxTile({
-    super.key,
-    required this.title,
-    required this.value,
-    required this.onChanged,
-  });
+  const ResponsiveCheckboxTile({super.key, required this.title, required this.value, required this.onChanged});
 
   final String title;
   final bool value;

@@ -13,12 +13,9 @@ class SupabaseCollectorSectorRepository implements CollectorSectorRepository {
 
   final SupabaseClient _supabaseClient;
 
-  List<CollectorSector> _collectorSectorFromList(
-      List<Map<String, dynamic>>? data) {
+  List<CollectorSector> _collectorSectorFromList(List<Map<String, dynamic>>? data) {
     if (data == null) return [];
-    return data
-        .map((collectorSector) => CollectorSector.fromJson(collectorSector))
-        .toList();
+    return data.map((collectorSector) => CollectorSector.fromJson(collectorSector)).toList();
   }
 
   String? _collectorIdFromSingle(List<Map<String, dynamic>> data) {
@@ -27,18 +24,13 @@ class SupabaseCollectorSectorRepository implements CollectorSectorRepository {
   }
 
   @override
-  Future<CollectorSector?> createCollectorSector(
-    CollectorSector collectorSector,
-  ) async {
-    final data = collectorSector
-        .copyWith(
-          createdAt: DateTime.now(),
-        )
-        .toJson();
+  Future<CollectorSector?> createCollectorSector(CollectorSector collectorSector) async {
+    final data = collectorSector.copyWith(createdAt: DateTime.now()).toJson();
 
     final res = await _supabaseClient.invokeFunction(
-        functionName: 'insert-collector-sector',
-        body: InsertBody(data: data).toJson());
+      functionName: 'insert-collector-sector',
+      body: InsertBody(data: data).toJson(),
+    );
 
     return res.toObject<CollectorSector>(CollectorSector.fromJson);
   }
@@ -53,23 +45,18 @@ class SupabaseCollectorSectorRepository implements CollectorSectorRepository {
   }
 
   @override
-  Future<List<CollectorSector?>> getCollectorSectorsById(String collectorId) =>
-      _supabaseClient.collectorSectors
-          .select()
-          .eq(CollectorSectorDatabaseKeys.collectorId, collectorId)
-          .withConverter(_collectorSectorFromList);
+  Future<List<CollectorSector?>> getCollectorSectorsById(String collectorId) => _supabaseClient.collectorSectors
+      .select()
+      .eq(CollectorSectorDatabaseKeys.collectorId, collectorId)
+      .withConverter(_collectorSectorFromList);
 
   @override
   Future<Collector?> getCollectorBySectorId(String sectorId) async {
-    final data = await _supabaseClient.collectorSectors
-        .select(
-          '''${CollectorDatabaseKeys.table}: ${CollectorSectorDatabaseKeys.collectorId} (*)''',
-        )
-        .eq(
-          CollectorSectorDatabaseKeys.sectorId,
-          sectorId,
-        )
-        .maybeSingle();
+    final data =
+        await _supabaseClient.collectorSectors
+            .select('''${CollectorDatabaseKeys.table}: ${CollectorSectorDatabaseKeys.collectorId} (*)''')
+            .eq(CollectorSectorDatabaseKeys.sectorId, sectorId)
+            .maybeSingle();
 
     if (data == null || data.isEmpty || !data.keys.contains('collectors')) {
       return null;
@@ -79,19 +66,14 @@ class SupabaseCollectorSectorRepository implements CollectorSectorRepository {
 
   @override
   Stream<List<CollectorSector?>> watchCollectorSectorsById(String collectorId) {
-    final stream = _supabaseClient.collectorSectorsStream.eq(
-      CollectorSectorDatabaseKeys.collectorId,
-      collectorId,
-    );
+    final stream = _supabaseClient.collectorSectorsStream.eq(CollectorSectorDatabaseKeys.collectorId, collectorId);
 
     return stream.map(_collectorSectorFromList);
   }
 
   @override
   Stream<String?> watchCollectorIdBySectorId(String sectorId) {
-    final stream = _supabaseClient.collectorSectorsStream
-        .eq(CollectorSectorDatabaseKeys.sectorId, sectorId)
-        .limit(1);
+    final stream = _supabaseClient.collectorSectorsStream.eq(CollectorSectorDatabaseKeys.sectorId, sectorId).limit(1);
 
     return stream.map(_collectorIdFromSingle);
   }

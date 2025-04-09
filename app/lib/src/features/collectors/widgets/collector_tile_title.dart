@@ -7,18 +7,13 @@ import 'package:irrigazione_iot/src/features/collectors/widgets/sectors_switched
 
 /// A row widget that displays the collector name and the number of sectors switched on
 class CollectorTileRowWidget extends ConsumerWidget {
-  const CollectorTileRowWidget({
-    super.key,
-    required this.collector,
-  });
+  const CollectorTileRowWidget({super.key, required this.collector});
 
   final Collector collector;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sectorsSwitchedOn = ref
-        .watch(numberOfSectorsSwitchedOnProvider(collectorId: collector.id))
-        .valueOrNull;
+    final sectorsSwitchedOn = ref.watch(numberOfSectorsSwitchedOnProvider(collectorId: collector.id)).valueOrNull;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -26,9 +21,7 @@ class CollectorTileRowWidget extends ConsumerWidget {
         Text(collector.name),
         gapW8,
         if (sectorsSwitchedOn != null && sectorsSwitchedOn > 0)
-          SectorsSwitchedOnCountBadge(
-            itemsCount: sectorsSwitchedOn,
-          ),
+          SectorsSwitchedOnCountBadge(itemsCount: sectorsSwitchedOn),
       ],
     );
   }

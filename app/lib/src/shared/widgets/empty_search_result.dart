@@ -11,10 +11,7 @@ class EmptySearchResult extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = context.loc;
     return ResponsiveSliverCenter(
-      padding: const EdgeInsets.symmetric(
-        horizontal: Sizes.p16,
-        vertical: Sizes.p16,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: Sizes.p16, vertical: Sizes.p16),
       child: Text(loc.noSearchResults),
     );
   }

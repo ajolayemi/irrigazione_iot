@@ -47,12 +47,9 @@ PumpRepository pumpRepository(Ref ref) {
 
 /// Fetches the list of pumps pertaining to the company selected by the user
 @riverpod
-Future<List<Pump>?> companyPumps(
-  Ref ref,
-) {
+Future<List<Pump>?> companyPumps(Ref ref) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
-  final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).value;
+  final currentSelectedCompanyByUser = ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return Future.value([]);
   return pumpRepository.getCompanyPumps(currentSelectedCompanyByUser.id);
 }
@@ -73,37 +70,27 @@ Future<Pump?> pumpFuture(Ref ref, String pumpId) {
 
 /// Fetches the list of already used pump names for the company selected by the user
 @riverpod
-Future<List<String?>> companyUsedPumpNamesFuture(
-  Ref ref,
-) {
+Future<List<String?>> companyUsedPumpNamesFuture(Ref ref) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
-  final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).value;
+  final currentSelectedCompanyByUser = ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return Future.value([]);
 
-  return pumpRepository
-      .getCompanyUsedPumpNames(currentSelectedCompanyByUser.id);
+  return pumpRepository.getCompanyUsedPumpNames(currentSelectedCompanyByUser.id);
 }
 
 /// Fetches the list of already used pump commands for the company selected by the user
 @riverpod
-Future<List<String?>> companyUsedPumpCommandsFuture(
-  Ref ref,
-) {
+Future<List<String?>> companyUsedPumpCommandsFuture(Ref ref) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
-  final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).value;
+  final currentSelectedCompanyByUser = ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return Future.value([]);
 
-  return pumpRepository
-      .getCompanyUsedPumpCommands(currentSelectedCompanyByUser.id);
+  return pumpRepository.getCompanyUsedPumpCommands(currentSelectedCompanyByUser.id);
 }
 
 /// Fetches the list of already used mqtt message names
 @riverpod
-Future<List<String?>> pumpUsedMqttMessageNamesFuture(
-  Ref ref,
-) {
+Future<List<String?>> pumpUsedMqttMessageNamesFuture(Ref ref) {
   final pumpRepository = ref.watch(pumpRepositoryProvider);
   return pumpRepository.getUsedMqttMessageNames();
 }

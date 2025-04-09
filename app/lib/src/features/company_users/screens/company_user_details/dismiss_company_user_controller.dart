@@ -13,8 +13,7 @@ class DismissCompanyUserController extends _$DismissCompanyUserController {
   Future<bool> dismissCompanyUser(String companyUserId) async {
     final repo = ref.read(companyUsersRepositoryProvider);
     state = const AsyncLoading();
-    state = await AsyncValue.guard(
-        () => repo.deleteCompanyUser(companyUserId: companyUserId));
+    state = await AsyncValue.guard(() => repo.deleteCompanyUser(companyUserId: companyUserId));
     return !state.hasError;
   }
 }

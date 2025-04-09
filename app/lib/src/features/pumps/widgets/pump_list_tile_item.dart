@@ -13,39 +13,31 @@ import 'package:irrigazione_iot/src/shared/widgets/common_tablet_responsive_cent
 import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 
 class PumpListTileItem extends ConsumerWidget {
-  const PumpListTileItem({
-    super.key,
-    required this.pump,
-  });
+  const PumpListTileItem({super.key, required this.pump});
 
   final Pump pump;
 
   void _onTap(BuildContext context) {
-    final pathParams = PathParameters(
-      id: pump.id,
-    ).toJson();
-    context.goNamed(
-      AppRoute.pumpDetails.name,
-      pathParameters: pathParams,
-    );
+    final pathParams = PathParameters(id: pump.id).toJson();
+    context.goNamed(AppRoute.pumpDetails.name, pathParameters: pathParams);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final globalLoadingState =
-        ref.watch(pumpStatusControllerProvider).isGlobalLoading;
+    final globalLoadingState = ref.watch(pumpStatusControllerProvider).isGlobalLoading;
     final isDeleting = ref.watch(dismissPumpControllerProvider).isLoading;
     return CommonTabletResponsiveCenter(
-        child: IgnorePointer(
-      ignoring: isDeleting || globalLoadingState,
-      child: InkWell(
-        onTap: () => _onTap(context),
-        child: ListTile(
-          title: PumpTileTitle(pump: pump),
-          subtitle: PumpListTileSubtitle(pump: pump),
-          trailing: PumpTileTrailingButton(pump: pump),
+      child: IgnorePointer(
+        ignoring: isDeleting || globalLoadingState,
+        child: InkWell(
+          onTap: () => _onTap(context),
+          child: ListTile(
+            title: PumpTileTitle(pump: pump),
+            subtitle: PumpListTileSubtitle(pump: pump),
+            trailing: PumpTileTrailingButton(pump: pump),
+          ),
         ),
       ),
-    ));
+    );
   }
 }

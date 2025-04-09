@@ -15,11 +15,7 @@ class WeatherStationBattery extends Equatable {
     this.createdAt,
   });
 
-  const WeatherStationBattery.empty()
-      : id = '',
-        batteryLevel = 0,
-        weatherStationId = '',
-        createdAt = null;
+  const WeatherStationBattery.empty() : id = '', batteryLevel = 0, weatherStationId = '', createdAt = null;
 
   @JsonKey(name: WeatherStationBatteryDatabaseKeys.id, includeToJson: false)
   @IntConverter()
@@ -37,16 +33,10 @@ class WeatherStationBattery extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
-      id,
-      batteryLevel,
-      weatherStationId,
-      createdAt,
-    ];
+    return [id, batteryLevel, weatherStationId, createdAt];
   }
 
-  factory WeatherStationBattery.fromJson(Map<String, dynamic> json) =>
-      _$WeatherStationBatteryFromJson(json);
+  factory WeatherStationBattery.fromJson(Map<String, dynamic> json) => _$WeatherStationBatteryFromJson(json);
 
   Map<String, dynamic> toJson() => _$WeatherStationBatteryToJson(this);
 }

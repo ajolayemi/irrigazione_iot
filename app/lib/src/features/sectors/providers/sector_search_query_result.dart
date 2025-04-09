@@ -22,15 +22,15 @@ class SectorSearchQueryResult extends _$SectorSearchQueryResult {
       final currentState = [...state.valueOrNull ?? []];
 
       state = const AsyncLoading<List<Sector>?>();
-      final filteredSectors = currentState.where((sector) {
-        final name = sector.name.toLowerCase();
-        final queryLower = query.toLowerCase();
-        return name.contains(queryLower);
-      }).toList();
+      final filteredSectors =
+          currentState.where((sector) {
+            final name = sector.name.toLowerCase();
+            final queryLower = query.toLowerCase();
+            return name.contains(queryLower);
+          }).toList();
 
       state = AsyncData<List<Sector>>([...filteredSectors]);
     }
-
     // If query is empty, reset the list of sectors to the original list
     else {
       reset();

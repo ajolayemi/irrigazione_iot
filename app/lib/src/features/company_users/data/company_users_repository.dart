@@ -16,27 +16,19 @@ part 'company_users_repository.g.dart';
 // to this class will access the table where the users associated with the companies are stored
 abstract class CompanyUsersRepository {
   /// Emits a list of [Company] linked with the provided user email
-  Stream<List<Company>> watchCompaniesAssociatedWithUser(
-      {required String email});
+  Stream<List<Company>> watchCompaniesAssociatedWithUser({required String email});
 
   /// Emits the [CompanyUserRole] linked with the provided user email and company id
-  Stream<CompanyUserRole?> watchCompanyUserRole({
-    required String email,
-    required String companyId,
-  });
+  Stream<CompanyUserRole?> watchCompanyUserRole({required String email, required String companyId});
 
   /// Emits a list of [CompanyUser]s linked with the provided company id if any
-  Stream<List<CompanyUser?>> watchUsersAssociatedWithCompany({
-    required String companyId,
-  });
+  Stream<List<CompanyUser?>> watchUsersAssociatedWithCompany({required String companyId});
 
   /// Emits a [CompanyUser] linked with the provided user companyUserId
   Stream<CompanyUser?> watchCompanyUser({required String companyUserId});
 
   /// Emits a list of email addresses already associated with the provided company id
-  Stream<List<String>> watchEmailsAssociatedWithCompany({
-    required String companyId,
-  });
+  Stream<List<String>> watchEmailsAssociatedWithCompany({required String companyId});
 
   /// Adds a new [CompanyUser] to the database and returns the newly added [CompanyUser] if successful
   Future<CompanyUser?> addCompanyUser({required CompanyUser companyUser});
@@ -63,9 +55,7 @@ Stream<List<Company>> userCompaniesStream(Ref ref) {
     return Stream.value([]);
   }
   final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
-  return userCompaniesRepository.watchCompaniesAssociatedWithUser(
-    email: user.email,
-  );
+  return userCompaniesRepository.watchCompaniesAssociatedWithUser(email: user.email);
 }
 
 /// Emits the [CompanyUserRole] of the current user in the current company
@@ -78,10 +68,7 @@ Stream<CompanyUserRole?> companyUserRole(Ref ref) {
   if (user == null || currentSelectedCompany == null) {
     return Stream.value(null);
   }
-  return userCompaniesRepository.watchCompanyUserRole(
-    email: user.email,
-    companyId: currentSelectedCompany.id,
-  );
+  return userCompaniesRepository.watchCompanyUserRole(email: user.email, companyId: currentSelectedCompany.id);
 }
 
 /// Emits a list of [CompanyUser]s associated with the current company
@@ -92,15 +79,12 @@ Stream<List<CompanyUser?>> usersAssociatedWithCompanyStream(Ref ref) {
   if (currentSelectedCompany == null) {
     return Stream.value([]);
   }
-  return userCompaniesRepository.watchUsersAssociatedWithCompany(
-    companyId: currentSelectedCompany.id,
-  );
+  return userCompaniesRepository.watchUsersAssociatedWithCompany(companyId: currentSelectedCompany.id);
 }
 
 /// Emits the [CompanyUser] linked with the provided companyUserId
 @riverpod
-Stream<CompanyUser?> companyUserStream(Ref ref,
-    {required String companyUserId}) {
+Stream<CompanyUser?> companyUserStream(Ref ref, {required String companyUserId}) {
   final userCompaniesRepository = ref.watch(companyUsersRepositoryProvider);
 
   return userCompaniesRepository.watchCompanyUser(companyUserId: companyUserId);
@@ -114,7 +98,5 @@ Stream<List<String>> emailsAssociatedWithCompanyStream(Ref ref) {
   if (currentSelectedCompany == null) {
     return Stream.value([]);
   }
-  return userCompaniesRepository.watchEmailsAssociatedWithCompany(
-    companyId: currentSelectedCompany.id,
-  );
+  return userCompaniesRepository.watchEmailsAssociatedWithCompany(companyId: currentSelectedCompany.id);
 }

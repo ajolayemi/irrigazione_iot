@@ -12,12 +12,7 @@ class UserProfileScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
-          slivers: [
-            AppSliverBar(
-              title: loc.profilePageTitle,
-            ),
-            const UserProfileScreenContents(),
-          ],
+          slivers: [AppSliverBar(title: loc.profilePageTitle), const UserProfileScreenContents()],
         ),
       ),
     );

@@ -14,9 +14,7 @@ abstract class SectorStatusRepository {
   Stream<SectorStatus?> watchSectorStatus(String sectorId);
 
   /// Toggles the status of the sector
-  Future<void> toggleSectorStatus({
-    required ItemStatusRequest statusBody,
-  });
+  Future<void> toggleSectorStatus({required ItemStatusRequest statusBody});
 }
 
 @Riverpod(keepAlive: true)
@@ -27,10 +25,7 @@ SectorStatusRepository sectorStatusRepository(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
-Stream<SectorStatus?> sectorStatusStream(
-  Ref ref,
-  String sectorId,
-) {
+Stream<SectorStatus?> sectorStatusStream(Ref ref, String sectorId) {
   final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);
   return sectorStatusRepository.watchSectorStatus(sectorId);
 }

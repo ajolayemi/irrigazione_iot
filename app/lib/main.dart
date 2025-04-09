@@ -13,15 +13,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // initialize firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // initialize Supabase with the production environment variables
-  await Supabase.initialize(
-    anonKey: Env.supabaseProdAnonKey,
-    url: Env.supabaseProdUrl,
-  );
+  await Supabase.initialize(anonKey: Env.supabaseProdAnonKey, url: Env.supabaseProdUrl);
 
   // turn off the # in the URLs on the web
   usePathUrlStrategy();

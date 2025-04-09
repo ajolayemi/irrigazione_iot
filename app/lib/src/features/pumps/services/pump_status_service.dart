@@ -12,15 +12,10 @@ import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
 part 'pump_status_service.g.dart';
 
 class PumpStatusService {
-  const PumpStatusService(
-    this._ref,
-  );
+  const PumpStatusService(this._ref);
   final Ref _ref;
 
-  Future<void> toggleStatus({
-    required Pump pump,
-    required bool status,
-  }) async {
+  Future<void> toggleStatus({required Pump pump, required bool status}) async {
     final authRepo = _ref.read(authRepositoryProvider);
     final uid = authRepo.currentUser?.uid;
 

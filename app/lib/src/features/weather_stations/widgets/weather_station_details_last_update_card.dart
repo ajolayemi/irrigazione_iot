@@ -8,40 +8,28 @@ import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart'
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class WeatherStationDetailsLastUpdateCard extends ConsumerWidget {
-  const WeatherStationDetailsLastUpdateCard({
-    super.key,
-    required this.weatherStationId,
-  });
+  const WeatherStationDetailsLastUpdateCard({super.key, required this.weatherStationId});
 
   final String weatherStationId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final lastMeasurement = ref.watch(weatherStationMeasurementProvider(
-      weatherStationId: weatherStationId,
-    ));
+    final lastMeasurement = ref.watch(weatherStationMeasurementProvider(weatherStationId: weatherStationId));
     final lastUpdated = lastMeasurement.valueOrNull?.createdAt;
 
     if (lastUpdated == null) {
-      return ResponsiveDetailsCard(
-        child: DetailTileWidget(
-          title: loc.lastUpdated,
-          subtitle: loc.notAvailable,
-        ),
-      );
+      return ResponsiveDetailsCard(child: DetailTileWidget(title: loc.lastUpdated, subtitle: loc.notAvailable));
     }
 
     return Timeago(
-      builder: (_, value) => ResponsiveDetailsCard(
-        child: DetailTileWidget(
-          title: loc.lastUpdated,
-          subtitle: context.customFormatDateTime(
-            timeAgoDateString: value,
-            dateTime: lastUpdated,
+      builder:
+          (_, value) => ResponsiveDetailsCard(
+            child: DetailTileWidget(
+              title: loc.lastUpdated,
+              subtitle: context.customFormatDateTime(timeAgoDateString: value, dateTime: lastUpdated),
+            ),
           ),
-        ),
-      ),
       date: lastUpdated,
       locale: context.locale,
     );

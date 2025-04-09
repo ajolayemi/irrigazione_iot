@@ -47,15 +47,9 @@ class _SectorsListScreenState extends ConsumerState<SectorsListScreen> {
   @override
   Widget build(BuildContext context) {
     final loc = context.loc;
-    ref.listen(
-      sectorSwitchControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+    ref.listen(sectorSwitchControllerProvider, (_, state) => state.showAlertDialogOnError(context));
 
-    ref.listen(
-      dismissSectorControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+    ref.listen(dismissSectorControllerProvider, (_, state) => state.showAlertDialogOnError(context));
 
     // A list of original list of sectors that belong to the company
     final companySectors = ref.watch(sectorsProvider).valueOrNull;
@@ -75,39 +69,29 @@ class _SectorsListScreenState extends ConsumerState<SectorsListScreen> {
                   onPressed: _onPressedSearchIcon,
                   isSearching: _isSearching,
                 ),
-                CommonAddIconButton(
-                  onPressed: _onAddSectorPressed,
-                ),
+                CommonAddIconButton(onPressed: _onAddSectorPressed),
               ],
             ),
-            if (_isSearching)
-              SearchTextField(
-                onSearch:
-                    ref.read(sectorSearchQueryResultProvider.notifier).search,
-              ),
+            if (_isSearching) SearchTextField(onSearch: ref.read(sectorSearchQueryResultProvider.notifier).search),
             AsyncValueSliverWidget(
               value: filteredSectors,
               data: (filteredResult) {
                 return FilteredScreenItemRenderer<Sector?>(
-                    baseItems: companySectors,
-                    filteredItems: filteredResult,
-                    noBaseItemsWidget: const EmptySectorWidget(),
-                    mainWidget: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final sector = filteredResult![index];
+                  baseItems: companySectors,
+                  filteredItems: filteredResult,
+                  noBaseItemsWidget: const EmptySectorWidget(),
+                  mainWidget: SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      final sector = filteredResult![index];
 
-                          return SectorListTile(sector: sector);
-                        },
-                        childCount: filteredResult?.length,
-                      ),
-                    ));
+                      return SectorListTile(sector: sector);
+                    }, childCount: filteredResult?.length),
+                  ),
+                );
               },
               loading: () => const SectorsListTileSkeleton(),
             ),
-            const SliverToBoxAdapter(
-              child: gapH48,
-            )
+            const SliverToBoxAdapter(child: gapH48),
           ],
         ),
       ),

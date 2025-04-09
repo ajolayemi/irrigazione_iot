@@ -6,12 +6,8 @@ import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/details_tile_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart';
 
-
 class CollectorDetailsScreenContents extends ConsumerWidget {
-  const CollectorDetailsScreenContents({
-    super.key,
-    required this.collector,
-  });
+  const CollectorDetailsScreenContents({super.key, required this.collector});
 
   final Collector collector;
 
@@ -19,28 +15,25 @@ class CollectorDetailsScreenContents extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
     return SliverList(
-        delegate: SliverChildListDelegate.fixed(
-      [
+      delegate: SliverChildListDelegate.fixed([
         // ResponsiveDetailsCard(
         //   child: DetailTileWidget(
         //     title: loc.collectorFilterName,
         //     subtitle: collector.connectedFilterName,
         //   ),
         // ),
-        ResponsiveDetailsCard(child: Consumer(
-          builder: (context, ref, child) {
-            final connectedSectors = ref
-                    .watch(collectorSectorsStreamProvider(collector.id))
-                    .valueOrNull
-                    ?.length ??
-                0;
-            return DetailTileWidget(
-              title: loc.collectorConnectedSectors,
-              subtitle: loc.nConnectedSectors(connectedSectors),
-            );
-          },
-        ))
-      ],
-    ));
+        ResponsiveDetailsCard(
+          child: Consumer(
+            builder: (context, ref, child) {
+              final connectedSectors = ref.watch(collectorSectorsStreamProvider(collector.id)).valueOrNull?.length ?? 0;
+              return DetailTileWidget(
+                title: loc.collectorConnectedSectors,
+                subtitle: loc.nConnectedSectors(connectedSectors),
+              );
+            },
+          ),
+        ),
+      ]),
+    );
   }
 }

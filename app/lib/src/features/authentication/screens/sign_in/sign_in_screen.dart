@@ -11,18 +11,12 @@ class SignInScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Listen to controller state for when error occurs
-    ref.listen(
-      signInControllerProvider,
-      (_, state) {
-        if (state.error is! UserNotFoundException) {
-          return state.showAlertDialogOnError(context);
-        }
-        debugPrint('User not found error occurred in sign in screen');
-      },
-    );
-    return Scaffold(
-      appBar: AppBar(),
-      body: const SignInScreenContents(),
-    );
+    ref.listen(signInControllerProvider, (_, state) {
+      if (state.error is! UserNotFoundException) {
+        return state.showAlertDialogOnError(context);
+      }
+      debugPrint('User not found error occurred in sign in screen');
+    });
+    return Scaffold(appBar: AppBar(), body: const SignInScreenContents());
   }
 }

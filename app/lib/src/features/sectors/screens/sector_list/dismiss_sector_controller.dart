@@ -15,8 +15,7 @@ class DismissSectorController extends _$DismissSectorController {
   Future<bool> confirmDismiss(Sector sector) async {
     final sectorDismissalService = ref.read(dismissSectorServiceProvider);
     state = const AsyncLoading<void>();
-    final res = await AsyncValue.guard(
-        () => sectorDismissalService.dismissSector(sector.id));
+    final res = await AsyncValue.guard(() => sectorDismissalService.dismissSector(sector.id));
     if (res.hasError) {
       state = AsyncError(res.error!, StackTrace.current);
       return false;

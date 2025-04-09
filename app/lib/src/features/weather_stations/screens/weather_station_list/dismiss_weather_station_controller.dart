@@ -6,27 +6,19 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'dismiss_weather_station_controller.g.dart';
 
 @riverpod
-class DismissWeatherStationController
-    extends _$DismissWeatherStationController {
+class DismissWeatherStationController extends _$DismissWeatherStationController {
   @override
   FutureOr<void> build() {}
 
   Future<bool> confirmDismiss(WeatherStation weatherStation) async {
     final repo = ref.read(weatherStationRepositoryProvider);
     state = const AsyncLoading<void>();
-    state = await AsyncValue.guard(
-      () => repo.deleteWeatherStation(
-        weatherStation.id,
-      ),
-    );
+    state = await AsyncValue.guard(() => repo.deleteWeatherStation(weatherStation.id));
 
     final hasError = state.hasError;
 
     if (!hasError) {
-      ProviderUtils.invalidateWeatherStationStates(
-        ref: ref,
-        weatherStation: weatherStation,
-      );
+      ProviderUtils.invalidateWeatherStationStates(ref: ref, weatherStation: weatherStation);
     }
     return !hasError;
   }

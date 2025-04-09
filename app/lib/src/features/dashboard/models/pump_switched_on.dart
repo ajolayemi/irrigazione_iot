@@ -8,15 +8,9 @@ import 'package:irrigazione_iot/src/utils/int_converter.dart';
 part 'pump_switched_on.g.dart';
 
 @JsonSerializable()
-
 /// A model representation of pumps currently switched on.
 class PumpSwitchedOn extends Equatable {
-  const PumpSwitchedOn({
-    required this.id,
-    required this.statusBoolean,
-    required this.pumpId,
-    required this.companyId,
-  });
+  const PumpSwitchedOn({required this.id, required this.statusBoolean, required this.pumpId, required this.companyId});
 
   @JsonKey(name: 'id')
   @IntConverter()
@@ -35,16 +29,10 @@ class PumpSwitchedOn extends Equatable {
 
   @override
   List<Object> get props {
-    return [
-      id,
-      statusBoolean,
-      pumpId,
-      companyId,
-    ];
+    return [id, statusBoolean, pumpId, companyId];
   }
 
-  factory PumpSwitchedOn.fromJson(Map<String, dynamic> json) =>
-      _$PumpSwitchedOnFromJson(json);
+  factory PumpSwitchedOn.fromJson(Map<String, dynamic> json) => _$PumpSwitchedOnFromJson(json);
 
   Map<String, dynamic> toJson() => _$PumpSwitchedOnToJson(this);
 }

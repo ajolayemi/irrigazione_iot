@@ -14,21 +14,14 @@ class DashboardScreenContents extends StatelessWidget {
     final loc = context.loc;
     final textTheme = context.textTheme;
     return SliverList(
-      delegate: SliverChildListDelegate.fixed(
-        [
-          Text(
-            loc.welcome(userName),
-            style: textTheme.titleLarge?.copyWith(
-              color: Colors.black,
-            ),
-          ),
-          gapH32,
-          const PumpsSwitchedOnList(),
-          gapH32,
-          const SectorsSwitchedOnList(),
-          gapH64,
-        ],
-      ),
+      delegate: SliverChildListDelegate.fixed([
+        Text(loc.welcome(userName), style: textTheme.titleLarge?.copyWith(color: Colors.black)),
+        gapH32,
+        const PumpsSwitchedOnList(),
+        gapH32,
+        const SectorsSwitchedOnList(),
+        gapH64,
+      ]),
     );
   }
 }

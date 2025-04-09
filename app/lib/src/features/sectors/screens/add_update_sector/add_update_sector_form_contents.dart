@@ -32,19 +32,16 @@ import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/utils/numeric_fields_text_type.dart';
 
 class AddUpdateSectorFormContents extends ConsumerStatefulWidget {
-  const AddUpdateSectorFormContents(
-      {super.key, required this.formType, this.sectorId});
+  const AddUpdateSectorFormContents({super.key, required this.formType, this.sectorId});
 
   final String? sectorId;
   final GenericFormTypes formType;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _AddUpdateSectorFormContentsState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _AddUpdateSectorFormContentsState();
 }
 
-class _AddUpdateSectorFormContentsState
-    extends ConsumerState<AddUpdateSectorFormContents> with AppFormValidators {
+class _AddUpdateSectorFormContentsState extends ConsumerState<AddUpdateSectorFormContents> with AppFormValidators {
   // general variables
   final _node = FocusScopeNode();
   final _formKey = GlobalKey<FormState>();
@@ -133,13 +130,10 @@ class _AddUpdateSectorFormContentsState
     if (_isUpdating && sectorId != null) {
       final sector = await ref.read(sectorProvider(sectorId).future);
 
-      final pumpConnectedToSector = await ref.read(sectorPumpFutureProvider(
-        sectorId,
-      ).future);
+      final pumpConnectedToSector = await ref.read(sectorPumpFutureProvider(sectorId).future);
 
       if (pumpConnectedToSector != null) {
-        final pump = await ref
-            .read(pumpFutureProvider(pumpConnectedToSector.pumpId).future);
+        final pump = await ref.read(pumpFutureProvider(pumpConnectedToSector.pumpId).future);
         _initialSectorPump = pump;
       }
 
@@ -148,24 +142,17 @@ class _AddUpdateSectorFormContentsState
       _initialSector = sector;
 
       // set the initial values for the selected pump
-      _selectedPump = RadioButtonItem(
-        value: _initialSectorPump?.id ?? '',
-        label: _initialSectorPump?.name ?? '',
-      );
+      _selectedPump = RadioButtonItem(value: _initialSectorPump?.id ?? '', label: _initialSectorPump?.name ?? '');
 
       // set some form fields initial values
       _nameController.text = _initialSector?.name ?? '';
       _specieController.text = _initialSector?.specieId ?? '';
       _varietyController.text = _initialSector?.varietyId ?? '';
       _areaController.text = _initialSector?.area.toString() ?? '';
-      _numOfPlantsController.text =
-          _initialSector?.numOfPlants.toString() ?? '';
-      _unitConsumptionController.text =
-          _initialSector?.totalConsumption.toString() ?? '';
-      _irrigationSystemController.text =
-          _initialSector?.irrigationSystemType.uiName ?? '';
-      _irrigationSourceController.text =
-          _initialSector?.irrigationSource.uiName ?? '';
+      _numOfPlantsController.text = _initialSector?.numOfPlants.toString() ?? '';
+      _unitConsumptionController.text = _initialSector?.totalConsumption.toString() ?? '';
+      _irrigationSystemController.text = _initialSector?.irrigationSystemType.uiName ?? '';
+      _irrigationSourceController.text = _initialSector?.irrigationSource.uiName ?? '';
       _turnOnCommandController.text = _initialSector?.turnOnCommand ?? '';
       _turnOffCommandController.text = _initialSector?.turnOffCommand ?? '';
       _notesController.text = _initialSector?.notes ?? '';
@@ -177,14 +164,12 @@ class _AddUpdateSectorFormContentsState
 
       // Get the varieties and pumps from the database
       if (_selectedSpecieId != null) {
-        final specie =
-            await ref.read(specieFutureProvider(_selectedSpecieId!).future);
+        final specie = await ref.read(specieFutureProvider(_selectedSpecieId!).future);
         _specieController.text = specie?.name ?? '';
       }
 
       if (_selectedVarietyId != null) {
-        final variety =
-            await ref.read(varietyFutureProvider(_selectedVarietyId!).future);
+        final variety = await ref.read(varietyFutureProvider(_selectedVarietyId!).future);
         _varietyController.text = variety?.name ?? '';
       }
     }
@@ -211,10 +196,7 @@ class _AddUpdateSectorFormContentsState
 
   void _onTappedSpecie() async {
     _node.unfocus();
-    final queryParam = QueryParameters(
-      id: _selectedSpecieId,
-      name: specie,
-    ).toJson();
+    final queryParam = QueryParameters(id: _selectedSpecieId, name: specie).toJson();
     final selectedSpecie = await context.pushNamed<RadioButtonItem>(
       AppRoute.selectASpecie.name,
       queryParameters: queryParam,
@@ -227,10 +209,7 @@ class _AddUpdateSectorFormContentsState
 
   void _onTappedVariety() async {
     _node.unfocus();
-    final queryParam = QueryParameters(
-      id: _selectedVarietyId,
-      name: variety,
-    ).toJson();
+    final queryParam = QueryParameters(id: _selectedVarietyId, name: variety).toJson();
 
     final selectedVariety = await context.pushNamed<RadioButtonItem>(
       AppRoute.selectAVariety.name,
@@ -245,10 +224,7 @@ class _AddUpdateSectorFormContentsState
 
   void _onTappedIrrigationSystem() async {
     _node.unfocus();
-    final queryParam = QueryParameters(
-      id: irrigationSystem,
-      name: irrigationSystem,
-    ).toJson();
+    final queryParam = QueryParameters(id: irrigationSystem, name: irrigationSystem).toJson();
     final selectedIrrigationSystem = await context.pushNamed<RadioButtonItem>(
       AppRoute.selectAnIrrigationSystem.name,
       queryParameters: queryParam,
@@ -260,10 +236,7 @@ class _AddUpdateSectorFormContentsState
 
   void _onTappedIrrigationSource() async {
     _node.unfocus();
-    final queryParam = QueryParameters(
-      id: irrigationSource,
-      name: irrigationSource,
-    ).toJson();
+    final queryParam = QueryParameters(id: irrigationSource, name: irrigationSource).toJson();
     final selectedIrrigationSource = await context.pushNamed<RadioButtonItem>(
       AppRoute.selectAnIrrigationSource.name,
       queryParameters: queryParam,
@@ -275,11 +248,12 @@ class _AddUpdateSectorFormContentsState
 
   void _onTappedConnectedPumps() async {
     _node.unfocus();
-    final queryParam = QueryParameters(
-      id: _selectedPump?.value,
-      name: _selectedPump?.label,
-      previouslyConnectedId: _initialSectorPump?.id,
-    ).toJson();
+    final queryParam =
+        QueryParameters(
+          id: _selectedPump?.value,
+          name: _selectedPump?.label,
+          previouslyConnectedId: _initialSectorPump?.id,
+        ).toJson();
     final selectedPump = await context.pushNamed<RadioButtonItem>(
       AppRoute.connectPumpToSector.name,
       queryParameters: queryParam,
@@ -321,11 +295,7 @@ class _AddUpdateSectorFormContentsState
     );
 
     final fieldName = context.loc.nSectors(1);
-    return context.getLocalizedErrorText(
-      errorKey: errorKey,
-      fieldName: fieldName,
-      maxFieldLength: maxLength,
-    );
+    return context.getLocalizedErrorText(errorKey: errorKey, fieldName: fieldName, maxFieldLength: maxLength);
   }
 
   void _nonEmptyFieldsEditingComplete(String value) {
@@ -385,9 +355,10 @@ class _AddUpdateSectorFormContentsState
       valuesToCompareAgainst: usedCommands,
     );
     return context.getLocalizedErrorText(
-        errorKey: errorKey,
-        pluralFieldName: pluralFieldName,
-        fieldName: singularFieldName);
+      errorKey: errorKey,
+      pluralFieldName: pluralFieldName,
+      fieldName: singularFieldName,
+    );
   }
 
   Future<bool> _checkUserIntention() async {
@@ -395,9 +366,7 @@ class _AddUpdateSectorFormContentsState
     final userIntention = await showAlertDialog(
       context: context,
       title: loc.formGenericSaveDialogTitle,
-      content: loc.formGenericSaveDialogContent(
-        loc.nSectors(1),
-      ),
+      content: loc.formGenericSaveDialogContent(loc.nSectors(1)),
       defaultActionText: loc.genericSaveButtonLabel,
       cancelActionText: loc.alertDialogCancel,
     );
@@ -411,38 +380,33 @@ class _AddUpdateSectorFormContentsState
       final shouldSave = await _checkUserIntention();
       if (!shouldSave) return;
       final toSave = _initialSector?.copyWith(
-          id: _initialSector?.id,
-          name: name,
-          companyId: _initialSector?.companyId,
-          specieId: _selectedSpecieId,
-          varietyId: _selectedVarietyId,
-          area: double.tryParse(area) ?? 0.0,
-          numOfPlants: double.tryParse(numOfPlants) ?? 0,
-          waterConsumptionPerHour: double.tryParse(unitConsumption) ?? 0.0,
-          irrigationSystemType: irrigationSystem.toIrrigationSystemType(),
-          irrigationSource: irrigationSource.toIrrigationSource(),
-          turnOnCommand: turnOnCommand,
-          turnOffCommand: turnOffCommand,
-          notes: notes,
-          hasFilter: _thisSectorHasFilter,
-          mqttMsgName: mqttMsgName);
+        id: _initialSector?.id,
+        name: name,
+        companyId: _initialSector?.companyId,
+        specieId: _selectedSpecieId,
+        varietyId: _selectedVarietyId,
+        area: double.tryParse(area) ?? 0.0,
+        numOfPlants: double.tryParse(numOfPlants) ?? 0,
+        waterConsumptionPerHour: double.tryParse(unitConsumption) ?? 0.0,
+        irrigationSystemType: irrigationSystem.toIrrigationSystemType(),
+        irrigationSource: irrigationSource.toIrrigationSource(),
+        turnOnCommand: turnOnCommand,
+        turnOffCommand: turnOffCommand,
+        notes: notes,
+        hasFilter: _thisSectorHasFilter,
+        mqttMsgName: mqttMsgName,
+      );
 
       bool success = false;
 
       if (_isUpdating) {
         success = await ref
             .read(addUpdateSectorControllerProvider.notifier)
-            .updateSector(
-              sector: toSave,
-              updatedPumpIdToConnectToSector: _selectedPump?.value,
-            );
+            .updateSector(sector: toSave, updatedPumpIdToConnectToSector: _selectedPump?.value);
       } else {
         success = await ref
             .read(addUpdateSectorControllerProvider.notifier)
-            .createSector(
-              sector: toSave,
-              pumpIdToConnectToSector: _selectedPump?.value,
-            );
+            .createSector(sector: toSave, pumpIdToConnectToSector: _selectedPump?.value);
       }
 
       if (success) {
@@ -459,11 +423,9 @@ class _AddUpdateSectorFormContentsState
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(addUpdateSectorControllerProvider,
-        (_, state) => state.showAlertDialogOnError(context));
+    ref.listen(addUpdateSectorControllerProvider, (_, state) => state.showAlertDialogOnError(context));
 
-    final numberFieldKeyboardType =
-        ref.watch(numericFieldsTextInputTypeProvider);
+    final numberFieldKeyboardType = ref.watch(numericFieldsTextInputTypeProvider);
     final state = ref.watch(addUpdateSectorControllerProvider);
 
     final isLoading = state.isLoading;
@@ -475,11 +437,7 @@ class _AddUpdateSectorFormContentsState
         Expanded(
           child: CustomScrollView(
             slivers: [
-              AppSliverBar(
-                title: _isUpdating
-                    ? loc.updateSectorPageTitle
-                    : loc.addSectorPageTitle,
-              ),
+              AppSliverBar(title: _isUpdating ? loc.updateSectorPageTitle : loc.addSectorPageTitle),
               ResponsiveSliverForm(
                 node: _node,
                 formKey: _formKey,
@@ -487,16 +445,13 @@ class _AddUpdateSectorFormContentsState
                   FormFieldCheckboxTile(
                     title: loc.itemHasFilter,
                     value: _thisSectorHasFilter ?? false,
-                    onChanged: (value) => setState(
-                      () => _thisSectorHasFilter = value,
-                    ),
+                    onChanged: (value) => setState(() => _thisSectorHasFilter = value),
                   ),
                   gapH16,
                   // name field
                   Consumer(
                     builder: (context, ref, child) {
-                      final usedNames =
-                          ref.watch(usedSectorNamesFutureProvider);
+                      final usedNames = ref.watch(usedSectorNamesFutureProvider);
                       final value = usedNames.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -506,18 +461,20 @@ class _AddUpdateSectorFormContentsState
                         textInputAction: TextInputAction.next,
                         fieldController: _nameController,
                         maxLength: AppConstants.maxSectorNameLength,
-                        onEditingComplete: () => _nameEditingComplete(
-                          value: name,
-                          maxLength: AppConstants.maxSectorNameLength,
-                          existingNames: value,
-                          initialValue: _initialSector?.name,
-                        ),
-                        validator: (_) => _nameErrorText(
-                          value: name,
-                          maxLength: AppConstants.maxSectorNameLength,
-                          existingNames: value,
-                          initialValue: _initialSector?.name,
-                        ),
+                        onEditingComplete:
+                            () => _nameEditingComplete(
+                              value: name,
+                              maxLength: AppConstants.maxSectorNameLength,
+                              existingNames: value,
+                              initialValue: _initialSector?.name,
+                            ),
+                        validator:
+                            (_) => _nameErrorText(
+                              value: name,
+                              maxLength: AppConstants.maxSectorNameLength,
+                              existingNames: value,
+                              initialValue: _initialSector?.name,
+                            ),
                       );
                     },
                   ),
@@ -527,8 +484,7 @@ class _AddUpdateSectorFormContentsState
                   // mqtt msg name field
                   Consumer(
                     builder: (context, ref, child) {
-                      final usedMqttNames =
-                          ref.watch(sectorUsedMqttMessageNamesFutureProvider);
+                      final usedMqttNames = ref.watch(sectorUsedMqttMessageNamesFutureProvider);
                       final value = usedMqttNames.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -538,18 +494,20 @@ class _AddUpdateSectorFormContentsState
                         fieldHintText: loc.mqttMessageNameFormHint,
                         textInputAction: TextInputAction.next,
                         maxLength: AppConstants.maxMqttMessageNameLength,
-                        validator: (_) => _nameErrorText(
-                          existingNames: value,
-                          maxLength: AppConstants.maxMqttMessageNameLength,
-                          value: mqttMsgName,
-                          initialValue: _initialSector?.mqttMsgName,
-                        ),
-                        onEditingComplete: () => _nameEditingComplete(
-                          existingNames: value,
-                          maxLength: AppConstants.maxMqttMessageNameLength,
-                          value: mqttMsgName,
-                          initialValue: _initialSector?.mqttMsgName,
-                        ),
+                        validator:
+                            (_) => _nameErrorText(
+                              existingNames: value,
+                              maxLength: AppConstants.maxMqttMessageNameLength,
+                              value: mqttMsgName,
+                              initialValue: _initialSector?.mqttMsgName,
+                            ),
+                        onEditingComplete:
+                            () => _nameEditingComplete(
+                              existingNames: value,
+                              maxLength: AppConstants.maxMqttMessageNameLength,
+                              value: mqttMsgName,
+                              initialValue: _initialSector?.mqttMsgName,
+                            ),
                       );
                     },
                   ),
@@ -564,11 +522,9 @@ class _AddUpdateSectorFormContentsState
                     canRequestFocus: false,
                     keyboardType: TextInputType.none,
                     onTap: _onTappedSpecie,
-                    suffixIcon:
-                        CommonFormSuffixIcon(onPressed: _onTappedSpecie),
+                    suffixIcon: CommonFormSuffixIcon(onPressed: _onTappedSpecie),
                     fieldController: _specieController,
-                    onEditingComplete: () =>
-                        _nonEmptyFieldsEditingComplete(specie),
+                    onEditingComplete: () => _nonEmptyFieldsEditingComplete(specie),
                     validator: (_) => _nonEmptyFieldsErrorText(specie),
                   ),
                   gapH16,
@@ -582,11 +538,8 @@ class _AddUpdateSectorFormContentsState
                     canRequestFocus: false,
                     fieldController: _varietyController,
                     onTap: _onTappedVariety,
-                    suffixIcon: CommonFormSuffixIcon(
-                      onPressed: _onTappedVariety,
-                    ),
-                    onEditingComplete: () =>
-                        _nonEmptyFieldsEditingComplete(variety),
+                    suffixIcon: CommonFormSuffixIcon(onPressed: _onTappedVariety),
+                    onEditingComplete: () => _nonEmptyFieldsEditingComplete(variety),
                     validator: (_) => _nonEmptyFieldsErrorText(variety),
                   ),
                   gapH16,
@@ -598,8 +551,7 @@ class _AddUpdateSectorFormContentsState
                     fieldHintText: loc.sectorOccupiedAreaHintText,
                     textInputAction: TextInputAction.next,
                     fieldController: _areaController,
-                    onEditingComplete: () =>
-                        _numericFieldsEditingComplete(area),
+                    onEditingComplete: () => _numericFieldsEditingComplete(area),
                     validator: (_) => _numericFieldsErrorText(area),
                     keyboardType: numberFieldKeyboardType,
                   ),
@@ -612,8 +564,7 @@ class _AddUpdateSectorFormContentsState
                     fieldHintText: loc.sectorNumberOfPlantsHintText,
                     textInputAction: TextInputAction.next,
                     fieldController: _numOfPlantsController,
-                    onEditingComplete: () =>
-                        _numericFieldsEditingComplete(numOfPlants),
+                    onEditingComplete: () => _numericFieldsEditingComplete(numOfPlants),
                     validator: (_) => _numericFieldsErrorText(numOfPlants),
                     keyboardType: numberFieldKeyboardType,
                   ),
@@ -626,8 +577,7 @@ class _AddUpdateSectorFormContentsState
                     fieldHintText: loc.sectorUnitConsumptionPerHourHintText,
                     textInputAction: TextInputAction.next,
                     fieldController: _unitConsumptionController,
-                    onEditingComplete: () =>
-                        _numericFieldsEditingComplete(unitConsumption),
+                    onEditingComplete: () => _numericFieldsEditingComplete(unitConsumption),
                     validator: (_) => _numericFieldsErrorText(unitConsumption),
                     keyboardType: numberFieldKeyboardType,
                   ),
@@ -647,10 +597,8 @@ class _AddUpdateSectorFormContentsState
                       icon: const Icon(Icons.arrow_drop_down),
                       onPressed: _onTappedIrrigationSystem,
                     ),
-                    onEditingComplete: () =>
-                        _nonEmptyFieldsEditingComplete(irrigationSystem),
-                    validator: (_) =>
-                        _nonEmptyFieldsErrorText(irrigationSystem),
+                    onEditingComplete: () => _nonEmptyFieldsEditingComplete(irrigationSystem),
+                    validator: (_) => _nonEmptyFieldsErrorText(irrigationSystem),
                   ),
 
                   gapH16,
@@ -668,17 +616,14 @@ class _AddUpdateSectorFormContentsState
                       icon: const Icon(Icons.arrow_drop_down),
                       onPressed: _onTappedIrrigationSource,
                     ),
-                    onEditingComplete: () =>
-                        _nonEmptyFieldsEditingComplete(irrigationSource),
-                    validator: (_) =>
-                        _nonEmptyFieldsErrorText(irrigationSource),
+                    onEditingComplete: () => _nonEmptyFieldsEditingComplete(irrigationSource),
+                    validator: (_) => _nonEmptyFieldsErrorText(irrigationSource),
                   ),
                   gapH16,
                   // mqtt command to turn on sector field
                   Consumer(
                     builder: (context, ref, child) {
-                      final usedCommands =
-                          ref.watch(usedSectorCommandsFutureProvider);
+                      final usedCommands = ref.watch(usedSectorCommandsFutureProvider);
                       final commands = usedCommands.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -688,18 +633,20 @@ class _AddUpdateSectorFormContentsState
                         textInputAction: TextInputAction.next,
                         keyboardType: numberFieldKeyboardType,
                         fieldController: _turnOnCommandController,
-                        onEditingComplete: () => _canSubmitCommandFields(
-                          turnOnCommand,
-                          turnOffCommand,
-                          _initialSector?.turnOnCommand,
-                          commands,
-                        ),
-                        validator: (_) => _commandFieldErrorText(
-                          turnOnCommand,
-                          turnOffCommand,
-                          _initialSector?.turnOnCommand,
-                          commands,
-                        ),
+                        onEditingComplete:
+                            () => _canSubmitCommandFields(
+                              turnOnCommand,
+                              turnOffCommand,
+                              _initialSector?.turnOnCommand,
+                              commands,
+                            ),
+                        validator:
+                            (_) => _commandFieldErrorText(
+                              turnOnCommand,
+                              turnOffCommand,
+                              _initialSector?.turnOnCommand,
+                              commands,
+                            ),
                       );
                     },
                   ),
@@ -708,8 +655,7 @@ class _AddUpdateSectorFormContentsState
                   // mqtt command to turn off sector field
                   Consumer(
                     builder: (context, ref, child) {
-                      final usedCommands =
-                          ref.watch(usedSectorCommandsFutureProvider);
+                      final usedCommands = ref.watch(usedSectorCommandsFutureProvider);
                       final commands = usedCommands.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -719,18 +665,20 @@ class _AddUpdateSectorFormContentsState
                         keyboardType: numberFieldKeyboardType,
                         textInputAction: TextInputAction.next,
                         fieldController: _turnOffCommandController,
-                        onEditingComplete: () => _canSubmitCommandFields(
-                          turnOffCommand,
-                          turnOnCommand,
-                          _initialSector?.turnOffCommand,
-                          commands,
-                        ),
-                        validator: (_) => _commandFieldErrorText(
-                          turnOffCommand,
-                          turnOnCommand,
-                          _initialSector?.turnOffCommand,
-                          commands,
-                        ),
+                        onEditingComplete:
+                            () => _canSubmitCommandFields(
+                              turnOffCommand,
+                              turnOnCommand,
+                              _initialSector?.turnOffCommand,
+                              commands,
+                            ),
+                        validator:
+                            (_) => _commandFieldErrorText(
+                              turnOffCommand,
+                              turnOnCommand,
+                              _initialSector?.turnOffCommand,
+                              commands,
+                            ),
                       );
                     },
                   ),
@@ -745,13 +693,9 @@ class _AddUpdateSectorFormContentsState
                     canRequestFocus: false,
                     keyboardType: TextInputType.none,
                     validator: (_) => _nonEmptyFieldsErrorText(selectedPump),
-                    onEditingComplete: () =>
-                        _nonEmptyFieldsEditingComplete(selectedPump),
+                    onEditingComplete: () => _nonEmptyFieldsEditingComplete(selectedPump),
                     onTap: _onTappedConnectedPumps,
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.arrow_drop_down),
-                      onPressed: _onTappedConnectedPumps,
-                    ),
+                    suffixIcon: IconButton(icon: const Icon(Icons.arrow_drop_down), onPressed: _onTappedConnectedPumps),
                   ),
 
                   gapH16,
@@ -766,7 +710,7 @@ class _AddUpdateSectorFormContentsState
                   ),
                   gapH16,
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -774,9 +718,7 @@ class _AddUpdateSectorFormContentsState
         // button to save or update the sector
         SliverCTAButton(
           isLoading: isLoading,
-          text: _isUpdating
-              ? loc.genericUpdateButtonLabel
-              : loc.genericSaveButtonLabel,
+          text: _isUpdating ? loc.genericUpdateButtonLabel : loc.genericSaveButtonLabel,
           buttonType: ButtonType.primary,
           onPressed: _submit,
         ),

@@ -7,21 +7,14 @@ import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 
 class AddUpdateWeatherStationForm extends ConsumerWidget {
-  const AddUpdateWeatherStationForm({
-    super.key,
-    required this.formType,
-    this.weatherStationId,
-  });
+  const AddUpdateWeatherStationForm({super.key, required this.formType, this.weatherStationId});
 
   final GenericFormTypes formType;
   final String? weatherStationId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(
-      addUpdateWeatherStationControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+    ref.listen(addUpdateWeatherStationControllerProvider, (_, state) => state.showAlertDialogOnError(context));
 
     final controller = ref.watch(addUpdateWeatherStationControllerProvider);
     final isLoading = controller.isLoading;
@@ -36,10 +29,7 @@ class AddUpdateWeatherStationForm extends ConsumerWidget {
       },
       child: Scaffold(
         body: PaddedSafeArea(
-          child: AddUpdateWeatherStationFormContents(
-            formType: formType,
-            weatherStationId: weatherStationId,
-          ),
+          child: AddUpdateWeatherStationFormContents(formType: formType, weatherStationId: weatherStationId),
         ),
       ),
     );

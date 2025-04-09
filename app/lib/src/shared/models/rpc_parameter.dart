@@ -6,18 +6,14 @@ part 'rpc_parameter.g.dart';
 /// rpc method, i.e Supabase database function.
 @JsonSerializable()
 class RpcParameters {
-  const RpcParameters({
-    required this.companyId,
-    this.idAlreadyConnected,
-  });
+  const RpcParameters({required this.companyId, this.idAlreadyConnected});
 
   @JsonKey(name: 'company_id_input')
   final String companyId;
   @JsonKey(name: 'id_already_connected')
   final String? idAlreadyConnected;
 
-  factory RpcParameters.fromJson(Map<String, dynamic> json) =>
-      _$RpcParametersFromJson(json);
+  factory RpcParameters.fromJson(Map<String, dynamic> json) => _$RpcParametersFromJson(json);
 
   Map<String, dynamic> toJson() => _$RpcParametersToJson(this);
 }

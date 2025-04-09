@@ -10,11 +10,7 @@ import 'package:irrigazione_iot/src/features/weenat/providers/weenat_plot_carous
 import 'package:irrigazione_iot/src/features/weenat/widgets/weenat_plot_carousel_item.dart';
 
 class WeenatPlotsCard extends ConsumerStatefulWidget {
-  const WeenatPlotsCard({
-    super.key,
-    required this.plots,
-    this.mapController,
-  });
+  const WeenatPlotsCard({super.key, required this.plots, this.mapController});
 
   final GoogleMapController? mapController;
   final List<WeenatPlot> plots;
@@ -41,24 +37,15 @@ class _WeenatPlotsCardState extends ConsumerState<WeenatPlotsCard> {
         final currentIndex = ref.read(selectedPlotIndexProvider);
         if (index == currentIndex) {
           final itemAtIndex = plots[index];
-          WeenatUtils.moveCamera(
-            item: itemAtIndex,
-            mapController: widget.mapController,
-          );
+          WeenatUtils.moveCamera(item: itemAtIndex, mapController: widget.mapController);
         }
       }
     });
     super.initState();
   }
 
-  Future<void> _onSwipe({
-    int? currentIndex,
-    required List<WeenatPlot> plots,
-    bool isSwipeRight = false,
-  }) async {
-    if (currentIndex == null ||
-        plots.isEmpty ||
-        currentIndex >= plots.length - 1) {
+  Future<void> _onSwipe({int? currentIndex, required List<WeenatPlot> plots, bool isSwipeRight = false}) async {
+    if (currentIndex == null || plots.isEmpty || currentIndex >= plots.length - 1) {
       return;
     }
 
@@ -75,10 +62,7 @@ class _WeenatPlotsCardState extends ConsumerState<WeenatPlotsCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(
-        minHeight: 100,
-        maxHeight: 200,
-      ),
+      constraints: const BoxConstraints(minHeight: 100, maxHeight: 200),
       child: ScrollablePositionedList.builder(
         itemCount: plots.length,
         scrollDirection: Axis.horizontal,
@@ -90,27 +74,17 @@ class _WeenatPlotsCardState extends ConsumerState<WeenatPlotsCard> {
           final plot = plots[index];
           return Consumer(
             builder: (context, ref, child) {
-              final selectedPlotId = ref.watch(selectedPlotProvider.select(
-                (value) => value?.id,
-              ));
+              final selectedPlotId = ref.watch(selectedPlotProvider.select((value) => value?.id));
               return WeenatPlotCarouselItem(
                 plot: plot,
                 isFirstItem: plot == plots.first,
                 isLastItem: plot == plots.last,
                 isSelected: selectedIndex == index || selectedPlotId == plot.id,
                 onSwipeRight: () async {
-                  await _onSwipe(
-                    currentIndex: index,
-                    plots: plots,
-                    isSwipeRight: true,
-                  );
+                  await _onSwipe(currentIndex: index, plots: plots, isSwipeRight: true);
                 },
                 onSwipeLeft: () async {
-                  await _onSwipe(
-                    currentIndex: index,
-                    plots: plots,
-                    isSwipeRight: false,
-                  );
+                  await _onSwipe(currentIndex: index, plots: plots, isSwipeRight: false);
                 },
               );
             },

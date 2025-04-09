@@ -7,12 +7,13 @@ import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 /// A common widget to display a radio list tile with a label
 /// It is responsive and will center the content on the screen
 class ResponsiveRadioListTile extends StatelessWidget {
-  const ResponsiveRadioListTile(
-      {super.key,
-      required this.value,
-      required this.groupValue,
-      required this.title,
-      this.onChanged});
+  const ResponsiveRadioListTile({
+    super.key,
+    required this.value,
+    required this.groupValue,
+    required this.title,
+    this.onChanged,
+  });
 
   /// The title of the radio list tile
   final String title;

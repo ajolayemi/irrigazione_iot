@@ -9,18 +9,9 @@ part 'board_status.g.dart';
 
 @JsonSerializable()
 class BoardStatus extends Equatable {
-  const BoardStatus({
-    required this.id,
-    required this.batteryLevel,
-    this.createdAt,
-    required this.boardId,
-  });
+  const BoardStatus({required this.id, required this.batteryLevel, this.createdAt, required this.boardId});
 
-  const BoardStatus.empty()
-      : id = '',
-        batteryLevel = 0,
-        createdAt = null,
-        boardId = '';
+  const BoardStatus.empty() : id = '', batteryLevel = 0, createdAt = null, boardId = '';
 
   @JsonKey(name: BoardStatusDatabaseKeys.id, includeToJson: false)
   @IntConverter()
@@ -39,8 +30,7 @@ class BoardStatus extends Equatable {
   @override
   List<Object?> get props => [id, batteryLevel, createdAt, boardId];
 
-  factory BoardStatus.fromJson(Map<String, dynamic> json) =>
-      _$BoardStatusFromJson(json);
+  factory BoardStatus.fromJson(Map<String, dynamic> json) => _$BoardStatusFromJson(json);
 
   Map<String, dynamic> toJson() => _$BoardStatusToJson(this);
 }

@@ -19,10 +19,7 @@ PumpStatisticRepository pumpStatisticRepository(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
-Stream<PumpPressure?> pumpLastPressureStream(
-  Ref ref,
-  String pumpId,
-) {
+Stream<PumpPressure?> pumpLastPressureStream(Ref ref, String pumpId) {
   final pumpStatisticRepository = ref.read(pumpStatisticRepositoryProvider);
   return pumpStatisticRepository.watchLastPumpPressure(pumpId);
 }

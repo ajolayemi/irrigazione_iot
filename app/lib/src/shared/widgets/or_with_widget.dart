@@ -3,10 +3,7 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class OrWithWidget extends StatelessWidget {
-  const OrWithWidget({
-    super.key,
-    required this.orText,
-  });
+  const OrWithWidget({super.key, required this.orText});
 
   final String orText;
 
@@ -19,32 +16,14 @@ class OrWithWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Expanded(
-          child: Container(
-            height: 1,
-            color: dividerColor,
-          ),
-        ),
+        Expanded(child: Container(height: 1, color: dividerColor)),
         gapH8,
         Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: Sizes.p8,
-            vertical: Sizes.p16,
-          ),
-          child: Text(
-            orText,
-            style: textTheme.titleMedium!.copyWith(
-              color: dividerColor,
-            ),
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: Sizes.p8, vertical: Sizes.p16),
+          child: Text(orText, style: textTheme.titleMedium!.copyWith(color: dividerColor)),
         ),
         gapH8,
-        Expanded(
-          child: Container(
-            height: 1,
-            color: dividerColor,
-          ),
-        ),
+        Expanded(child: Container(height: 1, color: dividerColor)),
       ],
     );
   }

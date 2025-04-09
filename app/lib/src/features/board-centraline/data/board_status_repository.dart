@@ -24,10 +24,7 @@ BoardStatusRepository boardStatusRepository(Ref ref) {
 /// Holds onto the most recent [BoardStatus] for a board
 /// It auto updates at a set interval
 @Riverpod(keepAlive: true)
-FutureOr<BoardStatus?> boardStatus(
-  Ref ref, {
-  required String boardId,
-}) {
+FutureOr<BoardStatus?> boardStatus(Ref ref, {required String boardId}) {
   final timer = Timer.periodic(AppConstants.boardStatusUpdateInterval, (_) {
     ref.invalidateSelf();
   });

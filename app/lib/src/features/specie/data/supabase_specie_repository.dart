@@ -14,17 +14,15 @@ class SupabaseSpecieRepository implements SpecieRepository {
     return json.map((e) => Specie.fromJson(e)).toList();
   }
 
-  Specie? _specieSingleFromJsonList(List<Map<String, dynamic>>? json) =>
-      json?.map((e) => Specie.fromJson(e)).first;
+  Specie? _specieSingleFromJsonList(List<Map<String, dynamic>>? json) => json?.map((e) => Specie.fromJson(e)).first;
 
-  Specie? _toSpecie(Map<String, dynamic>? json) =>
-      json == null ? null : Specie.fromJson(json);
+  Specie? _toSpecie(Map<String, dynamic>? json) => json == null ? null : Specie.fromJson(json);
 
   @override
   Stream<List<Specie>?> watchSpecies() {
-    final stream = _supabaseClient.species.stream(primaryKey: [
-      SpecieDatabaseKeys.id
-    ]).order(SpecieDatabaseKeys.name, ascending: true);
+    final stream = _supabaseClient.species
+        .stream(primaryKey: [SpecieDatabaseKeys.id])
+        .order(SpecieDatabaseKeys.name, ascending: true);
     return stream.map((data) => _speciesFromJson(data));
   }
 

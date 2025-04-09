@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 
-
 /// Icon badge showing how many sectors are switched on for a sector
 class SectorsSwitchedOnCountBadge extends StatelessWidget {
   const SectorsSwitchedOnCountBadge({super.key, required this.itemsCount});
@@ -13,10 +12,7 @@ class SectorsSwitchedOnCountBadge extends StatelessWidget {
       width: Sizes.p16,
       height: Sizes.p16,
       child: DecoratedBox(
-        decoration: const BoxDecoration(
-          color: Colors.green,
-          shape: BoxShape.circle,
-        ),
+        decoration: const BoxDecoration(color: Colors.green, shape: BoxShape.circle),
         child: Text(
           '$itemsCount',
           textAlign: TextAlign.center,
@@ -24,10 +20,7 @@ class SectorsSwitchedOnCountBadge extends StatelessWidget {
           // * textScaleFactor. This is to prevent the text from growing bigger
           // * than the available space.
           textScaler: const TextScaler.linear(1.0),
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall!
-              .copyWith(color: Colors.white),
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white),
         ),
       ),
     );

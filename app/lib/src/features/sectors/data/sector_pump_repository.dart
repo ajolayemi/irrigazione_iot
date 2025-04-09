@@ -20,10 +20,7 @@ abstract class SectorPumpRepository {
   Future<SectorPump?> getSectorPump(String sectorId);
 
   /// Gets a list of [Pump]s of the current company that aren't connected yet to a sector
-  Future<List<Pump>?> getAvailablePumps({
-    required String companyId,
-    String? alreadyConnectedPumpId,
-  });
+  Future<List<Pump>?> getAvailablePumps({required String companyId, String? alreadyConnectedPumpId});
 }
 
 @Riverpod(keepAlive: true)
@@ -32,7 +29,6 @@ SectorPumpRepository sectorPumpRepository(Ref ref) {
   return SupabaseSectorPumpRepository(supabaseClient);
 }
 
-
 @riverpod
 Future<SectorPump?> sectorPumpFuture(Ref ref, String sectorId) {
   final sectorPumpRepo = ref.watch(sectorPumpRepositoryProvider);
@@ -40,12 +36,8 @@ Future<SectorPump?> sectorPumpFuture(Ref ref, String sectorId) {
 }
 
 @riverpod
-Future<List<Pump>?> availablePumpsFuture(
-  Ref ref, {
-  String? alreadyConnectedPumpId,
-}) {
-  final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).value;
+Future<List<Pump>?> availablePumpsFuture(Ref ref, {String? alreadyConnectedPumpId}) {
+  final currentSelectedCompanyByUser = ref.watch(currentTappedCompanyProvider).value;
 
   if (currentSelectedCompanyByUser == null) {
     return Future.value(null);
@@ -56,4 +48,3 @@ Future<List<Pump>?> availablePumpsFuture(
     alreadyConnectedPumpId: alreadyConnectedPumpId,
   );
 }
-

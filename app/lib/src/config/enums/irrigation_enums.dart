@@ -6,9 +6,7 @@ enum IrrigationSystem {
   sprinkler(uiName: 'Sprinkler'),
   other(uiName: 'Altro');
 
-  const IrrigationSystem({
-    required this.uiName,
-  });
+  const IrrigationSystem({required this.uiName});
 
   // the name to display in the UI, mostly in forms
   final String uiName;
@@ -24,9 +22,7 @@ enum IrrigationSource {
   consortium(uiName: 'Consorzio di Bonifica'),
   other(uiName: 'Altro');
 
-  const IrrigationSource({
-    required this.uiName,
-  });
+  const IrrigationSource({required this.uiName});
 
   // the name to display in the UI, mostly in forms
   final String uiName;

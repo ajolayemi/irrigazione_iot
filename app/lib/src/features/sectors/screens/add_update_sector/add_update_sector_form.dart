@@ -7,21 +7,14 @@ import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
 class AddUpdateSectorForm extends ConsumerWidget {
-  const AddUpdateSectorForm({
-    super.key,
-    required this.formType,
-    this.sectorId,
-  });
+  const AddUpdateSectorForm({super.key, required this.formType, this.sectorId});
 
   final GenericFormTypes formType;
   final String? sectorId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(
-      addUpdateSectorControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+    ref.listen(addUpdateSectorControllerProvider, (_, state) => state.showAlertDialogOnError(context));
     final isLoading = ref.watch(addUpdateSectorControllerProvider).isLoading;
 
     return PopScope(
@@ -33,13 +26,7 @@ class AddUpdateSectorForm extends ConsumerWidget {
           debugPrint('User tried to exit the form');
         }
       },
-      child: Scaffold(
-          body: PaddedSafeArea(
-        child: AddUpdateSectorFormContents(
-          formType: formType,
-          sectorId: sectorId,
-        ),
-      )),
+      child: Scaffold(body: PaddedSafeArea(child: AddUpdateSectorFormContents(formType: formType, sectorId: sectorId))),
     );
   }
 }

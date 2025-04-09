@@ -30,10 +30,7 @@ class CollectorExpansionTileChildItem extends ConsumerWidget {
 
   void _navigateToCollectorDetails(BuildContext context) {
     final pathParam = PathParameters(id: collector.id).toJson();
-    context.pushNamed(
-      AppRoute.collectorDetails.name,
-      pathParameters: pathParam,
-    );
+    context.pushNamed(AppRoute.collectorDetails.name, pathParameters: pathParam);
   }
 
   @override
@@ -44,30 +41,25 @@ class CollectorExpansionTileChildItem extends ConsumerWidget {
         child: ExpansionTile(
           expandedCrossAxisAlignment: CrossAxisAlignment.end,
           onExpansionChanged: onExpanded,
-          leading: isExpanded
-              ? null
-              : CommonInfoIconButton(
-                  onPressed: () => _navigateToCollectorDetails(context),
-                ),
+          leading: isExpanded ? null : CommonInfoIconButton(onPressed: () => _navigateToCollectorDetails(context)),
           title: CollectorTileRowWidget(collector: collector),
-          subtitle: CollectorTileSubtitle(
-            collector: collector,
-          ),
-          children: collectorSectors.isEmpty
-              ? []
-              : collectorSectors
-                  .map((collectorSector) => Consumer(
-                        builder: (context, ref, child) {
-                          final sector = ref
-                              .watch(sectorProvider(collectorSector!.sectorId))
-                              .valueOrNull;
-                          if (sector == null) {
-                            return const SizedBox();
-                          }
-                          return SectorListTileItem(sector: sector);
-                        },
-                      ))
-                  .toList(),
+          subtitle: CollectorTileSubtitle(collector: collector),
+          children:
+              collectorSectors.isEmpty
+                  ? []
+                  : collectorSectors
+                      .map(
+                        (collectorSector) => Consumer(
+                          builder: (context, ref, child) {
+                            final sector = ref.watch(sectorProvider(collectorSector!.sectorId)).valueOrNull;
+                            if (sector == null) {
+                              return const SizedBox();
+                            }
+                            return SectorListTileItem(sector: sector);
+                          },
+                        ),
+                      )
+                      .toList(),
         ),
       ),
     );

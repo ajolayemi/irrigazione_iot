@@ -20,9 +20,7 @@ class LocationService {
       }
       return await Geolocator.getCurrentPosition();
     } catch (error) {
-      throw Exception(
-        'An error occurred while trying to get the user\'s location',
-      );
+      throw Exception('An error occurred while trying to get the user\'s location');
     }
   }
 
@@ -50,8 +48,7 @@ class LocationService {
   /// Requests user's permission to access location
   Future<bool> requestLocationPermission() async {
     final permission = await Geolocator.requestPermission();
-    return permission == LocationPermission.always ||
-        permission == LocationPermission.whileInUse;
+    return permission == LocationPermission.always || permission == LocationPermission.whileInUse;
   }
 }
 

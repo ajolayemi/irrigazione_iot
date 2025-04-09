@@ -13,15 +13,10 @@ import 'package:irrigazione_iot/src/features/sectors/models/sector_pump.dart';
 part 'add_update_sector_service.g.dart';
 
 class AddUpdateSectorService {
-  const AddUpdateSectorService(
-    this.ref,
-  );
+  const AddUpdateSectorService(this.ref);
   final Ref ref;
 
-  Future<void> createSector({
-    required Sector sector,
-    required String pumpIdToConnectToSector,
-  }) async {
+  Future<void> createSector({required Sector sector, required String pumpIdToConnectToSector}) async {
     final user = ref.read(authRepositoryProvider).currentUser;
     if (user == null) return;
 
@@ -31,37 +26,22 @@ class AddUpdateSectorService {
     final companyId = selectedCompanyRepo.loadSelectedCompanyId(user.uid);
 
     //create sector
-    final createdSector = await sectorRepo.createSector(
-      sector.copyWith(companyId: companyId),
-    );
+    final createdSector = await sectorRepo.createSector(sector.copyWith(companyId: companyId));
 
-    ProviderUtils.invalidateSectorStates(
-      ref: ref,
-      sector: createdSector,
-    );
+    ProviderUtils.invalidateSectorStates(ref: ref, sector: createdSector);
 
     if (createdSector == null || pumpIdToConnectToSector.isEmpty) {
       debugPrint('Sector creation failed');
       return;
     }
 
-    final sectorPump = SectorPump(
-      id: '',
-      sectorId: createdSector.id,
-      pumpId: pumpIdToConnectToSector,
-    );
-    debugPrint(
-        'Creating sector pump: ${sectorPump.toJson()} for sector: ${createdSector.name}');
-    final createdSectorPump = await sectorPumpsRepo.createSectorPump(
-      sectorPump,
-    );
+    final sectorPump = SectorPump(id: '', sectorId: createdSector.id, pumpId: pumpIdToConnectToSector);
+    debugPrint('Creating sector pump: ${sectorPump.toJson()} for sector: ${createdSector.name}');
+    final createdSectorPump = await sectorPumpsRepo.createSectorPump(sectorPump);
     debugPrint('Created sectorPump: ${createdSectorPump?.toJson()}}');
   }
 
-  Future<void> updateSector({
-    required Sector sector,
-    required String updatedConnectedPumpId,
-  }) async {
+  Future<void> updateSector({required Sector sector, required String updatedConnectedPumpId}) async {
     final user = ref.read(authRepositoryProvider).currentUser;
     if (user == null) return;
 
@@ -71,23 +51,17 @@ class AddUpdateSectorService {
     final companyId = selectedCompanyRepo.loadSelectedCompanyId(user.uid);
 
     // update sector, the function will return early if the sector is the same as the old one
-    final updatedSector =
-        await sectorRepo.updateSector(sector.copyWith(companyId: companyId));
+    final updatedSector = await sectorRepo.updateSector(sector.copyWith(companyId: companyId));
 
-    ProviderUtils.invalidateSectorStates(
-      ref: ref,
-      sector: updatedSector,
-    );
+    ProviderUtils.invalidateSectorStates(ref: ref, sector: updatedSector);
     if (updatedSector == null) return;
 
     // Get the current pump connected to the sector
-    final currentSectorPump =
-        await sectorPumpsRepository.getSectorPump(updatedSector.id);
+    final currentSectorPump = await sectorPumpsRepository.getSectorPump(updatedSector.id);
 
     // if there were no previously connected pumps to the sector and the user didn't connect any new pump to the sector
     if (currentSectorPump == null && updatedConnectedPumpId.isEmpty) {
-      debugPrint(
-          'No new pumps to connect to the sector: ${updatedSector.name}');
+      debugPrint('No new pumps to connect to the sector: ${updatedSector.name}');
       return;
     }
 
@@ -96,27 +70,20 @@ class AddUpdateSectorService {
       // if the updated connected pump id is different from the previously connected one,
       // meaning that user chose not to connect any pump to the sector or a new pump was selected, remove the old pump
       if (updatedConnectedPumpId != currentSectorPump.pumpId) {
-        debugPrint(
-            'Removing pump: ${currentSectorPump.pumpId} from sector: ${updatedSector.name}');
+        debugPrint('Removing pump: ${currentSectorPump.pumpId} from sector: ${updatedSector.name}');
         await sectorPumpsRepository.deleteSectorPump(currentSectorPump.id);
       } else if (updatedConnectedPumpId == currentSectorPump.pumpId) {
         // if the updated connected pump id is the same as the previously connected one, return early
-        debugPrint(
-            'No new pumps to connect to the sector: ${updatedSector.name}');
+        debugPrint('No new pumps to connect to the sector: ${updatedSector.name}');
         return;
       }
     }
 
     // Reaching here means their is the need to connect a new pump to the sector
-    final newSectorPump = SectorPump(
-      id: '',
-      sectorId: updatedSector.id,
-      pumpId: updatedConnectedPumpId,
-    );
+    final newSectorPump = SectorPump(id: '', sectorId: updatedSector.id, pumpId: updatedConnectedPumpId);
 
     final a = await sectorPumpsRepository.createSectorPump(newSectorPump);
-    debugPrint(
-        'Updating sector pump: ${a?.toJson()} for sector: ${updatedSector.name}');
+    debugPrint('Updating sector pump: ${a?.toJson()} for sector: ${updatedSector.name}');
 
     return;
   }

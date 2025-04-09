@@ -15,59 +15,47 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$WeenatSensorDataPayload {
-  int get start;
-  int get end;
-  @JsonKey(name: 'plot_id')
-  int get plotId;
-  int? get organization;
 
-  /// Create a copy of WeenatSensorDataPayload
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $WeenatSensorDataPayloadCopyWith<WeenatSensorDataPayload> get copyWith =>
-      _$WeenatSensorDataPayloadCopyWithImpl<WeenatSensorDataPayload>(
-          this as WeenatSensorDataPayload, _$identity);
+ int get start; int get end;@JsonKey(name: 'plot_id') int get plotId; int? get organization;
+/// Create a copy of WeenatSensorDataPayload
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$WeenatSensorDataPayloadCopyWith<WeenatSensorDataPayload> get copyWith => _$WeenatSensorDataPayloadCopyWithImpl<WeenatSensorDataPayload>(this as WeenatSensorDataPayload, _$identity);
 
   /// Serializes this WeenatSensorDataPayload to a JSON map.
   Map<String, dynamic> toJson();
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is WeenatSensorDataPayload &&
-            (identical(other.start, start) || other.start == start) &&
-            (identical(other.end, end) || other.end == end) &&
-            (identical(other.plotId, plotId) || other.plotId == plotId) &&
-            (identical(other.organization, organization) ||
-                other.organization == organization));
-  }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, start, end, plotId, organization);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeenatSensorDataPayload&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end)&&(identical(other.plotId, plotId) || other.plotId == plotId)&&(identical(other.organization, organization) || other.organization == organization));
+}
 
-  @override
-  String toString() {
-    return 'WeenatSensorDataPayload(start: $start, end: $end, plotId: $plotId, organization: $organization)';
-  }
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,start,end,plotId,organization);
+
+@override
+String toString() {
+  return 'WeenatSensorDataPayload(start: $start, end: $end, plotId: $plotId, organization: $organization)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class $WeenatSensorDataPayloadCopyWith<$Res> {
-  factory $WeenatSensorDataPayloadCopyWith(WeenatSensorDataPayload value,
-          $Res Function(WeenatSensorDataPayload) _then) =
-      _$WeenatSensorDataPayloadCopyWithImpl;
-  @useResult
-  $Res call(
-      {int start,
-      int end,
-      @JsonKey(name: 'plot_id') int plotId,
-      int? organization});
-}
+abstract mixin class $WeenatSensorDataPayloadCopyWith<$Res>  {
+  factory $WeenatSensorDataPayloadCopyWith(WeenatSensorDataPayload value, $Res Function(WeenatSensorDataPayload) _then) = _$WeenatSensorDataPayloadCopyWithImpl;
+@useResult
+$Res call({
+ int start, int end,@JsonKey(name: 'plot_id') int plotId, int? organization
+});
 
+
+
+
+}
 /// @nodoc
 class _$WeenatSensorDataPayloadCopyWithImpl<$Res>
     implements $WeenatSensorDataPayloadCopyWith<$Res> {
@@ -76,113 +64,73 @@ class _$WeenatSensorDataPayloadCopyWithImpl<$Res>
   final WeenatSensorDataPayload _self;
   final $Res Function(WeenatSensorDataPayload) _then;
 
-  /// Create a copy of WeenatSensorDataPayload
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? start = null,
-    Object? end = null,
-    Object? plotId = null,
-    Object? organization = freezed,
-  }) {
-    return _then(_self.copyWith(
-      start: null == start
-          ? _self.start
-          : start // ignore: cast_nullable_to_non_nullable
-              as int,
-      end: null == end
-          ? _self.end
-          : end // ignore: cast_nullable_to_non_nullable
-              as int,
-      plotId: null == plotId
-          ? _self.plotId
-          : plotId // ignore: cast_nullable_to_non_nullable
-              as int,
-      organization: freezed == organization
-          ? _self.organization
-          : organization // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
+/// Create a copy of WeenatSensorDataPayload
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? start = null,Object? end = null,Object? plotId = null,Object? organization = freezed,}) {
+  return _then(_self.copyWith(
+start: null == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
+as int,end: null == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
+as int,plotId: null == plotId ? _self.plotId : plotId // ignore: cast_nullable_to_non_nullable
+as int,organization: freezed == organization ? _self.organization : organization // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
 }
+
+}
+
 
 /// @nodoc
 @JsonSerializable()
+
 class _WeenatSensorDataPayload extends WeenatSensorDataPayload {
-  const _WeenatSensorDataPayload(
-      {required this.start,
-      required this.end,
-      @JsonKey(name: 'plot_id') required this.plotId,
-      this.organization})
-      : super._();
-  factory _WeenatSensorDataPayload.fromJson(Map<String, dynamic> json) =>
-      _$WeenatSensorDataPayloadFromJson(json);
+  const _WeenatSensorDataPayload({required this.start, required this.end, @JsonKey(name: 'plot_id') required this.plotId, this.organization}): super._();
+  factory _WeenatSensorDataPayload.fromJson(Map<String, dynamic> json) => _$WeenatSensorDataPayloadFromJson(json);
 
-  @override
-  final int start;
-  @override
-  final int end;
-  @override
-  @JsonKey(name: 'plot_id')
-  final int plotId;
-  @override
-  final int? organization;
+@override final  int start;
+@override final  int end;
+@override@JsonKey(name: 'plot_id') final  int plotId;
+@override final  int? organization;
 
-  /// Create a copy of WeenatSensorDataPayload
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$WeenatSensorDataPayloadCopyWith<_WeenatSensorDataPayload> get copyWith =>
-      __$WeenatSensorDataPayloadCopyWithImpl<_WeenatSensorDataPayload>(
-          this, _$identity);
+/// Create a copy of WeenatSensorDataPayload
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$WeenatSensorDataPayloadCopyWith<_WeenatSensorDataPayload> get copyWith => __$WeenatSensorDataPayloadCopyWithImpl<_WeenatSensorDataPayload>(this, _$identity);
 
-  @override
-  Map<String, dynamic> toJson() {
-    return _$WeenatSensorDataPayloadToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$WeenatSensorDataPayloadToJson(this, );
+}
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _WeenatSensorDataPayload &&
-            (identical(other.start, start) || other.start == start) &&
-            (identical(other.end, end) || other.end == end) &&
-            (identical(other.plotId, plotId) || other.plotId == plotId) &&
-            (identical(other.organization, organization) ||
-                other.organization == organization));
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeenatSensorDataPayload&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end)&&(identical(other.plotId, plotId) || other.plotId == plotId)&&(identical(other.organization, organization) || other.organization == organization));
+}
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, start, end, plotId, organization);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,start,end,plotId,organization);
 
-  @override
-  String toString() {
-    return 'WeenatSensorDataPayload(start: $start, end: $end, plotId: $plotId, organization: $organization)';
-  }
+@override
+String toString() {
+  return 'WeenatSensorDataPayload(start: $start, end: $end, plotId: $plotId, organization: $organization)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class _$WeenatSensorDataPayloadCopyWith<$Res>
-    implements $WeenatSensorDataPayloadCopyWith<$Res> {
-  factory _$WeenatSensorDataPayloadCopyWith(_WeenatSensorDataPayload value,
-          $Res Function(_WeenatSensorDataPayload) _then) =
-      __$WeenatSensorDataPayloadCopyWithImpl;
-  @override
-  @useResult
-  $Res call(
-      {int start,
-      int end,
-      @JsonKey(name: 'plot_id') int plotId,
-      int? organization});
-}
+abstract mixin class _$WeenatSensorDataPayloadCopyWith<$Res> implements $WeenatSensorDataPayloadCopyWith<$Res> {
+  factory _$WeenatSensorDataPayloadCopyWith(_WeenatSensorDataPayload value, $Res Function(_WeenatSensorDataPayload) _then) = __$WeenatSensorDataPayloadCopyWithImpl;
+@override @useResult
+$Res call({
+ int start, int end,@JsonKey(name: 'plot_id') int plotId, int? organization
+});
 
+
+
+
+}
 /// @nodoc
 class __$WeenatSensorDataPayloadCopyWithImpl<$Res>
     implements _$WeenatSensorDataPayloadCopyWith<$Res> {
@@ -191,35 +139,19 @@ class __$WeenatSensorDataPayloadCopyWithImpl<$Res>
   final _WeenatSensorDataPayload _self;
   final $Res Function(_WeenatSensorDataPayload) _then;
 
-  /// Create a copy of WeenatSensorDataPayload
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? start = null,
-    Object? end = null,
-    Object? plotId = null,
-    Object? organization = freezed,
-  }) {
-    return _then(_WeenatSensorDataPayload(
-      start: null == start
-          ? _self.start
-          : start // ignore: cast_nullable_to_non_nullable
-              as int,
-      end: null == end
-          ? _self.end
-          : end // ignore: cast_nullable_to_non_nullable
-              as int,
-      plotId: null == plotId
-          ? _self.plotId
-          : plotId // ignore: cast_nullable_to_non_nullable
-              as int,
-      organization: freezed == organization
-          ? _self.organization
-          : organization // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
+/// Create a copy of WeenatSensorDataPayload
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? start = null,Object? end = null,Object? plotId = null,Object? organization = freezed,}) {
+  return _then(_WeenatSensorDataPayload(
+start: null == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
+as int,end: null == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
+as int,plotId: null == plotId ? _self.plotId : plotId // ignore: cast_nullable_to_non_nullable
+as int,organization: freezed == organization ? _self.organization : organization // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
+}
+
+
 }
 
 // dart format on

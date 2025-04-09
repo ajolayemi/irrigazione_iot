@@ -11,9 +11,7 @@ import 'package:irrigazione_iot/src/utils/provider_utils.dart';
 part 'add_update_pump_service.g.dart';
 
 class AddUpdatePumpService {
-  const AddUpdatePumpService(
-    this.ref,
-  );
+  const AddUpdatePumpService(this.ref);
   final Ref ref;
 
   Future<void> createPump(Pump pump) async {
@@ -25,14 +23,9 @@ class AddUpdatePumpService {
     final companyId = selectedCompanyRepo.loadSelectedCompanyId(user.uid);
 
     // create pump
-    final createdPump = await pumpRepo.createPump(
-      pump.copyWith(companyId: companyId),
-    );
+    final createdPump = await pumpRepo.createPump(pump.copyWith(companyId: companyId));
 
-    ProviderUtils.invalidatePumpStates(
-      ref: ref,
-      pump: createdPump,
-    );
+    ProviderUtils.invalidatePumpStates(ref: ref, pump: createdPump);
   }
 
   Future<void> updatePump(Pump pump) async {
@@ -44,14 +37,9 @@ class AddUpdatePumpService {
     final companyId = selectedCompanyRepo.loadSelectedCompanyId(user.uid);
 
     // update pump
-    final updatedPump = await pumpRepo.updatePump(
-      pump.copyWith(companyId: companyId),
-    );
+    final updatedPump = await pumpRepo.updatePump(pump.copyWith(companyId: companyId));
 
-    ProviderUtils.invalidatePumpStates(
-      ref: ref,
-      pump: updatedPump,
-    );
+    ProviderUtils.invalidatePumpStates(ref: ref, pump: updatedPump);
   }
 }
 

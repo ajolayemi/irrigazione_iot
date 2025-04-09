@@ -22,10 +22,7 @@ class RouterRedirectService {
   static get welcomeRoute => AppRoute.welcome.path;
   static get addCompanyRoute => AppRoute.registerCompany.path;
 
-  FutureOr<String?> redirect(
-    BuildContext context,
-    GoRouterState routerState,
-  ) {
+  FutureOr<String?> redirect(BuildContext context, GoRouterState routerState) {
     final authRepo = _ref.read(authRepositoryProvider);
 
     final selectedCompanyRepo = _ref.read(selectedCompanyRepositoryProvider);
@@ -47,12 +44,9 @@ class RouterRedirectService {
     // 3. If the user doesn't have a valid session
     // and they're trying to access sign up, sign in, add company routes, they should be allowed to access them
     if (sessionIsValid) {
-      final hasSelectedACompany =
-          selectedCompanyRepo.loadSelectedCompanyId(user!.uid) != null;
+      final hasSelectedACompany = selectedCompanyRepo.loadSelectedCompanyId(user!.uid) != null;
       if (hasSelectedACompany) {
-        if (currentPath == signInRoute ||
-            currentPath == signUpRoute ||
-            currentPath == welcomeRoute) {
+        if (currentPath == signInRoute || currentPath == signUpRoute || currentPath == welcomeRoute) {
           return homeRoute;
         }
 
@@ -61,9 +55,7 @@ class RouterRedirectService {
       return companiesListGridRoute;
     }
 
-    if (currentPath == signInRoute ||
-        currentPath == signUpRoute ||
-        currentPath == addCompanyRoute) {
+    if (currentPath == signInRoute || currentPath == signUpRoute || currentPath == addCompanyRoute) {
       return null;
     }
 

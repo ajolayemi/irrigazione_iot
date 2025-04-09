@@ -8,26 +8,23 @@ part 'collector_pressure.g.dart';
 
 @JsonSerializable()
 class CollectorPressure extends Equatable {
-  const CollectorPressure(
-      {required this.id,
-      required this.filterInPressure,
-      required this.filterOutPressure,
-      required this.collectorId,
-      this.createdAt})
-      : pressureDifference = filterInPressure - filterOutPressure;
+  const CollectorPressure({
+    required this.id,
+    required this.filterInPressure,
+    required this.filterOutPressure,
+    required this.collectorId,
+    this.createdAt,
+  }) : pressureDifference = filterInPressure - filterOutPressure;
 
   const CollectorPressure.empty()
-      : id = '',
-        filterInPressure = 0,
-        filterOutPressure = 0,
-        createdAt = null,
-        collectorId = '',
-        pressureDifference = 0;
+    : id = '',
+      filterInPressure = 0,
+      filterOutPressure = 0,
+      createdAt = null,
+      collectorId = '',
+      pressureDifference = 0;
 
-  @JsonKey(
-      name: CollectorPressureDatabaseKeys.id,
-      includeToJson: false,
-      )
+  @JsonKey(name: CollectorPressureDatabaseKeys.id, includeToJson: false)
   @IntConverter()
   final String id;
 
@@ -49,18 +46,10 @@ class CollectorPressure extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
-      id,
-      filterInPressure,
-      filterOutPressure,
-      createdAt,
-      collectorId,
-      pressureDifference,
-    ];
+    return [id, filterInPressure, filterOutPressure, createdAt, collectorId, pressureDifference];
   }
 
-  factory CollectorPressure.fromJson(Map<String, dynamic> json) =>
-      _$CollectorPressureFromJson(json);
+  factory CollectorPressure.fromJson(Map<String, dynamic> json) => _$CollectorPressureFromJson(json);
 
   Map<String, dynamic> toJson() => _$CollectorPressureToJson(this);
 }

@@ -5,20 +5,13 @@ import 'package:irrigazione_iot/src/features/board-centraline/models/board_statu
 import 'package:irrigazione_iot/src/features/collectors/widgets/battery_level_indicator.dart';
 
 class BoardBatteryLevelIndicator extends ConsumerWidget {
-  const BoardBatteryLevelIndicator({
-    super.key,
-    required this.boardId,
-  });
+  const BoardBatteryLevelIndicator({super.key, required this.boardId});
 
   final String boardId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final boardStatus = ref
-        .watch(boardStatusProvider(
-          boardId: boardId,
-        ))
-        .valueOrNull;
+    final boardStatus = ref.watch(boardStatusProvider(boardId: boardId)).valueOrNull;
     final batteryLevel = (boardStatus?.batteryLevelForUi ?? 0.0);
     return BatteryLevelIndicator(batteryLevel: batteryLevel);
   }

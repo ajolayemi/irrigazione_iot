@@ -8,11 +8,7 @@ part 'available_sector.g.dart';
 
 @JsonSerializable()
 class AvailableSector extends Equatable {
-  const AvailableSector({
-    required this.sectorId,
-    required this.companyId,
-  });
-
+  const AvailableSector({required this.sectorId, required this.companyId});
 
   @JsonKey(name: AvailableSectorDatabaseKeys.sectorId)
   @IntConverter()
@@ -25,8 +21,7 @@ class AvailableSector extends Equatable {
   @override
   List<Object> get props => [sectorId, companyId];
 
-  factory AvailableSector.fromJson(Map<String, dynamic> json) =>
-      _$AvailableSectorFromJson(json);
+  factory AvailableSector.fromJson(Map<String, dynamic> json) => _$AvailableSectorFromJson(json);
 
   Map<String, dynamic> toJson() => _$AvailableSectorToJson(this);
 }

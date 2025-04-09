@@ -8,14 +8,10 @@ class SectorsListTileSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverList(
-        delegate: SliverChildBuilderDelegate(
-      (context, index) {
-        return const CommonSkeletonTile(
-          hasLeading: false,
-        );
-      },
-      childCount: 6,
-    ));
+      delegate: SliverChildBuilderDelegate((context, index) {
+        return const CommonSkeletonTile(hasLeading: false);
+      }, childCount: 6),
+    );
   }
 }
 
@@ -27,9 +23,7 @@ class SectorsListTileSkeletonNonSliver extends StatelessWidget {
     return ListView.builder(
       itemCount: 6,
       itemBuilder: (context, index) {
-        return const CommonSkeletonTile(
-          hasLeading: false,
-        );
+        return const CommonSkeletonTile(hasLeading: false);
       },
     );
   }

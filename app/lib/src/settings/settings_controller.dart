@@ -3,7 +3,6 @@ import 'package:irrigazione_iot/src/settings/settings_service.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-
 /// A class that many Widgets can interact with to read user settings, update
 /// user settings, or listen to user settings changes.
 ///

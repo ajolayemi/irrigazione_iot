@@ -14,9 +14,7 @@ class EmptyPumpWidget extends StatelessWidget {
     return SliverEmptyDataWidget(
       message: loc.emptyDataPlaceholder(loc.nPumps(1)),
       buttonText: loc.addNewButtonLabel,
-      onPressed: () => context.pushNamed(
-        AppRoute.addPump.name,
-      ),
+      onPressed: () => context.pushNamed(AppRoute.addPump.name),
     );
   }
 }

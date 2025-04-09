@@ -13,9 +13,7 @@ class CompanyUsersMoreOptionItem extends ConsumerWidget {
     final loc = context.loc;
     return MorePageItemListTile(
       title: loc.companyUsersMenuTitle,
-      onTap: () => context.pushNamed(
-        AppRoute.companyUsers.name,
-      ),
+      onTap: () => context.pushNamed(AppRoute.companyUsers.name),
       leadingIcon: Icons.people,
     );
   }

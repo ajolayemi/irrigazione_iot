@@ -14,11 +14,9 @@ class SupabaseVarietyRepository implements VarietyRepository {
     return json.map((e) => Variety.fromJson(e)).toList();
   }
 
-  Variety? _varietySingleFromJsonList(List<Map<String, dynamic>>? json) =>
-      json?.map((e) => Variety.fromJson(e)).first;
+  Variety? _varietySingleFromJsonList(List<Map<String, dynamic>>? json) => json?.map((e) => Variety.fromJson(e)).first;
 
-  Variety? _toVariety(Map<String, dynamic>? json) =>
-      json == null ? null : Variety.fromJson(json);
+  Variety? _toVariety(Map<String, dynamic>? json) => json == null ? null : Variety.fromJson(json);
 
   @override
   Stream<List<Variety>?> watchVarieties() => _supabaseClient.varieties

@@ -22,15 +22,15 @@ class PumpSearchQueryResult extends _$PumpSearchQueryResult {
 
       // set state to loading
       state = const AsyncLoading<List<Pump>?>();
-      final filteredPumps = currentState.where((pump) {
-        final name = pump.name.toLowerCase();
-        final queryLower = query.toLowerCase();
-        return name.contains(queryLower);
-      }).toList();
+      final filteredPumps =
+          currentState.where((pump) {
+            final name = pump.name.toLowerCase();
+            final queryLower = query.toLowerCase();
+            return name.contains(queryLower);
+          }).toList();
 
       state = AsyncData<List<Pump>>([...filteredPumps]);
     }
-
     // If query is empty, reset the list of pumps to the original list
     else {
       reset();

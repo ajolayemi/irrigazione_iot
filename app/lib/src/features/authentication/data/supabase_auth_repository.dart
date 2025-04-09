@@ -15,9 +15,7 @@ class SupabaseAuthRepository implements AuthRepository {
   Stream<AuthState> authStateChanges() => _authClient.onAuthStateChange;
 
   @override
-  AppUser? get currentUser => _convertUser(
-        _authClient.currentUser,
-      );
+  AppUser? get currentUser => _convertUser(_authClient.currentUser);
 
   @override
   Session? get currentSession => _authClient.currentSession;
@@ -31,10 +29,7 @@ class SupabaseAuthRepository implements AuthRepository {
   @override
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     try {
-      await _authClient.signInWithPassword(
-        password: password,
-        email: email,
-      );
+      await _authClient.signInWithPassword(password: password, email: email);
       return;
     } catch (error) {
       if (error is AuthException) {
@@ -56,10 +51,7 @@ class SupabaseAuthRepository implements AuthRepository {
     /// iOS Client ID that you registered with Google Cloud.
     final iosClientId = Env.iosClientId;
 
-    final GoogleSignIn googleSignIn = GoogleSignIn(
-      clientId: iosClientId,
-      serverClientId: webClientId,
-    );
+    final GoogleSignIn googleSignIn = GoogleSignIn(clientId: iosClientId, serverClientId: webClientId);
     final googleUser = await googleSignIn.signIn();
 
     final googleAuth = await googleUser?.authentication;
@@ -74,11 +66,7 @@ class SupabaseAuthRepository implements AuthRepository {
       return;
     }
 
-    await _authClient.signInWithIdToken(
-      provider: OAuthProvider.google,
-      idToken: idToken,
-      accessToken: accessToken,
-    );
+    await _authClient.signInWithIdToken(provider: OAuthProvider.google, idToken: idToken, accessToken: accessToken);
   }
 
   @override
@@ -91,19 +79,14 @@ class SupabaseAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<AppUser?> signUp({
-    required AppUser appUser,
-    required String password,
-  }) async {
+  Future<AppUser?> signUp({required AppUser appUser, required String password}) async {
     try {
       final signUpResponse = await _authClient.signUp(
-          email: appUser.email,
-          password: password,
-          data: {
-            'name': appUser.name,
-            'surname': appUser.surname,
-          },
-          emailRedirectTo: 'io.supabase.irrigationiot://login');
+        email: appUser.email,
+        password: password,
+        data: {'name': appUser.name, 'surname': appUser.surname},
+        emailRedirectTo: 'io.supabase.irrigationiot://login',
+      );
       return _convertUser(signUpResponse.session?.user);
     } catch (error) {
       if (error is AuthException) {
@@ -118,6 +101,5 @@ class SupabaseAuthRepository implements AuthRepository {
   }
 
   /// Helper method to convert a [User] to an [AppUser]
-  AppUser? _convertUser(User? user) =>
-      user != null ? SupabaseAppUser(user) : null;
+  AppUser? _convertUser(User? user) => user != null ? SupabaseAppUser(user) : null;
 }

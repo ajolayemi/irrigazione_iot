@@ -20,13 +20,8 @@ import 'package:irrigazione_iot/src/utils/provider_utils.dart';
 class BoardsListScreen extends ConsumerWidget {
   const BoardsListScreen({super.key});
 
-  void _onTapAdd(
-    BuildContext context,
-    WidgetRef ref,
-  ) {
-    context.pushNamed(
-      AppRoute.addBoard.name,
-    );
+  void _onTapAdd(BuildContext context, WidgetRef ref) {
+    context.pushNamed(AppRoute.addBoard.name);
   }
 
   @override
@@ -43,34 +38,24 @@ class BoardsListScreen extends ConsumerWidget {
             slivers: [
               AppSliverBar(
                 title: loc.iotBoardsMenuTitle,
-                actions: [
-                  CommonAddIconButton(
-                    onPressed: () => _onTapAdd(context, ref),
-                  ),
-                ],
+                actions: [CommonAddIconButton(onPressed: () => _onTapAdd(context, ref))],
               ),
               AsyncValueSliverWidget(
                 value: boards,
                 data: (boards) {
                   if (boards == null || boards.isEmpty) {
-                    return EmptyBoardWidget(
-                      onTapAdd: () => _onTapAdd(context, ref),
-                    );
+                    return EmptyBoardWidget(onTapAdd: () => _onTapAdd(context, ref));
                   }
 
                   return SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                    (context, index) {
+                    delegate: SliverChildBuilderDelegate((context, index) {
                       // It's safe to assume that board is not null
                       final board = boards[index];
                       return BoardListTile(board: board);
-                    },
-                    childCount: boards.length,
-                  ));
+                    }, childCount: boards.length),
+                  );
                 },
-                loading: () => const CommonSliverListSkeleton(
-                  hasLeading: false,
-                ),
+                loading: () => const CommonSliverListSkeleton(hasLeading: false),
               ),
             ],
           ),

@@ -16,8 +16,7 @@ class SectorStatusService {
   SectorStatusService(this._ref);
   final Ref _ref;
 
-  Future<void> toggleStatus(
-      {required Sector sector, required bool status}) async {
+  Future<void> toggleStatus({required Sector sector, required bool status}) async {
     final authRepo = _ref.read(authRepositoryProvider);
     final uid = authRepo.currentUser?.uid;
 
@@ -35,8 +34,7 @@ class SectorStatusService {
 
     final collectorSectorRepo = _ref.read(collectorSectorRepositoryProvider);
     // Get the collector that the current sector is connected to
-    final collector =
-        await collectorSectorRepo.getCollectorBySectorId(sector.id);
+    final collector = await collectorSectorRepo.getCollectorBySectorId(sector.id);
 
     if (collector == null) {
       throw Exception('You have to connect the sector to a collector first');
@@ -50,8 +48,7 @@ class SectorStatusService {
     final mqttSuffix = _ref.read(mqttTopicsSuffixProvider);
 
     final body = ItemStatusRequest(
-      topic:
-          '$companyMqttTopicName/collettore${collector.mqttMsgName}/${mqttSuffix.sectorStatusToggle}',
+      topic: '$companyMqttTopicName/collettore${collector.mqttMsgName}/${mqttSuffix.sectorStatusToggle}',
       message: statusCommand,
       mqttMsgName: sector.mqttMsgName,
       messageType: 'sector_status',

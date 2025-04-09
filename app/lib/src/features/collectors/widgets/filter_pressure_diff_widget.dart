@@ -5,12 +5,9 @@ import 'package:irrigazione_iot/src/features/collectors/models/collector.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class CollectorFilterPressureDifference extends ConsumerWidget {
-  const CollectorFilterPressureDifference({
-    super.key,
-    required this.collector,
-  });
+  const CollectorFilterPressureDifference({super.key, required this.collector});
 
-final Collector collector;
+  final Collector collector;
   // Determine battery color based on level
   Color _getPressureColor(double pressureDifference) {
     if (pressureDifference >= 0.7) {
@@ -24,23 +21,17 @@ final Collector collector;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pressures =
-        ref.watch(collectorPressureStreamProvider(collector.id)).valueOrNull;
+    final pressures = ref.watch(collectorPressureStreamProvider(collector.id)).valueOrNull;
     double pressureDifference = pressures?.pressureDifference ?? 0.0;
-    return  Visibility(
+    return Visibility(
       visible: collector.hasFilter,
       child: Row(
         children: [
-          Text(
-            '${context.loc.filterPressureDifference} ',
-            textScaler: const TextScaler.linear(1),
-          ),
+          Text('${context.loc.filterPressureDifference} ', textScaler: const TextScaler.linear(1)),
           Text(
             pressureDifference.toStringAsFixed(2),
             textScaler: const TextScaler.linear(1),
-            style: TextStyle(
-              color: _getPressureColor(pressureDifference),
-            ),
+            style: TextStyle(color: _getPressureColor(pressureDifference)),
           ),
         ],
       ),

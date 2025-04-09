@@ -39,10 +39,7 @@ class AddUpdateWeatherStationService {
       debugPrint('Weather station creation failed');
     }
 
-    ProviderUtils.invalidateWeatherStationStates(
-      ref: _ref,
-      weatherStation: createdWeatherStation,
-    );
+    ProviderUtils.invalidateWeatherStationStates(ref: _ref, weatherStation: createdWeatherStation);
 
     debugPrint('Created weather station: ${createdWeatherStation?.toJson()}');
   }
@@ -72,17 +69,13 @@ class AddUpdateWeatherStationService {
       debugPrint('Weather station update failed');
     }
 
-    ProviderUtils.invalidateWeatherStationStates(
-      ref: _ref,
-      weatherStation: updatedWeatherStation,
-    );
+    ProviderUtils.invalidateWeatherStationStates(ref: _ref, weatherStation: updatedWeatherStation);
 
     debugPrint('Updated weather station: ${updatedWeatherStation?.toJson()}');
   }
 }
 
 @Riverpod(keepAlive: true)
-AddUpdateWeatherStationService addUpdateWeatherStationService(
-    Ref ref) {
+AddUpdateWeatherStationService addUpdateWeatherStationService(Ref ref) {
   return AddUpdateWeatherStationService(ref);
 }

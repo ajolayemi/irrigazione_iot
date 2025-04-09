@@ -23,22 +23,16 @@ import 'package:irrigazione_iot/src/utils/app_form_validators.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class AddUpdateWeatherStationFormContents extends ConsumerStatefulWidget {
-  const AddUpdateWeatherStationFormContents({
-    super.key,
-    this.weatherStationId,
-    required this.formType,
-  });
+  const AddUpdateWeatherStationFormContents({super.key, this.weatherStationId, required this.formType});
 
   final String? weatherStationId;
   final GenericFormTypes formType;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _AddUpdateWeatherStationFormContentsState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _AddUpdateWeatherStationFormContentsState();
 }
 
-class _AddUpdateWeatherStationFormContentsState
-    extends ConsumerState<AddUpdateWeatherStationFormContents>
+class _AddUpdateWeatherStationFormContentsState extends ConsumerState<AddUpdateWeatherStationFormContents>
     with AppFormValidators {
   bool get _isUpdating => widget.formType.isUpdating;
 
@@ -80,14 +74,9 @@ class _AddUpdateWeatherStationFormContentsState
       _euiController.text = value?.eui ?? '';
 
       if (value != null) {
-        final sector = await ref.read(
-          sectorProvider(value.sectorId).future,
-        );
+        final sector = await ref.read(sectorProvider(value.sectorId).future);
 
-        _radioButtonSelectedSector = RadioButtonItem(
-          value: sector?.id ?? '',
-          label: sector?.name ?? '',
-        );
+        _radioButtonSelectedSector = RadioButtonItem(value: sector?.id ?? '', label: sector?.name ?? '');
 
         _selectedSectorController.text = sector?.name ?? '';
       }
@@ -104,10 +93,7 @@ class _AddUpdateWeatherStationFormContentsState
   }
 
   void _onTappedConnectSector() async {
-    final queryParam = QueryParameters(
-      id: _radioButtonSelectedSector?.value,
-      name: _sector,
-    ).toJson();
+    final queryParam = QueryParameters(id: _radioButtonSelectedSector?.value, name: _sector).toJson();
     final selectedSector = await context.pushNamed<RadioButtonItem>(
       AppRoute.connectSectorToWeatherStation.name,
       queryParameters: queryParam,
@@ -120,11 +106,12 @@ class _AddUpdateWeatherStationFormContentsState
   }
 
   /// Validates name and device EUI fields
-  void _uniqueFieldsEditingComplete(
-      {required List<String?> existingValues,
-      required int maxLength,
-      required String value,
-      String? initialValue}) {
+  void _uniqueFieldsEditingComplete({
+    required List<String?> existingValues,
+    required int maxLength,
+    required String value,
+    String? initialValue,
+  }) {
     if (canSubmitFormNameFields(
       value: value,
       maxLength: maxLength,
@@ -135,11 +122,12 @@ class _AddUpdateWeatherStationFormContentsState
     }
   }
 
-  String? _uniqueFieldsErrorText(
-      {required List<String?> existingValues,
-      required int maxLength,
-      required String value,
-      String? initialValue}) {
+  String? _uniqueFieldsErrorText({
+    required List<String?> existingValues,
+    required int maxLength,
+    required String value,
+    String? initialValue,
+  }) {
     if (!_submitted) return null;
     final errorKey = getFormNameFieldErrorKey(
       value: value,
@@ -149,11 +137,7 @@ class _AddUpdateWeatherStationFormContentsState
     );
 
     final fieldName = context.loc.nSensors(1);
-    return context.getLocalizedErrorText(
-      errorKey: errorKey,
-      fieldName: fieldName,
-      maxFieldLength: maxLength,
-    );
+    return context.getLocalizedErrorText(errorKey: errorKey, fieldName: fieldName, maxFieldLength: maxLength);
   }
 
   void _nonEmptyFieldsEditingComplete(String value) {
@@ -190,13 +174,9 @@ class _AddUpdateWeatherStationFormContentsState
       bool success = false;
 
       if (_isUpdating) {
-        success = await ref
-            .read(addUpdateWeatherStationControllerProvider.notifier)
-            .updateWeatherStation(data);
+        success = await ref.read(addUpdateWeatherStationControllerProvider.notifier).updateWeatherStation(data);
       } else {
-        success = await ref
-            .read(addUpdateWeatherStationControllerProvider.notifier)
-            .createWeatherStation(data);
+        success = await ref.read(addUpdateWeatherStationControllerProvider.notifier).createWeatherStation(data);
       }
 
       if (success) {
@@ -218,11 +198,7 @@ class _AddUpdateWeatherStationFormContentsState
         Expanded(
           child: CustomScrollView(
             slivers: [
-              AppSliverBar(
-                title: _isUpdating
-                    ? loc.updateWeatherStationPageTitle
-                    : loc.addWeatherStationPageTitle,
-              ),
+              AppSliverBar(title: _isUpdating ? loc.updateWeatherStationPageTitle : loc.addWeatherStationPageTitle),
               ResponsiveSliverForm(
                 node: _node,
                 formKey: _formKey,
@@ -230,8 +206,7 @@ class _AddUpdateWeatherStationFormContentsState
                   // name field
                   Consumer(
                     builder: (context, ref, child) {
-                      final usedNames =
-                          ref.watch(usedWeatherStationsNamesProvider);
+                      final usedNames = ref.watch(usedWeatherStationsNamesProvider);
                       final values = usedNames.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -240,18 +215,20 @@ class _AddUpdateWeatherStationFormContentsState
                         fieldTitle: loc.nameFormFieldTitle,
                         fieldHintText: loc.weatherStationNameHintText,
                         fieldController: _nameController,
-                        onEditingComplete: () => _uniqueFieldsEditingComplete(
-                          existingValues: values,
-                          maxLength: AppConstants.maxWeatherStationNameLength,
-                          value: _name,
-                          initialValue: _initialWeatherStation?.name,
-                        ),
-                        validator: (_) => _uniqueFieldsErrorText(
-                          existingValues: values,
-                          maxLength: AppConstants.maxWeatherStationNameLength,
-                          value: _name,
-                          initialValue: _initialWeatherStation?.name,
-                        ),
+                        onEditingComplete:
+                            () => _uniqueFieldsEditingComplete(
+                              existingValues: values,
+                              maxLength: AppConstants.maxWeatherStationNameLength,
+                              value: _name,
+                              initialValue: _initialWeatherStation?.name,
+                            ),
+                        validator:
+                            (_) => _uniqueFieldsErrorText(
+                              existingValues: values,
+                              maxLength: AppConstants.maxWeatherStationNameLength,
+                              value: _name,
+                              initialValue: _initialWeatherStation?.name,
+                            ),
                       );
                     },
                   ),
@@ -261,8 +238,7 @@ class _AddUpdateWeatherStationFormContentsState
                   // device EUI field
                   Consumer(
                     builder: (context, ref, child) {
-                      final usedEuis =
-                          ref.watch(usedWeatherStationEUIsProvider);
+                      final usedEuis = ref.watch(usedWeatherStationEUIsProvider);
                       final values = usedEuis.valueOrNull ?? [];
                       return FormTitleAndField(
                         enabled: !isLoading,
@@ -271,18 +247,20 @@ class _AddUpdateWeatherStationFormContentsState
                         fieldTitle: loc.deviceEui,
                         fieldController: _euiController,
                         fieldHintText: loc.weatherStationEuiHintText,
-                        onEditingComplete: () => _uniqueFieldsEditingComplete(
-                          existingValues: values,
-                          maxLength: AppConstants.maxWeatherStationEuiLength,
-                          value: _eui,
-                          initialValue: _initialWeatherStation?.eui,
-                        ),
-                        validator: (_) => _uniqueFieldsErrorText(
-                          existingValues: values,
-                          maxLength: AppConstants.maxWeatherStationEuiLength,
-                          value: _eui,
-                          initialValue: _initialWeatherStation?.eui,
-                        ),
+                        onEditingComplete:
+                            () => _uniqueFieldsEditingComplete(
+                              existingValues: values,
+                              maxLength: AppConstants.maxWeatherStationEuiLength,
+                              value: _eui,
+                              initialValue: _initialWeatherStation?.eui,
+                            ),
+                        validator:
+                            (_) => _uniqueFieldsErrorText(
+                              existingValues: values,
+                              maxLength: AppConstants.maxWeatherStationEuiLength,
+                              value: _eui,
+                              initialValue: _initialWeatherStation?.eui,
+                            ),
                       );
                     },
                   ),
@@ -296,15 +274,12 @@ class _AddUpdateWeatherStationFormContentsState
                     canRequestFocus: false,
                     keyboardType: TextInputType.none,
                     onTap: _onTappedConnectSector,
-                    suffixIcon: CommonFormSuffixIcon(
-                      onPressed: _onTappedConnectSector,
-                    ),
+                    suffixIcon: CommonFormSuffixIcon(onPressed: _onTappedConnectSector),
                     fieldTitle: loc.connectedSector,
                     fieldHintText: loc.selectAnOptionHintText,
                     validator: (_) => _nonEmptyFieldsErrorText(_sector),
-                    onEditingComplete: () =>
-                        _nonEmptyFieldsEditingComplete(_sector),
-                  )
+                    onEditingComplete: () => _nonEmptyFieldsEditingComplete(_sector),
+                  ),
                 ],
               ),
             ],
@@ -312,9 +287,7 @@ class _AddUpdateWeatherStationFormContentsState
         ),
         gapH16,
         SliverCTAButton(
-          text: _isUpdating
-              ? loc.genericUpdateButtonLabel
-              : loc.genericSaveButtonLabel,
+          text: _isUpdating ? loc.genericUpdateButtonLabel : loc.genericSaveButtonLabel,
           buttonType: ButtonType.primary,
           onPressed: () async => await _submit(),
         ),

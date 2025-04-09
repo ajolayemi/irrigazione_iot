@@ -37,7 +37,5 @@ abstract class WeenatPlotSensorData with _$WeenatPlotSensorData {
     int? plotId,
   }) = _WeenatPlotSensorData;
 
-  factory WeenatPlotSensorData.fromJson(Map<String, dynamic> json) =>
-      _$WeenatPlotSensorDataFromJson(json);
-
+  factory WeenatPlotSensorData.fromJson(Map<String, dynamic> json) => _$WeenatPlotSensorDataFromJson(json);
 }

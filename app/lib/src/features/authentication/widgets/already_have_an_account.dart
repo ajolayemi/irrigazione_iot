@@ -17,12 +17,7 @@ class AlreadyHaveAnAccount extends StatelessWidget {
       children: [
         Text(loc.alreadyHaveAnAccountText),
         gapW4,
-        CustomTextButton(
-          onPressed: () => context.pushNamed(
-            AppRoute.signIn.name,
-          ),
-          text: loc.signInButtonTitle,
-        )
+        CustomTextButton(onPressed: () => context.pushNamed(AppRoute.signIn.name), text: loc.signInButtonTitle),
       ],
     );
   }

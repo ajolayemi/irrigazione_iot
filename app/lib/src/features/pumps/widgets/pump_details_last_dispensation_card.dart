@@ -14,27 +14,22 @@ class PumpDetailsLastDispensationCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final lastDispensationDate =
-        ref.watch(lastDispensationStreamProvider(pumpId)).valueOrNull;
+    final lastDispensationDate = ref.watch(lastDispensationStreamProvider(pumpId)).valueOrNull;
 
     if (lastDispensationDate == null) {
       return ResponsiveDetailsCard(
-        child: DetailTileWidget(
-          title: loc.pumpLastDispensationForTile,
-          subtitle: loc.notAvailable,
-        ),
+        child: DetailTileWidget(title: loc.pumpLastDispensationForTile, subtitle: loc.notAvailable),
       );
     }
 
     return Timeago(
-      builder: (_, value) => ResponsiveDetailsCard(
-          child: DetailTileWidget(
-        title: loc.pumpLastDispensationForTile,
-        subtitle: context.customFormatDateTime(
-          timeAgoDateString: value,
-          dateTime: lastDispensationDate,
-        ),
-      )),
+      builder:
+          (_, value) => ResponsiveDetailsCard(
+            child: DetailTileWidget(
+              title: loc.pumpLastDispensationForTile,
+              subtitle: context.customFormatDateTime(timeAgoDateString: value, dateTime: lastDispensationDate),
+            ),
+          ),
       date: lastDispensationDate,
       locale: context.locale,
     );

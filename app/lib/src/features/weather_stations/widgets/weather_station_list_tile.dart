@@ -9,43 +9,32 @@ import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 /// A list tile that displays weather station basic information.
 class WeatherStationListTile extends ConsumerWidget {
-  const WeatherStationListTile({
-    super.key,
-    required this.weatherStation,
-  });
+  const WeatherStationListTile({super.key, required this.weatherStation});
 
   final WeatherStation weatherStation;
 
   static Key weatherStationListTileKey(WeatherStation weatherStation) =>
       Key('weatherStationListTileKey_${weatherStation.id}');
 
-  Future<bool> _dismissWeatherStation(
-      BuildContext context, WidgetRef ref) async {
+  Future<bool> _dismissWeatherStation(BuildContext context, WidgetRef ref) async {
     final where = context.loc.nWeatherStationsWithArticulatedPreposition(1);
     if (await context.showDismissalDialog(where: where)) {
-      return await ref
-          .read(dismissWeatherStationControllerProvider.notifier)
-          .confirmDismiss(weatherStation);
+      return await ref.read(dismissWeatherStationControllerProvider.notifier).confirmDismiss(weatherStation);
     }
     return false;
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDeleting =
-        ref.watch(dismissWeatherStationControllerProvider).isLoading;
-    final canDelete =
-        ref.watch(userCanDeleteStreamProvider).valueOrNull ?? false;
+    final isDeleting = ref.watch(dismissWeatherStationControllerProvider).isLoading;
+    final canDelete = ref.watch(userCanDeleteStreamProvider).valueOrNull ?? false;
 
     return CustomDismissibleWidget(
       dismissibleKey: weatherStationListTileKey(weatherStation),
       canDelete: canDelete,
       isDeleting: isDeleting,
       confirmDismiss: (_) async => await _dismissWeatherStation(context, ref),
-      child: WeatherStationListTileItem(
-        weatherStation: weatherStation,
-        isDeleting: isDeleting,
-      ),
+      child: WeatherStationListTileItem(weatherStation: weatherStation, isDeleting: isDeleting),
     );
   }
 }

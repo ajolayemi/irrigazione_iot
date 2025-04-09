@@ -13,17 +13,12 @@ import 'package:irrigazione_iot/src/shared/widgets/common_edit_icon_button.dart'
 import 'package:irrigazione_iot/src/shared/widgets/custom_scroll_view_with_refresh_indicator.dart';
 
 class PumpDetailsScreen extends ConsumerWidget {
-  const PumpDetailsScreen({
-    super.key,
-    required this.pumpId,
-  });
+  const PumpDetailsScreen({super.key, required this.pumpId});
 
   final String pumpId;
 
   void _onTap(BuildContext context) {
-    final params = PathParameters(
-      id: pumpId,
-    ).toJson();
+    final params = PathParameters(id: pumpId).toJson();
     context.pushNamed(AppRoute.updatePump.name, pathParameters: params);
   }
 
@@ -36,17 +31,11 @@ class PumpDetailsScreen extends ConsumerWidget {
         slivers: [
           AppSliverBar(
             title: pump.value?.name ?? '',
-            actions: [
-              CommonEditIconButton(
-                onPressed: () => _onTap(context),
-              ),
-            ],
+            actions: [CommonEditIconButton(onPressed: () => _onTap(context))],
           ),
           AsyncValueSliverWidget(
             value: pump,
-            data: (pump) => pump == null
-                ? const SliverToBoxAdapter()
-                : PumpDetailsList(pump: pump),
+            data: (pump) => pump == null ? const SliverToBoxAdapter() : PumpDetailsList(pump: pump),
             loading: () => const PumpDetailsSliverListSkeleton(),
           ),
         ],

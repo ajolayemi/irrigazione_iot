@@ -15,20 +15,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // initialize firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // use local firebase functions emulator
   FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5001);
 
   // initialize Supabase with the local environment variables
-  await Supabase.initialize(
-    anonKey: Env.supabaseLocalAnonKey,
-    url: Env.supabaseLocalUrlForRealDevice,
-    debug: true,
-  );
-
+  await Supabase.initialize(anonKey: Env.supabaseLocalAnonKey, url: Env.supabaseLocalUrlForRealDevice, debug: true);
 
   // turn off the # in the URLs on the web
   usePathUrlStrategy();

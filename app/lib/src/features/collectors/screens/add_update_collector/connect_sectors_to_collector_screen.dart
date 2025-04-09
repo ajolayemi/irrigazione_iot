@@ -28,95 +28,70 @@ class ConnectSectorsToCollector extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final availableSectors = ref.watch(availableSectorsStreamProvider(
-      collectorId: idOfCollectorBeingEdited,
-    ));
+    final availableSectors = ref.watch(availableSectorsStreamProvider(collectorId: idOfCollectorBeingEdited));
     return Scaffold(
       body: PaddedSafeArea(
-          child: Column(
-        children: [
-          Expanded(
-            child: CustomScrollView(
-              slivers: [
-                AppSliverBar(
-                  title: loc.connectSectorToCollectorPageTitle,
-                  actions: [
-                    CommonAddIconButton(
-                      onPressed: () =>
-                          context.pushNamed(AppRoute.addSector.name),
-                    ),
-                  ],
-                ),
-                AsyncValueSliverWidget(
-                  value: availableSectors,
-                  data: (data) {
-                    if (data == null) {
-                      return Consumer(
-                        builder: (context, ref, child) {
-                          final companyGenerallyHasSectors =
-                              ref.watch(sectorsProvider);
-                          final itDoes = companyGenerallyHasSectors
-                                  .valueOrNull?.isNotEmpty ??
-                              false;
-                          return EmptySectorWidget(
-                            alternativeMessage: itDoes
-                                ? loc.allSectorsAreConnectedToACollector
-                                : null,
-                          );
-                        },
-                      );
-                    }
+        child: Column(
+          children: [
+            Expanded(
+              child: CustomScrollView(
+                slivers: [
+                  AppSliverBar(
+                    title: loc.connectSectorToCollectorPageTitle,
+                    actions: [CommonAddIconButton(onPressed: () => context.pushNamed(AppRoute.addSector.name))],
+                  ),
+                  AsyncValueSliverWidget(
+                    value: availableSectors,
+                    data: (data) {
+                      if (data == null) {
+                        return Consumer(
+                          builder: (context, ref, child) {
+                            final companyGenerallyHasSectors = ref.watch(sectorsProvider);
+                            final itDoes = companyGenerallyHasSectors.valueOrNull?.isNotEmpty ?? false;
+                            return EmptySectorWidget(
+                              alternativeMessage: itDoes ? loc.allSectorsAreConnectedToACollector : null,
+                            );
+                          },
+                        );
+                      }
 
-                    // it should be save to assume that the sectors are not null here
-                    return SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
+                      // it should be save to assume that the sectors are not null here
+                      return SliverList(
+                        delegate: SliverChildBuilderDelegate((context, index) {
                           final availableSector = data[index];
-                          return ConnectSectorsToCollectorCheckboxItem(
-                            availableSector: availableSector,
-                          );
-                        },
-                        childCount: data.length,
-                      ),
-                    );
-                  },
-                  loading: () => const SliverAdaptiveCircularIndicator(),
-                )
-              ],
+                          return ConnectSectorsToCollectorCheckboxItem(availableSector: availableSector);
+                        }, childCount: data.length),
+                      );
+                    },
+                    loading: () => const SliverAdaptiveCircularIndicator(),
+                  ),
+                ],
+              ),
             ),
-          ),
-          // button to confirm selection
-          Visibility(
-            visible: availableSectors.valueOrNull?.isNotEmpty ?? false,
-            child: SliverCTAButton(
-              text: loc.genericConfirmButtonLabel,
-              buttonType: ButtonType.primary,
-              onPressed: () => context.popNavigator(),
+            // button to confirm selection
+            Visibility(
+              visible: availableSectors.valueOrNull?.isNotEmpty ?? false,
+              child: SliverCTAButton(
+                text: loc.genericConfirmButtonLabel,
+                buttonType: ButtonType.primary,
+                onPressed: () => context.popNavigator(),
+              ),
             ),
-          ),
-          gapH32,
-        ],
-      )),
+            gapH32,
+          ],
+        ),
+      ),
     );
   }
 }
 
 class ConnectSectorsToCollectorCheckboxItem extends ConsumerWidget {
-  const ConnectSectorsToCollectorCheckboxItem({
-    super.key,
-    required this.availableSector,
-  });
+  const ConnectSectorsToCollectorCheckboxItem({super.key, required this.availableSector});
 
   final AvailableSector availableSector;
 
-  void _onSelectionChanged({
-    required bool value,
-    required String sectorId,
-    required WidgetRef ref,
-  }) {
-    ref
-        .read(connectSectorsToCollectorControllerProvider.notifier)
-        .handleSelection(value: value, sectorId: sectorId);
+  void _onSelectionChanged({required bool value, required String sectorId, required WidgetRef ref}) {
+    ref.read(connectSectorsToCollectorControllerProvider.notifier).handleSelection(value: value, sectorId: sectorId);
   }
 
   @override
@@ -131,11 +106,7 @@ class ConnectSectorsToCollectorCheckboxItem extends ConsumerWidget {
     return ResponsiveCheckboxTile(
       title: sector.name,
       value: sectorIsSelected,
-      onChanged: (value) => _onSelectionChanged(
-        value: value ?? false,
-        sectorId: sector.id,
-        ref: ref,
-      ),
+      onChanged: (value) => _onSelectionChanged(value: value ?? false, sectorId: sector.id, ref: ref),
     );
   }
 }

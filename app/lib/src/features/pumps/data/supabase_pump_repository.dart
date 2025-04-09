@@ -14,18 +14,12 @@ class SupabasePumpRepository implements PumpRepository {
     return data.map((pump) => Pump.fromJson(pump)).toList();
   }
 
-  Pump? _toPump(Map<String, dynamic>? json) =>
-      json == null ? null : Pump.fromJson(json);
+  Pump? _toPump(Map<String, dynamic>? json) => json == null ? null : Pump.fromJson(json);
 
   @override
   Future<Pump?> createPump(Pump pump) async {
     // set created_at and updated_at fields
-    final data = pump
-        .copyWith(
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-        )
-        .toJson();
+    final data = pump.copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'insert-pump',
       body: InsertBody(data: data).toJson(),
@@ -39,10 +33,7 @@ class SupabasePumpRepository implements PumpRepository {
     final data = pump.copyWith(updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'update-pump',
-      body: UpdateBody(
-        id: pump.id,
-        data: data,
-      ).toJson(),
+      body: UpdateBody(id: pump.id, data: data).toJson(),
     );
     return res.toObject<Pump>(Pump.fromJson);
   }
@@ -58,10 +49,7 @@ class SupabasePumpRepository implements PumpRepository {
 
   @override
   Future<List<Pump>?> getCompanyPumps(String companyId) async {
-    return _supabaseClient.pumps
-        .select()
-        .eq(PumpDatabaseKeys.companyId, companyId)
-        .withConverter(_fromList);
+    return _supabaseClient.pumps.select().eq(PumpDatabaseKeys.companyId, companyId).withConverter(_fromList);
   }
 
   @override
@@ -82,12 +70,8 @@ class SupabasePumpRepository implements PumpRepository {
 
     if (companyPumps == null || companyPumps.isEmpty) return [];
 
-    return companyPumps
-        .map((pump) => [pump.turnOnCommand, pump.turnOffCommand])
-        .expand((element) => element)
-        .toList();
+    return companyPumps.map((pump) => [pump.turnOnCommand, pump.turnOffCommand]).expand((element) => element).toList();
   }
-
 
   @override
   Future<Pump?> getPump(String pumpId) async {

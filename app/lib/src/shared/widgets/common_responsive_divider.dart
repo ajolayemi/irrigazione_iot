@@ -8,14 +8,8 @@ class CommonResponsiveDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ResponsiveCenter(
-      padding: EdgeInsets.only(
-        left: Sizes.p16,
-        right: Sizes.p16,
-      ),
-      child: Divider(
-        color: Colors.grey,
-        thickness: 1,
-      ),
+      padding: EdgeInsets.only(left: Sizes.p16, right: Sizes.p16),
+      child: Divider(color: Colors.grey, thickness: 1),
     );
   }
 }

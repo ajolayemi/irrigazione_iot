@@ -7,23 +7,15 @@ import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
 class AddUpdateCompanyUserForm extends ConsumerWidget {
-  const AddUpdateCompanyUserForm({
-    super.key,
-    required this.companyUserId,
-    required this.formType,
-  });
+  const AddUpdateCompanyUserForm({super.key, required this.companyUserId, required this.formType});
 
   final String companyUserId;
   final GenericFormTypes formType;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(
-      addUpdateCompanyUserControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
-    final isLoading =
-        ref.watch(addUpdateCompanyUserControllerProvider).isLoading;
+    ref.listen(addUpdateCompanyUserControllerProvider, (_, state) => state.showAlertDialogOnError(context));
+    final isLoading = ref.watch(addUpdateCompanyUserControllerProvider).isLoading;
     return PopScope(
       canPop: !isLoading,
       onPopInvokedWithResult: (didPop, _) {
@@ -34,12 +26,7 @@ class AddUpdateCompanyUserForm extends ConsumerWidget {
         }
       },
       child: Scaffold(
-        body: PaddedSafeArea(
-          child: AddUpdateCompanyUserFormContents(
-            companyUserId: companyUserId,
-            formType: formType,
-          ),
-        ),
+        body: PaddedSafeArea(child: AddUpdateCompanyUserFormContents(companyUserId: companyUserId, formType: formType)),
       ),
     );
   }

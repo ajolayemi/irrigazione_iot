@@ -11,45 +11,31 @@ class SupabaseDashboardRepository implements DashboardRepository {
   final SupabaseClient _supabaseClient;
 
   SupabaseStreamFilterBuilder get _pumpsSwitchedOnStream =>
-      _supabaseClient.from(PumpSwitchedOnDatabaseKeys.table).stream(
-        primaryKey: [PumpSwitchedOnDatabaseKeys.id],
-      );
+      _supabaseClient.from(PumpSwitchedOnDatabaseKeys.table).stream(primaryKey: [PumpSwitchedOnDatabaseKeys.id]);
 
   SupabaseStreamFilterBuilder get _sectorsSwitchedOnStream =>
-      _supabaseClient.from(SectorSwitchedOnDatabaseKeys.table).stream(
-        primaryKey: [SectorSwitchedOnDatabaseKeys.id],
-      );
+      _supabaseClient.from(SectorSwitchedOnDatabaseKeys.table).stream(primaryKey: [SectorSwitchedOnDatabaseKeys.id]);
 
-  List<PumpSwitchedOn>? convertToPumpSwitchedOnList(
-      List<Map<String, dynamic>>? data) {
+  List<PumpSwitchedOn>? convertToPumpSwitchedOnList(List<Map<String, dynamic>>? data) {
     if (data == null) return null;
-    return data
-        .map((e) => PumpSwitchedOn.fromJson(e))
-        .where((e) => e.statusBoolean)
-        .toList();
+    return data.map((e) => PumpSwitchedOn.fromJson(e)).where((e) => e.statusBoolean).toList();
   }
 
-  List<SectorSwitchedOn>? convertToSectorSwitchedOnList(
-      List<Map<String, dynamic>>? data) {
+  List<SectorSwitchedOn>? convertToSectorSwitchedOnList(List<Map<String, dynamic>>? data) {
     if (data == null) return null;
-    return data
-        .map((e) => SectorSwitchedOn.fromJson(e))
-        .where((e) => e.statusBoolean)
-        .toList();
+    return data.map((e) => SectorSwitchedOn.fromJson(e)).where((e) => e.statusBoolean).toList();
   }
 
   @override
   Stream<List<PumpSwitchedOn>?> watchPumpsSwitchedOn(String companyId) {
-    final res = _pumpsSwitchedOnStream.eq(
-        PumpSwitchedOnDatabaseKeys.companyId, companyId);
+    final res = _pumpsSwitchedOnStream.eq(PumpSwitchedOnDatabaseKeys.companyId, companyId);
 
     return res.map(convertToPumpSwitchedOnList);
   }
 
   @override
   Stream<List<SectorSwitchedOn>?> watchSectorsSwitchedOn(String companyId) {
-    final res = _sectorsSwitchedOnStream.eq(
-        SectorSwitchedOnDatabaseKeys.companyId, companyId);
+    final res = _sectorsSwitchedOnStream.eq(SectorSwitchedOnDatabaseKeys.companyId, companyId);
 
     return res.map(convertToSectorSwitchedOnList);
   }

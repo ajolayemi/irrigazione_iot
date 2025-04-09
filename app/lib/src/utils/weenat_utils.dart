@@ -22,20 +22,8 @@ class WeenatUtils {
     );
   }
 
-  static Future<void> moveCamera({
-    required WeenatPlot item,
-    GoogleMapController? mapController,
-  }) async {
-    await mapController?.animateCamera(
-      CameraUpdate.newLatLngZoom(
-        LatLng(
-          item.lat ?? 0.0,
-          item.lng ?? 0.0,
-        ),
-        15.0,
-      ),
-    );
-    
+  static Future<void> moveCamera({required WeenatPlot item, GoogleMapController? mapController}) async {
+    await mapController?.animateCamera(CameraUpdate.newLatLngZoom(LatLng(item.lat ?? 0.0, item.lng ?? 0.0), 15.0));
   }
 
   static Future<void> scrollCarousel({
@@ -45,11 +33,7 @@ class WeenatUtils {
   }) async {
     if (scrollController.isAttached) {
       await scrollController
-          .scrollTo(
-            index: index,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-          )
+          .scrollTo(index: index, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut)
           .then((_) => onScrollCompleted?.call());
     }
   }

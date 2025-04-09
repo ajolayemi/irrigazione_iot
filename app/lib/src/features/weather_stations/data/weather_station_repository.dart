@@ -41,17 +41,13 @@ abstract class WeatherStationRepository {
 }
 
 @Riverpod(keepAlive: true)
-WeatherStationRepository weatherStationRepository(
-    Ref ref) {
+WeatherStationRepository weatherStationRepository(Ref ref) {
   final supabaseClient = ref.read(supabaseClientProvider);
   return SupabaseWeatherStationRepository(supabaseClient);
 }
 
 @riverpod
-Future<WeatherStation?> weatherStation(
-  Ref ref,
-  String id,
-) {
+Future<WeatherStation?> weatherStation(Ref ref, String id) {
   final sensorRepo = ref.watch(weatherStationRepositoryProvider);
   return sensorRepo.getWeatherStation(id);
 }
@@ -65,9 +61,7 @@ FutureOr<List<WeatherStation>?> weatherStations(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
-FutureOr<List<String>?> usedWeatherStationsNames(
-  Ref ref,
-) {
+FutureOr<List<String>?> usedWeatherStationsNames(Ref ref) {
   final repo = ref.watch(weatherStationRepositoryProvider);
   return repo.getUsedWeatherStationNames();
 }
@@ -79,11 +73,7 @@ FutureOr<List<String>?> usedWeatherStationEUIs(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
-FutureOr<int> weatherStationsCount(
-  Ref ref,
-  String sectorId,
-) {
+FutureOr<int> weatherStationsCount(Ref ref, String sectorId) {
   final sensorRepo = ref.watch(weatherStationRepositoryProvider);
   return sensorRepo.getWeatherStationsCount(sectorId);
 }
-

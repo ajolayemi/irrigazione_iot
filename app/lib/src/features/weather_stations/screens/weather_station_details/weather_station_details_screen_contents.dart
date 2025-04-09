@@ -16,20 +16,14 @@ import 'package:irrigazione_iot/src/shared/widgets/common_edit_icon_button.dart'
 import 'package:irrigazione_iot/src/shared/widgets/custom_scroll_view_with_refresh_indicator.dart';
 
 class WeatherStationDetailsScreenContents extends ConsumerWidget {
-  const WeatherStationDetailsScreenContents({
-    super.key,
-    required this.weatherStation,
-  });
+  const WeatherStationDetailsScreenContents({super.key, required this.weatherStation});
 
   final WeatherStation weatherStation;
 
   void _onTapEdit(BuildContext context) {
     final param = PathParameters(id: weatherStation.id).toJson();
 
-    context.pushNamed(
-      AppRoute.updateWeatherStation.name,
-      pathParameters: param,
-    );
+    context.pushNamed(AppRoute.updateWeatherStation.name, pathParameters: param);
   }
 
   @override
@@ -41,31 +35,16 @@ class WeatherStationDetailsScreenContents extends ConsumerWidget {
         // ref.refresh(weath(weatherStation.id).future);
       },
       slivers: [
-        AppSliverBar(
-          title: weatherStation.name,
-          actions: [
-            CommonEditIconButton(
-              onPressed: () => _onTapEdit(context),
-            ),
-          ],
-        ),
+        AppSliverBar(title: weatherStation.name, actions: [CommonEditIconButton(onPressed: () => _onTapEdit(context))]),
         SliverList(
-          delegate: SliverChildListDelegate.fixed(
-            [
-              WeatherStationDetailsLastUpdateCard(
-                weatherStationId: weatherStation.id,
-              ),
-              gapH8,
-              WeatherStationDetailsCharacteristics(
-                weatherStation: weatherStation,
-              ),
-              gapH8,
-              WeatherStationDetailsStatistics(
-                weatherStationId: weatherStation.id,
-              ),
-              gapH48,
-            ],
-          ),
+          delegate: SliverChildListDelegate.fixed([
+            WeatherStationDetailsLastUpdateCard(weatherStationId: weatherStation.id),
+            gapH8,
+            WeatherStationDetailsCharacteristics(weatherStation: weatherStation),
+            gapH8,
+            WeatherStationDetailsStatistics(weatherStationId: weatherStation.id),
+            gapH48,
+          ]),
         ),
       ],
     );

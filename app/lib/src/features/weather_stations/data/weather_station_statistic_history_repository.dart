@@ -18,10 +18,7 @@ abstract class WeatherStationStatisticHistoryRepository {
 }
 
 @Riverpod(keepAlive: true)
-WeatherStationStatisticHistoryRepository
-    weatherStationStatisticHistoryRepository(
-  Ref ref,
-) {
+WeatherStationStatisticHistoryRepository weatherStationStatisticHistoryRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseWeatherStationStatisticHistoryRepository(supabaseClient);
 }
@@ -34,6 +31,5 @@ Future<List<WeatherStationStatisticHistory>?> weatherStationStatisticsFuture(
   int limit = 30,
 }) {
   final repo = ref.watch(weatherStationStatisticHistoryRepositoryProvider);
-  return repo.weatherStationStatisticsStream(weatherStationId, colName,
-      limit: limit);
+  return repo.weatherStationStatisticsStream(weatherStationId, colName, limit: limit);
 }

@@ -8,12 +8,7 @@ part 'sector_pressure.g.dart';
 
 @JsonSerializable()
 class SectorPressure extends Equatable {
-  const SectorPressure({
-    required this.id,
-    required this.sectorId,
-    required this.pressure,
-    this.createdAt,
-  });
+  const SectorPressure({required this.id, required this.sectorId, required this.pressure, this.createdAt});
 
   @JsonKey(name: SectorPressureDatabaseKeys.id, includeToJson: false)
   @IntConverter()
@@ -29,8 +24,7 @@ class SectorPressure extends Equatable {
   @override
   List<Object?> get props => [id, sectorId, pressure, createdAt];
 
-  factory SectorPressure.fromJson(Map<String, dynamic> json) =>
-      _$SectorPressureFromJson(json);
+  factory SectorPressure.fromJson(Map<String, dynamic> json) => _$SectorPressureFromJson(json);
 
   Map<String, dynamic> toJson() => _$SectorPressureToJson(this);
 }

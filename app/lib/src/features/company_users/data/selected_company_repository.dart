@@ -9,9 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'selected_company_repository.g.dart';
 
 class SelectedCompanyRepository {
-  const SelectedCompanyRepository({
-    required this.prefs,
-  });
+  const SelectedCompanyRepository({required this.prefs});
 
   final SharedPreferences prefs;
 
@@ -34,9 +32,7 @@ SelectedCompanyRepository selectedCompanyRepository(Ref ref) {
 @Riverpod(keepAlive: true)
 Future<Company?> currentTappedCompany(Ref ref) {
   final uid = ref.watch(authRepositoryProvider).currentUser?.uid;
-  final companyId = ref
-      .watch(selectedCompanyRepositoryProvider)
-      .loadSelectedCompanyId(uid ?? '');
+  final companyId = ref.watch(selectedCompanyRepositoryProvider).loadSelectedCompanyId(uid ?? '');
   if (companyId == null) return Future.value(null);
   final companyRepo = ref.watch(companyRepositoryProvider);
   return companyRepo.fetchCompany(companyId);
@@ -45,9 +41,5 @@ Future<Company?> currentTappedCompany(Ref ref) {
 /// Holds onto the id of the currently selected company
 @Riverpod(keepAlive: true)
 FutureOr<String?> tappedCompanyId(Ref ref) async {
-  return ref.watch(
-    currentTappedCompanyProvider.selectAsync(
-      (value) => value?.id,
-    ),
-  );
+  return ref.watch(currentTappedCompanyProvider.selectAsync((value) => value?.id));
 }

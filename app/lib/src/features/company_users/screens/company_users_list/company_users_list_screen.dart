@@ -14,21 +14,16 @@ class CompanyUsersListScreen extends StatelessWidget {
     final loc = context.loc;
     return Scaffold(
       body: SafeArea(
-          child: CustomScrollView(
-        slivers: [
-          AppSliverBar(
-            title: loc.companyUsersMenuTitle,
-            actions: [
-              CommonAddIconButton(
-                onPressed: () => context.pushNamed(
-                  AppRoute.addCompanyUser.name,
-                ),
-              )
-            ],
-          ),
-          const CompanyUsersListScreenContents(),
-        ],
-      )),
+        child: CustomScrollView(
+          slivers: [
+            AppSliverBar(
+              title: loc.companyUsersMenuTitle,
+              actions: [CommonAddIconButton(onPressed: () => context.pushNamed(AppRoute.addCompanyUser.name))],
+            ),
+            const CompanyUsersListScreenContents(),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -29,49 +29,27 @@ class WeatherStationStatisticHistoryScreenContents extends StatelessWidget {
     final loc = context.loc;
     return CustomScrollView(
       slivers: [
-        AppSliverBar(
-          title: loc.historyPageTitle,
-        ),
+        AppSliverBar(title: loc.historyPageTitle),
         SliverFillRemaining(
           child: SingleChildScrollView(
             child: DataTable(
               dividerThickness: 0,
               columns: [
-              DataColumn(
-                  label: Text(loc.date),
-                ),
-                DataColumn(
-                  label: Flexible(
-                    child: Text(
-                      locStatisticName,
-                      overflow: TextOverflow.clip,
-                      softWrap: true,
-                    ),
-                  ),
-                ),
+                DataColumn(label: Text(loc.date)),
+                DataColumn(label: Flexible(child: Text(locStatisticName, overflow: TextOverflow.clip, softWrap: true))),
               ],
-              rows: histories.map(
-                (e) {
-                  return DataRow(
-                    cells: [
-                      DataCell(
-                        Text(
-                          context.formatDate(e.createdAt),
-                        ),
-                      ),
-                      DataCell(
-                        Text(
-                          '${e.value} ${keyForUm.getUmX(keyForUm)}',
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ).toList(),
+              rows:
+                  histories.map((e) {
+                    return DataRow(
+                      cells: [
+                        DataCell(Text(context.formatDate(e.createdAt))),
+                        DataCell(Text('${e.value} ${keyForUm.getUmX(keyForUm)}')),
+                      ],
+                    );
+                  }).toList(),
             ),
           ),
         ),
-    
       ],
     );
   }

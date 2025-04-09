@@ -55,14 +55,11 @@ part 'app_router.g.dart';
 
 // private navigator keys
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _dashboardShellNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'Dashboard');
+final _dashboardShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'Dashboard');
 
-final _collectorShellNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'Collector');
+final _collectorShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'Collector');
 final _pumpShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'Pump');
-final _sectorShellNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'Sector');
+final _sectorShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'Sector');
 final _moreShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'More');
 
 @Riverpod(keepAlive: true)
@@ -76,51 +73,35 @@ GoRouter goRouter(Ref ref) {
 
     // * redirect logic based on the authentication state
     redirect: routerService.redirect,
-    refreshListenable: GoRouterRefreshStream(
-      authRepository.authStateChanges(),
-    ),
+    refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     routes: [
       GoRoute(
         path: AppRoute.welcome.path,
         name: AppRoute.welcome.name,
-        pageBuilder: (context, state) => const NoTransitionPage(
-          child: WelcomeScreen(),
-        ),
+        pageBuilder: (context, state) => const NoTransitionPage(child: WelcomeScreen()),
       ),
       GoRoute(
         path: AppRoute.registerCompany.path,
         name: AppRoute.registerCompany.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: AddUpdateCompanyForm(
-            formType: GenericFormTypes.add,
-          ),
-        ),
+        pageBuilder:
+            (context, state) =>
+                const MaterialPage(fullscreenDialog: true, child: AddUpdateCompanyForm(formType: GenericFormTypes.add)),
       ),
       GoRoute(
         path: AppRoute.signIn.path,
         name: AppRoute.signIn.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          child: SignInScreen(),
-          fullscreenDialog: true,
-        ),
+        pageBuilder: (context, state) => const MaterialPage(child: SignInScreen(), fullscreenDialog: true),
       ),
       GoRoute(
         path: AppRoute.signUp.path,
         name: AppRoute.signUp.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: SignUpScreen(),
-        ),
+        pageBuilder: (context, state) => const MaterialPage(fullscreenDialog: true, child: SignUpScreen()),
       ),
 
       GoRoute(
         path: AppRoute.companiesListGrid.path,
         name: AppRoute.companiesListGrid.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          child: UserCompaniesListScreen(),
-          fullscreenDialog: true,
-        ),
+        pageBuilder: (context, state) => const MaterialPage(child: UserCompaniesListScreen(), fullscreenDialog: true),
       ),
       // Stateful navigation based on:
       // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
@@ -136,9 +117,7 @@ GoRouter goRouter(Ref ref) {
               GoRoute(
                 path: AppRoute.home.path,
                 name: AppRoute.home.name,
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: DashboardScreen(),
-                ),
+                pageBuilder: (context, state) => const NoTransitionPage(child: DashboardScreen()),
               ),
             ],
           ),
@@ -150,9 +129,7 @@ GoRouter goRouter(Ref ref) {
               GoRoute(
                 path: AppRoute.collector.path,
                 name: AppRoute.collector.name,
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: CollectorListScreen(),
-                ),
+                pageBuilder: (context, state) => const NoTransitionPage(child: CollectorListScreen()),
                 routes: [
                   GoRoute(
                     path: AppRoute.collectorDetails.path,
@@ -160,9 +137,7 @@ GoRouter goRouter(Ref ref) {
                     pageBuilder: (context, state) {
                       return MaterialPage(
                         fullscreenDialog: true,
-                        child: CollectorDetailsScreen(
-                          collectorId: state.pathId,
-                        ),
+                        child: CollectorDetailsScreen(collectorId: state.pathId),
                       );
                     },
                   ),
@@ -178,22 +153,16 @@ GoRouter goRouter(Ref ref) {
               GoRoute(
                 path: AppRoute.sector.path,
                 name: AppRoute.sector.name,
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: SectorsListScreen(),
-                ),
+                pageBuilder: (context, state) => const NoTransitionPage(child: SectorsListScreen()),
                 routes: [
                   // Sector details
                   GoRoute(
-                      path: AppRoute.sectorDetails.path,
-                      name: AppRoute.sectorDetails.name,
-                      pageBuilder: (context, state) {
-                        return MaterialPage(
-                          fullscreenDialog: true,
-                          child: SectorDetailsScreen(
-                            sectorID: state.pathId,
-                          ),
-                        );
-                      }),
+                    path: AppRoute.sectorDetails.path,
+                    name: AppRoute.sectorDetails.name,
+                    pageBuilder: (context, state) {
+                      return MaterialPage(fullscreenDialog: true, child: SectorDetailsScreen(sectorID: state.pathId));
+                    },
+                  ),
                 ],
               ),
             ],
@@ -206,21 +175,15 @@ GoRouter goRouter(Ref ref) {
               GoRoute(
                 path: AppRoute.pump.path,
                 name: AppRoute.pump.name,
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: PumpListScreen(),
-                ),
+                pageBuilder: (context, state) => const NoTransitionPage(child: PumpListScreen()),
                 routes: [
                   GoRoute(
-                      path: AppRoute.pumpDetails.path,
-                      name: AppRoute.pumpDetails.name,
-                      pageBuilder: (context, state) {
-                        return MaterialPage(
-                          fullscreenDialog: true,
-                          child: PumpDetailsScreen(
-                            pumpId: state.pathId,
-                          ),
-                        );
-                      }),
+                    path: AppRoute.pumpDetails.path,
+                    name: AppRoute.pumpDetails.name,
+                    pageBuilder: (context, state) {
+                      return MaterialPage(fullscreenDialog: true, child: PumpDetailsScreen(pumpId: state.pathId));
+                    },
+                  ),
                 ],
               ),
             ],
@@ -233,10 +196,7 @@ GoRouter goRouter(Ref ref) {
               GoRoute(
                 path: AppRoute.more.path,
                 name: AppRoute.more.name,
-                pageBuilder: (context, state) => const MaterialPage(
-                  fullscreenDialog: true,
-                  child: MoreOptionsScreen(),
-                ),
+                pageBuilder: (context, state) => const MaterialPage(fullscreenDialog: true, child: MoreOptionsScreen()),
               ),
             ],
           ),
@@ -247,52 +207,42 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: AppRoute.addPump.path,
         name: AppRoute.addPump.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: AddUpdatePumpForm(
-            formType: GenericFormTypes.add,
-          ),
-        ),
+        pageBuilder:
+            (context, state) =>
+                const MaterialPage(fullscreenDialog: true, child: AddUpdatePumpForm(formType: GenericFormTypes.add)),
       ),
 
       GoRoute(
-          path: AppRoute.updatePump.path,
-          name: AppRoute.updatePump.name,
-          pageBuilder: (context, state) {
-            return MaterialPage(
-              fullscreenDialog: true,
-              child: AddUpdatePumpForm(
-                formType: GenericFormTypes.update,
-                pumpId: state.pathId,
-              ),
-            );
-          }),
+        path: AppRoute.updatePump.path,
+        name: AppRoute.updatePump.name,
+        pageBuilder: (context, state) {
+          return MaterialPage(
+            fullscreenDialog: true,
+            child: AddUpdatePumpForm(formType: GenericFormTypes.update, pumpId: state.pathId),
+          );
+        },
+      ),
 
       // Add sector
       GoRoute(
         path: AppRoute.addSector.path,
         name: AppRoute.addSector.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: AddUpdateSectorForm(
-            formType: GenericFormTypes.add,
-          ),
-        ),
+        pageBuilder:
+            (context, state) =>
+                const MaterialPage(fullscreenDialog: true, child: AddUpdateSectorForm(formType: GenericFormTypes.add)),
       ),
 
       // Update sector
       GoRoute(
-          path: AppRoute.updateSector.path,
-          name: AppRoute.updateSector.name,
-          pageBuilder: (context, state) {
-            return MaterialPage(
-              fullscreenDialog: true,
-              child: AddUpdateSectorForm(
-                formType: GenericFormTypes.update,
-                sectorId: state.pathId,
-              ),
-            );
-          }),
+        path: AppRoute.updateSector.path,
+        name: AppRoute.updateSector.name,
+        pageBuilder: (context, state) {
+          return MaterialPage(
+            fullscreenDialog: true,
+            child: AddUpdateSectorForm(formType: GenericFormTypes.update, sectorId: state.pathId),
+          );
+        },
+      ),
 
       // Select a specie
       GoRoute(
@@ -300,10 +250,7 @@ GoRouter goRouter(Ref ref) {
         name: AppRoute.selectASpecie.name,
         pageBuilder: (context, state) {
           return MaterialPage(
-            child: SelectASpecieScreen(
-              selectedSpecieId: state.queryId,
-              selectedSpecieName: state.queryName,
-            ),
+            child: SelectASpecieScreen(selectedSpecieId: state.queryId, selectedSpecieName: state.queryName),
             fullscreenDialog: true,
           );
         },
@@ -315,10 +262,7 @@ GoRouter goRouter(Ref ref) {
         name: AppRoute.selectAVariety.name,
         pageBuilder: (context, state) {
           return MaterialPage(
-            child: SelectAVarietyScreen(
-              selectedVarietyId: state.queryId,
-              selectedVarietyName: state.queryName,
-            ),
+            child: SelectAVarietyScreen(selectedVarietyId: state.queryId, selectedVarietyName: state.queryName),
             fullscreenDialog: true,
           );
         },
@@ -330,9 +274,7 @@ GoRouter goRouter(Ref ref) {
         name: AppRoute.selectAnIrrigationSystem.name,
         pageBuilder: (context, state) {
           return MaterialPage(
-            child: SelectAnIrrigationSystem(
-              selectedIrrigationSystem: state.queryName,
-            ),
+            child: SelectAnIrrigationSystem(selectedIrrigationSystem: state.queryName),
             fullscreenDialog: true,
           );
         },
@@ -344,9 +286,7 @@ GoRouter goRouter(Ref ref) {
         name: AppRoute.selectAnIrrigationSource.name,
         pageBuilder: (context, state) {
           return MaterialPage(
-            child: SelectAnIrrigationSource(
-              selectedIrrigationSource: state.queryName,
-            ),
+            child: SelectAnIrrigationSource(selectedIrrigationSource: state.queryName),
             fullscreenDialog: true,
           );
         },
@@ -361,8 +301,7 @@ GoRouter goRouter(Ref ref) {
             child: ConnectPumpToSector(
               selectedPumpId: state.queryId,
               selectedPumpName: state.queryName,
-              pumpIdPreviouslyConnectedToSector:
-                  state.queryPreviouslyConnectedId,
+              pumpIdPreviouslyConnectedToSector: state.queryPreviouslyConnectedId,
             ),
             fullscreenDialog: true,
           );
@@ -373,27 +312,24 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: AppRoute.addCollector.path,
         name: AppRoute.addCollector.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: AddUpdateCollectorForm(
-            formType: GenericFormTypes.add,
-          ),
-        ),
+        pageBuilder:
+            (context, state) => const MaterialPage(
+              fullscreenDialog: true,
+              child: AddUpdateCollectorForm(formType: GenericFormTypes.add),
+            ),
       ),
 
       // Page to display form for updating a collector
       GoRoute(
-          path: AppRoute.updateCollector.path,
-          name: AppRoute.updateCollector.name,
-          pageBuilder: (context, state) {
-            return MaterialPage(
-              fullscreenDialog: true,
-              child: AddUpdateCollectorForm(
-                formType: GenericFormTypes.update,
-                collectorId: state.pathId,
-              ),
-            );
-          }),
+        path: AppRoute.updateCollector.path,
+        name: AppRoute.updateCollector.name,
+        pageBuilder: (context, state) {
+          return MaterialPage(
+            fullscreenDialog: true,
+            child: AddUpdateCollectorForm(formType: GenericFormTypes.update, collectorId: state.pathId),
+          );
+        },
+      ),
 
       // Page to display when user wants to connect sectors to a collector
       GoRoute(
@@ -402,9 +338,7 @@ GoRouter goRouter(Ref ref) {
         pageBuilder: (context, state) {
           return MaterialPage(
             fullscreenDialog: true,
-            child: ConnectSectorsToCollector(
-              idOfCollectorBeingEdited: state.queryId,
-            ),
+            child: ConnectSectorsToCollector(idOfCollectorBeingEdited: state.queryId),
           );
         },
       ),
@@ -413,50 +347,41 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: AppRoute.boards.path,
         name: AppRoute.boards.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: BoardsListScreen(),
-        ),
+        pageBuilder: (context, state) => const MaterialPage(fullscreenDialog: true, child: BoardsListScreen()),
         routes: [
           GoRoute(
-              path: AppRoute.boardDetails.path,
-              name: AppRoute.boardDetails.name,
-              pageBuilder: (context, state) {
-                return MaterialPage(
-                  fullscreenDialog: true,
-                  child: BoardDetailsScreen(
-                    boardID: state.pathId,
-                  ),
-                );
-              }),
+            path: AppRoute.boardDetails.path,
+            name: AppRoute.boardDetails.name,
+            pageBuilder: (context, state) {
+              return MaterialPage(fullscreenDialog: true, child: BoardDetailsScreen(boardID: state.pathId));
+            },
+          ),
           GoRoute(
             path: AppRoute.addBoard.path,
             name: AppRoute.addBoard.name,
-            pageBuilder: (context, state) => const MaterialPage(
-              fullscreenDialog: true,
-              child: AddUpdateBoardsForm(formType: GenericFormTypes.add),
-            ),
+            pageBuilder:
+                (context, state) => const MaterialPage(
+                  fullscreenDialog: true,
+                  child: AddUpdateBoardsForm(formType: GenericFormTypes.add),
+                ),
           ),
           GoRoute(
-              path: AppRoute.updateBoard.path,
-              name: AppRoute.updateBoard.name,
-              pageBuilder: (context, state) {
-                return MaterialPage(
-                  fullscreenDialog: true,
-                  child: AddUpdateBoardsForm(
-                    formType: GenericFormTypes.update,
-                    boardID: state.pathId,
-                  ),
-                );
-              }),
+            path: AppRoute.updateBoard.path,
+            name: AppRoute.updateBoard.name,
+            pageBuilder: (context, state) {
+              return MaterialPage(
+                fullscreenDialog: true,
+                child: AddUpdateBoardsForm(formType: GenericFormTypes.update, boardID: state.pathId),
+              );
+            },
+          ),
           GoRoute(
             path: AppRoute.connectCollectorToBoard.path,
             name: AppRoute.connectCollectorToBoard.name,
             pageBuilder: (context, state) {
               return MaterialPage(
                 child: ConnectCollectorToBoardScreen(
-                  previouslyConnectedCollectorId:
-                      state.queryPreviouslyConnectedId,
+                  previouslyConnectedCollectorId: state.queryPreviouslyConnectedId,
                   selectedCollectorId: state.queryId,
                   selectedCollectorName: state.queryName,
                 ),
@@ -471,10 +396,7 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: AppRoute.profile.path,
         name: AppRoute.profile.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: UserProfileScreen(),
-        ),
+        pageBuilder: (context, state) => const MaterialPage(fullscreenDialog: true, child: UserProfileScreen()),
       ),
 
       // Company profile route and sub-route to edit the company profile
@@ -482,12 +404,7 @@ GoRouter goRouter(Ref ref) {
         path: AppRoute.companyProfile.path,
         name: AppRoute.companyProfile.name,
         pageBuilder: (context, state) {
-          return MaterialPage(
-            fullscreenDialog: true,
-            child: CompanyProfileScreen(
-              companyID: state.pathId,
-            ),
-          );
+          return MaterialPage(fullscreenDialog: true, child: CompanyProfileScreen(companyID: state.pathId));
         },
         routes: [
           GoRoute(
@@ -496,10 +413,7 @@ GoRouter goRouter(Ref ref) {
             pageBuilder: (context, state) {
               return MaterialPage(
                 fullscreenDialog: true,
-                child: AddUpdateCompanyForm(
-                  companyID: state.pathId,
-                  formType: GenericFormTypes.update,
-                ),
+                child: AddUpdateCompanyForm(companyID: state.pathId, formType: GenericFormTypes.update),
               );
             },
           ),
@@ -511,32 +425,22 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: AppRoute.companyUsers.path,
         name: AppRoute.companyUsers.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: CompanyUsersListScreen(),
-        ),
+        pageBuilder: (context, state) => const MaterialPage(fullscreenDialog: true, child: CompanyUsersListScreen()),
         routes: [
           GoRoute(
             path: AppRoute.addCompanyUser.path,
             name: AppRoute.addCompanyUser.name,
-            pageBuilder: (context, state) => const MaterialPage(
-              fullscreenDialog: true,
-              child: AddUpdateCompanyUserForm(
-                companyUserId: '',
-                formType: GenericFormTypes.add,
-              ),
-            ),
+            pageBuilder:
+                (context, state) => const MaterialPage(
+                  fullscreenDialog: true,
+                  child: AddUpdateCompanyUserForm(companyUserId: '', formType: GenericFormTypes.add),
+                ),
           ),
           GoRoute(
             path: AppRoute.companyUserDetails.path,
             name: AppRoute.companyUserDetails.name,
             pageBuilder: (context, state) {
-              return MaterialPage(
-                fullscreenDialog: true,
-                child: CompanyUserDetailsScreen(
-                  companyUserId: state.pathId,
-                ),
-              );
+              return MaterialPage(fullscreenDialog: true, child: CompanyUserDetailsScreen(companyUserId: state.pathId));
             },
             routes: [
               GoRoute(
@@ -545,10 +449,7 @@ GoRouter goRouter(Ref ref) {
                 pageBuilder: (context, state) {
                   return MaterialPage(
                     fullscreenDialog: true,
-                    child: AddUpdateCompanyUserForm(
-                      companyUserId: state.pathId,
-                      formType: GenericFormTypes.update,
-                    ),
+                    child: AddUpdateCompanyUserForm(companyUserId: state.pathId, formType: GenericFormTypes.update),
                   );
                 },
               ),
@@ -561,58 +462,51 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: AppRoute.weatherStations.path,
         name: AppRoute.weatherStations.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: WeatherStationListScreen(),
-        ),
+        pageBuilder: (context, state) => const MaterialPage(fullscreenDialog: true, child: WeatherStationListScreen()),
         routes: [
           GoRoute(
             path: AppRoute.addWeatherStation.path,
             name: AppRoute.addWeatherStation.name,
-            pageBuilder: (context, state) => const MaterialPage(
-              fullscreenDialog: true,
-              child: AddUpdateWeatherStationForm(
-                formType: GenericFormTypes.add,
-              ),
-            ),
+            pageBuilder:
+                (context, state) => const MaterialPage(
+                  fullscreenDialog: true,
+                  child: AddUpdateWeatherStationForm(formType: GenericFormTypes.add),
+                ),
           ),
           GoRoute(
-              path: AppRoute.weatherStationDetails.path,
-              name: AppRoute.weatherStationDetails.name,
-              pageBuilder: (context, state) {
-                final pathParam = PathParameters.fromJson(state.pathParameters);
-                return MaterialPage(
-                  fullscreenDialog: true,
-                  child: WeatherStationDetailsScreen(
-                    weatherStationId: pathParam.id,
-                  ),
-                );
-              },
-              routes: [
-                GoRoute(
-                    path: AppRoute.weatherStationStatisticHistory.path,
-                    name: AppRoute.weatherStationStatisticHistory.name,
-                    pageBuilder: (context, state) {
-                      return MaterialPage(
-                        fullscreenDialog: true,
-                        child: WeatherStationStatisticHistoryScreen(
-                          columnName: state.historyQueryColName,
-                          statisticName: state.historyQueryStatisticName,
-                          weatherStationId: state.pathId,
-                        ),
-                      );
-                    })
-              ]),
+            path: AppRoute.weatherStationDetails.path,
+            name: AppRoute.weatherStationDetails.name,
+            pageBuilder: (context, state) {
+              final pathParam = PathParameters.fromJson(state.pathParameters);
+              return MaterialPage(
+                fullscreenDialog: true,
+                child: WeatherStationDetailsScreen(weatherStationId: pathParam.id),
+              );
+            },
+            routes: [
+              GoRoute(
+                path: AppRoute.weatherStationStatisticHistory.path,
+                name: AppRoute.weatherStationStatisticHistory.name,
+                pageBuilder: (context, state) {
+                  return MaterialPage(
+                    fullscreenDialog: true,
+                    child: WeatherStationStatisticHistoryScreen(
+                      columnName: state.historyQueryColName,
+                      statisticName: state.historyQueryStatisticName,
+                      weatherStationId: state.pathId,
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
           GoRoute(
             path: AppRoute.updateWeatherStation.path,
             name: AppRoute.updateWeatherStation.name,
             pageBuilder: (context, state) {
               return MaterialPage(
                 fullscreenDialog: true,
-                child: AddUpdateWeatherStationForm(
-                  formType: GenericFormTypes.update,
-                  weatherStationId: state.pathId,
-                ),
+                child: AddUpdateWeatherStationForm(formType: GenericFormTypes.update, weatherStationId: state.pathId),
               );
             },
           ),
@@ -620,14 +514,9 @@ GoRouter goRouter(Ref ref) {
             path: AppRoute.connectSectorToWeatherStation.path,
             name: AppRoute.connectSectorToWeatherStation.name,
             pageBuilder: (context, state) {
-              final selectedSector = RadioButtonItem(
-                value: state.queryId ?? '',
-                label: state.queryName ?? '',
-              );
+              final selectedSector = RadioButtonItem(value: state.queryId ?? '', label: state.queryName ?? '');
               return MaterialPage(
-                child: ConnectSectorToWeatherStationScreen(
-                  selectedSector: selectedSector,
-                ),
+                child: ConnectSectorToWeatherStationScreen(selectedSector: selectedSector),
                 fullscreenDialog: true,
               );
             },
@@ -637,18 +526,12 @@ GoRouter goRouter(Ref ref) {
       GoRoute(
         path: AppRoute.weenatAuth.path,
         name: AppRoute.weenatAuth.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: WeenatAuthScreen(),
-        ),
+        pageBuilder: (context, state) => const MaterialPage(fullscreenDialog: true, child: WeenatAuthScreen()),
       ),
       GoRoute(
         path: AppRoute.weenatMap.path,
         name: AppRoute.weenatMap.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          fullscreenDialog: true,
-          child: WeenatMapScreen(),
-        ),
+        pageBuilder: (context, state) => const MaterialPage(fullscreenDialog: true, child: WeenatMapScreen()),
       ),
     ],
   );

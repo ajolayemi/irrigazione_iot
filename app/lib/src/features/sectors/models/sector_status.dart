@@ -36,8 +36,7 @@ class SectorStatus extends Equatable {
   @override
   List<Object?> get props => [id, sectorId, status, createdAt];
 
-  factory SectorStatus.fromJson(Map<String, dynamic> json) =>
-      _$SectorStatusFromJson(json);
+  factory SectorStatus.fromJson(Map<String, dynamic> json) => _$SectorStatusFromJson(json);
 
   Map<String, dynamic> toJson() => _$SectorStatusToJson(this);
 }

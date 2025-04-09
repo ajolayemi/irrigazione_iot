@@ -5,10 +5,7 @@ import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 
 class ResponsiveDetailsCard extends StatelessWidget {
-  const ResponsiveDetailsCard({
-    super.key,
-    required this.child,
-  });
+  const ResponsiveDetailsCard({super.key, required this.child});
 
   final Widget child;
 
@@ -16,15 +13,8 @@ class ResponsiveDetailsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveCenter(
       maxContentWidth: Breakpoint.tablet,
-      padding: const EdgeInsets.symmetric(
-        horizontal: Sizes.p8,
-        vertical: Sizes.p4,
-      ),
-      child: Card(
-        elevation: 2,
-        surfaceTintColor: Colors.transparent.withValues(alpha: 0.2),
-        child: child,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: Sizes.p8, vertical: Sizes.p4),
+      child: Card(elevation: 2, surfaceTintColor: Colors.transparent.withValues(alpha: 0.2), child: child),
     );
   }
 }

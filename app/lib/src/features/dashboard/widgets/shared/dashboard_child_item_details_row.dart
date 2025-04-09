@@ -5,11 +5,7 @@ import 'package:flutter/material.dart';
 /// the last time a pump was switched on or off, it's current
 /// flow rate, etc.
 class DashboardChildItemDetailsRow extends StatelessWidget {
-  const DashboardChildItemDetailsRow({
-    super.key,
-    required this.leading,
-    required this.trailing,
-  });
+  const DashboardChildItemDetailsRow({super.key, required this.leading, required this.trailing});
 
   final Widget leading;
   final Widget trailing;
@@ -18,10 +14,7 @@ class DashboardChildItemDetailsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(child: leading),
-        Flexible(child: trailing),
-      ],
+      children: [Flexible(child: leading), Flexible(child: trailing)],
     );
   }
 }

@@ -12,15 +12,11 @@ class WeenatAuthController extends _$WeenatAuthController {
     return null;
   }
 
-  Future<bool> authWeenat({
-    required WeenatAuthPayload payload,
-  }) async {
+  Future<bool> authWeenat({required WeenatAuthPayload payload}) async {
     state = const AsyncLoading<void>();
 
     final service = ref.read(weenatServiceProvider);
-    final value = await AsyncValue.guard(
-      () => service.authWeenatService(payload: payload),
-    );
+    final value = await AsyncValue.guard(() => service.authWeenatService(payload: payload));
 
     if (value.hasError) {
       state = AsyncError(value.error!, StackTrace.current);

@@ -19,10 +19,7 @@ class SignInController extends _$SignInController {
     state = AsyncData(state.value!.setLoading(buttonKey, isLoading));
   }
 
-  Future<bool> authenticateWithEmailAndPassword(
-    String email,
-    String password,
-  ) async {
+  Future<bool> authenticateWithEmailAndPassword(String email, String password) async {
     // The controller build method is called when the controller is initialized
     // and so, to prevent having a previous state, we set the state to the initial state
     // when this method is called
@@ -32,12 +29,7 @@ class SignInController extends _$SignInController {
     state = const AsyncLoading<CustomControllerState>().copyWithPrevious(state);
     // call on the repository function to handle user sign in with email and password
     final authRepo = ref.read(authRepositoryProvider);
-    final value = await AsyncValue.guard(
-      () => authRepo.signInWithEmailAndPassword(
-        email,
-        password,
-      ),
-    );
+    final value = await AsyncValue.guard(() => authRepo.signInWithEmailAndPassword(email, password));
     if (value.hasError) {
       state = AsyncError(value.error!, StackTrace.current);
     } else {
@@ -56,9 +48,7 @@ class SignInController extends _$SignInController {
     state = const AsyncLoading<CustomControllerState>().copyWithPrevious(state);
     // call on the repository function to handle user sign in with google
     final authRepo = ref.read(authRepositoryProvider);
-    final value = await AsyncValue.guard(
-      () => authRepo.signInWithGoogle(),
-    );
+    final value = await AsyncValue.guard(() => authRepo.signInWithGoogle());
     if (value.hasError) {
       state = AsyncError(value.error!, StackTrace.current);
     } else {

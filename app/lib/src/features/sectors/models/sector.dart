@@ -14,7 +14,6 @@ part 'sector.g.dart';
 // TODO: add checkbox to indicate if a sector can be controlled
 // TODO: if not checked, the sector doesn't have switch
 
-
 @JsonSerializable()
 class Sector extends Equatable {
   const Sector({
@@ -38,24 +37,24 @@ class Sector extends Equatable {
   }) : totalConsumption = waterConsumptionPerHour * numOfPlants;
 
   const Sector.empty()
-      : id = '',
-        name = '',
-        area = 0,
-        numOfPlants = 0,
-        waterConsumptionPerHour = 0,
-        irrigationSystemType = IrrigationSystem.other,
-        irrigationSource = IrrigationSource.other,
-        turnOnCommand = '',
-        turnOffCommand = '',
-        notes = null,
-        totalConsumption = 0,
-        specieId = '',
-        varietyId = '',
-        companyId = '',
-        createdAt = null,
-        updatedAt = null,
-        mqttMsgName = '',
-        hasFilter = false;
+    : id = '',
+      name = '',
+      area = 0,
+      numOfPlants = 0,
+      waterConsumptionPerHour = 0,
+      irrigationSystemType = IrrigationSystem.other,
+      irrigationSource = IrrigationSource.other,
+      turnOnCommand = '',
+      turnOffCommand = '',
+      notes = null,
+      totalConsumption = 0,
+      specieId = '',
+      varietyId = '',
+      companyId = '',
+      createdAt = null,
+      updatedAt = null,
+      mqttMsgName = '',
+      hasFilter = false;
 
   @JsonKey(name: SectorDatabaseKeys.id, includeToJson: false)
   @IntConverter()
@@ -163,8 +162,7 @@ class Sector extends Equatable {
       name: name ?? this.name,
       area: area ?? this.area,
       numOfPlants: numOfPlants ?? this.numOfPlants,
-      waterConsumptionPerHour:
-          waterConsumptionPerHour ?? this.waterConsumptionPerHour,
+      waterConsumptionPerHour: waterConsumptionPerHour ?? this.waterConsumptionPerHour,
       irrigationSystemType: irrigationSystemType ?? this.irrigationSystemType,
       irrigationSource: irrigationSource ?? this.irrigationSource,
       turnOnCommand: turnOnCommand ?? this.turnOnCommand,
@@ -186,6 +184,5 @@ class Sector extends Equatable {
 }
 
 extension SectorX on Sector {
-  String getMqttStatusCommand(bool status) =>
-      status ? turnOnCommand : turnOffCommand;
+  String getMqttStatusCommand(bool status) => status ? turnOnCommand : turnOffCommand;
 }

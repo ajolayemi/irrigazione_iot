@@ -6,8 +6,7 @@ import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 ///
 /// Items could be the list of pumps switched on and so on
 class DashboardChildItemListTile extends StatelessWidget {
-  const DashboardChildItemListTile(
-      {super.key, this.title, this.trailing, this.subtitle});
+  const DashboardChildItemListTile({super.key, this.title, this.trailing, this.subtitle});
 
   final Widget? title;
   final Widget? subtitle;
@@ -17,13 +16,7 @@ class DashboardChildItemListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: Sizes.p16),
-      child: 
-        ListTile(
-          title: title,
-          subtitle: subtitle,
-          trailing: trailing,
-        ),
-      
+      child: ListTile(title: title, subtitle: subtitle, trailing: trailing),
     );
   }
 }

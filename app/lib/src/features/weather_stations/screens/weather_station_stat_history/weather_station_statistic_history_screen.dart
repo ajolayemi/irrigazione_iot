@@ -33,19 +33,14 @@ class WeatherStationStatisticHistoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final statData = ref.watch(
-        weatherStationStatisticsFutureProvider(weatherStationId, columnName));
+    final statData = ref.watch(weatherStationStatisticsFutureProvider(weatherStationId, columnName));
     return Scaffold(
       body: PaddedSafeArea(
         child: AsyncValueSliverWidget<List<WeatherStationStatisticHistory>?>(
           value: statData,
           data: (data) {
             if (data == null || data.isEmpty) {
-              return EmptyDataWidget(
-                message: loc.noHistory,
-                buttonText: '',
-                onPressed: () {},
-              );
+              return EmptyDataWidget(message: loc.noHistory, buttonText: '', onPressed: () {});
             }
 
             return WeatherStationStatisticHistoryScreenContents(

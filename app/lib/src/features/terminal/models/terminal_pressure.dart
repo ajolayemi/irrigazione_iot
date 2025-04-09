@@ -7,12 +7,7 @@ part 'terminal_pressure.g.dart';
 
 @JsonSerializable()
 class TerminalPressure extends Equatable {
-  const TerminalPressure({
-    required this.id,
-    required this.collectorId,
-    required this.pressure,
-    this.createdAt,
-  });
+  const TerminalPressure({required this.id, required this.collectorId, required this.pressure, this.createdAt});
 
   @JsonKey(name: TerminalPressureDatabaseKeys.id)
   @IntConverter()
@@ -24,15 +19,14 @@ class TerminalPressure extends Equatable {
 
   @JsonKey(name: TerminalPressureDatabaseKeys.pressure)
   final double pressure;
-  
+
   @JsonKey(name: TerminalPressureDatabaseKeys.createdAt)
   final DateTime? createdAt;
 
   @override
   List<Object?> get props => [id, collectorId, pressure, createdAt];
 
-  factory TerminalPressure.fromJson(Map<String, dynamic> json) =>
-      _$TerminalPressureFromJson(json);
+  factory TerminalPressure.fromJson(Map<String, dynamic> json) => _$TerminalPressureFromJson(json);
 
   Map<String, dynamic> toJson() => _$TerminalPressureToJson(this);
 }

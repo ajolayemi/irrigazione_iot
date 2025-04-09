@@ -12,13 +12,10 @@ class SupabaseAvailableSectorRepository implements AvailableSectorRepository {
     String companyId, {
     List<AvailableSector>? sectorsAlreadyConnectedToCollector,
   }) {
-    final stream =
-        _supabaseClient.from(AvailableSectorDatabaseKeys.table).stream(
-      primaryKey: [AvailableSectorDatabaseKeys.id],
-    ).eq(
-      AvailableSectorDatabaseKeys.companyId,
-      companyId,
-    );
+    final stream = _supabaseClient
+        .from(AvailableSectorDatabaseKeys.table)
+        .stream(primaryKey: [AvailableSectorDatabaseKeys.id])
+        .eq(AvailableSectorDatabaseKeys.companyId, companyId);
 
     return stream.map((data) {
       if (data.isEmpty) return sectorsAlreadyConnectedToCollector;

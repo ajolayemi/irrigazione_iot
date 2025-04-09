@@ -9,7 +9,7 @@ import 'package:irrigazione_iot/src/features/home/screens/home_navigator_bar.dar
 // https://codewithandrea.com/articles/flutter-bottom-navigation-bar-nested-routes-gorouter/
 class HomeNestedNavigation extends StatelessWidget {
   const HomeNestedNavigation({Key? key, required this.navigationShell})
-      : super(key: key ?? const ValueKey<String>('home_nested_navigation'));
+    : super(key: key ?? const ValueKey<String>('home_nested_navigation'));
 
   final StatefulNavigationShell navigationShell;
 
@@ -26,18 +26,22 @@ class HomeNestedNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth < Breakpoint.bottomNavigationBar) {
-        return HomeNavigationBar(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < Breakpoint.bottomNavigationBar) {
+          return HomeNavigationBar(
             body: navigationShell,
             selectedIndex: navigationShell.currentIndex,
-            onDestinationSelected: _goBranch);
-      }
+            onDestinationSelected: _goBranch,
+          );
+        }
 
-      return HomeNavigationRail(
+        return HomeNavigationRail(
           body: navigationShell,
           selectedIndex: navigationShell.currentIndex,
-          onDestinationSelected: _goBranch);
-    });
+          onDestinationSelected: _goBranch,
+        );
+      },
+    );
   }
 }

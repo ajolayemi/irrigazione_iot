@@ -5,11 +5,7 @@ import 'package:irrigazione_iot/src/shared/widgets/empty_data_widget.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class EmptyBoardWidget extends ConsumerWidget {
-  const EmptyBoardWidget({
-    super.key,
-    required this.onTapAdd,
-    this.alternativeMessage,
-  });
+  const EmptyBoardWidget({super.key, required this.onTapAdd, this.alternativeMessage});
 
   final String? alternativeMessage;
   final VoidCallback onTapAdd;
@@ -19,10 +15,10 @@ class EmptyBoardWidget extends ConsumerWidget {
     final loc = context.loc;
     return SliverFillRemaining(
       child: EmptyDataWidget(
-          message:
-              alternativeMessage ?? loc.emptyDataPlaceholder(loc.nBoards(1)),
-          buttonText: loc.addNewButtonLabel,
-          onPressed: onTapAdd),
+        message: alternativeMessage ?? loc.emptyDataPlaceholder(loc.nBoards(1)),
+        buttonText: loc.addNewButtonLabel,
+        onPressed: onTapAdd,
+      ),
     );
   }
 }

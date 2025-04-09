@@ -17,8 +17,8 @@ class SupabasePumpFlowRepository implements PumpFlowRepository {
   @override
   Stream<int> watchTotalLitresDispensed(String pumpId) {
     final stream = _supabaseClient.pumpFlow
-        .stream(primaryKey: [PumpFlowDatabaseKeys.id]).eq(
-            PumpFlowDatabaseKeys.pumpId, pumpId);
+        .stream(primaryKey: [PumpFlowDatabaseKeys.id])
+        .eq(PumpFlowDatabaseKeys.pumpId, pumpId);
 
     return stream.map((flows) {
       return flows.fold<int>(0, (total, flow) {
@@ -40,8 +40,5 @@ class SupabasePumpFlowRepository implements PumpFlowRepository {
   }
 
   @override
-  Stream<DateTime?> watchLastDispensation(String pumpId) =>
-      watchPumpLastFlow(pumpId).map(
-        (flow) => flow?.createdAt,
-      );
+  Stream<DateTime?> watchLastDispensation(String pumpId) => watchPumpLastFlow(pumpId).map((flow) => flow?.createdAt);
 }

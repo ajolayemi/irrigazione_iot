@@ -3,10 +3,7 @@ import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/utils/extensions/double_extensions.dart';
 
 class CommonPressureRateTrailingText extends StatelessWidget {
-  const CommonPressureRateTrailingText({
-    super.key,
-    required this.pressure,
-  });
+  const CommonPressureRateTrailingText({super.key, required this.pressure});
 
   final double pressure;
 
@@ -15,9 +12,7 @@ class CommonPressureRateTrailingText extends StatelessWidget {
     final textTheme = context.textTheme;
     return Text(
       '${pressure.toStringAsFixed(2)} bar',
-      style: textTheme.titleMedium?.copyWith(
-        color: pressure.getPressureColor(),
-      ),
+      style: textTheme.titleMedium?.copyWith(color: pressure.getPressureColor()),
     );
   }
 }

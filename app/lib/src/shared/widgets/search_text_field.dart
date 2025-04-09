@@ -28,10 +28,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
   Widget build(BuildContext context) {
     final loc = context.loc;
     return ResponsiveSliverCenter(
-      padding: const EdgeInsets.symmetric(
-        horizontal: Sizes.p16,
-        vertical: Sizes.p16,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: Sizes.p16, vertical: Sizes.p16),
       child: TextField(
         controller: _searchController,
         decoration: InputDecoration(
@@ -43,9 +40,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
               widget.onSearch?.call('');
             },
           ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
           hintStyle: const TextStyle(color: Colors.grey),
         ),
         onChanged: widget.onSearch,

@@ -8,11 +8,7 @@ import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class AddUpdateCompanyForm extends ConsumerWidget {
-  const AddUpdateCompanyForm({
-    super.key,
-    required this.formType,
-    this.companyID,
-  });
+  const AddUpdateCompanyForm({super.key, required this.formType, this.companyID});
 
   final String? companyID;
   final GenericFormTypes formType;
@@ -20,10 +16,7 @@ class AddUpdateCompanyForm extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    ref.listen(
-      addUpdateCompanyControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+    ref.listen(addUpdateCompanyControllerProvider, (_, state) => state.showAlertDialogOnError(context));
     final isLoading = ref.watch(addUpdateCompanyControllerProvider).isLoading;
     return IgnorePointer(
       ignoring: isLoading,
@@ -41,11 +34,8 @@ class AddUpdateCompanyForm extends ConsumerWidget {
             child: AddUpdateCompanyFormContent(
               companyID: companyID,
               formType: formType,
-              onCompanyAdded: formType.isAdding
-                  ? () => context.showSnackBar(
-                        message: loc.companyCreatedSuccessfully,
-                      )
-                  : () {},
+              onCompanyAdded:
+                  formType.isAdding ? () => context.showSnackBar(message: loc.companyCreatedSuccessfully) : () {},
             ),
           ),
         ),

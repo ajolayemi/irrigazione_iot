@@ -6,12 +6,7 @@ import 'package:irrigazione_iot/src/exceptions/error_logger.dart';
 /// by the controllers in the app
 class AsyncErrorLogger extends ProviderObserver {
   @override
-  void didUpdateProvider(
-    ProviderBase provider,
-    Object? previousValue,
-    Object? newValue,
-    ProviderContainer container,
-  ) {
+  void didUpdateProvider(ProviderBase provider, Object? previousValue, Object? newValue, ProviderContainer container) {
     final errorLogger = container.read(errorLoggerProvider);
     final error = _findError(newValue);
 

@@ -24,12 +24,7 @@ class SupabaseBoardRepository implements BoardRepository {
   @override
   Future<Board?> createBoard({required Board board}) async {
     // set created_at and updated_at fields
-    final data = board
-        .copyWith(
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-        )
-        .toJson();
+    final data = board.copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'insert-board',
       body: InsertBody(data: data).toJson(),
@@ -43,10 +38,7 @@ class SupabaseBoardRepository implements BoardRepository {
     final data = board.copyWith(updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'update-board',
-      body: UpdateBody(
-        id: board.id,
-        data: data,
-      ).toJson(),
+      body: UpdateBody(id: board.id, data: data).toJson(),
     );
 
     return res.toObject<Board>(Board.fromJson);
@@ -67,23 +59,18 @@ class SupabaseBoardRepository implements BoardRepository {
     required String companyId,
     String? alreadyConnectedCollectorId,
   }) async {
-    final rpcParam = RpcParameters(
-      companyId: companyId,
-      idAlreadyConnected: alreadyConnectedCollectorId?.isEmpty ?? false
-          ? null
-          : alreadyConnectedCollectorId,
-    ).toJson();
+    final rpcParam =
+        RpcParameters(
+          companyId: companyId,
+          idAlreadyConnected: alreadyConnectedCollectorId?.isEmpty ?? false ? null : alreadyConnectedCollectorId,
+        ).toJson();
 
     return await _supabaseClient
-        .rpc<List<Map<String, dynamic>>>(
-            'get_collectors_not_connected_to_a_board',
-            params: rpcParam)
+        .rpc<List<Map<String, dynamic>>>('get_collectors_not_connected_to_a_board', params: rpcParam)
         .withConverter((collectors) {
-      if (collectors.isEmpty) return null;
-      return collectors
-          .map((collector) => Collector.fromJson(collector))
-          .toList();
-    });
+          if (collectors.isEmpty) return null;
+          return collectors.map((collector) => Collector.fromJson(collector)).toList();
+        });
   }
 
   @override
@@ -111,9 +98,7 @@ class SupabaseBoardRepository implements BoardRepository {
 
   @override
   Future<List<Board>?> getBoardsByCompanyId({required String companyId}) async {
-    final query = await _supabaseClient.boards
-        .select()
-        .eq(BoardDatabaseKeys.companyId, companyId);
+    final query = await _supabaseClient.boards.select().eq(BoardDatabaseKeys.companyId, companyId);
 
     return _boardsFromJsonList(query);
   }

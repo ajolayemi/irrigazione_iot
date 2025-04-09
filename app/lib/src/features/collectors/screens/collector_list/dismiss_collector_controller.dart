@@ -13,8 +13,7 @@ class DismissCollectorController extends _$DismissCollectorController {
   Future<bool> confirmDismiss(String collectorId) async {
     final collectorDismissalService = ref.read(dismissCollectorServiceProvider);
     state = const AsyncLoading<void>();
-    final res = await AsyncValue.guard(
-        () => collectorDismissalService.dismissCollector(collectorId));
+    final res = await AsyncValue.guard(() => collectorDismissalService.dismissCollector(collectorId));
     if (res.hasError) {
       state = AsyncError(res.error!, StackTrace.current);
       return false;

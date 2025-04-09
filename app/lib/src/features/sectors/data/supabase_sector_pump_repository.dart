@@ -12,8 +12,7 @@ class SupabaseSectorPumpRepository implements SectorPumpRepository {
   const SupabaseSectorPumpRepository(this._supabaseClient);
   final SupabaseClient _supabaseClient;
 
-  SectorPump? _sectorPumpFromJson(Map<String, dynamic>? data) =>
-      data == null ? null : SectorPump.fromJson(data);
+  SectorPump? _sectorPumpFromJson(Map<String, dynamic>? data) => data == null ? null : SectorPump.fromJson(data);
 
   @override
   Future<SectorPump?> createSectorPump(SectorPump sectorPump) async {
@@ -36,35 +35,26 @@ class SupabaseSectorPumpRepository implements SectorPumpRepository {
   }
 
   @override
-  Future<SectorPump?> getSectorPump(String sectorId) =>
-      _supabaseClient.selectedSectorPumps
-          .eq(SectorPumpDatabaseKeys.sectorId, sectorId)
-          .maybeSingle()
-          .withConverter(_sectorPumpFromJson);
-
+  Future<SectorPump?> getSectorPump(String sectorId) => _supabaseClient.selectedSectorPumps
+      .eq(SectorPumpDatabaseKeys.sectorId, sectorId)
+      .maybeSingle()
+      .withConverter(_sectorPumpFromJson);
 
   @override
-  Future<List<Pump>?> getAvailablePumps({
-    required String companyId,
-    String? alreadyConnectedPumpId,
-  }) async {
-    final rpcParam = RpcParameters(
-            companyId: companyId,
-            idAlreadyConnected: alreadyConnectedPumpId?.isEmpty ?? false
-                ? null
-                : alreadyConnectedPumpId)
-        .toJson();
+  Future<List<Pump>?> getAvailablePumps({required String companyId, String? alreadyConnectedPumpId}) async {
+    final rpcParam =
+        RpcParameters(
+          companyId: companyId,
+          idAlreadyConnected: alreadyConnectedPumpId?.isEmpty ?? false ? null : alreadyConnectedPumpId,
+        ).toJson();
 
     return await _supabaseClient
-        .rpc<List<Map<String, dynamic>>>(
-      'get_pumps_not_connected_to_sector',
-      params: rpcParam,
-    )
+        .rpc<List<Map<String, dynamic>>>('get_pumps_not_connected_to_sector', params: rpcParam)
         .withConverter((pumps) {
-      if (pumps.isEmpty) return null;
-      final res = pumps.map((pump) => Pump.fromJson(pump)).toList();
-      res.sort((a, b) => a.name.compareTo(b.name));
-      return res;
-    });
+          if (pumps.isEmpty) return null;
+          final res = pumps.map((pump) => Pump.fromJson(pump)).toList();
+          res.sort((a, b) => a.name.compareTo(b.name));
+          return res;
+        });
   }
 }

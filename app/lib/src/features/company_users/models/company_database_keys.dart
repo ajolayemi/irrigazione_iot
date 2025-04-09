@@ -3,7 +3,7 @@ class CompanyDatabaseKeys {
   const CompanyDatabaseKeys._();
 
   static const String table = 'companies';
-  
+
   static const String id = 'id';
   static const String mqttTopicName = 'mqtt_topic_name';
   static const String name = 'name';

@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:irrigazione_iot/src/constants/app_sizes.dart';
 
 class CommonStatusIndicator extends StatelessWidget {
-  const CommonStatusIndicator({
-    super.key,
-    required this.status,
-  });
+  const CommonStatusIndicator({super.key, required this.status});
 
   final bool status;
 
@@ -14,12 +11,7 @@ class CommonStatusIndicator extends StatelessWidget {
     return SizedBox(
       width: Sizes.p16,
       height: Sizes.p16,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: status ? Colors.green : Colors.red,
-          shape: BoxShape.circle,
-        ),
-      ),
+      child: DecoratedBox(decoration: BoxDecoration(color: status ? Colors.green : Colors.red, shape: BoxShape.circle)),
     );
   }
 }

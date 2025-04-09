@@ -18,9 +18,6 @@ class SignUpScreen extends ConsumerWidget {
       }
       debugPrint('Email already in use error occurred in sign up screen');
     });
-    return Scaffold(
-      appBar: AppBar(),
-      body: const PaddedSafeArea(child: SignUpScreenContents()),
-    );
+    return Scaffold(appBar: AppBar(), body: const PaddedSafeArea(child: SignUpScreenContents()));
   }
 }

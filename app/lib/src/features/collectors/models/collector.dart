@@ -20,13 +20,13 @@ class Collector extends Equatable {
   });
 
   const Collector.empty()
-      : id = '',
-        name = '',
-        hasFilter = false,
-        createdAt = null,
-        updatedAt = null,
-        companyId = '',
-        mqttMsgName = '';
+    : id = '',
+      name = '',
+      hasFilter = false,
+      createdAt = null,
+      updatedAt = null,
+      companyId = '',
+      mqttMsgName = '';
 
   @JsonKey(name: CollectorDatabaseKeys.id, includeToJson: false)
   @IntConverter()
@@ -53,18 +53,10 @@ class Collector extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
-      id,
-      name,
-      createdAt,
-      updatedAt,
-      companyId,
-      mqttMsgName,
-    ];
+    return [id, name, createdAt, updatedAt, companyId, mqttMsgName];
   }
 
-  factory Collector.fromJson(Map<String, dynamic> json) =>
-      _$CollectorFromJson(json);
+  factory Collector.fromJson(Map<String, dynamic> json) => _$CollectorFromJson(json);
 
   Map<String, dynamic> toJson() => _$CollectorToJson(this);
 

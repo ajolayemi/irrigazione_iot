@@ -9,33 +9,24 @@ import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class SectorListTile extends ConsumerWidget {
-  const SectorListTile({
-    super.key,
-    required this.sector,
-  });
+  const SectorListTile({super.key, required this.sector});
 
   final Sector sector;
 
   // Key for testing using find.byKey
-  static Key sectorListTileKey(Sector sector) =>
-      Key('sectorListTileKey_${sector.id}');
+  static Key sectorListTileKey(Sector sector) => Key('sectorListTileKey_${sector.id}');
 
   Future<bool> _dismissSector(BuildContext context, WidgetRef ref) async {
     final loc = context.loc;
-    final askUser = await context.showDismissalDialog(
-      where: loc.nSectorsWithArticulatedPreposition(1),
-    );
+    final askUser = await context.showDismissalDialog(where: loc.nSectorsWithArticulatedPreposition(1));
     if (!askUser) return false;
-    return ref
-        .read(dismissSectorControllerProvider.notifier)
-        .confirmDismiss(sector);
+    return ref.read(dismissSectorControllerProvider.notifier).confirmDismiss(sector);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDeleting = ref.watch(dismissSectorControllerProvider).isLoading;
-    final canDelete =
-        ref.watch(userCanDeleteStreamProvider).valueOrNull ?? false;
+    final canDelete = ref.watch(userCanDeleteStreamProvider).valueOrNull ?? false;
     return CustomDismissibleWidget(
       canDelete: canDelete,
       dismissibleKey: sectorListTileKey(sector),

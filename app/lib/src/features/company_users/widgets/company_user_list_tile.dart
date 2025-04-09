@@ -11,15 +11,11 @@ import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class CompanyUserListTile extends ConsumerWidget {
-  const CompanyUserListTile({
-    super.key,
-    required this.user,
-  });
+  const CompanyUserListTile({super.key, required this.user});
 
   final CompanyUser user;
 
-  static Key companyUserListTileKey(CompanyUser user) =>
-      Key('companyUserListTileKey_${user.id}');
+  static Key companyUserListTileKey(CompanyUser user) => Key('companyUserListTileKey_${user.id}');
 
   Future<bool> _dismissCompanyUser({
     required BuildContext context,
@@ -29,16 +25,11 @@ class CompanyUserListTile extends ConsumerWidget {
   }) async {
     final loc = context.loc;
     if (isMe) {
-      showAlertDialog(
-        context: context,
-        title: loc.cantDeleteYourselfDialogTitle,
-      );
+      showAlertDialog(context: context, title: loc.cantDeleteYourselfDialogTitle);
       return false;
     }
     if (await context.showDismissalDialog(
-      alternateDialog: loc.companyUserDismissalDialogContent(
-        companyUser.fullName,
-      ),
+      alternateDialog: loc.companyUserDismissalDialogContent(companyUser.fullName),
       alternateTitle: loc.companyUserDismissalDialogTitle,
     )) {
       return await ref
@@ -50,29 +41,18 @@ class CompanyUserListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final shouldIgnore =
-        ref.watch(dismissCompanyUserControllerProvider).isLoading;
+    final shouldIgnore = ref.watch(dismissCompanyUserControllerProvider).isLoading;
     final currentLoggedInUser = ref.watch(authRepositoryProvider).currentUser;
-    final isMe =
-        currentLoggedInUser != null && currentLoggedInUser.email == user.email;
+    final isMe = currentLoggedInUser != null && currentLoggedInUser.email == user.email;
 
-    final canDelete =
-        ref.watch(userCanDeleteStreamProvider).valueOrNull ?? false;
+    final canDelete = ref.watch(userCanDeleteStreamProvider).valueOrNull ?? false;
 
     return CustomDismissibleWidget(
       canDelete: canDelete,
       dismissibleKey: companyUserListTileKey(user),
-      confirmDismiss: (_) async => await _dismissCompanyUser(
-        context: context,
-        ref: ref,
-        companyUser: user,
-        isMe: isMe,
-      ),
+      confirmDismiss: (_) async => await _dismissCompanyUser(context: context, ref: ref, companyUser: user, isMe: isMe),
       isDeleting: shouldIgnore,
-      child: CompanyUserListTileItem(
-        companyUser: user,
-        isMe: isMe,
-      ),
+      child: CompanyUserListTileItem(companyUser: user, isMe: isMe),
     );
   }
 }

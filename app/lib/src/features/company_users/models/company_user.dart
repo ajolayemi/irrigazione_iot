@@ -20,13 +20,13 @@ class CompanyUser extends Equatable {
   });
 
   const CompanyUser.empty()
-      : id = '',
-        email = '',
-        fullName = '',
-        role = CompanyUserRole.user,
-        companyId = '',
-        createdAt = null,
-        updatedAt = null;
+    : id = '',
+      email = '',
+      fullName = '',
+      role = CompanyUserRole.user,
+      companyId = '',
+      createdAt = null,
+      updatedAt = null;
 
   @JsonKey(name: CompanyUserDatabaseKeys.id, includeToJson: false)
   @IntConverter()
@@ -47,15 +47,7 @@ class CompanyUser extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
-      id,
-      email,
-      fullName,
-      role,
-      companyId,
-      createdAt,
-      updatedAt,
-    ];
+    return [id, email, fullName, role, companyId, createdAt, updatedAt];
   }
 
   CompanyUser copyWith({
@@ -78,8 +70,7 @@ class CompanyUser extends Equatable {
     );
   }
 
-  factory CompanyUser.fromJson(Map<String, dynamic> json) =>
-      _$CompanyUserFromJson(json);
+  factory CompanyUser.fromJson(Map<String, dynamic> json) => _$CompanyUserFromJson(json);
 
   Map<String, dynamic> toJson() => _$CompanyUserToJson(this);
 }

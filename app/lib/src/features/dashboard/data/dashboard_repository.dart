@@ -24,23 +24,17 @@ DashboardRepository dashboardRepository(Ref ref) {
 
 @Riverpod(keepAlive: true)
 Stream<List<PumpSwitchedOn>?> pumpsSwitchedOnStream(Ref ref) {
-  final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).value;
+  final currentSelectedCompanyByUser = ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return Stream.value([]);
   final dashboardRepo = ref.watch(dashboardRepositoryProvider);
   return dashboardRepo.watchPumpsSwitchedOn(currentSelectedCompanyByUser.id);
 }
 
 @Riverpod(keepAlive: true)
-Stream<List<SectorSwitchedOn>?> sectorsSwitchedOnStream(
-  Ref ref,
-) {
-  final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).value;
+Stream<List<SectorSwitchedOn>?> sectorsSwitchedOnStream(Ref ref) {
+  final currentSelectedCompanyByUser = ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return Stream.value([]);
   final dashboardRepo = ref.watch(dashboardRepositoryProvider);
-  final data = dashboardRepo.watchSectorsSwitchedOn(
-    currentSelectedCompanyByUser.id,
-  );
+  final data = dashboardRepo.watchSectorsSwitchedOn(currentSelectedCompanyByUser.id);
   return data;
 }

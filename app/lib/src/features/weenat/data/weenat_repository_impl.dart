@@ -10,14 +10,9 @@ class WeenatRepositoryImpl extends HttpRepository implements WeenatRepository {
   WeenatRepositoryImpl(String baseUrl) : super(baseUrl: baseUrl);
 
   @override
-  Future<String?> authWeenat({
-    required WeenatAuthPayload payload,
-  }) async {
+  Future<String?> authWeenat({required WeenatAuthPayload payload}) async {
     try {
-      final res = await post(
-        path: '/api-token-auth/',
-        data: payload.toJson(),
-      );
+      final res = await post(path: '/api-token-auth/', data: payload.toJson());
       final data = res.data as Map<String, dynamic>;
       return WeenatAuthResData.fromJson(data).token;
     } catch (error) {
@@ -40,14 +35,12 @@ class WeenatRepositoryImpl extends HttpRepository implements WeenatRepository {
         HttpHeaders.authorization: '${HttpHeaders.bearer} $token',
       };
 
-      final url = orgId != null
-          ? '/v2/access/plots/$plotId/measures/?start=$unixStart&end=$unixEnd&organization=$orgId'
-          : '/v2/access/plots/$plotId/measures/?start=$unixStart&end=$unixEnd';
+      final url =
+          orgId != null
+              ? '/v2/access/plots/$plotId/measures/?start=$unixStart&end=$unixEnd&organization=$orgId'
+              : '/v2/access/plots/$plotId/measures/?start=$unixStart&end=$unixEnd';
 
-      final res = await get(
-        path: url,
-        headers: headers,
-      );
+      final res = await get(path: url, headers: headers);
 
       return res.data as Map<String, dynamic>;
     } catch (_) {
@@ -56,18 +49,13 @@ class WeenatRepositoryImpl extends HttpRepository implements WeenatRepository {
   }
 
   @override
-  Future<List<WeenatPlot>?> getPlots({
-    required String token,
-  }) async {
+  Future<List<WeenatPlot>?> getPlots({required String token}) async {
     try {
       final headers = {
         HttpHeaders.contentType: HttpHeaders.json,
         HttpHeaders.authorization: '${HttpHeaders.bearer} $token',
       };
-      final res = await get(
-        path: '/v2/access/plots/',
-        headers: headers,
-      );
+      final res = await get(path: '/v2/access/plots/', headers: headers);
       final data = res.data as List<dynamic>;
       final plots = data.map((e) => WeenatPlot.fromJson(e)).toList();
       return plots;

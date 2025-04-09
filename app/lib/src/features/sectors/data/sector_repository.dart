@@ -62,8 +62,6 @@ Future<List<Sector>?> allSectorsFuture(Ref ref) {
   return sectorsRepository.getAllSectors();
 }
 
-
-
 @Riverpod(keepAlive: true)
 FutureOr<Sector?> sector(Ref ref, String sectorID) {
   final sectorsRepository = ref.watch(sectorRepositoryProvider);
@@ -73,27 +71,21 @@ FutureOr<Sector?> sector(Ref ref, String sectorID) {
 @riverpod
 Future<List<String?>> usedSectorNamesFuture(Ref ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
-  final currentSelectedCompanyByUser =
-      ref.read(currentTappedCompanyProvider).valueOrNull;
+  final currentSelectedCompanyByUser = ref.read(currentTappedCompanyProvider).valueOrNull;
   if (currentSelectedCompanyByUser == null) return Future.value([]);
-  return sectorsRepository
-      .getCompanyUsedSectorNames(currentSelectedCompanyByUser.id);
+  return sectorsRepository.getCompanyUsedSectorNames(currentSelectedCompanyByUser.id);
 }
 
 @riverpod
-Future<List<String?>> usedSectorCommandsFuture(
-    Ref ref) {
+Future<List<String?>> usedSectorCommandsFuture(Ref ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
-  final currentSelectedCompanyByUser =
-      ref.read(currentTappedCompanyProvider).valueOrNull;
+  final currentSelectedCompanyByUser = ref.read(currentTappedCompanyProvider).valueOrNull;
   if (currentSelectedCompanyByUser == null) return Future.value([]);
-  return sectorsRepository
-      .getCompanySectorUsedCommands(currentSelectedCompanyByUser.id);
+  return sectorsRepository.getCompanySectorUsedCommands(currentSelectedCompanyByUser.id);
 }
 
 @riverpod
-Future<List<String?>> sectorUsedMqttMessageNamesFuture(
-    Ref ref) {
+Future<List<String?>> sectorUsedMqttMessageNamesFuture(Ref ref) {
   final sectorsRepository = ref.read(sectorRepositoryProvider);
   return sectorsRepository.getSectorUsedMqttMsgNames();
 }

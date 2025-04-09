@@ -14,18 +14,13 @@ import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indi
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class SelectAVarietyScreen extends ConsumerStatefulWidget {
-  const SelectAVarietyScreen({
-    super.key,
-    this.selectedVarietyId,
-    this.selectedVarietyName,
-  });
+  const SelectAVarietyScreen({super.key, this.selectedVarietyId, this.selectedVarietyName});
 
   final String? selectedVarietyId;
   final String? selectedVarietyName;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _SelectAVarietyScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SelectAVarietyScreenState();
 }
 
 class _SelectAVarietyScreenState extends ConsumerState<SelectAVarietyScreen> {
@@ -34,10 +29,7 @@ class _SelectAVarietyScreenState extends ConsumerState<SelectAVarietyScreen> {
 
   @override
   void initState() {
-    _selectedVariety = RadioButtonItem(
-      value: widget.selectedVarietyId ?? '',
-      label: widget.selectedVarietyName ?? '',
-    );
+    _selectedVariety = RadioButtonItem(value: widget.selectedVarietyId ?? '', label: widget.selectedVarietyName ?? '');
     super.initState();
   }
 
@@ -60,19 +52,15 @@ class _SelectAVarietyScreenState extends ConsumerState<SelectAVarietyScreen> {
     // A list of varieties that are filtered based on the search query
     final queryResult = ref.watch(selectAVarietyQueryResultProvider);
     return CustomSliverConnectSomethingTo(
-      subChild: !_isSearching
-          ? null
-          : SearchTextField(
-              onSearch:
-                  ref.read(selectAVarietyQueryResultProvider.notifier).search,
-            ),
+      subChild:
+          !_isSearching ? null : SearchTextField(onSearch: ref.read(selectAVarietyQueryResultProvider.notifier).search),
       title: loc.selectAVarietyPageTitle,
       actions: [
         CommonSearchIconButton(
           isVisibile: varieties?.isNotEmpty ?? false,
           onPressed: _onPressedSearchIcon,
           isSearching: _isSearching,
-        )
+        ),
       ],
       onCTAPressed: () => context.popNavigator(_selectedVariety),
       child: AsyncValueSliverWidget<List<Variety>?>(
@@ -81,34 +69,20 @@ class _SelectAVarietyScreenState extends ConsumerState<SelectAVarietyScreen> {
           return FilteredScreenItemRenderer<Variety?>(
             baseItems: varieties,
             filteredItems: filteredResult,
-            noBaseItemsWidget: const SliverFillRemaining(
-              child: Center(
-                child: Text('No varieties found'),
-              ),
-            ),
+            noBaseItemsWidget: const SliverFillRemaining(child: Center(child: Text('No varieties found'))),
             mainWidget: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final variety = filteredResult![index];
-                  return ResponsiveRadioListTile(
-                    title: variety.name,
-                    value: RadioButtonItem(
-                      value: variety.id,
-                      label: variety.name,
-                    ),
-                    groupValue: _selectedVariety,
-                    onChanged: (value) => setState(
-                      () {
-                        _selectedVariety = RadioButtonItem(
-                          value: variety.id,
-                          label: variety.name,
-                        );
-                      },
-                    ),
-                  );
-                },
-                childCount: filteredResult?.length,
-              ),
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final variety = filteredResult![index];
+                return ResponsiveRadioListTile(
+                  title: variety.name,
+                  value: RadioButtonItem(value: variety.id, label: variety.name),
+                  groupValue: _selectedVariety,
+                  onChanged:
+                      (value) => setState(() {
+                        _selectedVariety = RadioButtonItem(value: variety.id, label: variety.name);
+                      }),
+                );
+              }, childCount: filteredResult?.length),
             ),
           );
         },

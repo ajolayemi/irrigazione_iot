@@ -47,14 +47,7 @@ class CustomSliverConnectSomethingTo extends StatelessWidget {
           children: [
             Expanded(
               child: CustomScrollView(
-                slivers: [
-                  AppSliverBar(
-                    title: title,
-                    actions: actions,
-                  ),
-                  subChild ?? const SliverToBoxAdapter(),
-                  child,
-                ],
+                slivers: [AppSliverBar(title: title, actions: actions), subChild ?? const SliverToBoxAdapter(), child],
               ),
             ),
             SliverCTAButton(

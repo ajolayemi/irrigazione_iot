@@ -10,19 +10,15 @@ import 'package:timeago_flutter/timeago_flutter.dart';
 /// a sector belongs to was updated.
 ///
 class SectorCollectorPressureLastUpdated extends ConsumerWidget {
-  const SectorCollectorPressureLastUpdated({
-    super.key,
-    required this.collectorId,
-  });
+  const SectorCollectorPressureLastUpdated({super.key, required this.collectorId});
 
   final String collectorId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lastCollectorPressureDate =
-        ref.watch(collectorPressureStreamProvider(collectorId).select(
-      (value) => value.valueOrNull?.createdAt,
-    ));
+    final lastCollectorPressureDate = ref.watch(
+      collectorPressureStreamProvider(collectorId).select((value) => value.valueOrNull?.createdAt),
+    );
 
     if (lastCollectorPressureDate == null) {
       return const SectorCollectorPressureLastUpdatedContent();
@@ -45,9 +41,6 @@ class SectorCollectorPressureLastUpdatedContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = context.loc;
-    return DashboardChildItemDetailsRow(
-      leading: Text(loc.lastUpdated),
-      trailing: Text(content ?? loc.notAvailable),
-    );
+    return DashboardChildItemDetailsRow(leading: Text(loc.lastUpdated), trailing: Text(content ?? loc.notAvailable));
   }
 }

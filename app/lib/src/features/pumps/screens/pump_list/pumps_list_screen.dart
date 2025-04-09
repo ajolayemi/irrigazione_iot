@@ -45,14 +45,8 @@ class _PumpListScreenState extends ConsumerState<PumpListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(
-      dismissPumpControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
-    ref.listen(
-      pumpStatusControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+    ref.listen(dismissPumpControllerProvider, (_, state) => state.showAlertDialogOnError(context));
+    ref.listen(pumpStatusControllerProvider, (_, state) => state.showAlertDialogOnError(context));
 
     /// A list of original list of pumps that belong to the company
     final companyPumps = ref.watch(companyPumpsProvider).valueOrNull;
@@ -73,20 +67,12 @@ class _PumpListScreenState extends ConsumerState<PumpListScreen> {
                   isSearching: _showSearchField,
                   onPressed: _onPressedSearchIcon,
                 ),
-                CommonAddIconButton(
-                  onPressed: () => context.pushNamed(
-                    AppRoute.addPump.name,
-                  ),
-                ),
+                CommonAddIconButton(onPressed: () => context.pushNamed(AppRoute.addPump.name)),
               ],
             ),
-            // List of filter chips goes here
 
-            if (_showSearchField)
-              SearchTextField(
-                onSearch:
-                    ref.read(pumpSearchQueryResultProvider.notifier).search,
-              ),
+            // List of filter chips goes here
+            if (_showSearchField) SearchTextField(onSearch: ref.read(pumpSearchQueryResultProvider.notifier).search),
             AsyncValueSliverWidget(
               value: filteredPumps,
               loading: () => const PumpListTileSkeleton(), // todo replace
@@ -96,17 +82,14 @@ class _PumpListScreenState extends ConsumerState<PumpListScreen> {
                   filteredItems: filterResult,
                   noBaseItemsWidget: const EmptyPumpWidget(),
                   mainWidget: SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        final pump = filterResult![index];
-                        return PumpListTile(pump: pump);
-                      },
-                      childCount: filterResult?.length,
-                    ),
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      final pump = filterResult![index];
+                      return PumpListTile(pump: pump);
+                    }, childCount: filterResult?.length),
                   ),
                 );
               },
-            )
+            ),
           ],
         ),
       ),

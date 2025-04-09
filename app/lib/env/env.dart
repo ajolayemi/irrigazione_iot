@@ -15,102 +15,51 @@ final class Env {
   /// When developing and testing locally using emulators
   /// the supabase url used has the default localhost and
   /// port provided by supabase in its documentation
-  static get supabaseLocalUrlForEmulators =>
-      'http://$supabaseDefaultLocalHost:$supabaseLocalDevPort';
+  static get supabaseLocalUrlForEmulators => 'http://$supabaseDefaultLocalHost:$supabaseLocalDevPort';
 
   /// When developing and testing locally using a real device
   /// the localhost for the supabase url is different because
   /// supabase services such as authentication won't work with
   /// the default localhost (127.0.0.1) provided by supabase
   /// in its documentation
-  static get supabaseLocalUrlForRealDevice =>
-      'http://$localhost:$supabaseLocalDevPort';
+  static get supabaseLocalUrlForRealDevice => 'http://$localhost:$supabaseLocalDevPort';
 
   @EnviedField(varName: 'LOCALHOST', obfuscate: true, defaultValue: 'localhost')
   static final String localhost = _Env.localhost;
 
-  @EnviedField(
-    varName: 'SUPABASE_DEFAULT_LOCALHOST',
-    obfuscate: true,
-    defaultValue: 'localhost',
-  )
+  @EnviedField(varName: 'SUPABASE_DEFAULT_LOCALHOST', obfuscate: true, defaultValue: 'localhost')
   static final String supabaseDefaultLocalHost = _Env.supabaseDefaultLocalHost;
 
-  @EnviedField(
-    varName: 'SUPABASE_LOCAL_DEV_PORT',
-    obfuscate: true,
-    defaultValue: '3000',
-  )
+  @EnviedField(varName: 'SUPABASE_LOCAL_DEV_PORT', obfuscate: true, defaultValue: '3000')
   static final String supabaseLocalDevPort = _Env.supabaseLocalDevPort;
 
-  @EnviedField(
-    varName: 'SUPABASE_LOCAL_URL',
-    obfuscate: true,
-    defaultValue: 'http://localhost:3000',
-  )
+  @EnviedField(varName: 'SUPABASE_LOCAL_URL', obfuscate: true, defaultValue: 'http://localhost:3000')
   static final String supabaseLocalUrl = _Env.supabaseLocalUrl;
 
-  @EnviedField(
-    varName: 'SUPABASE_PROD_URL',
-    obfuscate: true,
-    defaultValue: 'https://your_prod_url.com',
-  )
+  @EnviedField(varName: 'SUPABASE_PROD_URL', obfuscate: true, defaultValue: 'https://your_prod_url.com')
   static final String supabaseProdUrl = _Env.supabaseProdUrl;
 
-  @EnviedField(
-    varName: 'SUPABASE_PROD_ANON_KEY',
-    obfuscate: true,
-    defaultValue: 'your_prod_anon_key',
-  )
+  @EnviedField(varName: 'SUPABASE_PROD_ANON_KEY', obfuscate: true, defaultValue: 'your_prod_anon_key')
   static final String supabaseProdAnonKey = _Env.supabaseProdAnonKey;
 
-  @EnviedField(
-    varName: 'SUPABASE_LOCAL_ANON_KEY',
-    obfuscate: true,
-    defaultValue: 'your_local_anon_key',
-  )
+  @EnviedField(varName: 'SUPABASE_LOCAL_ANON_KEY', obfuscate: true, defaultValue: 'your_local_anon_key')
   static final String supabaseLocalAnonKey = _Env.supabaseLocalAnonKey;
 
-  @EnviedField(
-    varName: 'IOS_CLIENT_ID',
-    obfuscate: true,
-    defaultValue: 'your_ios_client_id',
-  )
+  @EnviedField(varName: 'IOS_CLIENT_ID', obfuscate: true, defaultValue: 'your_ios_client_id')
   static final String iosClientId = _Env.iosClientId;
 
-  @EnviedField(
-    varName: 'WEB_CLIENT_ID',
-    obfuscate: true,
-    defaultValue: 'your_web_client_id',
-  )
+  @EnviedField(varName: 'WEB_CLIENT_ID', obfuscate: true, defaultValue: 'your_web_client_id')
   static final String webClientId = _Env.webClientId;
 
-  @EnviedField(
-    varName: 'ANDROID_CLIENT_ID',
-    obfuscate: true,
-    defaultValue: 'your_android_client_id',
-  )
+  @EnviedField(varName: 'ANDROID_CLIENT_ID', obfuscate: true, defaultValue: 'your_android_client_id')
   static final String androidClientId = _Env.androidClientId;
 
-  @EnviedField(
-    varName: "MQTT_BROKER_URL",
-    obfuscate: true,
-    defaultValue: "your_mqtt_broker_url",
-  )
+  @EnviedField(varName: "MQTT_BROKER_URL", obfuscate: true, defaultValue: "your_mqtt_broker_url")
   static final String mqttBrokerUrl = _Env.mqttBrokerUrl;
 
-
-  @EnviedField(
-    varName: "MQTT_BROKER_USERNAME",
-    obfuscate: true,
-    defaultValue: "your_mqtt_broker_port",
-  )
+  @EnviedField(varName: "MQTT_BROKER_USERNAME", obfuscate: true, defaultValue: "your_mqtt_broker_port")
   static final String mqttBrokerUsername = _Env.mqttBrokerUsername;
 
-  @EnviedField(
-    varName: "MQTT_BROKER_PASSWORD",
-    obfuscate: true,
-    defaultValue: "your_mqtt_broker_password",
-  )
+  @EnviedField(varName: "MQTT_BROKER_PASSWORD", obfuscate: true, defaultValue: "your_mqtt_broker_password")
   static final String mqttBrokerPassword = _Env.mqttBrokerPassword;
 }

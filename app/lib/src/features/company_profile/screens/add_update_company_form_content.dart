@@ -15,23 +15,16 @@ import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
 
 class AddUpdateCompanyFormContent extends ConsumerStatefulWidget {
-  const AddUpdateCompanyFormContent({
-    super.key,
-    this.companyID,
-    required this.formType,
-    required this.onCompanyAdded,
-  });
+  const AddUpdateCompanyFormContent({super.key, this.companyID, required this.formType, required this.onCompanyAdded});
 
   final String? companyID;
   final GenericFormTypes formType;
   final VoidCallback onCompanyAdded;
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _AddUpdateCompanyFormContentsState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _AddUpdateCompanyFormContentsState();
 }
 
-class _AddUpdateCompanyFormContentsState
-    extends ConsumerState<AddUpdateCompanyFormContent> with AppFormValidators {
+class _AddUpdateCompanyFormContentsState extends ConsumerState<AddUpdateCompanyFormContent> with AppFormValidators {
   final _node = FocusScopeNode();
   final _formKey = GlobalKey<FormState>();
 
@@ -74,8 +67,7 @@ class _AddUpdateCompanyFormContentsState
   @override
   void initState() {
     if (_isUpdating && widget.companyID != null) {
-      final company =
-          ref.read(companyStreamProvider(widget.companyID!)).valueOrNull;
+      final company = ref.read(companyStreamProvider(widget.companyID!)).valueOrNull;
       _initialCompany = company;
       if (company != null) {
         _nameController.text = company.name;
@@ -120,9 +112,7 @@ class _AddUpdateCompanyFormContentsState
   String? _nonEmptyFieldsErrorText(String value) {
     if (!_submitted) return null;
 
-    return context.getLocalizedErrorText(
-      errorKey: getNonEmptyFieldsErrorKey(value: value),
-    );
+    return context.getLocalizedErrorText(errorKey: getNonEmptyFieldsErrorKey(value: value));
   }
 
   /// Validates email form field
@@ -137,19 +127,14 @@ class _AddUpdateCompanyFormContentsState
   String? _emailErrorText(String value) {
     if (!_submitted) return null;
 
-    return context.getLocalizedErrorText(
-      errorKey: getEmailErrorKey(value: value),
-    );
+    return context.getLocalizedErrorText(errorKey: getEmailErrorKey(value: value));
   }
 
   /// Validates form fields that are dependent on one another
   /// - fiscal code
   /// - vat number
   void _dependentFieldsEditingComplete() {
-    if (canSubmitDependentFields(
-      value1: _fiscalCode,
-      value2: _vatNumber,
-    )) {
+    if (canSubmitDependentFields(value1: _fiscalCode, value2: _vatNumber)) {
       _node.nextFocus();
     }
   }
@@ -164,10 +149,7 @@ class _AddUpdateCompanyFormContentsState
     return context.getLocalizedDependentErrorText(
       field1Name: loc.companyFiscalCode,
       field2Name: loc.companyVatNumber,
-      errorKey: getDependentFieldsErrorKey(
-        value1: _fiscalCode,
-        value2: _vatNumber,
-      ),
+      errorKey: getDependentFieldsErrorKey(value1: _fiscalCode, value2: _vatNumber),
     );
   }
 
@@ -176,10 +158,7 @@ class _AddUpdateCompanyFormContentsState
     setState(() => _submitted = true);
 
     if (_formKey.currentState!.validate()) {
-      if (await context.showSaveUpdateDialog(
-        isUpdating: _isUpdating,
-        what: context.loc.nCompany(1),
-      )) {
+      if (await context.showSaveUpdateDialog(isUpdating: _isUpdating, what: context.loc.nCompany(1))) {
         final company = _initialCompany?.copyWith(
           name: _name,
           registeredOfficeAddress: _address,
@@ -192,13 +171,9 @@ class _AddUpdateCompanyFormContentsState
 
         bool success = false;
         if (_isUpdating) {
-          success = await ref
-              .read(addUpdateCompanyControllerProvider.notifier)
-              .updateCompany(company);
+          success = await ref.read(addUpdateCompanyControllerProvider.notifier).updateCompany(company);
         } else {
-          success = await ref
-              .read(addUpdateCompanyControllerProvider.notifier)
-              .addCompany(company);
+          success = await ref.read(addUpdateCompanyControllerProvider.notifier).addCompany(company);
         }
 
         if (success) {
@@ -229,11 +204,7 @@ class _AddUpdateCompanyFormContentsState
           Expanded(
             child: CustomScrollView(
               slivers: [
-                AppSliverBar(
-                  title: _isUpdating
-                      ? loc.updateCompanyPageTitle
-                      : loc.addNewCompanyPageTitle,
-                ),
+                AppSliverBar(title: _isUpdating ? loc.updateCompanyPageTitle : loc.addNewCompanyPageTitle),
                 ResponsiveSliverForm(
                   node: _node,
                   formKey: _formKey,
@@ -245,8 +216,7 @@ class _AddUpdateCompanyFormContentsState
                       fieldTitle: loc.nameFormFieldTitle,
                       fieldController: _nameController,
                       fieldHintText: loc.companyNameHintText,
-                      onEditingComplete: () =>
-                          _nonEmptyFieldsEditingComplete(_name),
+                      onEditingComplete: () => _nonEmptyFieldsEditingComplete(_name),
                       validator: (_) => _nonEmptyFieldsErrorText(_name),
                     ),
                     gapH16,
@@ -258,10 +228,8 @@ class _AddUpdateCompanyFormContentsState
                       fieldTitle: loc.mqttTopicNameFormFieldTitle,
                       fieldController: _mqttTopicNameController,
                       fieldHintText: loc.mqttMessageNameFormHint,
-                      onEditingComplete: () =>
-                          _nonEmptyFieldsEditingComplete(_mqttTopicName),
-                      validator: (_) =>
-                          _nonEmptyFieldsErrorText(_mqttTopicName),
+                      onEditingComplete: () => _nonEmptyFieldsEditingComplete(_mqttTopicName),
+                      validator: (_) => _nonEmptyFieldsErrorText(_mqttTopicName),
                     ),
                     gapH16,
 
@@ -272,8 +240,7 @@ class _AddUpdateCompanyFormContentsState
                       fieldTitle: loc.companyRegisteredAddress,
                       fieldController: _addressController,
                       fieldHintText: loc.companyRegisteredAddressHintText,
-                      onEditingComplete: () =>
-                          _nonEmptyFieldsEditingComplete(_address),
+                      onEditingComplete: () => _nonEmptyFieldsEditingComplete(_address),
                       validator: (_) => _nonEmptyFieldsErrorText(_address),
                     ),
                     gapH16,
@@ -323,8 +290,7 @@ class _AddUpdateCompanyFormContentsState
                       fieldTitle: loc.companyPhone,
                       fieldController: _phoneController,
                       fieldHintText: loc.companyPhoneHintText,
-                      onEditingComplete: () =>
-                          _nonEmptyFieldsEditingComplete(_phone),
+                      onEditingComplete: () => _nonEmptyFieldsEditingComplete(_phone),
                       validator: (_) => _nonEmptyFieldsErrorText(_phone),
                     ),
                     gapH32,
@@ -336,9 +302,7 @@ class _AddUpdateCompanyFormContentsState
           gapH16,
           SliverCTAButton(
             isLoading: isLoading,
-            text: _isUpdating
-                ? loc.genericUpdateButtonLabel
-                : loc.genericSaveButtonLabel,
+            text: _isUpdating ? loc.genericUpdateButtonLabel : loc.genericSaveButtonLabel,
             buttonType: ButtonType.primary,
             onPressed: _submit,
           ),

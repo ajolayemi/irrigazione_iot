@@ -20,73 +20,46 @@ import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 class CollectorListScreen extends ConsumerWidget {
   const CollectorListScreen({super.key});
 
-  void _onAddCollectorPressed({
-    required BuildContext context,
-    required WidgetRef ref,
-  }) {
+  void _onAddCollectorPressed({required BuildContext context, required WidgetRef ref}) {
     ref.read(selectedSectorsIdProvider.notifier).clear();
-    context.pushNamed(
-      AppRoute.addCollector.name,
-    );
+    context.pushNamed(AppRoute.addCollector.name);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     /// listen to collector dismissal controller state
     /// and show alert dialog if there is an error
-    ref.listen(
-      dismissCollectorControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+    ref.listen(dismissCollectorControllerProvider, (_, state) => state.showAlertDialogOnError(context));
     final loc = context.loc;
     final collectors = ref.watch(collectorListStreamProvider);
     return PaddedSafeArea(
-        child: Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          AppSliverBar(
-            title: loc.collectorPageTitle,
-            actions: [
-              CommonAddIconButton(
-                onPressed: () => _onAddCollectorPressed(
-                  context: context,
-                  ref: ref,
-                ),
-              )
-            ],
-          ),
-          AsyncValueSliverWidget(
-            value: collectors,
-            data: (collectors) {
-              if (collectors.isEmpty) {
-                return EmptyCollectorWidget(
-                  onPressed: () =>
-                      _onAddCollectorPressed(context: context, ref: ref),
-                );
-              }
-              return SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            AppSliverBar(
+              title: loc.collectorPageTitle,
+              actions: [CommonAddIconButton(onPressed: () => _onAddCollectorPressed(context: context, ref: ref))],
+            ),
+            AsyncValueSliverWidget(
+              value: collectors,
+              data: (collectors) {
+                if (collectors.isEmpty) {
+                  return EmptyCollectorWidget(onPressed: () => _onAddCollectorPressed(context: context, ref: ref));
+                }
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
                     // collector shouldn't be null if we reach here
                     final collector = collectors[index]!;
-                    return CollectorExpansionListTile(
-                      collector: collector,
-                    );
-                  },
-                  childCount: collectors.length,
-                ),
-              );
-            },
-            loading: () => const CommonSliverListSkeleton(
-              hasLeading: false,
-              hasSubtitle: false,
+                    return CollectorExpansionListTile(collector: collector);
+                  }, childCount: collectors.length),
+                );
+              },
+              loading: () => const CommonSliverListSkeleton(hasLeading: false, hasSubtitle: false),
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: gapH48,
-          )
-        ],
+            const SliverToBoxAdapter(child: gapH48),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

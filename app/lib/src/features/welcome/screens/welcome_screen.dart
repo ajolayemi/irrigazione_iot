@@ -43,7 +43,7 @@ class WelcomeScreen extends StatelessWidget {
               onPressed: () => context.pushNamed(AppRoute.signIn.name),
             ),
           ),
-    
+
           OrWithWidget(orText: loc.or),
           ResponsiveCenter(
             padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),

@@ -13,10 +13,7 @@ class ResponsiveScrollable extends StatelessWidget {
     return SingleChildScrollView(
       child: ResponsiveCenter(
         maxContentWidth: Breakpoint.tablet,
-        child: Padding(
-          padding: const EdgeInsets.all(Sizes.p16),
-          child: child,
-        ),
+        child: Padding(padding: const EdgeInsets.all(Sizes.p16), child: child),
       ),
     );
   }

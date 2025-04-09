@@ -27,42 +27,27 @@ class SliverAuthProviderSignInButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final thisButtonIsLoading = ref
-        .watch(signInControllerProvider)
-        .stateWithIdIsLoading(buttonStateKey);
-    final globalLoadingState =
-        ref.watch(signInControllerProvider).isGlobalLoading;
-    final content = thisButtonIsLoading
-        ? const SizedBox(
-            height: 20,
-            width: 20,
-            child: CircularProgressIndicator.adaptive(),
-          )
-        : Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              providerIcon,
-              gapW16,
-              Text(text,
-                  style: context.textTheme.titleLarge?.copyWith(
-                    color: context.theme.primaryColor,
-                  ))
-            ],
-          );
+    final thisButtonIsLoading = ref.watch(signInControllerProvider).stateWithIdIsLoading(buttonStateKey);
+    final globalLoadingState = ref.watch(signInControllerProvider).isGlobalLoading;
+    final content =
+        thisButtonIsLoading
+            ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator.adaptive())
+            : Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                providerIcon,
+                gapW16,
+                Text(text, style: context.textTheme.titleLarge?.copyWith(color: context.theme.primaryColor)),
+              ],
+            );
     return IgnorePointer(
       key: signInWithAuthProviderKey,
       ignoring: globalLoadingState,
       child: ResponsiveCenter(
         maxContentWidth: Breakpoint.tablet,
-        padding: const EdgeInsets.only(
-          right: Sizes.p16,
-          left: Sizes.p16,
-        ),
-        child: OutlinedButton(
-          onPressed: onPressed,
-          child: content,
-        ),
+        padding: const EdgeInsets.only(right: Sizes.p16, left: Sizes.p16),
+        child: OutlinedButton(onPressed: onPressed, child: content),
       ),
     );
   }

@@ -35,16 +35,9 @@ class PumpFlow extends Equatable {
   final DateTime? createdAt;
 
   @override
-  List<Object?> get props => [
-        id,
-        pumpId,
-        flow,
-        createdAt,
-        litresPerSecond,
-      ];
+  List<Object?> get props => [id, pumpId, flow, createdAt, litresPerSecond];
 
-  factory PumpFlow.fromJson(Map<String, dynamic> json) =>
-      _$PumpFlowFromJson(json);
+  factory PumpFlow.fromJson(Map<String, dynamic> json) => _$PumpFlowFromJson(json);
 
   Map<String, dynamic> toJson() => _$PumpFlowToJson(this);
 }

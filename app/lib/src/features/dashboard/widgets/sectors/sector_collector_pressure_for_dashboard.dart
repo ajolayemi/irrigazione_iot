@@ -11,17 +11,13 @@ import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 /// Displays the current pressure of the [Collector] a sector belongs to.
 class SectorCollectorPressureForDashboard extends ConsumerWidget {
-  const SectorCollectorPressureForDashboard({
-    super.key,
-    required this.sectorId,
-  });
+  const SectorCollectorPressureForDashboard({super.key, required this.sectorId});
 
   final String sectorId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final collectorId =
-        ref.watch(collectorIdBySectorIdStreamProvider(sectorId)).valueOrNull;
+    final collectorId = ref.watch(collectorIdBySectorIdStreamProvider(sectorId)).valueOrNull;
 
     if (collectorId == null) {
       return const SectorCollectorPressureForDashboardContent();
@@ -29,8 +25,7 @@ class SectorCollectorPressureForDashboard extends ConsumerWidget {
 
     return Consumer(
       builder: (context, ref, child) {
-        final pressure =
-            ref.watch(collectorPressureStreamProvider(collectorId));
+        final pressure = ref.watch(collectorPressureStreamProvider(collectorId));
         final value = pressure.valueOrNull;
         final filterInPressure = value?.filterInPressure ?? 0.0;
         final filterOutPressure = value?.filterOutPressure ?? 0.0;
@@ -51,11 +46,7 @@ class SectorCollectorPressureForDashboard extends ConsumerWidget {
 }
 
 class SectorCollectorPressureForDashboardContent extends StatelessWidget {
-  const SectorCollectorPressureForDashboardContent({
-    super.key,
-    this.filterInPressure,
-    this.filterOutPressure,
-  });
+  const SectorCollectorPressureForDashboardContent({super.key, this.filterInPressure, this.filterOutPressure});
 
   final double? filterInPressure;
   final double? filterOutPressure;
@@ -68,16 +59,12 @@ class SectorCollectorPressureForDashboardContent extends StatelessWidget {
       children: [
         DashboardChildItemDetailsRow(
           leading: Text(loc.filterInForDashboard),
-          trailing: CommonPressureRateTrailingText(
-            pressure: filterInPressure ?? 0.0,
-          ),
+          trailing: CommonPressureRateTrailingText(pressure: filterInPressure ?? 0.0),
         ),
         gapH8,
         DashboardChildItemDetailsRow(
           leading: Text(loc.filterOutForDashboard),
-          trailing: CommonPressureRateTrailingText(
-            pressure: filterOutPressure ?? 0.0,
-          ),
+          trailing: CommonPressureRateTrailingText(pressure: filterOutPressure ?? 0.0),
         ),
       ],
     );

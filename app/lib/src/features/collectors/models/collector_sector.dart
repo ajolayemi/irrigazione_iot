@@ -9,18 +9,9 @@ part 'collector_sector.g.dart';
 
 @JsonSerializable()
 class CollectorSector extends Equatable {
-  const CollectorSector({
-    required this.id,
-    required this.collectorId,
-    required this.sectorId,
-    this.createdAt,
-  });
+  const CollectorSector({required this.id, required this.collectorId, required this.sectorId, this.createdAt});
 
-  const CollectorSector.empty()
-      : id = '',
-        collectorId = '',
-        sectorId = '',
-        createdAt = null;
+  const CollectorSector.empty() : id = '', collectorId = '', sectorId = '', createdAt = null;
 
   @JsonKey(name: CollectorSectorDatabaseKeys.id, includeToJson: false)
   @IntConverter()
@@ -40,17 +31,11 @@ class CollectorSector extends Equatable {
   @override
   List<Object?> get props => [id, collectorId, sectorId, createdAt];
 
-  factory CollectorSector.fromJson(Map<String, dynamic> json) =>
-      _$CollectorSectorFromJson(json);
+  factory CollectorSector.fromJson(Map<String, dynamic> json) => _$CollectorSectorFromJson(json);
 
   Map<String, dynamic> toJson() => _$CollectorSectorToJson(this);
 
-  CollectorSector copyWith({
-    String? id,
-    String? collectorId,
-    String? sectorId,
-    DateTime? createdAt,
-  }) {
+  CollectorSector copyWith({String? id, String? collectorId, String? sectorId, DateTime? createdAt}) {
     return CollectorSector(
       id: id ?? this.id,
       collectorId: collectorId ?? this.collectorId,

@@ -21,11 +21,7 @@ class AppDrawerUtils {
       enableDrag: false,
       showDragHandle: true,
       barrierColor: Colors.grey.withValues(alpha: 0.1),
-      builder: (context) => AppBottomChoiceSheet(
-        title: title,
-        items: items,
-        selectedIndex: selectedIndex,
-      ),
+      builder: (context) => AppBottomChoiceSheet(title: title, items: items, selectedIndex: selectedIndex),
     );
   }
 }

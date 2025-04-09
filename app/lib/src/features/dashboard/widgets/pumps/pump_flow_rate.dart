@@ -7,10 +7,7 @@ import 'package:irrigazione_iot/src/features/pumps/data/pump_flow_repository.dar
 
 /// Displays the current flow rate of the pump.
 class PumpFlowRate extends ConsumerWidget {
-  const PumpFlowRate({
-    super.key,
-    required this.pumpId,
-  });
+  const PumpFlowRate({super.key, required this.pumpId});
 
   final String pumpId;
 
@@ -30,8 +27,7 @@ class PumpFlowRate extends ConsumerWidget {
         gapH8,
         DashboardChildItemDetailsRow(
           leading: const Text('Portata'),
-          trailing:
-              Text('${pumpFlow?.litresPerSecond.toInt() ?? 0} l/s'),
+          trailing: Text('${pumpFlow?.litresPerSecond.toInt() ?? 0} l/s'),
         ),
       ],
     );

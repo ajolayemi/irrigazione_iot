@@ -19,11 +19,12 @@ import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indi
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class ConnectPumpToSector extends ConsumerStatefulWidget {
-  const ConnectPumpToSector(
-      {super.key,
-      this.selectedPumpId,
-      this.selectedPumpName,
-      this.pumpIdPreviouslyConnectedToSector});
+  const ConnectPumpToSector({
+    super.key,
+    this.selectedPumpId,
+    this.selectedPumpName,
+    this.pumpIdPreviouslyConnectedToSector,
+  });
 
   /// When the user navigates to this screen from the sector details screen,
   /// the pump that was connected to the sector is passed as the selected pump.
@@ -38,8 +39,7 @@ class ConnectPumpToSector extends ConsumerStatefulWidget {
   final String? selectedPumpName;
 
   @override
-  ConsumerState<ConnectPumpToSector> createState() =>
-      _ConnectPumpToSectorState();
+  ConsumerState<ConnectPumpToSector> createState() => _ConnectPumpToSectorState();
 }
 
 class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
@@ -48,10 +48,7 @@ class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
 
   @override
   void initState() {
-    _selectedPump = RadioButtonItem(
-      value: widget.selectedPumpId ?? '',
-      label: widget.selectedPumpName ?? '',
-    );
+    _selectedPump = RadioButtonItem(value: widget.selectedPumpId ?? '', label: widget.selectedPumpName ?? '');
     super.initState();
   }
 
@@ -72,11 +69,8 @@ class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
     final queryResult = ref.watch(pumpSearchQueryResultProvider);
 
     return CustomSliverConnectSomethingTo(
-      subChild: _isSearching
-          ? SearchTextField(
-              onSearch: ref.read(pumpSearchQueryResultProvider.notifier).search,
-            )
-          : null,
+      subChild:
+          _isSearching ? SearchTextField(onSearch: ref.read(pumpSearchQueryResultProvider.notifier).search) : null,
       title: loc.connectPumpToSectorPageTile,
       actions: [
         CommonSearchIconButton(
@@ -84,11 +78,7 @@ class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
           onPressed: _onPressedSearchIcon,
           isSearching: _isSearching,
         ),
-        CommonAddIconButton(
-          onPressed: () => context.pushNamed(
-            AppRoute.addPump.name,
-          ),
-        ),
+        CommonAddIconButton(onPressed: () => context.pushNamed(AppRoute.addPump.name)),
       ],
       child: AsyncValueSliverWidget(
         value: queryResult,
@@ -98,26 +88,18 @@ class _ConnectPumpToSectorState extends ConsumerState<ConnectPumpToSector> {
             filteredItems: filterResult,
             noBaseItemsWidget: const EmptyPumpWidget(),
             mainWidget: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final pump = filterResult![index];
-                  return ResponsiveRadioListTile(
-                    title: pump.name,
-                    value: RadioButtonItem(
-                      value: pump.id,
-                      label: pump.name,
-                    ),
-                    groupValue: _selectedPump,
-                    onChanged: (val) => setState(() {
-                      _selectedPump = _selectedPump.copyWith(
-                        value: val?.value,
-                        label: val?.label,
-                      );
-                    }),
-                  );
-                },
-                childCount: filterResult?.length,
-              ),
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final pump = filterResult![index];
+                return ResponsiveRadioListTile(
+                  title: pump.name,
+                  value: RadioButtonItem(value: pump.id, label: pump.name),
+                  groupValue: _selectedPump,
+                  onChanged:
+                      (val) => setState(() {
+                        _selectedPump = _selectedPump.copyWith(value: val?.value, label: val?.label);
+                      }),
+                );
+              }, childCount: filterResult?.length),
             ),
           );
         },

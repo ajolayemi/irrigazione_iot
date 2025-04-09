@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppBarIconButton extends StatelessWidget {
-  const AppBarIconButton({
-    super.key,
-    required this.onPressed,
-    required this.icon,
-    this.isVisibile = true,
-  });
+  const AppBarIconButton({super.key, required this.onPressed, required this.icon, this.isVisibile = true});
 
   final VoidCallback onPressed;
   final bool? isVisibile;
@@ -14,15 +9,6 @@ class AppBarIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: isVisibile ?? true,
-      child: IconButton(
-        onPressed: onPressed,
-        icon: Icon(
-          icon,
-          size: 30,
-        ),
-      ),
-    );
+    return Visibility(visible: isVisibile ?? true, child: IconButton(onPressed: onPressed, icon: Icon(icon, size: 30)));
   }
 }

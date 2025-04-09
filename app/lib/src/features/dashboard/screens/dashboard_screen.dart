@@ -18,11 +18,12 @@ class DashboardScreen extends ConsumerWidget {
   Future<bool> _showSignOutDialog(BuildContext context) async {
     final loc = context.loc;
     return await showAlertDialog(
-            context: context,
-            title: loc.logOutAlertDialogTitle,
-            content: loc.logOutAlertDialogContent,
-            cancelActionText: loc.alertDialogCancel,
-            defaultActionText: loc.logOutAlertDialogConfirm) ??
+          context: context,
+          title: loc.logOutAlertDialogTitle,
+          content: loc.logOutAlertDialogContent,
+          cancelActionText: loc.alertDialogCancel,
+          defaultActionText: loc.logOutAlertDialogConfirm,
+        ) ??
         false;
   }
 
@@ -48,19 +49,14 @@ class DashboardScreen extends ConsumerWidget {
                 IconButton(
                   icon: const Icon(Icons.business),
                   onPressed: () {
-                    context.pushNamed(
-                      AppRoute.companiesListGrid.name,
-                    );
+                    context.pushNamed(AppRoute.companiesListGrid.name);
                   },
                 ),
                 // Icon button to logout
-                IconButton(
-                  icon: const Icon(Icons.logout),
-                  onPressed: () => _signOut(context, ref),
-                ),
+                IconButton(icon: const Icon(Icons.logout), onPressed: () => _signOut(context, ref)),
               ],
             ),
-             DashboardScreenContents(userName: user?.name ?? '',),
+            DashboardScreenContents(userName: user?.name ?? ''),
           ],
         ),
       ),

@@ -4,12 +4,7 @@ import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 /// Custom text button with a fixed height
 class CustomTextButton extends StatelessWidget {
-  const CustomTextButton({
-    super.key,
-    required this.text,
-    this.style,
-    this.onPressed,
-  });
+  const CustomTextButton({super.key, required this.text, this.style, this.onPressed});
   final String text;
   final TextStyle? style;
   final VoidCallback? onPressed;
@@ -22,7 +17,8 @@ class CustomTextButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: style ??
+          style:
+              style ??
               TextStyle(
                 decoration: TextDecoration.underline,
                 decorationColor: context.theme.primaryColor,

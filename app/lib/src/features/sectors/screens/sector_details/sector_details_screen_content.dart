@@ -15,15 +15,13 @@ class SectorDetailsScreenContents extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SliverList(
-      delegate: SliverChildListDelegate.fixed(
-        [
-          SectorDetailsLastIrrigationCard(sectorId: sector.id),
-          SectorDetailsLastPressureCard(sectorId: sector.id),
-          gapH8,
-          SectorDetailsCharacteristics(sector: sector),
-          gapH48,
-        ],
-      ),
+      delegate: SliverChildListDelegate.fixed([
+        SectorDetailsLastIrrigationCard(sectorId: sector.id),
+        SectorDetailsLastPressureCard(sectorId: sector.id),
+        gapH8,
+        SectorDetailsCharacteristics(sector: sector),
+        gapH48,
+      ]),
     );
   }
 }

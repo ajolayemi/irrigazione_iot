@@ -15,12 +15,9 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   final SupabaseClient _supabaseClient;
 
   @override
-  Future<CompanyUser?> addCompanyUser(
-      {required CompanyUser companyUser}) async {
+  Future<CompanyUser?> addCompanyUser({required CompanyUser companyUser}) async {
     // set created_at and updated_at fields
-    final data = companyUser
-        .copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now())
-        .toJson();
+    final data = companyUser.copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'insert-company-user',
       body: InsertBody(data: data).toJson(),
@@ -40,8 +37,7 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   }
 
   @override
-  Future<CompanyUser?> updateCompanyUser(
-      {required CompanyUser companyUser}) async {
+  Future<CompanyUser?> updateCompanyUser({required CompanyUser companyUser}) async {
     // add the updated_at field
     final data = companyUser.copyWith(updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
@@ -53,14 +49,11 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
   }
 
   @override
-  Stream<List<Company>> watchCompaniesAssociatedWithUser(
-      {required String email}) {
+  Stream<List<Company>> watchCompaniesAssociatedWithUser({required String email}) {
     // The email parameter is not used in the query because the companies table
     // has a RLS policy that filters the rows based on the user's email already in the backend
-    final stc =
-        _supabaseClient.companies.stream(primaryKey: [CompanyDatabaseKeys.id]);
-    return stc.map((companies) =>
-        companies.map((company) => Company.fromJson(company)).toList());
+    final stc = _supabaseClient.companies.stream(primaryKey: [CompanyDatabaseKeys.id]);
+    return stc.map((companies) => companies.map((company) => Company.fromJson(company)).toList());
   }
 
   @override
@@ -70,61 +63,36 @@ class SupabaseCompanyUsersRepository implements CompanyUsersRepository {
         .eq(CompanyUserDatabaseKeys.id, companyUserId)
         .limit(1);
 
-    return stream.map(
-      (companyUser) => companyUser.isNotEmpty
-          ? CompanyUser.fromJson(companyUser.first)
-          : null,
-    );
+    return stream.map((companyUser) => companyUser.isNotEmpty ? CompanyUser.fromJson(companyUser.first) : null);
   }
 
   @override
-  Stream<CompanyUserRole?> watchCompanyUserRole({
-    required String email,
-    required String companyId,
-  }) {
+  Stream<CompanyUserRole?> watchCompanyUserRole({required String email, required String companyId}) {
     // Get the list of users associated with the company
-    final usersAssociatedWithCompany = watchUsersAssociatedWithCompany(
-      companyId: companyId,
-    );
+    final usersAssociatedWithCompany = watchUsersAssociatedWithCompany(companyId: companyId);
 
     return usersAssociatedWithCompany.map((companyUser) {
-      final user = companyUser.firstWhereOrNull(
-        (user) => user?.email == email,
-      );
+      final user = companyUser.firstWhereOrNull((user) => user?.email == email);
       return user?.role;
     });
   }
 
   @override
-  Stream<List<String>> watchEmailsAssociatedWithCompany(
-      {required String companyId}) {
+  Stream<List<String>> watchEmailsAssociatedWithCompany({required String companyId}) {
     // Users associated with the company
-    final usersAssociatedWithCompany = watchUsersAssociatedWithCompany(
-      companyId: companyId,
-    );
+    final usersAssociatedWithCompany = watchUsersAssociatedWithCompany(companyId: companyId);
 
     return usersAssociatedWithCompany.map(
-      (companyUsers) => companyUsers
-          .map((companyUser) => companyUser?.email)
-          .nonNulls
-          .toList(),
+      (companyUsers) => companyUsers.map((companyUser) => companyUser?.email).nonNulls.toList(),
     );
   }
 
   @override
-  Stream<List<CompanyUser?>> watchUsersAssociatedWithCompany({
-    required String companyId,
-  }) {
+  Stream<List<CompanyUser?>> watchUsersAssociatedWithCompany({required String companyId}) {
     final stream = _supabaseClient.companyUsers
-        .stream(primaryKey: [CompanyUserDatabaseKeys.id]).eq(
-      CompanyUserDatabaseKeys.companyId,
-      companyId,
-    );
+        .stream(primaryKey: [CompanyUserDatabaseKeys.id])
+        .eq(CompanyUserDatabaseKeys.companyId, companyId);
 
-    return stream.map(
-      (companyUsers) => companyUsers
-          .map((companyUser) => CompanyUser.fromJson(companyUser))
-          .toList(),
-    );
+    return stream.map((companyUsers) => companyUsers.map((companyUser) => CompanyUser.fromJson(companyUser)).toList());
   }
 }

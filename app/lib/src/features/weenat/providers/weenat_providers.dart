@@ -92,10 +92,7 @@ class SelectedTensiometerRange extends _$SelectedTensiometerRange {
 
 /// Checks to see if a tensiometer range is selected
 @Riverpod(keepAlive: true)
-bool tensiometerRangeIsSelected(
-  Ref ref,
-  String range,
-) {
+bool tensiometerRangeIsSelected(Ref ref, String range) {
   return ref.watch(selectedTensiometerRangeProvider) == range;
 }
 
@@ -120,11 +117,7 @@ Set<Marker> weenatMapMarkers(Ref ref) {
   final unselectedIcon = ref.watch(unselectedMarkerIconProvider).valueOrNull;
   final plots = ref.watch(weenatPlotsForOrgProvider).valueOrNull;
 
-  final selectedPlotId = ref.watch(
-    selectedPlotProvider.select(
-      (plot) => plot?.id,
-    ),
-  );
+  final selectedPlotId = ref.watch(selectedPlotProvider.select((plot) => plot?.id));
   if (plots != null && plots.isNotEmpty) {
     return plots.toMarkers(
       selectedIcon: selectedIcon,
@@ -135,14 +128,8 @@ Set<Marker> weenatMapMarkers(Ref ref) {
           return;
         }
         ref.read(selectedPlotIndexProvider.notifier).setSelected(index);
-        WeenatUtils.scrollCarousel(
-          index: index,
-          scrollController: ref.read(itemScrollControllerProvider),
-        );
-        WeenatUtils.moveCamera(
-          item: plot,
-          mapController: ref.read(mapControllerProvider),
-        );
+        WeenatUtils.scrollCarousel(index: index, scrollController: ref.read(itemScrollControllerProvider));
+        WeenatUtils.moveCamera(item: plot, mapController: ref.read(mapControllerProvider));
       },
     );
   }
@@ -156,14 +143,9 @@ class SelectedMarker extends _$SelectedMarker {
   Marker? build() {
     final plots = ref.watch(weenatPlotsForOrgProvider).valueOrNull;
     final markers = plots?.toMarkers() ?? {};
-    final selectedPlotId = ref.watch(
-      selectedPlotProvider.select(
-        (plot) => plot?.id,
-      ),
-    );
+    final selectedPlotId = ref.watch(selectedPlotProvider.select((plot) => plot?.id));
     if (markers.isEmpty || selectedPlotId == null) return null;
-    return markers.firstWhere(
-        (marker) => marker.markerId.value == selectedPlotId.toString());
+    return markers.firstWhere((marker) => marker.markerId.value == selectedPlotId.toString());
   }
 }
 
@@ -215,11 +197,5 @@ FutureOr<List<WeenatPlotSensorData>?> plotSensorData(
   final service = ref.watch(weenatServiceProvider);
 
   if (plotId == null || depth == null) return [];
-  return service.getPlotSensorData(
-    from: start,
-    to: end,
-    plotId: plotId,
-    type: type,
-    depth: depth,
-  );
+  return service.getPlotSensorData(from: start, to: end, plotId: plotId, type: type, depth: depth);
 }

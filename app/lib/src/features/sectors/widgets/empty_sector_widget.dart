@@ -5,10 +5,7 @@ import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/empty_data_widget.dart';
 
 class EmptySectorWidget extends StatelessWidget {
-  const EmptySectorWidget({
-    super.key,
-    this.alternativeMessage,
-  });
+  const EmptySectorWidget({super.key, this.alternativeMessage});
 
   final String? alternativeMessage;
 
@@ -17,8 +14,7 @@ class EmptySectorWidget extends StatelessWidget {
     final loc = context.loc;
     return SliverFillRemaining(
       child: EmptyDataWidget(
-        message:
-            alternativeMessage ?? loc.emptyDataPlaceholder(loc.nSectors(1)),
+        message: alternativeMessage ?? loc.emptyDataPlaceholder(loc.nSectors(1)),
         buttonText: loc.addNewButtonLabel,
         onPressed: () => context.pushNamed(AppRoute.addSector.name),
       ),

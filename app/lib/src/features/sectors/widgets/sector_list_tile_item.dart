@@ -13,25 +13,18 @@ import 'package:irrigazione_iot/src/shared/widgets/common_tablet_responsive_cent
 import 'package:irrigazione_iot/src/utils/custom_controller_state.dart';
 
 class SectorListTileItem extends ConsumerWidget {
-  const SectorListTileItem({
-    super.key,
-    required this.sector,
-  });
+  const SectorListTileItem({super.key, required this.sector});
 
   final Sector sector;
 
   void _onTap(BuildContext context) {
     final params = PathParameters(id: sector.id).toJson();
-    context.goNamed(
-      AppRoute.sectorDetails.name,
-      pathParameters: params,
-    );
+    context.goNamed(AppRoute.sectorDetails.name, pathParameters: params);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final globalLoadingState =
-        ref.watch(sectorSwitchControllerProvider).isGlobalLoading;
+    final globalLoadingState = ref.watch(sectorSwitchControllerProvider).isGlobalLoading;
     final isDeleting = ref.watch(dismissSectorControllerProvider).isLoading;
     return CommonTabletResponsiveCenter(
       child: IgnorePointer(

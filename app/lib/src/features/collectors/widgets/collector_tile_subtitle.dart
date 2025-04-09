@@ -8,10 +8,7 @@ import 'package:irrigazione_iot/src/features/collectors/widgets/filter_pressure_
 
 /// A row widget that displays the battery level and the filter pressure difference
 class CollectorTileSubtitle extends ConsumerWidget {
-  const CollectorTileSubtitle({
-    super.key,
-    required this.collector,
-  });
+  const CollectorTileSubtitle({super.key, required this.collector});
 
   final Collector collector;
 
@@ -22,27 +19,16 @@ class CollectorTileSubtitle extends ConsumerWidget {
         Consumer(
           builder: (context, ref, child) {
             /// Get the board (centralina) that is linked to this collector
-            final board = ref
-                .watch(collectorBoardProvider(
-                  collectorId: collector.id,
-                ))
-                .valueOrNull;
+            final board = ref.watch(collectorBoardProvider(collectorId: collector.id)).valueOrNull;
 
             /// If the board is null, return an empty widget
             if (board == null) {
               return const SizedBox.shrink();
             }
-            return Row(
-              children: [
-                BoardBatteryLevelIndicator(
-                  boardId: board.id,
-                ),
-                gapW8,
-              ],
-            );
+            return Row(children: [BoardBatteryLevelIndicator(boardId: board.id), gapW8]);
           },
         ),
-        CollectorFilterPressureDifference(collector: collector)
+        CollectorFilterPressureDifference(collector: collector),
       ],
     );
   }

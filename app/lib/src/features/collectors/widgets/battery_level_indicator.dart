@@ -26,21 +26,13 @@ class BatteryLevelIndicator extends ConsumerWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            '${batteryLevel.toStringAsFixed(0)}%',
-            style: TextStyle(
-              color: color,
-            ),
-          ),
+          Text('${batteryLevel.toStringAsFixed(0)}%', style: TextStyle(color: color)),
           gapW8,
           Container(
             width: 30, // Set the width of the battery icon
             height: 15, // Set the height of the battery icon
             decoration: BoxDecoration(
-              border: Border.all(
-                color: color,
-                width: 2,
-              ),
+              border: Border.all(color: color, width: 2),
               borderRadius: BorderRadius.circular(4),
             ),
             child: Stack(
@@ -48,8 +40,7 @@ class BatteryLevelIndicator extends ConsumerWidget {
                 Positioned.fill(
                   child: FractionallySizedBox(
                     alignment: Alignment.centerLeft,
-                    widthFactor:
-                        batteryLevel / 100, // Size factor based on battery level
+                    widthFactor: batteryLevel / 100, // Size factor based on battery level
                     child: Container(
                       decoration: BoxDecoration(
                         color: _getBatteryColor(batteryLevel),

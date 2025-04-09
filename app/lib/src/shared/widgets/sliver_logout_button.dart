@@ -12,11 +12,12 @@ class SliverLogoutButton extends ConsumerWidget {
   Future<bool> _showSignOutDialog(BuildContext context) async {
     final loc = context.loc;
     return await showAlertDialog(
-            context: context,
-            title: loc.logOutAlertDialogTitle,
-            content: loc.logOutAlertDialogContent,
-            cancelActionText: loc.alertDialogCancel,
-            defaultActionText: loc.logOutAlertDialogConfirm) ??
+          context: context,
+          title: loc.logOutAlertDialogTitle,
+          content: loc.logOutAlertDialogContent,
+          cancelActionText: loc.alertDialogCancel,
+          defaultActionText: loc.logOutAlertDialogConfirm,
+        ) ??
         false;
   }
 

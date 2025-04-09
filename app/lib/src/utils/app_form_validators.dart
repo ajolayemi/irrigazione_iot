@@ -27,10 +27,8 @@ mixin AppFormValidators {
     // if an initialValue was provided, which should be the case when updating
     // and the name is the same as the initial value, then the name is valid without running
     // check against the namesToCompareAgainst
-    if (initialValue != null &&
-        value.toLowerCase() == initialValue.toLowerCase()) {
-      return nonEmptyValidator.isValid(value) &&
-          MaxLengthStringValidator(maxLength).isValid(value);
+    if (initialValue != null && value.toLowerCase() == initialValue.toLowerCase()) {
+      return nonEmptyValidator.isValid(value) && MaxLengthStringValidator(maxLength).isValid(value);
     }
     return nonEmptyValidator.isValid(value) &&
         MaxLengthStringValidator(maxLength).isValid(value) &&
@@ -78,8 +76,7 @@ mixin AppFormValidators {
     // and the command is the same as the initial value, then the command is valid without running
     // check against the valuesToCompareAgainst
     if (initialValue != null && value == initialValue) {
-      return nonEmptyValidator.isValid(value) &&
-          numericFieldsValidator.isValid(value);
+      return nonEmptyValidator.isValid(value) && numericFieldsValidator.isValid(value);
     }
     return nonEmptyValidator.isValid(value) &&
         numericFieldsValidator.isValid(value) &&
@@ -106,8 +103,7 @@ mixin AppFormValidators {
       return 'emptyFormFieldErrorText';
     } else if (!numericFieldsValidator.isValid(value)) {
       return 'notANumberErrorText';
-    } else if (valuesToCompareAgainst.contains(value) &&
-        value != initialValue) {
+    } else if (valuesToCompareAgainst.contains(value) && value != initialValue) {
       return 'commandAlreadyInUseErrorText';
     } else if (value == counterpartValue) {
       return 'duplicateCommandsInFormErrorText';
@@ -116,8 +112,7 @@ mixin AppFormValidators {
   }
 
   /// Validates form fields that shouldn't be empty
-  bool canSubmitNonEmptyFields({required String value}) =>
-      nonEmptyValidator.isValid(value);
+  bool canSubmitNonEmptyFields({required String value}) => nonEmptyValidator.isValid(value);
 
   /// Gets the error key for form fields that shouldn't be empty
   String? getNonEmptyFieldsErrorKey({required String value}) {
@@ -128,9 +123,7 @@ mixin AppFormValidators {
   /// Holds logic to check whether form fields that should be numeric
   /// and > 0 are valid
   bool canSubmitNumericFields({required String value}) {
-    return nonEmptyValidator.isValid(value) &&
-        numericFieldsValidator.isValid(value) &&
-        value.isGreaterThanZero;
+    return nonEmptyValidator.isValid(value) && numericFieldsValidator.isValid(value) && value.isGreaterThanZero;
   }
 
   /// Gets the error key for form fields that should be numeric
@@ -149,8 +142,7 @@ mixin AppFormValidators {
   /// Holds the logic to validate whether can submit field where a collector
   /// to connect to a board is selected
   /// This is mainly used in the form to add or update boards
-  bool canSubmitCollectorField({required String value}) =>
-      nonEmptyValidator.isValid(value);
+  bool canSubmitCollectorField({required String value}) => nonEmptyValidator.isValid(value);
 
   /// Gets the error key for fields where a collector to connect to a board is selected
   /// This is mainly used in the form to add or update boards
@@ -162,18 +154,12 @@ mixin AppFormValidators {
   /// Holds the logic to validate whether can submit email field
   /// In some cases, check is done against a list of other email addresses
   /// to ensure uniqueness. This is used, for example, in the form to add or update company users
-  bool canSubmitEmail({
-    required String value,
-    String? initialValue,
-    List<String?> mailsToCompareAgainst = const [],
-  }) {
+  bool canSubmitEmail({required String value, String? initialValue, List<String?> mailsToCompareAgainst = const []}) {
     // if an initialValue was provided, which should be the case when updating
     // and the email is the same as the initial value, then the email is valid without running
     // check against the namesToCompareAgainst
-    if (initialValue != null &&
-        value.toLowerCase() == initialValue.toLowerCase()) {
-      return nonEmptyValidator.isValid(value) &&
-          EmailSubmitRegexValidator().isValid(value);
+    if (initialValue != null && value.toLowerCase() == initialValue.toLowerCase()) {
+      return nonEmptyValidator.isValid(value) && EmailSubmitRegexValidator().isValid(value);
     }
     return nonEmptyValidator.isValid(value) &&
         EmailSubmitRegexValidator().isValid(value) &&
@@ -207,11 +193,7 @@ mixin AppFormValidators {
   /// - has at least one lowercase letter
   /// - has at least one digit
   /// - has at least one special character
-  bool canSubmitPassword({
-    required String value,
-    required int minLength,
-     bool validateJustEmpty = false,
-  }) {
+  bool canSubmitPassword({required String value, required int minLength, bool validateJustEmpty = false}) {
     if (validateJustEmpty) {
       return nonEmptyValidator.isValid(value);
     }
@@ -224,11 +206,7 @@ mixin AppFormValidators {
   }
 
   /// Gets the error key for password field
-  String? getPasswordErrorKey({
-    required String value,
-    required int minLength,
-    bool validateJustEmpty = false,
-  }) {
+  String? getPasswordErrorKey({required String value, required int minLength, bool validateJustEmpty = false}) {
     if (value.isEmpty) {
       return 'emptyPasswordErrorText';
     }
@@ -253,19 +231,12 @@ mixin AppFormValidators {
   /// The constraints are:
   /// - non-empty
   /// - matches the password field
-  bool canSubmitConfirmPassword({
-    required String password,
-    required String confirmPassword,
-  }) {
-    return nonEmptyValidator.isValid(confirmPassword) &&
-        confirmPassword == password;
+  bool canSubmitConfirmPassword({required String password, required String confirmPassword}) {
+    return nonEmptyValidator.isValid(confirmPassword) && confirmPassword == password;
   }
 
   /// Gets the error key for confirm password field
-  String? getConfirmPasswordErrorKey({
-    required String password,
-    required String confirmPassword,
-  }) {
+  String? getConfirmPasswordErrorKey({required String password, required String confirmPassword}) {
     if (confirmPassword.isEmpty) {
       return 'emptyPasswordErrorText';
     } else if (confirmPassword != password) {
@@ -279,19 +250,12 @@ mixin AppFormValidators {
   /// in the form to add or update companies
   /// The constraints are:
   /// - one field is non-empty
-  bool canSubmitDependentFields({
-    required String value1,
-    required String value2,
-  }) {
-    return nonEmptyValidator.isValid(value1) ||
-        nonEmptyValidator.isValid(value2);
+  bool canSubmitDependentFields({required String value1, required String value2}) {
+    return nonEmptyValidator.isValid(value1) || nonEmptyValidator.isValid(value2);
   }
 
   /// Gets the error key for dependent fields
-  String? getDependentFieldsErrorKey({
-    required String value1,
-    required String value2,
-  }) {
+  String? getDependentFieldsErrorKey({required String value1, required String value2}) {
     if (value1.isEmpty && value2.isEmpty) {
       return 'dependentFieldsEmptyErrorText';
     }

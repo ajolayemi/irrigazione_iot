@@ -24,20 +24,19 @@ class WeatherStationMeasurement extends Equatable {
   });
 
   const WeatherStationMeasurement.empty()
-      : id = '',
-        airTemperature = 0,
-        airHumidity = 0,
-        lightIntensity = 0,
-        uvIndex = 0,
-        windSpeed = 0,
-        windDirection = 0,
-        rainGauge = 0,
-        barometricPressure = 0,
-        createdAt = null,
-        weatherStationId = '';
+    : id = '',
+      airTemperature = 0,
+      airHumidity = 0,
+      lightIntensity = 0,
+      uvIndex = 0,
+      windSpeed = 0,
+      windDirection = 0,
+      rainGauge = 0,
+      barometricPressure = 0,
+      createdAt = null,
+      weatherStationId = '';
 
-  @JsonKey(
-      name: WeatherStationMeasurementsDatabaseKeys.id, includeToJson: false)
+  @JsonKey(name: WeatherStationMeasurementsDatabaseKeys.id, includeToJson: false)
   @IntConverter()
   final String id;
 
@@ -89,8 +88,7 @@ class WeatherStationMeasurement extends Equatable {
     ];
   }
 
-  factory WeatherStationMeasurement.fromJson(Map<String, dynamic> json) =>
-      _$WeatherStationMeasurementFromJson(json);
+  factory WeatherStationMeasurement.fromJson(Map<String, dynamic> json) => _$WeatherStationMeasurementFromJson(json);
 
   Map<String, dynamic> toJson() => _$WeatherStationMeasurementToJson(this);
 }

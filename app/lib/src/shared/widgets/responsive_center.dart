@@ -24,13 +24,7 @@ class ResponsiveCenter extends StatelessWidget {
       // together with SizedBox to specify the max width (tight constraints)
       // See this thread for more info:
       // https://twitter.com/biz84/status/1445400059894542337
-      child: SizedBox(
-        width: maxContentWidth,
-        child: Padding(
-          padding: padding,
-          child: child,
-        ),
-      ),
+      child: SizedBox(width: maxContentWidth, child: Padding(padding: padding, child: child)),
     );
   }
 }
@@ -49,11 +43,7 @@ class ResponsiveSliverCenter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: ResponsiveCenter(
-        maxContentWidth: maxContentWidth,
-        padding: padding,
-        child: child,
-      ),
+      child: ResponsiveCenter(maxContentWidth: maxContentWidth, padding: padding, child: child),
     );
   }
 }

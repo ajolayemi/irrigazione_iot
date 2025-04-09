@@ -25,8 +25,7 @@ import 'package:irrigazione_iot/src/features/weather_stations/models/weather_sta
 extension SupabaseClientExtensions on SupabaseClient {
   SupabaseQueryBuilder get companies => from(CompanyDatabaseKeys.table);
 
-  PostgrestFilterBuilder<List<Map<String, dynamic>>> get selectedCompanies =>
-      companies.select();
+  PostgrestFilterBuilder<List<Map<String, dynamic>>> get selectedCompanies => companies.select();
 
   SupabaseQueryBuilder get companyUsers => from(CompanyUserDatabaseKeys.table);
 
@@ -36,22 +35,19 @@ extension SupabaseClientExtensions on SupabaseClient {
 
   SupabaseQueryBuilder get pumps => from(PumpDatabaseKeys.table);
 
-  PostgrestFilterBuilder<List<Map<String, dynamic>>> get selectedPumps =>
-      pumps.select();
+  PostgrestFilterBuilder<List<Map<String, dynamic>>> get selectedPumps => pumps.select();
 
   SupabaseQueryBuilder get sectors => from(SectorDatabaseKeys.table);
 
   PostgrestFilterBuilder get selectedSectors => sectors.select();
 
-  SupabaseQueryBuilder get sectorPressure =>
-      from(SectorPressureDatabaseKeys.table);
+  SupabaseQueryBuilder get sectorPressure => from(SectorPressureDatabaseKeys.table);
 
   SupabaseQueryBuilder get sectorStatus => from(SectorStatusDatabaseKeys.table);
 
   SupabaseQueryBuilder get sectorPump => from(SectorPumpDatabaseKeys.table);
 
-  PostgrestFilterBuilder<List<Map<String, dynamic>>> get selectedSectorPumps =>
-      sectorPump.select();
+  PostgrestFilterBuilder<List<Map<String, dynamic>>> get selectedSectorPumps => sectorPump.select();
 
   SupabaseQueryBuilder get varieties => from(VarietyDatabaseKeys.table);
 
@@ -59,71 +55,49 @@ extension SupabaseClientExtensions on SupabaseClient {
 
   SupabaseQueryBuilder get boards => from(BoardDatabaseKeys.table);
 
-  SupabaseStreamFilterBuilder get boardStream => boards.stream(
-        primaryKey: [BoardDatabaseKeys.id],
-      );
+  SupabaseStreamFilterBuilder get boardStream => boards.stream(primaryKey: [BoardDatabaseKeys.id]);
 
   SupabaseQueryBuilder get boardStatus => from(BoardStatusDatabaseKeys.table);
 
   SupabaseQueryBuilder get collectors => from(CollectorDatabaseKeys.table);
 
-  SupabaseStreamFilterBuilder get collectorStream =>
-      collectors.stream(primaryKey: [CollectorDatabaseKeys.id]);
+  SupabaseStreamFilterBuilder get collectorStream => collectors.stream(primaryKey: [CollectorDatabaseKeys.id]);
 
-  SupabaseQueryBuilder get collectorPressures =>
-      from(CollectorPressureDatabaseKeys.table);
+  SupabaseQueryBuilder get collectorPressures => from(CollectorPressureDatabaseKeys.table);
 
-  SupabaseQueryBuilder get collectorSectors => from(
-        CollectorSectorDatabaseKeys.table,
-      );
+  SupabaseQueryBuilder get collectorSectors => from(CollectorSectorDatabaseKeys.table);
 
   SupabaseStreamFilterBuilder get collectorSectorsStream =>
-      collectorSectors.stream(
-        primaryKey: [CollectorSectorDatabaseKeys.id],
-      );
+      collectorSectors.stream(primaryKey: [CollectorSectorDatabaseKeys.id]);
 
-  SupabaseQueryBuilder get pumpPressures => from(
-        PumpPressureDatabaseKeys.table,
-      );
+  SupabaseQueryBuilder get pumpPressures => from(PumpPressureDatabaseKeys.table);
 
-  SupabaseStreamFilterBuilder get pumpPressuresStream => pumpPressures.stream(
-        primaryKey: [PumpPressureDatabaseKeys.id],
-      );
+  SupabaseStreamFilterBuilder get pumpPressuresStream =>
+      pumpPressures.stream(primaryKey: [PumpPressureDatabaseKeys.id]);
 
-  SupabaseQueryBuilder get weatherStations =>
-      from(WeatherStationDatabaseKeys.table);
+  SupabaseQueryBuilder get weatherStations => from(WeatherStationDatabaseKeys.table);
 
   SupabaseStreamFilterBuilder get weatherStationStream =>
       weatherStations.stream(primaryKey: [WeatherStationDatabaseKeys.id]);
 
-  SupabaseQueryBuilder get weatherStationMeasurements =>
-      from(WeatherStationMeasurementsDatabaseKeys.table);
+  SupabaseQueryBuilder get weatherStationMeasurements => from(WeatherStationMeasurementsDatabaseKeys.table);
 
-  SupabaseQueryBuilder get weatherStationBatteryData =>
-      from(WeatherStationBatteryDatabaseKeys.table);
+  SupabaseQueryBuilder get weatherStationBatteryData => from(WeatherStationBatteryDatabaseKeys.table);
 
-  SupabaseQueryBuilder get terminalPressure =>
-      from(TerminalPressureDatabaseKeys.table);
+  SupabaseQueryBuilder get terminalPressure => from(TerminalPressureDatabaseKeys.table);
 
   SupabaseStreamFilterBuilder get terminalPressureStream =>
-      terminalPressure.stream(
-        primaryKey: [TerminalPressureDatabaseKeys.id],
-      );
+      terminalPressure.stream(primaryKey: [TerminalPressureDatabaseKeys.id]);
 
   /// Getter for the current access token
   String? get accessToken => auth.currentSession?.accessToken;
 
   /// Invokes a function with the provided [functionName] and [body]
-  Future<FunctionResponse> invokeFunction({
-    required String functionName,
-    required Map<String, dynamic> body,
-  }) =>
+  Future<FunctionResponse> invokeFunction({required String functionName, required Map<String, dynamic> body}) =>
       functions.invoke(
         functionName,
         body: body,
-        headers: accessToken != null
-            ? {'Authorization': 'Bearer $accessToken'}
-            : null,
+        headers: accessToken != null ? {'Authorization': 'Bearer $accessToken'} : null,
       );
 }
 

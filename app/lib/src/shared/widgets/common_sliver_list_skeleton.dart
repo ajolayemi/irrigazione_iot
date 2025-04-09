@@ -20,16 +20,14 @@ class CommonSliverListSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverList(
-        delegate: SliverChildBuilderDelegate(
-      (context, index) {
+      delegate: SliverChildBuilderDelegate((context, index) {
         return CommonSkeletonTile(
           hasLeading: hasLeading,
           hasSubtitle: hasSubtitle,
           hasTitle: hasTitle,
           hasTrailing: hasTrailing,
         );
-      },
-      childCount: 10,
-    ));
+      }, childCount: 10),
+    );
   }
 }

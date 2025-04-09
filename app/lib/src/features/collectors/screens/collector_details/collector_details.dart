@@ -14,17 +14,15 @@ import 'package:irrigazione_iot/src/shared/widgets/common_edit_icon_button.dart'
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
 class CollectorDetailsScreen extends ConsumerWidget {
-  const CollectorDetailsScreen({
-    super.key,
-    required this.collectorId,
-  });
+  const CollectorDetailsScreen({super.key, required this.collectorId});
 
   final String collectorId;
 
-  void _onEditCollector(
-      {required WidgetRef ref,
-      required BuildContext context,
-      required List<CollectorSector?> connectedSectors}) {
+  void _onEditCollector({
+    required WidgetRef ref,
+    required BuildContext context,
+    required List<CollectorSector?> connectedSectors,
+  }) {
     final sectorIds = connectedSectors.map((e) => e?.sectorId ?? '').toList();
     ref.read(selectedSectorsIdProvider.notifier).initState(sectorIds);
     final params = PathParameters(id: collectorId).toJson();
@@ -34,8 +32,7 @@ class CollectorDetailsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final collectorData = ref.watch(collectorStreamProvider(collectorId));
-    final connectedSectors =
-        ref.watch(collectorSectorsStreamProvider(collectorId)).valueOrNull;
+    final connectedSectors = ref.watch(collectorSectorsStreamProvider(collectorId)).valueOrNull;
 
     return Scaffold(
       body: PaddedSafeArea(
@@ -52,17 +49,12 @@ class CollectorDetailsScreen extends ConsumerWidget {
                   title: collector.name,
                   actions: [
                     CommonEditIconButton(
-                      onPressed: () => _onEditCollector(
-                        connectedSectors: connectedSectors ?? [],
-                        ref: ref,
-                        context: context,
-                      ),
+                      onPressed:
+                          () => _onEditCollector(connectedSectors: connectedSectors ?? [], ref: ref, context: context),
                     ),
                   ],
                 ),
-                CollectorDetailsScreenContents(
-                  collector: collector,
-                ),
+                CollectorDetailsScreenContents(collector: collector),
               ],
             );
           },

@@ -40,8 +40,7 @@ class PumpStatus extends Equatable {
   @override
   List<Object?> get props => [id, pumpId, status, createdAt];
 
-  factory PumpStatus.fromJson(Map<String, dynamic> json) =>
-      _$PumpStatusFromJson(json);
+  factory PumpStatus.fromJson(Map<String, dynamic> json) => _$PumpStatusFromJson(json);
 
   Map<String, dynamic> toJson() => _$PumpStatusToJson(this);
 }

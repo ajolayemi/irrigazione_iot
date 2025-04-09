@@ -38,7 +38,6 @@ class SectorSwitchedOnListTile extends ConsumerWidget {
           TerminalPressureForDashboard(sectorId: sector.id),
           const CommonResponsiveDivider(),
           SectorIrrigationDuration(sectorId: sector.id),
-        
         ],
       ),
     );

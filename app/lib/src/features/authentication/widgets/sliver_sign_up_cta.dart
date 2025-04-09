@@ -6,10 +6,7 @@ import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 import 'package:irrigazione_iot/src/shared/widgets/app_cta_button.dart';
 
 class SignUpSliverCtaButton extends ConsumerWidget {
-  const SignUpSliverCtaButton({
-    super.key,
-    this.onPressed,
-  });
+  const SignUpSliverCtaButton({super.key, this.onPressed});
 
   static const signUpButtonKey = Key('signUpButton');
 

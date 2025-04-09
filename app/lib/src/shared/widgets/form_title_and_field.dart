@@ -53,10 +53,7 @@ class FormTitleAndField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          fieldTitle,
-          style: context.textTheme.titleMedium,
-        ),
+        Text(fieldTitle, style: context.textTheme.titleMedium),
         gapH8,
         IgnorePointer(
           ignoring: !enabled,

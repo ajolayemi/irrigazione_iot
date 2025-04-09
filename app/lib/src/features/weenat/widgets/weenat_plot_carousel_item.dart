@@ -51,26 +51,14 @@ class WeenatPlotCarouselItem extends ConsumerWidget {
             key: UniqueKey(),
             width: context.screenWidth * 0.9,
             height: 180,
-            margin: EdgeInsets.only(
-              right: isLastItem ? Sizes.p20 : 0,
-              left: Sizes.p16,
-            ),
+            margin: EdgeInsets.only(right: isLastItem ? Sizes.p20 : 0, left: Sizes.p16),
             decoration: BoxDecoration(
               color: AppColorsPalette.white,
               borderRadius: BorderRadius.circular(Sizes.p16),
               boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
-                  blurRadius: 10,
-                  offset: const Offset(0, 2),
-                ),
+                BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 10, offset: const Offset(0, 2)),
               ],
-              border: isSelected
-                  ? Border.all(
-                      color: AppColorsPalette.weenatBlue,
-                      width: 6,
-                    )
-                  : null,
+              border: isSelected ? Border.all(color: AppColorsPalette.weenatBlue, width: 6) : null,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -78,43 +66,25 @@ class WeenatPlotCarouselItem extends ConsumerWidget {
               children: [
                 gapH16,
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: Sizes.p16,
-                  ),
-                  child: Text(
-                    plot.name ?? '',
-                    style: textTheme.labelMedium,
-                    textScaler: const TextScaler.linear(1),
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
+                  child: Text(plot.name ?? '', style: textTheme.labelMedium, textScaler: const TextScaler.linear(1)),
                 ),
                 gapH8,
-                const Divider(
-                  indent: 0,
-                  endIndent: 0,
-                  thickness: 1,
-                  color: AppColorsPalette.grey2,
-                ),
+                const Divider(indent: 0, endIndent: 0, thickness: 1, color: AppColorsPalette.grey2),
 
                 // Plot graph section
                 Container(
                   height: 80,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: Sizes.p16,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Consumer(
                         builder: (context, ref, child) {
-                          final selectedRange = ref.watch(
-                            selectedTensiometerRangeProvider,
-                          );
+                          final selectedRange = ref.watch(selectedTensiometerRangeProvider);
                           return Container(
                             height: 80,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: Sizes.p8,
-                              vertical: Sizes.p8,
-                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: Sizes.p8, vertical: Sizes.p8),
                             decoration: BoxDecoration(
                               color: AppColorsPalette.lightGreen,
                               borderRadius: BorderRadius.circular(Sizes.p8),
@@ -147,23 +117,16 @@ class WeenatPlotCarouselItem extends ConsumerWidget {
                       ),
                       gapW12,
                       // Measurements section
-                      WeenatMeasurementContainers(
-                        plotId: plot.id,
-                      ),
+                      WeenatMeasurementContainers(plotId: plot.id),
                     ],
                   ),
                 ),
                 const Spacer(),
-                const Divider(
-                  indent: 0,
-                  endIndent: 0,
-                  thickness: 1,
-                  color: AppColorsPalette.grey2,
-                ),
+                const Divider(indent: 0, endIndent: 0, thickness: 1, color: AppColorsPalette.grey2),
                 gapH4,
               ],
             ),
-          )
+          ),
         ],
       ),
     );

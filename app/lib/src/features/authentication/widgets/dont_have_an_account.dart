@@ -16,12 +16,7 @@ class DontHaveAnAccount extends StatelessWidget {
       children: [
         Text(loc.noAccountText),
         gapW4,
-        CustomTextButton(
-          onPressed: () => context.pushNamed(
-            AppRoute.signUp.name,
-          ),
-          text: loc.signUpText,
-        )
+        CustomTextButton(onPressed: () => context.pushNamed(AppRoute.signUp.name), text: loc.signUpText),
       ],
     );
   }

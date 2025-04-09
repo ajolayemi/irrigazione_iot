@@ -25,28 +25,19 @@ PumpFlowRepository pumpFlowRepository(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
-Stream<int> pumpTotalDispensedLitres(
-  Ref ref,
-  String pumpId,
-) {
+Stream<int> pumpTotalDispensedLitres(Ref ref, String pumpId) {
   final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
   return pumpDetailsRepository.watchTotalLitresDispensed(pumpId);
 }
 
 @Riverpod(keepAlive: true)
-Stream<DateTime?> lastDispensationStream(
-  Ref ref,
-  String pumpId,
-) {
+Stream<DateTime?> lastDispensationStream(Ref ref, String pumpId) {
   final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
   return pumpDetailsRepository.watchLastDispensation(pumpId);
 }
 
 @Riverpod(keepAlive: true)
-Stream<PumpFlow?> pumpLastFlowStream(
-  Ref ref,
-  String pumpId,
-) {
+Stream<PumpFlow?> pumpLastFlowStream(Ref ref, String pumpId) {
   final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
   return pumpDetailsRepository.watchPumpLastFlow(pumpId);
 }

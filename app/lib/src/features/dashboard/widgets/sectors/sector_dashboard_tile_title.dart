@@ -8,10 +8,7 @@ import 'package:irrigazione_iot/src/shared/widgets/custom_status_indicator.dart'
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class SectorDashboardTileTitle extends ConsumerWidget {
-  const SectorDashboardTileTitle({
-    super.key,
-    required this.sector,
-  });
+  const SectorDashboardTileTitle({super.key, required this.sector});
 
   final Sector sector;
 
@@ -22,14 +19,7 @@ class SectorDashboardTileTitle extends ConsumerWidget {
       leading: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Flexible(
-            child: Text(
-              sector.name,
-              style: textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+          Flexible(child: Text(sector.name, style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold))),
           gapW8,
           const CommonStatusIndicator(status: true),
         ],

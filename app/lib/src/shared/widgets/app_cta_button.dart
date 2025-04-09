@@ -11,13 +11,7 @@ class CTAButton extends StatelessWidget {
   /// Create a CTAButton.
   /// if [isLoading] is true, a loading indicator will be displayed instead of
   /// the text.
-  const CTAButton({
-    super.key,
-    required this.text,
-    required this.buttonType,
-    this.isLoading = false,
-    this.onPressed,
-  });
+  const CTAButton({super.key, required this.text, required this.buttonType, this.isLoading = false, this.onPressed});
   final String text;
   final bool isLoading;
   final VoidCallback? onPressed;
@@ -25,31 +19,22 @@ class CTAButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final content = isLoading
-        ? const SizedBox(
-          height: Sizes.p20,
-          width: Sizes.p20,
-          child:  CircularProgressIndicator.adaptive())
-        : Text(
-            text,
-            textAlign: TextAlign.center,
-            style: context.textTheme.titleLarge!.copyWith(
-              color: buttonType == ButtonType.primary
-                  ? Colors.white
-                  : context.theme.primaryColor,
-            ),
-          );
+    final content =
+        isLoading
+            ? const SizedBox(height: Sizes.p20, width: Sizes.p20, child: CircularProgressIndicator.adaptive())
+            : Text(
+              text,
+              textAlign: TextAlign.center,
+              style: context.textTheme.titleLarge!.copyWith(
+                color: buttonType == ButtonType.primary ? Colors.white : context.theme.primaryColor,
+              ),
+            );
     return SizedBox(
       height: Sizes.p48,
-      child: buttonType == ButtonType.primary
-          ? FilledButton(
-              onPressed: isLoading ? null : onPressed,
-              child: content,
-            )
-          : OutlinedButton(
-              onPressed: isLoading ? null : onPressed,
-              child: content,
-            ),
+      child:
+          buttonType == ButtonType.primary
+              ? FilledButton(onPressed: isLoading ? null : onPressed, child: content)
+              : OutlinedButton(onPressed: isLoading ? null : onPressed, child: content),
     );
   }
 }
@@ -76,12 +61,7 @@ class SliverCTAButton extends StatelessWidget {
       //   right: Sizes.p16,
       //   left: Sizes.p16,
       // ),
-      child: CTAButton(
-        text: text,
-        buttonType: buttonType,
-        isLoading: isLoading,
-        onPressed: onPressed,
-      ),
+      child: CTAButton(text: text, buttonType: buttonType, isLoading: isLoading, onPressed: onPressed),
     );
   }
 }

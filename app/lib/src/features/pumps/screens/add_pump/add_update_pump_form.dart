@@ -6,23 +6,15 @@ import 'package:irrigazione_iot/src/features/pumps/screens/add_pump/add_update_p
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
-
 class AddUpdatePumpForm extends ConsumerWidget {
-  const AddUpdatePumpForm({
-    super.key,
-    required this.formType,
-    this.pumpId,
-  });
+  const AddUpdatePumpForm({super.key, required this.formType, this.pumpId});
 
   final GenericFormTypes formType;
   final String? pumpId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(
-      addUpdatePumpControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+    ref.listen(addUpdatePumpControllerProvider, (_, state) => state.showAlertDialogOnError(context));
     final isLoading = ref.watch(addUpdatePumpControllerProvider).isLoading;
     return PopScope(
       canPop: !isLoading,
@@ -33,14 +25,7 @@ class AddUpdatePumpForm extends ConsumerWidget {
           debugPrint('User tried to exit the form');
         }
       },
-      child: Scaffold(
-        body: PaddedSafeArea(
-          child: AddUpdatePumpContents(
-            formType: formType,
-            pumpId: pumpId,
-          ),
-        ),
-      ),
+      child: Scaffold(body: PaddedSafeArea(child: AddUpdatePumpContents(formType: formType, pumpId: pumpId))),
     );
   }
 }

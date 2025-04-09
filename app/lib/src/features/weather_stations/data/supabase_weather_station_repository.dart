@@ -11,27 +11,16 @@ class SupabaseWeatherStationRepository implements WeatherStationRepository {
   final SupabaseClient _supabaseClient;
 
   List<WeatherStation>? _fromJsonList(List<Map<String, dynamic>> data) {
-    return data
-        .map(
-          (weatherStation) => WeatherStation.fromJson(weatherStation),
-        )
-        .toList();
+    return data.map((weatherStation) => WeatherStation.fromJson(weatherStation)).toList();
   }
-
 
   WeatherStation? _toWeatherStation(Map<String, dynamic>? data) {
     return data == null ? null : WeatherStation.fromJson(data);
   }
 
   @override
-  Future<WeatherStation?> createWeatherStation(
-      WeatherStation weatherStation) async {
-    final data = weatherStation
-        .copyWith(
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-        )
-        .toJson();
+  Future<WeatherStation?> createWeatherStation(WeatherStation weatherStation) async {
+    final data = weatherStation.copyWith(createdAt: DateTime.now(), updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'insert-weather-station',
       body: InsertBody(data: data).toJson(),
@@ -40,8 +29,7 @@ class SupabaseWeatherStationRepository implements WeatherStationRepository {
   }
 
   @override
-  Future<WeatherStation?> updateWeatherStation(
-      WeatherStation weatherStation) async {
+  Future<WeatherStation?> updateWeatherStation(WeatherStation weatherStation) async {
     final data = weatherStation.copyWith(updatedAt: DateTime.now()).toJson();
     final res = await _supabaseClient.invokeFunction(
       functionName: 'update-weather-station',
@@ -71,8 +59,7 @@ class SupabaseWeatherStationRepository implements WeatherStationRepository {
   }
 
   @override
-  Future<List<WeatherStation>?> getWeatherStations(
-      {required String companyId}) async {
+  Future<List<WeatherStation>?> getWeatherStations({required String companyId}) async {
     final data = await _supabaseClient.weatherStations
         .select()
         .eq(WeatherStationDatabaseKeys.companyId, companyId)
@@ -105,9 +92,7 @@ class SupabaseWeatherStationRepository implements WeatherStationRepository {
 
   @override
   Future<List<WeatherStation>?> getAllWeatherStations() async {
-    final data = await _supabaseClient.weatherStations
-        .select()
-        .withConverter(_fromJsonList);
+    final data = await _supabaseClient.weatherStations.select().withConverter(_fromJsonList);
 
     return data;
   }

@@ -14,13 +14,10 @@ part 'collector_sector_repository.g.dart';
 
 abstract class CollectorSectorRepository {
   /// Add a new [CollectorSector] to database and return the added [CollectorSector] if the addition was successful
-  Future<CollectorSector?> createCollectorSector(
-      CollectorSector collectorSector);
+  Future<CollectorSector?> createCollectorSector(CollectorSector collectorSector);
 
   /// Delete a [CollectorSector] from database and return true if the deletion was successful
-  Future<bool> deleteCollectorSector(
-    String collectorSectorId,
-  );
+  Future<bool> deleteCollectorSector(String collectorSectorId);
 
   /// Get a list of [CollectorSector] from database if any
   Future<List<CollectorSector?>> getCollectorSectorsById(String collectorId);
@@ -42,15 +39,13 @@ CollectorSectorRepository collectorSectorRepository(Ref ref) {
 }
 
 @riverpod
-Stream<List<CollectorSector?>> collectorSectorsStream(
-    Ref ref, String collectorId) {
+Stream<List<CollectorSector?>> collectorSectorsStream(Ref ref, String collectorId) {
   final collectorSectorRepo = ref.watch(collectorSectorRepositoryProvider);
   return collectorSectorRepo.watchCollectorSectorsById(collectorId);
 }
 
 @riverpod
-Future<List<CollectorSector?>> collectorSectorsFuture(
-    Ref ref, String collectorId) {
+Future<List<CollectorSector?>> collectorSectorsFuture(Ref ref, String collectorId) {
   final collectorSectorRepo = ref.watch(collectorSectorRepositoryProvider);
   return collectorSectorRepo.getCollectorSectorsById(collectorId);
 }
@@ -60,16 +55,14 @@ Future<List<CollectorSector?>> collectorSectorsFuture(
 @riverpod
 Stream<int> numberOfSectorsSwitchedOn(Ref ref, {required String collectorId}) {
   // Get a list of collector sectors pertaining to the provided collector
-  final collectorSectors =
-      ref.watch(collectorSectorsFutureProvider(collectorId)).valueOrNull;
+  final collectorSectors = ref.watch(collectorSectorsFutureProvider(collectorId)).valueOrNull;
   if (collectorSectors == null) return Stream.value(0);
 
   int sectorsSwitchedOn = 0;
 
   // Loop through the list of collector sectors and check if at least a sector is switched on
   for (final collectorSector in collectorSectors) {
-    final sector =
-        ref.watch(sectorProvider(collectorSector!.sectorId)).valueOrNull;
+    final sector = ref.watch(sectorProvider(collectorSector!.sectorId)).valueOrNull;
     if (sector == null) return Stream.value(0);
     final status = ref.watch(sectorStatusStreamProvider(sector.id));
     if (status.valueOrNull?.statusBoolean == true) {

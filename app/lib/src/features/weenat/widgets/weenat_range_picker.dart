@@ -19,36 +19,28 @@ class WeenatRangePicker extends ConsumerWidget {
       decoration: BoxDecoration(
         color: AppColorsPalette.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: AppColorsPalette.grey4,
-          width: 1,
-        ),
+        border: Border.all(color: AppColorsPalette.grey4, width: 1),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ...options.mapIndexed(
-            (index, item) {
-              return Consumer(
-                builder: (context, ref, child) {
-                  final isSelected =
-                      ref.watch(selectedDataRangeOptionProvider) == item;
-                  final isFirstItem = index == 0;
-                  final isLastItem = index == options.length - 1;
-                  return WeenatRangePickerItem(
-                    value: item,
-                    label: context.getLocByKey(item.locKey),
-                    isSelected: isSelected,
-                    isFirstItem: isFirstItem,
-                    isLastItem: isLastItem,
-                    onTap: ref
-                        .read(selectedDataRangeOptionProvider.notifier)
-                        .setSelected,
-                  );
-                },
-              );
-            },
-          )
+          ...options.mapIndexed((index, item) {
+            return Consumer(
+              builder: (context, ref, child) {
+                final isSelected = ref.watch(selectedDataRangeOptionProvider) == item;
+                final isFirstItem = index == 0;
+                final isLastItem = index == options.length - 1;
+                return WeenatRangePickerItem(
+                  value: item,
+                  label: context.getLocByKey(item.locKey),
+                  isSelected: isSelected,
+                  isFirstItem: isFirstItem,
+                  isLastItem: isLastItem,
+                  onTap: ref.read(selectedDataRangeOptionProvider.notifier).setSelected,
+                );
+              },
+            );
+          }),
         ],
       ),
     );
@@ -79,31 +71,14 @@ class WeenatRangePickerItem extends StatelessWidget {
     return InkWell(
       onTap: () => onTap?.call(value),
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: Sizes.p16,
-          vertical: Sizes.p8,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: Sizes.p16, vertical: Sizes.p8),
         decoration: BoxDecoration(
-          color:
-              isSelected ? AppColorsPalette.lightGreen : AppColorsPalette.white,
-          borderRadius: isFirstItem
-              ? const BorderRadius.only(
-                  topLeft: Radius.circular(
-                    Sizes.p8,
-                  ),
-                  bottomLeft: Radius.circular(
-                    Sizes.p8,
-                  ),
-                )
-              : isLastItem
-                  ? const BorderRadius.only(
-                      bottomRight: Radius.circular(
-                        Sizes.p8,
-                      ),
-                      topRight: Radius.circular(
-                        Sizes.p8,
-                      ),
-                    )
+          color: isSelected ? AppColorsPalette.lightGreen : AppColorsPalette.white,
+          borderRadius:
+              isFirstItem
+                  ? const BorderRadius.only(topLeft: Radius.circular(Sizes.p8), bottomLeft: Radius.circular(Sizes.p8))
+                  : isLastItem
+                  ? const BorderRadius.only(bottomRight: Radius.circular(Sizes.p8), topRight: Radius.circular(Sizes.p8))
                   : BorderRadius.circular(0),
         ),
         child: SizedBox(
@@ -113,10 +88,7 @@ class WeenatRangePickerItem extends StatelessWidget {
             textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: textTheme.bodyMedium?.copyWith(
-              color:
-                  isSelected ? AppColorsPalette.white : AppColorsPalette.grey8,
-            ),
+            style: textTheme.bodyMedium?.copyWith(color: isSelected ? AppColorsPalette.white : AppColorsPalette.grey8),
           ),
         ),
       ),

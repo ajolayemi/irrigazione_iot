@@ -53,8 +53,7 @@ Stream<List<Collector?>> collectorListStream(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
-Stream<List<String?>> usedCollectorNamesStream(
-    Ref ref) {
+Stream<List<String?>> usedCollectorNamesStream(Ref ref) {
   final collectorRepository = ref.read(collectorRepositoryProvider);
   final companyId = ref.watch(currentTappedCompanyProvider).valueOrNull?.id;
   if (companyId == null) return Stream.value([]);
@@ -75,8 +74,7 @@ Future<Collector?> collectorFuture(Ref ref, String collectorId) {
 }
 
 @Riverpod(keepAlive: true)
-Stream<List<String?>> collectorUsedMqttMessageNamesStream(
-    Ref ref) {
+Stream<List<String?>> collectorUsedMqttMessageNamesStream(Ref ref) {
   final collectorRepository = ref.read(collectorRepositoryProvider);
   return collectorRepository.watchCollectorUsedMqttMessageNames();
 }

@@ -33,12 +33,10 @@ class ConnectCollectorToBoardScreen extends ConsumerStatefulWidget {
   final String? selectedCollectorName;
 
   @override
-  ConsumerState<ConnectCollectorToBoardScreen> createState() =>
-      _ConnectCollectorToBoardScreenState();
+  ConsumerState<ConnectCollectorToBoardScreen> createState() => _ConnectCollectorToBoardScreenState();
 }
 
-class _ConnectCollectorToBoardScreenState
-    extends ConsumerState<ConnectCollectorToBoardScreen> {
+class _ConnectCollectorToBoardScreenState extends ConsumerState<ConnectCollectorToBoardScreen> {
   late RadioButtonItem _selectedCollector;
 
   @override
@@ -53,55 +51,38 @@ class _ConnectCollectorToBoardScreenState
   @override
   Widget build(BuildContext context) {
     final loc = context.loc;
-    final availableCollectors = ref.watch(availableCollectorsFutureProvider(
-      alreadyConnectedCollectorId: widget.previouslyConnectedCollectorId,
-    ));
+    final availableCollectors = ref.watch(
+      availableCollectorsFutureProvider(alreadyConnectedCollectorId: widget.previouslyConnectedCollectorId),
+    );
 
     return CustomSliverConnectSomethingTo(
       title: loc.connectCollectorToBoardPageTitle,
-      actions: [
-        CommonAddIconButton(
-          onPressed: () => context.pushNamed(AppRoute.addCollector.name),
-        )
-      ],
+      actions: [CommonAddIconButton(onPressed: () => context.pushNamed(AppRoute.addCollector.name))],
       child: AsyncValueSliverWidget(
         value: availableCollectors,
         data: (collectors) {
           if (collectors == null || collectors.isEmpty) {
-            return const SliverFillRemaining(
-              child: Center(
-                child: Text('No collectors found'),
-              ),
-            );
+            return const SliverFillRemaining(child: Center(child: Text('No collectors found')));
           }
 
           return SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final collector = collectors[index];
-                return ResponsiveRadioListTile(
-                  title: collector.name,
-                  value: RadioButtonItem(
-                    value: collector.id,
-                    label: collector.name,
-                  ),
-                  groupValue: _selectedCollector,
-                  onChanged: (newValue) => setState(() {
-                    _selectedCollector = _selectedCollector.copyWith(
-                      value: newValue?.value,
-                      label: newValue?.label,
-                    );
-                  }),
-                );
-              },
-              childCount: collectors.length,
-            ),
+            delegate: SliverChildBuilderDelegate((context, index) {
+              final collector = collectors[index];
+              return ResponsiveRadioListTile(
+                title: collector.name,
+                value: RadioButtonItem(value: collector.id, label: collector.name),
+                groupValue: _selectedCollector,
+                onChanged:
+                    (newValue) => setState(() {
+                      _selectedCollector = _selectedCollector.copyWith(value: newValue?.value, label: newValue?.label);
+                    }),
+              );
+            }, childCount: collectors.length),
           );
         },
         loading: () => const SliverAdaptiveCircularIndicator(),
       ),
-      onCTAPressed: () =>
-          context.popNavigator<RadioButtonItem>(_selectedCollector),
+      onCTAPressed: () => context.popNavigator<RadioButtonItem>(_selectedCollector),
     );
   }
 }

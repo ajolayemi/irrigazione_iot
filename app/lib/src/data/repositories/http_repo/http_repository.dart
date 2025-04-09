@@ -58,26 +58,16 @@ class HttpRepository {
 
   // Dio client
   late final Dio _dio = Dio(
-    BaseOptions(
-      baseUrl: baseUrl,
-      connectTimeout: connectTimeout,
-      receiveTimeout: receiveTimeout,
-    ),
+    BaseOptions(baseUrl: baseUrl, connectTimeout: connectTimeout, receiveTimeout: receiveTimeout),
   );
 
   /// Performs a GET request
   /// [path] is the endpoint for the request
   /// [headers] are the headers for the request
   /// Returns the response data
-  Future<Response> get({
-    required String path,
-    Map<String, dynamic>? headers,
-  }) async {
+  Future<Response> get({required String path, Map<String, dynamic>? headers}) async {
     try {
-      final res = await _dio.get(
-        path,
-        options: Options(headers: headers),
-      );
+      final res = await _dio.get(path, options: Options(headers: headers));
       return res;
     } catch (e) {
       rethrow;
@@ -95,11 +85,7 @@ class HttpRepository {
     Map<String, dynamic>? headers,
   }) async {
     try {
-      final res = await _dio.post(
-        path,
-        data: data,
-        options: Options(headers: headers),
-      );
+      final res = await _dio.post(path, data: data, options: Options(headers: headers));
       return res;
     } catch (e) {
       rethrow;

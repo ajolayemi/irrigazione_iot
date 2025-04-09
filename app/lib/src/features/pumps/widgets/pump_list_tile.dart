@@ -10,10 +10,7 @@ import 'package:irrigazione_iot/src/shared/widgets/custom_dismissible.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class PumpListTile extends ConsumerWidget {
-  const PumpListTile({
-    super.key,
-    required this.pump,
-  });
+  const PumpListTile({super.key, required this.pump});
 
   final Pump pump;
 
@@ -22,40 +19,31 @@ class PumpListTile extends ConsumerWidget {
 
   Future<bool> _dismissPump(BuildContext context, WidgetRef ref) async {
     final loc = context.loc;
-    final askUser = await showAlertDialog(
+    final askUser =
+        await showAlertDialog(
           context: context,
           title: loc.genericAlertDialogTitle,
-          content: loc.deleteConfirmationDialogTitle(
-            loc.nPumpsWithArticulatedPreposition(1),
-          ),
+          content: loc.deleteConfirmationDialogTitle(loc.nPumpsWithArticulatedPreposition(1)),
           defaultActionText: loc.alertDialogDelete,
           cancelActionText: loc.alertDialogCancel,
         ) ??
         false;
     if (!askUser) return false;
 
-    return ref
-        .read(dismissPumpControllerProvider.notifier)
-        .confirmDismiss(pump);
+    return ref.read(dismissPumpControllerProvider.notifier).confirmDismiss(pump);
   }
-
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDeleting = ref.watch(dismissPumpControllerProvider).isLoading;
-    final canDelete =
-        ref.watch(userCanDeleteStreamProvider).valueOrNull ?? false;
+    final canDelete = ref.watch(userCanDeleteStreamProvider).valueOrNull ?? false;
     return CustomDismissibleWidget(
       canDelete: canDelete,
       dismissibleKey: pumpListTileKey(pump),
       confirmDismiss: (_) async => await _dismissPump(context, ref),
       onDismissed: (_) {},
       isDeleting: isDeleting,
-      child: PumpListTileItem(
-        pump: pump,
-
-      ),
+      child: PumpListTileItem(pump: pump),
     );
   }
 }

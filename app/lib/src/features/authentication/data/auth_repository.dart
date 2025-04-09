@@ -9,10 +9,7 @@ part 'auth_repository.g.dart';
 
 abstract class AuthRepository {
   /// Sign in with email and password
-  Future<void> signInWithEmailAndPassword(
-    String email,
-    String password,
-  );
+  Future<void> signInWithEmailAndPassword(String email, String password);
 
   /// Sign in using Google
   Future<void> signInWithGoogle();
@@ -21,16 +18,10 @@ abstract class AuthRepository {
   Future<void> signOut();
 
   /// Reset password
-  Future<void> resetPassword(
-    String email,
-    String newPassword,
-  ) async {}
+  Future<void> resetPassword(String email, String newPassword) async {}
 
   // Sign up an AppUser and returns the user if successful
-  Future<AppUser?> signUp({
-    required AppUser appUser,
-    required String password,
-  });
+  Future<AppUser?> signUp({required AppUser appUser, required String password});
 
   /// Emits the current user
   Stream<AuthState?> authStateChanges();

@@ -2,12 +2,7 @@
 typedef UserID = String;
 
 class AppUser {
-  const AppUser({
-    required this.uid,
-    required this.email,
-    required this.name,
-    required this.surname,
-  });
+  const AppUser({required this.uid, required this.email, required this.name, required this.surname});
 
   final UserID uid;
   final String email;
@@ -21,10 +16,7 @@ class AppUser {
   bool operator ==(covariant AppUser other) {
     if (identical(this, other)) return true;
 
-    return other.uid == uid &&
-        other.email == email &&
-        other.name == name &&
-        other.surname == surname;
+    return other.uid == uid && other.email == email && other.name == name && other.surname == surname;
   }
 
   @override
@@ -32,5 +24,3 @@ class AppUser {
     return uid.hashCode ^ email.hashCode ^ name.hashCode ^ surname.hashCode;
   }
 }
-
-

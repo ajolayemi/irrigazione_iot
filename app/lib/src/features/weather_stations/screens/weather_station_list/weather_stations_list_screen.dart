@@ -21,15 +21,11 @@ import 'package:irrigazione_iot/src/utils/provider_utils.dart';
 class WeatherStationListScreen extends ConsumerWidget {
   const WeatherStationListScreen({super.key});
 
-  void _onTapAdd(BuildContext context) =>
-      context.pushNamed(AppRoute.addWeatherStation.name);
+  void _onTapAdd(BuildContext context) => context.pushNamed(AppRoute.addWeatherStation.name);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(
-      dismissWeatherStationControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+    ref.listen(dismissWeatherStationControllerProvider, (_, state) => state.showAlertDialogOnError(context));
     final loc = context.loc;
     final weatherStations = ref.watch(weatherStationsProvider);
 
@@ -40,11 +36,7 @@ class WeatherStationListScreen extends ConsumerWidget {
           slivers: [
             AppSliverBar(
               title: loc.weatherStationPageTitle,
-              actions: [
-                CommonAddIconButton(
-                  onPressed: () => _onTapAdd(context),
-                )
-              ],
+              actions: [CommonAddIconButton(onPressed: () => _onTapAdd(context))],
             ),
             AsyncValueSliverWidget<List<WeatherStation>?>(
               value: weatherStations,
@@ -52,8 +44,7 @@ class WeatherStationListScreen extends ConsumerWidget {
                 if (data == null || data.isEmpty) {
                   return SliverFillRemaining(
                     child: EmptyDataWidget(
-                      message:
-                          loc.emptyDataPlaceholder(loc.nWeatherStations(1)),
+                      message: loc.emptyDataPlaceholder(loc.nWeatherStations(1)),
                       buttonText: loc.addNewButtonLabel,
                       onPressed: () => _onTapAdd(context),
                     ),
@@ -61,18 +52,14 @@ class WeatherStationListScreen extends ConsumerWidget {
                 }
 
                 return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final weatherStation = data[index];
-                      return WeatherStationListTile(
-                          weatherStation: weatherStation);
-                    },
-                    childCount: data.length,
-                  ),
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    final weatherStation = data[index];
+                    return WeatherStationListTile(weatherStation: weatherStation);
+                  }, childCount: data.length),
                 );
               },
               loading: () => const CommonSliverListSkeleton(),
-            )
+            ),
           ],
         ),
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// A custom dismissible widget that wraps a child widget with a dismissible widget.
-/// 
+///
 /// If [canDelete] is false, the child widget is returned as is.
 class CustomDismissibleWidget extends StatelessWidget {
   const CustomDismissibleWidget({
@@ -33,14 +33,10 @@ class CustomDismissibleWidget extends StatelessWidget {
         color: Colors.red,
         alignment: Alignment.center,
         padding: const EdgeInsets.only(right: 20.0),
-        child: isDeleting
-            ? const CircularProgressIndicator(
-                color: Colors.white,
-              )
-            : const Icon(
-                Icons.delete,
-                color: Colors.white,
-              ),
+        child:
+            isDeleting
+                ? const CircularProgressIndicator(color: Colors.white)
+                : const Icon(Icons.delete, color: Colors.white),
       ),
       child: child,
     );

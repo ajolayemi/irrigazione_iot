@@ -7,14 +7,10 @@ class PathParameters {
   final String id;
 
   Map<String, String> toJson() {
-    return <String, String>{
-      'id': id,
-    };
+    return <String, String>{'id': id};
   }
 
   factory PathParameters.fromJson(Map<String, dynamic> map) {
-    return PathParameters(
-      id: map['id'] as String,
-    );
+    return PathParameters(id: map['id'] as String);
   }
 }

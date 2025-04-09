@@ -10,10 +10,7 @@ import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 /// The expansion tile section of pump details screen to display pump characteristics
 class PumpDetailsCharacteristics extends ConsumerWidget {
-  const PumpDetailsCharacteristics({
-    super.key,
-    required this.pump,
-  });
+  const PumpDetailsCharacteristics({super.key, required this.pump});
 
   final Pump pump;
 
@@ -30,35 +27,16 @@ class PumpDetailsCharacteristics extends ConsumerWidget {
           ),
         ),
         ResponsiveDetailsCard(
-          child: DetailTileWidget(
-            title: loc.pumpKwFormFieldTitle,
-            subtitle: '${pump.consumeRateInKw.toString()} kW',
-          ),
+          child: DetailTileWidget(title: loc.pumpKwFormFieldTitle, subtitle: '${pump.consumeRateInKw.toString()} kW'),
         ),
         ResponsiveDetailsCard(
-          child: DetailTileWidget(
-            title: loc.itemHasFilter,
-            subtitle: pump.hasFilter ? loc.yes : loc.no,
-          ),
+          child: DetailTileWidget(title: loc.itemHasFilter, subtitle: pump.hasFilter ? loc.yes : loc.no),
         ),
         ResponsiveDetailsCard(
-          child: DetailTileWidget(
-            title: loc.mqttMessageNameFormFieldTitle,
-            subtitle: pump.mqttMessageName,
-          ),
+          child: DetailTileWidget(title: loc.mqttMessageNameFormFieldTitle, subtitle: pump.mqttMessageName),
         ),
-        ResponsiveDetailsCard(
-          child: DetailTileWidget(
-            title: loc.mqttOnCommand,
-            subtitle: pump.turnOnCommand,
-          ),
-        ),
-        ResponsiveDetailsCard(
-          child: DetailTileWidget(
-            title: loc.mqttOffCommand,
-            subtitle: pump.turnOffCommand,
-          ),
-        ),
+        ResponsiveDetailsCard(child: DetailTileWidget(title: loc.mqttOnCommand, subtitle: pump.turnOnCommand)),
+        ResponsiveDetailsCard(child: DetailTileWidget(title: loc.mqttOffCommand, subtitle: pump.turnOffCommand)),
         gapH16,
       ],
     );

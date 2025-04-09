@@ -11,29 +11,20 @@ import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.da
 part 'weather_station_measurement_repository.g.dart';
 
 abstract class WeatherStationMeasurementRepository {
-  Future<WeatherStationMeasurement?> getStationMeasurement(
-    String weatherStationId,
-  );
+  Future<WeatherStationMeasurement?> getStationMeasurement(String weatherStationId);
 }
 
 @Riverpod(keepAlive: true)
-WeatherStationMeasurementRepository weatherStationMeasurementRepository(
-    Ref ref) {
+WeatherStationMeasurementRepository weatherStationMeasurementRepository(Ref ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return SupabaseWeatherStationMeasurementRepository(supabaseClient);
 }
 
 @Riverpod(keepAlive: true)
-FutureOr<WeatherStationMeasurement?> weatherStationMeasurement(
-  Ref ref, {
-  required String weatherStationId,
-}) {
-  final timer = Timer.periodic(
-    AppConstants.weatherStationMeasurementUpdateInterval,
-    (_) {
-      ref.invalidateSelf();
-    },
-  );
+FutureOr<WeatherStationMeasurement?> weatherStationMeasurement(Ref ref, {required String weatherStationId}) {
+  final timer = Timer.periodic(AppConstants.weatherStationMeasurementUpdateInterval, (_) {
+    ref.invalidateSelf();
+  });
 
   ref.onDispose(() {
     timer.cancel();

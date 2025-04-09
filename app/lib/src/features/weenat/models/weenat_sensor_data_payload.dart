@@ -14,6 +14,5 @@ abstract class WeenatSensorDataPayload with _$WeenatSensorDataPayload {
     int? organization,
   }) = _WeenatSensorDataPayload;
 
-  factory WeenatSensorDataPayload.fromJson(Map<String, dynamic> json) =>
-      _$WeenatSensorDataPayloadFromJson(json);
+  factory WeenatSensorDataPayload.fromJson(Map<String, dynamic> json) => _$WeenatSensorDataPayloadFromJson(json);
 }

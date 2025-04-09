@@ -4,10 +4,7 @@ part 'weather_station_statistic_history.g.dart';
 
 @JsonSerializable()
 class WeatherStationStatisticHistory {
-  const WeatherStationStatisticHistory({
-    required this.value,
-    this.createdAt,
-  });
+  const WeatherStationStatisticHistory({required this.value, this.createdAt});
   final num value;
   final DateTime? createdAt;
 

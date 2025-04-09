@@ -5,7 +5,6 @@ import 'package:irrigazione_iot/src/features/sectors/data/sector_status_reposito
 import 'package:irrigazione_iot/src/utils/extensions/datetime_extensions.dart';
 import 'package:timeago_flutter/timeago_flutter.dart';
 
-
 /// Displays for how log
 class SectorIrrigationDuration extends ConsumerWidget {
   const SectorIrrigationDuration({super.key, required this.sectorId});

@@ -18,29 +18,22 @@ class SectorCollectorForDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final collectorId =
-        ref.watch(collectorIdBySectorIdStreamProvider(sectorId)).valueOrNull;
+    final collectorId = ref.watch(collectorIdBySectorIdStreamProvider(sectorId)).valueOrNull;
 
     if (collectorId == null) return const SectorCollectorForDashboardContent();
     return Consumer(
       builder: (context, ref, child) {
         final collectorName = ref.watch(
-          collectorStreamProvider(collectorId)
-              .select((collector) => collector.valueOrNull?.name),
+          collectorStreamProvider(collectorId).select((collector) => collector.valueOrNull?.name),
         );
-        return SectorCollectorForDashboardContent(
-          collectorName: collectorName,
-        );
+        return SectorCollectorForDashboardContent(collectorName: collectorName);
       },
     );
   }
 }
 
 class SectorCollectorForDashboardContent extends StatelessWidget {
-  const SectorCollectorForDashboardContent({
-    super.key,
-    this.collectorName,
-  });
+  const SectorCollectorForDashboardContent({super.key, this.collectorName});
 
   final String? collectorName;
 

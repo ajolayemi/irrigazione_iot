@@ -16,11 +16,7 @@ class EmptyCompanyUsers extends StatelessWidget {
     return SliverEmptyDataWidget(
       message: loc.noUsersConnectedWithCompany,
       buttonText: loc.addNewButtonLabel,
-      onPressed: () => CommonAddIconButton(
-        onPressed: () => context.pushNamed(
-          AppRoute.addCompanyUser.name,
-        ),
-      ),
+      onPressed: () => CommonAddIconButton(onPressed: () => context.pushNamed(AppRoute.addCompanyUser.name)),
     );
   }
 }

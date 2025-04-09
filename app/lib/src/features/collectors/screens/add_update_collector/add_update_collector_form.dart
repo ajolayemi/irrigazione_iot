@@ -7,11 +7,7 @@ import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 import 'package:irrigazione_iot/src/utils/async_value_ui.dart';
 
 class AddUpdateCollectorForm extends ConsumerWidget {
-  const AddUpdateCollectorForm({
-    super.key,
-    required this.formType,
-    this.collectorId,
-  });
+  const AddUpdateCollectorForm({super.key, required this.formType, this.collectorId});
 
   final GenericFormTypes formType;
   final String? collectorId;
@@ -19,10 +15,7 @@ class AddUpdateCollectorForm extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // listen to controller state and show alert dialog should any error
     // occur
-    ref.listen(
-      addUpdateCollectorControllerProvider,
-      (_, state) => state.showAlertDialogOnError(context),
-    );
+    ref.listen(addUpdateCollectorControllerProvider, (_, state) => state.showAlertDialogOnError(context));
     final isLoading = ref.watch(addUpdateCollectorControllerProvider).isLoading;
     return PopScope(
       canPop: !isLoading,
@@ -34,11 +27,7 @@ class AddUpdateCollectorForm extends ConsumerWidget {
         }
       },
       child: Scaffold(
-        body: PaddedSafeArea(
-            child: AddUpdateCollectorFormContents(
-          collectorId: collectorId,
-          formType: formType,
-        )),
+        body: PaddedSafeArea(child: AddUpdateCollectorFormContents(collectorId: collectorId, formType: formType)),
       ),
     );
   }

@@ -13,19 +13,13 @@ import 'package:irrigazione_iot/src/shared/widgets/custom_scroll_view_with_refre
 import 'package:irrigazione_iot/src/shared/widgets/padded_safe_area.dart';
 
 class BoardDetailsScreen extends ConsumerWidget {
-  const BoardDetailsScreen({
-    super.key,
-    required this.boardID,
-  });
+  const BoardDetailsScreen({super.key, required this.boardID});
 
   final String boardID;
 
   void _onTapEdit(BuildContext context) {
     final params = PathParameters(id: boardID).toJson();
-    context.pushNamed(
-      AppRoute.updateBoard.name,
-      pathParameters: params,
-    );
+    context.pushNamed(AppRoute.updateBoard.name, pathParameters: params);
   }
 
   @override
@@ -38,11 +32,7 @@ class BoardDetailsScreen extends ConsumerWidget {
           slivers: [
             AppSliverBar(
               title: board.valueOrNull?.name ?? '',
-              actions: [
-                CommonEditIconButton(
-                  onPressed: () => _onTapEdit(context),
-                )
-              ],
+              actions: [CommonEditIconButton(onPressed: () => _onTapEdit(context))],
             ),
             AsyncValueSliverWidget(
               value: board,
@@ -51,11 +41,8 @@ class BoardDetailsScreen extends ConsumerWidget {
                 // since reaching this page means we have a board
                 return BoardDetailsScreenContents(board: board!);
               },
-              loading: () => const CommonSliverListSkeleton(
-                hasLeading: false,
-                hasTrailing: false,
-              ),
-            )
+              loading: () => const CommonSliverListSkeleton(hasLeading: false, hasTrailing: false),
+            ),
           ],
         ),
       ),

@@ -14,17 +14,12 @@ import 'package:irrigazione_iot/src/shared/widgets/sliver_adaptive_circular_indi
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class SelectASpecieScreen extends ConsumerStatefulWidget {
-  const SelectASpecieScreen({
-    super.key,
-    this.selectedSpecieId,
-    this.selectedSpecieName,
-  });
+  const SelectASpecieScreen({super.key, this.selectedSpecieId, this.selectedSpecieName});
 
   final String? selectedSpecieId;
   final String? selectedSpecieName;
   @override
-  ConsumerState<SelectASpecieScreen> createState() =>
-      _SelectASpecieScreenState();
+  ConsumerState<SelectASpecieScreen> createState() => _SelectASpecieScreenState();
 }
 
 class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
@@ -33,10 +28,7 @@ class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
 
   @override
   void initState() {
-    _selectedSpecie = RadioButtonItem(
-      value: widget.selectedSpecieId ?? '',
-      label: widget.selectedSpecieName ?? '',
-    );
+    _selectedSpecie = RadioButtonItem(value: widget.selectedSpecieId ?? '', label: widget.selectedSpecieName ?? '');
     super.initState();
   }
 
@@ -60,12 +52,8 @@ class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
     final queryResult = ref.watch(selectASpecieQueryResultProvider);
 
     return CustomSliverConnectSomethingTo(
-      subChild: _isSearching
-          ? SearchTextField(
-              onSearch:
-                  ref.read(selectASpecieQueryResultProvider.notifier).search,
-            )
-          : null,
+      subChild:
+          _isSearching ? SearchTextField(onSearch: ref.read(selectASpecieQueryResultProvider.notifier).search) : null,
       actions: [
         CommonSearchIconButton(
           isVisibile: species?.isNotEmpty ?? false,
@@ -81,33 +69,21 @@ class _SelectASpecieScreenState extends ConsumerState<SelectASpecieScreen> {
           return FilteredScreenItemRenderer(
             baseItems: species,
             filteredItems: filteredResult,
-            noBaseItemsWidget: const SliverFillRemaining(
-              child: Center(
-                child: Text('No species found'),
-              ),
-            ),
+            noBaseItemsWidget: const SliverFillRemaining(child: Center(child: Text('No species found'))),
             mainWidget: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final specie = filteredResult![index];
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final specie = filteredResult![index];
 
-                  return ResponsiveRadioListTile(
-                    title: specie.name,
-                    value: RadioButtonItem(
-                      value: specie.id,
-                      label: specie.name,
-                    ),
-                    groupValue: _selectedSpecie,
-                    onChanged: (val) => setState(() {
-                      _selectedSpecie = _selectedSpecie.copyWith(
-                        value: val?.value,
-                        label: val?.label,
-                      );
-                    }),
-                  );
-                },
-                childCount: filteredResult?.length,
-              ),
+                return ResponsiveRadioListTile(
+                  title: specie.name,
+                  value: RadioButtonItem(value: specie.id, label: specie.name),
+                  groupValue: _selectedSpecie,
+                  onChanged:
+                      (val) => setState(() {
+                        _selectedSpecie = _selectedSpecie.copyWith(value: val?.value, label: val?.label);
+                      }),
+                );
+              }, childCount: filteredResult?.length),
             ),
           );
         },

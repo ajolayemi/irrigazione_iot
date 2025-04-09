@@ -4,13 +4,10 @@ import 'package:irrigazione_iot/src/features/weather_stations/models/weather_sta
 extension StringExtensions on String {
   /// Returns true if the string is a number and is greater than 0
   /// Mostly used for validating form fields
-  bool get isGreaterThanZero =>
-      double.tryParse(this) != null && double.parse(this) > 0;
+  bool get isGreaterThanZero => double.tryParse(this) != null && double.parse(this) > 0;
 
-  CompanyUserRole get toCompanyUserRoles => CompanyUserRole.values.firstWhere(
-        (role) => role.name == this,
-        orElse: () => CompanyUserRole.user,
-      );
+  CompanyUserRole get toCompanyUserRoles =>
+      CompanyUserRole.values.firstWhere((role) => role.name == this, orElse: () => CompanyUserRole.user);
 
   String getUmX(String key) {
     switch (key) {

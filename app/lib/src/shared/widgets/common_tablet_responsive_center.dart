@@ -4,11 +4,7 @@ import 'package:irrigazione_iot/src/constants/breakpoints.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_center.dart';
 
 class CommonTabletResponsiveCenter extends StatelessWidget {
-  const CommonTabletResponsiveCenter({
-    super.key,
-    required this.child,
-    this.padding,
-  });
+  const CommonTabletResponsiveCenter({super.key, required this.child, this.padding});
 
   final Widget child;
   final EdgeInsetsGeometry? padding;

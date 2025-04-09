@@ -16,24 +16,17 @@ import 'package:irrigazione_iot/src/shared/widgets/form_title_and_field.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_sliver_form.dart';
 import 'package:irrigazione_iot/src/utils/extensions/string_extensions.dart';
 
-
 class AddUpdateCompanyUserFormContents extends ConsumerStatefulWidget {
-  const AddUpdateCompanyUserFormContents({
-    super.key,
-    this.companyUserId,
-    required this.formType,
-  });
+  const AddUpdateCompanyUserFormContents({super.key, this.companyUserId, required this.formType});
 
   final String? companyUserId;
   final GenericFormTypes formType;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _AddUpdateCompanyUserFormContentsState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _AddUpdateCompanyUserFormContentsState();
 }
 
-class _AddUpdateCompanyUserFormContentsState
-    extends ConsumerState<AddUpdateCompanyUserFormContents>
+class _AddUpdateCompanyUserFormContentsState extends ConsumerState<AddUpdateCompanyUserFormContents>
     with AppFormValidators {
   final _node = FocusScopeNode();
   final _formKey = GlobalKey<FormState>();
@@ -60,9 +53,7 @@ class _AddUpdateCompanyUserFormContentsState
   @override
   void initState() {
     if (_isUpdating && widget.companyUserId != null) {
-      final user = ref
-          .read(companyUserStreamProvider(companyUserId: widget.companyUserId!))
-          .valueOrNull;
+      final user = ref.read(companyUserStreamProvider(companyUserId: widget.companyUserId!)).valueOrNull;
       if (user != null) {
         _initialCompanyUser = user;
         _fullNameController.text = user.fullName;
@@ -97,28 +88,16 @@ class _AddUpdateCompanyUserFormContentsState
   String? _nonEmptyFieldsErrorText(String value) {
     if (!_submitted) return null;
 
-    return context.getLocalizedErrorText(
-      errorKey: getNonEmptyFieldsErrorKey(value: value),
-    );
+    return context.getLocalizedErrorText(errorKey: getNonEmptyFieldsErrorKey(value: value));
   }
 
-  void _emailFieldEditingComplete(
-    String value,
-    List<String?> existingEmails,
-  ) {
-    if (canSubmitEmail(
-      value: value,
-      initialValue: _initialCompanyUser?.email,
-      mailsToCompareAgainst: existingEmails,
-    )) {
+  void _emailFieldEditingComplete(String value, List<String?> existingEmails) {
+    if (canSubmitEmail(value: value, initialValue: _initialCompanyUser?.email, mailsToCompareAgainst: existingEmails)) {
       _node.nextFocus();
     }
   }
 
-  String? _emailFieldErrorText(
-    String value,
-    List<String?> existingEmails,
-  ) {
+  String? _emailFieldErrorText(String value, List<String?> existingEmails) {
     if (!_submitted) return null;
 
     return context.getLocalizedErrorText(
@@ -135,16 +114,12 @@ class _AddUpdateCompanyUserFormContentsState
     setState(() => _submitted = true);
 
     if (_formKey.currentState!.validate()) {
-      if (await context.showSaveUpdateDialog(
-        isUpdating: _isUpdating,
-        what: context.loc.nCompanyUsers(1),
-      )) {
+      if (await context.showSaveUpdateDialog(isUpdating: _isUpdating, what: context.loc.nCompanyUsers(1))) {
         final companyUser = _initialCompanyUser?.copyWith(
           fullName: _fullName,
           email: _email,
           role: _role.toCompanyUserRoles,
-          companyId:
-              _initialCompanyUser?.companyId, // auto filled by service layer
+          companyId: _initialCompanyUser?.companyId, // auto filled by service layer
           createdAt: _initialCompanyUser?.createdAt ?? DateTime.now(),
           updatedAt: DateTime.now(),
         );
@@ -152,13 +127,9 @@ class _AddUpdateCompanyUserFormContentsState
         bool success = false;
 
         if (_isUpdating) {
-          success = await ref
-              .read(addUpdateCompanyUserControllerProvider.notifier)
-              .updateUserInCompany(companyUser);
+          success = await ref.read(addUpdateCompanyUserControllerProvider.notifier).updateUserInCompany(companyUser);
         } else {
-          success = await ref
-              .read(addUpdateCompanyUserControllerProvider.notifier)
-              .addUserToCompany(companyUser);
+          success = await ref.read(addUpdateCompanyUserControllerProvider.notifier).addUserToCompany(companyUser);
         }
 
         if (success) {
@@ -185,8 +156,7 @@ class _AddUpdateCompanyUserFormContentsState
 
   @override
   Widget build(BuildContext context) {
-    final isLoading =
-        ref.watch(addUpdateCompanyUserControllerProvider).isLoading;
+    final isLoading = ref.watch(addUpdateCompanyUserControllerProvider).isLoading;
     final loc = context.loc;
     return GestureDetector(
       onTap: () => _node.unfocus(),
@@ -196,11 +166,7 @@ class _AddUpdateCompanyUserFormContentsState
           Expanded(
             child: CustomScrollView(
               slivers: [
-                AppSliverBar(
-                  title: _isUpdating
-                      ? loc.updateCompanyUserPageTitle
-                      : loc.addNewCompanyUserPageTitle,
-                ),
+                AppSliverBar(title: _isUpdating ? loc.updateCompanyUserPageTitle : loc.addNewCompanyUserPageTitle),
                 ResponsiveSliverForm(
                   node: _node,
                   formKey: _formKey,
@@ -210,29 +176,23 @@ class _AddUpdateCompanyUserFormContentsState
                       fieldTitle: loc.companyUserFullName,
                       fieldHintText: loc.companyUserFullNameHintTest,
                       fieldController: _fullNameController,
-                      onEditingComplete: () =>
-                          _nonEmptyFieldsEditingComplete(_fullName),
+                      onEditingComplete: () => _nonEmptyFieldsEditingComplete(_fullName),
                       validator: (_) => _nonEmptyFieldsErrorText(_fullName),
                     ),
                     gapH16,
                     Consumer(
                       builder: (context, ref, child) {
-                        final existingMails = isLoading
-                            ? <String?>[]
-                            : ref
-                                    .watch(
-                                        emailsAssociatedWithCompanyStreamProvider)
-                                    .valueOrNull ??
-                                [];
+                        final existingMails =
+                            isLoading
+                                ? <String?>[]
+                                : ref.watch(emailsAssociatedWithCompanyStreamProvider).valueOrNull ?? [];
                         return FormTitleAndField(
                           fieldKey: _emailFieldKey,
                           fieldTitle: loc.companyUserEmail,
                           fieldHintText: loc.companyUserEmailHintText,
                           fieldController: _emailController,
-                          onEditingComplete: () =>
-                              _emailFieldEditingComplete(_email, existingMails),
-                          validator: (_) =>
-                              _emailFieldErrorText(_email, existingMails),
+                          onEditingComplete: () => _emailFieldEditingComplete(_email, existingMails),
+                          validator: (_) => _emailFieldErrorText(_email, existingMails),
                         );
                       },
                     ),
@@ -244,12 +204,9 @@ class _AddUpdateCompanyUserFormContentsState
                       fieldController: _roleController,
                       onTap: _onTapAssignRole,
                       validator: (_) => _nonEmptyFieldsErrorText(_role),
-                      onEditingComplete: () =>
-                          _nonEmptyFieldsEditingComplete(_role),
+                      onEditingComplete: () => _nonEmptyFieldsEditingComplete(_role),
                       canRequestFocus: false,
-                      suffixIcon: CommonFormSuffixIcon(
-                        onPressed: _onTapAssignRole,
-                      ),
+                      suffixIcon: CommonFormSuffixIcon(onPressed: _onTapAssignRole),
                     ),
                     gapH32,
                   ],
@@ -260,9 +217,7 @@ class _AddUpdateCompanyUserFormContentsState
           gapH16,
           SliverCTAButton(
             isLoading: isLoading,
-            text: _isUpdating
-                ? loc.genericUpdateButtonLabel
-                : loc.genericSaveButtonLabel,
+            text: _isUpdating ? loc.genericUpdateButtonLabel : loc.genericSaveButtonLabel,
             buttonType: ButtonType.primary,
             onPressed: _submit,
           ),

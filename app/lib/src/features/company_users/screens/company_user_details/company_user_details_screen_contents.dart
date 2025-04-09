@@ -7,10 +7,7 @@ import 'package:irrigazione_iot/src/shared/widgets/details_tile_widget.dart';
 import 'package:irrigazione_iot/src/shared/widgets/responsive_details_card.dart';
 
 class CompanyUserDetailsScreenContents extends ConsumerWidget {
-  const CompanyUserDetailsScreenContents({
-    super.key,
-    required this.user,
-  });
+  const CompanyUserDetailsScreenContents({super.key, required this.user});
 
   final CompanyUser user;
 
@@ -19,38 +16,24 @@ class CompanyUserDetailsScreenContents extends ConsumerWidget {
     final dateFormatter = ref.watch(dateFormatWithTimeProvider);
     final loc = context.loc;
     return SliverList(
-      delegate: SliverChildListDelegate(
-        [
-          ResponsiveDetailsCard(
-            child: DetailTileWidget(
-              title: loc.companyUserEmail,
-              subtitle: user.email,
-            ),
+      delegate: SliverChildListDelegate([
+        ResponsiveDetailsCard(child: DetailTileWidget(title: loc.companyUserEmail, subtitle: user.email)),
+        ResponsiveDetailsCard(
+          child: DetailTileWidget(title: loc.companyUserAssignedRoleForDetails, subtitle: user.role.name),
+        ),
+        ResponsiveDetailsCard(
+          child: DetailTileWidget(
+            title: loc.companyUserAddedOn,
+            subtitle: user.createdAt == null ? 'N/A' : dateFormatter.format(user.createdAt!),
           ),
-          ResponsiveDetailsCard(
-            child: DetailTileWidget(
-              title: loc.companyUserAssignedRoleForDetails,
-              subtitle: user.role.name,
-            ),
+        ),
+        ResponsiveDetailsCard(
+          child: DetailTileWidget(
+            title: loc.companyUserLastUpdated,
+            subtitle: user.updatedAt == null ? "N/A" : dateFormatter.format(user.updatedAt!),
           ),
-          ResponsiveDetailsCard(
-            child: DetailTileWidget(
-              title: loc.companyUserAddedOn,
-              subtitle: user.createdAt == null
-                  ? 'N/A'
-                  : dateFormatter.format(user.createdAt!),
-            ),
-          ),
-          ResponsiveDetailsCard(
-            child: DetailTileWidget(
-              title: loc.companyUserLastUpdated,
-              subtitle: user.updatedAt == null
-                  ? "N/A"
-                  : dateFormatter.format(user.updatedAt!),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 }

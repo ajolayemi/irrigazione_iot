@@ -37,10 +37,7 @@ abstract class BoardRepository {
 
   /// Gets a list of all [Collector]s that are not yet connected to a [Board]
   /// This is used when a user wants to connect a collector to a board
-  Future<List<Collector>?> getAvailableCollectors({
-    required String companyId,
-    String? alreadyConnectedCollectorId,
-  });
+  Future<List<Collector>?> getAvailableCollectors({required String companyId, String? alreadyConnectedCollectorId});
 
   /// Returns a list of already used board names for a specified company
   /// this is used in form validation to prevent duplicate board names for a company
@@ -62,19 +59,13 @@ FutureOr<List<Board>?> boardsList(Ref ref) {
 }
 
 @riverpod
-FutureOr<Board?> collectorBoard(
-  Ref ref, {
-  required String collectorId,
-}) {
+FutureOr<Board?> collectorBoard(Ref ref, {required String collectorId}) {
   final repo = ref.watch(boardRepositoryProvider);
   return repo.getBoardByCollectorId(collectorId: collectorId);
 }
 
 @Riverpod(keepAlive: true)
-Future<Board?> board(
-  Ref ref, {
-  required String boardId,
-}) {
+Future<Board?> board(Ref ref, {required String boardId}) {
   final boardRepository = ref.watch(boardRepositoryProvider);
   return boardRepository.getBoard(boardId: boardId);
 }
@@ -82,12 +73,8 @@ Future<Board?> board(
 /// gets a list of all collectors that are not yet connected
 /// to a [Board]
 @riverpod
-Future<List<Collector>?> availableCollectorsFuture(
-  Ref ref, {
-  String? alreadyConnectedCollectorId,
-}) {
-  final currentSelectedCompany =
-      ref.watch(currentTappedCompanyProvider).valueOrNull;
+Future<List<Collector>?> availableCollectorsFuture(Ref ref, {String? alreadyConnectedCollectorId}) {
+  final currentSelectedCompany = ref.watch(currentTappedCompanyProvider).valueOrNull;
   if (currentSelectedCompany == null) return Future.value([]);
   final boardRepository = ref.watch(boardRepositoryProvider);
   return boardRepository.getAvailableCollectors(

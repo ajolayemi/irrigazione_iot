@@ -12,12 +12,9 @@ class SectorDetailsLastPressureCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loc = context.loc;
-    final lastPressure =
-        ref.watch(sectorLastPressureStreamProvider(sectorId)).valueOrNull;
+    final lastPressure = ref.watch(sectorLastPressureStreamProvider(sectorId)).valueOrNull;
     return ResponsiveDetailsCard(
-      child: DetailTileWidget(
-          title: loc.pressure,
-          subtitle: '${lastPressure?.pressure.toString() ?? '0'} bar'),
+      child: DetailTileWidget(title: loc.pressure, subtitle: '${lastPressure?.pressure.toString() ?? '0'} bar'),
     );
   }
 }

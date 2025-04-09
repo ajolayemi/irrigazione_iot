@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomScrollViewWithRefreshIndicator extends StatelessWidget {
-  const CustomScrollViewWithRefreshIndicator({
-    super.key,
-    required this.onRefresh,
-    required this.slivers,
-  });
+  const CustomScrollViewWithRefreshIndicator({super.key, required this.onRefresh, required this.slivers});
 
   final Future<void> Function() onRefresh;
   final List<Widget> slivers;
@@ -15,9 +11,7 @@ class CustomScrollViewWithRefreshIndicator extends StatelessWidget {
     return RefreshIndicator.adaptive(
       onRefresh: onRefresh,
       notificationPredicate: defaultScrollNotificationPredicate,
-      child: CustomScrollView(
-        slivers: slivers,
-      ),
+      child: CustomScrollView(slivers: slivers),
     );
   }
 }

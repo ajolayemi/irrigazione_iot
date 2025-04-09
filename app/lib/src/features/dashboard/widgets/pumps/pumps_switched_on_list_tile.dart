@@ -14,28 +14,19 @@ import 'package:irrigazione_iot/src/shared/widgets/common_responsive_divider.dar
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 class PumpSwitchedOnListTile extends ConsumerWidget {
-  const PumpSwitchedOnListTile({
-    super.key,
-    required this.pumpSwitchedOn,
-  });
+  const PumpSwitchedOnListTile({super.key, required this.pumpSwitchedOn});
 
   final PumpSwitchedOn pumpSwitchedOn;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = context.textTheme;
-    final pump =
-        ref.watch(pumpFutureProvider(pumpSwitchedOn.pumpId)).valueOrNull;
+    final pump = ref.watch(pumpFutureProvider(pumpSwitchedOn.pumpId)).valueOrNull;
     if (pump == null) return Container();
 
     return DashboardChildItemListTile(
       title: DashboardChildItemDetailsRow(
-        leading: PumpTileTitle(
-          pump: pump,
-          style: textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        leading: PumpTileTitle(pump: pump, style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
         trailing: PumpTileTrailingButton(pump: pump),
       ),
       subtitle: Column(
@@ -44,12 +35,7 @@ class PumpSwitchedOnListTile extends ConsumerWidget {
           gapH8,
           Visibility(
             visible: pump.hasFilter,
-            child: Column(
-              children: [
-                PumpPressureRate(pumpId: pump.id),
-                const CommonResponsiveDivider(),
-              ],
-            ),
+            child: Column(children: [PumpPressureRate(pumpId: pump.id), const CommonResponsiveDivider()]),
           ),
           PumpFlowRate(pumpId: pump.id),
           const CommonResponsiveDivider(),

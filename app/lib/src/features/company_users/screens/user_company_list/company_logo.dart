@@ -11,14 +11,7 @@ class CompanyLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     final processedImageUrl = getLocalhostFriendlyImageUrl(imageUrl);
     return processedImageUrl.startsWith('http')
-        ? CircleAvatar(
-            backgroundImage: CachedNetworkImageProvider(processedImageUrl),
-          )
-        : CircleAvatar(
-            child: Image.asset(
-              processedImageUrl,
-              fit: BoxFit.cover,
-            ),
-          );
+        ? CircleAvatar(backgroundImage: CachedNetworkImageProvider(processedImageUrl))
+        : CircleAvatar(child: Image.asset(processedImageUrl, fit: BoxFit.cover));
   }
 }

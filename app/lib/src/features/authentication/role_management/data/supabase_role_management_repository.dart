@@ -19,66 +19,41 @@ class SupabaseRoleManagementRepository implements RoleManagementRepository {
   String get _superuserTable => SuperuserDatabaseKeys.table;
 
   @override
-  Stream<CompanyUserRole?> watchUserCompanyRole(
-      String email, String companyId) {
-    final usersPertainingToCompany = _supabaseClient.companyUsers.stream(
-      primaryKey: [_companyUsersTablePk],
-    ).eq(
-      _companyUsersCompanyId,
-      companyId,
-    );
+  Stream<CompanyUserRole?> watchUserCompanyRole(String email, String companyId) {
+    final usersPertainingToCompany = _supabaseClient.companyUsers
+        .stream(primaryKey: [_companyUsersTablePk])
+        .eq(_companyUsersCompanyId, companyId);
 
     final thisUser = usersPertainingToCompany.where(
       (data) => data.map((companyUser) => companyUser['email']).contains(email),
     );
 
-    return thisUser.map(
-      (data) => data.isEmpty ? null : CompanyUser.fromJson(data.first).role,
-    );
+    return thisUser.map((data) => data.isEmpty ? null : CompanyUser.fromJson(data.first).role);
   }
 
   @override
   Stream<SuperUser?> watchSuperuser(String email) {
     final superUserStream = _supabaseClient
         .from(_superuserTable)
-        .stream(
-          primaryKey: [_superusersTablePk],
-        )
-        .eq(
-          _superuserEmail,
-          email,
-        )
+        .stream(primaryKey: [_superusersTablePk])
+        .eq(_superuserEmail, email)
         .limit(1);
 
-    return superUserStream.map(
-      (data) => data.isEmpty
-          ? null
-          : SuperUser.fromJson(
-              data.first,
-            ),
-    );
+    return superUserStream.map((data) => data.isEmpty ? null : SuperUser.fromJson(data.first));
   }
 
   @override
   Stream<bool> isBasicUser(String email, String companyId) =>
-      watchUserCompanyRole(email, companyId).map(
-        (role) => role?.isUser ?? false,
-      );
+      watchUserCompanyRole(email, companyId).map((role) => role?.isUser ?? false);
 
   @override
   Stream<bool> isUserAdmin(String email, String companyId) =>
-      watchUserCompanyRole(email, companyId).map(
-        (role) => role?.isAdmin ?? false,
-      );
+      watchUserCompanyRole(email, companyId).map((role) => role?.isAdmin ?? false);
 
   @override
   Stream<bool> isUserOwner(String email, String companyId) =>
-      watchUserCompanyRole(email, companyId).map(
-        (role) => role?.isOwner ?? false,
-      );
+      watchUserCompanyRole(email, companyId).map((role) => role?.isOwner ?? false);
 
   @override
-  Stream<bool> isUserSuperuser(String email) => watchSuperuser(email).map(
-        (superuser) => superuser != null,
-      );
+  Stream<bool> isUserSuperuser(String email) => watchSuperuser(email).map((superuser) => superuser != null);
 }

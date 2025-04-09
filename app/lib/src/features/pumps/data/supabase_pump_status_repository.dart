@@ -8,24 +8,15 @@ import 'package:irrigazione_iot/src/shared/models/item_status_request.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabasePumpStatusRepository implements PumpStatusRepository {
-  const SupabasePumpStatusRepository(
-    this._supabaseClient,
-    this._mqttService,
-  );
+  const SupabasePumpStatusRepository(this._supabaseClient, this._mqttService);
   final SupabaseClient _supabaseClient;
   final MqttClientService _mqttService;
 
   @override
-  Future<void> togglePumpStatus({
-    required ItemStatusRequest statusBody,
-  }) async {
+  Future<void> togglePumpStatus({required ItemStatusRequest statusBody}) async {
     final mqttClient = await _mqttService.connect();
 
-    await _mqttService.publishMessage(
-      mqttClient,
-      statusBody.topic,
-      statusBody.toJson(),
-    );
+    await _mqttService.publishMessage(mqttClient, statusBody.topic, statusBody.toJson());
 
     return;
   }

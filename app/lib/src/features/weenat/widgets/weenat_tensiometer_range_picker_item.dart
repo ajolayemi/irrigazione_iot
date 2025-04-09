@@ -27,18 +27,13 @@ class WeenatTensiometerRangePickerItem extends StatelessWidget {
       onTap: isClickable ? () => onTap?.call(label) : null,
       child: Container(
         width: 40,
-        padding: padding ?? const EdgeInsets.symmetric(
-          horizontal: Sizes.p8,
-          vertical: Sizes.p8,
-        ),
+        padding: padding ?? const EdgeInsets.symmetric(horizontal: Sizes.p8, vertical: Sizes.p8),
         decoration: decoration,
         child: Text(
           label,
-          textScaler: const TextScaler.linear(1) ,
+          textScaler: const TextScaler.linear(1),
           textAlign: TextAlign.center,
-          style: textTheme.labelMedium?.copyWith(
-            color: labelColor ?? AppColorsPalette.black,
-          ),
+          style: textTheme.labelMedium?.copyWith(color: labelColor ?? AppColorsPalette.black),
         ),
       ),
     );

@@ -28,84 +28,69 @@ class MoreOptionsScreenContent extends ConsumerWidget {
             slivers: [
               AppSliverBar(title: loc.morePageTitle),
               SliverList(
-                delegate: SliverChildListDelegate.fixed(
-                  [
-                    MorePageItemListTile(
-                      title: loc.iotBoardsMenuTitle,
-                      onTap: () => context.pushNamed(
-                        AppRoute.boards.name,
-                      ),
-                      leadingIcon: Icons.device_hub,
-                    ),
-                    MorePageItemListTile(
-                      title: loc.weatherStationPageTitle,
-                      onTap: () => context.pushNamed(
-                        AppRoute.weatherStations.name,
-                      ),
-                      leadingIcon: Icons.wb_sunny,
-                    ),
-                    Consumer(
-                      builder: (context, ref, child) {
-                        final hasToken = ref.watch(hasWeenatTokenProvider);
-                        return MorePageItemListTile(
-                          title: loc.weenat,
-                          onTap: () {
-                            // If there is no already saved token for current user
-                            // take user to weenat auth page
-                            if (!hasToken) {
-                              context.pushNamed(AppRoute.weenatAuth.name);
-                              return;
-                            }
+                delegate: SliverChildListDelegate.fixed([
+                  MorePageItemListTile(
+                    title: loc.iotBoardsMenuTitle,
+                    onTap: () => context.pushNamed(AppRoute.boards.name),
+                    leadingIcon: Icons.device_hub,
+                  ),
+                  MorePageItemListTile(
+                    title: loc.weatherStationPageTitle,
+                    onTap: () => context.pushNamed(AppRoute.weatherStations.name),
+                    leadingIcon: Icons.wb_sunny,
+                  ),
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final hasToken = ref.watch(hasWeenatTokenProvider);
+                      return MorePageItemListTile(
+                        title: loc.weenat,
+                        onTap: () {
+                          // If there is no already saved token for current user
+                          // take user to weenat auth page
+                          if (!hasToken) {
+                            context.pushNamed(AppRoute.weenatAuth.name);
+                            return;
+                          }
 
-                            // Otherwise, take them directly to map page
-                            context.pushNamed(AppRoute.weenatMap.name);
-                          },
-                          // TODO: fix icon here
-                          leadingIcon: Icons.abc,
-                        );
-                      },
-                    ),
+                          // Otherwise, take them directly to map page
+                          context.pushNamed(AppRoute.weenatMap.name);
+                        },
+                        // TODO: fix icon here
+                        leadingIcon: Icons.abc,
+                      );
+                    },
+                  ),
 
-                    const CommonResponsiveDivider(),
-                    MorePageItemListTile(
-                      title: loc.profilePageTitle,
-                      onTap: () => context.pushNamed(
-                        AppRoute.profile.name,
-                      ),
-                      leadingIcon: Icons.person,
-                    ),
+                  const CommonResponsiveDivider(),
+                  MorePageItemListTile(
+                    title: loc.profilePageTitle,
+                    onTap: () => context.pushNamed(AppRoute.profile.name),
+                    leadingIcon: Icons.person,
+                  ),
 
-                    // Page to view the details of the company profile the user is currently
-                    // working with
-                    Consumer(
-                      builder: (context, ref, child) {
-                        final uid =
-                            ref.watch(authRepositoryProvider).currentUser?.uid;
-                        final companyId = ref
-                            .watch(selectedCompanyRepositoryProvider)
-                            .loadSelectedCompanyId(uid!);
-                        return MorePageItemListTile(
-                          title: loc.companyProfileMenuTitle,
-                          onTap: () {
-                            final params =
-                                PathParameters(id: companyId ?? '').toJson();
-                            context.pushNamed(
-                              AppRoute.companyProfile.name,
-                              pathParameters: params,
-                            );
-                          },
-                          leadingIcon: Icons.business,
-                        );
-                      },
-                    ),
-                    const CompanyUsersMoreOptionItem(),
-                    // MorePageItemListTile(
-                    //   title: loc.settingsMenuTitle,
-                    //   onTap: () => _showNotImplemented(context),
-                    //   leadingIcon: Icons.settings,
-                    // )
-                  ],
-                ),
+                  // Page to view the details of the company profile the user is currently
+                  // working with
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final uid = ref.watch(authRepositoryProvider).currentUser?.uid;
+                      final companyId = ref.watch(selectedCompanyRepositoryProvider).loadSelectedCompanyId(uid!);
+                      return MorePageItemListTile(
+                        title: loc.companyProfileMenuTitle,
+                        onTap: () {
+                          final params = PathParameters(id: companyId ?? '').toJson();
+                          context.pushNamed(AppRoute.companyProfile.name, pathParameters: params);
+                        },
+                        leadingIcon: Icons.business,
+                      );
+                    },
+                  ),
+                  const CompanyUsersMoreOptionItem(),
+                  // MorePageItemListTile(
+                  //   title: loc.settingsMenuTitle,
+                  //   onTap: () => _showNotImplemented(context),
+                  //   leadingIcon: Icons.settings,
+                  // )
+                ]),
               ),
             ],
           ),

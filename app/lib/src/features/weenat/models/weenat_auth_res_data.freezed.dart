@@ -15,46 +15,47 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$WeenatAuthResData {
-  String? get token;
 
-  /// Create a copy of WeenatAuthResData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $WeenatAuthResDataCopyWith<WeenatAuthResData> get copyWith =>
-      _$WeenatAuthResDataCopyWithImpl<WeenatAuthResData>(
-          this as WeenatAuthResData, _$identity);
+ String? get token;
+/// Create a copy of WeenatAuthResData
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$WeenatAuthResDataCopyWith<WeenatAuthResData> get copyWith => _$WeenatAuthResDataCopyWithImpl<WeenatAuthResData>(this as WeenatAuthResData, _$identity);
 
   /// Serializes this WeenatAuthResData to a JSON map.
   Map<String, dynamic> toJson();
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is WeenatAuthResData &&
-            (identical(other.token, token) || other.token == token));
-  }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, token);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeenatAuthResData&&(identical(other.token, token) || other.token == token));
+}
 
-  @override
-  String toString() {
-    return 'WeenatAuthResData(token: $token)';
-  }
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,token);
+
+@override
+String toString() {
+  return 'WeenatAuthResData(token: $token)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class $WeenatAuthResDataCopyWith<$Res> {
-  factory $WeenatAuthResDataCopyWith(
-          WeenatAuthResData value, $Res Function(WeenatAuthResData) _then) =
-      _$WeenatAuthResDataCopyWithImpl;
-  @useResult
-  $Res call({String? token});
-}
+abstract mixin class $WeenatAuthResDataCopyWith<$Res>  {
+  factory $WeenatAuthResDataCopyWith(WeenatAuthResData value, $Res Function(WeenatAuthResData) _then) = _$WeenatAuthResDataCopyWithImpl;
+@useResult
+$Res call({
+ String? token
+});
 
+
+
+
+}
 /// @nodoc
 class _$WeenatAuthResDataCopyWithImpl<$Res>
     implements $WeenatAuthResDataCopyWith<$Res> {
@@ -63,76 +64,67 @@ class _$WeenatAuthResDataCopyWithImpl<$Res>
   final WeenatAuthResData _self;
   final $Res Function(WeenatAuthResData) _then;
 
-  /// Create a copy of WeenatAuthResData
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? token = freezed,
-  }) {
-    return _then(_self.copyWith(
-      token: freezed == token
-          ? _self.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
+/// Create a copy of WeenatAuthResData
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? token = freezed,}) {
+  return _then(_self.copyWith(
+token: freezed == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
 }
+
+}
+
 
 /// @nodoc
 @JsonSerializable()
+
 class _WeenatAuthResData implements WeenatAuthResData {
   const _WeenatAuthResData({this.token});
-  factory _WeenatAuthResData.fromJson(Map<String, dynamic> json) =>
-      _$WeenatAuthResDataFromJson(json);
+  factory _WeenatAuthResData.fromJson(Map<String, dynamic> json) => _$WeenatAuthResDataFromJson(json);
 
-  @override
-  final String? token;
+@override final  String? token;
 
-  /// Create a copy of WeenatAuthResData
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$WeenatAuthResDataCopyWith<_WeenatAuthResData> get copyWith =>
-      __$WeenatAuthResDataCopyWithImpl<_WeenatAuthResData>(this, _$identity);
+/// Create a copy of WeenatAuthResData
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$WeenatAuthResDataCopyWith<_WeenatAuthResData> get copyWith => __$WeenatAuthResDataCopyWithImpl<_WeenatAuthResData>(this, _$identity);
 
-  @override
-  Map<String, dynamic> toJson() {
-    return _$WeenatAuthResDataToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$WeenatAuthResDataToJson(this, );
+}
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _WeenatAuthResData &&
-            (identical(other.token, token) || other.token == token));
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeenatAuthResData&&(identical(other.token, token) || other.token == token));
+}
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, token);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,token);
 
-  @override
-  String toString() {
-    return 'WeenatAuthResData(token: $token)';
-  }
+@override
+String toString() {
+  return 'WeenatAuthResData(token: $token)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class _$WeenatAuthResDataCopyWith<$Res>
-    implements $WeenatAuthResDataCopyWith<$Res> {
-  factory _$WeenatAuthResDataCopyWith(
-          _WeenatAuthResData value, $Res Function(_WeenatAuthResData) _then) =
-      __$WeenatAuthResDataCopyWithImpl;
-  @override
-  @useResult
-  $Res call({String? token});
-}
+abstract mixin class _$WeenatAuthResDataCopyWith<$Res> implements $WeenatAuthResDataCopyWith<$Res> {
+  factory _$WeenatAuthResDataCopyWith(_WeenatAuthResData value, $Res Function(_WeenatAuthResData) _then) = __$WeenatAuthResDataCopyWithImpl;
+@override @useResult
+$Res call({
+ String? token
+});
 
+
+
+
+}
 /// @nodoc
 class __$WeenatAuthResDataCopyWithImpl<$Res>
     implements _$WeenatAuthResDataCopyWith<$Res> {
@@ -141,20 +133,16 @@ class __$WeenatAuthResDataCopyWithImpl<$Res>
   final _WeenatAuthResData _self;
   final $Res Function(_WeenatAuthResData) _then;
 
-  /// Create a copy of WeenatAuthResData
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? token = freezed,
-  }) {
-    return _then(_WeenatAuthResData(
-      token: freezed == token
-          ? _self.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
+/// Create a copy of WeenatAuthResData
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? token = freezed,}) {
+  return _then(_WeenatAuthResData(
+token: freezed == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
 }
 
 // dart format on
