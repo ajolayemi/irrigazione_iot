@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/data/datasource/dao/mqtt_dao.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/supabase_pump_statistic_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_pressure.dart';
 import 'package:irrigazione_iot/src/shared/providers/supabase_client_provider.dart';
@@ -18,11 +19,11 @@ PumpStatisticRepository pumpStatisticRepository(
   return SupabasePumpStatisticRepository(supabaseClient);
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 Stream<PumpPressure?> pumpLastPressureStream(
   PumpLastPressureStreamRef ref,
   String pumpId,
 ) {
-  final pumpStatisticRepository = ref.read(pumpStatisticRepositoryProvider);
-  return pumpStatisticRepository.watchLastPumpPressure(pumpId);
+  final mqttDao = ref.watch(mqttDaoProvider);
+  return mqttDao.watchPumpPressure(pumpId);
 }

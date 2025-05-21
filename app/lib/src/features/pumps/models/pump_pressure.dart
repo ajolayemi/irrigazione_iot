@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/data/datasource/entities/mqtt_entities.dart';
 import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -14,7 +15,7 @@ class PumpPressure extends Equatable {
     required this.pumpId,
     required this.filterInPressure,
     required this.filterOutPressure,
-  this.createdAt,
+    this.createdAt,
   }) : pressureDifference = filterInPressure - filterOutPressure;
 
   @JsonKey(name: PumpPressureDatabaseKeys.id, includeToJson: false)
@@ -33,7 +34,7 @@ class PumpPressure extends Equatable {
 
   @JsonKey(name: PumpPressureDatabaseKeys.pressureDifference)
   final double pressureDifference;
-  
+
   @JsonKey(name: PumpPressureDatabaseKeys.createdAt)
   final DateTime? createdAt;
 
@@ -53,4 +54,30 @@ class PumpPressure extends Equatable {
       _$PumpPressureFromJson(json);
 
   Map<String, dynamic> toJson() => _$PumpPressureToJson(this);
+
+  factory PumpPressure.fromEntity(MqttPumpPressure? entity) {
+    return PumpPressure(
+      id: entity?.id.toString() ?? '',
+      pumpId: entity?.pumpId ?? '',
+      filterInPressure: entity?.filterInPressure ?? 0,
+      filterOutPressure: entity?.filterOutPressure ?? 0,
+      createdAt: entity?.createdAt,
+    );
+  }
+
+  MqttPumpPressure toEntity() {
+    return MqttPumpPressure()
+      ..createdAt = createdAt
+      ..filterInPressure = filterInPressure
+      ..filterOutPressure = filterOutPressure
+      ..pumpId = pumpId
+      ..pressureDifference = pressureDifference
+      ..id = int.tryParse(id);
+  }
+}
+
+extension PumpPressureListX on List<PumpPressure> {
+  List<MqttPumpPressure> toEntity() {
+    return map((e) => e.toEntity()).toList();
+  }
 }

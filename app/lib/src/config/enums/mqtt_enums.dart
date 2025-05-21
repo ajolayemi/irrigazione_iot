@@ -1,6 +1,11 @@
 enum MqttMessageTypes {
   pumpStatus('pump_status'),
-  sectorStatus('sector_status');
+  sectorStatus('sector_status'),
+  pumpFlow('pump_flow'),
+  pumpPressure('pump_pressure'),
+  collectorPressure('collector_pressure'),
+  sectorPressure('sector_pressure'),
+  terminalPressure('terminal_pressure');
 
   final String type;
   const MqttMessageTypes(this.type);
