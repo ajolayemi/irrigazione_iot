@@ -61,7 +61,7 @@ class PumpFlow extends Equatable {
   }
   MqttPumpFlow toEntity() {
     return MqttPumpFlow()
-      ..id = int.parse(id)
+      ..id = int.tryParse(id)
       ..pumpId = pumpId
       ..flow = flow
       ..litresPerSecond = litresPerSecond
