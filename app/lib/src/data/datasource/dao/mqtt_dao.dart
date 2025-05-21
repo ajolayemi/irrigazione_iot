@@ -1,7 +1,9 @@
 import 'package:irrigazione_iot/src/data/datasource/dao/app_abstract_dao.dart';
 import 'package:irrigazione_iot/src/data/datasource/entities/mqtt_entities.dart';
 import 'package:irrigazione_iot/src/features/dashboard/models/pump_switched_on.dart';
+import 'package:irrigazione_iot/src/features/dashboard/models/sector_switched_on.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_status.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_status.dart';
 import 'package:isar/isar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -9,6 +11,30 @@ part 'mqtt_dao.g.dart';
 
 class MqttDao extends AppAbstractDao {
   Isar? get _db => dbInstance;
+
+  Stream<List<SectorSwitchedOn>?> watchSectorsSwitchedOn({
+    String? companyId,
+    bool status = true,
+  }) {
+    if (companyId == null || companyId.isEmpty) {
+      return Stream.value(null);
+    }
+    final query = _db?.mqttSectorSwitchedOns.filter().item((q) {
+      return q.companyIdEqualTo(companyId).statusBooleanEqualTo(status);
+    }).build();
+
+    if (query == null) {
+      return Stream.value(null);
+    }
+
+    return query.watch(fireImmediately: true).map((events) {
+      if (events.isEmpty) {
+        return null;
+      }
+
+      return events.toModel();
+    });
+  }
 
   Stream<List<PumpSwitchedOn>?> watchPumpsSwitchedOn({
     String? companyId,
@@ -34,9 +60,23 @@ class MqttDao extends AppAbstractDao {
     });
   }
 
-  Stream<PumpStatus?> watchPumpStatus(
-    String pumpId,
-  ) {
+  Stream<SectorStatus?> watchSectorStatus(String sectorId) {
+    final query = _db?.mqttSectorStatus.filter().status((q) {
+      return q.itemIdEqualTo(sectorId);
+    }).build();
+    if (query == null) {
+      return Stream.value(null);
+    }
+    return query.watch(fireImmediately: true).map((events) {
+      if (events.isEmpty) {
+        return null;
+      }
+      final last = events.last;
+      return SectorStatus.fromEntity(last);
+    });
+  }
+
+  Stream<PumpStatus?> watchPumpStatus(String pumpId) {
     final query = _db?.mqttPumpStatus.filter().status((q) {
       return q.itemIdEqualTo(pumpId);
     }).build();
@@ -66,6 +106,18 @@ class MqttDao extends AppAbstractDao {
     );
   }
 
+  Future<void> insertSectorsSwitchedOn({
+    required List<SectorSwitchedOn> data,
+  }) async {
+    if (data.isEmpty) return;
+
+    await _db?.writeTxn(
+      () async => await _db?.mqttSectorSwitchedOns.putAll(
+        data.toEntities(),
+      ),
+    );
+  }
+
   Future<void> insertPumpStatuses({
     required List<PumpStatus> statuses,
   }) async {
@@ -80,9 +132,26 @@ class MqttDao extends AppAbstractDao {
     );
   }
 
-  Future<void> clearMqttStatus() async {
+  Future<void> insertSectorStatuses({
+    required List<SectorStatus> statuses,
+  }) async {
+    if (statuses.isEmpty) {
+      return;
+    }
+
+    await _db?.writeTxn(
+      () async => await _db?.mqttSectorStatus.putAll(
+        statuses.toMqttStatuses(),
+      ),
+    );
+  }
+
+  Future<void> clearMqttDao() async {
     await _db?.writeTxn(() async {
       await _db?.mqttPumpStatus.clear();
+      await _db?.mqttPumpSwitchedOns.clear();
+      await _db?.mqttSectorStatus.clear();
+      await _db?.mqttSectorSwitchedOns.clear();
     });
   }
 }

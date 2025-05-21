@@ -35,16 +35,15 @@ Stream<List<PumpSwitchedOn>?> pumpsSwitchedOnStream(
   );
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 Stream<List<SectorSwitchedOn>?> sectorsSwitchedOnStream(
   SectorsSwitchedOnStreamRef ref,
 ) {
   final currentSelectedCompanyByUser =
       ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return Stream.value([]);
-  final dashboardRepo = ref.watch(dashboardRepositoryProvider);
-  final data = dashboardRepo.watchSectorsSwitchedOn(
-    currentSelectedCompanyByUser.id,
+  final mqttDao = ref.watch(mqttDaoProvider);
+  return mqttDao.watchSectorsSwitchedOn(
+    companyId: currentSelectedCompanyByUser.id,
   );
-  return data;
 }

@@ -1,5 +1,7 @@
 import 'package:irrigazione_iot/src/features/dashboard/models/pump_switched_on.dart';
+import 'package:irrigazione_iot/src/features/dashboard/models/sector_switched_on.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_status.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_status.dart';
 import 'package:isar/isar.dart';
 
 part 'mqtt_entities.g.dart';
@@ -12,8 +14,22 @@ class MqttPumpStatus {
 }
 
 @collection
+class MqttSectorStatus {
+  Id? id;
+
+  MqttStatus? status;
+}
+
+@collection
 class MqttPumpSwitchedOn {
   /// Item id to be used as unique identifier
+  Id? id;
+
+  MqttItemSwitchedOn? item;
+}
+
+@collection
+class MqttSectorSwitchedOn {
   Id? id;
 
   MqttItemSwitchedOn? item;
@@ -41,14 +57,26 @@ class MqttStatus {
   String? itemId;
 }
 
-extension MqttEntitiesExt on List<MqttPumpStatus> {
+extension MqttPumpStatusExt on List<MqttPumpStatus> {
   List<PumpStatus> toModel() {
     return map((e) => PumpStatus.fromEntity(e)).toList();
+  }
+}
+
+extension MqttSectorStatusExt on List<MqttSectorStatus> {
+  List<SectorStatus> toModel() {
+    return map((e) => SectorStatus.fromEntity(e)).toList();
   }
 }
 
 extension PumpsSwitchedOnExt on List<MqttPumpSwitchedOn> {
   List<PumpSwitchedOn> toModel() {
     return map((e) => PumpSwitchedOn.fromEntity(e)).toList();
+  }
+}
+
+extension SectorsSwitchedOnExt on List<MqttSectorSwitchedOn> {
+  List<SectorSwitchedOn> toModel() {
+    return map((e) => SectorSwitchedOn.fromEntity(e)).toList();
   }
 }

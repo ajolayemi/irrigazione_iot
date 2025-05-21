@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/data/datasource/dao/mqtt_dao.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/supabase_sector_status_repository.dart';
@@ -31,11 +32,16 @@ SectorStatusRepository sectorStatusRepository(SectorStatusRepositoryRef ref) {
   );
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 Stream<SectorStatus?> sectorStatusStream(
   SectorStatusStreamRef ref,
-  String sectorId,
+  String? sectorId,
 ) {
-  final sectorStatusRepository = ref.watch(sectorStatusRepositoryProvider);
-  return sectorStatusRepository.watchSectorStatus(sectorId);
+  final mqttDao = ref.watch(mqttDaoProvider);
+
+  if (sectorId == null) {
+    return Stream.value(null);
+  }
+
+  return mqttDao.watchSectorStatus(sectorId);
 }

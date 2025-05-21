@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_status.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -35,14 +36,14 @@ class MqttService {
   /// The client is disconnected after the message is published.
   ///
   /// Returns the message ID of the published message.˚
-  Future<int> publishMessage({
+  Future<int?> publishMessage({
     required String topic,
     required Map<String, dynamic> message,
     MqttServerClient? client,
   }) async {
     if (client == null) {
       debugPrint('MQTT client is null');
-      throw Exception('MQTT client is null');
+      return Future.value(null);
     }
     try {
       final builder = MqttClientPayloadBuilder();
@@ -114,6 +115,7 @@ class MqttService {
     List<MqttReceivedMessage<MqttMessage>> data,
   ) async {
     List<PumpStatus> pumpStatuses = [];
+    List<SectorStatus> sectorStatuses = [];
 
     for (final item in data) {
       final recordMsg = item.payload;
@@ -134,22 +136,42 @@ class MqttService {
           case MqttMessageTypes.pumpStatus:
           case MqttMessageTypes.sectorStatus:
             final statusObj = ItemStatusRequest.fromJson(decoded);
-            final pStatus = PumpStatus(
-              id: '',
-              pumpId: statusObj.itemId,
-              status: statusObj.message,
-              statusBoolean: statusObj.statusBoolean,
-              companyId: statusObj.companyId,
-            );
-            pumpStatuses.add(pStatus);
+
+            if (messageType.isPumpStatus) {
+              final pStatus = PumpStatus(
+                id: '',
+                pumpId: statusObj.itemId,
+                status: statusObj.message,
+                statusBoolean: statusObj.statusBoolean,
+                companyId: statusObj.companyId,
+              );
+              pumpStatuses.add(pStatus);
+            } else if (messageType.isSectorStatus) {
+              final secStatus = SectorStatus(
+                id: '',
+                sectorId: statusObj.itemId,
+                status: statusObj.message,
+                statusBoolean: statusObj.statusBoolean,
+                companyId: statusObj.companyId,
+              );
+              sectorStatuses.add(secStatus);
+            }
             break;
         }
       }
     }
-    await _mqttDao.insertPumpStatuses(statuses: pumpStatuses);
-    await _mqttDao.insertPumpsSwitchedOn(
-      data: pumpStatuses.toPumpsSwitchedOn(),
-    );
+
+    if (pumpStatuses.isNotEmpty) {
+      await _mqttDao.insertPumpStatuses(statuses: pumpStatuses);
+      await _mqttDao.insertPumpsSwitchedOn(
+        data: pumpStatuses.toPumpsSwitchedOn(),
+      );
+    } else if (sectorStatuses.isNotEmpty) {
+      await _mqttDao.insertSectorStatuses(statuses: sectorStatuses);
+      await _mqttDao.insertSectorsSwitchedOn(
+        data: sectorStatuses.toSectorsSwitchedOn(),
+      );
+    }
   }
 
   void _subscribeToTopics(MqttServerClient client) {

@@ -19,6 +19,8 @@ class LocalDbInstance {
         WeenatPlotSensorDataEntitySchema,
         MqttPumpStatusSchema,
         MqttPumpSwitchedOnSchema,
+        MqttSectorStatusSchema,
+        MqttSectorSwitchedOnSchema,
       ],
       directory: dir.path,
     );

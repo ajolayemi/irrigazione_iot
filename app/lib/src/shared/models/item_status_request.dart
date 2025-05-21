@@ -7,17 +7,20 @@ part 'item_status_request.g.dart';
 @JsonSerializable()
 class ItemStatusRequest {
   const ItemStatusRequest({
-    required this.topic,
     required this.message,
     required this.mqttMsgName,
     required this.messageType,
     required this.companyId,
     required this.itemId,
     required this.statusBoolean,
+    this.topic = '',
   });
 
   /// The topic to publish the message to.
-  @JsonKey(includeToJson: false)
+  @JsonKey(
+    includeFromJson: false,
+    includeToJson: false,
+  )
   final String topic;
 
   /// The status code to send to the MQTT broker.
