@@ -24,6 +24,7 @@ class LocalDbInstance {
         MqttPumpFlowSchema,
         MqttPumpPressureSchema,
         MqttCollectorPressureSchema,
+        MqttTerminalPressureSchema,
       ],
       directory: dir.path,
     );

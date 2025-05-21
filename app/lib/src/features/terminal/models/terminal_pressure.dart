@@ -1,7 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+import 'package:irrigazione_iot/src/data/datasource/entities/mqtt_entities.dart';
 import 'package:irrigazione_iot/src/features/terminal/models/terminal_pressure_database_keys.dart';
 import 'package:irrigazione_iot/src/utils/int_converter.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'terminal_pressure.g.dart';
 
@@ -24,7 +26,7 @@ class TerminalPressure extends Equatable {
 
   @JsonKey(name: TerminalPressureDatabaseKeys.pressure)
   final double pressure;
-  
+
   @JsonKey(name: TerminalPressureDatabaseKeys.createdAt)
   final DateTime? createdAt;
 
@@ -35,4 +37,27 @@ class TerminalPressure extends Equatable {
       _$TerminalPressureFromJson(json);
 
   Map<String, dynamic> toJson() => _$TerminalPressureToJson(this);
+
+  factory TerminalPressure.fromEntity(MqttTerminalPressure? entity) {
+    return TerminalPressure(
+      id: entity?.id.toString() ?? '',
+      collectorId: entity?.collectorId ?? '',
+      pressure: entity?.pressure ?? 0,
+      createdAt: entity?.createdAt,
+    );
+  }
+  MqttTerminalPressure toEntity() {
+    return MqttTerminalPressure()
+      ..id = int.tryParse(id)
+      ..collectorId = collectorId
+      ..pressure = pressure
+      ..createdAt = createdAt;
+  }
+}
+
+
+extension TerminalPressureListExt on List<TerminalPressure> {
+  List<MqttTerminalPressure> toEntities() {
+    return map((e) => e.toEntity()).toList();
+  }
 }

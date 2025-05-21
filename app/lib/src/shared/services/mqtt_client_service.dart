@@ -4,10 +4,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/features/collectors/models/collector_pressure.dart';
-import 'package:irrigazione_iot/src/features/pumps/models/pump_flow.dart';
-import 'package:irrigazione_iot/src/features/pumps/models/pump_pressure.dart';
-import 'package:irrigazione_iot/src/features/sectors/models/sector_status.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -17,7 +13,12 @@ import 'package:irrigazione_iot/env/env.dart';
 import 'package:irrigazione_iot/src/config/data/mqtt_configs.dart';
 import 'package:irrigazione_iot/src/config/enums/mqtt_enums.dart';
 import 'package:irrigazione_iot/src/data/datasource/dao/mqtt_dao.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector_pressure.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump_flow.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump_pressure.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_status.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_status.dart';
+import 'package:irrigazione_iot/src/features/terminal/models/terminal_pressure.dart';
 import 'package:irrigazione_iot/src/shared/models/item_status_request.dart';
 import 'package:irrigazione_iot/src/utils/extensions/string_extensions.dart';
 
@@ -122,6 +123,7 @@ class MqttService {
     List<PumpFlow> pumpFlows = [];
     List<PumpPressure> pumpPressures = [];
     List<CollectorPressure> collectorPressures = [];
+    List<TerminalPressure> terminalPressures = [];
 
     for (final item in data) {
       final recordMsg = item.payload;
@@ -177,6 +179,11 @@ class MqttService {
             final collectorPressure = CollectorPressure.fromJson(decoded);
             collectorPressures.add(collectorPressure);
             break;
+          case MqttMessageTypes.terminalPressure:
+            final terminalPressure = TerminalPressure.fromJson(decoded);
+            terminalPressures.add(terminalPressure);
+            break;
+
           default:
             break;
         }
@@ -199,6 +206,8 @@ class MqttService {
       await _mqttDao.insertPumpPressures(data: pumpPressures);
     } else if (collectorPressures.isNotEmpty) {
       await _mqttDao.insertCollectorPressures(data: collectorPressures);
+    } else if (terminalPressures.isNotEmpty) {
+      await _mqttDao.insertTerminalPressures(data: terminalPressures);
     }
   }
 
