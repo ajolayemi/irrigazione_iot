@@ -11,31 +11,31 @@ part 'pump_status.g.dart';
 @JsonSerializable()
 class PumpStatus extends Equatable {
   const PumpStatus({
-    required this.id,
-    required this.pumpId,
-    required this.status,
-    required this.statusBoolean,
-    required this.companyId,
+    this.id,
+    this.pumpId,
+    this.status,
+    this.statusBoolean,
+    this.companyId,
     this.createdAt,
   });
 
   @JsonKey(name: PumpStatusDatabaseKeys.id, includeToJson: false)
   @IntConverter()
-  final String id;
+  final String? id;
 
   @JsonKey(name: PumpStatusDatabaseKeys.pumpId)
   @IntConverter()
-  final String pumpId;
+  final String? pumpId;
 
   @JsonKey(name: PumpStatusDatabaseKeys.companyId)
   @IntConverter()
-  final String companyId;
+  final String? companyId;
 
   @JsonKey(name: PumpStatusDatabaseKeys.status)
-  final String status;
+  final String? status;
 
   @JsonKey(name: PumpStatusDatabaseKeys.statusBoolean)
-  final bool statusBoolean;
+  final bool? statusBoolean;
 
   @JsonKey(name: PumpStatusDatabaseKeys.createdAt)
   final DateTime? createdAt;
@@ -68,7 +68,7 @@ class PumpStatus extends Equatable {
       ..createdAt = createdAt;
     return MqttPumpStatus()
       ..status = mqttStatus
-      ..id = int.tryParse(id);
+      ..id = int.tryParse(id ?? '');
   }
 }
 

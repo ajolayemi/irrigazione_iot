@@ -58,6 +58,7 @@ class SectorStatusService {
       itemId: sector.id,
       companyId: companyId,
       statusBoolean: sector.turnOnCommand == statusCommand,
+      createdAt: DateTime.now(),
     );
 
     await sectorStatusRepo.toggleSectorStatus(statusBody: body);

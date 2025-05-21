@@ -51,6 +51,7 @@ class PumpStatusService {
       itemId: pump.id,
       companyId: companyId,
       statusBoolean: statusCommand == pump.turnOnCommand,
+      createdAt: DateTime.now(),
     );
     await pumpStatusRepo.togglePumpStatus(statusBody: body);
   }

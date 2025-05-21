@@ -23,7 +23,7 @@ class SupabasePumpFlowRepository implements PumpFlowRepository {
     return stream.map((flows) {
       return flows.fold<int>(0, (total, flow) {
         final pumpFlow = PumpFlow.fromJson(flow);
-        return total + pumpFlow.flow.toInt();
+        return total + (pumpFlow.flow ?? 0).toInt();
       });
     });
   }

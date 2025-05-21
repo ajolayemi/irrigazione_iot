@@ -11,29 +11,29 @@ part 'pump_pressure.g.dart';
 @JsonSerializable()
 class PumpPressure extends Equatable {
   const PumpPressure({
-    required this.id,
-    required this.pumpId,
-    required this.filterInPressure,
-    required this.filterOutPressure,
+     this.id,
+     this.pumpId,
+     this.filterInPressure,
+     this.filterOutPressure,
     this.createdAt,
-  }) : pressureDifference = filterInPressure - filterOutPressure;
+  }) : pressureDifference = (filterInPressure ?? 0) - (filterOutPressure ?? 0);
 
   @JsonKey(name: PumpPressureDatabaseKeys.id, includeToJson: false)
   @IntConverter()
-  final String id;
+  final String? id;
 
   @JsonKey(name: PumpPressureDatabaseKeys.pumpId)
   @IntConverter()
-  final String pumpId;
+  final String? pumpId;
 
   @JsonKey(name: PumpPressureDatabaseKeys.filterInPressure)
-  final double filterInPressure;
+  final double? filterInPressure;
 
   @JsonKey(name: PumpPressureDatabaseKeys.filterOutPressure)
-  final double filterOutPressure;
+  final double? filterOutPressure;
 
   @JsonKey(name: PumpPressureDatabaseKeys.pressureDifference)
-  final double pressureDifference;
+  final double? pressureDifference;
 
   @JsonKey(name: PumpPressureDatabaseKeys.createdAt)
   final DateTime? createdAt;
@@ -72,7 +72,7 @@ class PumpPressure extends Equatable {
       ..filterOutPressure = filterOutPressure
       ..pumpId = pumpId
       ..pressureDifference = pressureDifference
-      ..id = int.tryParse(id);
+      ..id = int.tryParse(id ?? '');
   }
 }
 

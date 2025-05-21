@@ -24,6 +24,7 @@ class SupabasePumpStatusRepository implements PumpStatusRepository {
       topic: statusBody.topic,
       message: statusBody.toJson(),
       client: mqttClient,
+      
     );
 
     return;

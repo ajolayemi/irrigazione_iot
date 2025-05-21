@@ -9,13 +9,13 @@ part 'collector_pressure.g.dart';
 
 @JsonSerializable()
 class CollectorPressure extends Equatable {
-  const CollectorPressure(
-      {required this.id,
-      required this.filterInPressure,
-      required this.filterOutPressure,
-      required this.collectorId,
-      this.createdAt})
-      : pressureDifference = filterInPressure - filterOutPressure;
+  const CollectorPressure({
+    this.id,
+    this.filterInPressure,
+    this.filterOutPressure,
+    this.collectorId,
+    this.createdAt,
+  }) : pressureDifference = (filterInPressure ?? 0) - (filterOutPressure ?? 0);
 
   const CollectorPressure.empty()
       : id = '',
@@ -30,23 +30,23 @@ class CollectorPressure extends Equatable {
     includeToJson: false,
   )
   @IntConverter()
-  final String id;
+  final String? id;
 
   @JsonKey(name: CollectorPressureDatabaseKeys.filterInPressure)
-  final double filterInPressure;
+  final double? filterInPressure;
 
   @JsonKey(name: CollectorPressureDatabaseKeys.filterOutPressure)
-  final double filterOutPressure;
+  final double? filterOutPressure;
 
   @JsonKey(name: CollectorPressureDatabaseKeys.createdAt)
   final DateTime? createdAt;
 
   @JsonKey(name: CollectorPressureDatabaseKeys.collectorId)
   @IntConverter()
-  final String collectorId;
+  final String? collectorId;
 
   @JsonKey(name: CollectorPressureDatabaseKeys.pressureDifference)
-  final double pressureDifference;
+  final double? pressureDifference;
 
   @override
   List<Object?> get props {
@@ -77,7 +77,7 @@ class CollectorPressure extends Equatable {
 
   MqttCollectorPressure toEntity() {
     return MqttCollectorPressure()
-      ..id = int.tryParse(id)
+      ..id = int.tryParse(id ?? '')
       ..createdAt = createdAt
       ..filterInPressure = filterInPressure
       ..filterOutPressure = filterOutPressure

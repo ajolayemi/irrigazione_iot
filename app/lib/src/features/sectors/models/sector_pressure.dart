@@ -1,29 +1,29 @@
 import 'package:equatable/equatable.dart';
-import 'package:irrigazione_iot/src/data/datasource/entities/mqtt_entities.dart';
-import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'package:irrigazione_iot/src/data/datasource/entities/mqtt_entities.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector_pressure_database_keys.dart';
+import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
 part 'sector_pressure.g.dart';
 
 @JsonSerializable()
 class SectorPressure extends Equatable {
   const SectorPressure({
-    required this.id,
-    required this.sectorId,
-    required this.pressure,
+    this.id,
+    this.sectorId,
+    this.pressure,
     this.createdAt,
   });
 
   @JsonKey(name: SectorPressureDatabaseKeys.id, includeToJson: false)
   @IntConverter()
-  final String id;
+  final String? id;
   @JsonKey(name: SectorPressureDatabaseKeys.sectorId)
   @IntConverter()
-  final String sectorId;
+  final String? sectorId;
   @JsonKey(name: SectorPressureDatabaseKeys.pressure)
-  final double pressure;
+  final double? pressure;
   @JsonKey(name: SectorPressureDatabaseKeys.createdAt)
   final DateTime? createdAt;
 
@@ -46,7 +46,7 @@ class SectorPressure extends Equatable {
 
   MqttSectorPressure toEntity() {
     return MqttSectorPressure()
-      ..id = int.tryParse(id)
+      ..id = int.tryParse(id ?? '')
       ..sectorId = sectorId
       ..pressure = pressure
       ..createdAt = createdAt;

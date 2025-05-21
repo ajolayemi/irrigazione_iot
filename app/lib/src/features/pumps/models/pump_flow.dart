@@ -11,26 +11,26 @@ part 'pump_flow.g.dart';
 @JsonSerializable()
 class PumpFlow extends Equatable {
   const PumpFlow({
-    required this.id,
-    required this.pumpId,
-    required this.flow,
-    required this.litresPerSecond,
+    this.id,
+    this.pumpId,
+    this.flow,
+    this.litresPerSecond,
     this.createdAt,
   });
 
   @JsonKey(name: PumpFlowDatabaseKeys.id, includeToJson: false)
   @IntConverter()
-  final String id;
+  final String? id;
 
   @JsonKey(name: PumpFlowDatabaseKeys.pumpId)
   @IntConverter()
-  final String pumpId;
+  final String? pumpId;
 
   @JsonKey(name: PumpFlowDatabaseKeys.flow)
-  final double flow;
+  final double? flow;
 
   @JsonKey(name: PumpFlowDatabaseKeys.litresPerSecond)
-  final double litresPerSecond;
+  final double? litresPerSecond;
 
   @JsonKey(name: PumpFlowDatabaseKeys.createdAt)
   final DateTime? createdAt;
@@ -49,7 +49,6 @@ class PumpFlow extends Equatable {
 
   Map<String, dynamic> toJson() => _$PumpFlowToJson(this);
 
-
   factory PumpFlow.fromEntity(MqttPumpFlow? entity) {
     return PumpFlow(
       id: entity?.id.toString() ?? '',
@@ -61,7 +60,7 @@ class PumpFlow extends Equatable {
   }
   MqttPumpFlow toEntity() {
     return MqttPumpFlow()
-      ..id = int.tryParse(id)
+      ..id = int.tryParse(id ?? '')
       ..pumpId = pumpId
       ..flow = flow
       ..litresPerSecond = litresPerSecond

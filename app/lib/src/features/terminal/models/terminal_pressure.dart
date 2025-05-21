@@ -10,22 +10,22 @@ part 'terminal_pressure.g.dart';
 @JsonSerializable()
 class TerminalPressure extends Equatable {
   const TerminalPressure({
-    required this.id,
-    required this.collectorId,
-    required this.pressure,
+    this.id,
+    this.collectorId,
+    this.pressure,
     this.createdAt,
   });
 
   @JsonKey(name: TerminalPressureDatabaseKeys.id)
   @IntConverter()
-  final String id;
+  final String? id;
 
   @JsonKey(name: TerminalPressureDatabaseKeys.collectorId)
   @IntConverter()
-  final String collectorId;
+  final String? collectorId;
 
   @JsonKey(name: TerminalPressureDatabaseKeys.pressure)
-  final double pressure;
+  final double? pressure;
 
   @JsonKey(name: TerminalPressureDatabaseKeys.createdAt)
   final DateTime? createdAt;
@@ -48,13 +48,12 @@ class TerminalPressure extends Equatable {
   }
   MqttTerminalPressure toEntity() {
     return MqttTerminalPressure()
-      ..id = int.tryParse(id)
+      ..id = int.tryParse(id ?? '')
       ..collectorId = collectorId
       ..pressure = pressure
       ..createdAt = createdAt;
   }
 }
-
 
 extension TerminalPressureListExt on List<TerminalPressure> {
   List<MqttTerminalPressure> toEntities() {
