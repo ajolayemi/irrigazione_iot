@@ -1,16 +1,48 @@
+import 'package:isar/isar.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:irrigazione_iot/src/data/datasource/dao/app_abstract_dao.dart';
 import 'package:irrigazione_iot/src/data/datasource/entities/mqtt_entities.dart';
 import 'package:irrigazione_iot/src/features/dashboard/models/pump_switched_on.dart';
 import 'package:irrigazione_iot/src/features/dashboard/models/sector_switched_on.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump_flow.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_status.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector_status.dart';
-import 'package:isar/isar.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'mqtt_dao.g.dart';
 
 class MqttDao extends AppAbstractDao {
   Isar? get _db => dbInstance;
+
+  /// Emits the last time the pump with the provided [pumpId] dispensed water
+  Stream<DateTime?> watchPumpLastDispensation(String? pumpId) {
+    return watchPumpFlow(pumpId).map((event) {
+      if (event == null) {
+        return null;
+      }
+      return event.createdAt;
+    });
+  }
+
+  /// Emits the last [PumpFlow] of the pump with the provided [pumpId]
+  Stream<PumpFlow?> watchPumpFlow(String? pumpId) {
+    if (pumpId == null || pumpId.isEmpty) {
+      return Stream.value(null);
+    }
+
+    final query = _db?.mqttPumpFlows.filter().pumpIdEqualTo(pumpId).build();
+    if (query == null) {
+      return Stream.value(null);
+    }
+
+    return query.watch(fireImmediately: true).map((events) {
+      if (events.isEmpty) {
+        return null;
+      }
+      final last = events.last;
+      return PumpFlow.fromEntity(last);
+    });
+  }
 
   Stream<List<SectorSwitchedOn>?> watchSectorsSwitchedOn({
     String? companyId,

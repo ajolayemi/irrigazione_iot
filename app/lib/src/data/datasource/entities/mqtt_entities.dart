@@ -1,10 +1,27 @@
 import 'package:irrigazione_iot/src/features/dashboard/models/pump_switched_on.dart';
 import 'package:irrigazione_iot/src/features/dashboard/models/sector_switched_on.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump_flow.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_status.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector_status.dart';
 import 'package:isar/isar.dart';
 
 part 'mqtt_entities.g.dart';
+
+
+
+
+@collection
+class MqttPumpFlow {
+  Id? id;
+
+  String? pumpId;
+
+  double? flow;
+
+  double? litresPerSecond;
+
+  DateTime? createdAt;
+}
 
 @collection
 class MqttPumpStatus {
@@ -78,5 +95,11 @@ extension PumpsSwitchedOnExt on List<MqttPumpSwitchedOn> {
 extension SectorsSwitchedOnExt on List<MqttSectorSwitchedOn> {
   List<SectorSwitchedOn> toModel() {
     return map((e) => SectorSwitchedOn.fromEntity(e)).toList();
+  }
+}
+
+extension MqttPumpFlowExt on List<MqttPumpFlow> {
+  List<PumpFlow> toModel() {
+    return map((e) => PumpFlow.fromEntity(e)).toList();
   }
 }

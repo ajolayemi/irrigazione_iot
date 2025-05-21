@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/data/datasource/dao/mqtt_dao.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_flow.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -32,20 +33,20 @@ Stream<int> pumpTotalDispensedLitres(
   return pumpDetailsRepository.watchTotalLitresDispensed(pumpId);
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 Stream<DateTime?> lastDispensationStream(
   LastDispensationStreamRef ref,
   String pumpId,
 ) {
-  final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
-  return pumpDetailsRepository.watchLastDispensation(pumpId);
+  final mqttDao = ref.watch(mqttDaoProvider);
+  return mqttDao.watchPumpLastDispensation(pumpId);
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 Stream<PumpFlow?> pumpLastFlowStream(
   PumpLastFlowStreamRef ref,
   String pumpId,
 ) {
-  final pumpDetailsRepository = ref.watch(pumpFlowRepositoryProvider);
-  return pumpDetailsRepository.watchPumpLastFlow(pumpId);
+  final mqttDao = ref.watch(mqttDaoProvider);
+  return mqttDao.watchPumpFlow(pumpId);
 }

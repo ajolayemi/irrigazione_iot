@@ -2,6 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'package:irrigazione_iot/src/data/datasource/entities/mqtt_entities.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_flow_database_keys.dart';
 import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
@@ -47,4 +48,29 @@ class PumpFlow extends Equatable {
       _$PumpFlowFromJson(json);
 
   Map<String, dynamic> toJson() => _$PumpFlowToJson(this);
+
+
+  factory PumpFlow.fromEntity(MqttPumpFlow? entity) {
+    return PumpFlow(
+      id: entity?.id.toString() ?? '',
+      pumpId: entity?.pumpId ?? '',
+      flow: entity?.flow ?? 0.0,
+      litresPerSecond: entity?.litresPerSecond ?? 0.0,
+      createdAt: entity?.createdAt,
+    );
+  }
+  MqttPumpFlow toEntity() {
+    return MqttPumpFlow()
+      ..id = int.parse(id)
+      ..pumpId = pumpId
+      ..flow = flow
+      ..litresPerSecond = litresPerSecond
+      ..createdAt = createdAt;
+  }
+}
+
+extension PumpFlowListX on List<PumpFlow> {
+  List<MqttPumpFlow> toEntity() {
+    return map((e) => e.toEntity()).toList();
+  }
 }
