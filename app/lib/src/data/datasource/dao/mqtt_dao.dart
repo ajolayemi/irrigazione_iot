@@ -124,6 +124,20 @@ class MqttDao extends AppAbstractDao {
     });
   }
 
+  Future<void> insertPumpFlows({
+    required List<PumpFlow> data,
+  }) async {
+    if (data.isEmpty) {
+      return;
+    }
+
+    await _db?.writeTxn(
+      () async => await _db?.mqttPumpFlows.putAll(
+        data.toEntity(),
+      ),
+    );
+  }
+
   Future<void> insertPumpsSwitchedOn({
     required List<PumpSwitchedOn> data,
   }) async {
