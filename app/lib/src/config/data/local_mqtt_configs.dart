@@ -10,6 +10,15 @@ class LocalMqttConfigs implements MqttConfigs {
 
   @override
   List<String> get mqttTopicsToSubscribe {
-    return ['valenziani/test_mqtt_flutter'];
+    return [
+      'flutter/dev/collector_pressure',
+      'flutter/dev/sector_pressure',
+      'flutter/dev/terminal_pressure',
+      'flutter/dev/sector_status',
+      'flutter/dev/pump_status',
+      'flutter/dev/pump_flow',
+      'flutter/dev/pump_pressure',
+      'flutter/dev/board_status'
+    ];
   }
 }

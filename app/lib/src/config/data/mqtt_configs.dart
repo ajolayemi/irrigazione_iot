@@ -10,9 +10,17 @@ class MqttConfigs {
   /// Suffix for when user is trying to update sector status
   String get sectorStatusToggle => 'nodered';
 
-  // TODO: [Kehinde] - populate with production topics
   /// Holds onto the list of topics to subscribe to
-  List<String> get mqttTopicsToSubscribe => [];
+  List<String> get mqttTopicsToSubscribe => [
+        'flutter/prod/collector_pressure',
+        'flutter/prod/sector_pressure',
+        'flutter/prod/terminal_pressure',
+        'flutter/prod/sector_status',
+        'flutter/prod/pump_status',
+        'flutter/prod/pump_flow',
+        'flutter/prod/pump_pressure',
+        'flutter/prod/board_status',
+      ];
 }
 
 @Riverpod(keepAlive: true)
