@@ -39,6 +39,10 @@ export interface StatusMessage {
   status: string;
   name: string;
   type: string;
+  itemId: string;
+  companyId: string;
+  statusBoolean: boolean;
+  createdAt: string;
 }
 
 /**
@@ -49,6 +53,7 @@ export interface PumpFlowRateMessage {
   name: string;
   litresPerSecond: number;
 }
+
 
 export interface PumpPressureKeys {
   nameKey: string;

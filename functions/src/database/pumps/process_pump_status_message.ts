@@ -7,6 +7,8 @@ import {customFormatDate} from "../../utils/helper_funcs";
 import {insertDataInSheet} from "../../utils/gs_utils";
 import {getCompanyById} from "../companies/read_company_data";
 import {StatusMessage} from "../../interfaces/interfaces";
+import {buildMqttTopic} from "../../utils/mqtt_utils";
+import {publishMessageToMqtt} from "../../services/mqtt_client";
 
 /**
  * Abstracts the process of a pump status message coming from
@@ -17,14 +19,19 @@ import {StatusMessage} from "../../interfaces/interfaces";
  * status message was processed successfully, otherwise false
  */
 export const processPumpStatusMessage = async (
-  message: StatusMessage
+  message: StatusMessage,
 ): Promise<boolean> => {
   try {
     if (!message) {
       throw new Error("Message to process for pump status is undefined");
     }
 
+    const currentDate = new Date();
+    const dateString = currentDate.toISOString();
+
     logger.info(`Processing pump status message for ${message.name}`);
+    const mqttOutputTopic = buildMqttTopic(message.type);
+    await publishMessageToMqtt(mqttOutputTopic, message);
     const pumpName = message.name;
     const status = message.status;
 
@@ -33,7 +40,7 @@ export const processPumpStatusMessage = async (
 
     if (!pump) {
       throw new Error(
-        `No pump matching the provided ${pumpName} was found in database`
+        `No pump matching the provided ${pumpName} was found in database`,
       );
     }
 
@@ -41,16 +48,14 @@ export const processPumpStatusMessage = async (
     // or turn_off_command
     if (status !== pump.turn_on_command && status !== pump.turn_off_command) {
       throw new Error(
-        `The provided status ${status} does not match the pump's turn_on_command or turn_off_command`
+        `The provided status ${status} does not match the pump's turn_on_command or turn_off_command`,
       );
     }
-
-    const currentDate = new Date();
 
     // insert the pump status into the database
     const pumpStatus: TablesInsert<"pump_statuses"> = {
       status_boolean: pump.turn_on_command === status,
-      created_at: currentDate.toISOString(),
+      created_at: dateString,
       pump_id: pump.id,
       company_id: pump.company_id,
       status,
@@ -58,7 +63,6 @@ export const processPumpStatusMessage = async (
 
     logger.info(`Inserting pump status for ${pumpName} into database`);
     await insertPumpStatus(pumpStatus);
-
     logger.info(`Pump status for ${pumpName} inserted successfully`);
     return Promise.resolve(true);
   } catch (error) {
@@ -73,11 +77,11 @@ export const processPumpStatusMessage = async (
  * was processed successfully
  */
 export const processPumpStatusDataForGs = async (
-  data: TablesInsert<"pump_statuses">
+  data: TablesInsert<"pump_statuses">,
 ): Promise<boolean> => {
   if (!data) {
     throw new Error(
-      "Data to process pump status for google sheets is undefined"
+      "Data to process pump status for google sheets is undefined",
     );
   }
   console.log("Processing pump status for google sheets with data:");
@@ -88,7 +92,7 @@ export const processPumpStatusDataForGs = async (
 
     if (!pump) {
       throw new Error(
-        `No pump matching the provided ${data.status} was found in database`
+        `No pump matching the provided ${data.status} was found in database`,
       );
     }
 
@@ -97,7 +101,7 @@ export const processPumpStatusDataForGs = async (
 
     if (!company) {
       throw new Error(
-        `No company matching the provided ${pump.company_id} was found`
+        `No company matching the provided ${pump.company_id} was found`,
       );
     }
 
@@ -107,7 +111,7 @@ export const processPumpStatusDataForGs = async (
       pump.company_id,
       company.name,
       data.status_boolean ?? false,
-      customFormatDate(data.created_at)
+      customFormatDate(data.created_at),
     );
 
     await insertDataInSheet("pump_statuses", dataForGs.getValues());

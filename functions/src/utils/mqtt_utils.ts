@@ -1,0 +1,14 @@
+import dotenv = require("dotenv");
+dotenv.config({ path: "../../../.env" });
+
+/**
+ * Helps in building the MQTT topic to post a payload to for
+ * usage in flutter base on the provided message type and current environment
+ * @param {string} messageType The type of message to process
+ */
+export const buildMqttTopic = (messageType: string): string => {
+  const env = process.env.NODE_ENV;
+  const topic = `flutter/${env?.toLowerCase()}/${messageType}`;
+  return topic;
+};
+

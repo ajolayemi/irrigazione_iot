@@ -8,6 +8,8 @@ import {
 } from "../sectors/read_sector_data";
 import {insertSectorPressure} from "../sectors/insert_sector_data";
 import {insertCollectorPressure} from "../collectors/insert_collector_data";
+import {buildMqttTopic} from "../../utils/mqtt_utils";
+import {publishMessageToMqtt} from "../../services/mqtt_client";
 
 /**
  * Processes the keys in a pressure message to get the keys for terminal pressure,
@@ -16,7 +18,7 @@ import {insertCollectorPressure} from "../collectors/insert_collector_data";
  * @return {PressureMessageKeys} The keys for terminal pressure, collector pressures and sector pressures
  */
 export const getPressureMessageKeys = (
-  message: CustomJSON
+  message: CustomJSON,
 ): PressureMessageKeys => {
   // Get a list of keys available in the message
   const keys = Object.keys(message as object);
@@ -34,7 +36,8 @@ export const getPressureMessageKeys = (
   // Get all other keys that are not terminal pressure or collector pressure keys
   // These are the sector keys and they should be splitted to remove the "_CH" part
   const sectorKeys = keys.filter(
-    (key) => !collectorPressureKeys.includes(key) && key !== terminalPressureKey
+    (key) =>
+      !collectorPressureKeys.includes(key) && key !== terminalPressureKey,
   );
 
   const splittedSectorKeys = sectorKeys.map((key) => key.split("_")[0]);
@@ -60,7 +63,7 @@ export const processTerminalPressure = async (
   terminalPressureKey: string,
   message: CustomJSON,
   collectorId: number,
-  timestamp: Date
+  timestamp: Date,
 ): Promise<boolean> => {
   try {
     logger.info("Processing terminal pressure...");
@@ -77,6 +80,16 @@ export const processTerminalPressure = async (
       collector_id: collectorId,
       pressure: terminalPressure,
     };
+
+    const mqttMessage = {
+      "pressure": _terminalPressure.pressure,
+      "collector_id": _terminalPressure.collector_id,
+      "created_at": _terminalPressure.created_at,
+      "type": "terminal_pressure",
+    };
+
+    const mqttOutputTopic = buildMqttTopic(message.type);
+    await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
 
     logger.info("Saving terminal pressure to the database");
     await insertTerminalPressure(_terminalPressure);
@@ -98,7 +111,7 @@ export const processTerminalPressure = async (
 export const processSectorPressure = async (
   sectorKeys: string[],
   message: CustomJSON,
-  timestamp: Date
+  timestamp: Date,
 ): Promise<boolean> => {
   try {
     logger.info("Processing sector pressure...");
@@ -127,8 +140,17 @@ export const processSectorPressure = async (
         pressure: sectorPressure,
       };
 
+      const mqttMessage = {
+        "pressure": _sectorPressureForDatabase.pressure,
+        "sector_id": _sectorPressureForDatabase.sector_id,
+        "created_at": _sectorPressureForDatabase.created_at,
+        "type": "sector_pressure",
+      };
+      const mqttOutputTopic = buildMqttTopic(message.type);
+      await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
+
       logger.info(
-        `Saving sector pressure for sector ${sectorMqttName} to the database`
+        `Saving sector pressure for sector ${sectorMqttName} to the database`,
       );
 
       // Insert data to database
@@ -156,7 +178,7 @@ export const processCollectorPressure = async (
   collectorPressureKeys: string[],
   message: CustomJSON,
   collectorId: number,
-  timestamp: Date
+  timestamp: Date,
 ): Promise<boolean> => {
   if (!collectorPressureKeys.length) {
     logger.info("Exiting... No collector pressure keys found in the message");
@@ -167,6 +189,7 @@ export const processCollectorPressure = async (
 
     const _filterInPressure = message[collectorPressureKeys[0]] as number;
     const _filterOutPressure = message[collectorPressureKeys[1]] as number;
+    const _diff = (_filterInPressure ?? 0) - (_filterOutPressure ?? 0);
 
     const _collectorPressure: TablesInsert<"collector_pressures"> = {
       created_at: timestamp.toISOString(),
@@ -176,7 +199,16 @@ export const processCollectorPressure = async (
     };
 
     logger.info("Saving collector pressure to the database");
-
+    const mqttMessage = {
+      "filter_in_pressure": _collectorPressure.filter_in_pressure,
+      "filter_out_pressure": _collectorPressure.filter_out_pressure,
+      "collector_id": _collectorPressure.collector_id,
+      "created_at": _collectorPressure.created_at,
+      "type": "collector_pressure",
+      "pressure_difference": _diff,
+    };
+    const mqttOutputTopic = buildMqttTopic(message.type);
+    await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
     // Save the data to database
     await insertCollectorPressure(_collectorPressure);
 
@@ -193,7 +225,7 @@ export const processCollectorPressure = async (
  * in the message if found, null otherwise
  */
 export const getCollectorForSector = async (
-  sectorKeys: Array<string>
+  sectorKeys: Array<string>,
 ): Promise<number | null> => {
   let toReturn = null;
 

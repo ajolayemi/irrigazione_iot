@@ -12,6 +12,8 @@ import {getCollectorById} from "../collectors/read_collector_data";
 import {SectorStatusGs} from "../../models/sector_status_for_gs";
 import {customFormatDate} from "../../utils/helper_funcs";
 import {insertDataInSheet} from "../../utils/gs_utils";
+import {buildMqttTopic} from "../../utils/mqtt_utils";
+import {publishMessageToMqtt} from "../../services/mqtt_client";
 
 /**
  * Abstracts off the process of sector status message coming from
@@ -22,7 +24,7 @@ import {insertDataInSheet} from "../../utils/gs_utils";
  * status message was processed successfully, otherwise false
  */
 export const processSectorStatusMessage = async (
-  message: StatusMessage
+  message: StatusMessage,
 ): Promise<boolean> => {
   try {
     if (!message) {
@@ -30,6 +32,8 @@ export const processSectorStatusMessage = async (
     }
 
     logger.info(`Processing sector status message for ${message.name}`);
+    const mqttOutputTopic = buildMqttTopic(message.type);
+    await publishMessageToMqtt(mqttOutputTopic, message);
     const sectorName = message.name;
     const status = message.status;
 
@@ -38,7 +42,7 @@ export const processSectorStatusMessage = async (
 
     if (!sector) {
       throw new Error(
-        `No sector matching the provided ${sectorName} was found in database`
+        `No sector matching the provided ${sectorName} was found in database`,
       );
     }
 
@@ -50,7 +54,7 @@ export const processSectorStatusMessage = async (
       status !== sector.turn_off_command
     ) {
       throw new Error(
-        `The provided status ${status} does not match the sector's turn_on_command or turn_off_command`
+        `The provided status ${status} does not match the sector's turn_on_command or turn_off_command`,
       );
     }
 
@@ -83,13 +87,13 @@ export const processSectorStatusMessage = async (
  * message was processed successfully, otherwise false
  */
 export const processSectorStatusMessageForGs = async (
-  data: TablesInsert<"sector_statuses">
+  data: TablesInsert<"sector_statuses">,
 ): Promise<boolean> => {
   console.log("Processing sector status message for google sheet with data: ");
   console.log(data);
   if (!data) {
     throw new Error(
-      "No data provided to process sector status message for google sheet"
+      "No data provided to process sector status message for google sheet",
     );
   }
   try {
@@ -101,7 +105,7 @@ export const processSectorStatusMessageForGs = async (
 
     if (!company) {
       throw new Error(
-        `No company found for the company with id: ${sector.company_id}`
+        `No company found for the company with id: ${sector.company_id}`,
       );
     }
 
@@ -110,7 +114,7 @@ export const processSectorStatusMessageForGs = async (
 
     if (!collectorSector) {
       throw new Error(
-        `No collector found for the sector with id: ${sector.id}`
+        `No collector found for the sector with id: ${sector.id}`,
       );
     }
 
@@ -125,7 +129,7 @@ export const processSectorStatusMessageForGs = async (
       collectorSector.id,
       collector.name,
       data.status_boolean ?? false,
-      customFormatDate(data.created_at)
+      customFormatDate(data.created_at),
     );
 
     console.log("Inserting data to google sheet");
@@ -134,7 +138,7 @@ export const processSectorStatusMessageForGs = async (
     return Promise.resolve(true);
   } catch (error) {
     throw new Error(
-      `Error processing sector status message for google sheet: ${error}`
+      `Error processing sector status message for google sheet: ${error}`,
     );
   }
 };

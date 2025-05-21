@@ -7,9 +7,11 @@ import {getCompanyById} from "../companies/read_company_data";
 import {PressureWithFilterGs} from "../../models/pressure_with_filter_for_gs";
 import {customFormatDate} from "../../utils/helper_funcs";
 import {insertDataInSheet} from "../../utils/gs_utils";
+import {buildMqttTopic} from "../../utils/mqtt_utils";
+import {publishMessageToMqtt} from "../../services/mqtt_client";
 
 export const processPumpPressureMessage = async (
-  message: CustomJSON
+  message: CustomJSON,
 ): Promise<boolean> => {
   try {
     if (!message) {
@@ -18,8 +20,9 @@ export const processPumpPressureMessage = async (
 
     logger.info("Processing pump pressure message...");
 
-    const {nameKey, filterInKey, filterOutKey} =
-      getPumpPressureMessageKeys(message);
+    const { nameKey, filterInKey, filterOutKey } = getPumpPressureMessageKeys(
+      message,
+    );
 
     if (!nameKey || !filterInKey || !filterOutKey) {
       throw new Error("Invalid pump pressure message");
@@ -29,7 +32,7 @@ export const processPumpPressureMessage = async (
 
     if (!pump) {
       throw new Error(
-        `No pump found for the pump with mqtt name: ${message[nameKey]}`
+        `No pump found for the pump with mqtt name: ${message[nameKey]}`,
       );
     }
 
@@ -41,6 +44,19 @@ export const processPumpPressureMessage = async (
       filter_in_pressure: message[filterInKey],
       filter_out_pressure: message[filterOutKey],
     };
+
+    const mqttMessage = {
+      "pump_id": pump.id,
+      "filter_in_pressure": pumpPressure.filter_in_pressure,
+      "filter_out_pressure": pumpPressure.filter_out_pressure,
+      "created_at": pumpPressure.created_at,
+      "type": "pump_pressure",
+      "pressure_difference": (pumpPressure.filter_in_pressure ?? 0) -
+        (pumpPressure.filter_out_pressure ?? 0),
+    };
+
+    const mqttOutputTopic = buildMqttTopic("pump_pressure");
+    await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
 
     logger.info(`Saving pump pressure for ${pump.name} to the database`);
     await insertPumpPressure(pumpPressure);
@@ -59,11 +75,11 @@ export const processPumpPressureMessage = async (
  * was processed successfully
  */
 export const processPumpPressureDataForGs = async (
-  data: TablesInsert<"pump_pressures">
+  data: TablesInsert<"pump_pressures">,
 ): Promise<boolean> => {
   if (!data) {
     throw new Error(
-      "Data to process pump pressure for google sheets is undefined"
+      "Data to process pump pressure for google sheets is undefined",
     );
   }
 
@@ -75,7 +91,7 @@ export const processPumpPressureDataForGs = async (
 
     if (!pump) {
       throw new Error(
-        `No pump matching the provided ${data.pump_id} was found in database`
+        `No pump matching the provided ${data.pump_id} was found in database`,
       );
     }
 
@@ -84,7 +100,7 @@ export const processPumpPressureDataForGs = async (
 
     if (!company) {
       throw new Error(
-        `No company matching the provided ${pump.company_id} was found`
+        `No company matching the provided ${pump.company_id} was found`,
       );
     }
     const dataForGs = new PressureWithFilterGs(
@@ -95,7 +111,7 @@ export const processPumpPressureDataForGs = async (
       data.filter_in_pressure ?? 0,
       data.filter_out_pressure ?? 0,
       data.pressure_difference ?? 0,
-      customFormatDate(data.created_at)
+      customFormatDate(data.created_at),
     );
 
     await insertDataInSheet("pump_pressures", dataForGs.getValues());

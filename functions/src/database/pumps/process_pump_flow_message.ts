@@ -7,6 +7,8 @@ import {PumpFlowGs} from "../../models/pump_flow_for_gs";
 import {customFormatDate} from "../../utils/helper_funcs";
 import {insertDataInSheet} from "../../utils/gs_utils";
 import {getCompanyById} from "../companies/read_company_data";
+import {buildMqttTopic} from "../../utils/mqtt_utils";
+import {publishMessageToMqtt} from "../../services/mqtt_client";
 
 /**
  * Abstracts the process of a pump flow message
@@ -15,7 +17,7 @@ import {getCompanyById} from "../companies/read_company_data";
  * was processed successfully, otherwise false
  */
 export const processPumpFlowMessage = async (
-  message: PumpFlowRateMessage
+  message: PumpFlowRateMessage,
 ): Promise<boolean> => {
   try {
     if (!message) {
@@ -23,13 +25,13 @@ export const processPumpFlowMessage = async (
     }
 
     logger.info(`Processing pump flow message for ${message.name}`);
-    const {name, count} = message;
+    const { name, count } = message;
 
     const pump = await getPumpByMqttMsgName(name);
 
     if (!pump) {
       throw new Error(
-        `No pump matching the provided ${name} was found in database`
+        `No pump matching the provided ${name} was found in database`,
       );
     }
 
@@ -42,6 +44,17 @@ export const processPumpFlowMessage = async (
       flow: count * 100,
       litres_per_second: message.litresPerSecond,
     };
+
+    const mqttMessage = {
+      "flow": flowRate.flow,
+      "litres_per_second": flowRate.litres_per_second,
+      "pump_id": pump.id,
+      "created_at": flowRate.created_at,
+      "type": "pump_flow",
+    };
+
+    const mqttOutputTopic = buildMqttTopic("pump_flow");
+    await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
 
     // Insert data to supabase
     await insertPumpFlow(flowRate);
@@ -60,7 +73,7 @@ export const processPumpFlowMessage = async (
  * was processed successfully
  */
 export const processPumpFlowDataForGs = async (
-  data: TablesInsert<"pump_flows">
+  data: TablesInsert<"pump_flows">,
 ): Promise<boolean> => {
   if (!data) {
     throw new Error("Data to process pump flow for google sheets is undefined");
@@ -74,7 +87,7 @@ export const processPumpFlowDataForGs = async (
 
     if (!pump) {
       throw new Error(
-        `No pump matching the provided ${data.pump_id} was found in database`
+        `No pump matching the provided ${data.pump_id} was found in database`,
       );
     }
 
@@ -83,7 +96,7 @@ export const processPumpFlowDataForGs = async (
 
     if (!company) {
       throw new Error(
-        `No company matching the provided ${pump.company_id} was found`
+        `No company matching the provided ${pump.company_id} was found`,
       );
     }
 
@@ -95,7 +108,7 @@ export const processPumpFlowDataForGs = async (
       company.name,
       data.flow,
       data.litres_per_second ?? 0,
-      customFormatDate(data.created_at)
+      customFormatDate(data.created_at),
     );
 
     await insertDataInSheet("pump_flows", dataForGs.getValues());
