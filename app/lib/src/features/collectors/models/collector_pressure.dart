@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/data/datasource/entities/mqtt_entities.dart';
 import 'package:irrigazione_iot/src/features/collectors/models/collector_pressure_database_keys.dart';
 import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -25,9 +26,9 @@ class CollectorPressure extends Equatable {
         pressureDifference = 0;
 
   @JsonKey(
-      name: CollectorPressureDatabaseKeys.id,
-      includeToJson: false,
-      )
+    name: CollectorPressureDatabaseKeys.id,
+    includeToJson: false,
+  )
   @IntConverter()
   final String id;
 
@@ -63,4 +64,29 @@ class CollectorPressure extends Equatable {
       _$CollectorPressureFromJson(json);
 
   Map<String, dynamic> toJson() => _$CollectorPressureToJson(this);
+
+  factory CollectorPressure.fromEntity(MqttCollectorPressure? entity) {
+    return CollectorPressure(
+      id: entity?.id.toString() ?? '',
+      filterInPressure: entity?.filterInPressure ?? 0,
+      filterOutPressure: entity?.filterOutPressure ?? 0,
+      createdAt: entity?.createdAt,
+      collectorId: entity?.collectorId ?? '',
+    );
+  }
+
+  MqttCollectorPressure toEntity() {
+    return MqttCollectorPressure()
+      ..id = int.tryParse(id)
+      ..createdAt = createdAt
+      ..filterInPressure = filterInPressure
+      ..filterOutPressure = filterOutPressure
+      ..collectorId = collectorId;
+  }
+}
+
+extension CollectorPressureListExt on List<CollectorPressure> {
+  List<MqttCollectorPressure> toEntities() {
+    return map((e) => e.toEntity()).toList();
+  }
 }

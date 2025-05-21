@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/data/datasource/dao/mqtt_dao.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/features/collectors/data/supabase_collector_pressure_repository.dart';
@@ -18,10 +19,11 @@ CollectorPressureRepository collectorPressureRepository(
   return SupabaseCollectorPressureRepository(supabaseClient);
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 Stream<CollectorPressure?> collectorPressureStream(
-    CollectorPressureStreamRef ref, String collectorId) {
-  final collectorPressureRepository =
-      ref.read(collectorPressureRepositoryProvider);
-  return collectorPressureRepository.watchCollectorPressure(collectorId);
+  CollectorPressureStreamRef ref,
+  String collectorId,
+) {
+  final mqttDao = ref.watch(mqttDaoProvider);
+  return mqttDao.watchCollectorPressure(collectorId);
 }

@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/features/collectors/models/collector_pressure.dart';
 import 'package:irrigazione_iot/src/features/dashboard/models/pump_switched_on.dart';
 import 'package:irrigazione_iot/src/features/dashboard/models/sector_switched_on.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_flow.dart';
@@ -7,6 +8,21 @@ import 'package:irrigazione_iot/src/features/sectors/models/sector_status.dart';
 import 'package:isar/isar.dart';
 
 part 'mqtt_entities.g.dart';
+
+@collection
+class MqttCollectorPressure {
+  Id? id;
+
+  String? collectorId;
+
+  double? filterInPressure;
+
+  double? filterOutPressure;
+
+  double? pressureDifference;
+
+  DateTime? createdAt;
+}
 
 @collection
 class MqttPumpPressure {
@@ -120,5 +136,11 @@ extension MqttPumpFlowExt on List<MqttPumpFlow> {
 extension MqttPumpPressureExt on List<MqttPumpPressure> {
   List<PumpPressure> toModel() {
     return map((e) => PumpPressure.fromEntity(e)).toList();
+  }
+}
+
+extension MqttCollectorPressureExt on List<MqttCollectorPressure> {
+  List<CollectorPressure> toModel() {
+    return map((e) => CollectorPressure.fromEntity(e)).toList();
   }
 }

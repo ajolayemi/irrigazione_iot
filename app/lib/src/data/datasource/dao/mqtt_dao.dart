@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/features/collectors/models/collector_pressure.dart';
 import 'package:isar/isar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -14,6 +15,26 @@ part 'mqtt_dao.g.dart';
 
 class MqttDao extends AppAbstractDao {
   Isar? get _db => dbInstance;
+
+  /// Emits the last pressure of the collector with the provided [collectorId]
+  Stream<CollectorPressure?> watchCollectorPressure(String? collectorId) {
+    if (collectorId == null || collectorId.isEmpty) {
+      return Stream.value(null);
+    }
+
+    final query = _db?.mqttCollectorPressures.filter().collectorIdEqualTo(collectorId).build();
+    if (query == null) {
+      return Stream.value(null);
+    }
+
+    return query.watch(fireImmediately: true).map((events) {
+      if (events.isEmpty) {
+        return null;
+      }
+      final last = events.last;
+      return CollectorPressure.fromEntity(last);
+    });
+  }
 
   /// Emits the last pressure of the pump with the provided [pumpId]
   Stream<PumpPressure?> watchPumpPressure(String? pumpId) {
@@ -143,6 +164,20 @@ class MqttDao extends AppAbstractDao {
       final last = events.last;
       return PumpStatus.fromEntity(last);
     });
+  }
+
+  Future<void> insertCollectorPressures({
+    required List<CollectorPressure> data,
+  }) async {
+    if (data.isEmpty) {
+      return;
+    }
+
+    await _db?.writeTxn(
+      () async => await _db?.mqttCollectorPressures.putAll(
+        data.toEntities(),
+      ),
+    );
   }
 
   Future<void> insertPumpPressures({

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/features/collectors/models/collector_pressure.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_flow.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_pressure.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector_status.dart';
@@ -120,6 +121,7 @@ class MqttService {
     List<SectorStatus> sectorStatuses = [];
     List<PumpFlow> pumpFlows = [];
     List<PumpPressure> pumpPressures = [];
+    List<CollectorPressure> collectorPressures = [];
 
     for (final item in data) {
       final recordMsg = item.payload;
@@ -171,6 +173,10 @@ class MqttService {
             final pumpPressure = PumpPressure.fromJson(decoded);
             pumpPressures.add(pumpPressure);
             break;
+          case MqttMessageTypes.collectorPressure:
+            final collectorPressure = CollectorPressure.fromJson(decoded);
+            collectorPressures.add(collectorPressure);
+            break;
           default:
             break;
         }
@@ -191,6 +197,8 @@ class MqttService {
       await _mqttDao.insertPumpFlows(data: pumpFlows);
     } else if (pumpPressures.isNotEmpty) {
       await _mqttDao.insertPumpPressures(data: pumpPressures);
+    } else if (collectorPressures.isNotEmpty) {
+      await _mqttDao.insertCollectorPressures(data: collectorPressures);
     }
   }
 
