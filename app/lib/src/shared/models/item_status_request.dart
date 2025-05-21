@@ -14,6 +14,7 @@ class ItemStatusRequest {
     required this.itemId,
     required this.statusBoolean,
     this.topic = '',
+    this.createdAt,
   });
 
   /// The topic to publish the message to.
@@ -43,6 +44,9 @@ class ItemStatusRequest {
   final String companyId;
 
   final bool statusBoolean;
+
+  @JsonKey(defaultValue: DateTime.now)
+  final DateTime? createdAt;
 
   factory ItemStatusRequest.fromJson(Map<String, dynamic> json) =>
       _$ItemStatusRequestFromJson(json);
