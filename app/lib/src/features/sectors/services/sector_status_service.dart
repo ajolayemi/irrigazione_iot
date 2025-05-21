@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:irrigazione_iot/src/config/data/mqtt_topics_suffix.dart';
+import 'package:irrigazione_iot/src/config/data/mqtt_configs.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
@@ -47,14 +47,17 @@ class SectorStatusService {
 
     final sectorStatusRepo = _ref.read(sectorStatusRepositoryProvider);
 
-    final mqttSuffix = _ref.read(mqttTopicsSuffixProvider);
+    final mqttConfigs = _ref.read(mqttConfigsProvider);
 
     final body = ItemStatusRequest(
       topic:
-          '$companyMqttTopicName/collettore${collector.mqttMsgName}/${mqttSuffix.sectorStatusToggle}',
+          '$companyMqttTopicName/collettore${collector.mqttMsgName}/${mqttConfigs.sectorStatusToggle}',
       message: statusCommand,
       mqttMsgName: sector.mqttMsgName,
       messageType: 'sector_status',
+      itemId: sector.id,
+      companyId: companyId,
+      statusBoolean: sector.turnOnCommand == statusCommand,
     );
 
     await sectorStatusRepo.toggleSectorStatus(statusBody: body);

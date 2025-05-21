@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/shared/models/item_status_request.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:irrigazione_iot/src/config/data/mqtt_topics_suffix.dart';
+import 'package:irrigazione_iot/src/config/data/mqtt_configs.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
@@ -41,13 +41,16 @@ class PumpStatusService {
 
     final pumpStatusRepo = _ref.read(pumpStatusRepositoryProvider);
 
-    final mqttSuffix = _ref.read(mqttTopicsSuffixProvider);
+    final mqttConfigs = _ref.read(mqttConfigsProvider);
 
     final body = ItemStatusRequest(
-      topic: '$companyMqttTopicName/${mqttSuffix.pumpStatusToggle}',
+      topic: '$companyMqttTopicName/${mqttConfigs.pumpStatusToggle}',
       message: statusCommand,
       mqttMsgName: pump.mqttMessageName,
       messageType: 'pump_status',
+      itemId: pump.id,
+      companyId: companyId,
+      statusBoolean: statusCommand == pump.turnOnCommand,
     );
     await pumpStatusRepo.togglePumpStatus(statusBody: body);
   }

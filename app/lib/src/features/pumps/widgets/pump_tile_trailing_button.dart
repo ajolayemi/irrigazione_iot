@@ -29,21 +29,25 @@ class PumpTileTrailingButton extends ConsumerWidget {
     final aPumpIsBeingSwitchedOn =
         ref.watch(pumpStatusControllerProvider).isGlobalLoading;
 
-    final thisPumpStatusIsLoading =
-        ref.watch(pumpStatusControllerProvider).stateWithIdIsLoading(pump.id);
-    final isSwitchedOn =
-        ref.watch(pumpStatusStreamProvider(pump.id)).valueOrNull?.statusBoolean ?? false;
+    final thisPumpStatusIsLoading = ref
+        .watch(
+          pumpStatusControllerProvider,
+        )
+        .stateWithIdIsLoading(pump.id);
+    final status = ref.watch(pumpStatusStreamProvider(pump.id)).valueOrNull;
+    final isActive = status?.statusBoolean ?? false;
+
     return thisPumpStatusIsLoading
         ? const CircularProgressIndicator.adaptive()
         : IgnorePointer(
             ignoring: aPumpIsBeingSwitchedOn,
             child: OutlinedButton(
               onPressed: () async =>
-                  await _toggleStatus(context, ref, !isSwitchedOn),
+                  await _toggleStatus(context, ref, !isActive),
               child: Text(
-                isSwitchedOn ? loc.switchOff : loc.switchOn,
+                isActive ? loc.switchOff : loc.switchOn,
                 style: TextStyle(
-                  color: isSwitchedOn ? Colors.red : Colors.green,
+                  color: isActive ? Colors.red : Colors.green,
                 ),
               ),
             ),

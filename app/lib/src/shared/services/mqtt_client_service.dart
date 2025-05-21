@@ -1,20 +1,30 @@
+// ignore_for_file: avoid_manual_providers_as_generated_provider_dependency
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:irrigazione_iot/src/utils/delay.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:typed_data/typed_data.dart' as typed;
 
 import 'package:irrigazione_iot/env/env.dart';
+import 'package:irrigazione_iot/src/config/data/mqtt_configs.dart';
+import 'package:irrigazione_iot/src/config/enums/mqtt_enums.dart';
+import 'package:irrigazione_iot/src/data/datasource/dao/mqtt_dao.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump_status.dart';
+import 'package:irrigazione_iot/src/shared/models/item_status_request.dart';
+import 'package:irrigazione_iot/src/utils/extensions/string_extensions.dart';
 
 part 'mqtt_client_service.g.dart';
 
 /// Holds logic to connect to the MQTT broker and publish messages.
-class MqttClientService {
-  const MqttClientService();
+class MqttService {
+  const MqttService(this._mqttDao, this._ref);
+
+  final MqttDao _mqttDao;
+  final Ref _ref;
 
   static final _brokerUrl = Env.mqttBrokerUrl;
   static final _brokerUsername = Env.mqttBrokerUsername;
@@ -25,8 +35,15 @@ class MqttClientService {
   /// The client is disconnected after the message is published.
   ///
   /// Returns the message ID of the published message.˚
-  Future<int> publishMessage(MqttServerClient client, String topic,
-      Map<String, dynamic> message) async {
+  Future<int> publishMessage({
+    required String topic,
+    required Map<String, dynamic> message,
+    MqttServerClient? client,
+  }) async {
+    if (client == null) {
+      debugPrint('MQTT client is null');
+      throw Exception('MQTT client is null');
+    }
     try {
       final builder = MqttClientPayloadBuilder();
       builder.addBuffer(convertMapToBuffer(message));
@@ -37,10 +54,6 @@ class MqttClientService {
         builder.payload!,
       );
 
-      // add 10 seconds delay to allow supabase data sync
-      await delay(true, 2000);
-
-      client.disconnect();
       return messageId;
     } catch (e) {
       debugPrint('Failed to publish message - $e');
@@ -64,14 +77,18 @@ class MqttClientService {
 
     client.onDisconnected = _onDisconnected;
 
+    client.onSubscribed = _onSubscribed;
     try {
       await client.connect(_brokerUsername, _brokerPassword);
 
       if (client.connectionStatus!.state == MqttConnectionState.connected) {
+        _subscribeToTopics(client);
+        client.updates?.listen(_updatesListener);
         return client;
       } else {
         debugPrint(
-            'Failed to connect to MQTT Broker at $_brokerUrl - state: ${client.connectionStatus!.state}');
+          'Failed to connect to MQTT Broker at $_brokerUrl - state: ${client.connectionStatus!.state}',
+        );
         client.disconnect();
         throw Exception('Failed to connect to MQTT Broker at $_brokerUrl');
       }
@@ -90,6 +107,60 @@ class MqttClientService {
       debugPrint('Error - $e');
       client.disconnect();
       rethrow;
+    }
+  }
+
+  Future<void> _updatesListener(
+    List<MqttReceivedMessage<MqttMessage>> data,
+  ) async {
+    List<PumpStatus> pumpStatuses = [];
+
+    for (final item in data) {
+      final recordMsg = item.payload;
+
+      if (recordMsg is MqttPublishMessage) {
+        final fromBytes = MqttPublishPayload.bytesToStringAsString(
+          recordMsg.payload.message,
+        );
+
+        final decoded = jsonDecode(fromBytes) as Map<String, dynamic>;
+        final messageType = decoded['type'].toString().toMqttMsgType();
+
+        if (messageType == null) {
+          continue;
+        }
+
+        switch (messageType) {
+          case MqttMessageTypes.pumpStatus:
+          case MqttMessageTypes.sectorStatus:
+            final statusObj = ItemStatusRequest.fromJson(decoded);
+            final pStatus = PumpStatus(
+              id: '',
+              pumpId: statusObj.itemId,
+              status: statusObj.message,
+              statusBoolean: statusObj.statusBoolean,
+              companyId: statusObj.companyId,
+            );
+            pumpStatuses.add(pStatus);
+            break;
+        }
+      }
+    }
+    await _mqttDao.insertPumpStatuses(statuses: pumpStatuses);
+    await _mqttDao.insertPumpsSwitchedOn(
+      data: pumpStatuses.toPumpsSwitchedOn(),
+    );
+  }
+
+  void _subscribeToTopics(MqttServerClient client) {
+    final topics = _ref.read(mqttConfigsProvider).mqttTopicsToSubscribe;
+
+    if (topics.isEmpty) {
+      return;
+    }
+
+    for (final topic in topics) {
+      client.subscribe(topic, MqttQos.atLeastOnce);
     }
   }
 
@@ -119,9 +190,24 @@ class MqttClientService {
   void _onDisconnected() {
     debugPrint('Disconnected from MQTT Broker at $_brokerUrl');
   }
+
+  void _onSubscribed(String topic) {
+    debugPrint('Subscribed to topic: $topic');
+  }
 }
 
 @Riverpod(keepAlive: true)
-MqttClientService mqttClientService(MqttClientServiceRef ref) {
-  return const MqttClientService();
+MqttService mqttService(MqttServiceRef ref) {
+  final dao = ref.watch(mqttDaoProvider);
+  return MqttService(dao, ref);
+}
+
+@Riverpod(keepAlive: true)
+FutureOr<MqttServerClient> mqttServerClient(MqttServerClientRef ref) async {
+  final service = ref.watch(mqttServiceProvider);
+  final client = await service.connect();
+  ref.onDispose(() {
+    client.disconnect();
+  });
+  return client;
 }

@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-import 'package:irrigazione_iot/src/features/dashboard/models/pump_switched_on_database_keys.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'package:irrigazione_iot/src/data/datasource/entities/mqtt_entities.dart';
+import 'package:irrigazione_iot/src/features/dashboard/models/pump_switched_on_database_keys.dart';
+import 'package:irrigazione_iot/src/features/pumps/models/pump_status.dart';
 import 'package:irrigazione_iot/src/utils/int_converter.dart';
 
 part 'pump_switched_on.g.dart';
@@ -47,4 +49,37 @@ class PumpSwitchedOn extends Equatable {
       _$PumpSwitchedOnFromJson(json);
 
   Map<String, dynamic> toJson() => _$PumpSwitchedOnToJson(this);
+
+  factory PumpSwitchedOn.fromEntity(MqttPumpSwitchedOn? entity) {
+    return PumpSwitchedOn(
+      companyId: entity?.item?.companyId ?? '',
+      id: entity?.id.toString() ?? '',
+      pumpId: entity?.id.toString() ?? '',
+      statusBoolean: entity?.item?.statusBoolean ?? false,
+    );
+  }
+
+  factory PumpSwitchedOn.fromPumpStatus(PumpStatus? status) {
+    return PumpSwitchedOn(
+      companyId: status?.companyId ?? '',
+      id: status?.pumpId ?? '',
+      pumpId: status?.pumpId ?? '',
+      statusBoolean: status?.statusBoolean ?? false,
+    );
+  }
+
+  MqttPumpSwitchedOn toEntity() {
+    final item = MqttItemSwitchedOn()
+      ..companyId = companyId
+      ..statusBoolean = statusBoolean;
+    return MqttPumpSwitchedOn()
+      ..id = int.tryParse(pumpId)
+      ..item = item;
+  }
+}
+
+extension PumpsSwitchedOn on List<PumpSwitchedOn> {
+  List<MqttPumpSwitchedOn> toEntities() {
+    return map((e) => e.toEntity()).toList();
+  }
 }

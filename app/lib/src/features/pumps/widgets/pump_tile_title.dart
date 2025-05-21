@@ -17,17 +17,18 @@ class PumpTileTitle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isSwitchedOn = ref
-            .watch(pumpStatusStreamProvider(pump.id))
-            .valueOrNull
-            ?.statusBoolean ??
-        false;
+    final status = ref.watch(pumpStatusStreamProvider(pump.id)).valueOrNull;
+    final isActive = status?.statusBoolean ?? false;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Flexible(child: Text(pump.name, style: style,)),
+        Flexible(
+            child: Text(
+          pump.name,
+          style: style,
+        )),
         gapW8,
-        CommonStatusIndicator(status: isSwitchedOn)
+        CommonStatusIndicator(status: isActive)
       ],
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:irrigazione_iot/src/app_bootstrap.dart';
-import 'package:irrigazione_iot/src/config/data/local_mqtt_topics_suffix.dart';
-import 'package:irrigazione_iot/src/config/data/mqtt_topics_suffix.dart';
+import 'package:irrigazione_iot/src/config/data/local_mqtt_configs.dart';
+import 'package:irrigazione_iot/src/config/data/mqtt_configs.dart';
 import 'package:irrigazione_iot/src/exceptions/async_error_logger.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
 
@@ -28,10 +28,10 @@ extension AppBootstrapLocal on AppBootstrap {
   Future<ProviderContainer> createLocalProviderContainer(
       {bool addDelay = true}) async {
     final settingsController = await bootSettingsController();
-    final localMqttSuffix = LocalMqttTopicsSuffix();
+    final localMqttConfigs = LocalMqttConfigs();
     return ProviderContainer(
       overrides: [
-        mqttTopicsSuffixProvider.overrideWithValue(localMqttSuffix),
+        mqttConfigsProvider.overrideWithValue(localMqttConfigs),
         // services
         settingsControllerProvider.overrideWithValue(settingsController),
       ],

@@ -1,4 +1,5 @@
 import 'package:irrigazione_iot/src/shared/services/mqtt_client_service.dart';
+import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
@@ -8,23 +9,21 @@ import 'package:irrigazione_iot/src/shared/models/item_status_request.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabasePumpStatusRepository implements PumpStatusRepository {
-  const SupabasePumpStatusRepository(
-    this._supabaseClient,
-    this._mqttService,
-  );
-  final SupabaseClient _supabaseClient;
-  final MqttClientService _mqttService;
+  const SupabasePumpStatusRepository({
+    required this.supabaseClient,
+    required this.mqttService,
+    this.mqttClient,
+  });
+  final SupabaseClient supabaseClient;
+  final MqttServerClient? mqttClient;
+  final MqttService mqttService;
 
   @override
-  Future<void> togglePumpStatus({
-    required ItemStatusRequest statusBody,
-  }) async {
-    final mqttClient = await _mqttService.connect();
-
-    await _mqttService.publishMessage(
-      mqttClient,
-      statusBody.topic,
-      statusBody.toJson(),
+  Future<void> togglePumpStatus({required ItemStatusRequest statusBody}) async {
+    await mqttService.publishMessage(
+      topic: statusBody.topic,
+      message: statusBody.toJson(),
+      client: mqttClient,
     );
 
     return;
@@ -32,7 +31,7 @@ class SupabasePumpStatusRepository implements PumpStatusRepository {
 
   @override
   Stream<PumpStatus?> watchPumpStatus(String pumpId) {
-    final stream = _supabaseClient.pumpStatus
+    final stream = supabaseClient.pumpStatus
         .stream(primaryKey: [PumpStatusDatabaseKeys.id])
         .eq(PumpStatusDatabaseKeys.pumpId, pumpId)
         .order(PumpStatusDatabaseKeys.createdAt, ascending: false)

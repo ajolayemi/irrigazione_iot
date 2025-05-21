@@ -5,6 +5,7 @@ import 'package:irrigazione_iot/src/config/theme/app_theme.dart';
 import 'package:irrigazione_iot/src/features/weenat/providers/weenat_providers.dart';
 import 'package:irrigazione_iot/src/localization/gen_l10n/app_localizations.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
+import 'package:irrigazione_iot/src/shared/services/mqtt_client_service.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 /// The Widget that configures your application.
@@ -21,6 +22,7 @@ class _IotIrrigationAppState extends ConsumerState<IotIrrigationApp> {
     // ref.read(weenatTokenProvider);
     super.initState();
     ref.read(weenatTokenProvider);
+    ref.read(mqttServerClientProvider);
   }
 
   @override

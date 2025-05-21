@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/data/datasource/dao/mqtt_dao.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/dashboard/data/supabase_dashboard_repository.dart';
 import 'package:irrigazione_iot/src/features/dashboard/models/pump_switched_on.dart';
@@ -21,14 +22,17 @@ DashboardRepository dashboardRepository(DashboardRepositoryRef ref) {
   return SupabaseDashboardRepository(supabaseClient);
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 Stream<List<PumpSwitchedOn>?> pumpsSwitchedOnStream(
     PumpsSwitchedOnStreamRef ref) {
   final currentSelectedCompanyByUser =
       ref.watch(currentTappedCompanyProvider).value;
   if (currentSelectedCompanyByUser == null) return Stream.value([]);
-  final dashboardRepo = ref.watch(dashboardRepositoryProvider);
-  return dashboardRepo.watchPumpsSwitchedOn(currentSelectedCompanyByUser.id);
+
+  final dao = ref.watch(mqttDaoProvider);
+  return dao.watchPumpsSwitchedOn(
+    companyId: currentSelectedCompanyByUser.id,
+  );
 }
 
 @Riverpod(keepAlive: true)

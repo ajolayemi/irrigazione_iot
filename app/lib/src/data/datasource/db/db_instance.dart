@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:irrigazione_iot/src/data/datasource/entities/mqtt_entities.dart';
 import 'package:irrigazione_iot/src/data/datasource/entities/weenat_plot_entity.dart';
 import 'package:irrigazione_iot/src/data/datasource/entities/weenat_plot_sensor_data_entity.dart';
 import 'package:isar/isar.dart';
@@ -16,6 +17,8 @@ class LocalDbInstance {
       [
         WeenatPlotEntitySchema,
         WeenatPlotSensorDataEntitySchema,
+        MqttPumpStatusSchema,
+        MqttPumpSwitchedOnSchema,
       ],
       directory: dir.path,
     );

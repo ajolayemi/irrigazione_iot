@@ -11,6 +11,9 @@ class ItemStatusRequest {
     required this.message,
     required this.mqttMsgName,
     required this.messageType,
+    required this.companyId,
+    required this.itemId,
+    required this.statusBoolean,
   });
 
   /// The topic to publish the message to.
@@ -32,6 +35,14 @@ class ItemStatusRequest {
   @JsonKey(name: "name")
   final String mqttMsgName;
 
+  final String itemId;
+
+  final String companyId;
+
+  final bool statusBoolean;
+
+  factory ItemStatusRequest.fromJson(Map<String, dynamic> json) =>
+      _$ItemStatusRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$ItemStatusRequestToJson(this);
 }

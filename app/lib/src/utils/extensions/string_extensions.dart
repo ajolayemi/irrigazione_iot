@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+import 'package:irrigazione_iot/src/config/enums/mqtt_enums.dart';
 import 'package:irrigazione_iot/src/config/enums/roles.dart';
 import 'package:irrigazione_iot/src/features/weather_stations/models/weather_station_measurements_database_keys.dart';
 
@@ -35,5 +37,9 @@ extension StringExtensions on String {
     }
   }
 
-  ///
+  /// Translate a string value to a valid []
+  MqttMessageTypes? toMqttMsgType() {
+    return MqttMessageTypes.values
+        .firstWhereOrNull((item) => item.type == this);
+  }
 }

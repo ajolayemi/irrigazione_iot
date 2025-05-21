@@ -24,7 +24,7 @@ void main() async {
     url: Env.supabaseProdUrl,
   );
 
-  ServiceLocator.init();
+  await ServiceLocator.init();
 
   // turn off the # in the URLs on the web
   usePathUrlStrategy();

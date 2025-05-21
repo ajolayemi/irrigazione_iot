@@ -30,7 +30,7 @@ void main() async {
     debug: true,
   );
 
-  ServiceLocator.init();
+  await ServiceLocator.init();
 
   // turn off the # in the URLs on the web
   usePathUrlStrategy();

@@ -1,3 +1,4 @@
+import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:irrigazione_iot/src/features/sectors/data/sector_status_repository.dart';
@@ -8,23 +9,21 @@ import 'package:irrigazione_iot/src/shared/services/mqtt_client_service.dart';
 import 'package:irrigazione_iot/src/utils/extensions/supabase_extensions.dart';
 
 class SupabaseSectorStatusRepository implements SectorStatusRepository {
-  const SupabaseSectorStatusRepository(
-    this._supabaseClient,
-    this._mqttService,
-  );
-  final SupabaseClient _supabaseClient;
-  final MqttClientService _mqttService;
+  const SupabaseSectorStatusRepository({
+    required this.supabaseClient,
+    required this.mqttService,
+    this.mqttClient,
+  });
+  final SupabaseClient supabaseClient;
+  final MqttService mqttService;
+  final MqttServerClient? mqttClient;
 
   @override
-  Future<void> toggleSectorStatus({
-    required ItemStatusRequest statusBody,
-  }) async {
-    final mqttClient = await _mqttService.connect();
-
-    await _mqttService.publishMessage(
-      mqttClient,
-      statusBody.topic,
-      statusBody.toJson(),
+  Future<void> toggleSectorStatus({required ItemStatusRequest statusBody}) async {
+    await mqttService.publishMessage(
+      topic: statusBody.topic,
+      message: statusBody.toJson(),
+      client: mqttClient,
     );
 
     return;
@@ -32,7 +31,7 @@ class SupabaseSectorStatusRepository implements SectorStatusRepository {
 
   @override
   Stream<SectorStatus?> watchSectorStatus(String sectorId) {
-    final stream = _supabaseClient.sectorStatus
+    final stream = supabaseClient.sectorStatus
         .stream(primaryKey: [SectorStatusDatabaseKeys.id])
         .eq(SectorStatusDatabaseKeys.sectorId, sectorId)
         .order(SectorStatusDatabaseKeys.createdAt, ascending: false)

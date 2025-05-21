@@ -21,8 +21,14 @@ abstract class SectorStatusRepository {
 @Riverpod(keepAlive: true)
 SectorStatusRepository sectorStatusRepository(SectorStatusRepositoryRef ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
-  final mqttService = ref.watch(mqttClientServiceProvider);
-  return SupabaseSectorStatusRepository(supabaseClient, mqttService);
+  final mqttService = ref.watch(mqttServiceProvider);
+  final mqttClient = ref.watch(mqttServerClientProvider).valueOrNull;
+
+  return SupabaseSectorStatusRepository(
+    supabaseClient: supabaseClient,
+    mqttClient: mqttClient,
+    mqttService: mqttService,
+  );
 }
 
 @Riverpod(keepAlive: true)
