@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/features/sectors/models/sector_pressure.dart';
 import 'package:isar/isar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,6 +17,27 @@ part 'mqtt_dao.g.dart';
 
 class MqttDao extends AppAbstractDao {
   Isar? get _db => dbInstance;
+
+  /// Emits the last pressure of the sector with the provided [sectorId]
+  Stream<SectorPressure?> watchSectorPressure(String? sectorId) {
+    if (sectorId == null || sectorId.isEmpty) {
+      return Stream.value(null);
+    }
+
+    final query =
+        _db?.mqttSectorPressures.filter().sectorIdEqualTo(sectorId).build();
+    if (query == null) {
+      return Stream.value(null);
+    }
+
+    return query.watch(fireImmediately: true).map((events) {
+      if (events.isEmpty) {
+        return null;
+      }
+      final last = events.last;
+      return SectorPressure.fromEntity(last);
+    });
+  }
 
   /// Emits the last pressure of the terminal with the provided [collectorId]
   Stream<TerminalPressure?> watchTerminalPressure(String? collectorId) {
@@ -38,7 +60,7 @@ class MqttDao extends AppAbstractDao {
       final last = events.last;
       return TerminalPressure.fromEntity(last);
     });
-  } 
+  }
 
   /// Emits the last pressure of the collector with the provided [collectorId]
   Stream<CollectorPressure?> watchCollectorPressure(String? collectorId) {
@@ -191,6 +213,20 @@ class MqttDao extends AppAbstractDao {
       final last = events.last;
       return PumpStatus.fromEntity(last);
     });
+  }
+
+  Future<void> insertSectorPressures({
+    required List<SectorPressure> data,
+  }) async {
+    if (data.isEmpty) {
+      return;
+    }
+
+    await _db?.writeTxn(
+      () async => await _db?.mqttSectorPressures.putAll(
+        data.toEntities(),
+      ),
+    );
   }
 
   Future<void> insertTerminalPressures({

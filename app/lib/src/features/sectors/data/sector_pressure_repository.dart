@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/data/datasource/dao/mqtt_dao.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector_pressure.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -20,11 +21,11 @@ SectorPressureRepository sectorPressureRepository(
   return SupabaseSectorPressureRepository(supabaseClient);
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 Stream<SectorPressure?> sectorLastPressureStream(
   SectorLastPressureStreamRef ref,
   String sectorId,
 ) {
-  final sectorPressureRepository = ref.watch(sectorPressureRepositoryProvider);
-  return sectorPressureRepository.watchLastSectorPressureReading(sectorId);
+  final mqttDao = ref.watch(mqttDaoProvider);
+  return mqttDao.watchSectorPressure(sectorId);
 }

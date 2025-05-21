@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:irrigazione_iot/src/data/datasource/entities/mqtt_entities.dart';
 import 'package:irrigazione_iot/src/utils/int_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -33,4 +34,27 @@ class SectorPressure extends Equatable {
       _$SectorPressureFromJson(json);
 
   Map<String, dynamic> toJson() => _$SectorPressureToJson(this);
+
+  factory SectorPressure.fromEntity(MqttSectorPressure? entity) {
+    return SectorPressure(
+      id: entity?.id.toString() ?? '',
+      sectorId: entity?.sectorId ?? '',
+      pressure: entity?.pressure ?? 0.0,
+      createdAt: entity?.createdAt,
+    );
+  }
+
+  MqttSectorPressure toEntity() {
+    return MqttSectorPressure()
+      ..id = int.tryParse(id)
+      ..sectorId = sectorId
+      ..pressure = pressure
+      ..createdAt = createdAt;
+  }
+}
+
+extension SectorPressureListExt on List<SectorPressure> {
+  List<MqttSectorPressure> toEntities() {
+    return map((e) => e.toEntity()).toList();
+  }
 }

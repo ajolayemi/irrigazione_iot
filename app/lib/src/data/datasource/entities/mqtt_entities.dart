@@ -4,11 +4,23 @@ import 'package:irrigazione_iot/src/features/dashboard/models/sector_switched_on
 import 'package:irrigazione_iot/src/features/pumps/models/pump_flow.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_pressure.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_status.dart';
+import 'package:irrigazione_iot/src/features/sectors/models/sector_pressure.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector_status.dart';
 import 'package:irrigazione_iot/src/features/terminal/models/terminal_pressure.dart';
 import 'package:isar/isar.dart';
 
 part 'mqtt_entities.g.dart';
+
+@collection
+class MqttSectorPressure {
+  Id? id;
+
+  double? pressure;
+
+  String? sectorId;
+
+  DateTime? createdAt;
+}
 
 @collection
 class MqttTerminalPressure {
@@ -156,8 +168,15 @@ extension MqttCollectorPressureExt on List<MqttCollectorPressure> {
     return map((e) => CollectorPressure.fromEntity(e)).toList();
   }
 }
+
 extension MqttTerminalPressureExt on List<MqttTerminalPressure> {
   List<TerminalPressure> toModel() {
     return map((e) => TerminalPressure.fromEntity(e)).toList();
+  }
+}
+
+extension MqttSectorPressureExt on List<MqttSectorPressure> {
+  List<SectorPressure> toModel() {
+    return map((e) => SectorPressure.fromEntity(e)).toList();
   }
 }
