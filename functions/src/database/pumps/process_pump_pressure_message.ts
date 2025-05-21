@@ -20,7 +20,7 @@ export const processPumpPressureMessage = async (
 
     logger.info("Processing pump pressure message...");
 
-    const { nameKey, filterInKey, filterOutKey } = getPumpPressureMessageKeys(
+    const {nameKey, filterInKey, filterOutKey} = getPumpPressureMessageKeys(
       message,
     );
 
@@ -46,12 +46,12 @@ export const processPumpPressureMessage = async (
     };
 
     const mqttMessage = {
-      "pump_id": pump.id,
-      "filter_in_pressure": pumpPressure.filter_in_pressure,
-      "filter_out_pressure": pumpPressure.filter_out_pressure,
-      "created_at": pumpPressure.created_at,
-      "type": "pump_pressure",
-      "pressure_difference": (pumpPressure.filter_in_pressure ?? 0) -
+      pump_id: pump.id,
+      filter_in_pressure: pumpPressure.filter_in_pressure,
+      filter_out_pressure: pumpPressure.filter_out_pressure,
+      created_at: pumpPressure.created_at,
+      type: "pump_pressure",
+      pressure_difference: (pumpPressure.filter_in_pressure ?? 0) -
         (pumpPressure.filter_out_pressure ?? 0),
     };
 

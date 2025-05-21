@@ -25,7 +25,7 @@ export const processPumpFlowMessage = async (
     }
 
     logger.info(`Processing pump flow message for ${message.name}`);
-    const { name, count } = message;
+    const {name, count} = message;
 
     const pump = await getPumpByMqttMsgName(name);
 
@@ -46,11 +46,11 @@ export const processPumpFlowMessage = async (
     };
 
     const mqttMessage = {
-      "flow": flowRate.flow,
-      "litres_per_second": flowRate.litres_per_second,
-      "pump_id": pump.id,
-      "created_at": flowRate.created_at,
-      "type": "pump_flow",
+      flow: flowRate.flow,
+      litres_per_second: flowRate.litres_per_second,
+      pump_id: pump.id,
+      created_at: flowRate.created_at,
+      type: "pump_flow",
     };
 
     const mqttOutputTopic = buildMqttTopic("pump_flow");

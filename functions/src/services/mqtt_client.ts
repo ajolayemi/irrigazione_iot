@@ -2,7 +2,7 @@ import dotenv = require("dotenv");
 import {connect, MqttClient} from "mqtt";
 import {getSecretFromCloud} from "./secrets";
 import {logger} from "firebase-functions/v2";
-dotenv.config({ path: "../../../.env" });
+dotenv.config({path: "../../../.env"});
 
 /**
  * Creates a MQTT client with the provided URL
@@ -34,7 +34,6 @@ export const createMqttClient = async (): Promise<MqttClient> => {
     logger.info("MQTT client connected successfully");
     return client;
   });
-
 };
 
 /**

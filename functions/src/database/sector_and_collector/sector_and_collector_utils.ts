@@ -82,10 +82,10 @@ export const processTerminalPressure = async (
     };
 
     const mqttMessage = {
-      "pressure": _terminalPressure.pressure,
-      "collector_id": _terminalPressure.collector_id,
-      "created_at": _terminalPressure.created_at,
-      "type": "terminal_pressure",
+      pressure: _terminalPressure.pressure,
+      collector_id: _terminalPressure.collector_id,
+      created_at: _terminalPressure.created_at,
+      type: "terminal_pressure",
     };
 
     const mqttOutputTopic = buildMqttTopic(message.type);
@@ -141,10 +141,10 @@ export const processSectorPressure = async (
       };
 
       const mqttMessage = {
-        "pressure": _sectorPressureForDatabase.pressure,
-        "sector_id": _sectorPressureForDatabase.sector_id,
-        "created_at": _sectorPressureForDatabase.created_at,
-        "type": "sector_pressure",
+        pressure: _sectorPressureForDatabase.pressure,
+        sector_id: _sectorPressureForDatabase.sector_id,
+        created_at: _sectorPressureForDatabase.created_at,
+        type: "sector_pressure",
       };
       const mqttOutputTopic = buildMqttTopic(message.type);
       await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
@@ -200,12 +200,12 @@ export const processCollectorPressure = async (
 
     logger.info("Saving collector pressure to the database");
     const mqttMessage = {
-      "filter_in_pressure": _collectorPressure.filter_in_pressure,
-      "filter_out_pressure": _collectorPressure.filter_out_pressure,
-      "collector_id": _collectorPressure.collector_id,
-      "created_at": _collectorPressure.created_at,
-      "type": "collector_pressure",
-      "pressure_difference": _diff,
+      filter_in_pressure: _collectorPressure.filter_in_pressure,
+      filter_out_pressure: _collectorPressure.filter_out_pressure,
+      collector_id: _collectorPressure.collector_id,
+      created_at: _collectorPressure.created_at,
+      type: "collector_pressure",
+      pressure_difference: _diff,
     };
     const mqttOutputTopic = buildMqttTopic(message.type);
     await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
