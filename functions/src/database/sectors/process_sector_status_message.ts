@@ -66,6 +66,7 @@ export const processSectorStatusMessage = async (
       status_boolean: sector.turn_on_command === status,
       created_at: currentDate.toISOString(),
       sector_id: sector.id,
+      company_id: sector.company_id,
       status,
     };
 
