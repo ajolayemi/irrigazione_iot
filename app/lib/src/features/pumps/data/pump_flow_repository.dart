@@ -16,6 +16,9 @@ abstract class PumpFlowRepository {
 
   /// Emits the last [PumpFlow] of the pump with the provided [pumpId]
   Stream<PumpFlow?> watchPumpLastFlow(String pumpId);
+
+  /// Fetches the latest [PumpFlow]s from remote data base
+  Future<List<PumpFlow>?> getLatestPumpFlow();
 }
 
 @Riverpod(keepAlive: true)

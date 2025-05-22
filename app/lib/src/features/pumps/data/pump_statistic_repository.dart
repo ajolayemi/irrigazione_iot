@@ -10,6 +10,9 @@ part 'pump_statistic_repository.g.dart';
 abstract class PumpStatisticRepository {
   /// Emits the last pump pressure for the given [pumpId]
   Stream<PumpPressure?> watchLastPumpPressure(String pumpId);
+
+  /// Fetches the latest / last list of [PumpPressure]s from remote database
+  Future<List<PumpPressure>?> getLatestPumpPressures();
 }
 
 @Riverpod(keepAlive: true)

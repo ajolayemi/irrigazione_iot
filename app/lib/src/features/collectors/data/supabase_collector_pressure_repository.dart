@@ -22,4 +22,15 @@ class SupabaseCollectorPressureRepository
       return CollectorPressure.fromJson(data.first);
     });
   }
+
+  @override
+  Future<List<CollectorPressure>?> getLatestCollectorPressure() {
+    return _supabaseClient
+        .rpc<List<Map<String, dynamic>>>('latest_collector_pressure_data')
+        .withConverter((data) {
+      if (data.isEmpty) return null;
+
+      return data.map((e) => CollectorPressure.fromJson(e)).toList();
+    });
+  }
 }

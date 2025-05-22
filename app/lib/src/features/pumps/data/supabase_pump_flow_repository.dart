@@ -44,4 +44,14 @@ class SupabasePumpFlowRepository implements PumpFlowRepository {
       watchPumpLastFlow(pumpId).map(
         (flow) => flow?.createdAt,
       );
+
+  @override
+  Future<List<PumpFlow>?> getLatestPumpFlow() async {
+    return _supabaseClient
+        .rpc<List<Map<String, dynamic>>>('latest_pump_flow_data')
+        .withConverter((data) {
+      if (data.isEmpty) return null;
+      return data.map((e) => PumpFlow.fromJson(e)).toList();
+    });
+  }
 }

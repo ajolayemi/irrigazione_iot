@@ -10,6 +10,8 @@ part 'collector_pressure_repository.g.dart';
 abstract class CollectorPressureRepository {
   /// emits the most recent [CollectorPressure] if any for the collector with [collectorId]
   Stream<CollectorPressure?> watchCollectorPressure(String collectorId);
+
+  Future<List<CollectorPressure>?> getLatestCollectorPressure();
 }
 
 @Riverpod(keepAlive: true)

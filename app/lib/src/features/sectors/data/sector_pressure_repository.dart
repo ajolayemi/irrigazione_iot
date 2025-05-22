@@ -11,6 +11,8 @@ abstract class SectorPressureRepository {
   /// Emits the last time the sector with the provided [sectorId] had a pressure reading
   /// Which is also the last time the sector was irrigated
   Stream<SectorPressure?> watchLastSectorPressureReading(String sectorId);
+
+  Future<List<SectorPressure>?> getLatestSectorPressure();
 }
 
 @Riverpod(keepAlive: true)

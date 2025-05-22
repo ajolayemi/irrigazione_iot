@@ -341,10 +341,7 @@ class MqttDao extends AppAbstractDao {
 
   Future<void> clearMqttDao() async {
     await _db?.writeTxn(() async {
-      await _db?.mqttPumpStatus.clear();
-      await _db?.mqttPumpSwitchedOns.clear();
-      await _db?.mqttSectorStatus.clear();
-      await _db?.mqttSectorSwitchedOns.clear();
+      await _db?.clear();
     });
   }
 }

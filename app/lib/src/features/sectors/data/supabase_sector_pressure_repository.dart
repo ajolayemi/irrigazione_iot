@@ -21,4 +21,15 @@ class SupabaseSectorPressureRepository implements SectorPressureRepository {
       return SectorPressure.fromJson(pressures.first);
     });
   }
+
+  @override
+  Future<List<SectorPressure>?> getLatestSectorPressure() async {
+    return _supabaseClient
+        .rpc<List<Map<String, dynamic>>>('latest_sector_pressure_data')
+        .withConverter((data) {
+      if (data.isEmpty) return null;
+
+      return data.map((e) => SectorPressure.fromJson(e)).toList();
+    });
+  }
 }

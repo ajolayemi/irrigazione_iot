@@ -23,4 +23,15 @@ class SupabaseTerminalPressureRepository implements TerminalPressureRepository {
 
     return stream.map(_singleTerminalPressure);
   }
+
+  @override
+  Future<List<TerminalPressure>?> getLatestTerminalPressure() {
+    return _supabaseClient
+        .rpc<List<Map<String, dynamic>>>('latest_terminal_pressure_data')
+        .withConverter((data) {
+      if (data.isEmpty) return null;
+
+      return data.map((e) => TerminalPressure.fromJson(e)).toList();
+    });
+  }
 }

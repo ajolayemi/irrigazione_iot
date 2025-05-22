@@ -21,3 +21,20 @@ class RpcParameters {
 
   Map<String, dynamic> toJson() => _$RpcParametersToJson(this);
 }
+
+/// The query parameter passed when calling a
+/// rpc method, i.e Supabase database function.
+@JsonSerializable()
+class RpcCompanyIdParameter {
+  const RpcCompanyIdParameter({
+    required this.companyId,
+  });
+
+  @JsonKey(name: 'company_id_input')
+  final String companyId;
+
+  factory RpcCompanyIdParameter.fromJson(Map<String, dynamic> json) =>
+      _$RpcCompanyIdParameterFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RpcCompanyIdParameterToJson(this);
+}

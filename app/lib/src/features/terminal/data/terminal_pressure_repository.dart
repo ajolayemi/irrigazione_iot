@@ -11,6 +11,8 @@ abstract class TerminalPressureRepository {
   /// Emits the last [TerminalPressure] for the given terminal linked
   /// with the provided [collectorId]
   Stream<TerminalPressure?> watchTerminalPressure(String collectorId);
+
+  Future<List<TerminalPressure>?> getLatestTerminalPressure();
 }
 
 @Riverpod(keepAlive: true)

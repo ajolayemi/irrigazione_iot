@@ -17,6 +17,9 @@ abstract class SectorStatusRepository {
   Future<void> toggleSectorStatus({
     required ItemStatusRequest statusBody,
   });
+
+  /// Fetches the list of all latest [SectorStatus] from local database
+  Future<List<SectorStatus>?> getLatestSectorStatuses(String companyId);
 }
 
 @Riverpod(keepAlive: true)

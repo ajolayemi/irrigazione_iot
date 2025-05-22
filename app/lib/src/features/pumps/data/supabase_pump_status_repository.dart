@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/shared/models/rpc_parameter.dart';
 import 'package:irrigazione_iot/src/shared/services/mqtt_client_service.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -24,7 +25,6 @@ class SupabasePumpStatusRepository implements PumpStatusRepository {
       topic: statusBody.topic,
       message: statusBody.toJson(),
       client: mqttClient,
-      
     );
 
     return;
@@ -42,6 +42,22 @@ class SupabasePumpStatusRepository implements PumpStatusRepository {
       if (status.isEmpty) return null;
 
       return PumpStatus.fromJson(status.first);
+    });
+  }
+
+  @override
+  Future<List<PumpStatus>?> getLatestPumpStatuses(String companyId) async {
+    final rpcParam = RpcCompanyIdParameter(companyId: companyId).toJson();
+
+    return supabaseClient
+        .rpc<List<Map<String, dynamic>>>(
+      'latest_pump_status_data',
+      params: rpcParam,
+    )
+        .withConverter((statuses) {
+      if (statuses.isEmpty) return null;
+
+      return statuses.map((item) => PumpStatus.fromJson(item)).toList();
     });
   }
 }

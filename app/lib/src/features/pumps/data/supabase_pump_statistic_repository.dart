@@ -22,4 +22,15 @@ class SupabasePumpStatisticRepository implements PumpStatisticRepository {
       return pumpPressure;
     });
   }
+
+  @override
+  Future<List<PumpPressure>?> getLatestPumpPressures() async {
+    return _supabaseClient
+        .rpc<List<Map<String, dynamic>>>('latest_pump_pressure_data')
+        .withConverter((data) {
+      if (data.isEmpty) return null;
+
+      return data.map((e) => PumpPressure.fromJson(e)).toList();
+    });
+  }
 }

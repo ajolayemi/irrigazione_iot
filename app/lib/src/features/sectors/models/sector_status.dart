@@ -11,11 +11,11 @@ part 'sector_status.g.dart';
 @JsonSerializable()
 class SectorStatus extends Equatable {
   const SectorStatus({
-     this.id,
-     this.sectorId,
-     this.status,
-     this.statusBoolean,
-     this.companyId,
+    this.id,
+    this.sectorId,
+    this.status,
+    this.statusBoolean,
+    this.companyId,
     this.createdAt,
   });
 
@@ -37,6 +37,7 @@ class SectorStatus extends Equatable {
   final DateTime? createdAt;
 
   @JsonKey(name: SectorStatusDatabaseKeys.companyId)
+  @IntConverter()
   final String? companyId;
 
   @override

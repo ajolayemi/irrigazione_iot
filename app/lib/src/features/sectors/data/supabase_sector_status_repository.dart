@@ -1,3 +1,4 @@
+import 'package:irrigazione_iot/src/shared/models/rpc_parameter.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -19,7 +20,8 @@ class SupabaseSectorStatusRepository implements SectorStatusRepository {
   final MqttServerClient? mqttClient;
 
   @override
-  Future<void> toggleSectorStatus({required ItemStatusRequest statusBody}) async {
+  Future<void> toggleSectorStatus(
+      {required ItemStatusRequest statusBody}) async {
     await mqttService.publishMessage(
       topic: statusBody.topic,
       message: statusBody.toJson(),
@@ -41,5 +43,22 @@ class SupabaseSectorStatusRepository implements SectorStatusRepository {
       if (statuses.isEmpty) return null;
       return SectorStatus.fromJson(statuses.first);
     });
+  }
+
+  @override
+  Future<List<SectorStatus>?> getLatestSectorStatuses(String companyId) async {
+    final rpcParam = RpcCompanyIdParameter(companyId: companyId).toJson();
+    return supabaseClient
+        .rpc<List<Map<String, dynamic>>>(
+      'latest_sector_status_data',
+      params: rpcParam,
+    )
+        .withConverter(
+      (data) {
+        if (data.isEmpty) return null;
+
+        return data.map((item) => SectorStatus.fromJson(item)).toList();
+      },
+    );
   }
 }

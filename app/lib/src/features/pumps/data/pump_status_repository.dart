@@ -16,6 +16,9 @@ abstract class PumpStatusRepository {
 
   /// Toggles the status of a pump
   Future<void> togglePumpStatus({required ItemStatusRequest statusBody});
+
+  /// Fetches the list of all latest [PumpStatus] from remote database
+  Future<List<PumpStatus>?> getLatestPumpStatuses(String companyId);
 }
 
 @Riverpod(keepAlive: true)
