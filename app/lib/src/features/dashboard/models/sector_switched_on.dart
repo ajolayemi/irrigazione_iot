@@ -11,7 +11,6 @@ class SectorSwitchedOn {
   SectorSwitchedOn({
     required this.id,
     required this.sectorId,
-    required this.companyId,
     required this.statusBoolean,
   });
 
@@ -22,10 +21,6 @@ class SectorSwitchedOn {
   @JsonKey(name: SectorSwitchedOnDatabaseKeys.sectorId)
   @IntConverter()
   final String sectorId;
-
-  @JsonKey(name: SectorSwitchedOnDatabaseKeys.companyId)
-  @IntConverter()
-  final String companyId;
 
   @JsonKey(name: SectorSwitchedOnDatabaseKeys.statusBoolean)
   final bool statusBoolean;
@@ -39,7 +34,6 @@ class SectorSwitchedOn {
     return SectorSwitchedOn(
       id: entity?.id.toString() ?? '',
       sectorId: entity?.id?.toString() ?? '',
-      companyId: entity?.item?.companyId ?? '',
       statusBoolean: entity?.item?.statusBoolean ?? false,
     );
   }
@@ -48,14 +42,12 @@ class SectorSwitchedOn {
     return SectorSwitchedOn(
       id: status?.sectorId ?? '',
       sectorId: status?.sectorId ?? '',
-      companyId: status?.companyId ?? '',
       statusBoolean: status?.statusBoolean ?? false,
     );
   }
 
   MqttSectorSwitchedOn toEntity() {
-    final item = MqttItemSwitchedOn()
-      ..companyId = companyId
+    final item = MqttItemSwitchedOn() 
       ..statusBoolean = statusBoolean;
 
     return MqttSectorSwitchedOn()

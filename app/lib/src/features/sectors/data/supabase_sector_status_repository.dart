@@ -1,4 +1,3 @@
-import 'package:irrigazione_iot/src/shared/models/rpc_parameter.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -47,11 +46,9 @@ class SupabaseSectorStatusRepository implements SectorStatusRepository {
 
   @override
   Future<List<SectorStatus>?> getLatestSectorStatuses(String companyId) async {
-    final rpcParam = RpcCompanyIdParameter(companyId: companyId).toJson();
     return supabaseClient
         .rpc<List<Map<String, dynamic>>>(
       'latest_sector_status_data',
-      params: rpcParam,
     )
         .withConverter(
       (data) {

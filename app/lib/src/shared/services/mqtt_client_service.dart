@@ -163,7 +163,6 @@ class MqttService {
                 sectorId: statusObj.itemId,
                 status: statusObj.message,
                 statusBoolean: statusObj.statusBoolean,
-                companyId: statusObj.companyId,
                 createdAt: statusObj.createdAt ?? DateTime.now(),
               );
               sectorStatuses.add(secStatus);
