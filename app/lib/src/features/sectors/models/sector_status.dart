@@ -16,6 +16,7 @@ class SectorStatus extends Equatable {
     this.status,
     this.statusBoolean,
     this.createdAt,
+    this.companyId,
   });
 
   @JsonKey(name: SectorStatusDatabaseKeys.id, includeToJson: false)
@@ -35,6 +36,10 @@ class SectorStatus extends Equatable {
   @JsonKey(name: SectorStatusDatabaseKeys.createdAt)
   final DateTime? createdAt;
 
+  @JsonKey(name: SectorStatusDatabaseKeys.companyId)
+  @IntConverter()
+  final String? companyId;
+
   @override
   List<Object?> get props => [id, sectorId, status, createdAt];
 
@@ -50,6 +55,7 @@ class SectorStatus extends Equatable {
       status: entity?.status?.status ?? '',
       statusBoolean: entity?.status?.statusBoolean ?? false,
       createdAt: entity?.status?.createdAt,
+      companyId: entity?.status?.companyId,
     );
   }
 
@@ -58,6 +64,7 @@ class SectorStatus extends Equatable {
       ..itemId = sectorId
       ..status = status
       ..statusBoolean = statusBoolean
+      ..companyId = companyId
       ..createdAt = createdAt;
 
     return MqttSectorStatus()

@@ -109,9 +109,8 @@ class LocalDataSyncService {
 }
 
 @Riverpod(keepAlive: true)
-LocalDataSyncService localSyncService(LocalSyncServiceRef ref) {
+Future<LocalDataSyncService> localSyncService(LocalSyncServiceRef ref) async {
   final mqttDao = ref.watch(mqttDaoProvider);
-  // TODO: [Kehinde] - remove hardcoded company id
-  final companyId = ref.watch(tappedCompanyIdProvider).valueOrNull;
-  return LocalDataSyncService(mqttDao, ref, '3');
+  final companyId = await ref.read(tappedCompanyIdProvider.future);
+  return LocalDataSyncService(mqttDao, ref, companyId);
 }

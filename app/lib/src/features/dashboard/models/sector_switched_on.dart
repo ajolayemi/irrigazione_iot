@@ -12,6 +12,7 @@ class SectorSwitchedOn {
     required this.id,
     required this.sectorId,
     required this.statusBoolean,
+    this.companyId,
   });
 
   @JsonKey(name: SectorSwitchedOnDatabaseKeys.id)
@@ -25,6 +26,10 @@ class SectorSwitchedOn {
   @JsonKey(name: SectorSwitchedOnDatabaseKeys.statusBoolean)
   final bool statusBoolean;
 
+  @JsonKey(name: SectorSwitchedOnDatabaseKeys.companyId)
+  @IntConverter()
+  final String? companyId;
+
   Map<String, dynamic> toJson() => _$SectorSwitchedOnToJson(this);
 
   factory SectorSwitchedOn.fromJson(Map<String, dynamic> json) =>
@@ -35,6 +40,7 @@ class SectorSwitchedOn {
       id: entity?.id.toString() ?? '',
       sectorId: entity?.id?.toString() ?? '',
       statusBoolean: entity?.item?.statusBoolean ?? false,
+      companyId: entity?.item?.companyId,
     );
   }
 
@@ -43,12 +49,14 @@ class SectorSwitchedOn {
       id: status?.sectorId ?? '',
       sectorId: status?.sectorId ?? '',
       statusBoolean: status?.statusBoolean ?? false,
+      companyId: status?.companyId,
     );
   }
 
   MqttSectorSwitchedOn toEntity() {
-    final item = MqttItemSwitchedOn() 
-      ..statusBoolean = statusBoolean;
+    final item = MqttItemSwitchedOn()
+      ..statusBoolean = statusBoolean
+      ..companyId = companyId;
 
     return MqttSectorSwitchedOn()
       ..id = int.tryParse(sectorId)

@@ -4,16 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:irrigazione_iot/src/app.dart';
 import 'package:irrigazione_iot/src/exceptions/error_logger.dart';
-import 'package:irrigazione_iot/src/shared/providers/shared_prefs_provider.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
 import 'package:irrigazione_iot/src/settings/settings_service.dart';
 
 /// Helper class to initialize services and configure the error handlers
 class AppBootstrap {
   /// Create the root widget that should be passed to [runApp]
-  Future<UncontrolledProviderScope> createRootWidget({
+  UncontrolledProviderScope createRootWidget({
     required ProviderContainer container,
-  }) async {
+  }) {
     // Register the timeago messages
     registerTimeagoMessages();
 
@@ -21,10 +20,6 @@ class AppBootstrap {
     // * https://docs.flutter.dev/testing/errors
     final errorLogger = container.read(errorLoggerProvider);
     registerErrorHandlers(errorLogger);
-
-    // Load the SharedPreferences instance during initialization
-    await container.read(sharedPreferencesProvider.future);
-
     return UncontrolledProviderScope(
       container: container,
       child: const IotIrrigationApp(),

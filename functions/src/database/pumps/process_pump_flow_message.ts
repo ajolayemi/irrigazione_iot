@@ -17,7 +17,7 @@ import {publishMessageToMqtt} from "../../services/mqtt_client";
  * was processed successfully, otherwise false
  */
 export const processPumpFlowMessage = async (
-  message: PumpFlowRateMessage,
+  message: PumpFlowRateMessage
 ): Promise<boolean> => {
   try {
     if (!message) {
@@ -31,7 +31,7 @@ export const processPumpFlowMessage = async (
 
     if (!pump) {
       throw new Error(
-        `No pump matching the provided ${name} was found in database`,
+        `No pump matching the provided ${name} was found in database`
       );
     }
 
@@ -53,7 +53,10 @@ export const processPumpFlowMessage = async (
       type: "pump_flow",
     };
 
-    const mqttOutputTopic = buildMqttTopic("pump_flow");
+    const mqttOutputTopic = buildMqttTopic(
+      "pump_flow",
+      pump.company_id.toString()
+    );
     await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
 
     // Insert data to supabase
@@ -73,7 +76,7 @@ export const processPumpFlowMessage = async (
  * was processed successfully
  */
 export const processPumpFlowDataForGs = async (
-  data: TablesInsert<"pump_flows">,
+  data: TablesInsert<"pump_flows">
 ): Promise<boolean> => {
   if (!data) {
     throw new Error("Data to process pump flow for google sheets is undefined");
@@ -87,7 +90,7 @@ export const processPumpFlowDataForGs = async (
 
     if (!pump) {
       throw new Error(
-        `No pump matching the provided ${data.pump_id} was found in database`,
+        `No pump matching the provided ${data.pump_id} was found in database`
       );
     }
 
@@ -96,7 +99,7 @@ export const processPumpFlowDataForGs = async (
 
     if (!company) {
       throw new Error(
-        `No company matching the provided ${pump.company_id} was found`,
+        `No company matching the provided ${pump.company_id} was found`
       );
     }
 
@@ -108,7 +111,7 @@ export const processPumpFlowDataForGs = async (
       company.name,
       data.flow,
       data.litres_per_second ?? 0,
-      customFormatDate(data.created_at),
+      customFormatDate(data.created_at)
     );
 
     await insertDataInSheet("pump_flows", dataForGs.getValues());

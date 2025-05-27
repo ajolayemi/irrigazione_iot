@@ -7,9 +7,9 @@ dotenv.config({path: "../../../.env"});
  * @param {string} messageType The type of message to process
  * @return {string} The MQTT topic to publish to
  */
-export const buildMqttTopic = (messageType: string): string => {
+export const buildMqttTopic = (messageType: string, companyId: string): string => {
   const env = process.env.NODE_ENV;
-  const topic = `flutter/${env?.toLowerCase()}/${messageType}`;
+  const topic = `${companyId}/flutter/${env?.toLowerCase()}/${messageType}`;
   return topic;
 };
 

@@ -1,32 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/app_startup.dart';
 import 'package:irrigazione_iot/src/config/routes/app_router.dart';
+import 'package:irrigazione_iot/src/config/routes/go_router_delegate_listener.dart';
 import 'package:irrigazione_iot/src/config/theme/app_theme.dart';
-import 'package:irrigazione_iot/src/features/weenat/providers/weenat_providers.dart';
 import 'package:irrigazione_iot/src/localization/gen_l10n/app_localizations.dart';
 import 'package:irrigazione_iot/src/settings/settings_controller.dart';
-import 'package:irrigazione_iot/src/shared/services/mqtt_client_service.dart';
 import 'package:irrigazione_iot/src/utils/extensions/build_ctx_extensions.dart';
 
 /// The Widget that configures your application.
-class IotIrrigationApp extends ConsumerStatefulWidget {
+class IotIrrigationApp extends ConsumerWidget {
   const IotIrrigationApp({super.key});
 
   @override
-  ConsumerState<IotIrrigationApp> createState() => _IotIrrigationAppState();
-}
-
-class _IotIrrigationAppState extends ConsumerState<IotIrrigationApp> {
-  @override
-  void initState() {
-    // ref.read(weenatTokenProvider);
-    super.initState();
-    ref.read(weenatTokenProvider);
-    ref.read(mqttServerClientProvider);
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final routeConfig = ref.watch(goRouterProvider);
     final settingsController = ref.watch(settingsControllerProvider);
     return MaterialApp.router(
@@ -39,6 +26,11 @@ class _IotIrrigationAppState extends ConsumerState<IotIrrigationApp> {
       darkTheme: ThemeData.dark(),
       themeMode: settingsController.themeMode,
       onGenerateTitle: (BuildContext context) => context.loc.appTitle,
+      builder: (_, child) {
+        return AppStartupWidget(
+          onLoaded: GoRouterDelegateListener(child: child!),
+        );
+      },
     );
   }
 }

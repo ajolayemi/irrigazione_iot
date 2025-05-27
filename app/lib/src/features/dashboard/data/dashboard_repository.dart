@@ -40,10 +40,10 @@ Stream<List<SectorSwitchedOn>?> sectorsSwitchedOnStream(
   SectorsSwitchedOnStreamRef ref,
 ) {
   final currentSelectedCompanyByUser =
-      ref.watch(currentTappedCompanyProvider).value;
+      ref.watch(tappedCompanyIdProvider).requireValue;
   if (currentSelectedCompanyByUser == null) return Stream.value([]);
   final mqttDao = ref.watch(mqttDaoProvider);
   return mqttDao.watchSectorsSwitchedOn(
-    companyId: currentSelectedCompanyByUser.id,
+    companyId: currentSelectedCompanyByUser,
   );
 }

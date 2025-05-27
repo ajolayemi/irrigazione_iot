@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/sectors/models/sector_pressure.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
@@ -69,6 +70,7 @@ class MqttService {
 
   /// Connects to the MQTT broker and returns the client.
   Future<MqttServerClient> connect() async {
+    final tappedCompanyId = await _ref.read(tappedCompanyIdProvider.future);
     final client = MqttServerClient.withPort(
       _brokerUrl,
       _getRandomClientId(),
@@ -84,11 +86,13 @@ class MqttService {
     client.onDisconnected = _onDisconnected;
 
     client.onSubscribed = _onSubscribed;
+
+    client.onUnsubscribed = _onUnsubscribed;
     try {
       await client.connect(_brokerUsername, _brokerPassword);
 
       if (client.connectionStatus!.state == MqttConnectionState.connected) {
-        _subscribeToTopics(client);
+        _subscribeToTopics(client, tappedCompanyId);
         client.updates?.listen(_updatesListener);
         return client;
       } else {
@@ -164,6 +168,7 @@ class MqttService {
                 status: statusObj.message,
                 statusBoolean: statusObj.statusBoolean,
                 createdAt: statusObj.createdAt ?? DateTime.now(),
+                companyId: statusObj.companyId,
               );
               sectorStatuses.add(secStatus);
             }
@@ -215,15 +220,18 @@ class MqttService {
     }
   }
 
-  void _subscribeToTopics(MqttServerClient client) {
+  void _subscribeToTopics(
+    MqttServerClient client,
+    String? companyId,
+  ) {
     final topics = _ref.read(mqttConfigsProvider).mqttTopicsToSubscribe;
 
-    if (topics.isEmpty) {
+    if (topics.isEmpty || companyId == null || companyId.isEmpty) {
       return;
     }
 
     for (final topic in topics) {
-      client.subscribe(topic, MqttQos.atLeastOnce);
+      client.subscribe('$companyId/$topic', MqttQos.atLeastOnce);
     }
   }
 
@@ -256,6 +264,12 @@ class MqttService {
 
   void _onSubscribed(String topic) {
     debugPrint('Subscribed to topic: $topic');
+  }
+
+  void _onUnsubscribed(String? topic) {
+    if (topic != null && topic.isNotEmpty) {
+      debugPrint('Unsubscribed from topic: $topic');
+    }
   }
 }
 

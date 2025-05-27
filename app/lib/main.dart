@@ -7,7 +7,6 @@ import 'package:irrigazione_iot/src/app_bootstrap_supabase.dart';
 
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:irrigazione_iot/src/application/di/service_locator.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -24,8 +23,6 @@ void main() async {
     url: Env.supabaseProdUrl,
   );
 
-  await ServiceLocator.init();
-
   // turn off the # in the URLs on the web
   usePathUrlStrategy();
 
@@ -35,7 +32,7 @@ void main() async {
   // create a container configured with all the Supabase repositories
   final container = await appBootstrap.createSupabaseProviderContainer();
   // use the container above to create the root widget
-  final root = await appBootstrap.createRootWidget(container: container);
+  final root =  appBootstrap.createRootWidget(container: container);
 
   // start the app
   runApp(root);
