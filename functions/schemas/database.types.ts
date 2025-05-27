@@ -595,7 +595,6 @@ export type Database = {
       }
       sector_statuses: {
         Row: {
-          company_id: number
           created_at: string
           id: number
           sector_id: number
@@ -603,7 +602,6 @@ export type Database = {
           status_boolean: boolean
         }
         Insert: {
-          company_id: number
           created_at?: string
           id?: number
           sector_id: number
@@ -611,7 +609,6 @@ export type Database = {
           status_boolean?: boolean
         }
         Update: {
-          company_id?: number
           created_at?: string
           id?: number
           sector_id?: number
@@ -624,13 +621,6 @@ export type Database = {
             columns: ["sector_id"]
             isOneToOne: false
             referencedRelation: "sectors"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "sector_statuses_company_id_fkey"
-            columns: ["company_id"]
-            isOneToOne: false
-            referencedRelation: "companies"
             referencedColumns: ["id"]
           },
         ]
@@ -1093,9 +1083,8 @@ export type Database = {
         }[]
       }
       latest_sector_status_data: {
-        Args: { company_id_input: number }
+        Args: Record<PropertyKey, never>
         Returns: {
-          company_id: number
           created_at: string
           id: number
           sector_id: number
