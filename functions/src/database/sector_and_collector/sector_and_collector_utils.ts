@@ -54,7 +54,6 @@ export const getPressureMessageKeys = (
  * @param {CustomJSON} message The message to process terminal pressure from
  * @param {number} collectorId The id of the collector this terminal pressure belongs to
  * @param {Date} timestamp The timestamp of the message
- * @param {string} companyId The id of the company the section belongs to
  * @return {Promise<boolean>} True if the terminal pressure was successfully processed, false otherwise
  */
 export const processTerminalPressure = async (
@@ -62,7 +61,6 @@ export const processTerminalPressure = async (
   message: CustomJSON,
   collectorId: number,
   timestamp: Date,
-  companyId: string
 ): Promise<boolean> => {
   try {
     logger.info("Processing terminal pressure...");
@@ -80,15 +78,6 @@ export const processTerminalPressure = async (
       pressure: terminalPressure,
     };
 
-    // const mqttMessage = {
-    //   pressure: _terminalPressure.pressure,
-    //   collector_id: _terminalPressure.collector_id,
-    //   created_at: _terminalPressure.created_at,
-    //   type: "terminal_pressure",
-    // };
-
-    // const mqttOutputTopic = buildMqttTopic(message.type, companyId);
-    // await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
 
     logger.info("Saving terminal pressure to the database");
     await insertTerminalPressure(_terminalPressure);
@@ -139,17 +128,6 @@ export const processSectorPressure = async (
         pressure: sectorPressure,
       };
 
-      // const mqttMessage = {
-      //   pressure: _sectorPressureForDatabase.pressure,
-      //   sector_id: _sectorPressureForDatabase.sector_id,
-      //   created_at: _sectorPressureForDatabase.created_at,
-      //   type: "sector_pressure",
-      // };
-      // const mqttOutputTopic = buildMqttTopic(
-      //   message.type,
-      //   sector.company_id.toString()
-      // );
-      // await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
 
       logger.info(
         `Saving sector pressure for sector ${sectorMqttName} to the database`
@@ -174,7 +152,6 @@ export const processSectorPressure = async (
  * @param {CustomJSON} message The message to process collector pressure from
  * @param {number} collectorId The id of the collector this collector pressure belongs to
  * @param {Date} timestamp The timestamp of the message
- * @param {string} companyId The id of the company the section belongs to
  * @return {Promise<boolean>} True if the collector pressure was successfully processed, false otherwise
  */
 export const processCollectorPressure = async (
@@ -182,7 +159,6 @@ export const processCollectorPressure = async (
   message: CustomJSON,
   collectorId: number,
   timestamp: Date,
-  companyId: string
 ): Promise<boolean> => {
   if (!collectorPressureKeys.length) {
     logger.info("Exiting... No collector pressure keys found in the message");
@@ -203,16 +179,6 @@ export const processCollectorPressure = async (
     };
 
     logger.info("Saving collector pressure to the database");
-    // const mqttMessage = {
-    //   filter_in_pressure: _collectorPressure.filter_in_pressure,
-    //   filter_out_pressure: _collectorPressure.filter_out_pressure,
-    //   collector_id: _collectorPressure.collector_id,
-    //   created_at: _collectorPressure.created_at,
-    //   type: "collector_pressure",
-    //   pressure_difference: _diff,
-    // };
-    // const mqttOutputTopic = buildMqttTopic(message.type, companyId);
-    // await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
     // Save the data to database
     await insertCollectorPressure(_collectorPressure);
 

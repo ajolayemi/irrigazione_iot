@@ -69,7 +69,6 @@ export const processPressureMessageFromPubSub = async (
         message,
         collectorId,
         currentDate,
-        companyId.toString()
       );
       // Next, call on the function that handles the collector pressure message processing
       await processCollectorPressure(
@@ -77,7 +76,6 @@ export const processPressureMessageFromPubSub = async (
         message,
         collectorId,
         currentDate,
-        companyId.toString(),
       );
       // Finally, call on the function that handles the sector pressure message processing
       await processSectorPressure(sectorKeys, message, currentDate);
