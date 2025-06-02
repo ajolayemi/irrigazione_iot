@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:irrigazione_iot/src/config/enums/irrigation_enums.dart';
@@ -13,7 +14,6 @@ part 'sector.g.dart';
 // TODO: which are terreno types
 // TODO: add checkbox to indicate if a sector can be controlled
 // TODO: if not checked, the sector doesn't have switch
-
 
 @JsonSerializable()
 class Sector extends Equatable {
@@ -188,4 +188,16 @@ class Sector extends Equatable {
 extension SectorX on Sector {
   String getMqttStatusCommand(bool status) =>
       status ? turnOnCommand : turnOffCommand;
+}
+
+extension SectorsExt on List<Sector> {
+  Sector? getSectorByMqttName(String? mqttName) {
+    if (mqttName == null || mqttName.isEmpty) {
+      return null;
+    }
+
+    return firstWhereOrNull(
+      (item) => item.mqttMsgName == mqttName,
+    );
+  }
 }

@@ -12,8 +12,6 @@ import {getCollectorById} from "../collectors/read_collector_data";
 import {SectorStatusGs} from "../../models/sector_status_for_gs";
 import {customFormatDate} from "../../utils/helper_funcs";
 import {insertDataInSheet} from "../../utils/gs_utils";
-import {buildMqttTopic} from "../../utils/mqtt_utils";
-import {publishMessageToMqtt} from "../../services/mqtt_client";
 
 /**
  * Abstracts off the process of sector status message coming from
@@ -44,12 +42,6 @@ export const processSectorStatusMessage = async (
         `No sector matching the provided ${sectorName} was found in database`
       );
     }
-
-    const mqttOutputTopic = buildMqttTopic(
-      message.type,
-      sector.company_id.toString()
-    );
-    await publishMessageToMqtt(mqttOutputTopic, message);
 
     // A check to ensure that the provided status matches either the sector's turn_on_command
     // or turn_off_command

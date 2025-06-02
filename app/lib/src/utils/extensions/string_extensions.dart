@@ -38,8 +38,8 @@ extension StringExtensions on String {
   }
 
   /// Translate a string value to a valid []
-  MqttMessageTypes? toMqttMsgType() {
-    return MqttMessageTypes.values
+  AppMqttMessageTypes? toMqttMsgType() {
+    return AppMqttMessageTypes.values
         .firstWhereOrNull((item) => item.type == this);
   }
 }

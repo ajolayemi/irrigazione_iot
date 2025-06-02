@@ -65,7 +65,7 @@ class CollectorPressure extends Equatable {
 
   Map<String, dynamic> toJson() => _$CollectorPressureToJson(this);
 
-  factory CollectorPressure.fromEntity(MqttCollectorPressure? entity) {
+  factory CollectorPressure.fromEntity(LocalCollectorPressure? entity) {
     return CollectorPressure(
       id: entity?.id.toString() ?? '',
       filterInPressure: entity?.filterInPressure ?? 0,
@@ -75,8 +75,8 @@ class CollectorPressure extends Equatable {
     );
   }
 
-  MqttCollectorPressure toEntity() {
-    return MqttCollectorPressure()
+  LocalCollectorPressure toEntity() {
+    return LocalCollectorPressure()
       ..id = int.tryParse(id ?? '')
       ..createdAt = createdAt
       ..filterInPressure = filterInPressure
@@ -86,7 +86,7 @@ class CollectorPressure extends Equatable {
 }
 
 extension CollectorPressureListExt on List<CollectorPressure> {
-  List<MqttCollectorPressure> toEntities() {
+  List<LocalCollectorPressure> toEntities() {
     return map((e) => e.toEntity()).toList();
   }
 }

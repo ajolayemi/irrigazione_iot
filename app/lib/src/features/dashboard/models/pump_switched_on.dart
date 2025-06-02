@@ -50,7 +50,7 @@ class PumpSwitchedOn extends Equatable {
 
   Map<String, dynamic> toJson() => _$PumpSwitchedOnToJson(this);
 
-  factory PumpSwitchedOn.fromEntity(MqttPumpSwitchedOn? entity) {
+  factory PumpSwitchedOn.fromEntity(LocalPumpSwitchedOn? entity) {
     return PumpSwitchedOn(
       companyId: entity?.item?.companyId ?? '',
       id: entity?.id.toString() ?? '',
@@ -68,18 +68,18 @@ class PumpSwitchedOn extends Equatable {
     );
   }
 
-  MqttPumpSwitchedOn toEntity() {
-    final item = MqttItemSwitchedOn()
+  LocalPumpSwitchedOn toEntity() {
+    final item = LocalItemSwitchedOn()
       ..companyId = companyId
       ..statusBoolean = statusBoolean;
-    return MqttPumpSwitchedOn()
+    return LocalPumpSwitchedOn()
       ..id = int.tryParse(pumpId)
       ..item = item;
   }
 }
 
 extension PumpsSwitchedOn on List<PumpSwitchedOn> {
-  List<MqttPumpSwitchedOn> toEntities() {
+  List<LocalPumpSwitchedOn> toEntities() {
     return map((e) => e.toEntity()).toList();
   }
 }

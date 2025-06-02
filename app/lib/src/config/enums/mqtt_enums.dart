@@ -1,22 +1,22 @@
-enum MqttMessageTypes {
+enum AppMqttMessageTypes {
   pumpStatus('pump_status'),
   sectorStatus('sector_status'),
   pumpFlow('pump_flow'),
   pumpPressure('pump_pressure'),
-  collectorPressure('collector_pressure'),
-  sectorPressure('sector_pressure'),
-  terminalPressure('terminal_pressure');
+  /// Stands for sector_pressure, collector_pressure and terminal_pressure
+  /// as they all are contained in single mqtt msg
+  pressure('pressure');
 
   final String type;
-  const MqttMessageTypes(this.type);
+  const AppMqttMessageTypes(this.type);
 }
 
-extension MqttMsgTypesExt on MqttMessageTypes {
+extension MqttMsgTypesExt on AppMqttMessageTypes {
   bool get isPumpStatus {
-    return this == MqttMessageTypes.pumpStatus;
+    return this == AppMqttMessageTypes.pumpStatus;
   }
 
   bool get isSectorStatus {
-    return this == MqttMessageTypes.sectorStatus;
+    return this == AppMqttMessageTypes.sectorStatus;
   }
 }

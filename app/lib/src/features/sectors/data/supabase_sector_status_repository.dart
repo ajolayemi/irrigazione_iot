@@ -19,15 +19,17 @@ class SupabaseSectorStatusRepository implements SectorStatusRepository {
   final MqttServerClient? mqttClient;
 
   @override
-  Future<void> toggleSectorStatus(
-      {required ItemStatusRequest statusBody}) async {
-    await mqttService.publishMessage(
-      topic: statusBody.topic,
-      message: statusBody.toJson(),
-      client: mqttClient,
-    );
-
-    return;
+  Future<void> toggleSectorStatus({
+    required ItemStatusRequest statusBody,
+    required List<String> topicsToPublishTo,
+  }) async {
+    for (final topic in topicsToPublishTo) {
+      await mqttService.publishMessage(
+        topic: topic,
+        message: statusBody.toJson(),
+        client: mqttClient,
+      );
+    }
   }
 
   @override

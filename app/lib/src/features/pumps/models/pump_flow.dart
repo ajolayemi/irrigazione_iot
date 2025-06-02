@@ -49,7 +49,7 @@ class PumpFlow extends Equatable {
 
   Map<String, dynamic> toJson() => _$PumpFlowToJson(this);
 
-  factory PumpFlow.fromEntity(MqttPumpFlow? entity) {
+  factory PumpFlow.fromEntity(LocalPumpFlow? entity) {
     return PumpFlow(
       id: entity?.id.toString() ?? '',
       pumpId: entity?.pumpId ?? '',
@@ -58,8 +58,22 @@ class PumpFlow extends Equatable {
       createdAt: entity?.createdAt,
     );
   }
-  MqttPumpFlow toEntity() {
-    return MqttPumpFlow()
+
+  factory PumpFlow.fromMqttMsg(
+    PumpFlowFromMqtt? mqttMsg, {
+    String? pumpId,
+    DateTime? createdAt,
+  }) {
+    return PumpFlow(
+      pumpId: pumpId,
+      flow: (mqttMsg?.count ?? 0) * 100,
+      createdAt: createdAt,
+      litresPerSecond: mqttMsg?.litresPerSecond ?? 0.0,
+    );
+  }
+
+  LocalPumpFlow toEntity() {
+    return LocalPumpFlow()
       ..id = int.tryParse(id ?? '')
       ..pumpId = pumpId
       ..flow = flow
@@ -68,8 +82,33 @@ class PumpFlow extends Equatable {
   }
 }
 
+/// Representation of a pump flow message as received from Mqtt
+@JsonSerializable(explicitToJson: true)
+class PumpFlowFromMqtt {
+  @JsonKey(name: 'count')
+  final int? count;
+  @JsonKey(name: 'litresPerSecond')
+  final double? litresPerSecond;
+  @JsonKey(name: 'type')
+  final String? msgType;
+  @JsonKey(name: 'name')
+  final String? mqttIdentifierName;
+
+  const PumpFlowFromMqtt({
+    this.count,
+    this.litresPerSecond,
+    this.msgType,
+    this.mqttIdentifierName,
+  });
+
+  factory PumpFlowFromMqtt.fromJson(Map<String, dynamic> json) =>
+      _$PumpFlowFromMqttFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PumpFlowFromMqttToJson(this);
+}
+
 extension PumpFlowListX on List<PumpFlow> {
-  List<MqttPumpFlow> toEntity() {
+  List<LocalPumpFlow> toEntity() {
     return map((e) => e.toEntity()).toList();
   }
 }

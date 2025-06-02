@@ -1,3 +1,5 @@
+import 'package:irrigazione_iot/src/config/enums/mqtt_enums.dart';
+import 'package:irrigazione_iot/src/utils/app_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'mqtt_configs.g.dart';
@@ -11,16 +13,14 @@ class MqttConfigs {
   String get sectorStatusToggle => 'nodered';
 
   /// Holds onto the list of topics to subscribe to
-  List<String> get mqttTopicsToSubscribe => [
-        'flutter/prod/collector_pressure',
-        'flutter/prod/sector_pressure',
-        'flutter/prod/terminal_pressure',
-        'flutter/prod/sector_status',
-        'flutter/prod/pump_status',
-        'flutter/prod/pump_flow',
-        'flutter/prod/pump_pressure',
-        'flutter/prod/board_status',
-      ];
+  List<String> buildMqttTopicsForSubscription(String companyName) {
+    return AppMqttMessageTypes.values.map((item) {
+      return AppUtils.buildFullMqttTopic(
+        companyName: companyName,
+        msgType: item,
+      );
+    }).toList();
+  }
 }
 
 @Riverpod(keepAlive: true)

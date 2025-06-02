@@ -35,7 +35,7 @@ class SectorPressure extends Equatable {
 
   Map<String, dynamic> toJson() => _$SectorPressureToJson(this);
 
-  factory SectorPressure.fromEntity(MqttSectorPressure? entity) {
+  factory SectorPressure.fromEntity(LocalSectorPressure? entity) {
     return SectorPressure(
       id: entity?.id.toString() ?? '',
       sectorId: entity?.sectorId ?? '',
@@ -44,8 +44,8 @@ class SectorPressure extends Equatable {
     );
   }
 
-  MqttSectorPressure toEntity() {
-    return MqttSectorPressure()
+  LocalSectorPressure toEntity() {
+    return LocalSectorPressure()
       ..id = int.tryParse(id ?? '')
       ..sectorId = sectorId
       ..pressure = pressure
@@ -54,7 +54,7 @@ class SectorPressure extends Equatable {
 }
 
 extension SectorPressureListExt on List<SectorPressure> {
-  List<MqttSectorPressure> toEntities() {
+  List<LocalSectorPressure> toEntities() {
     return map((e) => e.toEntity()).toList();
   }
 }

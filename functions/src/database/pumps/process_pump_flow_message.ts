@@ -7,8 +7,6 @@ import {PumpFlowGs} from "../../models/pump_flow_for_gs";
 import {customFormatDate} from "../../utils/helper_funcs";
 import {insertDataInSheet} from "../../utils/gs_utils";
 import {getCompanyById} from "../companies/read_company_data";
-import {buildMqttTopic} from "../../utils/mqtt_utils";
-import {publishMessageToMqtt} from "../../services/mqtt_client";
 
 /**
  * Abstracts the process of a pump flow message
@@ -44,20 +42,6 @@ export const processPumpFlowMessage = async (
       flow: count * 100,
       litres_per_second: message.litresPerSecond,
     };
-
-    const mqttMessage = {
-      flow: flowRate.flow,
-      litres_per_second: flowRate.litres_per_second,
-      pump_id: pump.id,
-      created_at: flowRate.created_at,
-      type: "pump_flow",
-    };
-
-    const mqttOutputTopic = buildMqttTopic(
-      "pump_flow",
-      pump.company_id.toString()
-    );
-    await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
 
     // Insert data to supabase
     await insertPumpFlow(flowRate);

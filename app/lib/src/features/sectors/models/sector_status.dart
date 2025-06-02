@@ -48,7 +48,7 @@ class SectorStatus extends Equatable {
 
   Map<String, dynamic> toJson() => _$SectorStatusToJson(this);
 
-  factory SectorStatus.fromEntity(MqttSectorStatus? entity) {
+  factory SectorStatus.fromEntity(LocalSectorStatus? entity) {
     return SectorStatus(
       id: entity?.id.toString() ?? '',
       sectorId: entity?.status?.itemId ?? '',
@@ -59,22 +59,22 @@ class SectorStatus extends Equatable {
     );
   }
 
-  MqttSectorStatus toEntity() {
-    final mqttStatus = MqttStatus()
+  LocalSectorStatus toEntity() {
+    final mqttStatus = LocalStatus()
       ..itemId = sectorId
       ..status = status
       ..statusBoolean = statusBoolean
       ..companyId = companyId
       ..createdAt = createdAt;
 
-    return MqttSectorStatus()
+    return LocalSectorStatus()
       ..status = mqttStatus
       ..id = int.tryParse(id ?? '');
   }
 }
 
 extension SectorStatusesExt on List<SectorStatus> {
-  List<MqttSectorStatus> toMqttStatuses() {
+  List<LocalSectorStatus> toMqttStatuses() {
     return map((e) => e.toEntity()).toList();
   }
 

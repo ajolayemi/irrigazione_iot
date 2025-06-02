@@ -1,13 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:irrigazione_iot/src/shared/models/item_status_request.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/data/mqtt_configs.dart';
+import 'package:irrigazione_iot/src/config/enums/mqtt_enums.dart';
 import 'package:irrigazione_iot/src/features/authentication/data/auth_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/company_repository.dart';
 import 'package:irrigazione_iot/src/features/company_users/data/selected_company_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/data/pump_status_repository.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump.dart';
+import 'package:irrigazione_iot/src/shared/models/item_status_request.dart';
+import 'package:irrigazione_iot/src/utils/app_utils.dart';
 
 part 'pump_status_service.g.dart';
 
@@ -43,8 +45,15 @@ class PumpStatusService {
 
     final mqttConfigs = _ref.read(mqttConfigsProvider);
 
+    final topics = [
+      '$companyMqttTopicName/${mqttConfigs.pumpStatusToggle}',
+      AppUtils.buildFullMqttTopic(
+        companyName: companyMqttTopicName,
+        msgType: AppMqttMessageTypes.pumpStatus,
+      ),
+    ];
+
     final body = ItemStatusRequest(
-      topic: '$companyMqttTopicName/${mqttConfigs.pumpStatusToggle}',
       message: statusCommand,
       mqttMsgName: pump.mqttMessageName,
       messageType: 'pump_status',
@@ -53,7 +62,11 @@ class PumpStatusService {
       statusBoolean: statusCommand == pump.turnOnCommand,
       createdAt: DateTime.now(),
     );
-    await pumpStatusRepo.togglePumpStatus(statusBody: body);
+
+    await pumpStatusRepo.togglePumpStatus(
+      mqttBody: body,
+      topicsToPublishTo: topics,
+    );
   }
 }
 

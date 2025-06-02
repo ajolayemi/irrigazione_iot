@@ -7,8 +7,6 @@ import {customFormatDate} from "../../utils/helper_funcs";
 import {insertDataInSheet} from "../../utils/gs_utils";
 import {getCompanyById} from "../companies/read_company_data";
 import {StatusMessage} from "../../interfaces/interfaces";
-import {buildMqttTopic} from "../../utils/mqtt_utils";
-import {publishMessageToMqtt} from "../../services/mqtt_client";
 
 /**
  * Abstracts the process of a pump status message coming from
@@ -42,12 +40,6 @@ export const processPumpStatusMessage = async (
         `No pump matching the provided ${pumpName} was found in database`
       );
     }
-
-    const mqttOutputTopic = buildMqttTopic(
-      message.type,
-      pump.company_id.toString()
-    );
-    await publishMessageToMqtt(mqttOutputTopic, message);
 
     // A check to ensure that the provided status matches either the pump's turn_on_command
     // or turn_off_command

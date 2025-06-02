@@ -1,4 +1,6 @@
 import 'package:irrigazione_iot/src/config/data/mqtt_configs.dart';
+import 'package:irrigazione_iot/src/config/enums/mqtt_enums.dart';
+import 'package:irrigazione_iot/src/utils/app_utils.dart';
 
 /// A local implementation of mqtt topics suffix for testing purposes.
 class LocalMqttConfigs implements MqttConfigs {
@@ -9,16 +11,12 @@ class LocalMqttConfigs implements MqttConfigs {
   String get sectorStatusToggle => 'eldebug';
 
   @override
-  List<String> get mqttTopicsToSubscribe {
-    return [
-      'flutter/dev/collector_pressure',
-      'flutter/dev/sector_pressure',
-      'flutter/dev/terminal_pressure',
-      'flutter/dev/sector_status',
-      'flutter/dev/pump_status',
-      'flutter/dev/pump_flow',
-      'flutter/dev/pump_pressure',
-      'flutter/dev/board_status'
-    ];
+  List<String> buildMqttTopicsForSubscription(String companyName) {
+    return AppMqttMessageTypes.values.map((item) {
+      return AppUtils.buildFullMqttTopic(
+        companyName: companyName,
+        msgType: item,
+      );
+    }).toList();
   }
 }

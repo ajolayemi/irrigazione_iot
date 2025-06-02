@@ -38,7 +38,7 @@ class TerminalPressure extends Equatable {
 
   Map<String, dynamic> toJson() => _$TerminalPressureToJson(this);
 
-  factory TerminalPressure.fromEntity(MqttTerminalPressure? entity) {
+  factory TerminalPressure.fromEntity(LocalTerminalPressure? entity) {
     return TerminalPressure(
       id: entity?.id.toString() ?? '',
       collectorId: entity?.collectorId ?? '',
@@ -46,8 +46,8 @@ class TerminalPressure extends Equatable {
       createdAt: entity?.createdAt,
     );
   }
-  MqttTerminalPressure toEntity() {
-    return MqttTerminalPressure()
+  LocalTerminalPressure toEntity() {
+    return LocalTerminalPressure()
       ..id = int.tryParse(id ?? '')
       ..collectorId = collectorId
       ..pressure = pressure
@@ -56,7 +56,7 @@ class TerminalPressure extends Equatable {
 }
 
 extension TerminalPressureListExt on List<TerminalPressure> {
-  List<MqttTerminalPressure> toEntities() {
+  List<LocalTerminalPressure> toEntities() {
     return map((e) => e.toEntity()).toList();
   }
 }

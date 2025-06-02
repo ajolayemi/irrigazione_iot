@@ -8,13 +8,15 @@
       "name": "irrigazione_iot (Supabase Local)",
       "request": "launch",
       "type": "dart",
-      "program": "app/lib/main_supabase_local.dart"
+      "program": "app/lib/main_supabase_local.dart",
+      "toolArgs": ["--dart-define", "ENV=dev"]
     },
     {
       "name": "irrigazione_iot (Supabase)",
       "request": "launch",
       "type": "dart",
-      "program": "app/lib/main.dart"
+      "program": "app/lib/main.dart",
+      "toolArgs": ["--dart-define", "ENV=prod"]
     },
     {
       "name": "irrigazione_iot (Supabase) release",
@@ -22,7 +24,6 @@
       "type": "dart",
       "program": "app/lib/main.dart",
       "flutterMode": "release"
-
     }
   ]
 }

@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:irrigazione_iot/src/features/pumps/models/pump_database_keys.dart';
 import 'package:irrigazione_iot/src/utils/int_converter.dart';
@@ -13,19 +14,18 @@ part 'pump.g.dart';
 
 @JsonSerializable()
 class Pump extends Equatable {
-  const Pump({
-    required this.id,
-    required this.name,
-    required this.capacityInVolume,
-    required this.consumeRateInKw,
-    required this.turnOnCommand,
-    required this.turnOffCommand,
-    required this.mqttMessageName,
-    required this.hasFilter,
-    required this.companyId,
-    this.createdAt,
-    this.updatedAt
-  });
+  const Pump(
+      {required this.id,
+      required this.name,
+      required this.capacityInVolume,
+      required this.consumeRateInKw,
+      required this.turnOnCommand,
+      required this.turnOffCommand,
+      required this.mqttMessageName,
+      required this.hasFilter,
+      required this.companyId,
+      this.createdAt,
+      this.updatedAt});
 
   const Pump.empty()
       : id = '',
@@ -118,5 +118,17 @@ class Pump extends Equatable {
 extension PumpX on Pump {
   String getStatusCommand(bool status) {
     return status ? turnOnCommand : turnOffCommand;
+  }
+}
+
+extension PumpsExt on List<Pump> {
+  Pump? getPumpByMqttName(String? mqttName) {
+    if (mqttName == null || mqttName.isEmpty) {
+      return null;
+    }
+
+    return firstWhereOrNull(
+      (item) => item.mqttMessageName == mqttName,
+    );
   }
 }

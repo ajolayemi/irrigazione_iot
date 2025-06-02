@@ -16,6 +16,7 @@ abstract class SectorStatusRepository {
   /// Toggles the status of the sector
   Future<void> toggleSectorStatus({
     required ItemStatusRequest statusBody,
+    required List<String> topicsToPublishTo,
   });
 
   /// Fetches the list of all latest [SectorStatus] from local database

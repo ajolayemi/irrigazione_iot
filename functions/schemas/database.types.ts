@@ -1693,5 +1693,5 @@ export const Constants = {
   storage: {
     Enums: {},
   },
-} as const
+} as const;
 

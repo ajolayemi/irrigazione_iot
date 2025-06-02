@@ -8,8 +8,6 @@ import {
 } from "../sectors/read_sector_data";
 import {insertSectorPressure} from "../sectors/insert_sector_data";
 import {insertCollectorPressure} from "../collectors/insert_collector_data";
-import {buildMqttTopic} from "../../utils/mqtt_utils";
-import {publishMessageToMqtt} from "../../services/mqtt_client";
 
 /**
  * Processes the keys in a pressure message to get the keys for terminal pressure,
@@ -82,15 +80,15 @@ export const processTerminalPressure = async (
       pressure: terminalPressure,
     };
 
-    const mqttMessage = {
-      pressure: _terminalPressure.pressure,
-      collector_id: _terminalPressure.collector_id,
-      created_at: _terminalPressure.created_at,
-      type: "terminal_pressure",
-    };
+    // const mqttMessage = {
+    //   pressure: _terminalPressure.pressure,
+    //   collector_id: _terminalPressure.collector_id,
+    //   created_at: _terminalPressure.created_at,
+    //   type: "terminal_pressure",
+    // };
 
-    const mqttOutputTopic = buildMqttTopic(message.type, companyId);
-    await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
+    // const mqttOutputTopic = buildMqttTopic(message.type, companyId);
+    // await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
 
     logger.info("Saving terminal pressure to the database");
     await insertTerminalPressure(_terminalPressure);
@@ -141,17 +139,17 @@ export const processSectorPressure = async (
         pressure: sectorPressure,
       };
 
-      const mqttMessage = {
-        pressure: _sectorPressureForDatabase.pressure,
-        sector_id: _sectorPressureForDatabase.sector_id,
-        created_at: _sectorPressureForDatabase.created_at,
-        type: "sector_pressure",
-      };
-      const mqttOutputTopic = buildMqttTopic(
-        message.type,
-        sector.company_id.toString()
-      );
-      await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
+      // const mqttMessage = {
+      //   pressure: _sectorPressureForDatabase.pressure,
+      //   sector_id: _sectorPressureForDatabase.sector_id,
+      //   created_at: _sectorPressureForDatabase.created_at,
+      //   type: "sector_pressure",
+      // };
+      // const mqttOutputTopic = buildMqttTopic(
+      //   message.type,
+      //   sector.company_id.toString()
+      // );
+      // await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
 
       logger.info(
         `Saving sector pressure for sector ${sectorMqttName} to the database`
@@ -195,7 +193,7 @@ export const processCollectorPressure = async (
 
     const _filterInPressure = message[collectorPressureKeys[0]] as number;
     const _filterOutPressure = message[collectorPressureKeys[1]] as number;
-    const _diff = (_filterInPressure ?? 0) - (_filterOutPressure ?? 0);
+    // const _diff = (_filterInPressure ?? 0) - (_filterOutPressure ?? 0);
 
     const _collectorPressure: TablesInsert<"collector_pressures"> = {
       created_at: timestamp.toISOString(),
@@ -205,16 +203,16 @@ export const processCollectorPressure = async (
     };
 
     logger.info("Saving collector pressure to the database");
-    const mqttMessage = {
-      filter_in_pressure: _collectorPressure.filter_in_pressure,
-      filter_out_pressure: _collectorPressure.filter_out_pressure,
-      collector_id: _collectorPressure.collector_id,
-      created_at: _collectorPressure.created_at,
-      type: "collector_pressure",
-      pressure_difference: _diff,
-    };
-    const mqttOutputTopic = buildMqttTopic(message.type, companyId);
-    await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
+    // const mqttMessage = {
+    //   filter_in_pressure: _collectorPressure.filter_in_pressure,
+    //   filter_out_pressure: _collectorPressure.filter_out_pressure,
+    //   collector_id: _collectorPressure.collector_id,
+    //   created_at: _collectorPressure.created_at,
+    //   type: "collector_pressure",
+    //   pressure_difference: _diff,
+    // };
+    // const mqttOutputTopic = buildMqttTopic(message.type, companyId);
+    // await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
     // Save the data to database
     await insertCollectorPressure(_collectorPressure);
 
@@ -258,4 +256,31 @@ export const getCollectorForSector = async (
   }
 
   return toReturn;
+};
+
+/**
+ * Tries to get the companyId of the sector that holds the sectors in a pressure message
+ * @param {string[]} sectorKeys The keys for the sector in the message
+ * @return {Promise<number | null>} The id of the company that the sectors belong to
+ * in the message if found, null otherwise
+ */
+export const getCompanyIdForSector = async (
+  sectorKeys: Array<string>
+): Promise<number | null> => {
+  let res: number | null = null;
+
+  // Loop through the sector keys to get the sector id
+  // and stop at the first sector that has a collector
+  for (const sectorKey of sectorKeys) {
+    // call on the function that gets sectors by mqtt message name
+    const sectorId = await getSectorByMqttMsgName(sectorKey);
+
+    if (!sectorId) {
+      continue;
+    }
+
+    res = sectorId.company_id;
+  }
+
+  return res;
 };

@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:irrigazione_iot/src/config/enums/mqtt_enums.dart';
 import 'package:irrigazione_iot/src/features/collectors/data/collector_sector_repository.dart';
+import 'package:irrigazione_iot/src/utils/app_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:irrigazione_iot/src/config/data/mqtt_configs.dart';
@@ -49,9 +51,15 @@ class SectorStatusService {
 
     final mqttConfigs = _ref.read(mqttConfigsProvider);
 
+    final topics = [
+      '$companyMqttTopicName/collettore${collector.mqttMsgName}/${mqttConfigs.sectorStatusToggle}',
+      AppUtils.buildFullMqttTopic(
+        companyName: companyMqttTopicName,
+        msgType: AppMqttMessageTypes.sectorStatus,
+      ),
+    ];
+
     final body = ItemStatusRequest(
-      topic:
-          '$companyMqttTopicName/collettore${collector.mqttMsgName}/${mqttConfigs.sectorStatusToggle}',
       message: statusCommand,
       mqttMsgName: sector.mqttMsgName,
       messageType: 'sector_status',
@@ -61,7 +69,10 @@ class SectorStatusService {
       createdAt: DateTime.now(),
     );
 
-    await sectorStatusRepo.toggleSectorStatus(statusBody: body);
+    await sectorStatusRepo.toggleSectorStatus(
+      statusBody: body,
+      topicsToPublishTo: topics,
+    );
   }
 }
 

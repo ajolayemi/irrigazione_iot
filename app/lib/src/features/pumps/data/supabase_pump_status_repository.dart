@@ -20,13 +20,17 @@ class SupabasePumpStatusRepository implements PumpStatusRepository {
   final MqttService mqttService;
 
   @override
-  Future<void> togglePumpStatus({required ItemStatusRequest statusBody}) async {
-    await mqttService.publishMessage(
-      topic: statusBody.topic,
-      message: statusBody.toJson(),
-      client: mqttClient,
-    );
-
+  Future<void> togglePumpStatus({
+    required ItemStatusRequest mqttBody,
+    required List<String> topicsToPublishTo,
+  }) async {
+    for (final topic in topicsToPublishTo) {
+      await mqttService.publishMessage(
+        topic: topic,
+        message: mqttBody.toJson(),
+        client: mqttClient,
+      );
+    }
     return;
   }
 

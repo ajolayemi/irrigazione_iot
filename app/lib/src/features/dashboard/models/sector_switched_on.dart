@@ -35,7 +35,7 @@ class SectorSwitchedOn {
   factory SectorSwitchedOn.fromJson(Map<String, dynamic> json) =>
       _$SectorSwitchedOnFromJson(json);
 
-  factory SectorSwitchedOn.fromEntity(MqttSectorSwitchedOn? entity) {
+  factory SectorSwitchedOn.fromEntity(LocalSectorSwitchedOn? entity) {
     return SectorSwitchedOn(
       id: entity?.id.toString() ?? '',
       sectorId: entity?.id?.toString() ?? '',
@@ -53,19 +53,19 @@ class SectorSwitchedOn {
     );
   }
 
-  MqttSectorSwitchedOn toEntity() {
-    final item = MqttItemSwitchedOn()
+  LocalSectorSwitchedOn toEntity() {
+    final item = LocalItemSwitchedOn()
       ..statusBoolean = statusBoolean
       ..companyId = companyId;
 
-    return MqttSectorSwitchedOn()
+    return LocalSectorSwitchedOn()
       ..id = int.tryParse(sectorId)
       ..item = item;
   }
 }
 
 extension SectorsSwitchedOnExt on List<SectorSwitchedOn> {
-  List<MqttSectorSwitchedOn> toEntities() {
+  List<LocalSectorSwitchedOn> toEntities() {
     return map((e) => e.toEntity()).toList();
   }
 }

@@ -7,8 +7,6 @@ import {getCompanyById} from "../companies/read_company_data";
 import {PressureWithFilterGs} from "../../models/pressure_with_filter_for_gs";
 import {customFormatDate} from "../../utils/helper_funcs";
 import {insertDataInSheet} from "../../utils/gs_utils";
-import {buildMqttTopic} from "../../utils/mqtt_utils";
-import {publishMessageToMqtt} from "../../services/mqtt_client";
 
 export const processPumpPressureMessage = async (
   message: CustomJSON
@@ -43,23 +41,6 @@ export const processPumpPressureMessage = async (
       filter_in_pressure: message[filterInKey],
       filter_out_pressure: message[filterOutKey],
     };
-
-    const mqttMessage = {
-      pump_id: pump.id,
-      filter_in_pressure: pumpPressure.filter_in_pressure,
-      filter_out_pressure: pumpPressure.filter_out_pressure,
-      created_at: pumpPressure.created_at,
-      type: "pump_pressure",
-      pressure_difference:
-        (pumpPressure.filter_in_pressure ?? 0) -
-        (pumpPressure.filter_out_pressure ?? 0),
-    };
-
-    const mqttOutputTopic = buildMqttTopic(
-      "pump_pressure",
-      pump.company_id.toString()
-    );
-    await publishMessageToMqtt(mqttOutputTopic, mqttMessage);
 
     logger.info(`Saving pump pressure for ${pump.name} to the database`);
     await insertPumpPressure(pumpPressure);

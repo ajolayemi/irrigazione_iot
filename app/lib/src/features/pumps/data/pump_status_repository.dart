@@ -15,7 +15,10 @@ abstract class PumpStatusRepository {
   Stream<PumpStatus?> watchPumpStatus(String pumpId);
 
   /// Toggles the status of a pump
-  Future<void> togglePumpStatus({required ItemStatusRequest statusBody});
+  Future<void> togglePumpStatus({
+    required ItemStatusRequest mqttBody,
+    required List<String> topicsToPublishTo,
+  });
 
   /// Fetches the list of all latest [PumpStatus] from remote database
   Future<List<PumpStatus>?> getLatestPumpStatuses(String companyId);

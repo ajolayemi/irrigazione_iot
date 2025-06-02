@@ -25,7 +25,7 @@ class MqttDao extends AppAbstractDao {
     }
 
     final query =
-        _db?.mqttSectorPressures.filter().sectorIdEqualTo(sectorId).build();
+        _db?.localSectorPressures.filter().sectorIdEqualTo(sectorId).build();
     if (query == null) {
       return Stream.value(null);
     }
@@ -45,7 +45,7 @@ class MqttDao extends AppAbstractDao {
       return Stream.value(null);
     }
 
-    final query = _db?.mqttTerminalPressures
+    final query = _db?.localTerminalPressures
         .filter()
         .collectorIdEqualTo(collectorId)
         .build();
@@ -68,7 +68,7 @@ class MqttDao extends AppAbstractDao {
       return Stream.value(null);
     }
 
-    final query = _db?.mqttCollectorPressures
+    final query = _db?.localCollectorPressures
         .filter()
         .collectorIdEqualTo(collectorId)
         .build();
@@ -91,7 +91,8 @@ class MqttDao extends AppAbstractDao {
       return Stream.value(null);
     }
 
-    final query = _db?.mqttPumpPressures.filter().pumpIdEqualTo(pumpId).build();
+    final query =
+        _db?.localPumpPressures.filter().pumpIdEqualTo(pumpId).build();
     if (query == null) {
       return Stream.value(null);
     }
@@ -121,7 +122,7 @@ class MqttDao extends AppAbstractDao {
       return Stream.value(null);
     }
 
-    final query = _db?.mqttPumpFlows.filter().pumpIdEqualTo(pumpId).build();
+    final query = _db?.localPumpFlows.filter().pumpIdEqualTo(pumpId).build();
     if (query == null) {
       return Stream.value(null);
     }
@@ -142,7 +143,7 @@ class MqttDao extends AppAbstractDao {
     if (companyId == null || companyId.isEmpty) {
       return Stream.value(null);
     }
-    final query = _db?.mqttSectorSwitchedOns.filter().item((q) {
+    final query = _db?.localSectorSwitchedOns.filter().item((q) {
       return q.companyIdEqualTo(companyId).statusBooleanEqualTo(status);
     }).build();
 
@@ -166,7 +167,7 @@ class MqttDao extends AppAbstractDao {
     if (companyId == null || companyId.isEmpty) {
       return Stream.value(null);
     }
-    final query = _db?.mqttPumpSwitchedOns.filter().item((q) {
+    final query = _db?.localPumpSwitchedOns.filter().item((q) {
       return q.companyIdEqualTo(companyId).statusBooleanEqualTo(status);
     }).build();
 
@@ -184,7 +185,7 @@ class MqttDao extends AppAbstractDao {
   }
 
   Stream<SectorStatus?> watchSectorStatus(String sectorId) {
-    final query = _db?.mqttSectorStatus.filter().status((q) {
+    final query = _db?.localSectorStatus.filter().status((q) {
       return q.itemIdEqualTo(sectorId);
     }).build();
     if (query == null) {
@@ -200,7 +201,7 @@ class MqttDao extends AppAbstractDao {
   }
 
   Stream<PumpStatus?> watchPumpStatus(String pumpId) {
-    final query = _db?.mqttPumpStatus.filter().status((q) {
+    final query = _db?.localPumpStatus.filter().status((q) {
       return q.itemIdEqualTo(pumpId);
     }).build();
     if (query == null) {
@@ -223,7 +224,7 @@ class MqttDao extends AppAbstractDao {
     }
 
     await _db?.writeTxn(
-      () async => await _db?.mqttSectorPressures.putAll(
+      () async => await _db?.localSectorPressures.putAll(
         data.toEntities(),
       ),
     );
@@ -237,7 +238,7 @@ class MqttDao extends AppAbstractDao {
     }
 
     await _db?.writeTxn(
-      () async => await _db?.mqttTerminalPressures.putAll(
+      () async => await _db?.localTerminalPressures.putAll(
         data.toEntities(),
       ),
     );
@@ -251,7 +252,7 @@ class MqttDao extends AppAbstractDao {
     }
 
     await _db?.writeTxn(
-      () async => await _db?.mqttCollectorPressures.putAll(
+      () async => await _db?.localCollectorPressures.putAll(
         data.toEntities(),
       ),
     );
@@ -265,7 +266,7 @@ class MqttDao extends AppAbstractDao {
     }
 
     await _db?.writeTxn(
-      () async => await _db?.mqttPumpPressures.putAll(
+      () async => await _db?.localPumpPressures.putAll(
         data.toEntity(),
       ),
     );
@@ -279,7 +280,7 @@ class MqttDao extends AppAbstractDao {
     }
 
     await _db?.writeTxn(
-      () async => await _db?.mqttPumpFlows.putAll(
+      () async => await _db?.localPumpFlows.putAll(
         data.toEntity(),
       ),
     );
@@ -293,7 +294,7 @@ class MqttDao extends AppAbstractDao {
     }
 
     await _db?.writeTxn(
-      () async => await _db?.mqttPumpSwitchedOns.putAll(
+      () async => await _db?.localPumpSwitchedOns.putAll(
         data.toEntities(),
       ),
     );
@@ -305,7 +306,7 @@ class MqttDao extends AppAbstractDao {
     if (data.isEmpty) return;
 
     await _db?.writeTxn(
-      () async => await _db?.mqttSectorSwitchedOns.putAll(
+      () async => await _db?.localSectorSwitchedOns.putAll(
         data.toEntities(),
       ),
     );
@@ -319,7 +320,7 @@ class MqttDao extends AppAbstractDao {
     }
 
     await _db?.writeTxn(
-      () async => await _db?.mqttPumpStatus.putAll(
+      () async => await _db?.localPumpStatus.putAll(
         statuses.toMqttStatuses(),
       ),
     );
@@ -333,7 +334,7 @@ class MqttDao extends AppAbstractDao {
     }
 
     await _db?.writeTxn(
-      () async => await _db?.mqttSectorStatus.putAll(
+      () async => await _db?.localSectorStatus.putAll(
         statuses.toMqttStatuses(),
       ),
     );

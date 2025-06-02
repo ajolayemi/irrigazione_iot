@@ -13,16 +13,8 @@ class ItemStatusRequest {
     required this.companyId,
     required this.itemId,
     required this.statusBoolean,
-    this.topic = '',
     this.createdAt,
   });
-
-  /// The topic to publish the message to.
-  @JsonKey(
-    includeFromJson: false,
-    includeToJson: false,
-  )
-  final String topic;
 
   /// The status code to send to the MQTT broker.
   /// It's usually a numeric value

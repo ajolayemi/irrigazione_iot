@@ -2,6 +2,7 @@ import {CustomJSON} from "../../interfaces/interfaces";
 import {logger} from "firebase-functions/v1";
 import {
   getCollectorForSector,
+  getCompanyIdForSector,
   getPressureMessageKeys,
   processCollectorPressure,
   processSectorPressure,
@@ -46,10 +47,16 @@ export const processPressureMessageFromPubSub = async (
     // Get the collector that holds the sectors in the message
     const collectorId = await getCollectorForSector(splittedSectorKeys);
 
+    const companyId = await getCompanyIdForSector(splittedSectorKeys);
+
     console.log("collectorId", collectorId);
 
     if (!collectorId) {
       throw new Error("No collector found for the sectors in the message");
+    }
+
+    if (!companyId) {
+      throw new Error("No company id was found for the sectors in the message");
     }
 
     // Reaching here means that the message is valid and the collector that holds
@@ -61,14 +68,16 @@ export const processPressureMessageFromPubSub = async (
         terminalPressureKey,
         message,
         collectorId,
-        currentDate
+        currentDate,
+        companyId.toString()
       );
       // Next, call on the function that handles the collector pressure message processing
       await processCollectorPressure(
         collectorPressureKeys,
         message,
         collectorId,
-        currentDate
+        currentDate,
+        companyId.toString(),
       );
       // Finally, call on the function that handles the sector pressure message processing
       await processSectorPressure(sectorKeys, message, currentDate);

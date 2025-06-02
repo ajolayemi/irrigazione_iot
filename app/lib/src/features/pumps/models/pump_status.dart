@@ -48,7 +48,7 @@ class PumpStatus extends Equatable {
 
   Map<String, dynamic> toJson() => _$PumpStatusToJson(this);
 
-  factory PumpStatus.fromEntity(MqttPumpStatus? entity) {
+  factory PumpStatus.fromEntity(LocalPumpStatus? entity) {
     return PumpStatus(
       companyId: entity?.status?.companyId ?? '',
       id: entity?.id.toString() ?? '',
@@ -59,21 +59,21 @@ class PumpStatus extends Equatable {
     );
   }
 
-  MqttPumpStatus toEntity() {
-    final mqttStatus = MqttStatus()
+  LocalPumpStatus toEntity() {
+    final mqttStatus = LocalStatus()
       ..companyId = companyId
       ..itemId = pumpId
       ..status = status
       ..statusBoolean = statusBoolean
       ..createdAt = createdAt;
-    return MqttPumpStatus()
+    return LocalPumpStatus()
       ..status = mqttStatus
       ..id = int.tryParse(id ?? '');
   }
 }
 
 extension PumpStatusesEx on List<PumpStatus> {
-  List<MqttPumpStatus> toMqttStatuses() {
+  List<LocalPumpStatus> toMqttStatuses() {
     return map((e) => e.toEntity()).toList();
   }
 
