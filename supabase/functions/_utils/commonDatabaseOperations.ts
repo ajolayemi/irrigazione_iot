@@ -1,5 +1,135 @@
 import {corsHeaders} from "./cors.ts";
 import {createEdgeSupabaseClient} from "./supabaseClient.ts";
+import {buildArchiveFileFullName, getDaysAgo} from "../_utils/utils.ts";
+import {DataArchiveArgs} from "./tableConstants.ts";
+
+export const commonArchive = async (
+  req: Request,
+  arg: DataArchiveArgs
+): Promise<Response> => {
+  // This is needed if you're planning to invoke your function from a browser.
+  if (req.method === "OPTIONS") {
+    return new Response("ok", {headers: corsHeaders});
+  }
+
+  try {
+    const now = new Date();
+    const daysAgoRes = getDaysAgo(arg.daysAgo);
+
+    const fileName = buildArchiveFileFullName(now, arg.filePrefixName);
+    const supabaseClient = createEdgeSupabaseClient(req);
+
+    const tableName = arg.tableName;
+
+    const query = supabaseClient
+      .from(tableName)
+      .select()
+      .gte("created_at", daysAgoRes.toISOString());
+
+    const {data} = await query.csv();
+
+    if (!data || data.length === 1) {
+      const emptyStateText = `No data to archive from table ${tableName}`;
+      console.log(emptyStateText);
+      return new Response(
+        JSON.stringify({
+          data: emptyStateText,
+        }),
+        {
+          status: 200,
+        }
+      );
+    }
+
+    // Store data to storage
+    await storeDataToStorage(
+      req,
+      arg.storageBucketPath,
+      fileName,
+      data,
+      arg.contentType ?? "text/csv"
+    );
+
+    if (arg.deleteDataAfterArchiving) {
+      console.log(
+        `Deleting data greater than or equals ${daysAgoRes} from ${tableName}`
+      );
+      await supabaseClient
+        .from(tableName)
+        .delete()
+        .gte("created_at", daysAgoRes.toISOString());
+    }
+
+    return new Response(
+      JSON.stringify({
+        data: `Data from table ${tableName} archived successfully`,
+      }),
+      {
+        status: 200,
+      }
+    );
+  } catch (error) {
+    return new Response(
+      JSON.stringify({
+        error: error,
+      }),
+      {
+        status: 500,
+        headers: {"Content-Type": "application/json"},
+      }
+    );
+  }
+};
+
+/**
+ * Holds onto a common logic to archive data to supabase storage
+ * @param req A request object
+ * @param bucketPath The full path to the bucket where data should be stored
+ * @param fileName The name to be assigned to the file
+ * @param data The data to be stored
+ * @param contentType The content type to be assigned to the data
+ */
+export const storeDataToStorage = async (
+  req: Request,
+  bucketPath: string,
+  fileName: string,
+  data: string,
+  contentType?: string
+): Promise<Response> => {
+  // This is needed if you're planning to invoke your function from a browser.
+  if (req.method === "OPTIONS") {
+    return new Response("ok", {headers: corsHeaders});
+  }
+  try {
+    const supabaseClient = createEdgeSupabaseClient(req);
+    const {error: uploadError} = await supabaseClient.storage
+      .from(bucketPath)
+      .upload(fileName, new Blob([data]), {
+        contentType: contentType,
+        upsert: true,
+      });
+
+    if (uploadError) {
+      console.log("Error uploading:", uploadError.message);
+      return new Response("Upload failed", {status: 500});
+    }
+
+    return new Response("File uploaded successfully", {
+      status: 200,
+      headers: {"Content-Type": "application/json"},
+    });
+  } catch (error) {
+    return new Response(
+      JSON.stringify({
+        error: error,
+      }),
+      {
+        status: 500,
+        headers: {"Content-Type": "application/json"},
+      }
+    );
+  }
+};
 
 /**
  * A common function to update a record in a table

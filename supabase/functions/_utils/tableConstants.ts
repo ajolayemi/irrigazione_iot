@@ -39,3 +39,12 @@ export class ColumnNames {
   static readonly columns_to_get_for_mqtt =
     "id, name, company_id, turn_on_command, turn_off_command";
 }
+
+export interface DataArchiveArgs {
+  tableName: string;
+  storageBucketPath: string;
+  filePrefixName: string;
+  contentType?: string;
+  daysAgo?: number;
+  deleteDataAfterArchiving?: boolean;
+}
