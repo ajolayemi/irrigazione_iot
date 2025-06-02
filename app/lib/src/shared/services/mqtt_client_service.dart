@@ -240,7 +240,7 @@ class MqttService {
                 createdAt: currentTime,
                 collectorId: collector.id,
                 pressure: double.tryParse(
-                  decoded[keys.terminalPressureKey] ?? '',
+                  decoded[keys.terminalPressureKey]?.toString() ?? '',
                 ),
               );
               terminalPressures.add(terminalPressure);
@@ -248,8 +248,8 @@ class MqttService {
               final collectorPressure = CollectorPressure(
                 createdAt: currentTime,
                 collectorId: collector.id,
-                filterInPressure: double.tryParse(decoded['Filter_IN'] ?? ''),
-                filterOutPressure: double.tryParse(decoded['Filter_OUT'] ?? ''),
+                filterInPressure: double.tryParse(decoded['Filter_IN']?.toString() ?? ''),
+                filterOutPressure: double.tryParse(decoded['Filter_OUT']?.toString() ?? ''),
               );
 
               collectorPressures.add(collectorPressure);
@@ -267,7 +267,7 @@ class MqttService {
                 final sectorPressure = SectorPressure(
                   sectorId: sector.id,
                   createdAt: currentTime,
-                  pressure: double.tryParse(decoded[sectorKey] ?? ''),
+                  pressure: double.tryParse(decoded[sectorKey]?.toString() ?? ''),
                 );
 
                 sectorPressures.add(sectorPressure);
@@ -309,7 +309,7 @@ class MqttService {
         await _mqttDao.insertSectorPressures(data: sectorPressures);
       }
     } catch (e) {
-      debugPrint('An error occurred while listening to mqtt message');
+      debugPrint('An error occurred while listening to mqtt message, ${e.toString()}');
     }
   }
 
